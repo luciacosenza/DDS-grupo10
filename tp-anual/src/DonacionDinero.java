@@ -4,16 +4,20 @@ import java.util.Date;
 
 public class DonacionDinero extends Contribucion {
     private Integer monto;
-    private frecuenciaDePago frecuencia;
+    private FrecuenciaDePago frecuencia;
     
-    enum frecuenciaDePago {
-        // Completar
+    enum FrecuenciaDePago {
+        SEMANAL,
+        MENSUAL,
+        SEMESTRAL,
+        ANUAL,
+        UNICA_VEZ
     }
 
-    public DonacionDinero(Colaborador colab, Date fechaC, Integer mont, frecuenciaDePago frecu) {
-        colaborador = colab;
-        fechaContribucion = fechaC;
-        monto = mont;
-        frecuencia = frecu;
+    public DonacionDinero(Colaborador vColaborador, Date vFechaContribucion, Integer vMonto, FrecuenciaDePago vFrecuencia) {
+        colaborador = vColaborador;
+        fechaContribucion = vFechaContribucion;
+        monto = vMonto;
+        frecuencia = vFrecuencia;
     }
 }

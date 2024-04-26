@@ -4,22 +4,22 @@ import java.util.ArrayList;
 
 public class ColaboradorJuridico extends Colaborador {
     private String razonSocial;
-    private tipoColaboradorJuridico tipo;
+    private TipoColaboradorJuridico tipo;
     private String rubro;
 
-    enum tipoColaboradorJuridico {
+    enum TipoColaboradorJuridico {
         GUBERNAMENTAL,
         ONG,
         EMPRESA,
         INSTITUCION
     }
 
-    public ColaboradorJuridico(ArrayList<Contacto> conta, String direc, ArrayList<Contribucion> contr, String razon, String rubr, tipoColaboradorJuridico tip) {
-        contactos = conta;
-        direccion = direc;
-        contribuciones = contr;
-        razonSocial = razon;
-        rubro = rubr;
-        tipo = tip;
+    public ColaboradorJuridico(ArrayList<Contacto> vContactos, String vDireccion, ArrayList<Contribucion> vContribuciones, String vRazonSocial, String vRubro, TipoColaboradorJuridico vTipo) {
+        contactos = vContactos;
+        direccion = vDireccion;
+        contribuciones = vContribuciones;
+        razonSocial = vRazonSocial;
+        rubro = vRubro;
+        tipo = vTipo;
     }
 }

@@ -12,14 +12,14 @@ public class Vianda {
     private Integer peso;
     private Boolean entregada;
 
-    public Vianda(String comid, Heladera helad, Colaborador colab, Date fechaC, Date fechaD, Integer cal, Integer pes, Boolean entre) {
-        comida = comid;
-        heladera = helad;
-        colaborador = colab;
-        fechaCaducidad = fechaC;
-        fechaDonacion = fechaD;
-        calorias = cal;
-        peso = pes;
-        entregada = entre;
+    public Vianda(String vComida, Heladera vHeladera, Colaborador vColaborador, Date vFechaCacudicad, Date vFechaDonacion, Integer vCalorias, Integer vPeso, Boolean vEntregada) {
+        comida = vComida;
+        heladera = vHeladera;
+        colaborador = vColaborador;
+        fechaCaducidad = vFechaCacudicad;
+        fechaDonacion = vFechaDonacion;
+        calorias = vCalorias;
+        peso = vPeso;
+        entregada = vEntregada;
     }
 }

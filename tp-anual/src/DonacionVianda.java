@@ -5,9 +5,9 @@ import java.util.Date;
 public class DonacionVianda extends Contribucion {
     private Vianda vianda;
 
-    public DonacionVianda(Colaborador colab, Date fechaC, Vianda viand) {
-        colaborador = colab;
-        fechaContribucion = fechaC;
-        vianda = viand;
+    public DonacionVianda(Colaborador vColaborador, Date vFechaContribucion, Vianda vVianda) {
+        colaborador = vColaborador;
+        fechaContribucion = vFechaContribucion;
+        vianda = vVianda;
     }
 }

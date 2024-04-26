@@ -8,12 +8,12 @@ public class ColaboradorHumano extends Colaborador {
     private String apellido;
     private Date fechaNacimiento;
 
-    public ColaboradorHumano(ArrayList<Contacto> conta, String direc, ArrayList<Contribucion> contr, String nombr, String apell, Date fechaN) {
-        contactos = conta;
-        direccion = direc;
-        contribuciones = contr;
-        nombre = nombr;
-        apellido = apell;
-        fechaNacimiento = fechaN;
+    public ColaboradorHumano(ArrayList<Contacto> vContactos, String vDireccion, ArrayList<Contribucion> vContribuciones, String vNombre, String vApellido, Date vFechaNacimiento) {
+        contactos = vContactos;
+        direccion = vDireccion;
+        contribuciones = vContribuciones;
+        nombre = vNombre;
+        apellido = vApellido;
+        fechaNacimiento = vFechaNacimiento;
     }
 }

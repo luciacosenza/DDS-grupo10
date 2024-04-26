@@ -12,13 +12,13 @@ public class Heladera {
     private Integer capacidad;
     private Date fechaApertura;
 
-    public Heladera(String nombr, String direc, Integer longi, Integer lati, ArrayList<Vianda> viand, Integer capac, Date fechaA) {
-        nombre = nombr;
-        direccion = direc;
-        longitud = longi;
-        latitud = lati;
-        viandas = viand;
-        capacidad = capac;
-        fechaApertura = fechaA;
+    public Heladera(String vNombre, String vDireccion, Integer vLongitud, Integer vLatitud, ArrayList<Vianda> vViandas, Integer vCapacidad, Date vFechaApertura) {
+        nombre = vNombre;
+        direccion = vDireccion;
+        longitud = vLongitud;
+        latitud = vLatitud;
+        viandas = vViandas;
+        capacidad = vCapacidad;
+        fechaApertura = vFechaApertura;
     }
 }

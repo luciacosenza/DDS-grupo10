@@ -6,10 +6,10 @@ public class HacerseCargoDeHeladera extends Contribucion {
     private String empresaResponsable;
     private Heladera heladeraResponsable;
 
-    public HacerseCargoDeHeladera(Colaborador colab, Date fechaC, String eRespo, Heladera hRespo) {
-        colaborador = colab;
-        fechaContribucion = fechaC;
-        empresaResponsable = eRespo;
-        heladeraResponsable = hRespo;
+    public HacerseCargoDeHeladera(Colaborador vColaborador, Date vFechaContribucion, String vEmpresaResponsable, Heladera vHeladeraResponsable) {
+        colaborador = vColaborador;
+        fechaContribucion = vFechaContribucion;
+        empresaResponsable = vEmpresaResponsable;
+        heladeraResponsable = vHeladeraResponsable;
     }
 }

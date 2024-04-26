@@ -6,22 +6,22 @@ public class PersonaEnSituacionVulnerable {
     private String nombre;
     private Date fechaNacimiento;
     private Date fechaRegistro;
-    private tipoDoc tipoDocumento;
+    private TipoDocumento tipoDocumento;
     private Integer documento;
     private String domicilio;
     private Integer menoresACargo;
 
-    enum tipoDoc {
+    enum TipoDocumento {
         // Completar
     }
 
-    public PersonaEnSituacionVulnerable(String nombr, Date fechaN, Date fechaR, tipoDoc tipoD, Integer docum, String domic, Integer menoA) {
-        nombre = nombr;
-        fechaNacimiento = fechaN;
-        fechaRegistro = fechaR;
-        tipoDocumento = tipoD;
-        documento = docum;
-        domicilio = domic;
-        menoresACargo = menoA;
+    public PersonaEnSituacionVulnerable(String vNombre, Date vFechaNacimiento, Date vFechaRegistro, TipoDocumento vTipoDocumento, Integer vDocumento, String vDomicilio, Integer vMenoresACargo) {
+        nombre = vNombre;
+        fechaNacimiento = vFechaNacimiento;
+        fechaRegistro = vFechaRegistro;
+        tipoDocumento = vTipoDocumento;
+        documento = vDocumento;
+        domicilio = vDomicilio;
+        menoresACargo = vMenoresACargo;
     }
 }
