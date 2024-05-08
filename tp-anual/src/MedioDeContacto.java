@@ -1,5 +1,5 @@
 package src;
 
-public class Contacto {
+public class MedioDeContacto {
     // Completar
 }

@@ -14,8 +14,8 @@ public class ColaboradorJuridico extends Colaborador {
         INSTITUCION
     }
 
-    public ColaboradorJuridico(ArrayList<Contacto> vContactos, String vDireccion, ArrayList<Contribucion> vContribuciones, String vRazonSocial, String vRubro, TipoColaboradorJuridico vTipo) {
-        contactos = vContactos;
+    public ColaboradorJuridico(ArrayList<MedioDeContacto> vMediosDeContacto, String vDireccion, ArrayList<Contribucion> vContribuciones, String vRazonSocial, String vRubro, TipoColaboradorJuridico vTipo) {
+        mediosDeContacto = vMediosDeContacto;
         direccion = vDireccion;
         contribuciones = vContribuciones;
         razonSocial = vRazonSocial;
