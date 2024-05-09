@@ -1,11 +1,11 @@
 package src;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class PersonaEnSituacionVulnerable {
     private String nombre;
-    private Date fechaNacimiento;
-    private Date fechaRegistro;
+    private LocalDate fechaNacimiento;
+    private LocalDate fechaRegistro;
     private TipoDocumento tipoDocumento;
     private Integer documento;
     private String domicilio;
@@ -15,7 +15,7 @@ public class PersonaEnSituacionVulnerable {
         // Completar
     }
 
-    public PersonaEnSituacionVulnerable(String vNombre, Date vFechaNacimiento, Date vFechaRegistro, TipoDocumento vTipoDocumento, Integer vDocumento, String vDomicilio, Integer vMenoresACargo) {
+    public PersonaEnSituacionVulnerable(String vNombre, LocalDate vFechaNacimiento, LocalDate vFechaRegistro, TipoDocumento vTipoDocumento, Integer vDocumento, String vDomicilio, Integer vMenoresACargo) {
         nombre = vNombre;
         fechaNacimiento = vFechaNacimiento;
         fechaRegistro = vFechaRegistro;
@@ -24,4 +24,7 @@ public class PersonaEnSituacionVulnerable {
         domicilio = vDomicilio;
         menoresACargo = vMenoresACargo;
     }
+
+    // darDeAlta()
+    // poseeMenoresACargo()
 }

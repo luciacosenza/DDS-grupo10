@@ -1,7 +1,7 @@
 package src;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Heladera {
     private String nombre;
@@ -10,9 +10,9 @@ public class Heladera {
     private Integer latitud;
     private ArrayList<Vianda> viandas;
     private Integer capacidad;
-    private Date fechaApertura;
+    private LocalDate fechaApertura;
 
-    public Heladera(String vNombre, String vDireccion, Integer vLongitud, Integer vLatitud, ArrayList<Vianda> vViandas, Integer vCapacidad, Date vFechaApertura) {
+    public Heladera(String vNombre, String vDireccion, Integer vLongitud, Integer vLatitud, ArrayList<Vianda> vViandas, Integer vCapacidad, LocalDate vFechaApertura) {
         nombre = vNombre;
         direccion = vDireccion;
         longitud = vLongitud;
@@ -21,4 +21,10 @@ public class Heladera {
         capacidad = vCapacidad;
         fechaApertura = vFechaApertura;
     }
+
+    // darDeAlta()
+    // darDeBaja()
+    // modificar()
+    // actualizarEstado()
+    // avisarAColaboradores()
 }

@@ -12,4 +12,8 @@ public class Tarjeta {
         titular = vTitular;
         usos = vUsos;
     }
+
+    // usar()
+    // cantidadUsos()
+    // resetearUsos()
 }

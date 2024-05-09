@@ -1,13 +1,13 @@
 package src;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class UsoTarjeta {
-    private Date fechaUso;
+    private LocalDate fechaUso;
     private ArrayList<Heladera> heladeras;
 
-    public UsoTarjeta(Date vFechaUso, ArrayList<Heladera> vHeladeras) {
+    public UsoTarjeta(LocalDate vFechaUso, ArrayList<Heladera> vHeladeras) {
         fechaUso = vFechaUso;
         heladeras = vHeladeras;
     }

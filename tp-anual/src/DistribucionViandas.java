@@ -1,6 +1,6 @@
 package src;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class DistribucionViandas extends Contribucion {
     private Heladera origen;
@@ -13,7 +13,7 @@ public class DistribucionViandas extends Contribucion {
         FALTA_DE_VIANDAS_EN_DESTINO
     }
 
-    public DistribucionViandas(Colaborador vColaborador, Date vFechaContribucion, Heladera vOrigen, Heladera vDestino, Integer vCantidadViandasAMover, MotivoDistribucion vMotivo) {
+    public DistribucionViandas(Colaborador vColaborador, LocalDate vFechaContribucion, Heladera vOrigen, Heladera vDestino, Integer vCantidadViandasAMover, MotivoDistribucion vMotivo) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
         origen = vOrigen;
@@ -21,4 +21,11 @@ public class DistribucionViandas extends Contribucion {
         cantidadViandasAMover = vCantidadViandasAMover;
         motivo = vMotivo;
     }
+
+    public Integer cantidadViandasAMover(){
+        return cantidadViandasAMover;
+    }
+
+    // obtenerDetalles()
+    // validarIdentidad()
 }
