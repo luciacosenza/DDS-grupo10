@@ -12,5 +12,12 @@ public class CargarOferta extends Contribucion {
     }
 
     // obtenerDetalles()
-    // validarIdentidad()
+    
+    public void validarIdentidad(Colaborador colaboradorAspirante) {
+        if(!esColaboradorJuridico(colaboradorAspirante)) {
+            throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Juridico");
+        }
+    }
+
+    // accionar()
 }

@@ -14,6 +14,12 @@ public class Tarjeta {
     }
 
     // usar()
-    // cantidadUsos()
-    // resetearUsos()
+    
+    public Integer cantidadUsos() {
+        return 4 + titular.menoresACargo();
+    }
+
+    public void resetearUsos() {
+        usos.clear();
+    }
 }

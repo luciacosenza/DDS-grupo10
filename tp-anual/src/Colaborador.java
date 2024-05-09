@@ -15,18 +15,19 @@ public abstract class Colaborador {
     public Double puntos() {
         Double puntos = 0.0;
 
-        //COEFICIENTES VARIABLES
+        // Coeficientes Variables
         Float coeficienteDonacionDinero = 0.5f;
         Float coeficienteDistribucionDeViandas = 1f;
         Float coeficienteDonacionVianda = 1.5f;
         Float coeficienteRegistroDePersonaEnSituacionVulnerable = 2f;
         Float coeficienteHacerseCargoDeHeladera = 5f;
 
-        //SUMATORIA DE PUNTOS
+        // Sumatoria de Puntos
         for (Contribucion contribucion : contribuciones) {
             switch (contribucion.getClass().getSimpleName()) {
             case "DonacionDinero":
-                //TODO
+                DonacionDinero donacionDinero = (DonacionDinero) contribucion;
+                puntos += donacionDinero.donadoHastaLaFecha() * coeficienteDonacionDinero;
                 break;
             case "DistribucionDeViandas":
                 DistribucionViandas distribucionViandas = (DistribucionViandas) contribucion;

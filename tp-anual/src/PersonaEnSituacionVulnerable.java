@@ -25,6 +25,13 @@ public class PersonaEnSituacionVulnerable {
         menoresACargo = vMenoresACargo;
     }
 
+    public Integer menoresACargo() {
+        return menoresACargo;
+    }
+
     // darDeAlta()
-    // poseeMenoresACargo()
+    
+    public Boolean poseeMenoresACargo() {
+        return menoresACargo > 0;
+    }
 }

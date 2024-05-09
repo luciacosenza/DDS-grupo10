@@ -11,7 +11,21 @@ public abstract class Contribucion {
     }
 
     // obtenerDetalles()
-    // validarIdentidad()
-    // accionar()
-    // contribuir()
+
+    public Boolean esColaboradorHumano(Colaborador colaboradorAspirante) {
+        return colaboradorAspirante.getClass() == ColaboradorHumano.class;
+    }
+
+    public Boolean esColaboradorJuridico(Colaborador colaboradorAspirante) {
+        return colaboradorAspirante.getClass() == ColaboradorJuridico.class;
+    }
+
+    public abstract void validarIdentidad(Colaborador colaboradorAspirante);
+
+    // public abstract void accionar(/* Completar de ser necesario */);
+    
+    public void contribuir(Colaborador colaboradorAspirante) {
+        validarIdentidad(colaboradorAspirante);
+        // accionar();
+    }
 }

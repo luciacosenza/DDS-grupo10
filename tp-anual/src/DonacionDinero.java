@@ -23,7 +23,12 @@ public class DonacionDinero extends Contribucion {
     }
 
     // obtenerDetalles()
-    // validarIdentidad()
+    
+    public void validarIdentidad(Colaborador colaboradorAspirante) {
+        if(!(esColaboradorHumano(colaboradorAspirante) || esColaboradorJuridico(colaboradorAspirante))) {
+            throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
+        }
+    }
 
     public Double donadoHastaLaFecha() {
         LocalDate fechaActual = LocalDate.now();
@@ -56,4 +61,6 @@ public class DonacionDinero extends Contribucion {
             return 0d;
         }
     }
+
+    // accionar()
 }

@@ -27,5 +27,12 @@ public class DistribucionViandas extends Contribucion {
     }
 
     // obtenerDetalles()
-    // validarIdentidad()
+    
+    public void validarIdentidad(Colaborador colaboradorAspirante) {
+        if(!esColaboradorHumano(colaboradorAspirante)) {
+            throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
+        }
+    }
+
+    // accionar()
 }

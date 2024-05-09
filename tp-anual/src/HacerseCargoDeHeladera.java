@@ -15,7 +15,12 @@ public class HacerseCargoDeHeladera extends Contribucion {
     }
 
     // obtenerDetalles()
-    // validarIdentidad()
+    
+    public void validarIdentidad(Colaborador colaboradorAspirante) {
+        if(!esColaboradorJuridico(colaboradorAspirante)) {
+            throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Juridico");
+        }
+    }
     
     public Integer mesesHaciendoseCargo() {
         LocalDate fechaActual = LocalDate.now();
@@ -27,4 +32,6 @@ public class HacerseCargoDeHeladera extends Contribucion {
 
         return meses;
     }
+
+    // accionar()
 }
