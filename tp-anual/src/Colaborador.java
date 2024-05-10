@@ -7,12 +7,17 @@ public abstract class Colaborador {
     protected ArrayList<MedioDeContacto> mediosDeContacto;
     protected String direccion;
     protected ArrayList<Contribucion> contribuciones;
+    protected ArrayList<Contribucion> contribucionesParaPuntos;
     protected ArrayList<Oferta> beneficiosAdquiridos;
 
     // darDeAlta()
     // darDeBaja()
     // modificar()
 
+    public Boolean cuentaParaSumarPuntos(Contribucion contribucion) {
+        return contribucionesParaPuntos.contains(contribucion);
+    }
+    
     public Double puntos() {
         Double puntos = 0.0;
 
@@ -25,6 +30,10 @@ public abstract class Colaborador {
 
         // Sumatoria de Puntos
         for (Contribucion contribucion : contribuciones) {
+            if(!cuentaParaSumarPuntos(contribucion)) {
+                break;
+            }
+            
             switch (contribucion.getClass().getSimpleName()) {
             case "DonacionDinero":
                 DonacionDinero donacionDinero = (DonacionDinero) contribucion;

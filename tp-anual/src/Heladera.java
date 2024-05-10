@@ -6,8 +6,8 @@ import java.time.LocalDate;
 public class Heladera {
     private String nombre;
     private String direccion;
-    private Integer longitud;
-    private Integer latitud;
+    private Double longitud;
+    private Double latitud;
     private ArrayList<Vianda> viandas;
     private Integer capacidad;
     private LocalDate fechaApertura;
@@ -16,7 +16,7 @@ public class Heladera {
     private Boolean activa;
 
 
-    public Heladera(String vNombre, String vDireccion, Integer vLongitud, Integer vLatitud, ArrayList<Vianda> vViandas, Integer vCapacidad, LocalDate vFechaApertura) {
+    public Heladera(String vNombre, String vDireccion, Double vLongitud, Double vLatitud, ArrayList<Vianda> vViandas, Integer vCapacidad, LocalDate vFechaApertura) {
         nombre = vNombre;
         direccion = vDireccion;
         longitud = vLongitud;

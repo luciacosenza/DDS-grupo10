@@ -7,7 +7,7 @@ public class PersonaEnSituacionVulnerable {
     private LocalDate fechaNacimiento;
     private LocalDate fechaRegistro;
     private TipoDocumento tipoDocumento;
-    private Integer documento;
+    private String documento;
     private String domicilio;
     private Integer menoresACargo;
 
@@ -15,7 +15,7 @@ public class PersonaEnSituacionVulnerable {
         // Completar
     }
 
-    public PersonaEnSituacionVulnerable(String vNombre, LocalDate vFechaNacimiento, LocalDate vFechaRegistro, TipoDocumento vTipoDocumento, Integer vDocumento, String vDomicilio, Integer vMenoresACargo) {
+    public PersonaEnSituacionVulnerable(String vNombre, LocalDate vFechaNacimiento, LocalDate vFechaRegistro, TipoDocumento vTipoDocumento, String vDocumento, String vDomicilio, Integer vMenoresACargo) {
         nombre = vNombre;
         fechaNacimiento = vFechaNacimiento;
         fechaRegistro = vFechaRegistro;
