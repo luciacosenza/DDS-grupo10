@@ -11,6 +11,10 @@ public class Heladera {
     private ArrayList<Vianda> viandas;
     private Integer capacidad;
     private LocalDate fechaApertura;
+    private Float tempMin;
+    private Float tempMax;
+    private Boolean activa;
+
 
     public Heladera(String vNombre, String vDireccion, Integer vLongitud, Integer vLatitud, ArrayList<Vianda> vViandas, Integer vCapacidad, LocalDate vFechaApertura) {
         nombre = vNombre;
@@ -26,5 +30,5 @@ public class Heladera {
     // darDeBaja()
     // modificar()
     // actualizarEstado()
-    // avisarAColaboradores()
+    // avisarAColaborador()
 }

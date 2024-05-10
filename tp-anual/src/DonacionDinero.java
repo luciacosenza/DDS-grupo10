@@ -40,12 +40,13 @@ public class DonacionDinero extends Contribucion {
             return monto;
 
         case SEMANAL:
-            Integer semanas = periodo.getDays() / 7;
+            Integer dias = periodo.getDays() + periodo.getMonths() *30 + periodo.getYears() * 365; // No es precisa, hay que actualizarla
+            Integer semanas = dias / 7;
 
             return semanas * monto;
 
         case MENSUAL:
-            Integer meses = periodo.getMonths() + periodo.getYears() * 7;
+            Integer meses = periodo.getMonths() + periodo.getYears() * 12;
 
             return meses * monto;
 

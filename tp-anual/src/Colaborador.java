@@ -1,6 +1,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public abstract class Colaborador {
     protected ArrayList<MedioDeContacto> mediosDeContacto;
@@ -42,7 +43,7 @@ public abstract class Colaborador {
                 break;
             case "HacerseCargoDeHeladera":
                 HacerseCargoDeHeladera hacerseCargoDeHeladera = (HacerseCargoDeHeladera) contribucion;
-                puntos += hacerseCargoDeHeladera.mesesHaciendoseCargo() * coeficienteHacerseCargoDeHeladera;
+                puntos += contribuciones.stream().filter( con -> con.getClass() == HacerseCargoDeHeladera.class ).collect(Collectors.toList()).size() * hacerseCargoDeHeladera.mesesHaciendoseCargo() * coeficienteHacerseCargoDeHeladera;
                 break;
             default:
                 break;

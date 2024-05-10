@@ -16,7 +16,7 @@ public class Tarjeta {
     // usar()
     
     public Integer cantidadUsos() {
-        return 4 + titular.menoresACargo();
+        return 4 + 2 * titular.menoresACargo();
     }
 
     public void resetearUsos() {
