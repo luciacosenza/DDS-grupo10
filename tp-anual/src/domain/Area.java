@@ -1,4 +1,4 @@
-package src;
+package domain;
 
 public class Area {
     private Double x1;

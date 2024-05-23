@@ -1,4 +1,4 @@
-package src;
+package domain;
 
 public class MedioDeContacto {
     // Completar

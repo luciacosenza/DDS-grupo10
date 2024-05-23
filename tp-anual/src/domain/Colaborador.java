@@ -1,11 +1,11 @@
-package src;
+package domain;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public abstract class Colaborador {
     protected ArrayList<MedioDeContacto> mediosDeContacto;
-    protected String direccion;
+    protected Ubicacion domicilio;
     protected ArrayList<Contribucion> contribuciones;
     protected ArrayList<Contribucion> contribucionesParaPuntos;
     protected ArrayList<Oferta> beneficiosAdquiridos;

@@ -1,4 +1,4 @@
-package src;
+package domain;
 
 import java.util.ArrayList;
 
@@ -14,9 +14,9 @@ public class ColaboradorJuridico extends Colaborador {
         INSTITUCION
     }
 
-    public ColaboradorJuridico(ArrayList<MedioDeContacto> vMediosDeContacto, String vDireccion, ArrayList<Contribucion> vContribuciones, String vRazonSocial, String vRubro, TipoColaboradorJuridico vTipo) {
+    public ColaboradorJuridico(ArrayList<MedioDeContacto> vMediosDeContacto, Ubicacion vDomicilio, ArrayList<Contribucion> vContribuciones, String vRazonSocial, String vRubro, TipoColaboradorJuridico vTipo) {
         mediosDeContacto = vMediosDeContacto;
-        direccion = vDireccion;
+        domicilio = vDomicilio;
         contribucionesParaPuntos = contribuciones = vContribuciones;
         razonSocial = vRazonSocial;
         rubro = vRubro;

@@ -1,16 +1,14 @@
-package src;
+package domain;
 
 import java.time.LocalDate;
 import java.time.Period;
 
 public class HacerseCargoDeHeladera extends Contribucion {
-    private String empresaResponsable;
     private Heladera heladeraResponsable;
 
-    public HacerseCargoDeHeladera(Colaborador vColaborador, LocalDate vFechaContribucion, String vEmpresaResponsable, Heladera vHeladeraResponsable) {
+    public HacerseCargoDeHeladera(Colaborador vColaborador, LocalDate vFechaContribucion, Heladera vHeladeraResponsable) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
-        empresaResponsable = vEmpresaResponsable;
         heladeraResponsable = vHeladeraResponsable;
     }
 

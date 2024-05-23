@@ -4,17 +4,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Validador{
-    private final String contrasenia; // Podemos evitar que el validador conozca la contraseña haciendo que sus métodos reciban sólo el string.
 
-    public Validador(String vContrasenia) {
-        contrasenia = vContrasenia;
-    }
+    public Validador() {}
 
-    private Boolean largoContraseniaValida() {
+    private Boolean largoContraseniaValida(String contrasenia) {
         return (contrasenia.length() >= 8 && contrasenia.length() <= 64);
     }
 
-    private Boolean esTop10000MalaContrasenia() {
+    private Boolean esTop10000MalaContrasenia(String contrasenia) {
         try {
             return Files.lines(Paths.get("./10k-most-common.txt")).anyMatch(linea -> linea.contains(contrasenia));
         } catch(Exception e) {
@@ -23,7 +20,7 @@ public class Validador{
         }
     }
 
-    public Boolean esValida() {
-        return this.largoContraseniaValida() && !(this.esTop10000MalaContrasenia());
+    public Boolean esValida(String contrasenia) {
+        return this.largoContraseniaValida(contrasenia) && !(this.esTop10000MalaContrasenia(contrasenia));
     }
 }
