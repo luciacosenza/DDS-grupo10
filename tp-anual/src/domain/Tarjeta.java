@@ -15,6 +15,10 @@ public class Tarjeta {
 
     // usar()
     
+    public PersonaEnSituacionVulnerable titular() {
+        return titular;
+    }
+
     public Integer cantidadUsos() {
         return 4 + 2 * titular.menoresACargo();
     }

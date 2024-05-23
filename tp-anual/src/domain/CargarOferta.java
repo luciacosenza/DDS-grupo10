@@ -19,5 +19,8 @@ public class CargarOferta extends Contribucion {
         }
     }
 
-    // accionar()
+    public void accionar() {
+        System.out.println(oferta); // Esto es temporal, para que no tire errores. La idea es *agregar la oferta al sistema*
+    }
+
 }

@@ -63,5 +63,9 @@ public class DonacionDinero extends Contribucion {
         }
     }
 
-    // accionar()
+    public void accionar() {
+        System.out.println(monto);
+        System.out.println(frecuencia);
+        // Esto es temporal, para que no tire errores. La logica es *registrar la donacion en el sistema*
+    }
 }

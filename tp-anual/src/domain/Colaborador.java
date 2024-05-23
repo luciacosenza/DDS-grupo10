@@ -47,8 +47,7 @@ public abstract class Colaborador {
                 puntos += coeficienteDonacionVianda;
                 break;
             case "RegistroDePersonaEnSituacionVulnerable":
-                RegistroDePersonaEnSituacionEnVulnerable registroDePersonaEnSituacionEnVulnerable = (RegistroDePersonaEnSituacionEnVulnerable) contribucion;
-                puntos += registroDePersonaEnSituacionEnVulnerable.tarjetasAsignadas().size() * coeficienteRegistroDePersonaEnSituacionVulnerable;
+                puntos += coeficienteRegistroDePersonaEnSituacionVulnerable;
                 break;
             case "HacerseCargoDeHeladera":
                 HacerseCargoDeHeladera hacerseCargoDeHeladera = (HacerseCargoDeHeladera) contribucion;
@@ -65,4 +64,5 @@ public abstract class Colaborador {
     public void adquirirBeneficio(Oferta oferta) {
         beneficiosAdquiridos.add(oferta);
     }
+
 }
