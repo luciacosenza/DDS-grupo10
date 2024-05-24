@@ -1,4 +1,4 @@
-package src;
+package domain;
 
 import java.time.LocalDate;
 
@@ -34,5 +34,12 @@ public class DistribucionViandas extends Contribucion {
         }
     }
 
-    // accionar()
+    public void accionar() {
+        Vianda viandaAux;
+
+        for(Integer i = 0; i < cantidadViandasAMover || origen.viandas().isEmpty(); i++) {
+            viandaAux = origen.retirarVianda();
+            destino.agregarVianda(viandaAux);
+        }
+    }
 }

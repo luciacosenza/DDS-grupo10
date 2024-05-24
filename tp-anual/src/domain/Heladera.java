@@ -1,4 +1,4 @@
-package src;
+package domain;
 
 import java.util.ArrayList;
 import java.time.LocalDate;
@@ -29,6 +29,23 @@ public class Heladera {
     // darDeAlta()
     // darDeBaja()
     // modificar()
+
+    public ArrayList<Vianda> viandas() {
+        return viandas;
+    }
+
     // actualizarEstado()
-    // avisarAColaborador()
+    // temperatura(Temperatura temperatura)
+    // verificarTemperatura()
+
+    public Vianda retirarVianda() {
+        return viandas.remove(0);
+    }
+
+    public void agregarVianda(Vianda vianda) {
+        viandas.add(vianda);
+    }
+    
+    // alertaMovimiento()
+    // alertaTemperatura()
 }

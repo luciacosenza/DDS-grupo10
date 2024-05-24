@@ -1,9 +1,9 @@
-package src;
+package domain;
 
 public class Oferta {
 
     private String nombre;
-    private Integer costo;
+    private Double costo;
     private Categoria categoria;
     private String imagen;  // Por ahora es solo un link
     
@@ -14,7 +14,7 @@ public class Oferta {
         // Completar
     }
 
-    public Oferta(String vNombre, Integer vCosto, Categoria vCategoria, String vImagen) {
+    public Oferta(String vNombre, Double vCosto, Categoria vCategoria, String vImagen) {
         nombre = vNombre;
         costo = vCosto;
         categoria = vCategoria;

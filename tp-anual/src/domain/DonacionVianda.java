@@ -1,4 +1,4 @@
-package src;
+package domain;
 
 import java.time.LocalDate;
 
@@ -19,5 +19,8 @@ public class DonacionVianda extends Contribucion {
         }
     }
 
-    // accionar()
+    public void accionar() {
+        System.out.println(vianda); // Esto es temporal, para que no tire errores. La logica es *registrar la vianda en el sistema*
+
+    }
 }

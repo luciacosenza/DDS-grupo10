@@ -1,28 +1,29 @@
-package src;
+package domain;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
 public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
-    private ArrayList<Tarjeta> tarjetasAsignadas;
+    private Tarjeta tarjetaAsignada;
     
-    public RegistroDePersonaEnSituacionEnVulnerable(Colaborador vColaborador, LocalDate vFechaContribucion, ArrayList<Tarjeta> vTarjetasAsignadas) {
+    public RegistroDePersonaEnSituacionEnVulnerable(Colaborador vColaborador, LocalDate vFechaContribucion, Tarjeta vTarjetaAsignada) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
-        tarjetasAsignadas = vTarjetasAsignadas;
+        tarjetaAsignada = vTarjetaAsignada;
     }
 
-    public ArrayList<Tarjeta> tarjetasAsignadas(){
-        return tarjetasAsignadas;
+    public Tarjeta tarjetaAsignada() {
+        return tarjetaAsignada;
     }
 
     // obtenerDetalles()
     
-
     public void validarIdentidad(Colaborador colaboradorAspirante) {
         if(!esColaboradorHumano(colaboradorAspirante)) {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
         }
     }
 
-    // accionar()
+    public void accionar() {
+        tarjetaAsignada.titular().tarjeta(tarjetaAsignada);
+    }
 }

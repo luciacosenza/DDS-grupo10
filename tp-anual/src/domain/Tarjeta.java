@@ -1,4 +1,4 @@
-package src;
+package domain;
 
 import java.util.ArrayList;
 
@@ -15,6 +15,10 @@ public class Tarjeta {
 
     // usar()
     
+    public PersonaEnSituacionVulnerable titular() {
+        return titular;
+    }
+
     public Integer cantidadUsos() {
         return 4 + 2 * titular.menoresACargo();
     }

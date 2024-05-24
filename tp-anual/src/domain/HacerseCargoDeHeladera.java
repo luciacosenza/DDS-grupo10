@@ -1,17 +1,15 @@
-package src;
+package domain;
 
 import java.time.LocalDate;
 import java.time.Period;
 
 public class HacerseCargoDeHeladera extends Contribucion {
-    private String empresaResponsable;
-    private Heladera heladeraResponsable;
+    private Heladera heladeraObjetivo;
 
-    public HacerseCargoDeHeladera(Colaborador vColaborador, LocalDate vFechaContribucion, String vEmpresaResponsable, Heladera vHeladeraResponsable) {
+    public HacerseCargoDeHeladera(Colaborador vColaborador, LocalDate vFechaContribucion, Heladera vHeladeraObjetivo) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
-        empresaResponsable = vEmpresaResponsable;
-        heladeraResponsable = vHeladeraResponsable;
+        heladeraObjetivo = vHeladeraObjetivo;
     }
 
     // obtenerDetalles()
@@ -33,5 +31,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
         return meses;
     }
 
-    // accionar()
+    public void accionar() {
+        System.out.println(heladeraObjetivo); // Esto es temporal, para que no tire errores. La logica es *registrar la heladera en el sistema*
+    }
 }
