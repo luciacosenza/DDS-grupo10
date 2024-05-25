@@ -27,41 +27,56 @@ class Pokemon {
 class PokeAPI {
     BASE_URL = "https://pokeapi.co/api/v2/";
 
-    async obtenerPokemonPorNombre( nombreDelPokemon ) {
-        const response = await fetch(`${this.BASE_URL}pokemon/${nombreDelPokemon}`);
-        const data = await response.json();
-        const id = data.id;
-        const pokemonName = data.name;
-        const image = data.sprites.front_default;
-        const moves = data.moves.map(move => new Move(move.id, move.name, move.power));
-
-        return new Pokemon(id, pokemonName, image, moves);
+    async obtenerPokemonPorNombre(nombreDelPokemon) {
+        try {
+            const response = await fetch(`${this.BASE_URL}pokemon/${nombreDelPokemon}`);
+            const data = await response.json();
+            const id = data.id;
+            const pokemonName = data.name;
+            const image = data.sprites.front_default;
+            const moves = await Promise.all(data.moves.map(async moveData => {
+                const moveResponse = await fetch(moveData.move.url);
+                const moveDetails = await moveResponse.json();
+                return new Move(moveDetails.id, moveDetails.name, moveDetails.learned_by_pokemon);
+            }));
+            const pokemon = new Pokemon(id, pokemonName, image, moves);
+            //console.log(pokemon);
+            return pokemon;
+        } catch (error) {
+            console.error('Error al obtener el Pokémon:', error);
+        }
     }
 
-    async obtenerPokemonPorMovimiento( nombreDelMovimiento ) {
-        const response = await fetch(`${this.BASE_URL}move/${ nombreDelMovimiento }`);
-        const data = await response.json();
-        
-        const pokemonPromises = data.learned_by_pokemon.map(pokemon => this.obtenerPokemonPorNombre(pokemon.name));
+    async obtenerPokemonPorMovimiento(nombreDelMovimiento) {
+        try {
+            const response = await fetch(`${this.BASE_URL}move/${nombreDelMovimiento}`);
+            const data = await response.json();
 
-        //!HASTA ACA ARRIBA TENGO LA LISTA DE POKEMONS QUE PUEDEN APRENDER EL MOVIMIENTO, TODAVIA NO PUDE FILTRAR LOS QUE YA LO SABEN
+            // Obtener la lista de promesas de Pokémon que pueden aprender el movimiento
+            const pokemonPromises = data.learned_by_pokemon.map(pokemon => this.obtenerPokemonPorNombre(pokemon.name));
 
-        const pokemonsResponse = await Promise.all(pokemonPromises);
+            // Esperar a que todas las promesas se resuelvan
+            const pokemonsResponse = await Promise.all(pokemonPromises);
 
-        const pokemonsQueSabenElMovimiento = pokemonsResponse.filter(pokemon => pokemon.moves.some(move => move.name == nombreDelMovimiento));
-        // ESTO DE ARRIBA NO FUNCIONA
+            // Filtrar los Pokémon que ya saben el movimiento
+            const pokemonsQueSabenElMovimiento = pokemonsResponse.filter(pokemon =>
+                pokemon.moves.some(move => move.name === nombreDelMovimiento)
+            );
 
-        console.log(pokemonsQueSabenElMovimiento);
-        return pokemonsQueSabenElMovimiento;   
+            const texto = pokemonsQueSabenElMovimiento.map(pokemon => pokemon.name)
+
+            console.log(texto);
+            return pokemonsQueSabenElMovimiento;
         } catch (error) {
             console.error('Error al obtener Pokémon por movimiento:', error);
             throw error;
         }
+    }
     
     }
 
 
 
 const api = new PokeAPI();
-api.obtenerPokemonPorNombre("bulbasaur");
+api.obtenerPokemonPorNombre("ditto");
 api.obtenerPokemonPorMovimiento("pound");
