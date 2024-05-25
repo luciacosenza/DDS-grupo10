@@ -1,7 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Heladera {
     private String nombre;
@@ -10,13 +10,13 @@ public class Heladera {
     private Double latitud;
     private ArrayList<Vianda> viandas;
     private Integer capacidad;
-    private LocalDate fechaApertura;
+    private LocalDateTime fechaApertura;
     private Float tempMin;
     private Float tempMax;
     private Boolean activa;
 
 
-    public Heladera(String vNombre, String vDireccion, Double vLongitud, Double vLatitud, ArrayList<Vianda> vViandas, Integer vCapacidad, LocalDate vFechaApertura) {
+    public Heladera(String vNombre, String vDireccion, Double vLongitud, Double vLatitud, ArrayList<Vianda> vViandas, Integer vCapacidad, LocalDateTime vFechaApertura, Float vTempMin, Float vTempMax) {
         nombre = vNombre;
         direccion = vDireccion;
         longitud = vLongitud;
@@ -24,14 +24,21 @@ public class Heladera {
         viandas = vViandas;
         capacidad = vCapacidad;
         fechaApertura = vFechaApertura;
+        tempMin = vTempMin;
+        tempMax =vTempMax;
+        activa = true;
     }
 
     // darDeAlta()
     // darDeBaja()
     // modificar()
 
-    public ArrayList<Vianda> viandas() {
+    public ArrayList<Vianda> getViandas() {
         return viandas;
+    }
+
+    public Boolean estaActiva() {
+        return activa;
     }
 
     // actualizarEstado()

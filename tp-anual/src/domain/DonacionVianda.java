@@ -1,11 +1,11 @@
 package domain;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class DonacionVianda extends Contribucion {
     private Vianda vianda;
 
-    public DonacionVianda(Colaborador vColaborador, LocalDate vFechaContribucion, Vianda vVianda) {
+    public DonacionVianda(Colaborador vColaborador, LocalDateTime vFechaContribucion, Vianda vVianda) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
         vianda = vVianda;
@@ -22,5 +22,9 @@ public class DonacionVianda extends Contribucion {
     public void accionar() {
         System.out.println(vianda); // Esto es temporal, para que no tire errores. La logica es *registrar la vianda en el sistema*
 
+    }
+
+    public void calcularPuntos(ColaboradorHumano colaborador) {
+        colaborador.sumarPuntos(1.5);;
     }
 }

@@ -1,7 +1,7 @@
 package domain;
 
-import java.time.LocalDate;
-import java.time.Period;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class DonacionDinero extends Contribucion {
     private Double monto;
     private FrecuenciaDePago frecuencia;
-    private LocalDate ultimaActualizacion;
+    private LocalDateTime ultimaActualizacion;
     
     enum FrecuenciaDePago {
         SEMANAL,
@@ -19,19 +19,12 @@ public class DonacionDinero extends Contribucion {
         UNICA_VEZ
     }
 
-    public DonacionDinero(Colaborador vColaborador, LocalDate vFechaContribucion, Double vMonto, FrecuenciaDePago vFrecuencia) {
+    public DonacionDinero(Colaborador vColaborador, LocalDateTime vFechaContribucion, Double vMonto, FrecuenciaDePago vFrecuencia) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
         monto = vMonto;
         frecuencia = vFrecuencia;
-    }
-
-    public LocalDate ultimaActualizacion() {
-        return ultimaActualizacion;
-    }
-
-    public void ultimaActualizacion(LocalDate actualizacion) {
-        ultimaActualizacion = actualizacion;
+        ultimaActualizacion = LocalDateTime.now();
     }
 
     // obtenerDetalles()
@@ -48,54 +41,20 @@ public class DonacionDinero extends Contribucion {
         // Esto es temporal, para que no tire errores. La logica es *registrar la donacion en el sistema*
     }
 
-    public Double donadoHastaLaFecha() {
-        LocalDate fechaActual = LocalDate.now();
-        Period periodo = Period.between(fechaContribucion, fechaActual);
-        
-        switch(frecuencia) {
-        
-        case UNICA_VEZ:
-            return monto;
-
-        case SEMANAL:
-            Integer dias = periodo.getDays() + periodo.getMonths() * 30 + periodo.getYears() * 365; // No es precisa, hay que actualizarla
-            Integer semanas = dias / 7;
-
-            return semanas * monto;
-
-        case MENSUAL:
-            Integer meses = periodo.getMonths() + periodo.getYears() * 12;
-
-            return meses * monto;
-
-        case SEMESTRAL:
-            Integer semestres = (periodo.getMonths() + periodo.getYears() * 12) / 6;
-
-            return semestres * monto;
-
-        case ANUAL:
-            return periodo.getYears() * monto;
-            
-        default:
-            return 0d;
-        }
-    }
-
-    public void calcularPuntos(Colaborador unColaborador) {
+    public void calcularPuntos(Colaborador colaborador) {
+        // Modelo de metodo suponiendo frecuencia "CADA_5_SEGUNDOS"
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
         Runnable task = () -> {
-            LocalDate ahora = LocalDate.now();
-            long segundosPasados = ChronoUnit.SECONDS.between(unColaborador.getUltimaActualizacion(), ahora);
-
+            LocalDateTime ahora = LocalDateTime.now();
+            long segundosPasados = ChronoUnit.SECONDS.between(ultimaActualizacion, ahora);
             if (segundosPasados >= 5) {
-                unColaborador.sumarPuntos(0.5 * self.monto);
-                unColaborador.setUltimaActualizacion(ahora);
-                System.out.println("Colaborador actualizado: " + unColaborador);
+                colaborador.sumarPuntos(0.5 * monto);
+                ultimaActualizacion = ahora;
             }
         };
 
-        // Programa la tarea para que se ejecute cada segundo
-        scheduler.scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS);
+        // Programa la tarea para que se ejecute cada 5 segundos
+        scheduler.scheduleAtFixedRate(task, 0, 5, TimeUnit.SECONDS);
     }
 }

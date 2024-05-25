@@ -15,12 +15,12 @@ public class Tarjeta {
 
     // usar()
     
-    public PersonaEnSituacionVulnerable titular() {
+    public PersonaEnSituacionVulnerable getTitular() {
         return titular;
     }
 
     public Integer cantidadUsos() {
-        return 4 + 2 * titular.menoresACargo();
+        return 4 + 2 * titular.getMenoresACargo();
     }
 
     public void resetearUsos() {

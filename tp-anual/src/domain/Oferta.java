@@ -22,7 +22,7 @@ public class Oferta {
     }
 
     public void validarPuntos(Colaborador colaborador) {
-        Double puntosColaborador = colaborador.puntos();
+        Double puntosColaborador = colaborador.getPuntos();
         
         if (puntosColaborador < costo) {
             throw new IllegalArgumentException("No se cuenta con los puntos necesarios para adquirir este beneficio");

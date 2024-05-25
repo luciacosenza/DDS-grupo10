@@ -1,18 +1,18 @@
 package domain;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Vianda {
     private String comida;
     private Heladera heladera;
     private Colaborador colaborador;
-    private LocalDate fechaCaducidad;
-    private LocalDate fechaDonacion;
+    private LocalDateTime fechaCaducidad;
+    private LocalDateTime fechaDonacion;
     private Integer calorias;
     private Integer peso;
     private Boolean entregada;
 
-    public Vianda(String vComida, Heladera vHeladera, Colaborador vColaborador, LocalDate vFechaCacudicad, LocalDate vFechaDonacion, Integer vCalorias, Integer vPeso, Boolean vEntregada) {
+    public Vianda(String vComida, Heladera vHeladera, Colaborador vColaborador, LocalDateTime vFechaCacudicad, LocalDateTime vFechaDonacion, Integer vCalorias, Integer vPeso, Boolean vEntregada) {
         comida = vComida;
         heladera = vHeladera;
         colaborador = vColaborador;

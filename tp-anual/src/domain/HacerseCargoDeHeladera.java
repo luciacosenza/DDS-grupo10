@@ -1,15 +1,21 @@
 package domain;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class HacerseCargoDeHeladera extends Contribucion {
     private Heladera heladeraObjetivo;
+    private LocalDateTime ultimaActualizacion;
 
-    public HacerseCargoDeHeladera(Colaborador vColaborador, LocalDate vFechaContribucion, Heladera vHeladeraObjetivo) {
+    public HacerseCargoDeHeladera(Colaborador vColaborador, LocalDateTime vFechaContribucion, Heladera vHeladeraObjetivo) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
         heladeraObjetivo = vHeladeraObjetivo;
+        ultimaActualizacion = LocalDateTime.now();
     }
 
     // obtenerDetalles()
@@ -24,14 +30,19 @@ public class HacerseCargoDeHeladera extends Contribucion {
         System.out.println(heladeraObjetivo); // Esto es temporal, para que no tire errores. La logica es *registrar la heladera en el sistema*
     }
 
-    public Integer mesesHaciendoseCargo() {
-        LocalDate fechaActual = LocalDate.now();
-        Period periodo = Period.between(fechaContribucion, fechaActual);
-        Integer meses = periodo.getMonths();
-        Integer anios = periodo.getYears();
+    public void calcularPuntos(Colaborador colaborador) {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-        meses += anios * 12;
+        Runnable task = () -> {
+            LocalDateTime ahora = LocalDateTime.now();
+            long mesesPasados = ChronoUnit.MONTHS.between(ultimaActualizacion, ahora);
+            if (mesesPasados >= 1 && heladeraObjetivo.estaActiva()) {
+                colaborador.sumarPuntos(5d);
+                ultimaActualizacion = ahora;
+            }
+        };
 
-        return meses;
+        // Programa la tarea para que se ejecute cada 1 dia
+        scheduler.scheduleAtFixedRate(task, 0, 1, TimeUnit.DAYS);
     }
 }

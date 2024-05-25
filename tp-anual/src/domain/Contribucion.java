@@ -1,12 +1,12 @@
 package domain;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public abstract class Contribucion {
     protected Colaborador colaborador;
-    protected LocalDate fechaContribucion;
+    protected LocalDateTime fechaContribucion;
 
-    public LocalDate fechaContribucion(){
+    public LocalDateTime fechaContribucion(){
         return fechaContribucion;
     }
 

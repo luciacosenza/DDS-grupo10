@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class Validador_Test {
 
     @Test
-    @DisplayName("Testeo que esté en la lista de 10k passwords")
+    @DisplayName("Testeo que este en la lista de 10k passwords")
     public void FedeTest() {
         String contrasenia = "fuckyou";
         Validador prueba = new Validador();
@@ -34,7 +34,7 @@ public class Validador_Test {
     }
 
     @Test
-    @DisplayName("Testeo que sea válida")
+    @DisplayName("Testeo que sea valida")
     public void ValidTest() {
         String contrasenia = "SNGFDSJidsnfds.549fwqe";
         Validador prueba = new Validador();

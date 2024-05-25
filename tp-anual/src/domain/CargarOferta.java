@@ -1,11 +1,11 @@
 package domain;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class CargarOferta extends Contribucion {
     private Oferta oferta;
 
-    public CargarOferta(Colaborador vColaborador, LocalDate vFechaContribucion, Oferta vOferta) {
+    public CargarOferta(Colaborador vColaborador, LocalDateTime vFechaContribucion, Oferta vOferta) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
         oferta = vOferta;

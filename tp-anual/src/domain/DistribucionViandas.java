@@ -1,6 +1,6 @@
 package domain;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class DistribucionViandas extends Contribucion {
     private Heladera origen;
@@ -13,17 +13,13 @@ public class DistribucionViandas extends Contribucion {
         FALTA_DE_VIANDAS_EN_DESTINO
     }
 
-    public DistribucionViandas(Colaborador vColaborador, LocalDate vFechaContribucion, Heladera vOrigen, Heladera vDestino, Integer vCantidadViandasAMover, MotivoDistribucion vMotivo) {
+    public DistribucionViandas(Colaborador vColaborador, LocalDateTime vFechaContribucion, Heladera vOrigen, Heladera vDestino, Integer vCantidadViandasAMover, MotivoDistribucion vMotivo) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
         origen = vOrigen;
         destino = vDestino;
         cantidadViandasAMover = vCantidadViandasAMover;
         motivo = vMotivo;
-    }
-
-    public Integer cantidadViandasAMover(){
-        return cantidadViandasAMover;
     }
 
     // obtenerDetalles()
@@ -37,14 +33,14 @@ public class DistribucionViandas extends Contribucion {
     public void accionar() {
         Vianda viandaAux;
 
-        for(Integer i = 0; i < cantidadViandasAMover || origen.viandas().isEmpty(); i++) {
+        for(Integer i = 0; i < cantidadViandasAMover || origen.getViandas().isEmpty(); i++) {
             viandaAux = origen.retirarVianda();
             destino.agregarVianda(viandaAux);
             System.err.println(viandaAux);  // Esto es temporal, para que no tire errores. La idea es *agregar la vianda movida al sistema*
         }
     }
 
-    public void calculoDePuntos(ColaboradorHumano colaborador) {
+    public void calcularPuntos(ColaboradorHumano colaborador) {
         colaborador.sumarPuntos(Double.valueOf(cantidadViandasAMover));;
     }
 }

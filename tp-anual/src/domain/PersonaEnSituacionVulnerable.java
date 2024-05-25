@@ -1,17 +1,17 @@
 package domain;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class PersonaEnSituacionVulnerable {
     private String nombre;
-    private LocalDate fechaNacimiento;
-    private LocalDate fechaRegistro;
+    private LocalDateTime fechaNacimiento;
+    private LocalDateTime fechaRegistro;
     private Documento documento;
     private Ubicacion domicilio;
     private Integer menoresACargo;
     private Tarjeta tarjeta;    // tarjetaNuleada (ningun metodo hace algo pero los conoce, para tener polimorfismo)
 
-    public PersonaEnSituacionVulnerable(String vNombre, LocalDate vFechaNacimiento, LocalDate vFechaRegistro, Documento vDocumento, Ubicacion vDomicilio, Integer vMenoresACargo, Tarjeta vTarjeta) {
+    public PersonaEnSituacionVulnerable(String vNombre, LocalDateTime vFechaNacimiento, LocalDateTime vFechaRegistro, Documento vDocumento, Ubicacion vDomicilio, Integer vMenoresACargo, Tarjeta vTarjeta) {
         nombre = vNombre;
         fechaNacimiento = vFechaNacimiento;
         fechaRegistro = vFechaRegistro;
@@ -21,12 +21,12 @@ public class PersonaEnSituacionVulnerable {
         tarjeta = null; // Temporal
     }
 
-    public Integer menoresACargo() {
+    public Integer getMenoresACargo() {
         return menoresACargo;
     }
 
-    public void tarjeta(Tarjeta tarjetaAsignada) {
-        tarjeta = tarjetaAsignada;  // A chequear
+    public void setTarjeta(Tarjeta tarjetaAsignada) {
+        tarjeta = tarjetaAsignada;
     }
 
     // darDeAlta()

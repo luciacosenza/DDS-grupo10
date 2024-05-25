@@ -1,11 +1,11 @@
 package domain;
-import java.util.ArrayList;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
     private Tarjeta tarjetaAsignada;
     
-    public RegistroDePersonaEnSituacionEnVulnerable(Colaborador vColaborador, LocalDate vFechaContribucion, Tarjeta vTarjetaAsignada) {
+    public RegistroDePersonaEnSituacionEnVulnerable(Colaborador vColaborador, LocalDateTime vFechaContribucion, Tarjeta vTarjetaAsignada) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
         tarjetaAsignada = vTarjetaAsignada;
@@ -18,13 +18,17 @@ public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
     // obtenerDetalles()
     
     public void validarIdentidad(Colaborador colaboradorAspirante) {
-        if(!esColaboradorHumano(colaboradorAspirante) && !colaboradorAspirante.tieneDomicilio()) {
+        if(!esColaboradorHumano(colaboradorAspirante) && colaboradorAspirante.getDomicilio() == null) {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
         }
     }
 
     public void accionar() {
-        tarjetaAsignada.titular().tarjeta(tarjetaAsignada);
+        tarjetaAsignada.getTitular().setTarjeta(tarjetaAsignada);
         System.out.println(tarjetaAsignada);    // Esto es temporal, para que no tire errores. La idea es *agregar la tarjeta al sistema*
+    }
+
+    public void calcularPuntos(ColaboradorHumano colaborador) {
+        colaborador.sumarPuntos(2d);;
     }
 }
