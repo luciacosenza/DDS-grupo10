@@ -11,7 +11,6 @@ public class ColaboradorHumano extends Colaborador {
     public ColaboradorHumano(ArrayList<MedioDeContacto> vMediosDeContacto, Ubicacion vDomicilio, ArrayList<Contribucion> vContribuciones, String vNombre, String vApellido, LocalDate vFechaNacimiento) {
         mediosDeContacto = vMediosDeContacto;
         domicilio = vDomicilio;
-        contribucionesParaPuntos = contribuciones = vContribuciones;
         nombre = vNombre;
         apellido = vApellido;
         fechaNacimiento = vFechaNacimiento;

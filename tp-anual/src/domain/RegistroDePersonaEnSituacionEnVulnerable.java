@@ -18,12 +18,13 @@ public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
     // obtenerDetalles()
     
     public void validarIdentidad(Colaborador colaboradorAspirante) {
-        if(!esColaboradorHumano(colaboradorAspirante)) {
+        if(!esColaboradorHumano(colaboradorAspirante) && !colaboradorAspirante.tieneDomicilio()) {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
         }
     }
 
     public void accionar() {
         tarjetaAsignada.titular().tarjeta(tarjetaAsignada);
+        System.out.println(tarjetaAsignada);    // Esto es temporal, para que no tire errores. La idea es *agregar la tarjeta al sistema*
     }
 }

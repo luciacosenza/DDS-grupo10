@@ -22,10 +22,10 @@ public abstract class Contribucion {
 
     public abstract void validarIdentidad(Colaborador colaboradorAspirante);
 
-    // public abstract void accionar(/* Completar de ser necesario */);
+    public abstract void accionar();
     
     public void contribuir(Colaborador colaboradorAspirante) {
         validarIdentidad(colaboradorAspirante);
-        // accionar();
+        accionar();
     }
 }

@@ -6,6 +6,7 @@ import java.time.Period;
 public class DonacionDinero extends Contribucion {
     private Double monto;
     private FrecuenciaDePago frecuencia;
+    private LocalDate ultimaActualizacion;
     
     enum FrecuenciaDePago {
         SEMANAL,
@@ -22,12 +23,26 @@ public class DonacionDinero extends Contribucion {
         frecuencia = vFrecuencia;
     }
 
+    public LocalDate ultimaActualizacion() {
+        return ultimaActualizacion;
+    }
+
+    public void ultimaActualizacion(LocalDate actualizacion) {
+        ultimaActualizacion = actualizacion;
+    }
+
     // obtenerDetalles()
     
     public void validarIdentidad(Colaborador colaboradorAspirante) {
         if(!(esColaboradorHumano(colaboradorAspirante) || esColaboradorJuridico(colaboradorAspirante))) {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
         }
+    }
+
+    public void accionar() {
+        System.out.println(monto);
+        System.out.println(frecuencia);
+        // Esto es temporal, para que no tire errores. La logica es *registrar la donacion en el sistema*
     }
 
     public Double donadoHastaLaFecha() {
@@ -61,11 +76,5 @@ public class DonacionDinero extends Contribucion {
         default:
             return 0d;
         }
-    }
-
-    public void accionar() {
-        System.out.println(monto);
-        System.out.println(frecuencia);
-        // Esto es temporal, para que no tire errores. La logica es *registrar la donacion en el sistema*
     }
 }

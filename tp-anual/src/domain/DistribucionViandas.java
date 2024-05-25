@@ -40,6 +40,11 @@ public class DistribucionViandas extends Contribucion {
         for(Integer i = 0; i < cantidadViandasAMover || origen.viandas().isEmpty(); i++) {
             viandaAux = origen.retirarVianda();
             destino.agregarVianda(viandaAux);
+            System.err.println(viandaAux);  // Esto es temporal, para que no tire errores. La idea es *agregar la vianda movida al sistema*
         }
+    }
+
+    public void calculoDePuntos(ColaboradorHumano colaborador) {
+        colaborador.sumarPuntos(Double.valueOf(cantidadViandasAMover));;
     }
 }

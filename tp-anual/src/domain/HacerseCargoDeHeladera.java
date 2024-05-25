@@ -19,7 +19,11 @@ public class HacerseCargoDeHeladera extends Contribucion {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Juridico");
         }
     }
-    
+
+    public void accionar() {
+        System.out.println(heladeraObjetivo); // Esto es temporal, para que no tire errores. La logica es *registrar la heladera en el sistema*
+    }
+
     public Integer mesesHaciendoseCargo() {
         LocalDate fechaActual = LocalDate.now();
         Period periodo = Period.between(fechaContribucion, fechaActual);
@@ -29,9 +33,5 @@ public class HacerseCargoDeHeladera extends Contribucion {
         meses += anios * 12;
 
         return meses;
-    }
-
-    public void accionar() {
-        System.out.println(heladeraObjetivo); // Esto es temporal, para que no tire errores. La logica es *registrar la heladera en el sistema*
     }
 }

@@ -7,17 +7,25 @@ public abstract class Colaborador {
     protected ArrayList<MedioDeContacto> mediosDeContacto;
     protected Ubicacion domicilio;
     protected ArrayList<Contribucion> contribuciones;
-    protected ArrayList<Contribucion> contribucionesParaPuntos;
     protected ArrayList<Oferta> beneficiosAdquiridos;
+    protected Double puntos;
 
     // darDeAlta()
     // darDeBaja()
     // modificar()
 
-    public Boolean cuentaParaSumarPuntos(Contribucion contribucion) {
-        return contribucionesParaPuntos.contains(contribucion);
+    public void sumarPuntos(Double puntosASumar) {
+        puntos += puntosASumar;
     }
-    
+
+    public Boolean tieneDomicilio() {
+        return domicilio != null;
+    }
+
+    public void adquirirBeneficio(Oferta oferta) {
+        beneficiosAdquiridos.add(oferta);
+    }
+
     public Double puntos() {
         Double puntos = 0.0;
 
@@ -30,9 +38,6 @@ public abstract class Colaborador {
 
         // Sumatoria de Puntos
         for (Contribucion contribucion : contribuciones) {
-            if(!cuentaParaSumarPuntos(contribucion)) {
-                break;
-            }
             
             switch (contribucion.getClass().getSimpleName()) {
             case "DonacionDinero":
@@ -59,10 +64,6 @@ public abstract class Colaborador {
         }
 
         return puntos;
-    }
-
-    public void adquirirBeneficio(Oferta oferta) {
-        beneficiosAdquiridos.add(oferta);
     }
 
 }
