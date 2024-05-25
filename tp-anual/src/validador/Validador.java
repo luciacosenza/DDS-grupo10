@@ -13,7 +13,7 @@ public class Validador{
 
     private Boolean esTop10000MalaContrasenia(String contrasenia) {
         try {
-            return Files.lines(Paths.get("./10k-most-common.txt")).anyMatch(linea -> linea.contains(contrasenia));
+            return Files.lines(Paths.get("./resources/10k-most-common.txt")).anyMatch(linea -> linea.contains(contrasenia));
         } catch(Exception e) {
             // De ser necesario: System.out.println(e.getMessage());
             return false;
