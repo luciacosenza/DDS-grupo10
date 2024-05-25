@@ -22,6 +22,12 @@ public abstract class Colaborador {
         return domicilio != null;
     }
 
+    //Ejecuta la contribución y la agrega a su lista de contribuciones
+    public void colaborar( Contribucion contribucion){
+        contribucion.contribuir(self);
+        contribuciones.add(contribucion);
+    }
+
     public void adquirirBeneficio(Oferta oferta) {
         beneficiosAdquiridos.add(oferta);
     }

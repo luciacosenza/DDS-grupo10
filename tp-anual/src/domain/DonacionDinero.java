@@ -2,6 +2,9 @@ package domain;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class DonacionDinero extends Contribucion {
     private Double monto;
@@ -76,5 +79,23 @@ public class DonacionDinero extends Contribucion {
         default:
             return 0d;
         }
+    }
+
+    public void calcularPuntos(Colaborador unColaborador) {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+        Runnable task = () -> {
+            LocalDate ahora = LocalDate.now();
+            long segundosPasados = ChronoUnit.SECONDS.between(unColaborador.getUltimaActualizacion(), ahora);
+
+            if (segundosPasados >= 5) {
+                unColaborador.sumarPuntos(0.5 * self.monto);
+                unColaborador.setUltimaActualizacion(ahora);
+                System.out.println("Colaborador actualizado: " + unColaborador);
+            }
+        };
+
+        // Programa la tarea para que se ejecute cada segundo
+        scheduler.scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS);
     }
 }
