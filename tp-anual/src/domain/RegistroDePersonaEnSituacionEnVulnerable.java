@@ -17,12 +17,14 @@ public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
 
     // obtenerDetalles()
     
+    @Override
     public void validarIdentidad(Colaborador colaboradorAspirante) {
         if(!esColaboradorHumano(colaboradorAspirante) && colaboradorAspirante.getDomicilio() == null) {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
         }
     }
 
+    @Override
     public void accionar() {
         tarjetaAsignada.getTitular().setTarjeta(tarjetaAsignada);
         System.out.println(tarjetaAsignada);    // Esto es temporal, para que no tire errores. La idea es *agregar la tarjeta al sistema*

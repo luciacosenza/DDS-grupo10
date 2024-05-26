@@ -10,13 +10,67 @@ public class DonacionDinero extends Contribucion {
     private Double monto;
     private FrecuenciaDePago frecuencia;
     private LocalDateTime ultimaActualizacion;
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
     
-    enum FrecuenciaDePago {
-        SEMANAL,
-        MENSUAL,
-        SEMESTRAL,
-        ANUAL,
-        UNICA_VEZ
+    enum FrecuenciaDePago { // Tal vez podriamos implementar una clase, para que no quede toda esta logica en DonacionDinero
+        SEMANAL {
+            @Override
+            public long periodo() {
+                return 1;
+            }
+    
+            @Override
+            public ChronoUnit unidad() {
+                return ChronoUnit.WEEKS;
+            }
+        },
+        MENSUAL {
+            @Override
+            public long periodo() {
+                return 1;
+            }
+    
+            @Override
+            public ChronoUnit unidad() {
+                return ChronoUnit.MONTHS;
+            }
+        },
+        SEMESTRAL {
+            @Override
+            public long periodo() {
+                return 6;
+            }
+    
+            @Override
+            public ChronoUnit unidad() {
+                return ChronoUnit.MONTHS;
+            }
+        },
+        ANUAL {
+            public long periodo() {
+                return 1;
+            }
+    
+            @Override
+            public ChronoUnit unidad() {
+                return ChronoUnit.YEARS;
+            }
+        },
+        UNICA_VEZ {
+            @Override
+            public long periodo() {
+                return 0;
+            }
+    
+            @Override
+            public ChronoUnit unidad() {
+                return null;
+            }
+        };
+    
+        public abstract long periodo();
+        public abstract ChronoUnit unidad();
     }
 
     public DonacionDinero(Colaborador vColaborador, LocalDateTime vFechaContribucion, Double vMonto, FrecuenciaDePago vFrecuencia) {
@@ -29,12 +83,14 @@ public class DonacionDinero extends Contribucion {
 
     // obtenerDetalles()
     
+    @Override
     public void validarIdentidad(Colaborador colaboradorAspirante) {
         if(!(esColaboradorHumano(colaboradorAspirante) || esColaboradorJuridico(colaboradorAspirante))) {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
         }
     }
 
+    @Override
     public void accionar() {
         System.out.println(monto);
         System.out.println(frecuencia);
@@ -42,19 +98,20 @@ public class DonacionDinero extends Contribucion {
     }
 
     public void calcularPuntos(Colaborador colaborador) {
-        // Modelo de metodo suponiendo frecuencia "CADA_5_SEGUNDOS"
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        if (frecuencia == FrecuenciaDePago.UNICA_VEZ) {
+            colaborador.sumarPuntos(monto * 0.5);
+            return; // Corta la ejecucion del metodo
+        }
 
-        Runnable task = () -> {
+        Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
-            long segundosPasados = ChronoUnit.SECONDS.between(ultimaActualizacion, ahora);
-            if (segundosPasados >= 5) {
-                colaborador.sumarPuntos(0.5 * monto);
+            long periodosPasados = frecuencia.unidad().between(ultimaActualizacion, ahora);
+            if (periodosPasados >= frecuencia.periodo()) {
+                colaborador.sumarPuntos(monto * 0.5);
                 ultimaActualizacion = ahora;
             }
         };
 
-        // Programa la tarea para que se ejecute cada 5 segundos
-        scheduler.scheduleAtFixedRate(task, 0, 5, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(calculoPuntos, 0, 1, TimeUnit.DAYS);  // Ejecuta una vez por dia, puede ser ineficiente en casos como MENSUAL, SEMESTRAL o ANUAL
     }
 }

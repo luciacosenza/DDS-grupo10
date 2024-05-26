@@ -13,12 +13,14 @@ public class CargarOferta extends Contribucion {
 
     // obtenerDetalles()
     
+    @Override
     public void validarIdentidad(Colaborador colaboradorAspirante) {
         if(!esColaboradorJuridico(colaboradorAspirante)) {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Juridico");
         }
     }
 
+    @Override
     public void accionar() {
         System.out.println(oferta); // Esto es temporal, para que no tire errores. La idea es *agregar la oferta al sistema*
     }

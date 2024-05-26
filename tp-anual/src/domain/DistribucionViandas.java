@@ -24,12 +24,14 @@ public class DistribucionViandas extends Contribucion {
 
     // obtenerDetalles()
     
+    @Override
     public void validarIdentidad(Colaborador colaboradorAspirante) {
         if(!esColaboradorHumano(colaboradorAspirante)) {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
         }
     }
 
+    @Override
     public void accionar() {
         Vianda viandaAux;
 
