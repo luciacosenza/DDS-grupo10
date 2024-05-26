@@ -13,11 +13,11 @@ public class Tarjeta {
         usos = vUsos;
     }
 
-    // usar()
-    
     public PersonaEnSituacionVulnerable getTitular() {
         return titular;
     }
+
+    // usar()
 
     public Integer cantidadUsos() {
         return 4 + 2 * titular.getMenoresACargo();

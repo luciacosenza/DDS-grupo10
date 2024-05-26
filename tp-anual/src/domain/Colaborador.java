@@ -9,10 +9,6 @@ public abstract class Colaborador {
     protected ArrayList<Oferta> beneficiosAdquiridos;
     protected Double puntos;
 
-    // darDeAlta()
-    // darDeBaja()
-    // modificar()
-
     public Ubicacion getDomicilio() {
         return domicilio;
     }
@@ -20,6 +16,10 @@ public abstract class Colaborador {
     public Double getPuntos() {
         return puntos;
     }
+
+    // darDeAlta()
+    // darDeBaja()
+    // modificar()
 
     public void sumarPuntos(Double puntosASumar) {
         puntos += puntosASumar;
