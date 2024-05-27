@@ -1,7 +1,5 @@
 package domain;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class SensorMovimiento extends Sensor {
@@ -12,18 +10,12 @@ public class SensorMovimiento extends Sensor {
         hayMovimiento = false;
     }
     
-    public void agregar(Heladera observer) {
-        heladera = observer;
-    }
-
-    public void eliminar(Heladera observer) {
-        heladera = null;
-    }
-    
+    @Override
     public void notificar() {
         heladera.alertarMovimiento();
     }
     
+    @Override
     public void programarNotificacion() {
         Runnable notificacionMovimiento = () -> {
             if(hayMovimiento == true) {

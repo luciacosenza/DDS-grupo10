@@ -39,15 +39,24 @@ public class Heladera implements HeladeraObserver {
         return activa;
     }
 
-    public void setTempActual(Float temperatura) {
-        tempActual = temperatura;
-        verificarTempActual();
+    public void actualizarEstado(Boolean nuevoEstado) {
+        activa = nuevoEstado;
     }
+
+    // darDeAlta()
+    // darDeBaja()
+    // modificar()
 
     public void verificarTempActual() {
         if (tempActual < tempMin || tempActual > tempMax) {
             alertarTemperatura();
         }
+    }
+
+    @Override
+    public void setTempActual(Float temperatura) {
+        tempActual = temperatura;
+        verificarTempActual();
     }
 
     public void alertarTemperatura() {
@@ -58,12 +67,6 @@ public class Heladera implements HeladeraObserver {
         System.out.println("LA HELADERA SE ESTA MOVIENDO.");    // Idem alertarTemperatura()
     }
 
-    // darDeAlta()
-    // darDeBaja()
-    // modificar()
-
-    // actualizarEstado()
-
     public Vianda retirarVianda() {
         return viandas.remove(0);
     }
@@ -71,7 +74,4 @@ public class Heladera implements HeladeraObserver {
     public void agregarVianda(Vianda vianda) {
         viandas.add(vianda);
     }
-    
-    // alertaMovimiento()
-    // alertaTemperatura()
 }
