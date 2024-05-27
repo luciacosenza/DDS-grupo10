@@ -11,7 +11,7 @@ public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
         tarjetaAsignada = vTarjetaAsignada;
     }
 
-    public Tarjeta tarjetaAsignada() {
+    public Tarjeta getTarjetaAsignada() {
         return tarjetaAsignada;
     }
 

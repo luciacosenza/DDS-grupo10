@@ -1,0 +1,16 @@
+DECISIONES Y CONVENCIONES INTERNAS DE CÓDIGO
+
+-- En el constructor, decidimos ponerle a los parámetros "vAtributo" haciendo referencia a "Valor Atributo", para que queden nombres distintos.
+
+-- Para todo lo referido a números de documento (tanto de dni, pasaporte, cuil, etc) decidimos usar Strings (también para teléfonos y otros tipos).
+
+-- En cuanto al orden de los métodos en las clases, decidimos que:
+    
+    - Primero estén los constructores (cuando aplique).
+    - Segundo, los getters y setters.
+    - Tercero, los métodos simples como similares a setters (como sumar y restar a un atributo), comparadores (de atributos propios con un valor pasado) y modificadores de listas propias (agregar / quitar elemento o clenear).
+    - Por último, el resto.
+
+-- Al resto de métodos, decidimos, en lo posible, agruparlos por contextos en los que son utilizados.
+
+-- A setters y getters, decidimos llamarlos, en su mayoría, getX y setX. Sólo no se llamarán así cuando la expresividad tenga un peso significativo.

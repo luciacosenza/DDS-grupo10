@@ -13,10 +13,6 @@ public class Area {
         y2 = vY2;
     }
 
-    public Boolean estaDentro(Double x, Double y) {
-        return entraEnX(x) && entraEnY(y); 
-    }
-
     private Boolean entraEnX(Double x) {
         return (Math.abs(x) > Math.abs(x1)) && (Math.abs(x) < Math.abs(x2));
     }
@@ -25,4 +21,7 @@ public class Area {
         return (Math.abs(y) > Math.abs(y1)) && (Math.abs(y) < Math.abs(y2));
     }
 
+    public Boolean estaDentro(Double x, Double y) {
+        return entraEnX(x) && entraEnY(y); 
+    }
 }

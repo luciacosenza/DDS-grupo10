@@ -17,21 +17,21 @@ public abstract class Colaborador {
         return puntos;
     }
 
-    // darDeAlta()
-    // darDeBaja()
-    // modificar()
-
     public void sumarPuntos(Double puntosASumar) {
         puntos += puntosASumar;
     }
 
+    public void adquirirBeneficio(Oferta oferta) {
+        beneficiosAdquiridos.add(oferta);
+    }
+
+    // darDeAlta()
+    // darDeBaja()
+    // modificar()
+
     public void colaborar( Contribucion contribucion){
         contribucion.contribuir(this);
         contribuciones.add(contribucion);
-    }
-
-    public void adquirirBeneficio(Oferta oferta) {
-        beneficiosAdquiridos.add(oferta);
     }
 
 }

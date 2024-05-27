@@ -43,6 +43,14 @@ public class Heladera implements HeladeraObserver {
         activa = nuevoEstado;
     }
 
+    public Vianda retirarVianda() {
+        return viandas.remove(0);
+    }
+
+    public void agregarVianda(Vianda vianda) {
+        viandas.add(vianda);
+    }
+
     // darDeAlta()
     // darDeBaja()
     // modificar()
@@ -65,13 +73,5 @@ public class Heladera implements HeladeraObserver {
 
     public void alertarMovimiento(){
         System.out.println("LA HELADERA SE ESTA MOVIENDO.");    // Idem alertarTemperatura()
-    }
-
-    public Vianda retirarVianda() {
-        return viandas.remove(0);
-    }
-
-    public void agregarVianda(Vianda vianda) {
-        viandas.add(vianda);
     }
 }

@@ -1,3 +1,0 @@
--- En el constructor, decidimos ponerle a los parámetros "vAtributo" haciendo referencia a "Valor Atributo", para que queden nombres distintos
-
--- Para todo lo referido a número de documento (tanto de dni, pasaporte, cuil, etc) decidimos usar Strings

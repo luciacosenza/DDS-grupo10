@@ -17,13 +17,13 @@ public class Tarjeta {
         return titular;
     }
 
-    // usar()
+    public void resetUsos() {
+        usos.clear();
+    }
 
     public Integer cantidadUsos() {
         return 4 + 2 * titular.getMenoresACargo();
     }
 
-    public void resetearUsos() {
-        usos.clear();
-    }
+    // usar()
 }

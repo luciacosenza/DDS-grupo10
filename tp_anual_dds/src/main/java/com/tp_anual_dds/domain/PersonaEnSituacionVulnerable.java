@@ -29,9 +29,9 @@ public class PersonaEnSituacionVulnerable {
         tarjeta = tarjetaAsignada;
     }
 
-    // darDeAlta()
-    
     public Boolean poseeMenoresACargo() {
         return menoresACargo > 0;
     }
+
+    // darDeAlta()
 }
