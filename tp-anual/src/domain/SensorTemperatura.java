@@ -1,7 +1,5 @@
 package domain;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class SensorTemperatura extends Sensor {
@@ -11,19 +9,13 @@ public class SensorTemperatura extends Sensor {
         heladera = vHeladera;
         tempActual = 0f;
     }
-    
-    public void agregar(Heladera observer) {
-        heladera = observer;
-    }
 
-    public void eliminar(Heladera observer) {
-        heladera = null;
-    }
-
+    @Override
     public void notificar() {
         heladera.setTempActual(tempActual);
     }
     
+    @Override
     public void programarNotificacion() {
         Runnable notificacionTemperatura = () -> {
             notificar();
