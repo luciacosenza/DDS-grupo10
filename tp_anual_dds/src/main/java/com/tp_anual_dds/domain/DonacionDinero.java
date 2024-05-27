@@ -11,7 +11,6 @@ public class DonacionDinero extends Contribucion {
     private FrecuenciaDePago frecuencia;
     private LocalDateTime ultimaActualizacion;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
     
     enum FrecuenciaDePago { // Tal vez podriamos implementar una clase, para que no quede toda esta logica en DonacionDinero
         SEMANAL {
