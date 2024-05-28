@@ -7,7 +7,7 @@ public class ColaboradorJuridico extends Colaborador {
     private TipoColaboradorJuridico tipo;
     private String rubro;
 
-    enum TipoColaboradorJuridico {
+    public enum TipoColaboradorJuridico {
         GUBERNAMENTAL,
         ONG,
         EMPRESA,

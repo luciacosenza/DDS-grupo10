@@ -7,7 +7,7 @@ public class Oferta {
     private Categoria categoria;
     private String imagen;  // Por ahora es solo un link
     
-    enum Categoria {
+    public enum Categoria {
         GASTRONOMIA,
         ELECTRONICA,
         ARTICULOS_PARA_EL_HOGAR

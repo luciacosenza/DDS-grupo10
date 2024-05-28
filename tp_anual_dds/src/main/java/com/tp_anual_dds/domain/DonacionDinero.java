@@ -12,10 +12,10 @@ public class DonacionDinero extends Contribucion {
     private LocalDateTime ultimaActualizacion;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     
-    enum FrecuenciaDePago { // Tal vez podriamos implementar una clase, para que no quede toda esta logica en DonacionDinero
+    public enum FrecuenciaDePago { // Tal vez podriamos implementar una clase, para que no quede toda esta logica en DonacionDinero
         SEMANAL {
             @Override
-            public long periodo() {
+            public Integer periodo() {
                 return 1;
             }
     
@@ -26,7 +26,7 @@ public class DonacionDinero extends Contribucion {
         },
         MENSUAL {
             @Override
-            public long periodo() {
+            public Integer periodo() {
                 return 1;
             }
     
@@ -37,7 +37,7 @@ public class DonacionDinero extends Contribucion {
         },
         SEMESTRAL {
             @Override
-            public long periodo() {
+            public Integer periodo() {
                 return 6;
             }
     
@@ -47,7 +47,7 @@ public class DonacionDinero extends Contribucion {
             }
         },
         ANUAL {
-            public long periodo() {
+            public Integer periodo() {
                 return 1;
             }
     
@@ -58,7 +58,7 @@ public class DonacionDinero extends Contribucion {
         },
         UNICA_VEZ {
             @Override
-            public long periodo() {
+            public Integer periodo() {
                 return 0;
             }
     
@@ -68,7 +68,7 @@ public class DonacionDinero extends Contribucion {
             }
         };
     
-        public abstract long periodo();
+        public abstract Integer periodo();
         public abstract ChronoUnit unidad();
     }
 
@@ -104,7 +104,7 @@ public class DonacionDinero extends Contribucion {
 
         Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
-            long periodosPasados = frecuencia.unidad().between(ultimaActualizacion, ahora);
+            Long periodosPasados = frecuencia.unidad().between(ultimaActualizacion, ahora);
             if (periodosPasados >= frecuencia.periodo()) {
                 colaborador.sumarPuntos(monto * 0.5);
                 ultimaActualizacion = ahora;

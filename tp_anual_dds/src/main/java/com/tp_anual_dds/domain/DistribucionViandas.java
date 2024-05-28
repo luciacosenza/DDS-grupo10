@@ -8,7 +8,7 @@ public class DistribucionViandas extends Contribucion {
     private Integer cantidadViandasAMover;
     private MotivoDistribucion motivo;
 
-    enum MotivoDistribucion {
+    public enum MotivoDistribucion {
         DESPERFECTO_EN_LA_HELADERA,
         FALTA_DE_VIANDAS_EN_DESTINO
     }

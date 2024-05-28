@@ -1,5 +1,7 @@
 package com.tp_anual_dds.migrador;
 
+import com.tp_anual_dds.domain.*;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -26,15 +28,16 @@ public class Migrador {
         }
     }
 
-    private static void procesarColaboracion(String[] datos) {
-        String tipoDoc = datos[0];
-        String documento = datos[1];
+    private void procesarColaboracion(String[] datos) {
+        Documento documento;
+        Documento.TipoDocumento tipoDoc = Documento.TipoDocumento.convertirATipoDocumento(datos[0]);
+        String numDoc = datos[1];
         String nombre = datos[2];
         String apellido = datos[3];
         String mail = datos[4];
         String fechaColaboracionStr = datos[5];
         String formaColaboracion = datos[6];
-        int cantidad = Integer.parseInt(datos[7]);
+        int cantColabs = Integer.parseInt(datos[7]);
 
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime fechaColaboracion;
@@ -45,5 +48,17 @@ public class Migrador {
             e.printStackTrace();
             return;
         }
+
+        /*
+        
+        ColaboradorHumano colaborador = obtenerUsuario(documento);
+        if (colaborador == null) {
+            colaborador = ColaboradorHumano();
+            enviarCorreoElectronico(colaborador);
+        }
+
+        registrarColaboracion();
+
+        */
     }
 }
