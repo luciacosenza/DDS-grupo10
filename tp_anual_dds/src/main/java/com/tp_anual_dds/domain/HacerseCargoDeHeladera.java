@@ -43,6 +43,6 @@ public class HacerseCargoDeHeladera extends Contribucion {
         };
 
         // Programa la tarea para que se ejecute una vez por dia
-        scheduler.scheduleAtFixedRate(calculoPuntos, 0, 1, TimeUnit.DAYS);
+        scheduler.scheduleAtFixedRate(calculoPuntos, 0, 1, TimeUnit.DAYS);  // Ejecuta una vez por dia, puede ser ineficiente
     }
 }

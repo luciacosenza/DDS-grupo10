@@ -30,7 +30,7 @@ public class Migrador {
 
     private void procesarColaboracion(String[] datos) {
         Documento documento;
-        Documento.TipoDocumento tipoDoc = Documento.TipoDocumento.convertirATipoDocumento(datos[0]);
+        Documento.TipoDocumento tipoDoc = Documento.convertirStrATipoDocumento(datos[0].toLowerCase().replaceAll("\\s+", "").replaceAll("[^a-zA-Z]", ""));
         String numDoc = datos[1];
         String nombre = datos[2];
         String apellido = datos[3];
@@ -51,7 +51,7 @@ public class Migrador {
 
         /*
         
-        ColaboradorHumano colaborador = obtenerUsuario(documento);
+        ColaboradorHumano colaborador = obtenerColaborador(documento);
         if (colaborador == null) {
             colaborador = ColaboradorHumano();
             enviarCorreoElectronico(colaborador);
