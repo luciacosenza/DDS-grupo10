@@ -6,7 +6,7 @@ public class Documento {
     private TipoDocumento tipo;
     private String numero;
     private Sexo sexo;
-    private static final HashMap<String, TipoDocumento> conversorTipoDocumento = new HashMap();
+    private static final HashMap<String, TipoDocumento> conversorTipoDocumento = new HashMap<>(); // Habria que chequear si es correcto que este atributo sea un HashMap, o si tendria que ser una clase que contenga al HashMap con sus propios metodos, etc
     
     public enum TipoDocumento {
         DNI,
