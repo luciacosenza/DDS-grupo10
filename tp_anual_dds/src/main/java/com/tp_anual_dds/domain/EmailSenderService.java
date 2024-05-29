@@ -12,8 +12,8 @@ import javax.mail.PasswordAuthentication;
 
 public class EmailSenderService {
     private final Properties propiedades = new Properties();
-	private final String usuario = "";		// Hay que setear el mail
-	private final String password = "";		// Hay que setear el password
+	private final String usuario = "proyecto.heladeras.solidarias@gmail.com";		
+	private final String password = "ouvh qvor gbmr fbbk";
 	private Session sesion;
 
 	private void init() {
