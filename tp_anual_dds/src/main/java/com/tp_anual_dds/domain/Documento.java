@@ -35,9 +35,9 @@ public class Documento {
         conversorTipoDocumento.put("documentonacionalidentidad", TipoDocumento.DNI);
         conversorTipoDocumento.put("documentonacionaldeidentidad", TipoDocumento.DNI);
 
-        conversorTipoDocumento.put("pasaporte", TipoDocumento.DNI);
         conversorTipoDocumento.put("pp", TipoDocumento.DNI);
         conversorTipoDocumento.put("ppt", TipoDocumento.DNI);
+        conversorTipoDocumento.put("pasaporte", TipoDocumento.DNI);
         conversorTipoDocumento.put("pasaportecomun", TipoDocumento.DNI);
         conversorTipoDocumento.put("pasaporteordinario", TipoDocumento.DNI);
 

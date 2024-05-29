@@ -6,6 +6,4 @@ public class Mail extends MedioDeContacto {
     public Mail(String vDireccionCorreo) {
         direccionCorreo = vDireccionCorreo;
     }
-
-    // enviarMail() { enviarCorreo(texto, direccionCorreo); }
 }

@@ -21,7 +21,6 @@ public class Migrador {
         try (BufferedReader reader = new BufferedReader(new FileReader(csv))) {
             while ((linea = reader.readLine()) != null) {
                 String[] datos = linea.split(separador);
-                procesarColaboracion(datos);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,7 +60,6 @@ public class Migrador {
             // mail.enviarMail();
         }
 
-        // registrarColaboracion();
-        
+        // registrarColaboracion();        
     }
 }
