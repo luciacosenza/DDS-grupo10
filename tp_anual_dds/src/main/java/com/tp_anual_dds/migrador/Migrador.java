@@ -8,13 +8,13 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class Migrador {
-    public void Migrar() {
-        String csv = "archivo.csv";
+    public void Migrar(String csv) {
         String linea;
         String separador = ",";
 
@@ -29,15 +29,20 @@ public class Migrador {
     }
 
     private void procesarColaboracion(String[] datos) {
-        Documento documento;
         Documento.TipoDocumento tipoDoc = Documento.convertirStrATipoDocumento(datos[0].toLowerCase().replaceAll("\\s+", "").replaceAll("[^a-zA-Z]", ""));
         String numDoc = datos[1];
         String nombre = datos[2];
         String apellido = datos[3];
-        String mail = datos[4];
+        String direcMail = datos[4];
         String fechaColaboracionStr = datos[5];
         String formaColaboracion = datos[6];
-        int cantColabs = Integer.parseInt(datos[7]);
+        Integer cantColabs = Integer.valueOf(datos[7]);
+
+        Documento documento = new Documento(tipoDoc, numDoc, null);
+        
+        Mail mail = new Mail(direcMail);
+        ArrayList<MedioDeContacto> contactos = new ArrayList<>();
+        contactos.add(mail);
 
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime fechaColaboracion;
@@ -48,17 +53,15 @@ public class Migrador {
             e.printStackTrace();
             return;
         }
-
-        /*
         
-        ColaboradorHumano colaborador = obtenerColaborador(documento);
+        ColaboradorHumano colaborador = null;   // Deberia ir: "obtenerColaborador(documento, nombre, apellido);" Pero no tenemos forma de implementarlo, dado que todavia no tenemos una database)
+        
         if (colaborador == null) {
-            colaborador = ColaboradorHumano();
-            enviarCorreoElectronico(colaborador);
+            colaborador = new ColaboradorHumano(contactos, null, null, null, nombre, apellido, documento, null);
+            // mail.enviarMail();
         }
 
-        registrarColaboracion();
-
-        */
+        // registrarColaboracion();
+        
     }
 }

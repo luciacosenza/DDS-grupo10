@@ -78,7 +78,7 @@ public class Documento {
         conversorTipoDocumento.put("libretadeenrolamiento",TipoDocumento.LIBRETA_ENROLAMIENTO);
     }
     
-    public Documento(String vNumero, TipoDocumento vTipo, Sexo vSexo) {
+    public Documento(TipoDocumento vTipo, String vNumero, Sexo vSexo) {
         tipo = vTipo;
         numero = vNumero;
         sexo = vSexo;

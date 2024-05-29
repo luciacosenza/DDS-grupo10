@@ -1,5 +1,5 @@
 package com.tp_anual_dds.domain;
 
-public class MedioDeContacto {
+public abstract class MedioDeContacto {
     // Completar
 }
