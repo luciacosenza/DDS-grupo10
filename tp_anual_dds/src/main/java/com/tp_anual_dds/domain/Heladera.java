@@ -68,11 +68,11 @@ public class Heladera implements HeladeraObserver {
     }
 
     public void alertarTemperatura() {
-        System.out.println("La temperatura no esta dentro de los parametros correspondientes.");    // Esto es temporal, simula la notificacion a quienes corresponda, que seguramente sea responsabilidad de un Alertador (a implementar)
+        System.out.println("La temperatura no está dentro de los parámetros correspondientes.");    // Esto es temporal, simula la notificacion a quienes corresponda, que seguramente sea responsabilidad de un Alertador (a implementar)
     }
 
     @Override
     public void alertarMovimiento(){
-        System.out.println("LA HELADERA SE ESTA MOVIENDO.");    // Idem alertarTemperatura()
+        System.out.println("LA HELADERA SE ESTÁ MOVIENDO.");    // Idem alertarTemperatura()
     }
 }

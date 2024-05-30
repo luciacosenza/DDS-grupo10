@@ -20,12 +20,15 @@ public abstract class Contribucion {
         return colaboradorAspirante.getClass() == ColaboradorJuridico.class;
     }
 
-    public abstract void validarIdentidad(Colaborador colaboradorAspirante);
+    public abstract void validarIdentidad();
 
     public abstract void accionar();
+
+    public abstract void calcularPuntos();
     
-    public void contribuir(Colaborador colaboradorAspirante) {
-        validarIdentidad(colaboradorAspirante);
+    public void contribuir() {
+        validarIdentidad();
         accionar();
+        calcularPuntos();
     }
 }

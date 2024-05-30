@@ -14,8 +14,8 @@ public class DonacionVianda extends Contribucion {
     // obtenerDetalles()
     
     @Override
-    public void validarIdentidad(Colaborador colaboradorAspirante) {
-        if(!esColaboradorHumano(colaboradorAspirante)) {
+    public void validarIdentidad() {
+        if(!esColaboradorHumano(colaborador)) {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
         }
     }
@@ -26,7 +26,8 @@ public class DonacionVianda extends Contribucion {
 
     }
 
-    public void calcularPuntos(ColaboradorHumano colaborador) {
+    @Override
+    public void calcularPuntos() {
         colaborador.sumarPuntos(1.5);;
     }
 }

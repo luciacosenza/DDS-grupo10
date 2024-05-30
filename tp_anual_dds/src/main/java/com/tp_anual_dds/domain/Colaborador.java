@@ -1,6 +1,7 @@
 package com.tp_anual_dds.domain;
 
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 public abstract class Colaborador {
     protected ArrayList<MedioDeContacto> mediosDeContacto;
@@ -29,8 +30,9 @@ public abstract class Colaborador {
     // darDeBaja()
     // modificar()
 
-    public void colaborar( Contribucion contribucion){
-        contribucion.contribuir(this);
+    public void colaborar(ContribucionFactory factory, Object... args) {
+        Contribucion contribucion = factory.crearContribucion(this, LocalDateTime.now(), args);
+        contribucion.contribuir();
         contribuciones.add(contribucion);
     }
 

@@ -22,7 +22,7 @@ public class Documento {
         OTRO
     }
 
-    static {
+    static {    // Falta atajar tildes
         conversorTipoDocumento.put("dni", TipoDocumento.DNI);
         conversorTipoDocumento.put("docnacional", TipoDocumento.DNI);
         conversorTipoDocumento.put("docidentidad", TipoDocumento.DNI);

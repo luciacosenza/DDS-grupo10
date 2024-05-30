@@ -21,9 +21,9 @@ public class HacerseCargoDeHeladera extends Contribucion {
     // obtenerDetalles()
     
     @Override
-    public void validarIdentidad(Colaborador colaboradorAspirante) {
-        if(!esColaboradorJuridico(colaboradorAspirante)) {
-            throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Juridico");
+    public void validarIdentidad() {
+        if(!esColaboradorJuridico(colaborador)) {
+            throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Jurídico");
         }
     }
 
@@ -32,7 +32,8 @@ public class HacerseCargoDeHeladera extends Contribucion {
         System.out.println(heladeraObjetivo); // Esto es temporal, para que no tire errores. La logica es *registrar la heladera en el sistema*
     }
 
-    public void calcularPuntos(Colaborador colaborador) {
+    @Override
+    public void calcularPuntos() {
         Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
             long mesesPasados = ChronoUnit.MONTHS.between(ultimaActualizacion, ahora);

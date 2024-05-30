@@ -18,9 +18,13 @@ public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
     // obtenerDetalles()
     
     @Override
-    public void validarIdentidad(Colaborador colaboradorAspirante) {
-        if(!esColaboradorHumano(colaboradorAspirante) && colaboradorAspirante.getDomicilio() == null) {
+    public void validarIdentidad() {
+        if(!esColaboradorHumano(colaborador)) {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
+        }
+        
+        if(colaborador.getDomicilio() == null) {
+            throw new IllegalArgumentException("El colaborador aspirante no posee domicilio. Para Registrar Personas Vulnerables debe actualizar su información.");
         }
     }
 
@@ -30,7 +34,8 @@ public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
         System.out.println(tarjetaAsignada);    // Esto es temporal, para que no tire errores. La idea es *agregar la tarjeta al sistema*
     }
 
-    public void calcularPuntos(ColaboradorHumano colaborador) {
+    @Override
+    public void calcularPuntos() {
         colaborador.sumarPuntos(2d);;
     }
 }

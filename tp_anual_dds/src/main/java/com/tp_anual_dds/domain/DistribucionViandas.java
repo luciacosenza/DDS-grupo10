@@ -25,8 +25,8 @@ public class DistribucionViandas extends Contribucion {
     // obtenerDetalles()
     
     @Override
-    public void validarIdentidad(Colaborador colaboradorAspirante) {
-        if(!esColaboradorHumano(colaboradorAspirante)) {
+    public void validarIdentidad() {
+        if(!esColaboradorHumano(colaborador)) {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
         }
     }
@@ -42,7 +42,8 @@ public class DistribucionViandas extends Contribucion {
         }
     }
 
-    public void calcularPuntos(ColaboradorHumano colaborador) {
-        colaborador.sumarPuntos(Double.valueOf(cantidadViandasAMover));;
+    @Override
+    public void calcularPuntos() {
+        colaborador.sumarPuntos(Double.valueOf(cantidadViandasAMover));
     }
 }
