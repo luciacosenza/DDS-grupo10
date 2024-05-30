@@ -29,7 +29,7 @@ public class EmailSenderService {
         });
 	}
 
-    public static void enviarMail(String receptor, String asunto, String cuerpo) {
+    public static void enviarEMail(String receptor, String asunto, String cuerpo) {
         init();
 
         try {

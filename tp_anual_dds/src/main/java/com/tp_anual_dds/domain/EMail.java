@@ -1,14 +1,14 @@
 package com.tp_anual_dds.domain;
 
-public class Mail extends MedioDeContacto {
+public class EMail extends MedioDeContacto {
     String direccionCorreo;
 
-    public Mail(String vDireccionCorreo) {
+    public EMail(String vDireccionCorreo) {
         direccionCorreo = vDireccionCorreo;
     }
 
     @Override
     public void contactar(String asunto, String cuerpo) {
-        EmailSenderService.enviarMail(direccionCorreo, asunto, cuerpo);
+        EmailSenderService.enviarEMail(direccionCorreo, asunto, cuerpo);
     }
 }

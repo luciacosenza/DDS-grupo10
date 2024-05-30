@@ -14,31 +14,8 @@ import java.util.Map;
 
 
 public class Migrador {
-    public ArrayList<Colaborador> Migrar(String csv) {    // El tipo de retorno es temporal, hasta tener una database (pensamos que lo unico posible por ahora es retornar la lista de colaboradores cargados a quien la pida)
-        String linea;
-        String separador = ",";
-        Colaborador colaborador;
-        ArrayList<Colaborador> colaboradoresAMigrar = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(csv))) {
-            while ((linea = reader.readLine()) != null) {
-                String[] datos = linea.split(separador);
-                colaborador = procesarColaboracion(datos);
-
-                if(colaborador == null) {
-                    continue;
-                }
-
-                colaboradoresAMigrar.add(colaborador);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        // sincronizarContribuciones(colaboradoresAMigrar);
-        return colaboradoresAMigrar;
-    }
-
+    // registrarContribucion()
+    
     private Colaborador procesarColaboracion(String[] datos) {
         Documento.TipoDocumento tipoDoc = Documento.convertirStrATipoDocumento(datos[0].toLowerCase().replaceAll("\\s+", "").replaceAll("[^a-zA-Z]", ""));
         String numDoc = datos[1];
@@ -51,7 +28,7 @@ public class Migrador {
 
         Documento documento = new Documento(tipoDoc, numDoc, null);
         
-        Mail mail = new Mail(direcMail);
+        EMail mail = new EMail(direcMail);
         ArrayList<MedioDeContacto> contactos = new ArrayList<>();
         contactos.add(mail);
 
@@ -109,8 +86,36 @@ public class Migrador {
             mail.contactar(asunto, cuerpo);
         }
 
-        // registrarCContribucion();
+        // registrarContribucion();
 
         return colaborador;
+    }
+
+    // sincronizarContribuciones()
+
+    public ArrayList<Colaborador> migrar(String csv) {    // El tipo de retorno es temporal, hasta tener una database (pensamos que lo unico posible por ahora es retornar la lista de colaboradores cargados a quien la pida)
+        String linea;
+        String separador = ",";
+        Colaborador colaborador;
+        ArrayList<Colaborador> colaboradoresAMigrar = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(csv))) {
+            while ((linea = reader.readLine()) != null) {
+                String[] datos = linea.split(separador);
+                colaborador = procesarColaboracion(datos);
+
+                if(colaborador == null) {
+                    continue;
+                }
+
+                colaboradoresAMigrar.add(colaborador);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        // sincronizarContribuciones(colaboradoresAMigrar);
+        
+        return colaboradoresAMigrar;
     }
 }
