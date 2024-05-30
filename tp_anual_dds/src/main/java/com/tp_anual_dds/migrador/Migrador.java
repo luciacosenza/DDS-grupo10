@@ -14,10 +14,11 @@ import java.util.Map;
 
 
 public class Migrador {
-    public void Migrar(String csv) {
+    public ArrayList<Colaborador> Migrar(String csv) {    // El tipo de retorno es temporal, hasta tener una database (pensamos que lo unico posible por ahora es retornar la lista de colaboradores cargados a quien la pida)
         String linea;
         String separador = ",";
         Colaborador colaborador;
+        ArrayList<Colaborador> colaboradoresAMigrar = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(csv))) {
             while ((linea = reader.readLine()) != null) {
@@ -27,10 +28,15 @@ public class Migrador {
                 if(colaborador == null) {
                     continue;
                 }
+
+                colaboradoresAMigrar.add(colaborador);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        // sincronizarContribuciones(colaboradoresAMigrar);
+        return colaboradoresAMigrar;
     }
 
     private Colaborador procesarColaboracion(String[] datos) {
