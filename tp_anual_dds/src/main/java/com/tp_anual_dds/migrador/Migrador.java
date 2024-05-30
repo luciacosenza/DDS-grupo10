@@ -14,17 +14,17 @@ import java.util.Map;
 
 
 public class Migrador {
-    public String quitarEspacios(String string) {
+    private String quitarEspacios(String string) {
         string = string.replaceAll("\\s+", "");
         return string;
     }
 
-    public String quitarNumericosYEspeciales(String string) {
+    private String quitarNumericosYEspeciales(String string) {
         string = string.replaceAll("[^a-zA-Z]", "");
         return string;
     }
 
-    public Contribucion registrarContribucion(String formaContribucion, Colaborador colaborador, LocalDateTime fechaContribucion) {
+    private Contribucion registrarContribucion(String formaContribucion, Colaborador colaborador, LocalDateTime fechaContribucion) {
         ContribucionFactory factory = ConversorFormaContribucion.convertirStrAContribucionFactory(formaContribucion);
         return factory.crearContribucion(colaborador, fechaContribucion); // POSIBLE ERROR al no enviar argumentos
     }
