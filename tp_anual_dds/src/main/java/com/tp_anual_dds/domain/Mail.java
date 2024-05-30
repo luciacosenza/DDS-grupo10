@@ -6,4 +6,9 @@ public class Mail extends MedioDeContacto {
     public Mail(String vDireccionCorreo) {
         direccionCorreo = vDireccionCorreo;
     }
+
+    @Override
+    public void contactar(String asunto, String cuerpo) {
+        EmailSenderService.enviarMail(direccionCorreo, asunto, cuerpo);
+    }
 }
