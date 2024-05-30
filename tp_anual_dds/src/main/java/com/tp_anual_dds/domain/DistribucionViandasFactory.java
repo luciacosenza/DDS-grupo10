@@ -15,6 +15,6 @@ public class DistribucionViandasFactory implements ContribucionFactory {
             throw new IllegalArgumentException("Argumentos inválidos para realizar una Distribución de Viandas");
         }
         
-        return new DistribucionViandas(colaborador, fechaContribucion, (Heladera) args[0], (Heladera) args[1], (Integer) args[0], (DistribucionViandas.MotivoDistribucion) args[0]);
+        return new DistribucionViandas(colaborador, fechaContribucion, (Heladera) args[0], (Heladera) args[1], (Integer) args[2], (DistribucionViandas.MotivoDistribucion) args[3]);
     }
 }

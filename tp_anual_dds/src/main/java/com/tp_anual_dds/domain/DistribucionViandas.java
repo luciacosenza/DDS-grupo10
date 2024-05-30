@@ -12,7 +12,7 @@ public class DistribucionViandas extends Contribucion {
         DESPERFECTO_EN_LA_HELADERA,
         FALTA_DE_VIANDAS_EN_DESTINO
     }
-
+    
     public DistribucionViandas(Colaborador vColaborador, LocalDateTime vFechaContribucion, Heladera vOrigen, Heladera vDestino, Integer vCantidadViandasAMover, MotivoDistribucion vMotivo) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;

@@ -22,6 +22,10 @@ public abstract class Colaborador {
         puntos += puntosASumar;
     }
 
+    public void agregarContribucion(Contribucion contribucion) {
+        contribuciones.add(contribucion);
+    }
+
     public void adquirirBeneficio(Oferta oferta) {
         beneficiosAdquiridos.add(oferta);
     }
@@ -33,7 +37,6 @@ public abstract class Colaborador {
     public void colaborar(ContribucionFactory factory, Object... args) {
         Contribucion contribucion = factory.crearContribucion(this, LocalDateTime.now(), args);
         contribucion.contribuir();
-        contribuciones.add(contribucion);
+        agregarContribucion(contribucion);
     }
-
 }

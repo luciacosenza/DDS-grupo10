@@ -14,17 +14,33 @@ import java.util.Map;
 
 
 public class Migrador {
-    // registrarContribucion()
+    public String quitarEspacios(String string) {
+        string = string.replaceAll("\\s+", "");
+        return string;
+    }
+
+    public String quitarNumericosYEspeciales(String string) {
+        string = string.replaceAll("[^a-zA-Z]", "");
+        return string;
+    }
+
+    public Contribucion registrarContribucion(String formaContribucion, Colaborador colaborador, LocalDateTime fechaContribucion) {
+        ContribucionFactory factory = ConversorFormaContribucion.convertirStrAContribucionFactory(formaContribucion);
+        return factory.crearContribucion(colaborador, fechaContribucion); // POSIBLE ERROR al no enviar argumentos
+    }
     
     private Colaborador procesarColaboracion(String[] datos) {
-        Documento.TipoDocumento tipoDoc = Documento.convertirStrATipoDocumento(datos[0].toLowerCase().replaceAll("\\s+", "").replaceAll("[^a-zA-Z]", ""));
+        String tipoDocStr = datos[0];
         String numDoc = datos[1];
         String nombre = datos[2];
         String apellido = datos[3];
         String direcMail = datos[4];
-        String fechaColaboracionStr = datos[5];
-        String formaColaboracion = datos[6];
+        String fechaContribucionStr = datos[5];
+        String formaContribucion = datos[6];
         Integer cantColabs = Integer.valueOf(datos[7]);
+
+        String tipoDocStrCleaned = quitarEspacios(quitarNumericosYEspeciales(tipoDocStr));
+        Documento.TipoDocumento tipoDoc = ConversorTipoDocumento.convertirStrATipoDocumento(tipoDocStrCleaned);
 
         Documento documento = new Documento(tipoDoc, numDoc, null);
         
@@ -33,9 +49,10 @@ public class Migrador {
         contactos.add(mail);
 
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDateTime fechaColaboracion;
+        LocalDateTime fechaContribucion;
+        
         try {
-            fechaColaboracion = LocalDateTime.parse(fechaColaboracionStr, dateFormat);
+            fechaContribucion = LocalDateTime.parse(fechaContribucionStr, dateFormat);
 
         } catch (DateTimeParseException e) {
             e.printStackTrace();
@@ -86,12 +103,14 @@ public class Migrador {
             mail.contactar(asunto, cuerpo);
         }
 
-        // registrarContribucion();
-
+        for(Integer i = 0; i < cantColabs; i++){
+            Contribucion contribucion = registrarContribucion(formaContribucion, colaborador, fechaContribucion);
+            colaborador.agregarContribucion(contribucion);
+        }
         return colaborador;
     }
 
-    // sincronizarContribuciones()
+    // sincronizarContribuciones() no hara falta, dado que cuando tengamos una database, esta hara que cada Colaborador sea unico
 
     public ArrayList<Colaborador> migrar(String csv) {    // El tipo de retorno es temporal, hasta tener una database (pensamos que lo unico posible por ahora es retornar la lista de colaboradores cargados a quien la pida)
         String linea;
