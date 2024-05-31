@@ -9,9 +9,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class Migrador {
     private String quitarEspacios(String string) {
@@ -112,7 +109,7 @@ public class Migrador {
 
     // sincronizarContribuciones() no hara falta, dado que cuando tengamos una database, esta hara que cada Colaborador sea unico
 
-    public ArrayList<Colaborador> migrar(String csv) {    // El tipo de retorno es temporal, hasta tener una database (pensamos que lo unico posible por ahora es retornar la lista de colaboradores cargados a quien la pida)
+    public ArrayList<Colaborador> migrar(String csv) {    // El tipo de retorno (una lista de colaboradores) es temporal, hasta tener una database (pensamos que lo unico posible, por ahora, es retornar la lista de colaboradores cargados a quien la pida)
         String linea;
         String separador = ",";
         Colaborador colaborador;
@@ -134,6 +131,7 @@ public class Migrador {
         }
         
         // sincronizarContribuciones(colaboradoresAMigrar);
+        // Lo que haria este metodo es impedir que exista un "mismo" colaborador duplicado pero con distintas contribuciones, juntando todas las contribuciones de un mismo colaborador en un mismo objeto y eliminando el resto 
         
         return colaboradoresAMigrar;
     }
