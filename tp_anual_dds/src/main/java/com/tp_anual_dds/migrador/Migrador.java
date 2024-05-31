@@ -11,6 +11,12 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Migrador {
+    public static ProtocoloStrategy protocolo;
+
+    public static void setStrategy(ProtocoloStrategy protocoloStrategy) {
+        protocolo = protocoloStrategy;
+    }
+
     private static String quitarEspacios(String string) {
         string = string.replaceAll("\\s+", "");
         return string;
