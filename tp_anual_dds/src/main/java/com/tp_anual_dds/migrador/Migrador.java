@@ -11,22 +11,22 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Migrador {
-    private String quitarEspacios(String string) {
+    private static String quitarEspacios(String string) {
         string = string.replaceAll("\\s+", "");
         return string;
     }
 
-    private String quitarNumericosYEspeciales(String string) {
+    private static String quitarNumericosYEspeciales(String string) {
         string = string.replaceAll("[^a-zA-Z]", "");
         return string;
     }
 
-    private Contribucion registrarContribucion(String formaContribucion, Colaborador colaborador, LocalDateTime fechaContribucion) {
+    private static Contribucion registrarContribucion(String formaContribucion, Colaborador colaborador, LocalDateTime fechaContribucion) {
         ContribucionFactory factory = ConversorFormaContribucion.convertirStrAContribucionFactory(formaContribucion);
         return factory.crearContribucion(colaborador, fechaContribucion); // POSIBLE ERROR al no enviar argumentos
     }
     
-    private Colaborador procesarColaboracion(String[] datos) {
+    private static Colaborador procesarColaboracion(String[] datos) {
         String tipoDocStr = datos[0];
         String numDoc = datos[1];
         String nombre = datos[2];
@@ -107,9 +107,9 @@ public class Migrador {
         return colaborador;
     }
 
-    // sincronizarContribuciones() no hara falta, dado que cuando tengamos una database, esta hara que cada Colaborador sea unico
+    // private static ArrayList<Colaborador> sincronizarContribuciones() no hara falta, dado que cuando tengamos una database, esta hara que cada Colaborador sea unico
 
-    public ArrayList<Colaborador> migrar(String csv) {    // El tipo de retorno (una lista de colaboradores) es temporal, hasta tener una database (pensamos que lo unico posible, por ahora, es retornar la lista de colaboradores cargados a quien la pida)
+    public static ArrayList<Colaborador> migrar(String csv) {    // El tipo de retorno (una lista de colaboradores) es temporal, hasta tener una database (pensamos que lo unico posible, por ahora, es retornar la lista de colaboradores cargados a quien la pida)
         String linea;
         String separador = ",";
         Colaborador colaborador;
