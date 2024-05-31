@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Migrador {
-    public static ProtocoloStrategy protocolo;
+    public static ProtocoloStrategy protocolo = new CsvStrategy();
 
     public static void setStrategy(ProtocoloStrategy protocoloStrategy) {
         protocolo = protocoloStrategy;
