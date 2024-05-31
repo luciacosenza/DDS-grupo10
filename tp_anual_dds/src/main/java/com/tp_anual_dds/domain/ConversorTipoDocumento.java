@@ -22,6 +22,8 @@ public class ConversorTipoDocumento {
         conversorTipoDocumento.put("documentonacionalidentidad", TipoDocumento.DNI);
         conversorTipoDocumento.put("documentonacionaldeidentidad", TipoDocumento.DNI);
 
+        // Esto queda comentado porque no aparece entre las opciones de Tipo Doc en el enunciado de Migracion
+
         /*
         conversorTipoDocumento.put("pp", TipoDocumento.DNI);
         conversorTipoDocumento.put("ppt", TipoDocumento.DNI);
@@ -29,6 +31,8 @@ public class ConversorTipoDocumento {
         conversorTipoDocumento.put("pasaportecomun", TipoDocumento.DNI);
         conversorTipoDocumento.put("pasaporteordinario", TipoDocumento.DNI);
         */
+
+        // Esto queda comentado porque no aparece entre las opciones de Tipo Doc en el enunciado de Migracion
 
         /*
         conversorTipoDocumento.put("licconducir",TipoDocumento.LICENCIA_CONDUCIR);
