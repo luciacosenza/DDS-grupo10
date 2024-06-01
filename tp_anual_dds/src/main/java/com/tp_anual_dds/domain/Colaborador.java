@@ -30,6 +30,20 @@ public abstract class Colaborador {
         beneficiosAdquiridos.add(oferta);
     }
 
+    public <T extends MedioDeContacto> T getContacto(Class<T> tipoMedioDeContacto) {    // Con este metodo, suponemos que el Colaborador no puede tener mas de un medioDeContacto del mismo tipo
+        if (!MedioDeContacto.class.isAssignableFrom(tipoMedioDeContacto)) {
+            throw new IllegalArgumentException("No está buscando un medio de contacto válido");
+        }
+
+        for (MedioDeContacto contacto : mediosDeContacto) {
+            if (tipoMedioDeContacto.isInstance(contacto)) {
+                return tipoMedioDeContacto.cast(contacto);
+            }
+        }
+
+        return null;
+    }
+
     // darDeAlta()
     // darDeBaja()
     // modificar()

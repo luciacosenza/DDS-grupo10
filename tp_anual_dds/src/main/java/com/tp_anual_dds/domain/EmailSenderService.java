@@ -1,7 +1,6 @@
 package com.tp_anual_dds.domain;
 
 import java.util.Properties;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;

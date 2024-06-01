@@ -2,70 +2,18 @@ package com.tp_anual_dds.migrador;
 
 import com.tp_anual_dds.domain.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Migrador {
-    public static ProtocoloStrategy protocolo = new CsvStrategy();
+    public static ProtocoloExtraccion protocoloExtraccion = new ProtocoloCSV();
 
-    public static void setStrategy(ProtocoloStrategy protocoloStrategy) {
-        protocolo = protocoloStrategy;
-    }
-
-    private static String quitarEspacios(String string) {
-        string = string.replaceAll("\\s+", "");
-        return string;
-    }
-
-    private static String quitarNumericosYEspeciales(String string) {
-        string = string.replaceAll("[^a-zA-Z]", "");
-        return string;
-    }
-
-    private static Contribucion registrarContribucion(String formaContribucion, Colaborador colaborador, LocalDateTime fechaContribucion) {
-        ContribucionFactory factory = ConversorFormaContribucion.convertirStrAContribucionFactory(formaContribucion);
-        return factory.crearContribucion(colaborador, fechaContribucion); // POSIBLE ERROR al no enviar argumentos
+    public static void setStrategy(ProtocoloExtraccion protocolo) {
+        protocoloExtraccion = protocolo;
     }
     
-    private static Colaborador procesarColaboracion(String[] datos) {
-        String tipoDocStr = datos[0];
-        String numDoc = datos[1];
-        String nombre = datos[2];
-        String apellido = datos[3];
-        String direcMail = datos[4];
-        String fechaContribucionStr = datos[5];
-        String formaContribucion = datos[6];
-        Integer cantColabs = Integer.valueOf(datos[7]);
-
-        String tipoDocStrCleaned = quitarEspacios(quitarNumericosYEspeciales(tipoDocStr));
-        Documento.TipoDocumento tipoDoc = ConversorTipoDocumento.convertirStrATipoDocumento(tipoDocStrCleaned);
-
-        Documento documento = new Documento(tipoDoc, numDoc, null);
-        
-        EMail mail = new EMail(direcMail);
-        ArrayList<MedioDeContacto> contactos = new ArrayList<>();
-        contactos.add(mail);
-
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDateTime fechaContribucion;
-        
-        try {
-            fechaContribucion = LocalDateTime.parse(fechaContribucionStr, dateFormat);
-
-        } catch (DateTimeParseException e) {
-            e.printStackTrace();
-            return null;
-        }
-        
-        ColaboradorHumano colaborador = null;   // Deberia ir: "obtenerColaborador(documento, nombre, apellido);" Pero no tenemos forma de implementarlo, dado que todavia no tenemos una database)
-        
-        if (colaborador == null) {
-            colaborador = new ColaboradorHumano(contactos, null, null, null, nombre, apellido, documento, null);
+    private static void enviarMail(ColaboradorHumano colaborador) {
+            
+            EMail eMail = colaborador.getContacto(EMail.class);
 
             String asunto = "Gracias por tu apoyo! Aquí están tus credenciales de acceso al nuevo sistema";
             String cuerpo =
@@ -101,39 +49,18 @@ public class Migrador {
             [Nombre de la ONG]
             [Datos de Contacto de la ONG]
             """
-            .formatted(nombre, direcMail);
+            .formatted(colaborador.getNombre(), eMail);
             
-            mail.contactar(asunto, cuerpo);
-        }
-
-        for(Integer i = 0; i < cantColabs; i++){
-            Contribucion contribucion = registrarContribucion(formaContribucion, colaborador, fechaContribucion);
-            colaborador.agregarContribucion(contribucion);
-        }
-        return colaborador;
+            eMail.contactar(asunto, cuerpo);
     }
 
     // private static ArrayList<Colaborador> sincronizarContribuciones() no hara falta, dado que cuando tengamos una database, esta hara que cada Colaborador sea unico
 
-    public static ArrayList<Colaborador> migrar(String csv) {    // El tipo de retorno (una lista de colaboradores) es temporal, hasta tener una database (pensamos que lo unico posible, por ahora, es retornar la lista de colaboradores cargados a quien la pida)
-        String linea;
-        String separador = ",";
-        Colaborador colaborador;
-        ArrayList<Colaborador> colaboradoresAMigrar = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(csv))) {
-            while ((linea = reader.readLine()) != null) {
-                String[] datos = linea.split(separador);
-                colaborador = procesarColaboracion(datos);
-
-                if(colaborador == null) {
-                    continue;
-                }
-
-                colaboradoresAMigrar.add(colaborador);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static ArrayList<ColaboradorHumano> migrar(String csv) {    // El tipo de retorno (una lista de colaboradores) es temporal, hasta tener una database (pensamos que lo unico posible, por ahora, es retornar la lista de colaboradores cargados a quien la pida)
+        ArrayList<ColaboradorHumano> colaboradoresAMigrar = protocoloExtraccion.extract(csv);
+        
+        for(ColaboradorHumano colaborador : colaboradoresAMigrar) {
+            enviarMail(colaborador);
         }
         
         // sincronizarContribuciones(colaboradoresAMigrar);

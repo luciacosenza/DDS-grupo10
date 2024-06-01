@@ -19,4 +19,8 @@ public class ColaboradorHumano extends Colaborador {
         documento = vDocumento;
         fechaNacimiento = vFechaNacimiento;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
 }

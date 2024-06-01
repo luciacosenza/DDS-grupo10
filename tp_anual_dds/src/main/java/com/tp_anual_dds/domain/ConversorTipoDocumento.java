@@ -1,8 +1,8 @@
 package com.tp_anual_dds.domain;
 
-import java.util.HashMap;
-
 import com.tp_anual_dds.domain.Documento.TipoDocumento;
+
+import java.util.HashMap;
 
 // Esto existe suponiendo que hay que normalizar la entrada del campo "Tipo Doc" del csv (si ya estan normalizados, no haria falta)
 // A los conversores les pasamos los strings: en minuscula, solo con caracteres alfabeticos (removiendo numericos y especiales) y sin espacios
