@@ -5,9 +5,7 @@ import java.time.LocalDateTime;
 
 public class Heladera implements HeladeraObserver {
     private String nombre;
-    private String direccion;
-    private Double longitud;
-    private Double latitud;
+    private Ubicacion ubicacion;
     private ArrayList<Vianda> viandas;
     private Integer capacidad;
     private LocalDateTime fechaApertura;
@@ -17,11 +15,9 @@ public class Heladera implements HeladeraObserver {
     private Boolean activa;
 
 
-    public Heladera(String vNombre, String vDireccion, Double vLongitud, Double vLatitud, ArrayList<Vianda> vViandas, Integer vCapacidad, LocalDateTime vFechaApertura, Float vTempMin, Float vTempMax) {
+    public Heladera(String vNombre, Ubicacion vUbicacion, ArrayList<Vianda> vViandas, Integer vCapacidad, LocalDateTime vFechaApertura, Float vTempMin, Float vTempMax) {
         nombre = vNombre;
-        direccion = vDireccion;
-        longitud = vLongitud;
-        latitud = vLatitud;
+        ubicacion = vUbicacion;
         viandas = vViandas;
         capacidad = vCapacidad;
         fechaApertura = vFechaApertura;
