@@ -4,13 +4,16 @@ import com.tp_anual_dds.domain.Documento.TipoDocumento;
 
 import java.util.HashMap;
 
-// Esto existe suponiendo que hay que normalizar la entrada del campo "Tipo Doc" del csv (si ya estan normalizados, no haria falta)
 // A los conversores les pasamos los strings: en minuscula, solo con caracteres alfabeticos (removiendo numericos y especiales) y sin espacios
 public class ConversorTipoDocumento {
     private static final HashMap<String, TipoDocumento> conversorTipoDocumento = new HashMap<>();
 
-    static {    // Falta atajar tildes en cada caso
+    static {
         conversorTipoDocumento.put("dni", TipoDocumento.DNI);
+        
+        // Esto queda comentado, eran opciones para atajar la falta de normalizacion (aguardamos respuesta sobre si incluirlos o borrarlos)
+        
+        /* 
         conversorTipoDocumento.put("docnacional", TipoDocumento.DNI);
         conversorTipoDocumento.put("docidentidad", TipoDocumento.DNI);
         conversorTipoDocumento.put("docdeidentidad", TipoDocumento.DNI);
@@ -21,6 +24,8 @@ public class ConversorTipoDocumento {
         conversorTipoDocumento.put("documentodeidentidad", TipoDocumento.DNI);
         conversorTipoDocumento.put("documentonacionalidentidad", TipoDocumento.DNI);
         conversorTipoDocumento.put("documentonacionaldeidentidad", TipoDocumento.DNI);
+        */
+
 
         // Esto queda comentado porque no aparece entre las opciones de Tipo Doc en el enunciado de Migracion
 
@@ -31,6 +36,7 @@ public class ConversorTipoDocumento {
         conversorTipoDocumento.put("pasaportecomun", TipoDocumento.DNI);
         conversorTipoDocumento.put("pasaporteordinario", TipoDocumento.DNI);
         */
+
 
         // Esto queda comentado porque no aparece entre las opciones de Tipo Doc en el enunciado de Migracion
 
@@ -61,19 +67,35 @@ public class ConversorTipoDocumento {
         conversorTipoDocumento.put("registrodemanejo",TipoDocumento.LICENCIA_CONDUCIR);
         */
 
+
         conversorTipoDocumento.put("lc",TipoDocumento.LIBRETA_CIVICA);
+        
+        // Esto queda comentado, eran opciones para atajar la falta de normalizacion (aguardamos respuesta sobre si incluirlos o borrarlos)
+
+        /*
         conversorTipoDocumento.put("libciv",TipoDocumento.LIBRETA_CIVICA);
         conversorTipoDocumento.put("libcivica",TipoDocumento.LIBRETA_CIVICA);
         conversorTipoDocumento.put("libretaciv",TipoDocumento.LIBRETA_CIVICA);
         conversorTipoDocumento.put("libretacivica",TipoDocumento.LIBRETA_CIVICA);
+        */
+
 
         conversorTipoDocumento.put("le",TipoDocumento.LIBRETA_ENROLAMIENTO);
+        
+        // Esto queda comentado, eran opciones para atajar la falta de normalizacion (aguardamos respuesta sobre si incluirlos o borrarlos)
+
+        /*
         conversorTipoDocumento.put("libenrolamiento",TipoDocumento.LIBRETA_ENROLAMIENTO);
         conversorTipoDocumento.put("libretaenrolamiento",TipoDocumento.LIBRETA_ENROLAMIENTO);
         conversorTipoDocumento.put("libretadeenrolamiento",TipoDocumento.LIBRETA_ENROLAMIENTO);
+        */
     }
 
     public static TipoDocumento convertirStrATipoDocumento(String tipoDocumentoStr) {
-        return conversorTipoDocumento.get(tipoDocumentoStr);
+        TipoDocumento tipoDocumento = conversorTipoDocumento.get(tipoDocumentoStr);
+        if (tipoDocumento == null) {
+            System.out.println("Tipo de documento no válido");
+        }
+        return tipoDocumento;
     }
 }
