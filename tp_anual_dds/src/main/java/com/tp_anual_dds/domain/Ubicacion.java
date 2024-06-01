@@ -7,9 +7,9 @@ public class Ubicacion {
     String ciudad;
     String pais;
 
-    public Ubicacion(Double vLongitud, Double vLatitud, String vDireccion, String vCiudad, String vPais) {
+    public Ubicacion(Double vLatitud, Double vLongitud, String vDireccion, String vCiudad, String vPais) {
+        vLongitud = vLatitud;
         longitud = vLongitud;
-        latitud = vLatitud;
         direccion = vDireccion;
         ciudad = vCiudad;
         pais = vPais;
