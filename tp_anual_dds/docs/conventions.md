@@ -1,7 +1,7 @@
 # Decisiones y Convenciones Internas de Código
 
-## Nombres de Parámetros en el Constructor
-- En el constructor, decidimos ponerle a los parámetros **`vAtributo`** haciendo referencia a "Valor Atributo", para que queden nombres distintos.
+## Nombres de Parámetros en los Constructores
+- En los Constructores, decidimos ponerle a los parámetros **`vAtributo`** haciendo referencia a "Valor Atributo", para que queden nombres distintos.
 
 ## Tipo de Datos para Documentos
 - Para todo lo referido a números de documento (tanto de **DNI**, **Pasaporte**, **CUIL**, etc.) decidimos usar **Strings** (también para teléfonos y otros tipos).
