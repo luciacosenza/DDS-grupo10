@@ -1,6 +1,7 @@
 package com.tp_anual_dds.migrador;
 
-import com.tp_anual_dds.domain.*;
+import com.tp_anual_dds.domain.ColaboradorHumano;
+import com.tp_anual_dds.domain.EMail;
 
 import java.util.ArrayList;
 

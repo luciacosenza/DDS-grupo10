@@ -1,9 +1,9 @@
 package com.tp_anual_dds.migrador;
 
+import com.tp_anual_dds.conversores.ConversorFormaContribucion;
 import com.tp_anual_dds.domain.ColaboradorHumano;
 import com.tp_anual_dds.domain.Contribucion;
 import com.tp_anual_dds.domain.ContribucionCreator;
-import com.tp_anual_dds.domain.ConversorFormaContribucion;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

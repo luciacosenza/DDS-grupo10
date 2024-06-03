@@ -1,11 +1,11 @@
 package com.tp_anual_dds.migrador;
 
+import com.tp_anual_dds.conversores.ConversorTipoDocumento;
 import com.tp_anual_dds.domain.ColaboradorHumano;
 import com.tp_anual_dds.domain.Contribucion;
 import com.tp_anual_dds.domain.Documento;
 import com.tp_anual_dds.domain.MedioDeContacto;
 import com.tp_anual_dds.domain.EMail;
-import com.tp_anual_dds.domain.ConversorTipoDocumento;
 
 import java.util.ArrayList;
 import java.time.LocalDateTime;

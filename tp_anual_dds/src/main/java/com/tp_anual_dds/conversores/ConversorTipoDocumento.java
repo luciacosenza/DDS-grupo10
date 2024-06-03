@@ -1,4 +1,4 @@
-package com.tp_anual_dds.domain;
+package com.tp_anual_dds.conversores;
 
 import com.tp_anual_dds.domain.Documento.TipoDocumento;
 
