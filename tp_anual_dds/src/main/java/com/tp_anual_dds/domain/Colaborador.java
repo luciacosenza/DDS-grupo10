@@ -48,8 +48,8 @@ public abstract class Colaborador {
     // darDeBaja()
     // modificar()
 
-    public void colaborar(ContribucionFactory factory, Object... args) {
-        Contribucion contribucion = factory.crearContribucion(this, LocalDateTime.now(), args);
+    public void colaborar(ContribucionCreator creator, Object... args) {
+        Contribucion contribucion = creator.crearContribucion(this, LocalDateTime.now(), args);
         contribucion.contribuir();
         agregarContribucion(contribucion);
     }

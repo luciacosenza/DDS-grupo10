@@ -2,7 +2,7 @@ package com.tp_anual_dds.domain;
 
 import java.time.LocalDateTime;
 
-public class DistribucionViandasFactory implements ContribucionFactory {
+public class DistribucionViandasCreator implements ContribucionCreator {
     @Override
     public Contribucion crearContribucion(Colaborador colaborador, LocalDateTime fechaContribucion, Object... args) {
         if (args.length != 4 ||

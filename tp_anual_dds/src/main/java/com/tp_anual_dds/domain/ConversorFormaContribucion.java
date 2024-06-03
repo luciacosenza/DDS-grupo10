@@ -4,77 +4,77 @@ import java.util.HashMap;
 
 // A los conversores les pasamos los strings: en minuscula, solo con caracteres alfabeticos (removiendo numericos y especiales) y sin espacios
 public class ConversorFormaContribucion {
-    private static final HashMap<String, ContribucionFactory> conversorFormaContribucion = new HashMap<>();
+    private static final HashMap<String, ContribucionCreator> conversorFormaContribucion = new HashMap<>();
 
     static {
-        conversorFormaContribucion.put("dinero", new DonacionDineroFactory());
+        conversorFormaContribucion.put("dinero", new DonacionDineroCreator());
         
         // Esto queda comentado, eran opciones para atajar la falta de normalizacion (aguardamos respuesta sobre si incluirlos o borrarlos)
 
         /* 
-        conversorFormaContribucion.put("donardinero", new DonacionDineroFactory());
-        conversorFormaContribucion.put("donaciondinero", new DonacionDineroFactory());
-        conversorFormaContribucion.put("donaciondedinero", new DonacionDineroFactory());
+        conversorFormaContribucion.put("donardinero", new DonacionDineroCreator());
+        conversorFormaContribucion.put("donaciondinero", new DonacionDineroCreator());
+        conversorFormaContribucion.put("donaciondedinero", new DonacionDineroCreator());
         */
 
 
-        conversorFormaContribucion.put("donacionviandas", new DonacionViandaFactory());
+        conversorFormaContribucion.put("donacionviandas", new DonacionViandaCreator());
         
         // Esto queda comentado, eran opciones para atajar la falta de normalizacion (aguardamos respuesta sobre si incluirlos o borrarlos)
 
         /* 
-        conversorFormaContribucion.put("donarvianda", new DonacionViandaFactory());
-        conversorFormaContribucion.put("donarviandas", new DonacionViandaFactory());
-        conversorFormaContribucion.put("donacionvianda", new DonacionViandaFactory());
-        conversorFormaContribucion.put("donaciondevianda", new DonacionViandaFactory());
-        conversorFormaContribucion.put("donaciondeviandas", new DonacionViandaFactory());
+        conversorFormaContribucion.put("donarvianda", new DonacionViandaCreator());
+        conversorFormaContribucion.put("donarviandas", new DonacionViandaCreator());
+        conversorFormaContribucion.put("donacionvianda", new DonacionViandaCreator());
+        conversorFormaContribucion.put("donaciondevianda", new DonacionViandaCreator());
+        conversorFormaContribucion.put("donaciondeviandas", new DonacionViandaCreator());
         */
 
 
-        conversorFormaContribucion.put("redistribucionviandas", new DistribucionViandasFactory());
+        conversorFormaContribucion.put("redistribucionviandas", new DistribucionViandasCreator());
 
         // Esto queda comentado, eran opciones para atajar la falta de normalizacion (aguardamos respuesta sobre si incluirlos o borrarlos)
             
         /* 
-        conversorFormaContribucion.put("distribuirvianda", new DistribucionViandasFactory());
-        conversorFormaContribucion.put("distribuirviandas", new DistribucionViandasFactory());
-        conversorFormaContribucion.put("redistribuirvianda", new DistribucionViandasFactory());
-        conversorFormaContribucion.put("redistribuirviandas", new DistribucionViandasFactory());
-        conversorFormaContribucion.put("distribucionvianda", new DistribucionViandasFactory());
-        conversorFormaContribucion.put("distribucionviandas", new DistribucionViandasFactory());
-        conversorFormaContribucion.put("distribuciondevianda", new DistribucionViandasFactory());
-        conversorFormaContribucion.put("distribuciondeviandas", new DistribucionViandasFactory());
-        conversorFormaContribucion.put("redistribucionvianda", new DistribucionViandasFactory());
-        conversorFormaContribucion.put("redistribuciondevianda", new DistribucionViandasFactory());
-        conversorFormaContribucion.put("redistribuciondeviandas", new DistribucionViandasFactory());
+        conversorFormaContribucion.put("distribuirvianda", new DistribucionViandasCreator());
+        conversorFormaContribucion.put("distribuirviandas", new DistribucionViandasCreator());
+        conversorFormaContribucion.put("redistribuirvianda", new DistribucionViandasCreator());
+        conversorFormaContribucion.put("redistribuirviandas", new DistribucionViandasCreator());
+        conversorFormaContribucion.put("distribucionvianda", new DistribucionViandasCreator());
+        conversorFormaContribucion.put("distribucionviandas", new DistribucionViandasCreator());
+        conversorFormaContribucion.put("distribuciondevianda", new DistribucionViandasCreator());
+        conversorFormaContribucion.put("distribuciondeviandas", new DistribucionViandasCreator());
+        conversorFormaContribucion.put("redistribucionvianda", new DistribucionViandasCreator());
+        conversorFormaContribucion.put("redistribuciondevianda", new DistribucionViandasCreator());
+        conversorFormaContribucion.put("redistribuciondeviandas", new DistribucionViandasCreator());
         */
 
 
-        conversorFormaContribucion.put("entregatarjetas", new RegistroDePersonaEnSituacionVulnerableFactory());
+        conversorFormaContribucion.put("entregatarjetas", new RegistroDePersonaEnSituacionVulnerableCreator());
 
         // Esto queda comentado, eran opciones para atajar la falta de normalizacion (aguardamos respuesta sobre si incluirlos o borrarlos)
 
         /* 
-        conversorFormaContribucion.put("entregatarjeta", new RegistroDePersonaEnSituacionVulnerableFactory());
-        conversorFormaContribucion.put("entregartarjeta", new RegistroDePersonaEnSituacionVulnerableFactory());
-        conversorFormaContribucion.put("entregartarjetas", new RegistroDePersonaEnSituacionVulnerableFactory());
-        conversorFormaContribucion.put("registrarpersonavulnerable", new RegistroDePersonaEnSituacionVulnerableFactory());
-        conversorFormaContribucion.put("registrarpersonaensitvulnerable", new RegistroDePersonaEnSituacionVulnerableFactory());
-        conversorFormaContribucion.put("registrarpersonaensituacionvulnerable", new RegistroDePersonaEnSituacionVulnerableFactory());
-        conversorFormaContribucion.put("registropersonavulnerable", new RegistroDePersonaEnSituacionVulnerableFactory());
-        conversorFormaContribucion.put("registropersonaensitvulnerable", new RegistroDePersonaEnSituacionVulnerableFactory());
-        conversorFormaContribucion.put("registropersonaensituacionvulnerable", new RegistroDePersonaEnSituacionVulnerableFactory());
-        conversorFormaContribucion.put("registrodepersonavulnerable", new RegistroDePersonaEnSituacionVulnerableFactory());
-        conversorFormaContribucion.put("registrodepersonaensitvulnerable", new RegistroDePersonaEnSituacionVulnerableFactory());
-        conversorFormaContribucion.put("registrodepersonaensituacionvulnerable", new RegistroDePersonaEnSituacionVulnerableFactory());
+        conversorFormaContribucion.put("entregatarjeta", new RegistroDePersonaEnSituacionVulnerableCreator());
+        conversorFormaContribucion.put("entregartarjeta", new RegistroDePersonaEnSituacionVulnerableCreator());
+        conversorFormaContribucion.put("entregartarjetas", new RegistroDePersonaEnSituacionVulnerableCreator());
+        conversorFormaContribucion.put("registrarpersonavulnerable", new RegistroDePersonaEnSituacionVulnerableCreator());
+        conversorFormaContribucion.put("registrarpersonaensitvulnerable", new RegistroDePersonaEnSituacionVulnerableCreator());
+        conversorFormaContribucion.put("registrarpersonaensituacionvulnerable", new RegistroDePersonaEnSituacionVulnerableCreator());
+        conversorFormaContribucion.put("registropersonavulnerable", new RegistroDePersonaEnSituacionVulnerableCreator());
+        conversorFormaContribucion.put("registropersonaensitvulnerable", new RegistroDePersonaEnSituacionVulnerableCreator());
+        conversorFormaContribucion.put("registropersonaensituacionvulnerable", new RegistroDePersonaEnSituacionVulnerableCreator());
+        conversorFormaContribucion.put("registrodepersonavulnerable", new RegistroDePersonaEnSituacionVulnerableCreator());
+        conversorFormaContribucion.put("registrodepersonaensitvulnerable", new RegistroDePersonaEnSituacionVulnerableCreator());
+        conversorFormaContribucion.put("registrodepersonaensituacionvulnerable", new RegistroDePersonaEnSituacionVulnerableCreator());
         */
     }
 
-    public static ContribucionFactory convertirStrAContribucionFactory(String formaContribucionStr) {
-        ContribucionFactory factory = conversorFormaContribucion.get(formaContribucionStr);
-        if (factory == null) {
+    public static ContribucionCreator convertirStrAContribucionCreator(String formaContribucionStr) {
+        ContribucionCreator creator = conversorFormaContribucion.get(formaContribucionStr);
+        if (creator == null) {
             System.out.println("Forma de contribución no válida");
         }
-        return factory;
+        return creator;
     }
 }

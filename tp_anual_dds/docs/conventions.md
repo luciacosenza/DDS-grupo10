@@ -19,3 +19,23 @@
 ## Convenciones de Nombres para Getters y Setters
 - A setters y getters, decidimos llamarlos, en su mayoría, **`getX`** y **`setX`**.
 - Sólo no se llamarán así cuando la expresividad tenga un peso significativo.
+
+## Nombres de Interfaces y Clases al usar Patrones de Diseño
+- Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuando sea necesario, llevarán el nombre de la clase con la que se relacionan + el rol que tomen en el uso de ese Patrón.
+  - **OBSERVER**
+    - **Observer**
+      - HeladeraObserver Interface
+    - **Subject**
+      - SensorSubject Interface
+  - **FACTORY**
+    - **Creator**
+      - ContribucionCreator Interface
+      - CargaOfertaCreator Class
+      - DistribucionViandasCreator Class
+      - DonacionDineroCreator Class
+      - DonacionViandaCreator Class
+      - HacerseCargoDeHeladeraCreator Class
+      - RegistroDePersonaEnSituacionVulnerableCreator Class
+  - **STRATEGY**
+    - **Strategy**
+      - ProtocoloExtraccionStrategy Interface
