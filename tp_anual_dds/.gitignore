@@ -21,3 +21,6 @@ target/**
 
 # vscode Folder
 .vscode/
+
+# idea Folder
+.idea/
