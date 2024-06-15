@@ -36,6 +36,7 @@ public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
 
     @Override
     public void calcularPuntos() {
-        colaborador.sumarPuntos(2d);;
+        Double multiplicadorPuntos = 2d;
+        colaborador.sumarPuntos(multiplicadorPuntos);;
     }
 }

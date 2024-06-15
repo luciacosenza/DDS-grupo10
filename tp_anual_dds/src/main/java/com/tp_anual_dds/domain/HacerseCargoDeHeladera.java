@@ -34,11 +34,13 @@ public class HacerseCargoDeHeladera extends Contribucion {
 
     @Override
     public void calcularPuntos() {
+        Double multiplicadorPuntos = 5d;
+        
         Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
             long mesesPasados = ChronoUnit.MONTHS.between(ultimaActualizacion, ahora);
             if (mesesPasados >= 1 && heladeraObjetivo.estaActiva()) {
-                colaborador.sumarPuntos(5d);
+                colaborador.sumarPuntos(multiplicadorPuntos);
                 ultimaActualizacion = ahora;
             }
         };

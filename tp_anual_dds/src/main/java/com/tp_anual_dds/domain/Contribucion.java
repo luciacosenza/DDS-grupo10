@@ -6,7 +6,7 @@ public abstract class Contribucion {
     protected Colaborador colaborador;
     protected LocalDateTime fechaContribucion;
 
-    public LocalDateTime getFechaContribucion(){
+    public LocalDateTime getFechaContribucion() {
         return fechaContribucion;
     }
 
