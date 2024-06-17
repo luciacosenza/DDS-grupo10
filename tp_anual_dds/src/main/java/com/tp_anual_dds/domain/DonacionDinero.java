@@ -83,21 +83,21 @@ public class DonacionDinero extends Contribucion {
     // obtenerDetalles()
     
     @Override
-    public void validarIdentidad() {
+    protected void validarIdentidad() {
         if(!(esColaboradorHumano(colaborador) || esColaboradorJuridico(colaborador))) {
             throw new IllegalArgumentException("El colaborador aspirante debe ser Humano o Jurídico");
         }
     }
 
     @Override
-    public void accionar() {
+    protected void accionar() {
         System.out.println(monto);
         System.out.println(frecuencia);
         // Esto es temporal, para que no tire errores. La logica es *registrar la donacion en el sistema*
     }
 
     @Override
-    public void calcularPuntos() {
+    protected void calcularPuntos() {
         Double multiplicadorPuntos = 0.5;
         
         if (frecuencia == FrecuenciaDePago.UNICA_VEZ) {

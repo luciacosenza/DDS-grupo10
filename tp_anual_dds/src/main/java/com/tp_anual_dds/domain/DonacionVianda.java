@@ -14,20 +14,20 @@ public class DonacionVianda extends Contribucion {
     // obtenerDetalles()
     
     @Override
-    public void validarIdentidad() {
+    protected void validarIdentidad() {
         if(!esColaboradorHumano(colaborador)) {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
         }
     }
 
     @Override
-    public void accionar() {
+    protected void accionar() {
         System.out.println(vianda); // Esto es temporal, para que no tire errores. La logica es *registrar la vianda en el sistema*
 
     }
 
     @Override
-    public void calcularPuntos() {
+    protected void calcularPuntos() {
         Double multiplicadorPuntos = 1.5;
         
         colaborador.sumarPuntos(multiplicadorPuntos);;

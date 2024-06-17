@@ -21,19 +21,19 @@ public class HacerseCargoDeHeladera extends Contribucion {
     // obtenerDetalles()
     
     @Override
-    public void validarIdentidad() {
+    protected void validarIdentidad() {
         if(!esColaboradorJuridico(colaborador)) {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Jurídico");
         }
     }
 
     @Override
-    public void accionar() {
+    protected void accionar() {
         System.out.println(heladeraObjetivo); // Esto es temporal, para que no tire errores. La logica es *registrar la heladera en el sistema*
     }
 
     @Override
-    public void calcularPuntos() {
+    protected void calcularPuntos() {
         Double multiplicadorPuntos = 5d;
         
         Runnable calculoPuntos = () -> {

@@ -12,19 +12,19 @@ public abstract class Contribucion {
 
     // obtenerDetalles()
 
-    public Boolean esColaboradorHumano(Colaborador colaboradorAspirante) {
+    protected Boolean esColaboradorHumano(Colaborador colaboradorAspirante) {
         return colaboradorAspirante.getClass() == ColaboradorHumano.class;
     }
 
-    public Boolean esColaboradorJuridico(Colaborador colaboradorAspirante) {
+    protected Boolean esColaboradorJuridico(Colaborador colaboradorAspirante) {
         return colaboradorAspirante.getClass() == ColaboradorJuridico.class;
     }
 
-    public abstract void validarIdentidad();
+    protected abstract void validarIdentidad();
 
-    public abstract void accionar();
+    protected abstract void accionar();
 
-    public abstract void calcularPuntos();
+    protected abstract void calcularPuntos();
     
     public void contribuir() {
         validarIdentidad();

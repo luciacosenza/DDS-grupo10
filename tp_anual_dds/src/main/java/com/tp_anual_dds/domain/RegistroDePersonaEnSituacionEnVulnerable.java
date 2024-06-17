@@ -18,7 +18,7 @@ public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
     // obtenerDetalles()
     
     @Override
-    public void validarIdentidad() {
+    protected void validarIdentidad() {
         if(!esColaboradorHumano(colaborador)) {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
         }
@@ -29,13 +29,13 @@ public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
     }
 
     @Override
-    public void accionar() {
+    protected void accionar() {
         tarjetaAsignada.getTitular().setTarjeta(tarjetaAsignada);
         System.out.println(tarjetaAsignada);    // Esto es temporal, para que no tire errores. La idea es *agregar la tarjeta al sistema*
     }
 
     @Override
-    public void calcularPuntos() {
+    protected void calcularPuntos() {
         Double multiplicadorPuntos = 2d;
         colaborador.sumarPuntos(multiplicadorPuntos);;
     }

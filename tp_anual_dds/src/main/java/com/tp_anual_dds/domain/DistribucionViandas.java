@@ -25,14 +25,14 @@ public class DistribucionViandas extends Contribucion {
     // obtenerDetalles()
     
     @Override
-    public void validarIdentidad() {
+    protected void validarIdentidad() {
         if(!esColaboradorHumano(colaborador)) {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
         }
     }
 
     @Override
-    public void accionar() {
+    protected void accionar() {
         Vianda viandaAux;
 
         for(Integer i = 0; i < cantidadViandasAMover || origen.getViandas().isEmpty(); i++) {
@@ -43,7 +43,7 @@ public class DistribucionViandas extends Contribucion {
     }
 
     @Override
-    public void calcularPuntos() {
+    protected void calcularPuntos() {
         colaborador.sumarPuntos(Double.valueOf(cantidadViandasAMover));
     }
 }
