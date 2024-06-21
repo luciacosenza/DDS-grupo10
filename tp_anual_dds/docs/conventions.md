@@ -24,18 +24,23 @@ A setters y getters, decidimos llamarlos, en su mayoría, **`getX`** y **`setX`*
 Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuando sea necesario, llevarán el nombre de la clase con la que se relacionan + el rol que tomen en el uso de ese Patrón.
 - **OBSERVER**
   - **Observer**
-    - HeladeraObserver Interface
+    - HeladeraObserver (*Interface*)
   - **Subject**
-    - SensorSubject Interface
+    - SensorSubject (*Interface*)
 - **FACTORY**
   - **Creator**
-    - ContribucionCreator Interface
-    - CargaOfertaCreator Class
-    - DistribucionViandasCreator Class
-    - DonacionDineroCreator Class
-    - DonacionViandaCreator Class
-    - HacerseCargoDeHeladeraCreator Class
-    - RegistroDePersonaEnSituacionVulnerableCreator Class
+      - En **Contribucion**:
+        - ContribucionCreator (*Interface*)
+        - CargaOfertaCreator (*Class*)
+        - DistribucionViandasCreator (*Class*)
+        - DonacionDineroCreator (*Class*)
+        - DonacionViandaCreator (*Class*)
+        - HacerseCargoDeHeladeraCreator (*Class*)
+        - RegistroDePersonaEnSituacionVulnerableCreator (*Class*)
+      - En **Tarjeta**:
+        - TarjetaCreator (*Interface*)
+        - TarjetaColaboradorCreator (*Class*)
+        - TarjetaPersonaEnSituacionVulnerable (*Class*)
 - **STRATEGY**
   - **Strategy**
-    - ExtraccionDatosStrategy Interface
+    - ExtraccionDatosStrategy (*Interface*)
