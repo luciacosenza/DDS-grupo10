@@ -4,6 +4,6 @@ import com.tp_anual_dds.domain.ColaboradorHumano;
 
 import java.util.ArrayList;
 
-public interface ExtraccionDatosStrategy {
+public interface ExtraccionDeDatosStrategy {
     public ArrayList<ColaboradorHumano> extract(String archivo);
 }

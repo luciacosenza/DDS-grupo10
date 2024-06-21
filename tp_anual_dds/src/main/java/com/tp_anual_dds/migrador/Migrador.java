@@ -1,14 +1,14 @@
 package com.tp_anual_dds.migrador;
 
+import java.util.ArrayList;
+
 import com.tp_anual_dds.domain.ColaboradorHumano;
 import com.tp_anual_dds.domain.EMail;
 
-import java.util.ArrayList;
-
 public class Migrador {
-    public static ExtraccionDatos protocoloExtraccion = new ExtraccionCSV();
+    public static ExtraccionDeDatos protocoloExtraccion = new ExtraccionCSV();
 
-    public static void setStrategy(ExtraccionDatos protocolo) {
+    public static void setStrategy(ExtraccionDeDatos protocolo) {
         protocoloExtraccion = protocolo;
     }
     

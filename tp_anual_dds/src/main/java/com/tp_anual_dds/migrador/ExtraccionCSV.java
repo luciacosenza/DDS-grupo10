@@ -15,7 +15,7 @@ import com.tp_anual_dds.domain.Documento;
 import com.tp_anual_dds.domain.EMail;
 import com.tp_anual_dds.domain.MedioDeContacto;
 
-public class ExtraccionCSV extends ExtraccionDatos {
+public class ExtraccionCSV extends ExtraccionDeDatos {
     @Override
     public ArrayList<ColaboradorHumano> extract(String csv) {
         String linea;

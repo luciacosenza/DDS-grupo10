@@ -8,7 +8,7 @@ import com.tp_anual_dds.domain.ColaboradorHumano;
 import com.tp_anual_dds.domain.Contribucion;
 import com.tp_anual_dds.domain.ContribucionCreator;
 
-public abstract class ExtraccionDatos implements ExtraccionDatosStrategy {
+public abstract class ExtraccionDeDatos implements ExtraccionDeDatosStrategy {
     @Override
     public abstract ArrayList<ColaboradorHumano> extract(String archivo);
 
