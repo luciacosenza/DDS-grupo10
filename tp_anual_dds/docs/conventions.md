@@ -22,25 +22,56 @@ A setters y getters, decidimos llamarlos, en su mayoría, **`getX`** y **`setX`*
 
 ## Nombres de Interfaces y Clases al usar Patrones de Diseño
 Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuando sea necesario, llevarán el nombre de la clase con la que se relacionan + el rol que tomen en el uso de ese Patrón.
+
 - **OBSERVER**
-  - **Observer**
-    - HeladeraObserver (*Interface*)
-  - **Subject**
-    - SensorSubject (*Interface*)
-- **FACTORY**
-  - **Creator**
-      - En **Contribucion**:
-        - ContribucionCreator (*Interface*)
-        - CargaOfertaCreator (*Class*)
-        - DistribucionViandasCreator (*Class*)
-        - DonacionDineroCreator (*Class*)
-        - DonacionViandaCreator (*Class*)
-        - HacerseCargoDeHeladeraCreator (*Class*)
-        - RegistroDePersonaEnSituacionVulnerableCreator (*Class*)
-      - En **Tarjeta**:
-        - TarjetaCreator (*Interface*)
-        - TarjetaColaboradorCreator (*Class*)
-        - TarjetaPersonaEnSituacionVulnerable (*Class*)
+  - En **Heladera**
+    - **Observer**
+      - HeladeraObserver (*Interface*)
+      - Heladera (*Class*)
+    - **Subject**
+      - SensorSubject (*Interface*)
+      - Sensor (*Abstract Class*)
+      - SensorMovimiento (*Class*)
+      - SensorTemperatura (*Class*)
+
+- **FACTORY METHOD**
+  - En **Contribucion**
+    - **Creator**
+      - ContribucionCreator (*Interface*)
+      - CargaOfertaCreator (*Class*)
+      - DistribucionViandasCreator (*Class*)
+      - DonacionDineroCreator (*Class*)
+      - DonacionViandaCreator (*Class*)
+      - HacerseCargoDeHeladeraCreator (*Class*)
+      - RegistroDePersonaEnSituacionVulnerableCreator (*Class*)
+    - **Product**
+      - Contribucion (*Abstract Class*)
+      - CargaOferta (*Class*)
+      - DistribucionViandas (*Class*)
+      - DonacionDinero (*Class*)
+      - DonacionVianda (*Class*)
+      - HacerseCargoDeHeladera (*Class*)
+      - RegistroDePersonaEnSituacionVulnerable (*Class*)
+  - En **Tarjeta**:
+    - **Creator**
+      - TarjetaCreator (*Interface*)
+      - TarjetaColaboradorCreator (*Class*)
+      - TarjetaPersonaEnSituacionVulnerable (*Class*)
+    - **Product**
+      - Tarjeta (*Abstract Class*)
+      - TarjetaColaborador (*Class*)
+      - TarjetaPersonaEnSituacionVulnerable (*Class*)
+
 - **STRATEGY**
-  - **Strategy**
-    - ExtraccionDatosStrategy (*Interface*)
+  - En **Migrador**
+    - **Strategy**
+      - En **ExtraccionDeDatos**:
+        - ExtraccionDatosStrategy (*Interface*)
+        - ExtraccionDeDatos (*Abstract Class*)
+        - ExtraccionCSV (*Class*)
+      - En **EnvioDeDatos**:
+        - EnvioDeDatosStrategy (*Interface*)
+        - EnvioDeDatos (*Abstract Class*)
+        - EnvioEMail (*Class*)
+    - **Context**
+      - Migrador (*Class*)

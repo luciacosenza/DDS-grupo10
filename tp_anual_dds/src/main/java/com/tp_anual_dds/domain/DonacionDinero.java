@@ -98,10 +98,10 @@ public class DonacionDinero extends Contribucion {
 
     @Override
     protected void calcularPuntos() {
-        final Double multiplicadorPuntos = 0.5;
+        final Double MULTIPLICADOR_PUNTOS = 0.5;
         
         if (frecuencia == FrecuenciaDePago.UNICA_VEZ) {
-            colaborador.sumarPuntos(monto * multiplicadorPuntos);
+            colaborador.sumarPuntos(monto * MULTIPLICADOR_PUNTOS);
             return; // Corta la ejecucion del metodo
         }
 
@@ -109,7 +109,7 @@ public class DonacionDinero extends Contribucion {
             LocalDateTime ahora = LocalDateTime.now();
             Long periodosPasados = frecuencia.unidad().between(ultimaActualizacion, ahora);
             if (periodosPasados >= frecuencia.periodo()) {
-                colaborador.sumarPuntos(monto * multiplicadorPuntos);
+                colaborador.sumarPuntos(monto * MULTIPLICADOR_PUNTOS);
                 ultimaActualizacion = ahora;
             }
         };

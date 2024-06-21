@@ -28,8 +28,8 @@ public class DonacionVianda extends Contribucion {
 
     @Override
     protected void calcularPuntos() {
-        final Double multiplicadorPuntos = 1.5;
+        final Double MULTIPLICADOR_PUNTOS = 1.5;
         
-        colaborador.sumarPuntos(multiplicadorPuntos);;
+        colaborador.sumarPuntos(MULTIPLICADOR_PUNTOS);;
     }
 }

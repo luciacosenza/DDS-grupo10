@@ -3,21 +3,13 @@ package com.tp_anual_dds.migrador;
 import java.util.ArrayList;
 
 import com.tp_anual_dds.domain.ColaboradorHumano;
-import com.tp_anual_dds.domain.EMail;
 
 public class Migrador {
-    public static ExtraccionDeDatos protocoloExtraccion = new ExtraccionCSV();
+    private static ExtraccionDeDatos protocoloExtraccion = new ExtraccionCSV();
+    private static EnvioDeDatos protocoloEnvio = new EnvioEMail();
 
-    public static void setStrategy(ExtraccionDeDatos protocolo) {
-        protocoloExtraccion = protocolo;
-    }
-    
-    private static void enviarMail(ColaboradorHumano colaborador) {
-            
-            EMail eMail = colaborador.getContacto(EMail.class);
-
-            String asunto = "Gracias por tu apoyo! Aquí están tus credenciales de acceso al nuevo sistema";
-            String cuerpo =
+    private static final String ASUNTO = "Gracias por tu apoyo! Aquí están tus credenciales de acceso al nuevo sistema";
+    private static final String CUERPO =
             """
             Estimado/a %s,
 
@@ -49,19 +41,23 @@ public class Migrador {
             [Cargo]
             [Nombre de la ONG]
             [Datos de Contacto de la ONG]
-            """
-            .formatted(colaborador.getNombre(), eMail);
-            
-            eMail.contactar(asunto, cuerpo);
+            """;
+
+    public static void setExtraccionDeDatosStrategy(ExtraccionDeDatos protocolo) {
+        protocoloExtraccion = protocolo;
+    }
+    
+    public static void setEnvioDeDatosStrategy(EnvioDeDatos protocolo) {
+        protocoloEnvio = protocolo;
     }
 
     // private static ArrayList<Colaborador> sincronizarContribuciones() no hara falta, dado que cuando tengamos una database, esta hara que cada Colaborador sea unico
 
-    public static ArrayList<ColaboradorHumano> migrar(String csv) {    // El tipo de retorno (una lista de colaboradores) es temporal, hasta tener una database (pensamos que lo unico posible, por ahora, es retornar la lista de colaboradores cargados a quien la pida)
+    public static ArrayList<ColaboradorHumano> migrar(String csv) {     // El tipo de retorno (una lista de colaboradores) es temporal, hasta tener una database (pensamos que lo unico posible, por ahora, es retornar la lista de colaboradores cargados a quien la pida)
         ArrayList<ColaboradorHumano> colaboradoresAMigrar = protocoloExtraccion.extract(csv);
         
         for(ColaboradorHumano colaborador : colaboradoresAMigrar) {
-            enviarMail(colaborador);
+            protocoloEnvio.send(colaborador, ASUNTO, CUERPO);
         }
         
         // sincronizarContribuciones(colaboradoresAMigrar);
