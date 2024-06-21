@@ -6,9 +6,9 @@ import com.tp_anual_dds.domain.EMail;
 import java.util.ArrayList;
 
 public class Migrador {
-    public static ProtocoloExtraccion protocoloExtraccion = new ProtocoloCSV();
+    public static ExtraccionDatos protocoloExtraccion = new ExtraccionCSV();
 
-    public static void setStrategy(ProtocoloExtraccion protocolo) {
+    public static void setStrategy(ExtraccionDatos protocolo) {
         protocoloExtraccion = protocolo;
     }
     

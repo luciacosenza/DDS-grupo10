@@ -1,21 +1,22 @@
 package com.tp_anual_dds.migrador;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+
 import com.tp_anual_dds.conversores.ConversorTipoDocumento;
 import com.tp_anual_dds.domain.ColaboradorHumano;
 import com.tp_anual_dds.domain.Contribucion;
 import com.tp_anual_dds.domain.Documento;
-import com.tp_anual_dds.domain.MedioDeContacto;
 import com.tp_anual_dds.domain.EMail;
+import com.tp_anual_dds.domain.MedioDeContacto;
 
-import java.util.ArrayList;
-import java.time.LocalDateTime;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.time.format.DateTimeFormatter;
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
-
-public class ProtocoloCSV extends ProtocoloExtraccion {
+public class ExtraccionCSV extends ExtraccionDatos {
+    @Override
     public ArrayList<ColaboradorHumano> extract(String csv) {
         String linea;
         String separador = ",";

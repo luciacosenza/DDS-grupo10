@@ -38,4 +38,4 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
     - RegistroDePersonaEnSituacionVulnerableCreator Class
 - **STRATEGY**
   - **Strategy**
-    - ProtocoloExtraccionStrategy Interface
+    - ExtraccionDatosStrategy Interface

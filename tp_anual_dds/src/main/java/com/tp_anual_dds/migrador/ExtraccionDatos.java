@@ -1,14 +1,15 @@
 package com.tp_anual_dds.migrador;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 import com.tp_anual_dds.conversores.ConversorFormaContribucion;
 import com.tp_anual_dds.domain.ColaboradorHumano;
 import com.tp_anual_dds.domain.Contribucion;
 import com.tp_anual_dds.domain.ContribucionCreator;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
-public abstract class ProtocoloExtraccion implements ProtocoloExtraccionStrategy {
+public abstract class ExtraccionDatos implements ExtraccionDatosStrategy {
+    @Override
     public abstract ArrayList<ColaboradorHumano> extract(String archivo);
 
     protected abstract ColaboradorHumano procesarColaborador(String[] datos);
