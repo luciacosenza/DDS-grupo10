@@ -9,7 +9,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.PasswordAuthentication;
 
-public class EmailSenderService {
+public class EMailSenderService {
     private static final Properties propiedades = new Properties();
 	private static final String usuario = "proyecto.heladeras.solidarias@gmail.com";		
 	private static final String password = "ouvh qvor gbmr fbbk";

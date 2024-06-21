@@ -9,6 +9,6 @@ public class EMail extends MedioDeContacto {
 
     @Override
     public void contactar(String asunto, String cuerpo) {
-        EmailSenderService.enviarEMail(direccionCorreo, asunto, cuerpo);
+        EMailSenderService.enviarEMail(direccionCorreo, asunto, cuerpo);
     }
 }
