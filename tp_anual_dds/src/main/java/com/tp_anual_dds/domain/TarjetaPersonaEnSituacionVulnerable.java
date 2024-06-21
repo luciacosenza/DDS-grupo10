@@ -11,6 +11,10 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
         titular = vTitular;
     }
 
+    public PersonaEnSituacionVulnerable getTitular() {
+        return titular;
+    }
+
     @Override
     public Boolean puedeUsar() {
         return cantidadUsos() < 4 + 2 * titular.getMenoresACargo();

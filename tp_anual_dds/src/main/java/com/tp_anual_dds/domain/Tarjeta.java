@@ -5,12 +5,7 @@ import java.util.ArrayList;
 public abstract class Tarjeta {
     protected String codigo;
     protected ArrayList<UsoTarjeta> usos;
-    private PersonaEnSituacionVulnerable titular;
-
-    public PersonaEnSituacionVulnerable getTitular() {
-        return titular;
-    }
-
+    
     public void agregarUso(UsoTarjeta uso) {
         usos.add(uso);
     }

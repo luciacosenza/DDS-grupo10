@@ -11,6 +11,10 @@ public class TarjetaColaborador extends Tarjeta {
         titular = vTitular;
     }
 
+    public ColaboradorHumano getTitular() {
+        return titular;
+    }
+
     @Override
     public Boolean puedeUsar() {
         return true; // Se puede definir alguna lógica especifica si es necesario.
