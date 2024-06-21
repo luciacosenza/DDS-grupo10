@@ -98,7 +98,7 @@ public class DonacionDinero extends Contribucion {
 
     @Override
     protected void calcularPuntos() {
-        Double multiplicadorPuntos = 0.5;
+        final Double multiplicadorPuntos = 0.5;
         
         if (frecuencia == FrecuenciaDePago.UNICA_VEZ) {
             colaborador.sumarPuntos(monto * multiplicadorPuntos);

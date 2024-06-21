@@ -34,7 +34,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
 
     @Override
     protected void calcularPuntos() {
-        Double multiplicadorPuntos = 5d;
+        final Double multiplicadorPuntos = 5d;
         
         Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
