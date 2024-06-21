@@ -2,19 +2,17 @@ package com.tp_anual_dds.domain;
 
 import java.util.ArrayList;
 
-public class Tarjeta {
-    private String codigo;
+public abstract class Tarjeta {
+    protected String codigo;
+    protected ArrayList<UsoTarjeta> usos;
     private PersonaEnSituacionVulnerable titular;
-    private ArrayList<UsoTarjeta> usos;
-
-    public Tarjeta(String vCodigo, PersonaEnSituacionVulnerable vTitular, ArrayList<UsoTarjeta> vUsos) {
-        codigo = vCodigo;
-        titular = vTitular;
-        usos = vUsos;
-    }
 
     public PersonaEnSituacionVulnerable getTitular() {
         return titular;
+    }
+
+    public void agregarUso(UsoTarjeta uso) {
+        usos.add(uso);
     }
 
     public void resetUsos() {
@@ -22,8 +20,10 @@ public class Tarjeta {
     }
 
     public Integer cantidadUsos() {
-        return 4 + 2 * titular.getMenoresACargo();
+        return usos.size();
     }
+
+    public abstract Boolean puedeUsar();
 
     // usar()
 }

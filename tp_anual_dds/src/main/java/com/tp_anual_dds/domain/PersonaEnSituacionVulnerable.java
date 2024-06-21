@@ -9,23 +9,26 @@ public class PersonaEnSituacionVulnerable {
     private Documento documento;
     private Ubicacion domicilio;
     private Integer menoresACargo;
-    private Tarjeta tarjeta;    // tarjetaNuleada (ningun metodo hace algo pero los conoce, para tener polimorfismo)
+    private TarjetaPersonaEnSituacionVulnerable tarjeta;    // tarjetaNuleada (ningun metodo hace algo pero los conoce, para tener polimorfismo)
 
-    public PersonaEnSituacionVulnerable(String vNombre, LocalDateTime vFechaNacimiento, LocalDateTime vFechaRegistro, Documento vDocumento, Ubicacion vDomicilio, Integer vMenoresACargo, Tarjeta vTarjeta) {
+    public PersonaEnSituacionVulnerable(String vNombre, LocalDateTime vFechaNacimiento, LocalDateTime vFechaRegistro, Documento vDocumento, Ubicacion vDomicilio, Integer vMenoresACargo) {
         nombre = vNombre;
         fechaNacimiento = vFechaNacimiento;
         fechaRegistro = vFechaRegistro;
         documento = vDocumento;
         domicilio = vDomicilio;
         menoresACargo = vMenoresACargo;
-        tarjeta = null; // Temporal
     }
 
     public Integer getMenoresACargo() {
         return menoresACargo;
     }
 
-    public void setTarjeta(Tarjeta tarjetaAsignada) {
+    public TarjetaPersonaEnSituacionVulnerable getTarjeta() {
+        return tarjeta;
+    }
+
+    public void setTarjeta(TarjetaPersonaEnSituacionVulnerable tarjetaAsignada) {
         tarjeta = tarjetaAsignada;
     }
 

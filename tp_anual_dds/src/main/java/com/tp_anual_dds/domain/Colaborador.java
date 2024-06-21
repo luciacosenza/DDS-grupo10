@@ -1,7 +1,7 @@
 package com.tp_anual_dds.domain;
 
-import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public abstract class Colaborador {
     protected ArrayList<MedioDeContacto> mediosDeContacto;

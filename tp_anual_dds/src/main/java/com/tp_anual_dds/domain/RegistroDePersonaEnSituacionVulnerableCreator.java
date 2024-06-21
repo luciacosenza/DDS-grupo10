@@ -9,6 +9,6 @@ public class RegistroDePersonaEnSituacionVulnerableCreator implements Contribuci
             throw new IllegalArgumentException("Argumentos inválidos para Registrar una Persona Vulnerable");
         }
         
-        return new RegistroDePersonaEnSituacionEnVulnerable(colaborador, fechaContribucion, (Tarjeta) args[0]);
+        return new RegistroDePersonaEnSituacionEnVulnerable(colaborador, fechaContribucion, (TarjetaPersonaEnSituacionVulnerable) args[0]);
     }
 }

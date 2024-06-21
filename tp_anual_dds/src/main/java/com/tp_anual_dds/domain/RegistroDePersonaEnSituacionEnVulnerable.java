@@ -3,9 +3,9 @@ package com.tp_anual_dds.domain;
 import java.time.LocalDateTime;
 
 public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
-    private Tarjeta tarjetaAsignada;
+    private TarjetaPersonaEnSituacionVulnerable tarjetaAsignada;
     
-    public RegistroDePersonaEnSituacionEnVulnerable(Colaborador vColaborador, LocalDateTime vFechaContribucion, Tarjeta vTarjetaAsignada) {
+    public RegistroDePersonaEnSituacionEnVulnerable(Colaborador vColaborador, LocalDateTime vFechaContribucion, TarjetaPersonaEnSituacionVulnerable vTarjetaAsignada) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
         tarjetaAsignada = vTarjetaAsignada;
