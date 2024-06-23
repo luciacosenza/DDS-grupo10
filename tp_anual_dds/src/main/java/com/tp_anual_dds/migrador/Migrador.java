@@ -2,7 +2,7 @@ package com.tp_anual_dds.migrador;
 
 import java.util.ArrayList;
 
-import com.tp_anual_dds.domain.ColaboradorHumano;
+import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 
 public class Migrador {
     private static EnvioDeDatos protocoloEnvio = new EnvioEMail();

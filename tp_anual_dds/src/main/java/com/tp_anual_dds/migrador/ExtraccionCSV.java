@@ -9,11 +9,11 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import com.tp_anual_dds.conversores.ConversorTipoDocumento;
-import com.tp_anual_dds.domain.ColaboradorHumano;
-import com.tp_anual_dds.domain.Contribucion;
-import com.tp_anual_dds.domain.Documento;
-import com.tp_anual_dds.domain.EMail;
-import com.tp_anual_dds.domain.MedioDeContacto;
+import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
+import com.tp_anual_dds.domain.contacto.EMail;
+import com.tp_anual_dds.domain.contacto.MedioDeContacto;
+import com.tp_anual_dds.domain.contribuciones.Contribucion;
+import com.tp_anual_dds.domain.documento.Documento;
 
 public class ExtraccionCSV extends ExtraccionDeDatos {
     @Override

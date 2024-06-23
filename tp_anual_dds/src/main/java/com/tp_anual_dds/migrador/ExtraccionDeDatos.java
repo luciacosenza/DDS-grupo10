@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.tp_anual_dds.conversores.ConversorFormaContribucion;
-import com.tp_anual_dds.domain.ColaboradorHumano;
-import com.tp_anual_dds.domain.Contribucion;
-import com.tp_anual_dds.domain.ContribucionCreator;
+import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
+import com.tp_anual_dds.domain.contribuciones.Contribucion;
+import com.tp_anual_dds.domain.contribuciones.ContribucionCreator;
 
 public abstract class ExtraccionDeDatos implements ExtraccionDeDatosStrategy {
     @Override

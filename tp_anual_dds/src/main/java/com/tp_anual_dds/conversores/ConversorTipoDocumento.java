@@ -1,8 +1,8 @@
 package com.tp_anual_dds.conversores;
 
-import com.tp_anual_dds.domain.Documento.TipoDocumento;
-
 import java.util.HashMap;
+
+import com.tp_anual_dds.domain.documento.Documento.TipoDocumento;
 
 // A los conversores les pasamos los strings: en minuscula, solo con caracteres alfabeticos (removiendo numericos y especiales) y sin espacios
 public class ConversorTipoDocumento {

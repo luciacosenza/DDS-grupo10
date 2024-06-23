@@ -1,7 +1,7 @@
 package com.tp_anual_dds.migrador;
 
-import com.tp_anual_dds.domain.ColaboradorHumano;
-import com.tp_anual_dds.domain.EMail;
+import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
+import com.tp_anual_dds.domain.contacto.EMail;
 
 public class EnvioEMail extends EnvioDeDatos {
     @Override

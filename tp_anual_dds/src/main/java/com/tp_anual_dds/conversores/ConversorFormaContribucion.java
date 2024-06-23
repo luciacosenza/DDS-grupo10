@@ -2,11 +2,11 @@ package com.tp_anual_dds.conversores;
 
 import java.util.HashMap;
 
-import com.tp_anual_dds.domain.ContribucionCreator;
-import com.tp_anual_dds.domain.DistribucionViandasCreator;
-import com.tp_anual_dds.domain.DonacionDineroCreator;
-import com.tp_anual_dds.domain.DonacionViandaCreator;
-import com.tp_anual_dds.domain.RegistroDePersonaEnSituacionVulnerableCreator;
+import com.tp_anual_dds.domain.contribuciones.ContribucionCreator;
+import com.tp_anual_dds.domain.contribuciones.DistribucionViandasCreator;
+import com.tp_anual_dds.domain.contribuciones.DonacionDineroCreator;
+import com.tp_anual_dds.domain.contribuciones.DonacionViandaCreator;
+import com.tp_anual_dds.domain.contribuciones.RegistroDePersonaEnSituacionVulnerableCreator;
 
 // A los conversores les pasamos los strings: en minuscula, solo con caracteres alfabeticos (removiendo numericos y especiales) y sin espacios
 public class ConversorFormaContribucion {
