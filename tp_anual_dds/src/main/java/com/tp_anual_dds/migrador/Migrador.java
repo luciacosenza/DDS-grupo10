@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import com.tp_anual_dds.domain.ColaboradorHumano;
 
 public class Migrador {
-    private static ExtraccionDeDatos protocoloExtraccion = new ExtraccionCSV();
     private static EnvioDeDatos protocoloEnvio = new EnvioEMail();
+    private static ExtraccionDeDatos protocoloExtraccion = new ExtraccionCSV();
 
     private static final String ASUNTO = "Gracias por tu apoyo! Aquí están tus credenciales de acceso al nuevo sistema";
     private static final String CUERPO =

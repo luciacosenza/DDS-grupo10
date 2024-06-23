@@ -23,16 +23,9 @@ A setters y getters, decidimos llamarlos, en su mayoría, **`getX`** y **`setX`*
 ## Nombres de Interfaces y Clases al usar Patrones de Diseño
 Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuando sea necesario, llevarán el nombre de la clase con la que se relacionan + el rol que tomen en el uso de ese Patrón.
 
-- **OBSERVER**
-  - En **Heladera**
-    - **Observer**
-      - HeladeraObserver (*Interface*)
-      - Heladera (*Class*)
-    - **Subject**
-      - SensorSubject (*Interface*)
-      - Sensor (*Abstract Class*)
-      - SensorMovimiento (*Class*)
-      - SensorTemperatura (*Class*)
+## Utilización de Patrones
+
+### Diseño:
 
 - **FACTORY METHOD**
   - En **Contribucion**
@@ -61,6 +54,25 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
       - Tarjeta (*Abstract Class*)
       - TarjetaColaborador (*Class*)
       - TarjetaPersonaEnSituacionVulnerable (*Class*)
+
+- **NULL OBJECT**
+  - En **Tarjeta**
+    - **Null Object**
+      - TarjetaNula (*Class*)
+    - **Real Object**
+      - TarjetaColaborador (*Class*)
+      - TarjetaPersonaEnSituacionVulnerable (*Class*)
+
+- **OBSERVER**
+  - En **Heladera**
+    - **Observer**
+      - HeladeraObserver (*Interface*)
+      - Heladera (*Class*)
+    - **Subject**
+      - SensorSubject (*Interface*)
+      - Sensor (*Abstract Class*)
+      - SensorMovimiento (*Class*)
+      - SensorTemperatura (*Class*)
 
 - **STRATEGY**
   - En **Migrador**
