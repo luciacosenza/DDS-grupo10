@@ -11,6 +11,6 @@ public class TarjetaColaboradorCreator implements TarjetaCreator {
 
         // En el futuro, podemos agregar una validacion para el codigo, suponiendo que este sea distinto en su estructura para Colaboradores o P.E.S.V.
 
-        return new TarjetaColaborador(codigo, (ColaboradorHumano) titular);
+        return new TarjetaColaboradorActiva(codigo, (ColaboradorHumano) titular);
     }
 }

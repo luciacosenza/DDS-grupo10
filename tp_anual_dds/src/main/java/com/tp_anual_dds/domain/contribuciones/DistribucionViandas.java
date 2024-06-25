@@ -3,8 +3,10 @@ package com.tp_anual_dds.domain.contribuciones;
 import java.time.LocalDateTime;
 
 import com.tp_anual_dds.domain.colaborador.Colaborador;
+import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.heladera.Heladera;
 import com.tp_anual_dds.domain.heladera.Vianda;
+import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva;
 
 public class DistribucionViandas extends Contribucion {
     private Heladera origen;
@@ -33,10 +35,21 @@ public class DistribucionViandas extends Contribucion {
         if(!esColaboradorHumano(colaborador)) {
             throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
         }
+
+        if(colaborador.getDomicilio() == null) {
+            throw new IllegalArgumentException("El colaborador aspirante no posee domicilio. Para recibir la Tarjeta Solidaria debe actualizar su información");
+        }
     }
 
     @Override
     protected void accionar() {
+        // Hacemos un downcast para poder utilizar el metodo setTarjeta()
+        ColaboradorHumano colaboradorHumano = (ColaboradorHumano) colaborador;
+        
+        String codigo = ""; // Esto es temporal, posteriormente se vera como crear los codigos
+
+        colaboradorHumano.setTarjeta(new TarjetaColaboradorActiva(codigo, colaboradorHumano));
+
         Vianda viandaAux;
 
         for(Integer i = 0; i < cantidadViandasAMover || origen.getViandas().isEmpty(); i++) {
