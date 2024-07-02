@@ -21,7 +21,7 @@ A setters y getters, decidimos llamarlos, en su mayoría, **`getX`** y **`setX`*
 - Sólo no se llamarán así cuando la expresividad tenga un peso significativo.
 
 ## Nombres de Interfaces y Clases al usar Patrones de Diseño
-Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuando sea necesario, llevarán el nombre de la clase con la que se relacionan + el rol que tomen en el uso de ese Patrón.
+Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuando sea necesario, llevarán (en general) el nombre de la clase con la que se relacionan + el rol que tomen en el uso de ese Patrón.
 
 ## Utilización de Patrones
 
@@ -56,12 +56,18 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
       - TarjetaPersonaEnSituacionVulnerable (*Class*)
 
 - **NULL OBJECT**
-  - En **Tarjeta**
+  - En **TarjetaColaborador**
     - **Null Object**
-      - TarjetaNula (*Class*)
+      - TarjetaColaboradorNula (*Class*)
     - **Real Object**
-      - TarjetaColaborador (*Class*)
-      - TarjetaPersonaEnSituacionVulnerable (*Class*)
+      - TarjetaColaboradorActiva (*Class*)
+  - En **EstadoSolicitudApertura**
+    - **Null Object**
+      - NoAplica (*Class*)
+    - **Real Object**
+      - Posible (*Class*)
+      - Pendiente (*Class*)
+      - Expirada (*Class*)
 
 - **OBSERVER**
   - En **Heladera**
@@ -74,8 +80,23 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
       - SensorMovimiento (*Class*)
       - SensorTemperatura (*Class*)
 
+- **STATE**
+  - En **TarjetaColaborador**
+    - **Context**
+      - TarjetaColaborador (*Abstract Class*)
+      - TarjetaColaboradorActiva (*Class*)
+      - TarjetaColaboradorNula (*Class*)
+    - **State**
+      - EstadoSolicitudApertura (*Interface*)
+      - Posible (*Class*)
+      - Pendiente (*Class*)
+      - Expirada (*Class*)
+      - NoAplica (*Class*)
+
 - **STRATEGY**
   - En **Migrador**
+    - **Context**
+      - Migrador (*Class*)
     - **Strategy**
       - En **ExtraccionDeDatos**:
         - ExtraccionDatosStrategy (*Interface*)
@@ -85,5 +106,3 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
         - EnvioDeDatosStrategy (*Interface*)
         - EnvioDeDatos (*Abstract Class*)
         - EnvioEMail (*Class*)
-    - **Context**
-      - Migrador (*Class*)

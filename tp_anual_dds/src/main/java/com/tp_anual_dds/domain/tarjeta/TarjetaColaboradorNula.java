@@ -6,6 +6,7 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
     public TarjetaColaboradorNula() {
         codigo = "N/A";
         usos = new ArrayList<>();
+        estadoSolicitud = new NoAplica();
     }
 
     @Override

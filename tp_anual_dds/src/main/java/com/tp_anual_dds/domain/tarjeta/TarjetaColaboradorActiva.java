@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 
 public class TarjetaColaboradorActiva extends TarjetaColaborador {
-    private ColaboradorHumano titular;
-
     public TarjetaColaboradorActiva(String vCodigo, ColaboradorHumano vTitular) {
         codigo = vCodigo;
         usos = new ArrayList<>();
         titular = vTitular;
+        estadoSolicitud = new Posible();
     }
 
     public ColaboradorHumano getTitular() {
