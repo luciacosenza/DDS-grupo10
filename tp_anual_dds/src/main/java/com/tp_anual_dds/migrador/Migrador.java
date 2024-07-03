@@ -7,6 +7,7 @@ import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 public class Migrador {
     private static EnvioDeDatos protocoloEnvio = new EnvioEMail();
     private static ExtraccionDeDatos protocoloExtraccion = new ExtraccionCSV();
+    private static final TransformacionDeDatos transformador = new TransformacionDeDatos();
 
     private static final String ASUNTO = "Gracias por tu apoyo! Aquí están tus credenciales de acceso al nuevo sistema";
     private static final String CUERPO =
@@ -51,17 +52,16 @@ public class Migrador {
         protocoloEnvio = protocolo;
     }
 
-    // private static ArrayList<Colaborador> sincronizarContribuciones() no hara falta, dado que cuando tengamos una database, esta hara que cada Colaborador sea unico
+    public static ArrayList<ColaboradorHumano> migrar(String csv) {     // El tipo de retorno (una lista de colaboradores) es temporal, hasta tener una database (pensamos que lo unico posible, por ahora, es retornar la lista de colaboradores cargados a quien la pida)        
+        ArrayList<String[]> dataColaboradores = protocoloExtraccion.extract(csv);
+        ArrayList<ColaboradorHumano> colaboradoresAMigrar = transformador.transform(dataColaboradores);
 
-    public static ArrayList<ColaboradorHumano> migrar(String csv) {     // El tipo de retorno (una lista de colaboradores) es temporal, hasta tener una database (pensamos que lo unico posible, por ahora, es retornar la lista de colaboradores cargados a quien la pida)
-        ArrayList<ColaboradorHumano> colaboradoresAMigrar = protocoloExtraccion.extract(csv);
-        
+        // sincronizarContribuciones(colaboradoresAMigrar);
+        // Lo que haria este metodo es impedir que exista un "mismo" colaborador duplicado pero con distintas contribuciones, juntando todas las contribuciones de un mismo colaborador en un mismo objeto y eliminando el resto 
+
         for(ColaboradorHumano colaborador : colaboradoresAMigrar) {
             protocoloEnvio.send(colaborador, ASUNTO, CUERPO);
         }
-        
-        // sincronizarContribuciones(colaboradoresAMigrar);
-        // Lo que haria este metodo es impedir que exista un "mismo" colaborador duplicado pero con distintas contribuciones, juntando todas las contribuciones de un mismo colaborador en un mismo objeto y eliminando el resto 
         
         return colaboradoresAMigrar;
     }
