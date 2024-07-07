@@ -68,7 +68,7 @@ public class TransformacionDeDatos {
         ColaboradorHumano colaborador = null;   // Deberia ir: "obtenerColaborador(documento, nombre, apellido);" pero no tenemos forma de implementarlo, dado que todavia no tenemos una database
         
         if (colaborador == null) {
-            colaborador = new ColaboradorHumano(contactos, null, null, null, nombre, apellido, documento, null);
+            colaborador = new ColaboradorHumano(null, contactos, null, null, nombre, apellido, documento, null);
         }
         
         // Agrega contribuciones a colaborador

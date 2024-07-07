@@ -8,6 +8,6 @@ public class EnvioEMail extends EnvioDeDatos {
     public void send(ColaboradorHumano colaborador, String asunto, String cuerpo) {
         EMail eMail = colaborador.getContacto(EMail.class);
         
-        eMail.contactar(asunto.formatted(colaborador.getNombre(), eMail), cuerpo);
+        eMail.contactar(asunto, cuerpo.formatted(colaborador.getPersona().getNombre(), eMail));
     }
 }

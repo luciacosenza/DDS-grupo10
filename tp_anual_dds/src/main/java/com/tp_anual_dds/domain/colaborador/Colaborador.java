@@ -7,14 +7,20 @@ import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.domain.contribuciones.Contribucion;
 import com.tp_anual_dds.domain.contribuciones.ContribucionCreator;
 import com.tp_anual_dds.domain.oferta.Oferta;
+import com.tp_anual_dds.domain.persona.Persona;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 
 public abstract class Colaborador {
-    protected ArrayList<MedioDeContacto> mediosDeContacto;
+    protected Persona persona;
     protected Ubicacion domicilio;
+    protected ArrayList<MedioDeContacto> mediosDeContacto;
     protected ArrayList<Contribucion> contribuciones;
     protected ArrayList<Oferta> beneficiosAdquiridos;
     protected Double puntos;
+
+    public Persona getPersona() {
+        return persona;
+    }
 
     public Ubicacion getDomicilio() {
         return domicilio;
