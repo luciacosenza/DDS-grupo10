@@ -85,11 +85,7 @@ public class DonacionDinero extends Contribucion {
     // obtenerDetalles()
     
     @Override
-    protected void validarIdentidad() {
-        if(!(esColaboradorHumano(colaborador) || esColaboradorJuridico(colaborador))) {
-            throw new IllegalArgumentException("El colaborador aspirante debe ser Humano o Jurídico");
-        }
-    }
+    protected void validarIdentidad() {}
 
     @Override
     protected void accionar() {

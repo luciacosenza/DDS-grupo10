@@ -24,11 +24,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
     // obtenerDetalles()
     
     @Override
-    protected void validarIdentidad() {
-        if(!esColaboradorJuridico(colaborador)) {
-            throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Jurídico");
-        }
-    }
+    protected void validarIdentidad() {}
 
     @Override
     protected void accionar() {

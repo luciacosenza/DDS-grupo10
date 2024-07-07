@@ -21,10 +21,6 @@ public class DonacionVianda extends Contribucion {
     
     @Override
     protected void validarIdentidad() {
-        if(!esColaboradorHumano(colaborador)) {
-            throw new IllegalArgumentException("El colaborador aspirante no es un Colaborador Humano");
-        }
-
         if(colaborador.getDomicilio() == null) {
             throw new IllegalArgumentException("El colaborador aspirante no posee domicilio. Para recibir la Tarjeta Solidaria debe actualizar su información");
         }
