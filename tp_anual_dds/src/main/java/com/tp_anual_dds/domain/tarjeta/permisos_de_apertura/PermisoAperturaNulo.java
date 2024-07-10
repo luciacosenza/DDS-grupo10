@@ -1,19 +1,18 @@
 package com.tp_anual_dds.domain.tarjeta.permisos_de_apertura;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import com.tp_anual_dds.domain.heladera.Heladera;
 
 public class PermisoAperturaNulo extends PermisoApertura {
     public PermisoAperturaNulo() {
-        heladerasPermitidas = new ArrayList<>();
+        heladeraPermitida = null;   // No usamos Null Object porque creimos que no lo ameritaba
         fechaOtorgamiento = null;
     }
 
     @Override
-    public ArrayList<Heladera> getHeladerasPermitidas() {
-        return heladerasPermitidas;
+    public Heladera getHeladeraPermitida() {
+        throw new UnsupportedOperationException("Permiso Nulo no tiene una heladera permitida.");
     }
 
     @Override
@@ -22,23 +21,16 @@ public class PermisoAperturaNulo extends PermisoApertura {
     }
 
     @Override
-    public void actualizarFechaOtorgamiento(){}
+    public void actualizarFechaOtorgamiento() {}
 
     @Override
     public Boolean esHeladeraPermitida(Heladera heladera) {
-        return heladerasPermitidas.contains(heladera);
+        return false;
     }
 
     @Override
-    public void agregarHeladeraPermitida(Heladera heladera) {}
+    public void setHeladeraPermitida(Heladera heladera) {}
 
     @Override
-    public void resetHeladerasPermitidas() {
-        heladerasPermitidas.clear();
-    }
-    
-    @Override
-    public Integer cantidadHeladerasPermitidas() {
-        return heladerasPermitidas.size();
-    }
+    public void resetHeladeraPermitida() {}
 }

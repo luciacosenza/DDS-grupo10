@@ -35,7 +35,7 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
     public void revocarPermisos() {}
 
     @Override
-    public void solicitarApertura(MotivoSolicitud motivo, ArrayList<Heladera> heladerasInvolucradas) {}
+    public void solicitarApertura(MotivoSolicitud motivo, Heladera heladeraInvolucrada) {}
 
     @Override
     public void intentarApertura(Heladera heladeraAAbrir) {}

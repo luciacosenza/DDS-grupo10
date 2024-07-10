@@ -1,19 +1,18 @@
 package com.tp_anual_dds.domain.tarjeta.permisos_de_apertura;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import com.tp_anual_dds.domain.heladera.Heladera;
 
 public class PermisoAperturaActivo extends PermisoApertura {
     public PermisoAperturaActivo() {
-        heladerasPermitidas = new ArrayList<>();
+        heladeraPermitida = null;
         fechaOtorgamiento = LocalDateTime.now();
     }
 
     @Override
-    public ArrayList<Heladera> getHeladerasPermitidas() {
-        return heladerasPermitidas;
+    public Heladera getHeladeraPermitida() {
+        return heladeraPermitida;
     }
 
     @Override
@@ -28,21 +27,16 @@ public class PermisoAperturaActivo extends PermisoApertura {
 
     @Override
     public Boolean esHeladeraPermitida(Heladera heladera) {
-        return heladerasPermitidas.contains(heladera);
+        return heladera == heladeraPermitida;
     }
 
     @Override
-    public void agregarHeladeraPermitida(Heladera heladera) {
-        heladerasPermitidas.add(heladera);
+    public void setHeladeraPermitida(Heladera vHeladera) {
+        heladeraPermitida = vHeladera;
     }
 
     @Override
-    public void resetHeladerasPermitidas() {
-        heladerasPermitidas.clear();
-    }
-    
-    @Override
-    public Integer cantidadHeladerasPermitidas() {
-        return heladerasPermitidas.size();
+    public void resetHeladeraPermitida() {
+        heladeraPermitida = null;
     }
 }

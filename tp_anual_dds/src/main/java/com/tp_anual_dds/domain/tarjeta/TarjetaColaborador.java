@@ -1,6 +1,5 @@
 package com.tp_anual_dds.domain.tarjeta;
 
-import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -22,7 +21,7 @@ public abstract class TarjetaColaborador extends Tarjeta {
 
     public abstract void revocarPermisos();
 
-    public abstract void solicitarApertura(MotivoSolicitud motivo, ArrayList<Heladera> heladerasInvolucradas);
+    public abstract void solicitarApertura(MotivoSolicitud motivo, Heladera heladeraInvolucrada);
 
     public abstract void intentarApertura(Heladera heladeraAAbrir);
 }

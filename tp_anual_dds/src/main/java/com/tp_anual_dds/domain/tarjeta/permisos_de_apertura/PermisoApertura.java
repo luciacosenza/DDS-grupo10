@@ -1,15 +1,14 @@
 package com.tp_anual_dds.domain.tarjeta.permisos_de_apertura;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import com.tp_anual_dds.domain.heladera.Heladera;
 
 public abstract class PermisoApertura {
-    protected ArrayList<Heladera> heladerasPermitidas;
+    protected Heladera heladeraPermitida;
     protected LocalDateTime fechaOtorgamiento;
 
-    public abstract ArrayList<Heladera> getHeladerasPermitidas();
+    public abstract Heladera getHeladeraPermitida();
 
     public abstract LocalDateTime getFechaOtorgamiento();
 
@@ -17,9 +16,7 @@ public abstract class PermisoApertura {
 
     public abstract Boolean esHeladeraPermitida(Heladera heladera);
 
-    public abstract void agregarHeladeraPermitida(Heladera heladera);
+    public abstract void setHeladeraPermitida(Heladera heladera);
 
-    public abstract void resetHeladerasPermitidas();
-
-    public abstract Integer cantidadHeladerasPermitidas();
+    public abstract void resetHeladeraPermitida();
 }

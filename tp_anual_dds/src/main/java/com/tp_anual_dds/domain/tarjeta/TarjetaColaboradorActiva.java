@@ -50,7 +50,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
             LocalDateTime fechaOtorgamiento = permiso.getFechaOtorgamiento();
             long horasPasadas = ChronoUnit.HOURS.between(fechaOtorgamiento, ahora);
             if (horasPasadas >= 3) {
-                permiso.resetHeladerasPermitidas();
+                permiso.resetHeladeraPermitida();
                 setEstadoSolicitud(new EstadoExpirada());
             }
         };
@@ -60,7 +60,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
     }
 
     @Override
-    public void solicitarApertura(MotivoSolicitud motivo, ArrayList<Heladera> heladerasInvolucradas) {
+    public void solicitarApertura(MotivoSolicitud motivo, Heladera heladeraInvolucrada) {
         estadoSolicitud.manejar(this);
         
         System.out.println(String.format("Solicitud de Apertura - Motivo: %s", motivo));
@@ -68,9 +68,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
 
         setEstadoSolicitud(new EstadoRealizada());
 
-        for(Heladera heladera : heladerasInvolucradas) {
-            permiso.agregarHeladeraPermitida(heladera);
-        }
+        permiso.setHeladeraPermitida(heladeraInvolucrada);
         permiso.actualizarFechaOtorgamiento();
 
         revocarPermisos();
