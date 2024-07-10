@@ -11,7 +11,8 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
         codigo = "N/A";
         usos = new ArrayList<>();
         titular = null;
-        solicitud = new SolicitudApertura(new EstadoNoAplica());
+        estadoSolicitud = new EstadoNoAplica();
+        permiso = new PermisoAperturaNulo();
     }
 
     @Override
@@ -20,7 +21,7 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
     }
 
     @Override
-    public void setSolicitud(SolicitudApertura vSolicitud) {}
+    public void setEstadoSolicitud(EstadoSolicitud vEstadoSolicitud) {}
 
     @Override
     public Boolean puedeUsar() {
@@ -28,8 +29,8 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
     }
 
     @Override
-    public void solicitarApertura(MotivoSolicitud motivo, ArrayList<Heladera> heladerasInvolucradas) {}
+    public void revocarPermisos() {}
 
     @Override
-    public void registrarSolicitudApertura(MotivoSolicitud motivo, ArrayList<Heladera> heladerasInvolucradas) {}
+    public void solicitarApertura(MotivoSolicitud motivo, ArrayList<Heladera> heladerasInvolucradas) {}
 }

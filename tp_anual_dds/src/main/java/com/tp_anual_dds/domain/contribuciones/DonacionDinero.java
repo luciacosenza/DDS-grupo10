@@ -49,6 +49,7 @@ public class DonacionDinero extends Contribucion {
             }
         },
         ANUAL {
+            @Override
             public Integer periodo() {
                 return 1;
             }

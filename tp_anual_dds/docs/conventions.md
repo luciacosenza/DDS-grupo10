@@ -67,7 +67,13 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
     - **Real Object**
       - EstadoPosible (*Class*)
       - EstadoPendiente (*Class*)
+      - EstadoRealizada (*Class*)
       - EstadoExpirada (*Class*)
+  - En **PermisoApertura**
+    - **Null Object**
+      - PermisoAperturaNulo (*Class*)
+    - **Real Object**
+      - PermisoAperturaActivo (*Class*)
 
 - **OBSERVER**
   - En **Heladera**
@@ -88,10 +94,11 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
       - TarjetaColaboradorNula (*Class*)
     - **State**
       - EstadoSolicitudApertura (*Interface*)
-      - Posible (*Class*)
-      - Pendiente (*Class*)
-      - Expirada (*Class*)
-      - NoAplica (*Class*)
+      - EstadoPosible (*Class*)
+      - EstadoPendiente (*Class*)
+      - EstadoRealizada (*Class*)
+      - EstadoExpirada (*Class*)
+      - EstadoNoAplica (*Class*)
 
 - **STRATEGY**
   - En **Migrador**

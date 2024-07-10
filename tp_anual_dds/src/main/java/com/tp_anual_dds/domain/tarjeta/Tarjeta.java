@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public abstract class Tarjeta {
     protected String codigo;
     protected ArrayList<UsoTarjeta> usos;
-    
+
     public void agregarUso(UsoTarjeta uso) {
         usos.add(uso);
     }
