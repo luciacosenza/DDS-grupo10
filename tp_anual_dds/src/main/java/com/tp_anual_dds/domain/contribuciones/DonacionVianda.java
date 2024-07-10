@@ -7,6 +7,7 @@ import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.heladera.Heladera;
 import com.tp_anual_dds.domain.heladera.Vianda;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva;
+import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva.MotivoSolicitud;
 
 
 public class DonacionVianda extends Contribucion {
@@ -31,14 +32,19 @@ public class DonacionVianda extends Contribucion {
 
     @Override
     protected void accionar() {
-        // Hacemos un downcast para poder utilizar el metodo setTarjeta()
         ColaboradorHumano colaboradorHumano = (ColaboradorHumano) colaborador;
         
         String codigo = ""; // Esto es temporal, posteriormente se vera como crear los codigos
-
         colaboradorHumano.setTarjeta(new TarjetaColaboradorActiva(codigo, colaboradorHumano));
 
-        System.out.println(vianda); // Esto es temporal, para que no tire errores. La logica es *registrar la vianda en el sistema*
+        colaboradorHumano.getTarjeta().solicitarApertura(MotivoSolicitud.INGRESAR_DONACION, heladera);
+        
+        // Aca deberia pasar algo, dado que el colaborador puede tardar en ir a abrir la heladera, incluso quedarse sin tiempo
+        
+        colaboradorHumano.getTarjeta().intentarApertura(heladera);
+        heladera.agregarVianda(vianda);
+
+        System.out.println(this); // Esto es temporal, para que no tire errores. La logica es *registrar la vianda en el sistema*
     }
 
     @Override

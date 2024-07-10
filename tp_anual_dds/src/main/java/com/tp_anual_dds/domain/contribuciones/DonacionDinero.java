@@ -90,9 +90,7 @@ public class DonacionDinero extends Contribucion {
 
     @Override
     protected void accionar() {
-        System.out.println(monto);
-        System.out.println(frecuencia);
-        // Esto es temporal, para que no tire errores. La logica es *registrar la donacion en el sistema*
+        System.out.println(this); // Esto es temporal, para que no tire errores. La logica es *registrar la donacion en el sistema*
     }
 
     @Override

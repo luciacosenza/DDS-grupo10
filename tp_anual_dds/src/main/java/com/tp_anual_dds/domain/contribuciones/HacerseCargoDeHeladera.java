@@ -28,7 +28,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
 
     @Override
     protected void accionar() {
-        System.out.println(heladeraObjetivo); // Esto es temporal, para que no tire errores. La logica es *registrar la heladera en el sistema*
+        System.out.println(this); // Esto es temporal, para que no tire errores. La logica es *registrar la heladera en el sistema*
     }
 
     @Override
