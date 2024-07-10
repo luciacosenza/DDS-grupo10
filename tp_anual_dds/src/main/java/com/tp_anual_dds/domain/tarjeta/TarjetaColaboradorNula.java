@@ -33,4 +33,7 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
 
     @Override
     public void solicitarApertura(MotivoSolicitud motivo, ArrayList<Heladera> heladerasInvolucradas) {}
+
+    @Override
+    public void intentarApertura(Heladera heladeraAAbrir) {}
 }

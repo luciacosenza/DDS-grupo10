@@ -21,4 +21,6 @@ public abstract class TarjetaColaborador extends Tarjeta {
     public abstract void revocarPermisos();
 
     public abstract void solicitarApertura(MotivoSolicitud motivo, ArrayList<Heladera> heladerasInvolucradas);
+
+    public abstract void intentarApertura(Heladera heladeraAAbrir);
 }

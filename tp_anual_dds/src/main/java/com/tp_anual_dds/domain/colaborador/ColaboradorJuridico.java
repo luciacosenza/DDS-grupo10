@@ -37,4 +37,9 @@ public class ColaboradorJuridico extends Colaborador {
         rubro = vRubro;
         tipo = vTipo;
     }
+
+    @Override
+    public PersonaJuridica getPersona() {
+        return (PersonaJuridica) persona;
+    }
 }

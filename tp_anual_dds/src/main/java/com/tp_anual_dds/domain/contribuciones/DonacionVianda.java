@@ -4,17 +4,20 @@ import java.time.LocalDateTime;
 
 import com.tp_anual_dds.domain.colaborador.Colaborador;
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
+import com.tp_anual_dds.domain.heladera.Heladera;
 import com.tp_anual_dds.domain.heladera.Vianda;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva;
 
 
 public class DonacionVianda extends Contribucion {
     private Vianda vianda;
+    private Heladera heladera;
 
-    public DonacionVianda(Colaborador vColaborador, LocalDateTime vFechaContribucion, Vianda vVianda) {
+    public DonacionVianda(Colaborador vColaborador, LocalDateTime vFechaContribucion, Vianda vVianda, Heladera vHeladera) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
         vianda = vVianda;
+        heladera = vHeladera;
     }
 
     // obtenerDetalles()

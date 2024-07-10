@@ -20,9 +20,7 @@ public abstract class Colaborador {
     protected ArrayList<Oferta> beneficiosAdquiridos;
     protected Double puntos;
 
-    public Persona getPersona() {
-        return persona;
-    }
+    public abstract Persona getPersona();
 
     public Ubicacion getDomicilio() {
         return domicilio;

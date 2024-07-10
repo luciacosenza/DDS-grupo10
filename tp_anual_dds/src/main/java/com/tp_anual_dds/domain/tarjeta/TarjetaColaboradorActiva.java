@@ -43,8 +43,8 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
         Runnable revocacionPermisos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
             LocalDateTime fechaOtorgamiento = permiso.getFechaOtorgamiento();
-            long tiempoPasado = ChronoUnit.HOURS.between(fechaOtorgamiento, ahora);
-            if (tiempoPasado >= 3) {
+            long horasPasadas = ChronoUnit.HOURS.between(fechaOtorgamiento, ahora);
+            if (horasPasadas >= 3) {
                 permiso.resetHeladerasPermitidas();
                 setEstadoSolicitud(new EstadoExpirada());
             }
@@ -61,13 +61,20 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
         System.out.println(String.format("Solicitud de Apertura - Motivo: %s", motivo));
         // Esto es temporal, para que no tire errores. La logica es *registrar la solicitud en el sistema*
 
+        setEstadoSolicitud(new EstadoRealizada());
+
         for(Heladera heladera : heladerasInvolucradas) {
             permiso.agregarHeladeraPermitida(heladera);
         }
         permiso.actualizarFechaOtorgamiento();
 
         revocarPermisos();
+    }
 
-        setEstadoSolicitud(new EstadoRealizada());
+    @Override
+    public void intentarApertura(Heladera heladeraAAbrir) {
+        if(!(estadoSolicitud instanceof EstadoRealizada) || !(permiso.esHeladeraPermitida(heladeraAAbrir))) {
+            throw new UnsupportedOperationException("No cuenta con los permisos para abrir esta heladera");
+        }
     }
 }
