@@ -10,17 +10,28 @@ public class SensorTemperatura extends Sensor {
         tempActual = 0f;
     }
 
+    public Boolean funcionaSensorFisico() {
+        return true;
+    }
+
     @Override
     public void notificar() {
         heladera.setTempActual(tempActual);
+    }
+
+    public void notificarFalla() {
+        heladera.alertarFallaConexion();
     }
     
     @Override
     public void programarNotificacion() {
         Runnable notificacionTemperatura = () -> {
+            if (!funcionaSensorFisico()) {
+                notificarFalla();
+            }
             notificar();
         };
-
+        
         // Programa la tarea para que se ejecute cada 5 minutos
         scheduler.scheduleAtFixedRate(notificacionTemperatura, 0, 5, TimeUnit.MINUTES);
     }

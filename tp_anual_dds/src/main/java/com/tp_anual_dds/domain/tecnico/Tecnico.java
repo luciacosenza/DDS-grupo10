@@ -20,4 +20,5 @@ public class Tecnico {
         medioDeContacto = vMedioDeContacto;
         areaDeCobertura = vAreaDeCobertura;
     }
+    
 }

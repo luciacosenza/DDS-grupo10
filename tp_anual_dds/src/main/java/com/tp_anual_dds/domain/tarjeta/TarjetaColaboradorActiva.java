@@ -6,7 +6,12 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
+import com.tp_anual_dds.domain.estados_de_solicitud.EstadoExpirada;
+import com.tp_anual_dds.domain.estados_de_solicitud.EstadoPosible;
+import com.tp_anual_dds.domain.estados_de_solicitud.EstadoRealizada;
+import com.tp_anual_dds.domain.estados_de_solicitud.EstadoSolicitud;
 import com.tp_anual_dds.domain.heladera.Heladera;
+import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoAperturaActivo;
 
 public class TarjetaColaboradorActiva extends TarjetaColaborador {
     public enum MotivoSolicitud {

@@ -5,8 +5,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
+import com.tp_anual_dds.domain.estados_de_solicitud.EstadoSolicitud;
 import com.tp_anual_dds.domain.heladera.Heladera;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva.MotivoSolicitud;
+import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoApertura;
 
 public abstract class TarjetaColaborador extends Tarjeta {
     protected ColaboradorHumano titular;

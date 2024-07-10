@@ -1,4 +1,4 @@
-package com.tp_anual_dds.domain.tarjeta;
+package com.tp_anual_dds.domain.tarjeta.permisos_de_apertura;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

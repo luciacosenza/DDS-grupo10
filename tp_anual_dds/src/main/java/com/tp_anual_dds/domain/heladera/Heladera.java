@@ -70,7 +70,11 @@ public class Heladera implements HeladeraObserver {
     }
 
     @Override
-    public void alertarMovimiento(){
+    public void alertarMovimiento() {
         System.out.println("LA HELADERA SE ESTÁ MOVIENDO.");    // Idem alertarTemperatura()
+    }
+
+    public void alertarFallaConexion() {
+        System.out.println("NO SENSA EL SENSOR.");  // Idem alertarTemperatura()
     }
 }
