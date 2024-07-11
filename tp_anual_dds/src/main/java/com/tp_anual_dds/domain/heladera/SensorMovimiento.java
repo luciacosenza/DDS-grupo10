@@ -12,7 +12,7 @@ public class SensorMovimiento extends Sensor {
     
     @Override
     public void notificar() {
-        heladera.alertarMovimiento();
+        heladera.alertarFraude();
     }
     
     @Override

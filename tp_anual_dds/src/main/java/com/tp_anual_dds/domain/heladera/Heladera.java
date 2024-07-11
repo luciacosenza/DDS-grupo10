@@ -3,6 +3,7 @@ package com.tp_anual_dds.domain.heladera;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import com.tp_anual_dds.domain.incidentes.Alerta;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 
 public class Heladera implements HeladeraObserver {
@@ -14,7 +15,7 @@ public class Heladera implements HeladeraObserver {
     private Float tempMin;
     private Float tempMax;
     private Float tempActual;
-    private Boolean activa;
+    private Boolean estado;
 
 
     public Heladera(String vNombre, Ubicacion vUbicacion, ArrayList<Vianda> vViandas, Integer vCapacidad, LocalDateTime vFechaApertura, Float vTempMin, Float vTempMax) {
@@ -26,19 +27,19 @@ public class Heladera implements HeladeraObserver {
         tempMin = vTempMin;
         tempMax = vTempMax;
         tempActual = 0f;
-        activa = true;
+        estado = true;
     }
 
     public ArrayList<Vianda> getViandas() {
         return viandas;
     }
 
-    public Boolean estaActiva() {
-        return activa;
+    public Boolean getEstado() {
+        return estado;
     }
 
-    public void actualizarEstado(Boolean nuevoEstado) {
-        activa = nuevoEstado;
+    public void setEstado(Boolean nuevoEstado) {
+        estado = nuevoEstado;
     }
 
     public Vianda retirarVianda() {
@@ -65,16 +66,23 @@ public class Heladera implements HeladeraObserver {
         verificarTempActual();
     }
 
+    public void alertar(Alerta.TipoAlerta tipo) {
+        setEstado(false);
+
+        Alerta alerta = new Alerta (tipo);
+        System.out.println(alerta);  // Esto es temporal, simula el registro de la alerta
+    }
+
     public void alertarTemperatura() {
-        System.out.println("La temperatura no está dentro de los parámetros correspondientes.");    // Esto es temporal, simula la notificacion a quienes corresponda, que seguramente sea responsabilidad de un Alertador (a implementar)
+        alertar(Alerta.TipoAlerta.TEMPERATURA);
     }
 
     @Override
-    public void alertarMovimiento() {
-        System.out.println("LA HELADERA SE ESTÁ MOVIENDO.");    // Idem alertarTemperatura()
+    public void alertarFraude() {
+        alertar(Alerta.TipoAlerta.FRAUDE);
     }
 
     public void alertarFallaConexion() {
-        System.out.println("NO SENSA EL SENSOR.");  // Idem alertarTemperatura()
+        alertar(Alerta.TipoAlerta.FALLA_CONEXION);
     }
 }

@@ -7,6 +7,7 @@ import java.util.Set;
 import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.domain.contribuciones.Contribucion;
 import com.tp_anual_dds.domain.contribuciones.ContribucionCreator;
+import com.tp_anual_dds.domain.incidentes.FallaTecnica;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona.Persona;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
@@ -72,5 +73,10 @@ public abstract class Colaborador {
         Contribucion contribucion = creator.crearContribucion(this, LocalDateTime.now(), args);
         contribucion.contribuir();
         agregarContribucion(contribucion);
+    }
+
+    public void alertarFallaTecnica(String descripcion, String foto) {
+        FallaTecnica fallaTecnica = new FallaTecnica(this, descripcion, foto);
+        System.out.println(fallaTecnica);  // Esto es temporal, simula el registro de la fallaTecnica
     }
 }

@@ -20,5 +20,10 @@ public class Tecnico {
         medioDeContacto = vMedioDeContacto;
         areaDeCobertura = vAreaDeCobertura;
     }
+
+    public void registrarVisita(LocalDateTime fecha, String descripcion, String foto, Boolean estadoConsulta) {
+        Visita visita = new Visita(fecha, descripcion, foto, estadoConsulta);
+        System.out.println(visita);  // Esto es temporal, simula el registro de la visita
+    }
     
 }
