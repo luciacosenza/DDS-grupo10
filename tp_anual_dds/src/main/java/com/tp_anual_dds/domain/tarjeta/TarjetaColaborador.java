@@ -15,11 +15,12 @@ public abstract class TarjetaColaborador extends Tarjeta {
     protected PermisoApertura permiso;
     protected final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
 
+    @Override
     public abstract ColaboradorHumano getTitular();
 
     public abstract void setEstadoSolicitud(EstadoSolicitud vEstadoSolicitud);
 
-    public abstract void revocarPermisos();
+    public abstract void programarRevocacionPermisos();
 
     public abstract void solicitarApertura(MotivoSolicitud motivo, Heladera heladeraInvolucrada);
 

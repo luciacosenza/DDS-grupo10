@@ -2,7 +2,6 @@ package com.tp_anual_dds.domain.tarjeta;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
@@ -22,7 +21,6 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
     
     public TarjetaColaboradorActiva(String vCodigo, ColaboradorHumano vTitular) {
         codigo = vCodigo;
-        usos = new ArrayList<>();
         titular = vTitular;
         estadoSolicitud = new EstadoPosible();
         permiso = new PermisoAperturaActivo();
@@ -44,7 +42,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
     }
 
     @Override
-    public void revocarPermisos() {
+    public void programarRevocacionPermisos() {
         Runnable revocacionPermisos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
             LocalDateTime fechaOtorgamiento = permiso.getFechaOtorgamiento();
@@ -71,7 +69,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
         permiso.setHeladeraPermitida(heladeraInvolucrada);
         permiso.actualizarFechaOtorgamiento();
 
-        revocarPermisos();
+        programarRevocacionPermisos();
     }
 
     @Override

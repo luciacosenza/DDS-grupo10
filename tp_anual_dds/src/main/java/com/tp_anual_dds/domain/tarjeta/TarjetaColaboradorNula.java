@@ -1,7 +1,5 @@
 package com.tp_anual_dds.domain.tarjeta;
 
-import java.util.ArrayList;
-
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoNoAplica;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoSolicitud;
@@ -12,7 +10,6 @@ import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoAperturaNulo;
 public class TarjetaColaboradorNula extends TarjetaColaborador {
     public TarjetaColaboradorNula() {
         codigo = "N/A";
-        usos = new ArrayList<>();
         titular = null;
         estadoSolicitud = new EstadoNoAplica();
         permiso = new PermisoAperturaNulo();
@@ -32,7 +29,7 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
     }
 
     @Override
-    public void revocarPermisos() {}
+    public void programarRevocacionPermisos() {}
 
     @Override
     public void solicitarApertura(MotivoSolicitud motivo, Heladera heladeraInvolucrada) {}
