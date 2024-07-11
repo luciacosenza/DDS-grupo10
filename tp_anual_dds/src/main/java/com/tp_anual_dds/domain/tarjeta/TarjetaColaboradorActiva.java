@@ -79,5 +79,8 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
         if(!(estadoSolicitud instanceof EstadoRealizada) || !(permiso.esHeladeraPermitida(heladeraAAbrir))) {
             throw new UnsupportedOperationException("No cuenta con los permisos para abrir esta heladera");
         }
+
+        System.out.println(String.format("Apertura de Heladera %s", heladeraAAbrir));
+        // Esto es temporal, para que no tire errores. La logica es *registrar la apertura en el sistema*
     }
 }
