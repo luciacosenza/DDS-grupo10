@@ -75,7 +75,7 @@ public abstract class Colaborador {
         agregarContribucion(contribucion);
     }
 
-    public void alertarFallaTecnica(String descripcion, String foto) {
+    public void reportarFallaTecnica(String descripcion, String foto) {
         FallaTecnica fallaTecnica = new FallaTecnica(this, descripcion, foto);
         System.out.println(fallaTecnica);  // Esto es temporal, simula el registro de la fallaTecnica
     }

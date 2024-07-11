@@ -20,7 +20,7 @@ public class SensorTemperatura extends Sensor {
     }
 
     public void notificarFalla() {
-        heladera.alertarFallaConexion();
+        heladera.reportarFallaConexion();
     }
     
     @Override

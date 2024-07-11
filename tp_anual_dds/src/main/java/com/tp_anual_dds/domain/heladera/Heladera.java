@@ -56,7 +56,7 @@ public class Heladera implements HeladeraObserver {
 
     public void verificarTempActual() {
         if (tempActual < tempMin || tempActual > tempMax) {
-            alertarTemperatura();
+            reportarTemperatura();
         }
     }
 
@@ -66,23 +66,23 @@ public class Heladera implements HeladeraObserver {
         verificarTempActual();
     }
 
-    public void alertar(Alerta.TipoAlerta tipo) {
+    public void reportarAlerta(Alerta.TipoAlerta tipo) {
         setEstado(false);
 
         Alerta alerta = new Alerta (tipo);
         System.out.println(alerta);  // Esto es temporal, simula el registro de la alerta
     }
 
-    public void alertarTemperatura() {
-        alertar(Alerta.TipoAlerta.TEMPERATURA);
+    public void reportarTemperatura() {
+        reportarAlerta(Alerta.TipoAlerta.TEMPERATURA);
     }
 
     @Override
-    public void alertarFraude() {
-        alertar(Alerta.TipoAlerta.FRAUDE);
+    public void reportarFraude() {
+        reportarAlerta(Alerta.TipoAlerta.FRAUDE);
     }
 
-    public void alertarFallaConexion() {
-        alertar(Alerta.TipoAlerta.FALLA_CONEXION);
+    public void reportarFallaConexion() {
+        reportarAlerta(Alerta.TipoAlerta.FALLA_CONEXION);
     }
 }
