@@ -13,6 +13,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
     private Heladera heladeraObjetivo;
     private LocalDateTime ultimaActualizacion;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private final Double multiplicador_puntos = 5d;
 
     public HacerseCargoDeHeladera(Colaborador vColaborador, LocalDateTime vFechaContribucion, Heladera vHeladeraObjetivo) {
         colaborador = vColaborador;
@@ -33,13 +34,11 @@ public class HacerseCargoDeHeladera extends Contribucion {
 
     @Override
     protected void calcularPuntos() {
-        final Double MULTIPLICADOR_PUNTOS = 5d;
-        
         Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
             long mesesPasados = ChronoUnit.MONTHS.between(ultimaActualizacion, ahora);
             if (mesesPasados >= 1 && heladeraObjetivo.getEstado()) {
-                colaborador.sumarPuntos(MULTIPLICADOR_PUNTOS);
+                colaborador.sumarPuntos(multiplicador_puntos);
                 ultimaActualizacion = ahora;
             }
         };

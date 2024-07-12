@@ -13,6 +13,7 @@ import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva.MotivoSolicitud;
 public class DonacionVianda extends Contribucion {
     private Vianda vianda;
     private Heladera heladera;
+    private final Double multiplicador_puntos = 1.5;
 
     public DonacionVianda(Colaborador vColaborador, LocalDateTime vFechaContribucion, Vianda vVianda, Heladera vHeladera) {
         colaborador = vColaborador;
@@ -49,8 +50,6 @@ public class DonacionVianda extends Contribucion {
 
     @Override
     protected void calcularPuntos() {
-        final Double MULTIPLICADOR_PUNTOS = 1.5;
-        
-        colaborador.sumarPuntos(MULTIPLICADOR_PUNTOS);
+        colaborador.sumarPuntos(multiplicador_puntos);
     }
 }

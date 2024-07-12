@@ -9,10 +9,11 @@ import java.util.concurrent.TimeUnit;
 import com.tp_anual_dds.domain.colaborador.Colaborador;
 
 public class DonacionDinero extends Contribucion {
-    private Double monto;
-    private FrecuenciaDePago frecuencia;
+    private final Double monto;
+    private final FrecuenciaDePago frecuencia;
     private LocalDateTime ultimaActualizacion;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private final Double multiplicador_puntos = 0.5;
     
     public enum FrecuenciaDePago { // Tal vez podriamos implementar una clase, para que no quede toda esta logica en DonacionDinero
         SEMANAL {
@@ -94,11 +95,9 @@ public class DonacionDinero extends Contribucion {
     }
 
     @Override
-    protected void calcularPuntos() {
-        final Double MULTIPLICADOR_PUNTOS = 0.5;
-        
+    protected void calcularPuntos() {    
         if (frecuencia == FrecuenciaDePago.UNICA_VEZ) {
-            colaborador.sumarPuntos(monto * MULTIPLICADOR_PUNTOS);
+            colaborador.sumarPuntos(monto * multiplicador_puntos);
             return; // Corta la ejecucion del metodo
         }
 
@@ -106,7 +105,7 @@ public class DonacionDinero extends Contribucion {
             LocalDateTime ahora = LocalDateTime.now();
             Long periodosPasados = frecuencia.unidad().between(ultimaActualizacion, ahora);
             if (periodosPasados >= frecuencia.periodo()) {
-                colaborador.sumarPuntos(monto * MULTIPLICADOR_PUNTOS);
+                colaborador.sumarPuntos(monto * multiplicador_puntos);
                 ultimaActualizacion = ahora;
             }
         };

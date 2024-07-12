@@ -12,18 +12,8 @@ import com.tp_anual_dds.domain.persona.PersonaJuridica;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 
 public class ColaboradorJuridico extends Colaborador {
-    private TipoColaboradorJuridico tipo;
-    private String rubro;
-
-    public enum TipoColaboradorJuridico {
-        GUBERNAMENTAL,
-        ONG,
-        EMPRESA,
-        INSTITUCION
-    }
-
-    public ColaboradorJuridico(ArrayList<MedioDeContacto> vMediosDeContacto, Ubicacion vDomicilio, ArrayList<Contribucion> vContribuciones, Double vPuntos, String vRazonSocial, String vRubro, TipoColaboradorJuridico vTipo) {
-        persona = new PersonaJuridica(vRazonSocial);
+    public ColaboradorJuridico(ArrayList<MedioDeContacto> vMediosDeContacto, Ubicacion vDomicilio, ArrayList<Contribucion> vContribuciones, Double vPuntos, String vRazonSocial, String vRubro, PersonaJuridica.TipoPersonaJuridica vTipo) {
+        persona = new PersonaJuridica(vRazonSocial, vTipo, vRubro);
         mediosDeContacto = vMediosDeContacto;
         domicilio = vDomicilio;
         contribuciones = vContribuciones;
@@ -34,8 +24,6 @@ public class ColaboradorJuridico extends Colaborador {
         creatorsPermitidos.add(HacerseCargoDeHeladeraCreator.class);
 
         puntos = vPuntos;
-        rubro = vRubro;
-        tipo = vTipo;
     }
 
     @Override

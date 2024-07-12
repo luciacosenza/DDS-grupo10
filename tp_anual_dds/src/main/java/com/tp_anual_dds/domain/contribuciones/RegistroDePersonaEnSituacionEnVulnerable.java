@@ -8,6 +8,7 @@ import com.tp_anual_dds.domain.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 
 public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
     private TarjetaPersonaEnSituacionVulnerable tarjetaAsignada;
+    private final Double multiplicador_puntos = 2d;
     
     public RegistroDePersonaEnSituacionEnVulnerable(Colaborador vColaborador, LocalDateTime vFechaContribucion, TarjetaPersonaEnSituacionVulnerable vTarjetaAsignada) {
         colaborador = vColaborador;
@@ -36,7 +37,6 @@ public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
 
     @Override
     protected void calcularPuntos() {
-        final Double MULTIPLICADOR_PUNTOS = 2d;
-        colaborador.sumarPuntos(MULTIPLICADOR_PUNTOS);
+        colaborador.sumarPuntos(multiplicador_puntos);
     }
 }

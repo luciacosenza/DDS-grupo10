@@ -13,7 +13,7 @@ import javax.mail.internet.MimeMessage;
 public class EMailSenderService {
     private static final Properties propiedades = new Properties();
 	private static final String usuario = "proyecto.heladeras.solidarias@gmail.com";		
-	private static final String password = "ouvh qvor gbmr fbbk";
+	private static final String password = "ouvh qvor gbmr fbbk"; // Asegurar esto
 	private static Session sesion;
 
 	private static void init() {

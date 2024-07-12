@@ -5,11 +5,10 @@ import java.time.LocalDateTime;
 import com.tp_anual_dds.domain.area.Area;
 import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.domain.documento.Documento;
-import com.tp_anual_dds.domain.persona.Persona;
 import com.tp_anual_dds.domain.persona.PersonaFisica;
 
 public class Tecnico {
-    private Persona persona;
+    private PersonaFisica persona;
     private String cuil;
     private MedioDeContacto medioDeContacto;
     private Area areaDeCobertura;

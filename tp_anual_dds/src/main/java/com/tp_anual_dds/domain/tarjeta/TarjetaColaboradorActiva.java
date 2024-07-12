@@ -80,5 +80,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
 
         System.out.println(String.format("Apertura de Heladera %s", heladeraAAbrir));
         // Esto es temporal, para que no tire errores. La logica es *registrar la apertura en el sistema*
+
+        setEstadoSolicitud(new EstadoPosible());
     }
 }

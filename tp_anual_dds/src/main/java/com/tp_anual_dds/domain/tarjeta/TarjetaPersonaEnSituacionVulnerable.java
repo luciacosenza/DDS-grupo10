@@ -10,8 +10,8 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
 
     public TarjetaPersonaEnSituacionVulnerable(String vCodigo, PersonaEnSituacionVulnerable vTitular) {
         codigo = vCodigo;
-        usos = new ArrayList<>();
         titular = vTitular;
+        usos = new ArrayList<>();
     }
 
     @Override

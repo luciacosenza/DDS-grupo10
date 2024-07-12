@@ -3,7 +3,7 @@ package com.tp_anual_dds.validador;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class Validador{
+public class Validador {
 
     public Validador() {}
 
