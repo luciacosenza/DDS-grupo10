@@ -1,13 +1,14 @@
 package com.tp_anual_dds.domain.oferta;
 
 import com.tp_anual_dds.domain.colaborador.Colaborador;
+import com.tp_anual_dds.sistema.Sistema;
 
 public class Oferta {
 
     private String nombre;
     private Double costo;
     private Categoria categoria;
-    private String imagen;  // Por ahora es solo un link
+    private String imagen;
     
     public enum Categoria {
         GASTRONOMIA,
@@ -29,5 +30,13 @@ public class Oferta {
         if (puntosColaborador < costo) {
             throw new IllegalArgumentException("No se cuenta con los puntos necesarios para adquirir este beneficio");
         }
+    }
+
+    public void darDeAlta() {
+        Sistema.agregarOferta(this);
+    }
+
+    public void darDeBaja() {
+        Sistema.eliminarOferta(this);
     }
 }

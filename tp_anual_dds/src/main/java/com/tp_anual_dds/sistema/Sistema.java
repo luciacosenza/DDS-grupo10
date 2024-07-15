@@ -5,15 +5,19 @@ import java.util.ArrayList;
 import com.tp_anual_dds.domain.colaborador.Colaborador;
 import com.tp_anual_dds.domain.heladera.Heladera;
 import com.tp_anual_dds.domain.heladera.Sensor;
+import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual_dds.domain.tecnico.Tecnico;
+import com.tp_anual_dds.domain.tecnico.Visita;
 
 public class Sistema {
     private static final ArrayList<Colaborador> colaboradores = new ArrayList<>();
     private static final ArrayList<Heladera> heladeras = new ArrayList<>();
+    private static final ArrayList<Sensor> sensores = new ArrayList<>();
     private static final ArrayList<PersonaEnSituacionVulnerable> personasEnSituacionVulnerable = new ArrayList<>();
     private static final ArrayList<Tecnico> tecnicos = new ArrayList<>();
-    private static final ArrayList<Sensor> sensores = new ArrayList<>();
+    private static final ArrayList<Visita> visitas = new ArrayList<>();
+    private static final ArrayList<Oferta> ofertas = new ArrayList<>();
 
     public static ArrayList<Colaborador> getColaboradores() {
         return colaboradores;
@@ -21,6 +25,10 @@ public class Sistema {
 
     public static ArrayList<Heladera> getHeladeras() {
         return heladeras;
+    }
+
+    public static ArrayList<Sensor> getSensores() {
+        return sensores;
     }
 
     public static ArrayList<PersonaEnSituacionVulnerable> getPersonasEnSituacionVulnerable() {
@@ -31,8 +39,12 @@ public class Sistema {
         return tecnicos;
     }
 
-    public static ArrayList<Sensor> getSensores() {
-        return sensores;
+    public static ArrayList<Visita> getVisitas() {
+        return visitas;
+    }
+
+    public static ArrayList<Oferta> getOfertas() {
+        return ofertas;
     }
     
     public static void agregarColaborador(Colaborador colaborador) {
@@ -51,6 +63,14 @@ public class Sistema {
         heladeras.remove(heladera);
     }
 
+    public static void agregarSensor(Sensor sensor) {
+        sensores.add(sensor);
+    }
+
+    public static void eliminarSensor(Sensor sensor) {
+        sensores.remove(sensor);
+    }
+
     public static void agregarPersonaEnSituacionVulnerable(PersonaEnSituacionVulnerable personaEnSituacionVulnerable) {
         personasEnSituacionVulnerable.add(personaEnSituacionVulnerable);
     }
@@ -67,11 +87,19 @@ public class Sistema {
         tecnicos.remove(tecnico);
     }
 
-    public static void agregarSensor(Sensor sensor) {
-        sensores.add(sensor);
+    public static void agregarVisita(Visita visita) {
+        visitas.add(visita);
     }
 
-    public static void eliminarSensor(Sensor sensor) {
-        sensores.remove(sensor);
+    public static void eliminarVisita(Visita visita) {
+        visitas.remove(visita);
+    }
+    
+    public static void agregarOferta(Oferta oferta) {
+        ofertas.add(oferta);
+    }
+
+    public static void eliminarOferta(Oferta oferta) {
+        ofertas.remove(oferta);
     }
 }

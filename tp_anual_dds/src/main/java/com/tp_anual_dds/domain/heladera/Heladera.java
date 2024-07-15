@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.tp_anual_dds.domain.incidentes.Alerta;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
+import com.tp_anual_dds.sistema.Sistema;
 
 public class Heladera implements HeladeraObserver {
     private String nombre;
@@ -50,9 +51,13 @@ public class Heladera implements HeladeraObserver {
         viandas.add(vianda);
     }
 
-    // darDeAlta()
-    // darDeBaja()
-    // modificar()
+    public void darDeAlta() {
+        Sistema.agregarHeladera(this);
+    }
+
+    public void darDeBaja() {
+        Sistema.eliminarHeladera(this);
+    }
 
     public void verificarTempActual() {
         if (tempActual < tempMin || tempActual > tempMax) {

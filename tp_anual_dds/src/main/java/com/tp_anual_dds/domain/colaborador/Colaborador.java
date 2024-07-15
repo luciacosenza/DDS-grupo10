@@ -11,6 +11,7 @@ import com.tp_anual_dds.domain.incidentes.FallaTecnica;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona.Persona;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
+import com.tp_anual_dds.sistema.Sistema;
 
 public abstract class Colaborador {
     protected Persona persona;
@@ -61,9 +62,13 @@ public abstract class Colaborador {
         beneficiosAdquiridos.add(oferta);
     }
 
-    // darDeAlta()
-    // darDeBaja()
-    // modificar()
+    public void darDeAlta() {
+        Sistema.agregarColaborador(this);
+    }
+
+    public void darDeBaja() {
+        Sistema.eliminarColaborador(this);
+    }
 
     public void colaborar(ContribucionCreator creator, Object... args) {
         if(!esCreatorPermitido(creator.getClass())) {

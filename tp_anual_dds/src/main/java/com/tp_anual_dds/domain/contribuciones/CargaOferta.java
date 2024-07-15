@@ -21,7 +21,7 @@ public class CargaOferta extends Contribucion {
 
     @Override
     protected void accionar() {
-        System.out.println(this); // Esto es temporal, para que no tire errores. La idea es *agregar la oferta al sistema*
+        oferta.darDeAlta();
     }
 
     @Override

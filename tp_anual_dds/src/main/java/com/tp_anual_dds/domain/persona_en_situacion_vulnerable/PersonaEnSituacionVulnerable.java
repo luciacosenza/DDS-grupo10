@@ -6,6 +6,7 @@ import com.tp_anual_dds.domain.documento.Documento;
 import com.tp_anual_dds.domain.persona.PersonaFisica;
 import com.tp_anual_dds.domain.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
+import com.tp_anual_dds.sistema.Sistema;
 
 public class PersonaEnSituacionVulnerable {
     private PersonaFisica persona;
@@ -37,5 +38,11 @@ public class PersonaEnSituacionVulnerable {
         return menoresACargo > 0;
     }
 
-    // darDeAlta()
+    public void darDeAlta() {
+        Sistema.agregarPersonaEnSituacionVulnerable(this);
+    }
+
+    public void darDeBaja() {
+        Sistema.eliminarPersonaEnSituacionVulnerable(this);
+    }
 }

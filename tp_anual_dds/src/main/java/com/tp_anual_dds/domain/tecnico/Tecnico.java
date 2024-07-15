@@ -6,6 +6,7 @@ import com.tp_anual_dds.domain.area.Area;
 import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.domain.documento.Documento;
 import com.tp_anual_dds.domain.persona.PersonaFisica;
+import com.tp_anual_dds.sistema.Sistema;
 
 public class Tecnico {
     private PersonaFisica persona;
@@ -20,9 +21,16 @@ public class Tecnico {
         areaDeCobertura = vAreaDeCobertura;
     }
 
-    public void registrarVisita(LocalDateTime fecha, String descripcion, String foto, Boolean estadoConsulta) {
-        Visita visita = new Visita(fecha, descripcion, foto, estadoConsulta);
-        System.out.println(visita);  // Esto es temporal, simula el registro de la visita
+    public void darDeAlta() {
+        Sistema.agregarTecnico(this);
     }
-    
+
+    public void darDeBaja() {
+        Sistema.eliminarTecnico(this);
+    }
+
+    public void registrarVisita(LocalDateTime fecha, String descripcion, String foto, Boolean estadoConsulta) {
+        Visita visita = new Visita(this, fecha, descripcion, foto, estadoConsulta);
+        visita.registrar();
+    }
 }
