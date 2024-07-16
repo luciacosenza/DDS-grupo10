@@ -21,6 +21,10 @@ public class DonacionVianda extends Contribucion {
         vianda = vVianda;
         heladera = vHeladera;
     }
+    
+    public Heladera getHeladera() {
+        return heladera;
+    }
 
     // obtenerDetalles()
     

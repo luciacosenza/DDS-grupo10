@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.tp_anual_dds.domain.colaborador.Colaborador;
 import com.tp_anual_dds.domain.heladera.Heladera;
 import com.tp_anual_dds.domain.heladera.Sensor;
+import com.tp_anual_dds.domain.incidentes.Incidente;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual_dds.domain.tecnico.Tecnico;
@@ -18,6 +19,7 @@ public class Sistema {
     private static final ArrayList<Tecnico> tecnicos = new ArrayList<>();
     private static final ArrayList<Visita> visitas = new ArrayList<>();
     private static final ArrayList<Oferta> ofertas = new ArrayList<>();
+    private static final ArrayList<Incidente> incidentes = new ArrayList<>();
 
     public static ArrayList<Colaborador> getColaboradores() {
         return colaboradores;
@@ -45,6 +47,10 @@ public class Sistema {
 
     public static ArrayList<Oferta> getOfertas() {
         return ofertas;
+    }
+
+    public static ArrayList<Incidente> getIncidentes() {
+        return incidentes;
     }
     
     public static void agregarColaborador(Colaborador colaborador) {
@@ -101,5 +107,13 @@ public class Sistema {
 
     public static void eliminarOferta(Oferta oferta) {
         ofertas.remove(oferta);
+    }
+
+    public static void agregarIncidente(Incidente incidente) {
+        incidentes.add(incidente);
+    }
+
+    public static void eliminarIncidente(Incidente incidente) {
+        incidentes.remove(incidente);
     }
 }

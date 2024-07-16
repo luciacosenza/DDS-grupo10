@@ -28,6 +28,10 @@ public abstract class Colaborador {
         return domicilio;
     }
 
+    public ArrayList<Contribucion> getContribuciones() {
+        return contribuciones;
+    }
+
     public Double getPuntos() {
         return puntos;
     }

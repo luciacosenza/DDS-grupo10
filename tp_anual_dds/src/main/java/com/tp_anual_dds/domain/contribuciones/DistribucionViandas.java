@@ -30,6 +30,18 @@ public class DistribucionViandas extends Contribucion {
         motivo = vMotivo;
     }
 
+    public Heladera getOrigen() {
+        return origen;
+    }
+
+    public Heladera getDestino() {
+        return destino;
+    }
+
+    public Integer getCantidadViandasAMover() {
+        return cantidadViandasAMover;
+    }
+
     // obtenerDetalles()
     
     @Override
