@@ -32,4 +32,8 @@ public class Documento {
     public TipoDocumento getTipo() {
         return tipo;
     }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
 }

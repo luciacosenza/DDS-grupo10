@@ -86,7 +86,9 @@ public class TransformacionDeDatos {
                 continue;
             }
             
-            String clave = colaborador.getPersona().getDocumento().getTipo().name() + "-" + colaborador.getPersona().getDocumento().getNumero();
+            String clave = colaborador.getPersona().getDocumento().getTipo().name()
+                + "-" + colaborador.getPersona().getDocumento().getNumero()
+                + "-" + colaborador.getPersona().getDocumento().getSexo().name();
 
             // Junta los repetidos
             if (colaboradoresProcesados.containsKey(clave)) {
