@@ -31,6 +31,6 @@ public class Tecnico {
 
     public void registrarVisita(LocalDateTime fecha, String descripcion, String foto, Boolean estadoConsulta) {
         Visita visita = new Visita(this, fecha, descripcion, foto, estadoConsulta);
-        visita.registrar();
+        visita.darDeAlta();
     }
 }

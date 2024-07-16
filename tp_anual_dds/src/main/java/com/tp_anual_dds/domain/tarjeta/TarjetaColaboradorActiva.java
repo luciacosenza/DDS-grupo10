@@ -10,6 +10,7 @@ import com.tp_anual_dds.domain.estados_de_solicitud.EstadoPosible;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoRealizada;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoSolicitud;
 import com.tp_anual_dds.domain.heladera.Heladera;
+import com.tp_anual_dds.domain.tarjeta.AccionHeladera.TipoAccion;
 import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoAperturaActivo;
 
 public class TarjetaColaboradorActiva extends TarjetaColaborador {
@@ -61,8 +62,8 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
     public void solicitarApertura(MotivoSolicitud motivo, Heladera heladeraInvolucrada) {
         estadoSolicitud.manejar(this);
         
-        System.out.println(String.format("Solicitud de Apertura - Motivo: %s", motivo));
-        // Esto es temporal, para que no tire errores. La logica es *registrar la solicitud en el sistema*
+        AccionHeladera solicitudApertura = new AccionHeladera(TipoAccion.SOLICITUD_APERTURA, LocalDateTime.now(), heladeraInvolucrada, this.getTitular());
+        solicitudApertura.darDeAlta();
 
         setEstadoSolicitud(new EstadoRealizada());
 
@@ -73,13 +74,13 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
     }
 
     @Override
-    public void intentarApertura(Heladera heladeraAAbrir) {
-        if(!(estadoSolicitud instanceof EstadoRealizada) || !(permiso.esHeladeraPermitida(heladeraAAbrir))) {
+    public void intentarApertura(Heladera heladeraInvolucrada) {
+        if(!(estadoSolicitud instanceof EstadoRealizada) || !(permiso.esHeladeraPermitida(heladeraInvolucrada))) {
             throw new UnsupportedOperationException("No cuenta con los permisos para abrir esta heladera");
         }
 
-        System.out.println(String.format("Apertura de Heladera %s", heladeraAAbrir));
-        // Esto es temporal, para que no tire errores. La logica es *registrar la apertura en el sistema*
+        AccionHeladera apertura = new AccionHeladera(TipoAccion.APERTURA, LocalDateTime.now(), heladeraInvolucrada, this.getTitular());
+        apertura.darDeAlta();
 
         setEstadoSolicitud(new EstadoPosible());
     }

@@ -9,7 +9,7 @@ import com.tp_anual_dds.domain.contribuciones.DistribucionViandas;
 import com.tp_anual_dds.domain.contribuciones.DonacionVianda;
 import com.tp_anual_dds.sistema.Sistema;
 
-public class ReporteViandasXColaborador extends Reporte {
+public class ReporteViandasPorColaborador extends Reporte {
     @Override
     public void programarReporte() {
         Runnable reportar = () -> {

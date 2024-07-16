@@ -1,14 +1,9 @@
 package com.tp_anual_dds.domain.contribuciones;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import com.tp_anual_dds.domain.colaborador.Colaborador;
-import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.heladera.Heladera;
-import com.tp_anual_dds.domain.heladera.Vianda;
-import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva;
-import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva.MotivoSolicitud;
 
 public class DistribucionViandas extends Contribucion {
     private Heladera origen;
@@ -53,6 +48,7 @@ public class DistribucionViandas extends Contribucion {
 
     @Override
     protected void accionar() {
+        /*
         ColaboradorHumano colaboradorHumano = (ColaboradorHumano) colaborador;
         
         String codigo = ""; // Esto es temporal, posteriormente se vera como crear los codigos
@@ -79,6 +75,7 @@ public class DistribucionViandas extends Contribucion {
         for(Vianda vianda : viandasADistribuir) {
             destino.agregarVianda(vianda);
         }
+        */
 
         System.out.println(this); // Esto es temporal, para que no tire errores. La logica es *registrar la donacion en el sistema*
     }

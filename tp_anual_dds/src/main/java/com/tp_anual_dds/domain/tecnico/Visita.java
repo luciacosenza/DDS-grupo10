@@ -19,7 +19,11 @@ public class Visita {
         estadoConsulta = vEstadoConsulta;
     }
 
-    public void registrar() {
+    public void darDeAlta() {
         Sistema.agregarVisita(this);
+    }
+
+    public void darDeBaja() {
+        Sistema.eliminarVisita(this);
     }
 }

@@ -8,6 +8,7 @@ import com.tp_anual_dds.domain.heladera.Sensor;
 import com.tp_anual_dds.domain.incidentes.Incidente;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
+import com.tp_anual_dds.domain.tarjeta.AccionHeladera;
 import com.tp_anual_dds.domain.tecnico.Tecnico;
 import com.tp_anual_dds.domain.tecnico.Visita;
 
@@ -19,6 +20,7 @@ public class Sistema {
     private static final ArrayList<Tecnico> tecnicos = new ArrayList<>();
     private static final ArrayList<Visita> visitas = new ArrayList<>();
     private static final ArrayList<Oferta> ofertas = new ArrayList<>();
+    private static final ArrayList<AccionHeladera> accionesHeladeras = new ArrayList<>();
     private static final ArrayList<Incidente> incidentes = new ArrayList<>();
 
     public static ArrayList<Colaborador> getColaboradores() {
@@ -47,6 +49,10 @@ public class Sistema {
 
     public static ArrayList<Oferta> getOfertas() {
         return ofertas;
+    }
+
+    public static ArrayList<AccionHeladera> getAccionesHeladeras() {
+        return accionesHeladeras;
     }
 
     public static ArrayList<Incidente> getIncidentes() {
@@ -107,6 +113,14 @@ public class Sistema {
 
     public static void eliminarOferta(Oferta oferta) {
         ofertas.remove(oferta);
+    }
+
+    public static void agregarAccionHeladera(AccionHeladera accionHeladera) {
+        accionesHeladeras.add(accionHeladera);
+    }
+
+    public static void eliminarAccionHeladera(AccionHeladera accionHeladera) {
+        accionesHeladeras.remove(accionHeladera);
     }
 
     public static void agregarIncidente(Incidente incidente) {

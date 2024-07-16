@@ -32,7 +32,7 @@ public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
     @Override
     protected void accionar() {
         tarjetaAsignada.getTitular().setTarjeta(tarjetaAsignada);
-        System.out.println(this);    // Esto es temporal, para que no tire errores. La idea es *agregar la tarjeta al sistema*
+        System.out.println(this);    // Esto es temporal, para que no tire errores. La idea es *agregar la tarjeta/contribucion/persona al sistema*
     }
 
     @Override
