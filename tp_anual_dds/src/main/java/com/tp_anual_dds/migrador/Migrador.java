@@ -52,14 +52,13 @@ public class Migrador {
         protocoloEnvio = protocolo;
     }
 
-    public static ArrayList<ColaboradorHumano> migrar(String csv) {     // El tipo de retorno (una lista de colaboradores) es temporal, hasta tener una database (pensamos que lo unico posible, por ahora, es retornar la lista de colaboradores cargados a quien la pida)        
+    public static void migrar(String csv) {        
         ArrayList<String[]> dataColaboradores = protocoloExtraccion.extract(csv);
         ArrayList<ColaboradorHumano> colaboradoresAMigrar = transformador.transform(dataColaboradores);
 
         for(ColaboradorHumano colaborador : colaboradoresAMigrar) {
+            colaborador.darDeAlta();
             protocoloEnvio.send(colaborador, ASUNTO, CUERPO);
         }
-        
-        return colaboradoresAMigrar;
     }
 }
