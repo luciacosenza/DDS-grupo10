@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.tp_anual_dds.conversores.ConversorFormaContribucion;
 import com.tp_anual_dds.conversores.ConversorTipoDocumento;
@@ -30,8 +32,6 @@ public class TransformacionDeDatos {
         return creator.crearContribucion(colaborador, fechaContribucion); // Posible error al querer crear una contribucion a traves de un Creator sin pasarle el resto de argumentos necesarios
     }
     
-    // private static ArrayList<Colaborador> sincronizarContribuciones() no hara falta, dado que cuando tengamos una database, esta hara que cada Colaborador sea unico
-
     private ColaboradorHumano procesarColaborador(String[] data) {
         String tipoDocStr = data[0];
         String numDoc = data[1];
@@ -63,13 +63,9 @@ public class TransformacionDeDatos {
             e.printStackTrace();
             return null;
         }
-
-        // Transforma a colaborador
-        ColaboradorHumano colaborador = null;   // Deberia ir: "obtenerColaborador(documento, nombre, apellido);" pero no tenemos forma de implementarlo, dado que todavia no tenemos una database
         
-        if (colaborador == null) {
-            colaborador = new ColaboradorHumano(null, contactos, null, null, nombre, apellido, documento, null);
-        }
+        // Transforma a colaborador
+        ColaboradorHumano colaborador = new ColaboradorHumano(null, contactos, null, null, nombre, apellido, documento, null);
         
         // Agrega contribuciones a colaborador
         for(Integer i = 0; i < cantColabs; i++){
@@ -79,9 +75,9 @@ public class TransformacionDeDatos {
 
         return colaborador;
     }    
-    
+
     public ArrayList<ColaboradorHumano> transform(ArrayList<String[]> data) {
-        ArrayList<ColaboradorHumano> colaboradoresProcesados = new ArrayList<>();
+        Map<String, ColaboradorHumano> colaboradoresProcesados = new HashMap<>();
 
         for(String[] dataColaborador : data) {
             ColaboradorHumano colaborador = procesarColaborador(dataColaborador);
@@ -90,9 +86,17 @@ public class TransformacionDeDatos {
                 continue;
             }
             
-            colaboradoresProcesados.add(colaborador);
+            String clave = colaborador.getPersona().getDocumento().getTipo().name() + "-" + colaborador.getPersona().getDocumento().getNumero();
+
+            // Junta los repetidos
+            if (colaboradoresProcesados.containsKey(clave)) {
+                ColaboradorHumano colaboradorExistente = colaboradoresProcesados.get(clave);
+                colaboradorExistente.getContribuciones().addAll(colaborador.getContribuciones());
+            } else {
+                colaboradoresProcesados.put(clave, colaborador);
+            }
         }
 
-        return colaboradoresProcesados;
+        return new ArrayList<>(colaboradoresProcesados.values());
     }
 }

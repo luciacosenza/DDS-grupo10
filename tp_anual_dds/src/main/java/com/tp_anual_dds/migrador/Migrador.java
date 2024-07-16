@@ -56,9 +56,6 @@ public class Migrador {
         ArrayList<String[]> dataColaboradores = protocoloExtraccion.extract(csv);
         ArrayList<ColaboradorHumano> colaboradoresAMigrar = transformador.transform(dataColaboradores);
 
-        // sincronizarContribuciones(colaboradoresAMigrar);
-        // Lo que haria este metodo es impedir que exista un "mismo" colaborador duplicado pero con distintas contribuciones, juntando todas las contribuciones de un mismo colaborador en un mismo objeto y eliminando el resto 
-
         for(ColaboradorHumano colaborador : colaboradoresAMigrar) {
             protocoloEnvio.send(colaborador, ASUNTO, CUERPO);
         }

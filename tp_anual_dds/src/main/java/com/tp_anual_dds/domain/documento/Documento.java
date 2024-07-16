@@ -24,4 +24,12 @@ public class Documento {
         numero = vNumero;
         sexo = vSexo;
     }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public TipoDocumento getTipo() {
+        return tipo;
+    }
 }

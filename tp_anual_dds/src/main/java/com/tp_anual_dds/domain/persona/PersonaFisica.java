@@ -20,4 +20,8 @@ public class PersonaFisica extends Persona {
     public String getNombre() {
         return nombre;
     }
+
+    public Documento getDocumento() {
+        return documento;
+    }
 }
