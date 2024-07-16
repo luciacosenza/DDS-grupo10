@@ -1,4 +1,4 @@
-package com.tp_anual_dds.validador;
+package com.tp_anual_dds.validador_password;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +10,7 @@ public class ValidadorTest {
     @DisplayName("Testeo que este en la lista de 10k passwords")
     public void FedeTest() {
         String contrasenia = "fuckyou";
-        Validador prueba = new Validador();
+        ValidadorPassword prueba = new ValidadorPassword();
 
         Assertions.assertFalse(prueba.esValida(contrasenia));
     }
@@ -19,7 +19,7 @@ public class ValidadorTest {
     @DisplayName("Testeo que sea corta")
     public void CortaTest() {
         String contrasenia = "uwu";
-        Validador prueba = new Validador();
+        ValidadorPassword prueba = new ValidadorPassword();
 
         Assertions.assertFalse(prueba.esValida(contrasenia));
     }
@@ -28,7 +28,7 @@ public class ValidadorTest {
     @DisplayName("Testeo que sea larga")
     public void LargoTest() {
         String contrasenia = "1234567891011121314151617181920kfsaofnhsaijvfnhewidsmoiiojgvmnmnmnmnmnmnmnmnmnmnmnmnmnmnmnmnmnmnmnmnergvnerivjeruhghghghghghghghghghghghghghghghghghghghghghghghghghghg.xdlolazomemeafsagfedfvdwvfvfvfvfvfvfvfvfvfvfvfvfvfvfvfvfvfvfvfvfvfw";
-        Validador prueba = new Validador();
+        ValidadorPassword prueba = new ValidadorPassword();
 
         Assertions.assertFalse(prueba.esValida(contrasenia));
     }
@@ -37,7 +37,7 @@ public class ValidadorTest {
     @DisplayName("Testeo que sea valida")
     public void ValidTest() {
         String contrasenia = "SNGFDSJidsnfds.549fwqe";
-        Validador prueba = new Validador();
+        ValidadorPassword prueba = new ValidadorPassword();
 
         Assertions.assertTrue(prueba.esValida(contrasenia));
     }
