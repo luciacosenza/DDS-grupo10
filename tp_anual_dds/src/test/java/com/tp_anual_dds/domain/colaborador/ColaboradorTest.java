@@ -9,13 +9,17 @@ import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual_dds.domain.contacto.EMail;
 import com.tp_anual_dds.domain.contacto.WhatsApp;
+import com.tp_anual_dds.domain.contribuciones.DonacionVianda;
+import com.tp_anual_dds.domain.contribuciones.DonacionViandaCreator;
+import com.tp_anual_dds.domain.contribuciones.HacerseCargoDeHeladeraCreator;
+import com.tp_anual_dds.domain.heladera.Vianda;
 
 public class ColaboradorTest {
     
     @Test
     @DisplayName("Testeo la obtención de un Contacto del Colaborador")
-    public void GetContacto() {
-        ColaboradorHumano colaborador = new ColaboradorHumano(null, new ArrayList<>(), null, null, null, null, null, null);
+    public void GetContactoTest() {
+        ColaboradorHumano colaborador = new ColaboradorHumano(null, new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", null, null); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
         EMail eMail = new EMail("correoprueba@gmail.com");
         colaborador.agregarContacto(eMail);
 
@@ -24,8 +28,8 @@ public class ColaboradorTest {
 
     @Test
     @DisplayName("Testeo la NoSuchElementException al pasar un MedioDeContacto que no posee el Colaborador")
-    public void NoSuchElementGetContacto() {
-        ColaboradorHumano colaborador = new ColaboradorHumano(null, new ArrayList<>(), null, null, null, null, null, null);
+    public void NoSuchElementGetContactoTest() {
+        ColaboradorHumano colaborador = new ColaboradorHumano(null, new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", null, null); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
         EMail eMail = new EMail("correoprueba@gmail.com");
         colaborador.agregarContacto(eMail);
 
@@ -34,5 +38,28 @@ public class ColaboradorTest {
         });
     
         Assertions.assertEquals("El colaborador no cuenta con ese medio de contacto", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Testeo la IllegalArgumentException para Contribuciones que el Colaborador no es capaz de hacer")
+    public void IllegalArgumentColaborarTest() {
+        ColaboradorHumano colaborador = new ColaboradorHumano(null, new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", null, null); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
+        HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            colaborador.colaborar(hacerseCargoDeHeladeraCreator);
+        });
+
+        Assertions.assertEquals("No es una forma válida de colaborar", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Testeo la correcta creación de la Contribucion y que se agregue a las contribuciones del Colaborador")
+    public void ColaborarTest() {
+        ColaboradorHumano colaborador = new ColaboradorHumano(null, new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", null, null); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
+        Vianda vianda = new Vianda("ComidaPrueba", null, colaborador, null, null, 0, 0, false);
+        DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
+        colaborador.colaborar(donacionViandaCreator);
+
+        DonacionVianda donacionVianda = new DonacionVianda();
     }
 }
