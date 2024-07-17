@@ -75,12 +75,12 @@ public abstract class Colaborador {
         Sistema.eliminarColaborador(this);
     }
 
-    public void colaborar(ContribucionCreator creator, Object... args) {
+    public void colaborar(ContribucionCreator creator, LocalDateTime fechaContribucion, Object... args) {
         if(!esCreatorPermitido(creator.getClass())) {
             throw new IllegalArgumentException("No es una forma válida de colaborar");
         }
 
-        Contribucion contribucion = creator.crearContribucion(this, LocalDateTime.now(), args);
+        Contribucion contribucion = creator.crearContribucion(this, fechaContribucion, args);
         contribucion.contribuir();
         agregarContribucion(contribucion);
     }

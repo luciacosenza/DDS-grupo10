@@ -1,12 +1,11 @@
 package com.tp_anual_dds.domain.contribuciones;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorJuridico;

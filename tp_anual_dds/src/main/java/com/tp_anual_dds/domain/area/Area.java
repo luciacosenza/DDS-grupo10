@@ -14,11 +14,11 @@ public class Area {
     }
 
     private Boolean entraEnX(Double x) {
-        return (Math.abs(x) > Math.abs(x1)) && (Math.abs(x) < Math.abs(x2));
+        return x > x1 && x < x2;
     }
 
     private Boolean entraEnY(Double y) {
-        return (Math.abs(y) > Math.abs(y1)) && (Math.abs(y) < Math.abs(y2));
+        return y > y1 && y < y2;
     }
 
     public Boolean estaDentro(Double x, Double y) {
