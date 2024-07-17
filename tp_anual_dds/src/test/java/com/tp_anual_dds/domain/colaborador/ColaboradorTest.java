@@ -60,6 +60,6 @@ public class ColaboradorTest {
         DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
         colaborador.colaborar(donacionViandaCreator);
 
-        DonacionVianda donacionVianda = new DonacionVianda();
+        DonacionVianda donacionVianda = new DonacionVianda(colaborador, null, vianda, null)
     }
 }
