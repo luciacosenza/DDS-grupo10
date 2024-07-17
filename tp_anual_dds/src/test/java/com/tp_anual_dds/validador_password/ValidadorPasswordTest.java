@@ -34,7 +34,7 @@ public class ValidadorPasswordTest {
     }
 
     @Test
-    @DisplayName("Testeo que sea valida")
+    @DisplayName("Testeo que sea válida")
     public void ValidaTest() {
         String contrasenia = "SNGFDSJidsnfds.549fwqe";
         ValidadorPassword validador = new ValidadorPassword();

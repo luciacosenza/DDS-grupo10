@@ -2,6 +2,7 @@ package com.tp_anual_dds.domain.colaborador;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import com.tp_anual_dds.domain.contacto.MedioDeContacto;
@@ -37,17 +38,13 @@ public abstract class Colaborador {
     }
 
     public <T extends MedioDeContacto> T getContacto(Class<T> tipoMedioDeContacto) {    // Con este metodo, suponemos que el Colaborador no puede tener mas de un medioDeContacto del mismo tipo
-        if (!MedioDeContacto.class.isAssignableFrom(tipoMedioDeContacto)) {
-            throw new IllegalArgumentException("No está buscando un medio de contacto válido");
-        }
-
         for (MedioDeContacto contacto : mediosDeContacto) {
             if (tipoMedioDeContacto.isInstance(contacto)) {
                 return tipoMedioDeContacto.cast(contacto);
             }
         }
 
-        return null;
+        throw new NoSuchElementException("El colaborador no cuenta con ese medio de contacto");
     }
 
     public Boolean esCreatorPermitido(Class<? extends ContribucionCreator> creatorClass) {
@@ -56,6 +53,10 @@ public abstract class Colaborador {
 
     public void sumarPuntos(Double puntosASumar) {
         puntos += puntosASumar;
+    }
+
+    public void agregarContacto(MedioDeContacto contacto) {
+        mediosDeContacto.add(contacto);
     }
 
     public void agregarContribucion(Contribucion contribucion) {

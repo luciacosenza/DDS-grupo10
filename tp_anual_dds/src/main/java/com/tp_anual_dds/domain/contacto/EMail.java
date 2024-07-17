@@ -1,7 +1,7 @@
 package com.tp_anual_dds.domain.contacto;
 
 public class EMail extends MedioDeContacto {
-    String direccionCorreo;
+    private final String direccionCorreo;
 
     public EMail(String vDireccionCorreo) {
         direccionCorreo = vDireccionCorreo;

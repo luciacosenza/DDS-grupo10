@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public class RecomendadorHeladerasTest {
     
     @Test
-    @DisplayName("Testeo que funcione el Recomendador")
+    @DisplayName("Testeo que funcione la Mock-Api")
     public void RecommendTest() {
 
         List<Map<String, Double>> resultado = RecomendadorHeladeras.obtenerValoresDesdeAPI();
