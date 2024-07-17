@@ -3,8 +3,8 @@ package com.tp_anual_dds.validador_password;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class CriterioTop10000Mala extends CriterioValidacion {
-    public CriterioTop10000Mala() {}
+public class CriterioTop10000MasComun extends CriterioValidacion {
+    public CriterioTop10000MasComun() {}
 
     @Override
     public Boolean validar(String contrasenia) {

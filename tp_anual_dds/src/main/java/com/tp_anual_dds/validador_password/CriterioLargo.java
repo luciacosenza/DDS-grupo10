@@ -1,10 +1,24 @@
 package com.tp_anual_dds.validador_password;
 
 public class CriterioLargo extends CriterioValidacion {
-    public CriterioLargo() {}
+    private final Integer longitudMinima;
+    private final Integer longitudMaxima;
+    
+    public CriterioLargo(Integer vLongitudMinima, Integer vLongitudMaxima) {
+        longitudMinima = vLongitudMinima;
+        longitudMaxima = vLongitudMaxima;
+    }
 
     @Override
     public Boolean validar(String contrasenia) {
-        return (contrasenia.length() >= 8 && contrasenia.length() <= 64);
+        return ((!esCorta(contrasenia)) && (!esLarga(contrasenia)));
+    }
+
+    public Boolean esCorta(String contrasenia) {
+        return contrasenia.length() < longitudMinima;
+    }
+
+    public Boolean esLarga(String contrasenia) {
+        return contrasenia.length() > longitudMaxima;
     }
 }

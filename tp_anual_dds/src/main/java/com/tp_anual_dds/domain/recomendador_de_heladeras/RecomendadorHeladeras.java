@@ -1,4 +1,4 @@
-package com.tp_anual_dds.domain.recomendador;
+package com.tp_anual_dds.domain.recomendador_de_heladeras;
 
 import java.util.List;
 import java.util.ArrayList;

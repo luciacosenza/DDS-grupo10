@@ -1,4 +1,4 @@
-package com.tp_anual_dds.domain;
+package com.tp_anual_dds.domain.recomendador_de_heladeras;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.tp_anual_dds.domain.recomendador.RecomendadorHeladeras;
-
 public class RecomendadorHeladerasTest {
     
     @Test
@@ -18,10 +16,17 @@ public class RecomendadorHeladerasTest {
 
         List<Map<String, Double>> resultado = RecomendadorHeladeras.obtenerValoresDesdeAPI();
 
+        Double latitudEsperada1 = -34.6030;
+        Double latitudEsperada2 = -34.6040;
+        Double latitudEsperada3 = -34.6050;
+        Double longitudEsperada1 = -58.3800;
+        Double longitudEsperada2 = -58.3820;
+        Double longitudEsperada3 = -58.3830;
+
         List<Map<String, Double>> valoresEsperados = Arrays.asList(
-            Map.of("latitud", -34.6030, "longitud", -58.3800),
-            Map.of("latitud", -34.6040, "longitud", -58.3820),
-            Map.of("latitud", -34.6050, "longitud", -58.3830)
+            Map.of("latitud", latitudEsperada1, "longitud", longitudEsperada1),
+            Map.of("latitud", latitudEsperada2, "longitud", longitudEsperada2),
+            Map.of("latitud", latitudEsperada3, "longitud", longitudEsperada3)
         );
 
         Assertions.assertEquals(valoresEsperados, resultado);
