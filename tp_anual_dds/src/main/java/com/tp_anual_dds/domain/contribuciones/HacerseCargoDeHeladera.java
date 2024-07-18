@@ -34,6 +34,9 @@ public class HacerseCargoDeHeladera extends Contribucion {
 
     @Override
     protected void calcularPuntos() {
+        Integer periodo = 1;
+        TimeUnit unidad = TimeUnit.DAYS;
+        
         Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
             long mesesPasados = ChronoUnit.MONTHS.between(ultimaActualizacion, ahora);
@@ -44,6 +47,6 @@ public class HacerseCargoDeHeladera extends Contribucion {
         };
 
         // Programa la tarea para que se ejecute una vez por dia
-        scheduler.scheduleAtFixedRate(calculoPuntos, 0, 1, TimeUnit.DAYS);  // Ejecuta una vez por dia, puede ser ineficiente
+        scheduler.scheduleAtFixedRate(calculoPuntos, 0, periodo, unidad);  // Ejecuta una vez por dia, puede ser ineficiente
     }
 }

@@ -99,7 +99,10 @@ public class DonacionDinero extends Contribucion {
         if (frecuencia == FrecuenciaDePago.UNICA_VEZ) {
             colaborador.sumarPuntos(monto * multiplicador_puntos);
             return; // Corta la ejecucion del metodo
-        }
+        } 
+
+        Integer periodo = 1;
+        TimeUnit unidad = TimeUnit.DAYS;
 
         Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
@@ -111,6 +114,6 @@ public class DonacionDinero extends Contribucion {
         };
 
         // Programa la tarea para que se ejecute una vez por dia
-        scheduler.scheduleAtFixedRate(calculoPuntos, 0, 1, TimeUnit.DAYS);  // Ejecuta una vez por dia, puede ser ineficiente en casos como MENSUAL, SEMESTRAL o ANUAL
+        scheduler.scheduleAtFixedRate(calculoPuntos, 0, periodo, unidad);  // Ejecuta una vez por dia, puede ser ineficiente en casos como MENSUAL, SEMESTRAL o ANUAL
     }
 }
