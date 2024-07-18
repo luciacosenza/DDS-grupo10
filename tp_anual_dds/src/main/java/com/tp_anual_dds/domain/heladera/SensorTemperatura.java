@@ -10,8 +10,12 @@ public class SensorTemperatura extends Sensor {
         tempActual = 0f;
     }
 
+    public void setTempActual(Float vTempActual) {
+        tempActual = vTempActual;
+    }
+
     public Boolean funcionaSensorFisico() {
-        return true;
+        return true;    // Simulamos el buen funcionamiento del SensorFisico
     }
 
     @Override
@@ -33,7 +37,7 @@ public class SensorTemperatura extends Sensor {
         };
         
         // Programa la tarea para que se ejecute cada 5 minutos
-        scheduler.scheduleAtFixedRate(notificacionTemperatura, 0, 5, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(notificacionTemperatura, 0, 10, TimeUnit.MINUTES);
     }
 
     // Esto en si no hace nada util, faltaria la vinculacion con el sensor fisico

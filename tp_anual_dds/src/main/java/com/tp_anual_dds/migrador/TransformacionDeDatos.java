@@ -65,7 +65,7 @@ public class TransformacionDeDatos {
         }
         
         // Transforma a colaborador
-        ColaboradorHumano colaborador = new ColaboradorHumano(null, contactos, null, null, nombre, apellido, documento, null);
+        ColaboradorHumano colaborador = new ColaboradorHumano(null, contactos, new ArrayList<>(), new ArrayList<>(), null, nombre, apellido, documento, null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
         
         // Agrega contribuciones a colaborador
         for(Integer i = 0; i < cantColabs; i++){

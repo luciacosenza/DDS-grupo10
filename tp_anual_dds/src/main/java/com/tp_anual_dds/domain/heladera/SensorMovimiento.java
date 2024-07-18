@@ -10,6 +10,10 @@ public class SensorMovimiento extends Sensor {
         hayMovimiento = false;
     }
     
+    public void setHayMovimiento(Boolean vHayMovimiento) {
+        hayMovimiento = vHayMovimiento;
+    }
+
     @Override
     public void notificar() {
         heladera.reportarFraude();

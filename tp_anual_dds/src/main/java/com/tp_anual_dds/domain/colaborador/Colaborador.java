@@ -33,6 +33,10 @@ public abstract class Colaborador {
         return contribuciones;
     }
 
+    public ArrayList<Oferta> getBeneficiosAdquiridos() {
+        return beneficiosAdquiridos;
+    }
+
     public Double getPuntos() {
         return puntos;
     }
@@ -63,7 +67,7 @@ public abstract class Colaborador {
         contribuciones.add(contribucion);
     }
 
-    public void adquirirBeneficio(Oferta oferta) {
+    public void agregarBeneficio(Oferta oferta) {
         beneficiosAdquiridos.add(oferta);
     }
 
@@ -84,6 +88,12 @@ public abstract class Colaborador {
         contribucion.contribuir();
         agregarContribucion(contribucion);
     }
+
+    public void intentarAdquirirBeneficio(Oferta oferta) {
+        oferta.validarPuntos(this);
+        oferta.darDeBaja();
+        agregarBeneficio(oferta);
+    } 
 
     public void reportarFallaTecnica(String descripcion, String foto) {
         FallaTecnica fallaTecnica = new FallaTecnica(this, descripcion, foto);

@@ -35,6 +35,10 @@ public class Heladera implements HeladeraObserver {
         return viandas;
     }
 
+    public Float getTempActual() {
+        return tempActual;
+    }
+
     public Boolean getEstado() {
         return estado;
     }
@@ -74,8 +78,8 @@ public class Heladera implements HeladeraObserver {
     public void reportarAlerta(Alerta.TipoAlerta tipo) {
         setEstado(false);
 
-        Alerta alerta = new Alerta (tipo);
-        System.out.println(alerta);  // Esto es temporal, simula el registro de la alerta
+        Alerta alerta = new Alerta(tipo);
+        alerta.darDeAlta();
     }
 
     public void reportarTemperatura() {
