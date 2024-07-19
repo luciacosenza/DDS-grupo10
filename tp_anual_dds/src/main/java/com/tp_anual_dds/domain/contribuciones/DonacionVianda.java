@@ -3,16 +3,16 @@ package com.tp_anual_dds.domain.contribuciones;
 import java.time.LocalDateTime;
 
 import com.tp_anual_dds.domain.colaborador.Colaborador;
-import com.tp_anual_dds.domain.heladera.Heladera;
+import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.heladera.Vianda;
 
 
 public class DonacionVianda extends Contribucion {
     private Vianda vianda;
-    private Heladera heladera;
+    private HeladeraActiva heladera;
     private final Double multiplicador_puntos = 1.5;
 
-    public DonacionVianda(Colaborador vColaborador, LocalDateTime vFechaContribucion, Vianda vVianda, Heladera vHeladera) {
+    public DonacionVianda(Colaborador vColaborador, LocalDateTime vFechaContribucion, Vianda vVianda, HeladeraActiva vHeladera) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
         vianda = vVianda;
@@ -20,7 +20,7 @@ public class DonacionVianda extends Contribucion {
         completada = false;
     }
     
-    public Heladera getHeladera() {
+    public HeladeraActiva getHeladera() {
         return heladera;
     }
 
@@ -47,9 +47,7 @@ public class DonacionVianda extends Contribucion {
         
         colaboradorHumano.getTarjeta().intentarApertura(heladera);
         heladera.agregarVianda(vianda);
-        */
-
-        System.out.println(this); // Esto es temporal, para que no tire errores. La logica es *registrar la vianda en el sistema*
+        */ // Lo mas probable es que este metodo sea eliminado
     }
 
     @Override

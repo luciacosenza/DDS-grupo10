@@ -15,8 +15,11 @@ import com.tp_anual_dds.domain.contribuciones.DonacionViandaCreator;
 import com.tp_anual_dds.domain.documento.Documento;
 import com.tp_anual_dds.domain.documento.Documento.Sexo;
 import com.tp_anual_dds.domain.documento.Documento.TipoDocumento;
-import com.tp_anual_dds.domain.heladera.Heladera;
+import com.tp_anual_dds.domain.heladera.HeladeraActiva;
+import com.tp_anual_dds.domain.heladera.HeladeraNula;
 import com.tp_anual_dds.domain.heladera.Vianda;
+import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva;
+import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorCreator;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 
 public class Colaborador2Test {
@@ -28,19 +31,32 @@ public class Colaborador2Test {
         LocalDateTime fechaAperturaH1   = LocalDateTime.parse("2024-01-01T00:00:00");
         LocalDateTime fechaAperturaH2   = LocalDateTime.parse("2024-02-01T00:00:00");
         LocalDateTime fechaCaducidadV   = LocalDateTime.parse("2025-01-01T00:00:00");
-        LocalDateTime fechaDonacion     = LocalDateTime.parse("2024-07-15T00:00:00");
-        LocalDateTime fechaDistribucion = LocalDateTime.parse("2024-07-15T00:30:00");
         
-        Heladera heladera1 = new Heladera("HeladeraPrueba1", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, fechaAperturaH1, -20f, 5f);
-        Heladera heladera2 = new Heladera("HeladeraPrueba2", new Ubicacion(-34.6092, -58.3842, "Avenida de Mayo 1370", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, fechaAperturaH2, -20f, 5f);
-        Vianda vianda = new Vianda("ComidaPrueba", null , colaborador, fechaCaducidadV, fechaDonacion, 0, 0, false);
+        HeladeraActiva heladera1 = new HeladeraActiva("HeladeraPrueba1", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 2, fechaAperturaH1, -20f, 5f);
+        HeladeraActiva heladera2 = new HeladeraActiva("HeladeraPrueba2", new Ubicacion(-34.6092, -58.3842, "Avenida de Mayo 1370", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaAperturaH2, -20f, 5f);
+        Vianda vianda = new Vianda("ComidaPrueba" , colaborador, fechaCaducidadV, LocalDateTime.now(), 0, 0, false);
         
         DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
-        DonacionVianda donacionVianda = (DonacionVianda) colaborador.colaborar(donacionViandaCreator, fechaDonacion, vianda, heladera1);
+        DonacionVianda donacionVianda = (DonacionVianda) colaborador.colaborar(donacionViandaCreator, LocalDateTime.now(), vianda, heladera1);
+        TarjetaColaboradorCreator tarjetaColaboradorCreator = new TarjetaColaboradorCreator();
+        TarjetaColaboradorActiva tarjetaColaboradorActiva = (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta("CodigoPrueba", colaborador);
+        colaborador.setTarjeta(tarjetaColaboradorActiva);
+        colaborador.getTarjeta().solicitarApertura(TarjetaColaboradorActiva.MotivoSolicitud.INGRESAR_DONACION, heladera1);
+        colaborador.getTarjeta().intentarApertura(heladera1);
+        heladera1.agregarVianda(vianda);
+        vianda.setHeladera(heladera1);
         colaborador.confirmarContribucion(colaborador.getContribucionPendiente());
 
         DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
-        DistribucionViandas distribucionViandas = (DistribucionViandas) colaborador.colaborar(distribucionViandasCreator, fechaDistribucion, heladera1, heladera2, 5, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
+        DistribucionViandas distribucionViandas = (DistribucionViandas) colaborador.colaborar(distribucionViandasCreator, LocalDateTime.now(), heladera1, heladera2, 1, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
+        colaborador.getTarjeta().solicitarApertura(TarjetaColaboradorActiva.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION, heladera1);
+        colaborador.getTarjeta().intentarApertura(heladera1);
+        heladera1.retirarVianda();
+        vianda.setHeladera(new HeladeraNula());
+        colaborador.getTarjeta().solicitarApertura(TarjetaColaboradorActiva.MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION, heladera2);
+        colaborador.getTarjeta().intentarApertura(heladera2);
+        heladera2.agregarVianda(vianda);
+        vianda.setHeladera(heladera2);
         colaborador.confirmarContribucion(colaborador.getContribucionPendiente());
 
         ArrayList<Contribucion> contribuciones = new ArrayList<>();

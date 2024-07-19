@@ -2,7 +2,7 @@ package com.tp_anual_dds.domain.tarjeta.permisos_de_apertura;
 
 import java.time.LocalDateTime;
 
-import com.tp_anual_dds.domain.heladera.Heladera;
+import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 
 public class PermisoAperturaActivo extends PermisoApertura {
     public PermisoAperturaActivo() {
@@ -11,7 +11,7 @@ public class PermisoAperturaActivo extends PermisoApertura {
     }
 
     @Override
-    public Heladera getHeladeraPermitida() {
+    public HeladeraActiva getHeladeraPermitida() {
         return heladeraPermitida;
     }
 
@@ -26,12 +26,12 @@ public class PermisoAperturaActivo extends PermisoApertura {
     }
 
     @Override
-    public Boolean esHeladeraPermitida(Heladera heladera) {
+    public Boolean esHeladeraPermitida(HeladeraActiva heladera) {
         return heladera == heladeraPermitida;
     }
 
     @Override
-    public void setHeladeraPermitida(Heladera vHeladera) {
+    public void setHeladeraPermitida(HeladeraActiva vHeladera) {
         heladeraPermitida = vHeladera;
     }
 

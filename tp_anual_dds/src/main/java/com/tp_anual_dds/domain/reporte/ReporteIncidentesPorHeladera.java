@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import com.tp_anual_dds.domain.heladera.Heladera;
+import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.incidentes.Incidente;
 import com.tp_anual_dds.sistema.Sistema;
 
@@ -13,10 +13,10 @@ public class ReporteIncidentesPorHeladera extends Reporte {
     public void programarReporte() {
         
         Runnable reportar = () -> {
-            ArrayList<Heladera> heladeras = Sistema.getHeladeras();
+            ArrayList<HeladeraActiva> heladeras = Sistema.getHeladeras();
             ArrayList<Incidente> incidentes = Sistema.getIncidentes();
 
-            for(Heladera heladera : heladeras) {
+            for(HeladeraActiva heladera : heladeras) {
                 Integer cantidadIncidentes = incidentes.stream()
                     .filter(incidente -> incidente.getHeladera() == heladera)
                     .collect(Collectors.toList()).size();

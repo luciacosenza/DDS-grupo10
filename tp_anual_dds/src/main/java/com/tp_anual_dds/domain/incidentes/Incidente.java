@@ -2,14 +2,14 @@ package com.tp_anual_dds.domain.incidentes;
 
 import java.time.LocalDateTime;
 
-import com.tp_anual_dds.domain.heladera.Heladera;
+import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.sistema.Sistema;
 
 public abstract class Incidente {
     protected LocalDateTime fecha;
-    protected Heladera heladera;
+    protected HeladeraActiva heladera;
 
-    public Heladera getHeladera() {
+    public HeladeraActiva getHeladera() {
         return heladera;
     }
 

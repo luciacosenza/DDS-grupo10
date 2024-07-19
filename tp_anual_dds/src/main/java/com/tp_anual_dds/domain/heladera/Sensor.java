@@ -6,7 +6,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import com.tp_anual_dds.sistema.Sistema;
 
 public abstract class Sensor implements SensorSubject {
-    protected Heladera heladera;
+    protected HeladeraActiva heladera;
     protected final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public void darDeAlta() {

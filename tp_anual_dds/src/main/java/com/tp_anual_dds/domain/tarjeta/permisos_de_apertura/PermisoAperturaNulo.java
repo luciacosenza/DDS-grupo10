@@ -2,7 +2,7 @@ package com.tp_anual_dds.domain.tarjeta.permisos_de_apertura;
 
 import java.time.LocalDateTime;
 
-import com.tp_anual_dds.domain.heladera.Heladera;
+import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 
 public class PermisoAperturaNulo extends PermisoApertura {
     public PermisoAperturaNulo() {
@@ -11,7 +11,7 @@ public class PermisoAperturaNulo extends PermisoApertura {
     }
 
     @Override
-    public Heladera getHeladeraPermitida() {
+    public HeladeraActiva getHeladeraPermitida() {
         throw new UnsupportedOperationException("Permiso Nulo no tiene una heladera permitida.");
     }
 
@@ -24,12 +24,12 @@ public class PermisoAperturaNulo extends PermisoApertura {
     public void actualizarFechaOtorgamiento() {}
 
     @Override
-    public Boolean esHeladeraPermitida(Heladera heladera) {
+    public Boolean esHeladeraPermitida(HeladeraActiva heladera) {
         return false;
     }
 
     @Override
-    public void setHeladeraPermitida(Heladera heladera) {}
+    public void setHeladeraPermitida(HeladeraActiva heladera) {}
 
     @Override
     public void resetHeladeraPermitida() {}

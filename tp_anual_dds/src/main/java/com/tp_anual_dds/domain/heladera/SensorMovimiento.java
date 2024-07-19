@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 public class SensorMovimiento extends Sensor {
     private Boolean hayMovimiento;
     
-    public SensorMovimiento(Heladera vHeladera) {
+    public SensorMovimiento(HeladeraActiva vHeladera) {
         heladera = vHeladera;
         hayMovimiento = false;
     }

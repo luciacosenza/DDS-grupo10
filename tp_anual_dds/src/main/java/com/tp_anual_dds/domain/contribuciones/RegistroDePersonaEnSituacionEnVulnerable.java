@@ -35,10 +35,7 @@ public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
 
     @Override
     protected void accionar() {
-        // Esto es temporal
-        personaEnSituacionVulnerable.setTarjeta(tarjetaAsignada);
-        personaEnSituacionVulnerable.darDeAlta();
-        tarjetaAsignada.setTitular(personaEnSituacionVulnerable);
+        /*tarjetaAsignada.getTitular().setTarjeta(tarjetaAsignada);*/ // Lo mas probable es que este metodo sea eliminado
     }
 
     @Override

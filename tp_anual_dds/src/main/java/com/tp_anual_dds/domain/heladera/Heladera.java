@@ -5,93 +5,45 @@ import java.util.ArrayList;
 
 import com.tp_anual_dds.domain.incidentes.Alerta;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
-import com.tp_anual_dds.sistema.Sistema;
 
-public class Heladera implements HeladeraObserver {
-    private String nombre;
-    private Ubicacion ubicacion;
-    private ArrayList<Vianda> viandas;
-    private Integer capacidad;
-    private LocalDateTime fechaApertura;
-    private Float tempMin;
-    private Float tempMax;
-    private Float tempActual;
-    private Boolean estado;
+public abstract class Heladera implements HeladeraObserver {
+    protected String nombre;
+    protected Ubicacion ubicacion;
+    protected ArrayList<Vianda> viandas;
+    protected Integer capacidad;
+    protected LocalDateTime fechaApertura;
+    protected Float tempMin;
+    protected Float tempMax;
+    protected Float tempActual;
+    protected Boolean estado;
+    
+    public abstract ArrayList<Vianda> getViandas();
 
+    public abstract Float getTempActual();
 
-    public Heladera(String vNombre, Ubicacion vUbicacion, ArrayList<Vianda> vViandas, Integer vCapacidad, LocalDateTime vFechaApertura, Float vTempMin, Float vTempMax) {
-        nombre = vNombre;
-        ubicacion = vUbicacion;
-        viandas = vViandas;
-        capacidad = vCapacidad;
-        fechaApertura = vFechaApertura;
-        tempMin = vTempMin;
-        tempMax = vTempMax;
-        tempActual = 0f;
-        estado = true;
-    }
+    public abstract Boolean getEstado();
 
-    public ArrayList<Vianda> getViandas() {
-        return viandas;
-    }
+    public abstract void setEstado(Boolean nuevoEstado);
 
-    public Float getTempActual() {
-        return tempActual;
-    }
+    public abstract Vianda retirarVianda();
 
-    public Boolean getEstado() {
-        return estado;
-    }
+    public abstract void agregarVianda(Vianda vianda);
 
-    public void setEstado(Boolean nuevoEstado) {
-        estado = nuevoEstado;
-    }
+    public abstract void darDeAlta() ;
 
-    public Vianda retirarVianda() {
-        return viandas.remove(0);
-    }
+    public abstract void darDeBaja();
 
-    public void agregarVianda(Vianda vianda) {
-        viandas.add(vianda);
-    }
-
-    public void darDeAlta() {
-        Sistema.agregarHeladera(this);
-    }
-
-    public void darDeBaja() {
-        Sistema.eliminarHeladera(this);
-    }
-
-    public void verificarTempActual() {
-        if (tempActual < tempMin || tempActual > tempMax) {
-            reportarTemperatura();
-        }
-    }
+    public abstract void verificarTempActual();
 
     @Override
-    public void setTempActual(Float temperatura) {
-        tempActual = temperatura;
-        verificarTempActual();
-    }
+    public abstract void setTempActual(Float temperatura);
 
-    public void reportarAlerta(Alerta.TipoAlerta tipo) {
-        setEstado(false);
-
-        Alerta alerta = new Alerta(tipo);
-        alerta.darDeAlta();
-    }
-
-    public void reportarTemperatura() {
-        reportarAlerta(Alerta.TipoAlerta.TEMPERATURA);
-    }
+    public abstract void reportarAlerta(Alerta.TipoAlerta tipo);
+    
+    public abstract void reportarTemperatura();
 
     @Override
-    public void reportarFraude() {
-        reportarAlerta(Alerta.TipoAlerta.FRAUDE);
-    }
+    public abstract void reportarFraude();
 
-    public void reportarFallaConexion() {
-        reportarAlerta(Alerta.TipoAlerta.FALLA_CONEXION);
-    }
+    public abstract void reportarFallaConexion();
 }

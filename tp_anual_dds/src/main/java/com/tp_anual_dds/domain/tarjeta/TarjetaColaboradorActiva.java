@@ -9,7 +9,7 @@ import com.tp_anual_dds.domain.estados_de_solicitud.EstadoExpirada;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoPosible;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoRealizada;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoSolicitud;
-import com.tp_anual_dds.domain.heladera.Heladera;
+import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.tarjeta.AccionHeladera.TipoAccion;
 import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoAperturaActivo;
 
@@ -59,7 +59,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
     }
 
     @Override
-    public void solicitarApertura(MotivoSolicitud motivo, Heladera heladeraInvolucrada) {
+    public void solicitarApertura(MotivoSolicitud motivo, HeladeraActiva heladeraInvolucrada) {
         estadoSolicitud.manejar(this);
         
         AccionHeladera solicitudApertura = new AccionHeladera(TipoAccion.SOLICITUD_APERTURA, LocalDateTime.now(), heladeraInvolucrada, this.getTitular());
@@ -74,7 +74,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
     }
 
     @Override
-    public void intentarApertura(Heladera heladeraInvolucrada) {
+    public void intentarApertura(HeladeraActiva heladeraInvolucrada) {
         if(!(estadoSolicitud instanceof EstadoRealizada) || !(permiso.esHeladeraPermitida(heladeraInvolucrada))) {
             throw new UnsupportedOperationException("No cuenta con los permisos para abrir esta heladera");
         }

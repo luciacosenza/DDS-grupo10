@@ -3,7 +3,7 @@ package com.tp_anual_dds.domain.tarjeta;
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoNoAplica;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoSolicitud;
-import com.tp_anual_dds.domain.heladera.Heladera;
+import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva.MotivoSolicitud;
 import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoAperturaNulo;
 
@@ -32,8 +32,8 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
     public void programarRevocacionPermisos() {}
 
     @Override
-    public void solicitarApertura(MotivoSolicitud motivo, Heladera heladeraInvolucrada) {}
+    public void solicitarApertura(MotivoSolicitud motivo, HeladeraActiva heladeraInvolucrada) {}
 
     @Override
-    public void intentarApertura(Heladera heladeraAAbrir) {}
+    public void intentarApertura(HeladeraActiva heladeraAAbrir) {}
 }

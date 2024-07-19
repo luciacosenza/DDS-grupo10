@@ -3,7 +3,7 @@ package com.tp_anual_dds.sistema;
 import java.util.ArrayList;
 
 import com.tp_anual_dds.domain.colaborador.Colaborador;
-import com.tp_anual_dds.domain.heladera.Heladera;
+import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.heladera.Sensor;
 import com.tp_anual_dds.domain.incidentes.Incidente;
 import com.tp_anual_dds.domain.oferta.Oferta;
@@ -14,7 +14,7 @@ import com.tp_anual_dds.domain.tecnico.Visita;
 
 public class Sistema {
     private static final ArrayList<Colaborador> colaboradores = new ArrayList<>();
-    private static final ArrayList<Heladera> heladeras = new ArrayList<>();
+    private static final ArrayList<HeladeraActiva> heladeras = new ArrayList<>();
     private static final ArrayList<Sensor> sensores = new ArrayList<>();
     private static final ArrayList<PersonaEnSituacionVulnerable> personasEnSituacionVulnerable = new ArrayList<>();
     private static final ArrayList<Tecnico> tecnicos = new ArrayList<>();
@@ -27,7 +27,7 @@ public class Sistema {
         return colaboradores;
     }
 
-    public static ArrayList<Heladera> getHeladeras() {
+    public static ArrayList<HeladeraActiva> getHeladeras() {
         return heladeras;
     }
 
@@ -67,11 +67,11 @@ public class Sistema {
         colaboradores.remove(colaborador);
     }
 
-    public static void agregarHeladera(Heladera heladera) {
+    public static void agregarHeladera(HeladeraActiva heladera) {
         heladeras.add(heladera);
     }
 
-    public static void eliminarHeladera(Heladera heladera) {
+    public static void eliminarHeladera(HeladeraActiva heladera) {
         heladeras.remove(heladera);
     }
 

@@ -92,7 +92,7 @@ public class DonacionDinero extends Contribucion {
 
     @Override
     protected void accionar() {
-        System.out.println(this); // Esto es temporal, para que no tire errores. La logica es *registrar la donacion en el sistema*
+        // System.out.println(this); Lo mas probable es que este metodo sea eliminado
     }
 
     @Override

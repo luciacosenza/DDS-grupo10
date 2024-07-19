@@ -22,7 +22,7 @@ public class CargaOferta extends Contribucion {
 
     @Override
     protected void accionar() {
-        oferta.darDeAlta();
+        // oferta.darDeAlta();      Lo mas probable es que este metodo sea eliminado
     }
 
     @Override

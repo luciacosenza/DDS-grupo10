@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 public class SensorTemperatura extends Sensor {
     private Float tempActual;
 
-    public SensorTemperatura(Heladera vHeladera) {
+    public SensorTemperatura(HeladeraActiva vHeladera) {
         heladera = vHeladera;
         tempActual = 0f;
     }

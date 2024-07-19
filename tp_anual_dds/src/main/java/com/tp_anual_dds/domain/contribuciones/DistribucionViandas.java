@@ -3,11 +3,11 @@ package com.tp_anual_dds.domain.contribuciones;
 import java.time.LocalDateTime;
 
 import com.tp_anual_dds.domain.colaborador.Colaborador;
-import com.tp_anual_dds.domain.heladera.Heladera;
+import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 
 public class DistribucionViandas extends Contribucion {
-    private Heladera origen;
-    private Heladera destino;
+    private HeladeraActiva origen;
+    private HeladeraActiva destino;
     private Integer cantidadViandasAMover;
     private MotivoDistribucion motivo;
 
@@ -16,7 +16,7 @@ public class DistribucionViandas extends Contribucion {
         FALTA_DE_VIANDAS_EN_DESTINO
     }
     
-    public DistribucionViandas(Colaborador vColaborador, LocalDateTime vFechaContribucion, Heladera vOrigen, Heladera vDestino, Integer vCantidadViandasAMover, MotivoDistribucion vMotivo) {
+    public DistribucionViandas(Colaborador vColaborador, LocalDateTime vFechaContribucion, HeladeraActiva vOrigen, HeladeraActiva vDestino, Integer vCantidadViandasAMover, MotivoDistribucion vMotivo) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
         origen = vOrigen;
@@ -26,11 +26,11 @@ public class DistribucionViandas extends Contribucion {
         completada = false;
     }
 
-    public Heladera getOrigen() {
+    public HeladeraActiva getOrigen() {
         return origen;
     }
 
-    public Heladera getDestino() {
+    public HeladeraActiva getDestino() {
         return destino;
     }
 
@@ -76,9 +76,7 @@ public class DistribucionViandas extends Contribucion {
         for(Vianda vianda : viandasADistribuir) {
             destino.agregarVianda(vianda);
         }
-        */
-
-        System.out.println(this); // Esto es temporal, para que no tire errores. La logica es *registrar la donacion en el sistema*
+        */  // Lo mas probable es que este metodo sea eliminado
     }
 
     @Override

@@ -14,14 +14,22 @@ public class Vianda {
     private Integer peso;
     private Boolean entregada;
 
-    public Vianda(String vComida, Heladera vHeladera, Colaborador vColaborador, LocalDateTime vFechaCaducidad, LocalDateTime vFechaDonacion, Integer vCalorias, Integer vPeso, Boolean vEntregada) {
+    public Vianda(String vComida, Colaborador vColaborador, LocalDateTime vFechaCaducidad, LocalDateTime vFechaDonacion, Integer vCalorias, Integer vPeso, Boolean vEntregada) {
         comida = vComida;
-        heladera = vHeladera;
+        heladera = new HeladeraNula();
         colaborador = vColaborador;
         fechaCaducidad = vFechaCaducidad;
         fechaDonacion = vFechaDonacion;
         calorias = vCalorias;
         peso = vPeso;
         entregada = vEntregada;
+    }
+
+    public Heladera getHeladera() {
+        return heladera;
+    }
+
+    public void setHeladera(Heladera vHeladera) {
+        heladera = vHeladera;
     }
 }

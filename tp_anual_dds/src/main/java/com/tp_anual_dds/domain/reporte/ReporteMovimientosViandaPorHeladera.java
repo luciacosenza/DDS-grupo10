@@ -8,7 +8,7 @@ import com.tp_anual_dds.domain.colaborador.Colaborador;
 import com.tp_anual_dds.domain.contribuciones.Contribucion;
 import com.tp_anual_dds.domain.contribuciones.DistribucionViandas;
 import com.tp_anual_dds.domain.contribuciones.DonacionVianda;
-import com.tp_anual_dds.domain.heladera.Heladera;
+import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.sistema.Sistema;
 
 public class ReporteMovimientosViandaPorHeladera extends Reporte{
@@ -17,7 +17,7 @@ public class ReporteMovimientosViandaPorHeladera extends Reporte{
         
         Runnable reportar;
         reportar = () -> {
-            ArrayList<Heladera> heladeras = Sistema.getHeladeras();
+            ArrayList<HeladeraActiva> heladeras = Sistema.getHeladeras();
             ArrayList<Colaborador> colaboradores = Sistema.getColaboradores();
             ArrayList<Contribucion> contribuciones = (ArrayList<Contribucion>) colaboradores.stream()
                 .flatMap(colaborador -> colaborador.getContribuciones().stream())
@@ -33,7 +33,7 @@ public class ReporteMovimientosViandaPorHeladera extends Reporte{
                 .map(distribucionViandas -> (DistribucionViandas) distribucionViandas)
                 .collect(Collectors.toList());
 
-            for (Heladera heladera : heladeras) {
+            for (HeladeraActiva heladera : heladeras) {
                 Integer ingresos = donacionesVianda.stream()
                     .filter(distribucion -> distribucion.getHeladera() == heladera)
                     .collect(Collectors.toList())

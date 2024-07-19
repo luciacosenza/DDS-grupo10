@@ -7,15 +7,15 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import com.tp_anual_dds.domain.colaborador.Colaborador;
-import com.tp_anual_dds.domain.heladera.Heladera;
+import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 
 public class HacerseCargoDeHeladera extends Contribucion {
-    private Heladera heladeraObjetivo;
+    private HeladeraActiva heladeraObjetivo;
     private LocalDateTime ultimaActualizacion;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final Double multiplicador_puntos = 5d;
 
-    public HacerseCargoDeHeladera(Colaborador vColaborador, LocalDateTime vFechaContribucion, Heladera vHeladeraObjetivo) {
+    public HacerseCargoDeHeladera(Colaborador vColaborador, LocalDateTime vFechaContribucion, HeladeraActiva vHeladeraObjetivo) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
         heladeraObjetivo = vHeladeraObjetivo;
@@ -30,7 +30,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
 
     @Override
     protected void accionar() {
-        heladeraObjetivo.darDeAlta();
+        // heladeraObjetivo.darDeAlta();    Lo mas probable es que este metodo sea eliminado
     }
 
     @Override

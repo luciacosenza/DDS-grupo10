@@ -9,7 +9,6 @@ import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.colaborador.ColaboradorJuridico;
-import com.tp_anual_dds.domain.contribuciones.CargaOferta;
 import com.tp_anual_dds.domain.contribuciones.CargaOfertaCreator;
 import com.tp_anual_dds.domain.contribuciones.DonacionDinero;
 import com.tp_anual_dds.domain.contribuciones.DonacionDineroCreator;
@@ -29,15 +28,16 @@ public class OfertaTest {
         LocalDateTime fechaDonacion = LocalDateTime.parse("2024-07-10T00:00:00");
 
         DonacionDineroCreator donacionDineroCreator = new DonacionDineroCreator();
-        DonacionDinero donacionDinero = (DonacionDinero) colaboradorHumano.colaborar(donacionDineroCreator, fechaDonacion, 60d, DonacionDinero.FrecuenciaDePago.UNICA_VEZ);
-        colaboradorHumano.confirmarContribucion(donacionDinero);
+        colaboradorHumano.colaborar(donacionDineroCreator, fechaDonacion, 60d, DonacionDinero.FrecuenciaDePago.UNICA_VEZ);
+        colaboradorHumano.confirmarContribucion(colaboradorHumano.getContribucionPendiente());
 
         Oferta oferta = new Oferta("PlayStation 5", 20d, Oferta.Categoria.ELECTRONICA, "ImagenPrueba");
         LocalDateTime fechaCarga = LocalDateTime.parse("2024-07-15T00:00:00");
 
         CargaOfertaCreator cargaOfertaCreator = new CargaOfertaCreator();
-        CargaOferta cargaOferta = (CargaOferta) colaboradorJuridico.colaborar(cargaOfertaCreator, fechaCarga, oferta);
-        colaboradorJuridico.confirmarContribucion(cargaOferta);
+        colaboradorJuridico.colaborar(cargaOfertaCreator, fechaCarga, oferta);
+        oferta.darDeAlta();
+        colaboradorJuridico.confirmarContribucion(colaboradorJuridico.getContribucionPendiente());
         
         Thread.sleep(5000);
 
@@ -47,7 +47,7 @@ public class OfertaTest {
     }
 
     @Test
-    @DisplayName("Testeo el correcto funcionamiento de carga de Oferta e adquisicion de la misma")
+    @DisplayName("Testeo la IllegalArgumentException al querer adquirir un beneficio por parte de un Colaborador que no tiene los puntos suficientes")
     public void IllegalArgumentIntentarAdquirirBeneficioTest() throws InterruptedException {
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(Documento.TipoDocumento.DNI, "40123456", Documento.Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "RazonSocialPrueba", "RubroPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA);
@@ -56,12 +56,15 @@ public class OfertaTest {
 
         DonacionDineroCreator donacionDineroCreator = new DonacionDineroCreator();
         colaboradorHumano.colaborar(donacionDineroCreator, fechaDonacion, 20d, DonacionDinero.FrecuenciaDePago.UNICA_VEZ);
+        colaboradorHumano.confirmarContribucion(colaboradorHumano.getContribucionPendiente());
 
         Oferta oferta = new Oferta("PlayStation 5", 20d, Oferta.Categoria.ELECTRONICA, "ImagenPrueba");
         LocalDateTime fechaCarga = LocalDateTime.parse("2024-07-15T00:00:00");
 
         CargaOfertaCreator cargaOfertaCreator = new CargaOfertaCreator();
         colaboradorJuridico.colaborar(cargaOfertaCreator, fechaCarga, oferta);
+        oferta.darDeAlta();
+        colaboradorJuridico.confirmarContribucion(colaboradorJuridico.getContribucionPendiente());
         
         Thread.sleep(5000);
 
