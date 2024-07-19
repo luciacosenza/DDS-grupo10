@@ -3,16 +3,19 @@ package com.tp_anual_dds.domain.contribuciones;
 import java.time.LocalDateTime;
 
 import com.tp_anual_dds.domain.colaborador.Colaborador;
+import com.tp_anual_dds.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual_dds.domain.tarjeta.Tarjeta;
 import com.tp_anual_dds.domain.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 
 public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
+    private PersonaEnSituacionVulnerable personaEnSituacionVulnerable;
     private TarjetaPersonaEnSituacionVulnerable tarjetaAsignada;
     private final Double multiplicador_puntos = 2d;
     
-    public RegistroDePersonaEnSituacionEnVulnerable(Colaborador vColaborador, LocalDateTime vFechaContribucion, TarjetaPersonaEnSituacionVulnerable vTarjetaAsignada) {
+    public RegistroDePersonaEnSituacionEnVulnerable(Colaborador vColaborador, LocalDateTime vFechaContribucion, PersonaEnSituacionVulnerable vPersonaEnSituacionVulnerable, TarjetaPersonaEnSituacionVulnerable vTarjetaAsignada) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
+        personaEnSituacionVulnerable = vPersonaEnSituacionVulnerable;
         tarjetaAsignada = vTarjetaAsignada;
     }
 
@@ -31,8 +34,10 @@ public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
 
     @Override
     protected void accionar() {
-        tarjetaAsignada.getTitular().setTarjeta(tarjetaAsignada);
-        System.out.println(this);    // Esto es temporal, para que no tire errores. La idea es *agregar la tarjeta/contribucion/persona al sistema*
+        // Esto es temporal
+        personaEnSituacionVulnerable.setTarjeta(tarjetaAsignada);
+        personaEnSituacionVulnerable.darDeAlta();
+        tarjetaAsignada.setTitular(personaEnSituacionVulnerable);
     }
 
     @Override

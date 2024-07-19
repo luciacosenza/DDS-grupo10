@@ -13,7 +13,7 @@ public class PersonaEnSituacionVulnerable {
     private Ubicacion domicilio;
     private LocalDateTime fechaRegistro;
     private Integer menoresACargo;
-    private TarjetaPersonaEnSituacionVulnerable tarjeta;    // tarjetaNula (ningun metodo hace algo pero los conoce, para tener polimorfismo)
+    private TarjetaPersonaEnSituacionVulnerable tarjeta;
 
     public PersonaEnSituacionVulnerable(String vNombre, String vApellido, Documento vDocumento, LocalDateTime vFechaNacimiento, Ubicacion vDomicilio, LocalDateTime vFechaRegistro, Integer vMenoresACargo) {
         persona = new PersonaFisica(vNombre, vApellido, vDocumento, vFechaNacimiento);

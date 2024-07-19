@@ -18,6 +18,10 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
     public PersonaEnSituacionVulnerable getTitular() {
         return titular;
     }
+
+    public void setTitular(PersonaEnSituacionVulnerable vTitular) {
+        titular = vTitular;
+    }
     
     public void agregarUso(UsoTarjeta uso) {
         usos.add(uso);

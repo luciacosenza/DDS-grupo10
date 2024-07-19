@@ -48,9 +48,10 @@ public class Colaborador1Test {
     public void IllegalArgumentColaborarTest() {
         ColaboradorHumano colaborador = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
         HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
-        
+        Heladera heladera = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.now(), -20f, 5f);
+
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            colaborador.colaborar(hacerseCargoDeHeladeraCreator, LocalDateTime.now(), new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.now(), -20f, 5f));
+            colaborador.colaborar(hacerseCargoDeHeladeraCreator, LocalDateTime.now(), heladera);
         });
 
         Assertions.assertEquals("No es una forma válida de colaborar", exception.getMessage());
