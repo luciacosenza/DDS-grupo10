@@ -3,16 +3,17 @@ package com.tp_anual_dds.domain.tarjeta.permisos_de_apertura;
 import java.time.LocalDateTime;
 
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
+import com.tp_anual_dds.domain.heladera.HeladeraNula;
 
 public class PermisoAperturaActivo extends PermisoApertura {
     public PermisoAperturaActivo() {
-        heladeraPermitida = null;
+        heladeraPermitida = new HeladeraNula();
         fechaOtorgamiento = LocalDateTime.now();
     }
 
     @Override
     public HeladeraActiva getHeladeraPermitida() {
-        return heladeraPermitida;
+        return (HeladeraActiva) heladeraPermitida;
     }
 
     @Override
