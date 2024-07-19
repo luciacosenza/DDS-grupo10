@@ -36,13 +36,12 @@ public class Colaborador2Test {
         Vianda vianda = new Vianda("ComidaPrueba", null , colaborador, fechaCaducidadV, fechaDonacion, 0, 0, false);
         
         DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
-        colaborador.colaborar(donacionViandaCreator, fechaDonacion, vianda, heladera1);
+        DonacionVianda donacionVianda = (DonacionVianda) colaborador.colaborar(donacionViandaCreator, fechaDonacion, vianda, heladera1);
+        colaborador.confirmarContribucion(colaborador.getContribucionPendiente());
 
         DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
-        colaborador.colaborar(distribucionViandasCreator, fechaDistribucion, heladera1, heladera2, 5, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
-
-        DonacionVianda donacionVianda = new DonacionVianda(colaborador, fechaDonacion, vianda, heladera1);
-        DistribucionViandas distribucionViandas = new DistribucionViandas(colaborador, fechaDistribucion, heladera1, heladera2, 5, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
+        DistribucionViandas distribucionViandas = (DistribucionViandas) colaborador.colaborar(distribucionViandasCreator, fechaDistribucion, heladera1, heladera2, 5, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
+        colaborador.confirmarContribucion(colaborador.getContribucionPendiente());
 
         ArrayList<Contribucion> contribuciones = new ArrayList<>();
         contribuciones.add(donacionVianda);

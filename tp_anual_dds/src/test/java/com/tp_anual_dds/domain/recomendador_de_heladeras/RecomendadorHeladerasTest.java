@@ -12,7 +12,7 @@ public class RecomendadorHeladerasTest {
     
     @Test
     @DisplayName("Testeo que funcione la Mock-Api")
-    public void RecommendTest() {
+    public void RecommendadorHeladerasMockApiTest() {
 
         List<Map<String, Double>> resultado = RecomendadorHeladeras.obtenerValoresDesdeAPI();
 

@@ -82,6 +82,7 @@ public class DonacionDinero extends Contribucion {
         monto = vMonto;
         frecuencia = vFrecuencia;
         ultimaActualizacion = LocalDateTime.now();
+        completada = false;
     }
 
     // obtenerDetalles()

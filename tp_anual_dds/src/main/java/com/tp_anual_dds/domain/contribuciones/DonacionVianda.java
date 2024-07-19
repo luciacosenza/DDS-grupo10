@@ -17,6 +17,7 @@ public class DonacionVianda extends Contribucion {
         fechaContribucion = vFechaContribucion;
         vianda = vVianda;
         heladera = vHeladera;
+        completada = false;
     }
     
     public Heladera getHeladera() {

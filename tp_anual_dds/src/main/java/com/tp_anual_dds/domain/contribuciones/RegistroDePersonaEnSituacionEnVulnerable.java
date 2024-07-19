@@ -17,6 +17,7 @@ public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
         fechaContribucion = vFechaContribucion;
         personaEnSituacionVulnerable = vPersonaEnSituacionVulnerable;
         tarjetaAsignada = vTarjetaAsignada;
+        completada = false;
     }
 
     public Tarjeta getTarjetaAsignada() {

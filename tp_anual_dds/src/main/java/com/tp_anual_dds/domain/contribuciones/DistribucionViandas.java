@@ -23,6 +23,7 @@ public class DistribucionViandas extends Contribucion {
         destino = vDestino;
         cantidadViandasAMover = vCantidadViandasAMover;
         motivo = vMotivo;
+        completada = false;
     }
 
     public Heladera getOrigen() {

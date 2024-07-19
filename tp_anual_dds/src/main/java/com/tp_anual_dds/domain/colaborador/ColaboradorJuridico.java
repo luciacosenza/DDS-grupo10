@@ -6,6 +6,7 @@ import java.util.HashSet;
 import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.domain.contribuciones.CargaOfertaCreator;
 import com.tp_anual_dds.domain.contribuciones.Contribucion;
+import com.tp_anual_dds.domain.contribuciones.ContribucionNula;
 import com.tp_anual_dds.domain.contribuciones.DonacionDineroCreator;
 import com.tp_anual_dds.domain.contribuciones.HacerseCargoDeHeladeraCreator;
 import com.tp_anual_dds.domain.oferta.Oferta;
@@ -18,13 +19,14 @@ public class ColaboradorJuridico extends Colaborador {
         domicilio = vDomicilio;
         mediosDeContacto = vMediosDeContacto;
         contribuciones = vContribuciones;
-        beneficiosAdquiridos = vBeneficiosAdquiridos;
+        contribucionPendiente = new ContribucionNula();
 
         creatorsPermitidos = new HashSet<>();
         creatorsPermitidos.add(CargaOfertaCreator.class);
         creatorsPermitidos.add(DonacionDineroCreator.class);
         creatorsPermitidos.add(HacerseCargoDeHeladeraCreator.class);
 
+        beneficiosAdquiridos = vBeneficiosAdquiridos;
         puntos = vPuntos;
     }
 

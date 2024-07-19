@@ -12,6 +12,7 @@ public class CargaOferta extends Contribucion {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
         oferta = vOferta;
+        completada = false;
     }
 
     // obtenerDetalles()

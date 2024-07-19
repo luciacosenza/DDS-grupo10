@@ -9,6 +9,7 @@ import com.tp_anual_dds.domain.colaborador.ColaboradorJuridico;
 public abstract class Contribucion {
     protected Colaborador colaborador;
     protected LocalDateTime fechaContribucion;
+    protected Boolean completada;
 
     public Colaborador getColaborador() {
         return colaborador;
@@ -16,6 +17,10 @@ public abstract class Contribucion {
 
     public LocalDateTime getFechaContribucion() {
         return fechaContribucion;
+    }
+
+    public Boolean estaCompletada() {
+        return completada;
     }
 
     // obtenerDetalles()
@@ -37,6 +42,11 @@ public abstract class Contribucion {
     public void contribuir() {
         validarIdentidad();
         accionar();
+    }
+
+    public void confirmar() {
+        // Podemos agregar logica para confirmar que la Contribucion fue efectivamente realizada
+        completada = true;
         calcularPuntos();
     }
 }

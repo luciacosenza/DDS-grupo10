@@ -20,6 +20,7 @@ public abstract class Colaborador {
     protected ArrayList<MedioDeContacto> mediosDeContacto;
     protected ArrayList<Contribucion> contribuciones;
     protected Set<Class<? extends ContribucionCreator>> creatorsPermitidos;
+    protected Contribucion contribucionPendiente;   // Esto podria ser plural en un futuro
     protected ArrayList<Oferta> beneficiosAdquiridos;
     protected Double puntos;
 
@@ -31,6 +32,10 @@ public abstract class Colaborador {
 
     public ArrayList<Contribucion> getContribuciones() {
         return contribuciones;
+    }
+
+    public Contribucion getContribucionPendiente() {
+        return contribucionPendiente;
     }
 
     public ArrayList<Oferta> getBeneficiosAdquiridos() {
@@ -49,6 +54,10 @@ public abstract class Colaborador {
         }
 
         throw new NoSuchElementException("El colaborador no cuenta con ese medio de contacto");
+    }
+
+    public void setContribucionPendiente(Contribucion vContribucionPendiente) {
+        contribucionPendiente = vContribucionPendiente;
     }
 
     public Boolean esCreatorPermitido(Class<? extends ContribucionCreator> creatorClass) {
@@ -79,13 +88,20 @@ public abstract class Colaborador {
         Sistema.eliminarColaborador(this);
     }
 
-    public void colaborar(ContribucionCreator creator, LocalDateTime fechaContribucion, Object... args) {
+    public Contribucion colaborar(ContribucionCreator creator, LocalDateTime fechaContribucion, Object... args) {
         if(!esCreatorPermitido(creator.getClass())) {
             throw new IllegalArgumentException("No es una forma válida de colaborar");
         }
 
         Contribucion contribucion = creator.crearContribucion(this, fechaContribucion, args);
         contribucion.contribuir();
+        setContribucionPendiente(contribucion);
+
+        return contribucion;
+    }
+
+    public void confirmarContribucion(Contribucion contribucion) {
+        contribucion.confirmar();
         agregarContribucion(contribucion);
     }
 

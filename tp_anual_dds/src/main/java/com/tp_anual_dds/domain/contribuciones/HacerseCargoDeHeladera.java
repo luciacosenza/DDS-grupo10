@@ -20,6 +20,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
         fechaContribucion = vFechaContribucion;
         heladeraObjetivo = vHeladeraObjetivo;
         ultimaActualizacion = LocalDateTime.now();
+        completada = false;
     }
 
     // obtenerDetalles()

@@ -62,6 +62,16 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
       - TarjetaPersonaEnSituacionVulnerable (*Class*)
 
 - **NULL OBJECT**
+  - En **Contribucion**
+    - **Null Object**
+      - ContribucionNula (*Class*)
+    - **Real Object**
+      - CargaOferta (*Class*)
+      - DistribucionViandas (*Class*)
+      - DonacionDinero (*Class*)
+      - DonacionVianda (*Class*)
+      - HacerseCargoDeHeladera (*Class*)
+      - RegistroDePersonaEnSituacionVulnerable (*Class*)
   - En **TarjetaColaborador**
     - **Null Object**
       - TarjetaColaboradorNula (*Class*)

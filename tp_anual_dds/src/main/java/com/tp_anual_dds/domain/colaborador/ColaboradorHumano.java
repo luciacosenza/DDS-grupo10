@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.domain.contribuciones.Contribucion;
+import com.tp_anual_dds.domain.contribuciones.ContribucionNula;
 import com.tp_anual_dds.domain.contribuciones.DistribucionViandasCreator;
 import com.tp_anual_dds.domain.contribuciones.DonacionDineroCreator;
 import com.tp_anual_dds.domain.contribuciones.DonacionViandaCreator;
@@ -25,7 +26,7 @@ public class ColaboradorHumano extends Colaborador {
         domicilio = vDomicilio;
         mediosDeContacto = vMediosDeContacto;
         contribuciones = vContribuciones;
-        beneficiosAdquiridos = vBeneficiosAdquiridos;
+        contribucionPendiente = new ContribucionNula();
 
         creatorsPermitidos = new HashSet<>();
         creatorsPermitidos.add(DistribucionViandasCreator.class);
@@ -33,6 +34,7 @@ public class ColaboradorHumano extends Colaborador {
         creatorsPermitidos.add(DonacionViandaCreator.class);
         creatorsPermitidos.add(RegistroDePersonaEnSituacionVulnerableCreator.class);
 
+        beneficiosAdquiridos = vBeneficiosAdquiridos;
         puntos = vPuntos;
         tarjeta = new TarjetaColaboradorNula();
     }
