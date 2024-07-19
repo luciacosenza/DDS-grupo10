@@ -1,9 +1,8 @@
-package com.tp_anual_dds.domain.tarjeta;
+package com.tp_anual_dds.domain.heladera;
 
 import java.time.LocalDateTime;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
-import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.sistema.Sistema;
 
 public class AccionHeladera {

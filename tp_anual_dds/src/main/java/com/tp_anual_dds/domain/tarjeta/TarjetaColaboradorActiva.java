@@ -9,8 +9,9 @@ import com.tp_anual_dds.domain.estados_de_solicitud.EstadoExpirada;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoPosible;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoRealizada;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoSolicitud;
+import com.tp_anual_dds.domain.heladera.AccionHeladera;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
-import com.tp_anual_dds.domain.tarjeta.AccionHeladera.TipoAccion;
+import com.tp_anual_dds.domain.heladera.AccionHeladera.TipoAccion;
 import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoAperturaActivo;
 
 public class TarjetaColaboradorActiva extends TarjetaColaborador {
@@ -54,7 +55,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
             }
         };
 
-        // Programa la tarea para que se ejecute una vez después de 3 horas
+        // Programa la tarea para que se ejecute una vez despues de 3 horas
         timer.schedule(() -> revocacionPermisos, 3, TimeUnit.HOURS);
     }
 

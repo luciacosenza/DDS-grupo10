@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.colaborador.ColaboradorJuridico;
+import com.tp_anual_dds.domain.contribuciones.CargaOferta;
 import com.tp_anual_dds.domain.contribuciones.CargaOfertaCreator;
 import com.tp_anual_dds.domain.contribuciones.DonacionDinero;
 import com.tp_anual_dds.domain.contribuciones.DonacionDineroCreator;
@@ -28,16 +29,16 @@ public class OfertaTest {
         LocalDateTime fechaDonacion = LocalDateTime.parse("2024-07-10T00:00:00");
 
         DonacionDineroCreator donacionDineroCreator = new DonacionDineroCreator();
-        colaboradorHumano.colaborar(donacionDineroCreator, fechaDonacion, 60d, DonacionDinero.FrecuenciaDePago.UNICA_VEZ);
-        colaboradorHumano.confirmarContribucion(colaboradorHumano.getContribucionPendiente());
+        DonacionDinero donacionDinero = (DonacionDinero) colaboradorHumano.colaborar(donacionDineroCreator, fechaDonacion, 60d, DonacionDinero.FrecuenciaDePago.UNICA_VEZ);
+        colaboradorHumano.confirmarContribucion(donacionDinero);
 
         Oferta oferta = new Oferta("PlayStation 5", 20d, Oferta.Categoria.ELECTRONICA, "ImagenPrueba");
         LocalDateTime fechaCarga = LocalDateTime.parse("2024-07-15T00:00:00");
 
         CargaOfertaCreator cargaOfertaCreator = new CargaOfertaCreator();
-        colaboradorJuridico.colaborar(cargaOfertaCreator, fechaCarga, oferta);
+        CargaOferta cargaOferta = (CargaOferta) colaboradorJuridico.colaborar(cargaOfertaCreator, fechaCarga, oferta);
         oferta.darDeAlta();
-        colaboradorJuridico.confirmarContribucion(colaboradorJuridico.getContribucionPendiente());
+        colaboradorJuridico.confirmarContribucion(cargaOferta);
         
         Thread.sleep(5000);
 
@@ -55,16 +56,16 @@ public class OfertaTest {
         LocalDateTime fechaDonacion = LocalDateTime.parse("2024-07-10T00:00:00");
 
         DonacionDineroCreator donacionDineroCreator = new DonacionDineroCreator();
-        colaboradorHumano.colaborar(donacionDineroCreator, fechaDonacion, 20d, DonacionDinero.FrecuenciaDePago.UNICA_VEZ);
-        colaboradorHumano.confirmarContribucion(colaboradorHumano.getContribucionPendiente());
+        DonacionDinero donacionDinero = (DonacionDinero) colaboradorHumano.colaborar(donacionDineroCreator, fechaDonacion, 20d, DonacionDinero.FrecuenciaDePago.UNICA_VEZ);
+        colaboradorHumano.confirmarContribucion(donacionDinero);
 
         Oferta oferta = new Oferta("PlayStation 5", 20d, Oferta.Categoria.ELECTRONICA, "ImagenPrueba");
         LocalDateTime fechaCarga = LocalDateTime.parse("2024-07-15T00:00:00");
 
         CargaOfertaCreator cargaOfertaCreator = new CargaOfertaCreator();
-        colaboradorJuridico.colaborar(cargaOfertaCreator, fechaCarga, oferta);
+        CargaOferta cargaOferta = (CargaOferta) colaboradorJuridico.colaborar(cargaOfertaCreator, fechaCarga, oferta);
         oferta.darDeAlta();
-        colaboradorJuridico.confirmarContribucion(colaboradorJuridico.getContribucionPendiente());
+        colaboradorJuridico.confirmarContribucion(cargaOferta);
         
         Thread.sleep(5000);
 

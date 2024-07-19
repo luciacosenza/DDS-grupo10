@@ -45,7 +45,7 @@ public class Colaborador2Test {
         colaborador.getTarjeta().intentarApertura(heladera1);
         heladera1.agregarVianda(vianda);
         vianda.setHeladera(heladera1);
-        colaborador.confirmarContribucion(colaborador.getContribucionPendiente());
+        colaborador.confirmarContribucion(donacionVianda);
 
         DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
         DistribucionViandas distribucionViandas = (DistribucionViandas) colaborador.colaborar(distribucionViandasCreator, LocalDateTime.now(), heladera1, heladera2, 1, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
@@ -57,7 +57,7 @@ public class Colaborador2Test {
         colaborador.getTarjeta().intentarApertura(heladera2);
         heladera2.agregarVianda(vianda);
         vianda.setHeladera(heladera2);
-        colaborador.confirmarContribucion(colaborador.getContribucionPendiente());
+        colaborador.confirmarContribucion(distribucionViandas);
 
         ArrayList<Contribucion> contribuciones = new ArrayList<>();
         contribuciones.add(donacionVianda);

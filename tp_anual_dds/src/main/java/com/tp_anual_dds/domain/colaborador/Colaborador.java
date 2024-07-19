@@ -20,7 +20,7 @@ public abstract class Colaborador {
     protected ArrayList<MedioDeContacto> mediosDeContacto;
     protected ArrayList<Contribucion> contribuciones;
     protected Set<Class<? extends ContribucionCreator>> creatorsPermitidos;
-    protected Contribucion contribucionPendiente;   // Esto podria ser plural en un futuro
+    protected ArrayList<Contribucion> contribucionesPendientes;   // Esto podria ser plural en un futuro
     protected ArrayList<Oferta> beneficiosAdquiridos;
     protected Double puntos;
 
@@ -34,8 +34,8 @@ public abstract class Colaborador {
         return contribuciones;
     }
 
-    public Contribucion getContribucionPendiente() {
-        return contribucionPendiente;
+    public ArrayList<Contribucion> getContribucionPendiente() {
+        return contribucionesPendientes;
     }
 
     public ArrayList<Oferta> getBeneficiosAdquiridos() {
@@ -56,10 +56,6 @@ public abstract class Colaborador {
         throw new NoSuchElementException("El colaborador no cuenta con ese medio de contacto");
     }
 
-    public void setContribucionPendiente(Contribucion vContribucionPendiente) {
-        contribucionPendiente = vContribucionPendiente;
-    }
-
     public Boolean esCreatorPermitido(Class<? extends ContribucionCreator> creatorClass) {
         return creatorsPermitidos.contains(creatorClass);
     }
@@ -76,8 +72,16 @@ public abstract class Colaborador {
         contribuciones.add(contribucion);
     }
 
+    public void agregarContribucionPendiente(Contribucion contribucionPendiente) {
+        contribucionesPendientes.add(contribucionPendiente);
+    }
+
     public void agregarBeneficio(Oferta oferta) {
         beneficiosAdquiridos.add(oferta);
+    }
+
+    public void eliminarContribucionPendiente(Contribucion contribucion) {
+        contribucionesPendientes.remove(contribucion);
     }
 
     public void darDeAlta() {
@@ -95,7 +99,7 @@ public abstract class Colaborador {
 
         Contribucion contribucion = creator.crearContribucion(this, fechaContribucion, args);
         contribucion.contribuir();
-        setContribucionPendiente(contribucion);
+        agregarContribucionPendiente(contribucion);
 
         return contribucion;
     }
@@ -103,6 +107,7 @@ public abstract class Colaborador {
     public void confirmarContribucion(Contribucion contribucion) {
         contribucion.confirmar();
         agregarContribucion(contribucion);
+        eliminarContribucionPendiente(contribucion);
     }
 
     public void intentarAdquirirBeneficio(Oferta oferta) {

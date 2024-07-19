@@ -3,12 +3,15 @@ package com.tp_anual_dds.sistema;
 import java.util.ArrayList;
 
 import com.tp_anual_dds.domain.colaborador.Colaborador;
+import com.tp_anual_dds.domain.heladera.AccionHeladera;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.heladera.Sensor;
 import com.tp_anual_dds.domain.incidentes.Incidente;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
-import com.tp_anual_dds.domain.tarjeta.AccionHeladera;
+import com.tp_anual_dds.domain.reporte.ReporteIncidentesPorHeladera;
+import com.tp_anual_dds.domain.reporte.ReporteMovimientosViandaPorHeladera;
+import com.tp_anual_dds.domain.reporte.ReporteViandasPorColaborador;
 import com.tp_anual_dds.domain.tecnico.Tecnico;
 import com.tp_anual_dds.domain.tecnico.Visita;
 
@@ -22,6 +25,9 @@ public class Sistema {
     private static final ArrayList<Oferta> ofertas = new ArrayList<>();
     private static final ArrayList<AccionHeladera> accionesHeladeras = new ArrayList<>();
     private static final ArrayList<Incidente> incidentes = new ArrayList<>();
+    private static final ReporteIncidentesPorHeladera reporteIncidentesPorHeladera = new ReporteIncidentesPorHeladera();
+    private static final ReporteMovimientosViandaPorHeladera reporteMovimientosViandaPorHeladera = new ReporteMovimientosViandaPorHeladera();
+    private static final ReporteViandasPorColaborador reporteViandasPorColaborador = new ReporteViandasPorColaborador();
 
     public static ArrayList<Colaborador> getColaboradores() {
         return colaboradores;
