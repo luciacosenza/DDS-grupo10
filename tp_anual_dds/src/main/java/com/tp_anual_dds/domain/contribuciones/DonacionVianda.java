@@ -27,27 +27,10 @@ public class DonacionVianda extends Contribucion {
     // obtenerDetalles()
     
     @Override
-    protected void validarIdentidad() {
+    public void validarIdentidad() {
         if(colaborador.getDomicilio() == null) {
             throw new IllegalArgumentException("El colaborador aspirante no posee domicilio. Para recibir la Tarjeta Solidaria debe actualizar su información");
         }
-    }
-
-    @Override
-    protected void accionar() {
-        /*
-        ColaboradorHumano colaboradorHumano = (ColaboradorHumano) colaborador;
-        
-        String codigo = ""; // Esto es temporal, posteriormente se vera como crear los codigos
-        colaboradorHumano.setTarjeta(new TarjetaColaboradorActiva(codigo, colaboradorHumano));
-
-        colaboradorHumano.getTarjeta().solicitarApertura(MotivoSolicitud.INGRESAR_DONACION, heladera);
-        
-        // Aca deberia pasar algo, dado que el colaborador puede tardar en ir a abrir la heladera, incluso quedarse sin tiempo
-        
-        colaboradorHumano.getTarjeta().intentarApertura(heladera);
-        heladera.agregarVianda(vianda);
-        */ // Lo mas probable es que este metodo sea eliminado
     }
 
     @Override

@@ -26,12 +26,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
     // obtenerDetalles()
     
     @Override
-    protected void validarIdentidad() {}
-
-    @Override
-    protected void accionar() {
-        // heladeraObjetivo.darDeAlta();    Lo mas probable es que este metodo sea eliminado
-    }
+    public void validarIdentidad() {}
 
     @Override
     protected void calcularPuntos() {

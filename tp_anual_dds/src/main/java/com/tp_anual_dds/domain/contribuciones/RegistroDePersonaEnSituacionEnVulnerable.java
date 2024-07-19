@@ -27,15 +27,10 @@ public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
     // obtenerDetalles()
     
     @Override
-    protected void validarIdentidad() {
+    public void validarIdentidad() {
         if(colaborador.getDomicilio() == null) {
             throw new IllegalArgumentException("El colaborador aspirante no posee domicilio. Para Registrar Personas Vulnerables debe actualizar su información.");
         }
-    }
-
-    @Override
-    protected void accionar() {
-        /*tarjetaAsignada.getTitular().setTarjeta(tarjetaAsignada);*/ // Lo mas probable es que este metodo sea eliminado
     }
 
     @Override

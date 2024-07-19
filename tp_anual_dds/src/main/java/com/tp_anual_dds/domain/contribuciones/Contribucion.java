@@ -33,16 +33,9 @@ public abstract class Contribucion {
         return colaboradorAspirante.getClass() == ColaboradorJuridico.class;
     }
 
-    protected abstract void validarIdentidad();
-
-    protected abstract void accionar();
+    public abstract void validarIdentidad();
 
     protected abstract void calcularPuntos();
-    
-    public void contribuir() {
-        validarIdentidad();
-        accionar();
-    }
 
     public void confirmar() {
         // Podemos agregar logica para confirmar que la Contribucion fue efectivamente realizada

@@ -98,7 +98,7 @@ public abstract class Colaborador {
         }
 
         Contribucion contribucion = creator.crearContribucion(this, fechaContribucion, args);
-        contribucion.contribuir();
+        contribucion.validarIdentidad();
         agregarContribucionPendiente(contribucion);
 
         return contribucion;
