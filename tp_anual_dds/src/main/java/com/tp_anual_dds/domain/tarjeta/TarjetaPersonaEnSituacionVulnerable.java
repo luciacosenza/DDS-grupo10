@@ -8,8 +8,8 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
     protected ArrayList<UsoTarjeta> usos;
     private PersonaEnSituacionVulnerable titular;
 
-    public TarjetaPersonaEnSituacionVulnerable(String vCodigo, PersonaEnSituacionVulnerable vTitular) {
-        codigo = vCodigo;
+    public TarjetaPersonaEnSituacionVulnerable(PersonaEnSituacionVulnerable vTitular) {
+        codigo = GeneradorCodigo.generarCodigo(false);
         titular = vTitular;
         usos = new ArrayList<>();
     }

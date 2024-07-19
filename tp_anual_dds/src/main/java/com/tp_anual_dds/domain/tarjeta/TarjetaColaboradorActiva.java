@@ -21,8 +21,8 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
         RETIRAR_LOTE_DE_DISTRIBUCION
     }
     
-    public TarjetaColaboradorActiva(String vCodigo, ColaboradorHumano vTitular) {
-        codigo = vCodigo;
+    public TarjetaColaboradorActiva(ColaboradorHumano vTitular) {
+        codigo = GeneradorCodigo.generarCodigo(true);
         titular = vTitular;
         estadoSolicitud = new EstadoPosible();
         permiso = new PermisoAperturaActivo();

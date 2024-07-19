@@ -46,7 +46,7 @@ public class EstadoSolicitudTest {
         DonacionVianda donacionVianda = (DonacionVianda) colaboradorHumano.colaborar(donacionViandaCreator, LocalDateTime.now(), vianda, heladera);
         
         TarjetaColaboradorCreator tarjetaColaboradorCreator = new TarjetaColaboradorCreator();
-        TarjetaColaboradorActiva tarjetaColaboradorActiva = (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta("CodigoPrueba", colaboradorHumano);
+        TarjetaColaboradorActiva tarjetaColaboradorActiva = (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta(colaboradorHumano);
         colaboradorHumano.setTarjeta(tarjetaColaboradorActiva);
 
         colaboradorHumano.getTarjeta().solicitarApertura(MotivoSolicitud.INGRESAR_DONACION, heladera);
@@ -78,7 +78,7 @@ public class EstadoSolicitudTest {
         colaboradorHumano.colaborar(donacionViandaCreator, LocalDateTime.now(), vianda, heladera1);
         
         TarjetaColaboradorCreator tarjetaColaboradorCreator = new TarjetaColaboradorCreator();
-        TarjetaColaboradorActiva tarjetaColaboradorActiva = (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta("CodigoPrueba", colaboradorHumano);
+        TarjetaColaboradorActiva tarjetaColaboradorActiva = (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta(colaboradorHumano);
         colaboradorHumano.setTarjeta(tarjetaColaboradorActiva);
 
         colaboradorHumano.getTarjeta().solicitarApertura(MotivoSolicitud.INGRESAR_DONACION, heladera1);

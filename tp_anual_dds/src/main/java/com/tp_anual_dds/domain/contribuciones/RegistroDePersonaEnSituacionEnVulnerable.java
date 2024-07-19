@@ -8,14 +8,12 @@ import com.tp_anual_dds.domain.tarjeta.Tarjeta;
 import com.tp_anual_dds.domain.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 
 public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
-    private PersonaEnSituacionVulnerable personaEnSituacionVulnerable;
     private TarjetaPersonaEnSituacionVulnerable tarjetaAsignada;
     private final Double multiplicador_puntos = 2d;
     
     public RegistroDePersonaEnSituacionEnVulnerable(Colaborador vColaborador, LocalDateTime vFechaContribucion, PersonaEnSituacionVulnerable vPersonaEnSituacionVulnerable, TarjetaPersonaEnSituacionVulnerable vTarjetaAsignada) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
-        personaEnSituacionVulnerable = vPersonaEnSituacionVulnerable;
         tarjetaAsignada = vTarjetaAsignada;
         completada = false;
     }

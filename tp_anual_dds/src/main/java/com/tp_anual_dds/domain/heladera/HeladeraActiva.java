@@ -77,7 +77,7 @@ public class HeladeraActiva extends Heladera {
     public void reportarAlerta(Alerta.TipoAlerta tipo) {
         setEstado(false);
 
-        Alerta alerta = new Alerta(tipo);
+        Alerta alerta = new Alerta(LocalDateTime.now(), this, tipo);
         alerta.darDeAlta();
     }
 

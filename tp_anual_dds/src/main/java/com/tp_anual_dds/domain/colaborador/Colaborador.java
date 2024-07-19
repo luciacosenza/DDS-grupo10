@@ -8,6 +8,7 @@ import java.util.Set;
 import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.domain.contribuciones.Contribucion;
 import com.tp_anual_dds.domain.contribuciones.ContribucionCreator;
+import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.incidentes.FallaTecnica;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona.Persona;
@@ -116,8 +117,8 @@ public abstract class Colaborador {
         agregarBeneficio(oferta);
     } 
 
-    public void reportarFallaTecnica(String descripcion, String foto) {
-        FallaTecnica fallaTecnica = new FallaTecnica(this, descripcion, foto);
-        System.out.println(fallaTecnica);  // Esto es temporal, simula el registro de la fallaTecnica
+    public void reportarFallaTecnica(HeladeraActiva heladera, String descripcion, String foto) {
+        FallaTecnica fallaTecnica = new FallaTecnica(LocalDateTime.now(), heladera, this, descripcion, foto);
+        fallaTecnica.darDeAlta();
     }
 }

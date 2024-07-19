@@ -39,7 +39,7 @@ public class Colaborador2Test {
         DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
         DonacionVianda donacionVianda = (DonacionVianda) colaborador.colaborar(donacionViandaCreator, LocalDateTime.now(), vianda, heladera1);
         TarjetaColaboradorCreator tarjetaColaboradorCreator = new TarjetaColaboradorCreator();
-        TarjetaColaboradorActiva tarjetaColaboradorActiva = (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta("CodigoPrueba", colaborador);
+        TarjetaColaboradorActiva tarjetaColaboradorActiva = (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta(colaborador);
         colaborador.setTarjeta(tarjetaColaboradorActiva);
         colaborador.getTarjeta().solicitarApertura(TarjetaColaboradorActiva.MotivoSolicitud.INGRESAR_DONACION, heladera1);
         colaborador.getTarjeta().intentarApertura(heladera1);
