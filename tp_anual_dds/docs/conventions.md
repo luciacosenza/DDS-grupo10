@@ -72,6 +72,11 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
       - DonacionVianda (*Class*)
       - HacerseCargoDeHeladera (*Class*)
       - RegistroDePersonaEnSituacionVulnerable (*Class*)
+  - En **Heladera**
+    - **Null Object**
+      - HeladeraNula (*Class*)
+    - **Real Object**
+      - HeladeraActiva (*Class*)
   - En **TarjetaColaborador**
     - **Null Object**
       - TarjetaColaboradorNula (*Class*)
@@ -95,7 +100,9 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
   - En **Heladera**
     - **Observer**
       - HeladeraObserver (*Interface*)
-      - Heladera (*Class*)
+      - Heladera (*Abstract Class*)
+      - HeladeraActiva (*Class*)
+      - HeladeraNula (*Class*)
     - **Subject**
       - SensorSubject (*Interface*)
       - Sensor (*Abstract Class*)
