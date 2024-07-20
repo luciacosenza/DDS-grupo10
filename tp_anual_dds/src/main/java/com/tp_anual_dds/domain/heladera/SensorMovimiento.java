@@ -21,6 +21,9 @@ public class SensorMovimiento extends Sensor {
     
     @Override
     public void programarNotificacion() {
+        Integer periodo = 5;
+        TimeUnit unidad = TimeUnit.MINUTES;
+        
         Runnable notificacionMovimiento = () -> {
             if(hayMovimiento == true) {
                 notificar();
@@ -28,7 +31,7 @@ public class SensorMovimiento extends Sensor {
         };
 
         // Programa la tarea para que se ejecute cada 5 minutos
-        scheduler.scheduleAtFixedRate(notificacionMovimiento, 0, 5, TimeUnit.MINUTES); // En este caso, hicimos que ejecute cada 5 minutos como ejemplo
+        scheduler.scheduleAtFixedRate(notificacionMovimiento, 0, periodo, unidad); // En este caso, hicimos que ejecute cada 5 minutos como ejemplo
     }
 
     // Esto en si no hace nada util, faltaria la vinculacion con el sensor fisico

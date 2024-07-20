@@ -29,6 +29,9 @@ public class SensorTemperatura extends Sensor {
     
     @Override
     public void programarNotificacion() {
+        Integer periodo = 10;
+        TimeUnit unidad = TimeUnit.MINUTES;
+        
         Runnable notificacionTemperatura = () -> {
             if (!funcionaSensorFisico()) {
                 notificarFalla();
@@ -37,7 +40,7 @@ public class SensorTemperatura extends Sensor {
         };
         
         // Programa la tarea para que se ejecute cada 5 minutos
-        scheduler.scheduleAtFixedRate(notificacionTemperatura, 0, 10, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(notificacionTemperatura, 0, periodo, unidad);
     }
 
     // Esto en si no hace nada util, faltaria la vinculacion con el sensor fisico

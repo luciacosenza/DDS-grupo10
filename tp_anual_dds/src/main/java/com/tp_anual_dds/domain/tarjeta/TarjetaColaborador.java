@@ -1,8 +1,5 @@
 package com.tp_anual_dds.domain.tarjeta;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoSolicitud;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
@@ -13,7 +10,6 @@ public abstract class TarjetaColaborador extends Tarjeta {
     protected ColaboradorHumano titular;
     protected EstadoSolicitud estadoSolicitud;
     protected PermisoApertura permiso;
-    protected final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
 
     @Override
     public abstract ColaboradorHumano getTitular();
@@ -26,5 +22,6 @@ public abstract class TarjetaColaborador extends Tarjeta {
 
     public abstract void solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo);
 
+    @Override
     public abstract void intentarApertura(HeladeraActiva heladeraAAbrir);
 }

@@ -10,7 +10,6 @@ import com.tp_anual_dds.domain.estados_de_solicitud.EstadoPosible;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoRealizada;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoSolicitud;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
-import com.tp_anual_dds.domain.heladera.acciones_en_heladera.AccionHeladera;
 import com.tp_anual_dds.domain.heladera.acciones_en_heladera.AperturaColaborador;
 import com.tp_anual_dds.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoApertura;
@@ -46,6 +45,9 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
 
     @Override
     public void programarRevocacionPermisos() {
+        Integer delay = 3;
+        TimeUnit unidad = TimeUnit.HOURS;
+        
         Runnable revocacionPermisos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
             LocalDateTime fechaOtorgamiento = permiso.getFechaOtorgamiento();
@@ -57,14 +59,14 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
         };
 
         // Programa la tarea para que se ejecute una vez despues de 3 horas
-        timer.schedule(revocacionPermisos, 3, TimeUnit.HOURS);
+        timer.schedule(revocacionPermisos, delay, unidad);
     }
 
     @Override
     public void solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo) {
         estadoSolicitud.manejar(this);
         
-        AccionHeladera solicitudApertura = new SolicitudAperturaColaborador(LocalDateTime.now(), heladeraInvolucrada, this.getTitular(), motivo);
+        SolicitudAperturaColaborador solicitudApertura = new SolicitudAperturaColaborador(LocalDateTime.now(), heladeraInvolucrada, this.getTitular(), motivo);
         solicitudApertura.darDeAlta();
 
         setEstadoSolicitud(new EstadoRealizada());
@@ -81,7 +83,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
             throw new UnsupportedOperationException("No cuenta con los permisos para abrir esta heladera");
         }
 
-        AccionHeladera apertura = new AperturaColaborador(LocalDateTime.now(), heladeraInvolucrada, this.getTitular());
+        AperturaColaborador apertura = new AperturaColaborador(LocalDateTime.now(), heladeraInvolucrada, this.getTitular());
         apertura.darDeAlta();
 
         setEstadoSolicitud(new EstadoPosible());
