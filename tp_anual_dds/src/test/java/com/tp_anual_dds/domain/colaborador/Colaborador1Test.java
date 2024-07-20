@@ -22,22 +22,24 @@ public class Colaborador1Test {
     @Test
     @DisplayName("Testeo la obtención de un Contacto del Colaborador")
     public void GetContactoTest() {
-        ColaboradorHumano colaborador = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
+        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
+        colaboradorHumano.darDeAlta();
         EMail eMail = new EMail("correoprueba@gmail.com");
-        colaborador.agregarContacto(eMail);
+        colaboradorHumano.agregarContacto(eMail);
 
-        Assertions.assertEquals(colaborador.getContacto(EMail.class), eMail);
+        Assertions.assertEquals(colaboradorHumano.getContacto(EMail.class), eMail);
     }
 
     @Test
     @DisplayName("Testeo la NoSuchElementException al pasar un MedioDeContacto que no posee el Colaborador")
     public void NoSuchElementGetContactoTest() {
-        ColaboradorHumano colaborador = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
+        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
+        colaboradorHumano.darDeAlta();
         EMail eMail = new EMail("correoprueba@gmail.com");
-        colaborador.agregarContacto(eMail);
+        colaboradorHumano.agregarContacto(eMail);
 
         NoSuchElementException exception = Assertions.assertThrows(NoSuchElementException.class, () -> {
-            colaborador.getContacto(WhatsApp.class);
+            colaboradorHumano.getContacto(WhatsApp.class);
         });
     
         Assertions.assertEquals("El colaborador no cuenta con ese medio de contacto", exception.getMessage());
@@ -46,12 +48,13 @@ public class Colaborador1Test {
     @Test
     @DisplayName("Testeo la IllegalArgumentException para Contribuciones que el Colaborador no es capaz de hacer")
     public void IllegalArgumentColaborarTest() {
-        ColaboradorHumano colaborador = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
+        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
+        colaboradorHumano.darDeAlta();
         HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.now(), -20f, 5f);
 
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            colaborador.colaborar(hacerseCargoDeHeladeraCreator, LocalDateTime.now(), heladera);
+            colaboradorHumano.colaborar(hacerseCargoDeHeladeraCreator, LocalDateTime.now(), heladera);
         });
 
         Assertions.assertEquals("No es una forma válida de colaborar", exception.getMessage());

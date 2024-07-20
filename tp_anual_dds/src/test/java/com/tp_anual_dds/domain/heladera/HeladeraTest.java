@@ -35,7 +35,8 @@ public class HeladeraTest {
     @DisplayName("Testeo la puesta en marcha de dos Heladeras y la adición de Viandas a estas por medio de distintas Contribuciones")
     public void HeladeraViandasTest() {
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "RazonSocialPrueba", "RubroPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA);
-        
+        colaboradorJuridico.darDeAlta();
+
         LocalDateTime fechaApertura1 = LocalDateTime.parse("2024-01-01T00:00:00");
         HeladeraActiva heladera1 = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaApertura1, -20f, 5f);
         HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
@@ -50,7 +51,8 @@ public class HeladeraTest {
         colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera2);
 
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
-        
+        colaboradorHumano.darDeAlta();
+
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
         Vianda vianda1 = new Vianda("ComidaPrueba", colaboradorHumano, fechaCaducidadV, null, 0, 0, false);
         DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
@@ -156,6 +158,7 @@ public class HeladeraTest {
     @DisplayName("Testeo la IllegalState que genera una Heladera que no permite que se agreguen más Viandas de las que entran")
     public void IllegalStateAgregarViandaTest() {
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 2, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
+        heladera.darDeAlta();
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
         Vianda vianda1 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         Vianda vianda2 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
@@ -184,6 +187,7 @@ public class HeladeraTest {
     @DisplayName("Testeo la IllegalState que genera una Heladera que no permite que se retiren más Viandas cuando está vacía")
     public void IllegalStateRetirarViandaTest() {
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 2, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
+        heladera.darDeAlta();
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
         Vianda vianda1 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         Vianda vianda2 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);

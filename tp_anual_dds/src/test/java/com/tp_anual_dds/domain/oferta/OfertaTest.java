@@ -24,8 +24,10 @@ public class OfertaTest {
     @DisplayName("Testeo el correcto funcionamiento de carga de Oferta e adquisicion de la misma")
     public void IntentarAdquirirBeneficioTest() throws InterruptedException {
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(Documento.TipoDocumento.DNI, "40123456", Documento.Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
+        colaboradorHumano.darDeAlta();
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "RazonSocialPrueba", "RubroPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA);
-        
+        colaboradorJuridico.darDeAlta();
+
         LocalDateTime fechaDonacion = LocalDateTime.parse("2024-07-10T00:00:00");
 
         DonacionDineroCreator donacionDineroCreator = new DonacionDineroCreator();
@@ -51,7 +53,9 @@ public class OfertaTest {
     @DisplayName("Testeo la IllegalArgumentException al querer adquirir un beneficio por parte de un Colaborador que no tiene los puntos suficientes")
     public void IllegalArgumentIntentarAdquirirBeneficioTest() throws InterruptedException {
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(Documento.TipoDocumento.DNI, "40123456", Documento.Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
+        colaboradorHumano.darDeAlta();
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "RazonSocialPrueba", "RubroPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA);
+        colaboradorJuridico.darDeAlta();
         
         LocalDateTime fechaDonacion = LocalDateTime.parse("2024-07-10T00:00:00");
 

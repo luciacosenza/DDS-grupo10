@@ -16,6 +16,7 @@ public class SensorTest {
     @DisplayName("Testeo el flujo correcto de datos entre la Heladera y su SensorTemperatura")
     public void SensorTemperaturaOKTest() throws InterruptedException {
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba1", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
+        heladera.darDeAlta();
         SensorTemperatura sensor = new SensorTemperatura(heladera);
         
         sensor.setTempActual(-15f);
@@ -31,6 +32,7 @@ public class SensorTest {
     @DisplayName("Testeo el funcionamiento de la Heladera al sensar una temperatura riesgosa")
     public void SensorTemperaturaAlertaTest() throws InterruptedException {
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba1", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
+        heladera.darDeAlta();
         SensorTemperatura sensor = new SensorTemperatura(heladera);
         
         sensor.setTempActual(-35f);
@@ -46,6 +48,7 @@ public class SensorTest {
     @DisplayName("Testeo el flujo correcto de datos entre la Heladera y su SensorMovimiento")
     public void SensorMovimientoAlertaTest() throws InterruptedException {
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba1", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
+        heladera.darDeAlta();
         SensorMovimiento sensor = new SensorMovimiento(heladera);
         
         sensor.setHayMovimiento(true);

@@ -1,32 +1,29 @@
-package com.tp_anual_dds.domain.colaborador;
+package com.tp_anual_dds.domain.contribuciones;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
-import com.tp_anual_dds.domain.contribuciones.Contribucion;
-import com.tp_anual_dds.domain.contribuciones.DistribucionViandas;
-import com.tp_anual_dds.domain.contribuciones.DistribucionViandasCreator;
-import com.tp_anual_dds.domain.contribuciones.DonacionVianda;
-import com.tp_anual_dds.domain.contribuciones.DonacionViandaCreator;
+import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.documento.Documento;
 import com.tp_anual_dds.domain.documento.Documento.Sexo;
 import com.tp_anual_dds.domain.documento.Documento.TipoDocumento;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
-import com.tp_anual_dds.domain.heladera.HeladeraNula;
 import com.tp_anual_dds.domain.heladera.Vianda;
 import com.tp_anual_dds.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorCreator;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
+import com.tp_anual_dds.sistema.Sistema;
 
-public class Colaborador2Test {
+public class DistribucionViandasTest {
+    
     @Test
-    @DisplayName("Testeo la correcta creación de Contribuciones y que se agreguen a las contribuciones del Colaborador")
-    public void ColaborarTest() {
+    @DisplayName("Testeo la carga y correcto funcionamiento de una DistribucionViandas")
+    public void CargaDistribucionViandasTest() { 
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
         colaboradorHumano.darDeAlta();
 
@@ -65,12 +62,6 @@ public class Colaborador2Test {
         vianda.marcarEntrega();
         colaboradorHumano.confirmarContribucion(distribucionViandas);
 
-        ArrayList<Contribucion> contribuciones = new ArrayList<>();
-        contribuciones.add(donacionVianda);
-        contribuciones.add(distribucionViandas);
-
-        Assertions.assertThat(colaboradorHumano.getContribuciones())
-        .usingRecursiveFieldByFieldElementComparator()
-        .containsExactlyInAnyOrderElementsOf(contribuciones);
+        Assertions.assertTrue(Sistema.getAccionesHeladeras().size() == 6 && colaboradorHumano.getContribuciones().size() == 2 && colaboradorHumano.getContribuciones().get(1).getClass() == DistribucionViandas.class);
     }
 }

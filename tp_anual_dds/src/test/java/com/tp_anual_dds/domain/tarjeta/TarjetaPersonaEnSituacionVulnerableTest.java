@@ -30,6 +30,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
     @DisplayName("Testeo el correcto funcionamiento de la Tarjeta y sus Usos")
     public void UsosTarjetaTest() {
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 10, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
+        heladera.darDeAlta();
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
         Vianda vianda1 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         Vianda vianda2 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
@@ -64,6 +65,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         }
 
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
+        colaboradorHumano.darDeAlta();
         PersonaEnSituacionVulnerable personaEnSituacionVulnerable = new PersonaEnSituacionVulnerable("NombrePruebaPESV", "ApellidoPruebaPESV", new Documento(TipoDocumento.DNI, "40123450", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"), new Ubicacion(-34.63927052902741, -58.50938609197106, "Avenida Rivadavia 10357", "Ciudad Autónoma de Buenos Aires", "Argentina"), LocalDateTime.now(), 2);
         TarjetaPersonaEnSituacionVulnerable tarjeta = new TarjetaPersonaEnSituacionVulnerable(null);
         RegistroDePersonaEnSituacionVulnerableCreator registroDePersonaEnSituacionVulnerableCreator = new RegistroDePersonaEnSituacionVulnerableCreator();
@@ -103,6 +105,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
     @DisplayName("Testeo la UnsupportedOperationException al querer usar la Tarjeta sin tener más Usos disponibles")
     public void UnsupportedOperationUsosTarjetaTest() {
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 10, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
+        heladera.darDeAlta();
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
         Vianda vianda1 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         Vianda vianda2 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
@@ -137,6 +140,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         }
 
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
+        colaboradorHumano.darDeAlta();
         PersonaEnSituacionVulnerable personaEnSituacionVulnerable = new PersonaEnSituacionVulnerable("NombrePruebaPESV", "ApellidoPruebaPESV", new Documento(TipoDocumento.DNI, "40123450", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"), new Ubicacion(-34.63927052902741, -58.50938609197106, "Avenida Rivadavia 10357", "Ciudad Autónoma de Buenos Aires", "Argentina"), LocalDateTime.now(), 2);
         TarjetaPersonaEnSituacionVulnerable tarjeta = new TarjetaPersonaEnSituacionVulnerable(null);
         RegistroDePersonaEnSituacionVulnerableCreator registroDePersonaEnSituacionVulnerableCreator = new RegistroDePersonaEnSituacionVulnerableCreator();
@@ -185,6 +189,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
     @DisplayName("Testeo la UnsupportedOperationException querer retirar una Vianda de una Heladera vacía")
     public void UnsupportedOperationEstaVaciaTarjetaTest() {
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 10, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
+        heladera.darDeAlta();
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
         Vianda vianda1 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         Vianda vianda2 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
@@ -215,6 +220,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         }
 
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
+        colaboradorHumano.darDeAlta();
         PersonaEnSituacionVulnerable personaEnSituacionVulnerable = new PersonaEnSituacionVulnerable("NombrePruebaPESV", "ApellidoPruebaPESV", new Documento(TipoDocumento.DNI, "40123450", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"), new Ubicacion(-34.63927052902741, -58.50938609197106, "Avenida Rivadavia 10357", "Ciudad Autónoma de Buenos Aires", "Argentina"), LocalDateTime.now(), 2);
         TarjetaPersonaEnSituacionVulnerable tarjeta = new TarjetaPersonaEnSituacionVulnerable(null);
         RegistroDePersonaEnSituacionVulnerableCreator registroDePersonaEnSituacionVulnerableCreator = new RegistroDePersonaEnSituacionVulnerableCreator();
