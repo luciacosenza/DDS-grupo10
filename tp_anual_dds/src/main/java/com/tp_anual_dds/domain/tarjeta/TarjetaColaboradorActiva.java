@@ -10,8 +10,9 @@ import com.tp_anual_dds.domain.estados_de_solicitud.EstadoPosible;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoRealizada;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoSolicitud;
 import com.tp_anual_dds.domain.heladera.AccionHeladera;
-import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.heladera.AccionHeladera.TipoAccion;
+import com.tp_anual_dds.domain.heladera.HeladeraActiva;
+import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoApertura;
 import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoAperturaActivo;
 
 public class TarjetaColaboradorActiva extends TarjetaColaborador {
@@ -34,13 +35,18 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
     }
 
     @Override
+    public PermisoApertura getPermiso() {
+        return permiso;
+    }
+
+    @Override
     public void setEstadoSolicitud(EstadoSolicitud vEstadoSolicitud) {
         estadoSolicitud = vEstadoSolicitud;
     }
 
     @Override
     public Boolean puedeUsar() {
-        return true; // Se puede definir alguna lógica especifica si es necesario.
+        return true; // Se puede definir alguna logica especifica si es necesario
     }
 
     @Override
@@ -56,7 +62,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
         };
 
         // Programa la tarea para que se ejecute una vez despues de 3 horas
-        timer.schedule(() -> revocacionPermisos, 3, TimeUnit.HOURS);
+        timer.schedule(revocacionPermisos, 3, TimeUnit.HOURS);
     }
 
     @Override

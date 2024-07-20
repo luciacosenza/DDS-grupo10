@@ -8,7 +8,7 @@ import com.tp_anual_dds.domain.heladera.HeladeraNula;
 public class PermisoAperturaActivo extends PermisoApertura {
     public PermisoAperturaActivo() {
         heladeraPermitida = new HeladeraNula();
-        fechaOtorgamiento = LocalDateTime.now();
+        fechaOtorgamiento = null;
     }
 
     @Override

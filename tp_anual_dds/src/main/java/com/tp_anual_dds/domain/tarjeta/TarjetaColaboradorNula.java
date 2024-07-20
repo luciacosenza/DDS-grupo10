@@ -5,6 +5,7 @@ import com.tp_anual_dds.domain.estados_de_solicitud.EstadoNoAplica;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoSolicitud;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva.MotivoSolicitud;
+import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoApertura;
 import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoAperturaNulo;
 
 public class TarjetaColaboradorNula extends TarjetaColaborador {
@@ -18,6 +19,11 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
     @Override
     public ColaboradorHumano getTitular() {
         throw new UnsupportedOperationException("Tarjeta Nula no tiene un titular.");
+    }
+
+    @Override
+    public PermisoApertura getPermiso() {
+        return permiso;
     }
 
     @Override

@@ -18,6 +18,8 @@ public abstract class TarjetaColaborador extends Tarjeta {
     @Override
     public abstract ColaboradorHumano getTitular();
 
+    public abstract PermisoApertura getPermiso();
+
     public abstract void setEstadoSolicitud(EstadoSolicitud vEstadoSolicitud);
 
     public abstract void programarRevocacionPermisos();
