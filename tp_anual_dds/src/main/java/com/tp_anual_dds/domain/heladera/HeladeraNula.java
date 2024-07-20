@@ -23,6 +23,11 @@ public class HeladeraNula extends Heladera {
     }
 
     @Override
+    public Integer getCapacidad() {
+        return capacidad;
+    }
+
+    @Override
     public Float getTempActual() {
         return tempActual;
     }
@@ -39,15 +44,20 @@ public class HeladeraNula extends Heladera {
     public Vianda retirarVianda() {
         throw new UnsupportedOperationException("Heladera Nula no tiene viandas.");
     }
-
-    @Override
-    public void agregarVianda(Vianda vianda) {}
     
     @Override
     public void darDeAlta() {}
 
     @Override
     public void darDeBaja() {}
+
+    @Override
+    public Boolean verificarCapacidad() {
+        return false;
+    }
+
+    @Override
+    public void agregarVianda(Vianda vianda) {}
 
     @Override
     public void verificarTempActual() {}

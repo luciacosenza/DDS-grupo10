@@ -32,4 +32,20 @@ public class Vianda {
     public void setHeladera(Heladera vHeladera) {
         heladera = vHeladera;
     }
+
+    public void setFechaDonacion(LocalDateTime vFechaDonacion) {
+        fechaDonacion = vFechaDonacion;
+    }
+
+    public void setEntregada(Boolean vEntregada) {
+        entregada = vEntregada;
+    }
+
+    public void marcarEntrega() {
+        setEntregada(true);
+    }
+
+    public void desmarcarEntrega() {
+        setEntregada(false);
+    }
 }

@@ -40,7 +40,7 @@ public class ContribucionCreatorTest {
     public void IllegalArgumentCrearDistribucionViandasTest() {
         ColaboradorHumano colaborador = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
-        Vianda vianda = new Vianda("ComidaPrueba", colaborador, LocalDateTime.now(), LocalDateTime.parse("2024-07-15T00:00:00"), 0, 0, false);
+        Vianda vianda = new Vianda("ComidaPrueba", colaborador, LocalDateTime.parse("2024-07-15T00:00:00"), LocalDateTime.now(), 0, 0, false);
         
         DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
 
@@ -56,7 +56,7 @@ public class ContribucionCreatorTest {
     public void IllegalArgumentCrearDonacionDineroTest() {
         ColaboradorHumano colaborador = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
-        Vianda vianda = new Vianda("ComidaPrueba", colaborador, LocalDateTime.now(), LocalDateTime.parse("2024-07-15T00:00:00"), 0, 0, false);
+        Vianda vianda = new Vianda("ComidaPrueba", colaborador, LocalDateTime.parse("2024-07-15T00:00:00"), LocalDateTime.now(), 0, 0, false);
         
         DonacionDineroCreator donacionDineroCreator = new DonacionDineroCreator();
 

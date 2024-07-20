@@ -19,6 +19,8 @@ public abstract class Heladera implements HeladeraObserver {
     
     public abstract ArrayList<Vianda> getViandas();
 
+    public abstract Integer getCapacidad();
+
     public abstract Float getTempActual();
 
     public abstract Boolean getEstado();
@@ -27,11 +29,13 @@ public abstract class Heladera implements HeladeraObserver {
 
     public abstract Vianda retirarVianda();
 
-    public abstract void agregarVianda(Vianda vianda);
-
     public abstract void darDeAlta() ;
 
     public abstract void darDeBaja();
+
+    public abstract Boolean verificarCapacidad();
+
+    public abstract void agregarVianda(Vianda vianda);
 
     public abstract void verificarTempActual();
 

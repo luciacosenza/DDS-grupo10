@@ -35,7 +35,7 @@ public class Colaborador2Test {
         
         HeladeraActiva heladera1 = new HeladeraActiva("HeladeraPrueba1", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 2, fechaAperturaH1, -20f, 5f);
         HeladeraActiva heladera2 = new HeladeraActiva("HeladeraPrueba2", new Ubicacion(-34.6092, -58.3842, "Avenida de Mayo 1370", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaAperturaH2, -20f, 5f);
-        Vianda vianda = new Vianda("ComidaPrueba" , colaborador, fechaCaducidadV, LocalDateTime.now(), 0, 0, false);
+        Vianda vianda = new Vianda("ComidaPrueba" , colaborador, fechaCaducidadV, null, 0, 0, false);
         
         DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
         DonacionVianda donacionVianda = (DonacionVianda) colaborador.colaborar(donacionViandaCreator, LocalDateTime.now(), vianda, heladera1);
@@ -46,6 +46,8 @@ public class Colaborador2Test {
         colaborador.getTarjeta().intentarApertura(heladera1);
         heladera1.agregarVianda(vianda);
         vianda.setHeladera(heladera1);
+        vianda.marcarEntrega();
+        vianda.setFechaDonacion(LocalDateTime.now());
         colaborador.confirmarContribucion(donacionVianda);
 
         DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
@@ -54,10 +56,12 @@ public class Colaborador2Test {
         colaborador.getTarjeta().intentarApertura(heladera1);
         heladera1.retirarVianda();
         vianda.setHeladera(new HeladeraNula());
+        vianda.desmarcarEntrega();
         colaborador.getTarjeta().solicitarApertura(heladera2, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION);
         colaborador.getTarjeta().intentarApertura(heladera2);
         heladera2.agregarVianda(vianda);
         vianda.setHeladera(heladera2);
+        vianda.marcarEntrega();
         colaborador.confirmarContribucion(distribucionViandas);
 
         ArrayList<Contribucion> contribuciones = new ArrayList<>();

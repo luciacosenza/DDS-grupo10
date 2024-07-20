@@ -26,6 +26,11 @@ public class HeladeraActiva extends Heladera {
     }
 
     @Override
+    public Integer getCapacidad() {
+        return capacidad;
+    }
+
+    @Override
     public Float getTempActual() {
         return tempActual;
     }
@@ -44,11 +49,6 @@ public class HeladeraActiva extends Heladera {
     public Vianda retirarVianda() {
         return viandas.remove(0);
     }
-
-    @Override
-    public void agregarVianda(Vianda vianda) {
-        viandas.add(vianda);
-    }
     
     @Override
     public void darDeAlta() {
@@ -61,8 +61,22 @@ public class HeladeraActiva extends Heladera {
     }
 
     @Override
+    public Boolean verificarCapacidad() {
+        return viandas.size() < capacidad;
+    }
+
+    @Override
+    public void agregarVianda(Vianda vianda) {
+        if (verificarCapacidad()) {
+            viandas.add(vianda);
+        } else {
+            throw new IllegalStateException("No se puede agregar la vianda. Se superaría la capacidad de la heladera.");
+        }
+    }
+
+    @Override
     public void verificarTempActual() {
-        if (tempActual < tempMin || tempActual > tempMax) {
+        if(tempActual < tempMin || tempActual > tempMax) {
             reportarTemperatura();
         }
     }
