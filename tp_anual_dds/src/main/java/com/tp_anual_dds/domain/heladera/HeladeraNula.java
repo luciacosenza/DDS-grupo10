@@ -18,6 +18,11 @@ public class HeladeraNula extends Heladera {
     }
 
     @Override
+    public Boolean estaVacia() {
+        return true;
+    }
+
+    @Override
     public ArrayList<Vianda> getViandas() {
         return viandas;
     }
@@ -39,11 +44,6 @@ public class HeladeraNula extends Heladera {
 
     @Override
     public void setEstado(Boolean nuevoEstado) {}
-
-    @Override
-    public Vianda retirarVianda() {
-        throw new UnsupportedOperationException("Heladera Nula no tiene viandas.");
-    }
     
     @Override
     public void darDeAlta() {}
@@ -52,12 +52,22 @@ public class HeladeraNula extends Heladera {
     public void darDeBaja() {}
 
     @Override
+    public Integer viandasActuales() {
+        return 0;
+    }
+
+    @Override
     public Boolean verificarCapacidad() {
         return false;
     }
 
     @Override
     public void agregarVianda(Vianda vianda) {}
+
+    @Override
+    public Vianda retirarVianda() {
+        throw new UnsupportedOperationException("Heladera Nula no tiene viandas.");
+    }
 
     @Override
     public void verificarTempActual() {}

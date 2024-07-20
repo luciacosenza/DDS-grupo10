@@ -27,15 +27,19 @@ public abstract class Heladera implements HeladeraObserver {
 
     public abstract void setEstado(Boolean nuevoEstado);
 
-    public abstract Vianda retirarVianda();
-
     public abstract void darDeAlta() ;
 
     public abstract void darDeBaja();
 
+    public abstract Boolean estaVacia();
+
+    public abstract Integer viandasActuales();
+
     public abstract Boolean verificarCapacidad();
 
     public abstract void agregarVianda(Vianda vianda);
+
+    public abstract Vianda retirarVianda();
 
     public abstract void verificarTempActual();
 

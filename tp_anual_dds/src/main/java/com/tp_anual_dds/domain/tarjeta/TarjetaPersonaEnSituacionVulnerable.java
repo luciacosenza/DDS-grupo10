@@ -9,8 +9,8 @@ import com.tp_anual_dds.domain.heladera.acciones_en_heladera.AperturaPersonaEnSi
 import com.tp_anual_dds.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 
 public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
-    protected ArrayList<UsoTarjeta> usos;
     private PersonaEnSituacionVulnerable titular;
+    protected ArrayList<UsoTarjeta> usos;
 
     public TarjetaPersonaEnSituacionVulnerable(PersonaEnSituacionVulnerable vTitular) {
         codigo = GeneradorCodigo.generarCodigo(false);
@@ -62,7 +62,16 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
             throw new UnsupportedOperationException("Ya agotó los usos diarios de su Tarjeta");
         }
 
-        AperturaPersonaEnSituacionVulnerable apertura = new AperturaPersonaEnSituacionVulnerable(LocalDateTime.now(), heladeraInvolucrada, this.getTitular());
+        if(heladeraInvolucrada.estaVacia()) {
+            throw new UnsupportedOperationException("La Heladera se encuentra vacía");
+        }
+
+        LocalDateTime ahora= LocalDateTime.now();
+
+        AperturaPersonaEnSituacionVulnerable apertura = new AperturaPersonaEnSituacionVulnerable(ahora, heladeraInvolucrada, this.getTitular());
         apertura.darDeAlta();
+
+        UsoTarjeta uso = new UsoTarjeta(ahora, heladeraInvolucrada);
+        agregarUso(uso);
     }
 }

@@ -7,10 +7,10 @@ import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 
 public class UsoTarjeta {
     private LocalDateTime fechaUso;
-    private ArrayList<HeladeraActiva> heladeras;
+    private HeladeraActiva heladera;
 
-    public UsoTarjeta(LocalDateTime vFechaUso, ArrayList<HeladeraActiva> vHeladeras) {
+    public UsoTarjeta(LocalDateTime vFechaUso, HeladeraActiva vHeladera) {
         fechaUso = vFechaUso;
-        heladeras = vHeladeras;
+        heladera = vHeladera;
     }
 }

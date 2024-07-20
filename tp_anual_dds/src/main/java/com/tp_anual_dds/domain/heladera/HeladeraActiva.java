@@ -44,11 +44,6 @@ public class HeladeraActiva extends Heladera {
     public void setEstado(Boolean nuevoEstado) {
         estado = nuevoEstado;
     }
-
-    @Override
-    public Vianda retirarVianda() {
-        return viandas.remove(0);
-    }
     
     @Override
     public void darDeAlta() {
@@ -61,8 +56,18 @@ public class HeladeraActiva extends Heladera {
     }
 
     @Override
+    public Boolean estaVacia() {
+        return viandas.isEmpty();
+    }
+
+    @Override
+    public Integer viandasActuales() {
+        return viandas.size();
+    }
+
+    @Override
     public Boolean verificarCapacidad() {
-        return viandas.size() < capacidad;
+        return viandasActuales() < capacidad;
     }
 
     @Override
@@ -70,8 +75,17 @@ public class HeladeraActiva extends Heladera {
         if (verificarCapacidad()) {
             viandas.add(vianda);
         } else {
-            throw new IllegalStateException("No se puede agregar la vianda. Se superaría la capacidad de la heladera.");
+            throw new IllegalStateException("No se puede agregar la vianda. Se superaría la capacidad de la Heladera");
         }
+    }
+
+    @Override
+    public Vianda retirarVianda() {
+        if(estaVacia()) {
+            throw new IllegalStateException("La Heladera no tiene más viandas para retirar");
+        }
+        
+        return viandas.removeFirst();
     }
 
     @Override

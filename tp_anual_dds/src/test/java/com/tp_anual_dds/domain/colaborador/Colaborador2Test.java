@@ -55,7 +55,7 @@ public class Colaborador2Test {
         colaborador.getTarjeta().solicitarApertura(heladera1, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION);
         colaborador.getTarjeta().intentarApertura(heladera1);
         heladera1.retirarVianda();
-        vianda.setHeladera(new HeladeraNula());
+        vianda.quitarDeHeladera();
         vianda.desmarcarEntrega();
         colaborador.getTarjeta().solicitarApertura(heladera2, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION);
         colaborador.getTarjeta().intentarApertura(heladera2);

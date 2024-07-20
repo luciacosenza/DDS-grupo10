@@ -29,6 +29,10 @@ public class Vianda {
         return heladera;
     }
 
+    public Boolean fueEntregada() {
+        return entregada;
+    }
+
     public void setHeladera(Heladera vHeladera) {
         heladera = vHeladera;
     }
@@ -39,6 +43,10 @@ public class Vianda {
 
     public void setEntregada(Boolean vEntregada) {
         entregada = vEntregada;
+    }
+
+    public void quitarDeHeladera() {
+        setHeladera(new HeladeraNula());
     }
 
     public void marcarEntrega() {

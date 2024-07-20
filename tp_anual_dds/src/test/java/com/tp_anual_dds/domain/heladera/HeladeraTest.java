@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -110,7 +111,7 @@ public class HeladeraTest {
 
         for(Integer i = 1; i <= cantidadADistribuir; i++) {
             Vianda viandaAux = heladera1.retirarVianda();
-            viandaAux.setHeladera(new HeladeraNula());
+            viandaAux.quitarDeHeladera();
             viandaAux.desmarcarEntrega();
             viandasAux.add(viandaAux);
         }
@@ -135,6 +136,8 @@ public class HeladeraTest {
         viandasEsperadasHeladera2.add(vianda1);
         viandasEsperadasHeladera2.add(vianda2);
 
+        assertEquals(2, Sistema.getHeladeras().size());
+
         assertThat(heladera1.getViandas())
         .usingRecursiveFieldByFieldElementComparator()
         .containsExactlyInAnyOrderElementsOf(viandasEsperadasHeladera1);
@@ -143,11 +146,14 @@ public class HeladeraTest {
         .usingRecursiveFieldByFieldElementComparator()
         .containsExactlyInAnyOrderElementsOf(viandasEsperadasHeladera2);
 
-        assertEquals(2, Sistema.getHeladeras().size());
+        assertTrue(vianda1.fueEntregada() && vianda2.fueEntregada() && vianda3.fueEntregada() && vianda4.fueEntregada());
+
+        assertTrue(vianda3.getHeladera() == heladera1 && vianda4.getHeladera() == heladera2 && vianda1.getHeladera() == heladera2 && vianda2.getHeladera() == heladera2);
+
     }
 
     @Test
-    @DisplayName("Testeo que una Heladera no permita que se agreguen más Viandas de las que entran")
+    @DisplayName("Testeo la IllegalState que genera una Heladera que no permite que se agreguen más Viandas de las que entran")
     public void IllegalStateAgregarViandaTest() {
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 2, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
@@ -171,6 +177,43 @@ public class HeladeraTest {
             }
         });
 
-        Assertions.assertEquals("No se puede agregar la vianda. Se superaría la capacidad de la heladera.", exception.getMessage());
+        Assertions.assertEquals("No se puede agregar la vianda. Se superaría la capacidad de la Heladera", exception.getMessage());
     }
+
+    @Test
+    @DisplayName("Testeo la IllegalState que genera una Heladera que no permite que se retiren más Viandas cuando está vacía")
+    public void IllegalStateRetirarViandaTest() {
+        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 2, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
+        LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
+        Vianda vianda1 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
+        Vianda vianda2 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
+
+        ArrayList<Vianda> viandasAAgregar = new ArrayList<>();
+        viandasAAgregar.add(vianda1);
+        viandasAAgregar.add(vianda2);
+
+        Integer cantidadAAgregar = 2;
+
+        for(Integer i = 1; i <= cantidadAAgregar; i++) {
+            Vianda viandaAux = viandasAAgregar.removeFirst();
+            heladera.agregarVianda(viandaAux);
+            viandaAux.setHeladera(heladera);
+            viandaAux.marcarEntrega();
+        }
+
+        ArrayList<Vianda> viandasARetirar = new ArrayList<>();
+        Integer cantidadARetirar = 3;
+
+        IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class, () -> {
+            for(Integer i = 1; i <= cantidadARetirar; i++) {
+                Vianda viandaAux = heladera.retirarVianda();
+                viandasARetirar.add(viandaAux);
+                viandaAux.quitarDeHeladera();
+                viandaAux.desmarcarEntrega();
+            }
+        });
+
+        Assertions.assertEquals("La Heladera no tiene más viandas para retirar", exception.getMessage());
+    }
+
 }

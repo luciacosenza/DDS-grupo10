@@ -7,11 +7,11 @@ import com.tp_anual_dds.domain.persona_en_situacion_vulnerable.PersonaEnSituacio
 import com.tp_anual_dds.domain.tarjeta.Tarjeta;
 import com.tp_anual_dds.domain.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 
-public class RegistroDePersonaEnSituacionEnVulnerable extends Contribucion {
+public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
     private TarjetaPersonaEnSituacionVulnerable tarjetaAsignada;
     private final Double multiplicador_puntos = 2d;
     
-    public RegistroDePersonaEnSituacionEnVulnerable(Colaborador vColaborador, LocalDateTime vFechaContribucion, PersonaEnSituacionVulnerable vPersonaEnSituacionVulnerable, TarjetaPersonaEnSituacionVulnerable vTarjetaAsignada) {
+    public RegistroDePersonaEnSituacionVulnerable(Colaborador vColaborador, LocalDateTime vFechaContribucion, PersonaEnSituacionVulnerable vPersonaEnSituacionVulnerable, TarjetaPersonaEnSituacionVulnerable vTarjetaAsignada) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
         tarjetaAsignada = vTarjetaAsignada;
