@@ -6,6 +6,8 @@ import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 
 public class AperturaPersonaEnSituacionVulnerable extends AccionHeladera {
+    private PersonaEnSituacionVulnerable responsable;
+
     public AperturaPersonaEnSituacionVulnerable(LocalDateTime vFecha, HeladeraActiva vHeladera, PersonaEnSituacionVulnerable vResponsable) {
         fecha = vFecha;
         heladera = vHeladera;

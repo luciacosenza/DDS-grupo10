@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 
-public class SolicitudAperturaColaborador extends AccionHeladera {
+public class SolicitudAperturaColaborador extends AccionColaborador {
     private MotivoSolicitud motivo;
 
     public enum MotivoSolicitud {

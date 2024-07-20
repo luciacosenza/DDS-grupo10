@@ -8,7 +8,6 @@ import com.tp_anual_dds.sistema.Sistema;
 public abstract class AccionHeladera {
     protected LocalDateTime fecha;
     protected HeladeraActiva heladera;
-    protected Object responsable;
 
     public void darDeAlta() {
         Sistema.agregarAccionHeladera(this);
