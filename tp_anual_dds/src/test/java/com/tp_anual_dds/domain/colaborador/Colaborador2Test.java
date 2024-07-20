@@ -18,6 +18,7 @@ import com.tp_anual_dds.domain.documento.Documento.TipoDocumento;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.heladera.HeladeraNula;
 import com.tp_anual_dds.domain.heladera.Vianda;
+import com.tp_anual_dds.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorCreator;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
@@ -41,7 +42,7 @@ public class Colaborador2Test {
         TarjetaColaboradorCreator tarjetaColaboradorCreator = new TarjetaColaboradorCreator();
         TarjetaColaboradorActiva tarjetaColaboradorActiva = (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta(colaborador);
         colaborador.setTarjeta(tarjetaColaboradorActiva);
-        colaborador.getTarjeta().solicitarApertura(TarjetaColaboradorActiva.MotivoSolicitud.INGRESAR_DONACION, heladera1);
+        colaborador.getTarjeta().solicitarApertura(heladera1, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);
         colaborador.getTarjeta().intentarApertura(heladera1);
         heladera1.agregarVianda(vianda);
         vianda.setHeladera(heladera1);
@@ -49,11 +50,11 @@ public class Colaborador2Test {
 
         DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
         DistribucionViandas distribucionViandas = (DistribucionViandas) colaborador.colaborar(distribucionViandasCreator, LocalDateTime.now(), heladera1, heladera2, 1, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
-        colaborador.getTarjeta().solicitarApertura(TarjetaColaboradorActiva.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION, heladera1);
+        colaborador.getTarjeta().solicitarApertura(heladera1, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION);
         colaborador.getTarjeta().intentarApertura(heladera1);
         heladera1.retirarVianda();
         vianda.setHeladera(new HeladeraNula());
-        colaborador.getTarjeta().solicitarApertura(TarjetaColaboradorActiva.MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION, heladera2);
+        colaborador.getTarjeta().solicitarApertura(heladera2, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION);
         colaborador.getTarjeta().intentarApertura(heladera2);
         heladera2.agregarVianda(vianda);
         vianda.setHeladera(heladera2);

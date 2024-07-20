@@ -6,7 +6,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoSolicitud;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
-import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva.MotivoSolicitud;
+import com.tp_anual_dds.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoApertura;
 
 public abstract class TarjetaColaborador extends Tarjeta {
@@ -24,7 +24,7 @@ public abstract class TarjetaColaborador extends Tarjeta {
 
     public abstract void programarRevocacionPermisos();
 
-    public abstract void solicitarApertura(MotivoSolicitud motivo, HeladeraActiva heladeraInvolucrada);
+    public abstract void solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo);
 
     public abstract void intentarApertura(HeladeraActiva heladeraAAbrir);
 }

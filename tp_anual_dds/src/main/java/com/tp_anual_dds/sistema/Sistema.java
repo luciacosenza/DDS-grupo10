@@ -3,9 +3,9 @@ package com.tp_anual_dds.sistema;
 import java.util.ArrayList;
 
 import com.tp_anual_dds.domain.colaborador.Colaborador;
-import com.tp_anual_dds.domain.heladera.AccionHeladera;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.heladera.Sensor;
+import com.tp_anual_dds.domain.heladera.acciones_en_heladera.AccionHeladera;
 import com.tp_anual_dds.domain.incidentes.Incidente;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;

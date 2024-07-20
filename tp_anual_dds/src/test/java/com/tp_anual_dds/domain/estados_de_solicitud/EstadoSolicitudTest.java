@@ -27,9 +27,9 @@ import com.tp_anual_dds.domain.documento.Documento.Sexo;
 import com.tp_anual_dds.domain.documento.Documento.TipoDocumento;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.heladera.Vianda;
+import com.tp_anual_dds.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual_dds.domain.persona.PersonaJuridica;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva;
-import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva.MotivoSolicitud;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorCreator;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 
@@ -56,7 +56,7 @@ public class EstadoSolicitudTest {
         TarjetaColaboradorActiva tarjetaColaboradorActiva = (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta(colaboradorHumano);
         colaboradorHumano.setTarjeta(tarjetaColaboradorActiva);
 
-        colaboradorHumano.getTarjeta().solicitarApertura(MotivoSolicitud.INGRESAR_DONACION, heladera);
+        colaboradorHumano.getTarjeta().solicitarApertura(heladera, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);
         colaboradorHumano.getTarjeta().intentarApertura(heladera);
         heladera.agregarVianda(vianda);
         vianda.setHeladera(heladera);
@@ -88,13 +88,13 @@ public class EstadoSolicitudTest {
         TarjetaColaboradorActiva tarjetaColaboradorActiva = (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta(colaboradorHumano);
         colaboradorHumano.setTarjeta(tarjetaColaboradorActiva);
 
-        colaboradorHumano.getTarjeta().solicitarApertura(MotivoSolicitud.INGRESAR_DONACION, heladera1);
+        colaboradorHumano.getTarjeta().solicitarApertura(heladera1, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);
         
         DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
         DistribucionViandas distribucionViandas = (DistribucionViandas) colaboradorHumano.colaborar(distribucionViandasCreator, LocalDateTime.now(), heladera1, heladera2, 1, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
         
         UnsupportedOperationException exception = Assertions.assertThrows(UnsupportedOperationException.class, () -> {
-            colaboradorHumano.getTarjeta().solicitarApertura(TarjetaColaboradorActiva.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION, heladera1);
+            colaboradorHumano.getTarjeta().solicitarApertura(heladera1, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION);
         });
 
         Assertions.assertEquals("La solicitud ya fue realizada", exception.getMessage());
@@ -123,7 +123,7 @@ public class EstadoSolicitudTest {
         TarjetaColaboradorActiva tarjetaColaboradorActiva = (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta(colaboradorHumano);
         colaboradorHumano.setTarjeta(tarjetaColaboradorActiva);
 
-        colaboradorHumano.getTarjeta().solicitarApertura(MotivoSolicitud.INGRESAR_DONACION, heladera1);
+        colaboradorHumano.getTarjeta().solicitarApertura(heladera1, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);
 
         final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
 
@@ -154,7 +154,7 @@ public class EstadoSolicitudTest {
         PrintStream newOut = new PrintStream(baos);
         System.setOut(newOut);
 
-        colaboradorHumano.getTarjeta().solicitarApertura(TarjetaColaboradorActiva.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION, heladera1);
+        colaboradorHumano.getTarjeta().solicitarApertura(heladera1, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION);
 
         System.setOut(originalOut);
 
@@ -168,9 +168,7 @@ public class EstadoSolicitudTest {
     public void UnsupportedOperationEstadoExpiradaParaAperturaTest() throws InterruptedException {
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "RazonSocialPrueba", "RubroPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA);
         LocalDateTime fechaApertura = LocalDateTime.parse("2024-01-01T00:00:00");
-        LocalDateTime fechaAperturaH2   = LocalDateTime.parse("2024-02-01T00:00:00");
         HeladeraActiva heladera1 = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, fechaApertura, -20f, 5f);
-        HeladeraActiva heladera2 = new HeladeraActiva("HeladeraPrueba2", new Ubicacion(-34.6092, -58.3842, "Avenida de Mayo 1370", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaAperturaH2, -20f, 5f);
         HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
         HacerseCargoDeHeladera hacerseCargoDeHeladera = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaApertura, heladera1);
         heladera1.darDeAlta();
@@ -186,7 +184,7 @@ public class EstadoSolicitudTest {
         TarjetaColaboradorActiva tarjetaColaboradorActiva = (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta(colaboradorHumano);
         colaboradorHumano.setTarjeta(tarjetaColaboradorActiva);
 
-        colaboradorHumano.getTarjeta().solicitarApertura(MotivoSolicitud.INGRESAR_DONACION, heladera1);
+        colaboradorHumano.getTarjeta().solicitarApertura(heladera1, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);
 
         final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
 

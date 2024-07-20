@@ -9,19 +9,14 @@ import com.tp_anual_dds.domain.estados_de_solicitud.EstadoExpirada;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoPosible;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoRealizada;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoSolicitud;
-import com.tp_anual_dds.domain.heladera.AccionHeladera;
-import com.tp_anual_dds.domain.heladera.AccionHeladera.TipoAccion;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
+import com.tp_anual_dds.domain.heladera.acciones_en_heladera.AccionHeladera;
+import com.tp_anual_dds.domain.heladera.acciones_en_heladera.AperturaColaborador;
+import com.tp_anual_dds.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoApertura;
 import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoAperturaActivo;
 
-public class TarjetaColaboradorActiva extends TarjetaColaborador {
-    public enum MotivoSolicitud {
-        INGRESAR_DONACION,
-        INGRESAR_LOTE_DE_DISTRIBUCION,
-        RETIRAR_LOTE_DE_DISTRIBUCION
-    }
-    
+public class TarjetaColaboradorActiva extends TarjetaColaborador {    
     public TarjetaColaboradorActiva(ColaboradorHumano vTitular) {
         codigo = GeneradorCodigo.generarCodigo(true);
         titular = vTitular;
@@ -66,10 +61,10 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
     }
 
     @Override
-    public void solicitarApertura(MotivoSolicitud motivo, HeladeraActiva heladeraInvolucrada) {
+    public void solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo) {
         estadoSolicitud.manejar(this);
         
-        AccionHeladera solicitudApertura = new AccionHeladera(TipoAccion.SOLICITUD_APERTURA, LocalDateTime.now(), heladeraInvolucrada, this.getTitular());
+        AccionHeladera solicitudApertura = new SolicitudAperturaColaborador(LocalDateTime.now(), heladeraInvolucrada, this.getTitular(), motivo);
         solicitudApertura.darDeAlta();
 
         setEstadoSolicitud(new EstadoRealizada());
@@ -86,7 +81,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
             throw new UnsupportedOperationException("No cuenta con los permisos para abrir esta heladera");
         }
 
-        AccionHeladera apertura = new AccionHeladera(TipoAccion.APERTURA, LocalDateTime.now(), heladeraInvolucrada, this.getTitular());
+        AccionHeladera apertura = new AperturaColaborador(LocalDateTime.now(), heladeraInvolucrada, this.getTitular());
         apertura.darDeAlta();
 
         setEstadoSolicitud(new EstadoPosible());
