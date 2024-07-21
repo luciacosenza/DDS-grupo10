@@ -10,34 +10,33 @@ import com.tp_anual_dds.domain.incidente.Incidente;
 import com.tp_anual_dds.sistema.Sistema;
 
 public class ReporteIncidentesPorHeladera extends Reporte {
+    private final LinkedHashMap<HeladeraActiva, Integer> hashMap = new LinkedHashMap<>(); // Usamos LinkedHashMap para que persista el orden de insercion de los elementos (por fechaInscripcion)
+
+    public LinkedHashMap<HeladeraActiva, Integer> getHashMap(){
+        return hashMap;
+    }
+
     @Override
     public void programarReporte() {
         
         Runnable reportar = () -> {
+            hashMap.clear();
+
             ArrayList<HeladeraActiva> heladeras = Sistema.getHeladeras();
             ArrayList<Incidente> incidentes = Sistema.getIncidentes();
-
-            LinkedHashMap<HeladeraActiva, Integer> reporte = new LinkedHashMap<>(); // Usamos LinkedHashMap para que persista el orden de insercion de los elementos
 
             for(HeladeraActiva heladera : heladeras) {
                 Integer cantidadIncidentes = incidentes.stream()
                     .filter(incidente -> incidente.getHeladera() == heladera)
                     .collect(Collectors.toList()).size();
-                reporte.put(heladera, cantidadIncidentes);
+                
+                hashMap.put(heladera, cantidadIncidentes);
             }
-
-            /*ObjectMapper mapper = new ObjectMapper();
-            ObjectWriter writer = mapper.writerWithDefaultPrettyPrinter();
-            try {
-                writer.writeValue(new File("../../../../resources/reports/reporte_incidentes_por_heladera.json"), reporte);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
-
              
-            // System.out.println("REPORTE - INCIDENTES POR HELADERA\n\n");
-            for(HeladeraActiva heladera : reporte.keySet()) {
-                System.out.println(heladera.getNombre() + ": " +  reporte.get(heladera));
+            System.out.println("REPORTE - INCIDENTES POR HELADERA\n");
+            for(HeladeraActiva heladera : hashMap.keySet()) {
+                System.out.println(
+                    heladera.getNombre() + ": " +  hashMap.get(heladera));
             }
         };
 

@@ -1,10 +1,14 @@
 package com.tp_anual_dds.reporte;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.tp_anual_dds.domain.colaborador.Colaborador;
+import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.contribucion.Contribucion;
 import com.tp_anual_dds.domain.contribucion.DistribucionViandas;
 import com.tp_anual_dds.domain.contribucion.DonacionVianda;
@@ -12,13 +16,22 @@ import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.sistema.Sistema;
 
 public class ReporteMovimientosViandaPorHeladera extends Reporte{
+    private final LinkedHashMap<HeladeraActiva, Pair<Integer, Integer>> hashMap = new LinkedHashMap<>();
+     
+    public LinkedHashMap<HeladeraActiva, Pair<Integer, Integer>> getHashMap(){
+        return hashMap;
+    }
+
     @Override
     public void programarReporte() {
         
         Runnable reportar;
         reportar = () -> {
+            hashMap.clear();
+            
             ArrayList<HeladeraActiva> heladeras = Sistema.getHeladeras();
             ArrayList<Colaborador> colaboradores = Sistema.getColaboradores();
+
             ArrayList<Contribucion> contribuciones = (ArrayList<Contribucion>) colaboradores.stream()
                 .flatMap(colaborador -> colaborador.getContribuciones().stream())
                 .collect(Collectors.toList());
@@ -50,8 +63,16 @@ public class ReporteMovimientosViandaPorHeladera extends Reporte{
                     .map(distribucion -> distribucion.getCantidadViandasAMover())
                     .mapToInt(Integer::intValue)
                     .sum();
-            
-                System.out.println(String.format("Colocaciones: %d - Retiros: %d", ingresos, egresos)); // Esto es temporal, para que no tire errores. La logica es *reportar*
+
+                hashMap.put(heladera, Pair.of(ingresos, egresos));
+            }
+
+            System.out.println("REPORTE - MOVIMIENTOS DE VIANDA POR HELADERA\n");
+            for(HeladeraActiva heladera : hashMap.keySet()) {
+                System.out.println(
+                    heladera.getNombre() + ": " +  
+                    "Ingresos - " + hashMap.get(heladera).getLeft() + " | " + 
+                    "Egresos - " + hashMap.get(heladera).getRight());
             }
         };
 

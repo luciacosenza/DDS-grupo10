@@ -96,7 +96,7 @@ public class DistribucionViandasTest {
         vianda.setFechaDonacion(LocalDateTime.now());
         colaboradorHumano1.confirmarContribucion(donacionVianda);
 
-        ColaboradorHumano colaboradorHumano2 = new ColaboradorHumano(null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123460", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
+        ColaboradorHumano colaboradorHumano2 = new ColaboradorHumano(null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123460", Sexo.MASCULINO), LocalDateTime.parse("2003-02-01T00:00:00"));
 
         DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
 

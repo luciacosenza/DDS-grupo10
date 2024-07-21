@@ -21,6 +21,10 @@ public class PersonaFisica extends Persona {
         return nombre;
     }
 
+    public String getApellido() {
+        return apellido;
+    }
+
     public Documento getDocumento() {
         return documento;
     }
