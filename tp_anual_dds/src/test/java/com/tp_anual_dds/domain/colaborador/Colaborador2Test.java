@@ -16,7 +16,6 @@ import com.tp_anual_dds.domain.documento.Documento;
 import com.tp_anual_dds.domain.documento.Documento.Sexo;
 import com.tp_anual_dds.domain.documento.Documento.TipoDocumento;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
-import com.tp_anual_dds.domain.heladera.HeladeraNula;
 import com.tp_anual_dds.domain.heladera.Vianda;
 import com.tp_anual_dds.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorActiva;

@@ -63,7 +63,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
     }
 
     @Override
-    public void solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo) {
+    public SolicitudAperturaColaborador solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo) {
         estadoSolicitud.manejar(this);
         
         SolicitudAperturaColaborador solicitudApertura = new SolicitudAperturaColaborador(LocalDateTime.now(), heladeraInvolucrada, this.getTitular(), motivo);
@@ -75,10 +75,12 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
         permiso.actualizarFechaOtorgamiento();
 
         programarRevocacionPermisos();
+
+        return solicitudApertura;
     }
 
     @Override
-    public void intentarApertura(HeladeraActiva heladeraInvolucrada) {
+    public AperturaColaborador intentarApertura(HeladeraActiva heladeraInvolucrada) {
         if(!(estadoSolicitud instanceof EstadoRealizada) || !(permiso.esHeladeraPermitida(heladeraInvolucrada))) {
             throw new UnsupportedOperationException("No cuenta con los permisos para abrir esta heladera");
         }
@@ -87,5 +89,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
         apertura.darDeAlta();
 
         setEstadoSolicitud(new EstadoPosible());
+
+        return apertura;
     }
 }

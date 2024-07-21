@@ -4,6 +4,7 @@ import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoNoAplica;
 import com.tp_anual_dds.domain.estados_de_solicitud.EstadoSolicitud;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
+import com.tp_anual_dds.domain.heladera.acciones_en_heladera.AperturaColaborador;
 import com.tp_anual_dds.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoApertura;
 import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoAperturaNulo;
@@ -38,8 +39,12 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
     public void programarRevocacionPermisos() {}
 
     @Override
-    public void solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo) {}
+    public SolicitudAperturaColaborador solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo) {
+        throw new UnsupportedOperationException("Tarjeta Nula no puede solicitar aperturas");
+    }
 
     @Override
-    public void intentarApertura(HeladeraActiva heladeraAAbrir) {}
+    public AperturaColaborador intentarApertura(HeladeraActiva heladeraAAbrir) {
+        throw new UnsupportedOperationException("Tarjeta Nula no puede ejecutar aperturas");
+    }
 }

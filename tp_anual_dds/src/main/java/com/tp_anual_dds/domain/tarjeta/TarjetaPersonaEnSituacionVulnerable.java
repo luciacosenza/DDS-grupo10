@@ -57,7 +57,7 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
     }
 
     @Override
-    public void intentarApertura(HeladeraActiva heladeraInvolucrada) {
+    public AperturaPersonaEnSituacionVulnerable intentarApertura(HeladeraActiva heladeraInvolucrada) {
         if(!puedeUsar()) {
             throw new UnsupportedOperationException("Ya agotó los usos diarios de su Tarjeta");
         }
@@ -73,5 +73,7 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
 
         UsoTarjeta uso = new UsoTarjeta(ahora, heladeraInvolucrada);
         agregarUso(uso);
+
+        return apertura;
     }
 }
