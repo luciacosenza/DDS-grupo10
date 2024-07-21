@@ -9,12 +9,12 @@ import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.colaborador.ColaboradorJuridico;
-import com.tp_anual_dds.domain.contribuciones.DistribucionViandas;
-import com.tp_anual_dds.domain.contribuciones.DistribucionViandasCreator;
-import com.tp_anual_dds.domain.contribuciones.DonacionVianda;
-import com.tp_anual_dds.domain.contribuciones.DonacionViandaCreator;
-import com.tp_anual_dds.domain.contribuciones.HacerseCargoDeHeladera;
-import com.tp_anual_dds.domain.contribuciones.HacerseCargoDeHeladeraCreator;
+import com.tp_anual_dds.domain.contribucion.DistribucionViandas;
+import com.tp_anual_dds.domain.contribucion.DistribucionViandasCreator;
+import com.tp_anual_dds.domain.contribucion.DonacionVianda;
+import com.tp_anual_dds.domain.contribucion.DonacionViandaCreator;
+import com.tp_anual_dds.domain.contribucion.HacerseCargoDeHeladera;
+import com.tp_anual_dds.domain.contribucion.HacerseCargoDeHeladeraCreator;
 import com.tp_anual_dds.domain.documento.Documento;
 import com.tp_anual_dds.domain.documento.Documento.Sexo;
 import com.tp_anual_dds.domain.documento.Documento.TipoDocumento;

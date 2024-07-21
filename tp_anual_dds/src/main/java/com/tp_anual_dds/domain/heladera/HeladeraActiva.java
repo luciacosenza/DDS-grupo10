@@ -3,7 +3,7 @@ package com.tp_anual_dds.domain.heladera;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import com.tp_anual_dds.domain.incidentes.Alerta;
+import com.tp_anual_dds.domain.incidente.Alerta;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 import com.tp_anual_dds.sistema.Sistema;
 
@@ -18,6 +18,11 @@ public class HeladeraActiva extends Heladera {
         tempMax = vTempMax;
         tempActual = 0f;
         estado = true;
+    }
+    
+    @Override
+    public String getNombre() {
+        return nombre;
     }
 
     @Override
@@ -72,11 +77,10 @@ public class HeladeraActiva extends Heladera {
 
     @Override
     public void agregarVianda(Vianda vianda) {
-        if (verificarCapacidad()) {
-            viandas.add(vianda);
-        } else {
+        if (!verificarCapacidad()) {
             throw new IllegalStateException("No se puede agregar la vianda. Se superaría la capacidad de la Heladera");
         }
+        viandas.add(vianda);
     }
 
     @Override
@@ -102,8 +106,13 @@ public class HeladeraActiva extends Heladera {
     }
 
     @Override
-    public void reportarAlerta(Alerta.TipoAlerta tipo) {
+    public void desactivar() {
         setEstado(false);
+    }
+
+    @Override
+    public void reportarAlerta(Alerta.TipoAlerta tipo) {
+        desactivar();
 
         Alerta alerta = new Alerta(LocalDateTime.now(), this, tipo);
         alerta.darDeAlta();

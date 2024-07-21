@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
-import com.tp_anual_dds.domain.contribuciones.RegistroDePersonaEnSituacionVulnerable;
-import com.tp_anual_dds.domain.contribuciones.RegistroDePersonaEnSituacionVulnerableCreator;
+import com.tp_anual_dds.domain.contribucion.RegistroDePersonaEnSituacionVulnerable;
+import com.tp_anual_dds.domain.contribucion.RegistroDePersonaEnSituacionVulnerableCreator;
 import com.tp_anual_dds.domain.documento.Documento;
 import com.tp_anual_dds.domain.documento.Documento.Sexo;
 import com.tp_anual_dds.domain.documento.Documento.TipoDocumento;

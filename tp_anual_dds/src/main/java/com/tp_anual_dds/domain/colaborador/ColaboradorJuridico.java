@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import com.tp_anual_dds.domain.contacto.MedioDeContacto;
-import com.tp_anual_dds.domain.contribuciones.CargaOfertaCreator;
-import com.tp_anual_dds.domain.contribuciones.Contribucion;
-import com.tp_anual_dds.domain.contribuciones.DonacionDineroCreator;
-import com.tp_anual_dds.domain.contribuciones.HacerseCargoDeHeladeraCreator;
+import com.tp_anual_dds.domain.contribucion.CargaOfertaCreator;
+import com.tp_anual_dds.domain.contribucion.Contribucion;
+import com.tp_anual_dds.domain.contribucion.DonacionDineroCreator;
+import com.tp_anual_dds.domain.contribucion.HacerseCargoDeHeladeraCreator;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona.PersonaJuridica;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;

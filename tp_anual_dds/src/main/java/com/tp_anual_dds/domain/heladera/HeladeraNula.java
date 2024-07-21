@@ -2,7 +2,7 @@ package com.tp_anual_dds.domain.heladera;
 
 import java.util.ArrayList;
 
-import com.tp_anual_dds.domain.incidentes.Alerta;
+import com.tp_anual_dds.domain.incidente.Alerta;
 
 public class HeladeraNula extends Heladera {
     public HeladeraNula() {
@@ -18,8 +18,8 @@ public class HeladeraNula extends Heladera {
     }
 
     @Override
-    public Boolean estaVacia() {
-        return true;
+    public String getNombre() {
+        throw new UnsupportedOperationException("Heladera Nula no tiene nombre");
     }
 
     @Override
@@ -52,6 +52,11 @@ public class HeladeraNula extends Heladera {
     public void darDeBaja() {}
 
     @Override
+    public Boolean estaVacia() {
+        return true;
+    }
+
+    @Override
     public Integer viandasActuales() {
         return 0;
     }
@@ -66,7 +71,7 @@ public class HeladeraNula extends Heladera {
 
     @Override
     public Vianda retirarVianda() {
-        throw new UnsupportedOperationException("Heladera Nula no tiene viandas.");
+        throw new UnsupportedOperationException("Heladera Nula no tiene viandas");
     }
 
     @Override
@@ -74,6 +79,9 @@ public class HeladeraNula extends Heladera {
 
     @Override
     public void setTempActual(Float temperatura) {}
+
+    @Override
+    public void desactivar() {}
 
     @Override
     public void reportarAlerta(Alerta.TipoAlerta tipo) {}

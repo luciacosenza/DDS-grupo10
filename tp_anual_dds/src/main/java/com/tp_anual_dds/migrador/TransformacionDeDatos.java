@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.tp_anual_dds.conversores.ConversorFormaContribucion;
-import com.tp_anual_dds.conversores.ConversorTipoDocumento;
+import com.tp_anual_dds.conversor.ConversorFormaContribucion;
+import com.tp_anual_dds.conversor.ConversorTipoDocumento;
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.contacto.EMail;
 import com.tp_anual_dds.domain.contacto.MedioDeContacto;
-import com.tp_anual_dds.domain.contribuciones.Contribucion;
-import com.tp_anual_dds.domain.contribuciones.ContribucionCreator;
+import com.tp_anual_dds.domain.contribucion.Contribucion;
+import com.tp_anual_dds.domain.contribucion.ContribucionCreator;
 import com.tp_anual_dds.domain.documento.Documento;
 
 public class TransformacionDeDatos {

@@ -1,7 +1,7 @@
 package com.tp_anual_dds.domain.tarjeta;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
-import com.tp_anual_dds.domain.estados_de_solicitud.EstadoSolicitud;
+import com.tp_anual_dds.domain.estado_de_solicitud.EstadoSolicitud;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.heladera.acciones_en_heladera.AperturaColaborador;
 import com.tp_anual_dds.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador;

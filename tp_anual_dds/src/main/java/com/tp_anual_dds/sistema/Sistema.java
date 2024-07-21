@@ -6,14 +6,14 @@ import com.tp_anual_dds.domain.colaborador.Colaborador;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.heladera.Sensor;
 import com.tp_anual_dds.domain.heladera.acciones_en_heladera.AccionHeladera;
-import com.tp_anual_dds.domain.incidentes.Incidente;
+import com.tp_anual_dds.domain.incidente.Incidente;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
-import com.tp_anual_dds.domain.reporte.ReporteIncidentesPorHeladera;
-import com.tp_anual_dds.domain.reporte.ReporteMovimientosViandaPorHeladera;
-import com.tp_anual_dds.domain.reporte.ReporteViandasPorColaborador;
 import com.tp_anual_dds.domain.tecnico.Tecnico;
 import com.tp_anual_dds.domain.tecnico.Visita;
+import com.tp_anual_dds.reporte.ReporteIncidentesPorHeladera;
+import com.tp_anual_dds.reporte.ReporteMovimientosViandaPorHeladera;
+import com.tp_anual_dds.reporte.ReporteViandasPorColaborador;
 
 public class Sistema {
     private static final ArrayList<Colaborador> colaboradores = new ArrayList<>();
@@ -64,7 +64,19 @@ public class Sistema {
     public static ArrayList<Incidente> getIncidentes() {
         return incidentes;
     }
+
+    public static ReporteIncidentesPorHeladera getReporteIncidentesPorHeladera() {
+        return reporteIncidentesPorHeladera;
+    }
+
+    public static ReporteMovimientosViandaPorHeladera getReporteMovimientosViandaPorHeladera() {
+        return reporteMovimientosViandaPorHeladera;
+    }
     
+    public static ReporteViandasPorColaborador getReporteViandasPorColaborador() {
+        return reporteViandasPorColaborador;
+    }
+
     public static void agregarColaborador(Colaborador colaborador) {
         colaboradores.add(colaborador);
     }

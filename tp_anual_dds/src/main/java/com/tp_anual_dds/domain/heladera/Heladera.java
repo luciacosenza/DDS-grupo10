@@ -3,7 +3,7 @@ package com.tp_anual_dds.domain.heladera;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import com.tp_anual_dds.domain.incidentes.Alerta;
+import com.tp_anual_dds.domain.incidente.Alerta;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 
 public abstract class Heladera implements HeladeraObserver {
@@ -17,6 +17,8 @@ public abstract class Heladera implements HeladeraObserver {
     protected Float tempActual;
     protected Boolean estado;
     
+    public abstract String getNombre();
+
     public abstract ArrayList<Vianda> getViandas();
 
     public abstract Integer getCapacidad();
@@ -45,6 +47,8 @@ public abstract class Heladera implements HeladeraObserver {
 
     @Override
     public abstract void setTempActual(Float temperatura);
+
+    public abstract void desactivar();
 
     public abstract void reportarAlerta(Alerta.TipoAlerta tipo);
     

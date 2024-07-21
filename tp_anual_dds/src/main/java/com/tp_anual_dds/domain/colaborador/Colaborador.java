@@ -6,10 +6,10 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 import com.tp_anual_dds.domain.contacto.MedioDeContacto;
-import com.tp_anual_dds.domain.contribuciones.Contribucion;
-import com.tp_anual_dds.domain.contribuciones.ContribucionCreator;
+import com.tp_anual_dds.domain.contribucion.Contribucion;
+import com.tp_anual_dds.domain.contribucion.ContribucionCreator;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
-import com.tp_anual_dds.domain.incidentes.FallaTecnica;
+import com.tp_anual_dds.domain.incidente.FallaTecnica;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona.Persona;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
@@ -120,5 +120,6 @@ public abstract class Colaborador {
     public void reportarFallaTecnica(HeladeraActiva heladera, String descripcion, String foto) {
         FallaTecnica fallaTecnica = new FallaTecnica(LocalDateTime.now(), heladera, this, descripcion, foto);
         fallaTecnica.darDeAlta();
+        heladera.desactivar();
     }
 }

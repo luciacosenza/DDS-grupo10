@@ -9,10 +9,10 @@ import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.colaborador.ColaboradorJuridico;
-import com.tp_anual_dds.domain.contribuciones.CargaOferta;
-import com.tp_anual_dds.domain.contribuciones.CargaOfertaCreator;
-import com.tp_anual_dds.domain.contribuciones.DonacionDinero;
-import com.tp_anual_dds.domain.contribuciones.DonacionDineroCreator;
+import com.tp_anual_dds.domain.contribucion.CargaOferta;
+import com.tp_anual_dds.domain.contribucion.CargaOfertaCreator;
+import com.tp_anual_dds.domain.contribucion.DonacionDinero;
+import com.tp_anual_dds.domain.contribucion.DonacionDineroCreator;
 import com.tp_anual_dds.domain.documento.Documento;
 import com.tp_anual_dds.domain.persona.PersonaJuridica;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;

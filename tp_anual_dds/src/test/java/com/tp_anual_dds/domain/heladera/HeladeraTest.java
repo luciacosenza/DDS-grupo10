@@ -3,22 +3,21 @@ package com.tp_anual_dds.domain.heladera;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.colaborador.ColaboradorJuridico;
-import com.tp_anual_dds.domain.contribuciones.DistribucionViandas;
-import com.tp_anual_dds.domain.contribuciones.DistribucionViandasCreator;
-import com.tp_anual_dds.domain.contribuciones.DonacionVianda;
-import com.tp_anual_dds.domain.contribuciones.DonacionViandaCreator;
-import com.tp_anual_dds.domain.contribuciones.HacerseCargoDeHeladera;
-import com.tp_anual_dds.domain.contribuciones.HacerseCargoDeHeladeraCreator;
+import com.tp_anual_dds.domain.contribucion.DistribucionViandas;
+import com.tp_anual_dds.domain.contribucion.DistribucionViandasCreator;
+import com.tp_anual_dds.domain.contribucion.DonacionVianda;
+import com.tp_anual_dds.domain.contribucion.DonacionViandaCreator;
+import com.tp_anual_dds.domain.contribucion.HacerseCargoDeHeladera;
+import com.tp_anual_dds.domain.contribucion.HacerseCargoDeHeladeraCreator;
 import com.tp_anual_dds.domain.documento.Documento;
 import com.tp_anual_dds.domain.documento.Documento.Sexo;
 import com.tp_anual_dds.domain.documento.Documento.TipoDocumento;
@@ -151,7 +150,6 @@ public class HeladeraTest {
         assertTrue(vianda1.fueEntregada() && vianda2.fueEntregada() && vianda3.fueEntregada() && vianda4.fueEntregada());
 
         assertTrue(vianda3.getHeladera() == heladera1 && vianda4.getHeladera() == heladera2 && vianda1.getHeladera() == heladera2 && vianda2.getHeladera() == heladera2);
-
     }
 
     @Test
@@ -219,5 +217,4 @@ public class HeladeraTest {
 
         Assertions.assertEquals("La Heladera no tiene más viandas para retirar", exception.getMessage());
     }
-
 }

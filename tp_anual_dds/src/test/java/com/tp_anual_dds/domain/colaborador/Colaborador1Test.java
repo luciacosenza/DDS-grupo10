@@ -10,8 +10,8 @@ import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual_dds.domain.contacto.EMail;
 import com.tp_anual_dds.domain.contacto.WhatsApp;
-import com.tp_anual_dds.domain.contribuciones.HacerseCargoDeHeladeraCreator;
-import com.tp_anual_dds.domain.contribuciones.RegistroDePersonaEnSituacionVulnerableCreator;
+import com.tp_anual_dds.domain.contribucion.HacerseCargoDeHeladeraCreator;
+import com.tp_anual_dds.domain.contribucion.RegistroDePersonaEnSituacionVulnerableCreator;
 import com.tp_anual_dds.domain.documento.Documento;
 import com.tp_anual_dds.domain.documento.Documento.Sexo;
 import com.tp_anual_dds.domain.documento.Documento.TipoDocumento;
