@@ -36,7 +36,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
         Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
             long mesesPasados = ChronoUnit.MONTHS.between(ultimaActualizacion, ahora);
-            if (mesesPasados >= 1 && heladeraObjetivo.getEstado()) {
+            if (mesesPasados >= 1 && heladeraObjetivo.getEstado()) {    // Dado que en el test nos dimos cuenta que puede fallar por milesimas, podriamos pensar en restarle un segundo, por ejemplo, a mesesPasados
                 colaborador.sumarPuntos(multiplicador_puntos);
                 ultimaActualizacion = ahora;
             }

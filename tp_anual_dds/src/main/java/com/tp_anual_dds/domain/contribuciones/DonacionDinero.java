@@ -103,7 +103,7 @@ public class DonacionDinero extends Contribucion {
         Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
             Long periodosPasados = frecuencia.unidad().between(ultimaActualizacion, ahora);
-            if (periodosPasados >= frecuencia.periodo()) {
+            if (periodosPasados >= frecuencia.periodo()) {      // Dado que en el test nos dimos cuenta que puede fallar por milesimas, podriamos pensar en restarle un segundo, por ejemplo, a periodosPasados
                 colaborador.sumarPuntos(monto * multiplicador_puntos);
                 ultimaActualizacion = ahora;
             }

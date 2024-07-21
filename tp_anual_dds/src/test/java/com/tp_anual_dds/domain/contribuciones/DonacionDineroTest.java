@@ -25,7 +25,7 @@ public class DonacionDineroTest {
     @Test
     @DisplayName("Testeo la carga y correcto funcionamiento de una DonacionDinero")
     public void CargaDonacionDineroTest() { 
-        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
+        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")); // Uso ColaboradorHumano porque Colaborador es abstract y DonacionDinero es valida para ambos (Humano y Juridico)
         colaboradorHumano.darDeAlta();
 
         Double monto1 = 100000d;
@@ -47,11 +47,12 @@ public class DonacionDineroTest {
         Assertions.assertTrue(colaboradorHumano.getContribuciones().size() == 1 && colaboradorJuridico.getContribuciones().size() == 1 && colaboradorHumano.getContribuciones().getFirst().getClass() == DonacionDinero.class && colaboradorJuridico.getContribuciones().getFirst().getClass() == DonacionDinero.class);
     }
 
-    @Test   // Este Test vale para DonacionDinero y HacerseCargoDeHeladera
-    @DisplayName("Testeo el cálculo de Puntos utilizando un Scheduler")
-    public void CalcularPuntosTest() throws InterruptedException {  // Testeamos una version modificada de calcularPuntos(), dado que la original cuenta con periodos muy largos de ejecucion como para ser testeada
-        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
+    @Test
+    @DisplayName("Testeo el cálculo de Puntos de DonacionDinero utilizando un Scheduler")
+    public void CalcularPuntosDDTest() throws InterruptedException {  // Testeamos una version modificada de calcularPuntos(), dado que la original cuenta con periodos muy largos de ejecucion como para ser testeada
+        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")); // Uso ColaboradorHumano porque Colaborador es abstract y DonacionDinero es valida para ambos (Humano y Juridico)
         colaboradorHumano.darDeAlta();
+
         final LocalDateTime[] ultimaActualizacion = { LocalDateTime.now() };    // Usamos un Array para tener una final reference no directa al objeto y que nos permita modificarlo en el lambda
         Integer monto = 10;
         Double multiplicador_puntos = 1d; 
@@ -75,7 +76,7 @@ public class DonacionDineroTest {
 
         scheduler.scheduleAtFixedRate(calculoPuntos, 0, 5, TimeUnit.SECONDS);
         
-        if (!latch.await(60, TimeUnit.SECONDS)) { // Esperamos un maximo de 60 segundos
+        if (!latch.await(60, TimeUnit.SECONDS)) {   // Esperamos un maximo de 60 segundos
             throw new IllegalStateException("El cálculo de puntos no terminó a tiempo");
         }
 
