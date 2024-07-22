@@ -36,18 +36,18 @@ public class HeladeraTest {
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "RazonSocialPrueba", "RubroPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA);
         colaboradorJuridico.darDeAlta();
 
-        LocalDateTime fechaApertura1 = LocalDateTime.parse("2024-01-01T00:00:00");
-        HeladeraActiva heladera1 = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaApertura1, -20f, 5f);
+        LocalDateTime fechaAperturaH1 = LocalDateTime.parse("2024-01-01T00:00:00");
+        HeladeraActiva heladera1 = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaAperturaH1, -20f, 5f);
         HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
-        HacerseCargoDeHeladera hacerseCargoDeHeladera1 = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaApertura1, heladera1);
+        HacerseCargoDeHeladera hacerseCargoDeHeladera1 = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaAperturaH1, heladera1);
         heladera1.darDeAlta();
-        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera1);
+        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera1, fechaAperturaH1);
 
-        LocalDateTime fechaApertura2 = LocalDateTime.parse("2024-02-01T00:00:00");
-        HeladeraActiva heladera2 = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.6092, -58.3842, "Avenida de Mayo 1370", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaApertura2, -20f, 5f);
-        HacerseCargoDeHeladera hacerseCargoDeHeladera2 = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaApertura2, heladera2);
+        LocalDateTime fechaAperturaH2 = LocalDateTime.parse("2024-02-01T00:00:00");
+        HeladeraActiva heladera2 = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.6092, -58.3842, "Avenida de Mayo 1370", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaAperturaH2, -20f, 5f);
+        HacerseCargoDeHeladera hacerseCargoDeHeladera2 = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaAperturaH2, heladera2);
         heladera2.darDeAlta();
-        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera2);
+        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera2, fechaAperturaH2);
 
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
         colaboradorHumano.darDeAlta();
@@ -67,7 +67,7 @@ public class HeladeraTest {
         vianda1.setHeladera(heladera1);
         vianda1.marcarEntrega();
         vianda1.setFechaDonacion(LocalDateTime.now());
-        colaboradorHumano.confirmarContribucion(donacionVianda1);
+        colaboradorHumano.confirmarContribucion(donacionVianda1, LocalDateTime.now());
 
         Vianda vianda2 = new Vianda("ComidaPrueba", colaboradorHumano, fechaCaducidadV, null, 0, 0, false);
         DonacionVianda donacionVianda2 = (DonacionVianda) colaboradorHumano.colaborar(donacionViandaCreator, LocalDateTime.now(), vianda2, heladera1);
@@ -78,7 +78,7 @@ public class HeladeraTest {
         vianda2.setHeladera(heladera1);
         vianda2.marcarEntrega();
         vianda2.setFechaDonacion(LocalDateTime.now());
-        colaboradorHumano.confirmarContribucion(donacionVianda2);
+        colaboradorHumano.confirmarContribucion(donacionVianda2, LocalDateTime.now());
 
         Vianda vianda3 = new Vianda("ComidaPrueba", colaboradorHumano, fechaCaducidadV, null, 0, 0, false);
         DonacionVianda donacionVianda3 = (DonacionVianda) colaboradorHumano.colaborar(donacionViandaCreator, LocalDateTime.now(), vianda3, heladera1);
@@ -89,7 +89,7 @@ public class HeladeraTest {
         vianda3.setHeladera(heladera1);
         vianda3.marcarEntrega();
         vianda3.setFechaDonacion(LocalDateTime.now());
-        colaboradorHumano.confirmarContribucion(donacionVianda3);
+        colaboradorHumano.confirmarContribucion(donacionVianda3, LocalDateTime.now());
 
         Vianda vianda4 = new Vianda("ComidaPrueba", colaboradorHumano, fechaCaducidadV, null, 0, 0, false);
         DonacionVianda donacionVianda4 = (DonacionVianda) colaboradorHumano.colaborar(donacionViandaCreator, LocalDateTime.now(), vianda4, heladera2);
@@ -100,7 +100,7 @@ public class HeladeraTest {
         vianda4.setHeladera(heladera2);
         vianda4.marcarEntrega();
         vianda4.setFechaDonacion(LocalDateTime.now());
-        colaboradorHumano.confirmarContribucion(donacionVianda4);
+        colaboradorHumano.confirmarContribucion(donacionVianda4, LocalDateTime.now());
 
         DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
         Integer cantidadADistribuir = 2;
@@ -127,7 +127,7 @@ public class HeladeraTest {
             viandaAux.marcarEntrega();
         }
 
-        colaboradorHumano.confirmarContribucion(distribucionViandas);
+        colaboradorHumano.confirmarContribucion(distribucionViandas, LocalDateTime.now());
 
         ArrayList<Vianda> viandasEsperadasHeladera1 = new ArrayList<>();
         ArrayList<Vianda> viandasEsperadasHeladera2 = new ArrayList<>();
@@ -155,7 +155,8 @@ public class HeladeraTest {
     @Test
     @DisplayName("Testeo la IllegalState que genera una Heladera que no permite que se agreguen más Viandas de las que entran")
     public void IllegalStateAgregarViandaTest() {
-        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 2, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
+        LocalDateTime fechaApertura = LocalDateTime.parse("2024-01-01T00:00:00");
+        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 2, fechaApertura, -20f, 5f);
         heladera.darDeAlta();
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
         Vianda vianda1 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
@@ -184,7 +185,8 @@ public class HeladeraTest {
     @Test
     @DisplayName("Testeo la IllegalState que genera una Heladera que no permite que se retiren más Viandas cuando está vacía")
     public void IllegalStateRetirarViandaTest() {
-        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 2, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
+        LocalDateTime fechaApertura = LocalDateTime.parse("2024-01-01T00:00:00");
+        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 2, fechaApertura, -20f, 5f);
         heladera.darDeAlta();
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
         Vianda vianda1 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);

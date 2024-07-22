@@ -2,19 +2,19 @@ package com.tp_anual_dds.domain.heladera;
 
 import java.time.LocalDateTime;
 
-import com.tp_anual_dds.domain.colaborador.Colaborador;
+import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 
 public class Vianda {
     private String comida;
     private Heladera heladera;
-    private Colaborador colaborador;
+    private ColaboradorHumano colaborador;
     private LocalDateTime fechaCaducidad;
     private LocalDateTime fechaDonacion;
     private Integer calorias;
     private Integer peso;
     private Boolean entregada;
 
-    public Vianda(String vComida, Colaborador vColaborador, LocalDateTime vFechaCaducidad, LocalDateTime vFechaDonacion, Integer vCalorias, Integer vPeso, Boolean vEntregada) {
+    public Vianda(String vComida, ColaboradorHumano vColaborador, LocalDateTime vFechaCaducidad, LocalDateTime vFechaDonacion, Integer vCalorias, Integer vPeso, Boolean vEntregada) {
         comida = vComida;
         heladera = new HeladeraNula();
         colaborador = vColaborador;
@@ -25,8 +25,32 @@ public class Vianda {
         entregada = vEntregada;
     }
 
+    public String getComida() {
+        return comida;
+    }
+
     public Heladera getHeladera() {
         return heladera;
+    }
+
+    public ColaboradorHumano getColaborador() {
+        return colaborador;
+    }
+
+    public LocalDateTime getFechaCaducidad() {
+        return fechaCaducidad;
+    }
+
+    public LocalDateTime getFechaDonacion() {
+        return fechaDonacion;
+    }
+
+    public Integer getCalorias() {
+        return calorias;
+    }
+
+    public Integer getPeso() {
+        return peso;
     }
 
     public Boolean fueEntregada() {

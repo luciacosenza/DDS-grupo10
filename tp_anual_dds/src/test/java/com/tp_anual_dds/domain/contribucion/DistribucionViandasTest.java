@@ -8,10 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
-import com.tp_anual_dds.domain.contribucion.DistribucionViandas;
-import com.tp_anual_dds.domain.contribucion.DistribucionViandasCreator;
-import com.tp_anual_dds.domain.contribucion.DonacionVianda;
-import com.tp_anual_dds.domain.contribucion.DonacionViandaCreator;
 import com.tp_anual_dds.domain.documento.Documento;
 import com.tp_anual_dds.domain.documento.Documento.Sexo;
 import com.tp_anual_dds.domain.documento.Documento.TipoDocumento;
@@ -50,7 +46,7 @@ public class DistribucionViandasTest {
         vianda.setHeladera(heladera1);
         vianda.marcarEntrega();
         vianda.setFechaDonacion(LocalDateTime.now());
-        colaboradorHumano.confirmarContribucion(donacionVianda);
+        colaboradorHumano.confirmarContribucion(donacionVianda, LocalDateTime.now());
 
         DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
         DistribucionViandas distribucionViandas = (DistribucionViandas) colaboradorHumano.colaborar(distribucionViandasCreator, LocalDateTime.now(), heladera1, heladera2, 1, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
@@ -64,7 +60,7 @@ public class DistribucionViandasTest {
         heladera2.agregarVianda(vianda);
         vianda.setHeladera(heladera2);
         vianda.marcarEntrega();
-        colaboradorHumano.confirmarContribucion(distribucionViandas);
+        colaboradorHumano.confirmarContribucion(distribucionViandas, LocalDateTime.now());
 
         Assertions.assertTrue(Sistema.getAccionesHeladeras().size() == 6 && colaboradorHumano.getContribuciones().size() == 2 && colaboradorHumano.getContribuciones().get(1).getClass() == DistribucionViandas.class);
     }
@@ -94,7 +90,7 @@ public class DistribucionViandasTest {
         vianda.setHeladera(heladera1);
         vianda.marcarEntrega();
         vianda.setFechaDonacion(LocalDateTime.now());
-        colaboradorHumano1.confirmarContribucion(donacionVianda);
+        colaboradorHumano1.confirmarContribucion(donacionVianda, LocalDateTime.now());
 
         ColaboradorHumano colaboradorHumano2 = new ColaboradorHumano(null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123460", Sexo.MASCULINO), LocalDateTime.parse("2003-02-01T00:00:00"));
 

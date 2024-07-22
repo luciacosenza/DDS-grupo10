@@ -44,7 +44,7 @@ public class EstadoSolicitudTest {
         HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
         HacerseCargoDeHeladera hacerseCargoDeHeladera = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaApertura, heladera);
         heladera.darDeAlta();
-        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera);
+        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera, fechaApertura);
         
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
@@ -62,7 +62,7 @@ public class EstadoSolicitudTest {
         vianda.setHeladera(heladera);
         vianda.marcarEntrega();
         vianda.setFechaDonacion(LocalDateTime.now());
-        colaboradorHumano.confirmarContribucion(donacionVianda);
+        colaboradorHumano.confirmarContribucion(donacionVianda, LocalDateTime.now());
         
         Assertions.assertTrue(heladera.getViandas().getFirst() == vianda && vianda.getHeladera() == heladera && colaboradorHumano.getContribuciones().size() == 1);
     }
@@ -71,14 +71,17 @@ public class EstadoSolicitudTest {
     @DisplayName("Testeo la UnsupportedOperationException generada al querer hacer una Solicitud cuando ya hay una Realizada")
     public void UnsupportedOperationEstadoRealizadaTest() {
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "RazonSocialPrueba", "RubroPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA);
-        LocalDateTime fechaApertura = LocalDateTime.parse("2024-01-01T00:00:00");
+        LocalDateTime fechaAperturaH1 = LocalDateTime.parse("2024-01-01T00:00:00");
         LocalDateTime fechaAperturaH2   = LocalDateTime.parse("2024-02-01T00:00:00");
-        HeladeraActiva heladera1 = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 2, fechaApertura, -20f, 5f);
+        HeladeraActiva heladera1 = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 2, fechaAperturaH1, -20f, 5f);
         HeladeraActiva heladera2 = new HeladeraActiva("HeladeraPrueba2", new Ubicacion(-34.6092, -58.3842, "Avenida de Mayo 1370", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaAperturaH2, -20f, 5f);
         HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
-        HacerseCargoDeHeladera hacerseCargoDeHeladera = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaApertura, heladera1);
+        HacerseCargoDeHeladera hacerseCargoDeHeladera1 = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaAperturaH1, heladera1);
         heladera1.darDeAlta();
-        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera);
+        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera1, fechaAperturaH1);
+        HacerseCargoDeHeladera hacerseCargoDeHeladera2 = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaAperturaH2, heladera2);
+        heladera2.darDeAlta();
+        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera2, fechaAperturaH2);
 
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
@@ -106,14 +109,17 @@ public class EstadoSolicitudTest {
     @DisplayName("Testeo la UnsupportedOperationException generada al querer hacer una Solicitud cuando hay una Expirada")
     public void UnsupportedOperationEstadoExpiradaParaSolicitudTest() throws InterruptedException {
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "RazonSocialPrueba", "RubroPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA);
-        LocalDateTime fechaApertura = LocalDateTime.parse("2024-01-01T00:00:00");
+        LocalDateTime fechaAperturaH1 = LocalDateTime.parse("2024-01-01T00:00:00");
         LocalDateTime fechaAperturaH2   = LocalDateTime.parse("2024-02-01T00:00:00");
-        HeladeraActiva heladera1 = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 2, fechaApertura, -20f, 5f);
+        HeladeraActiva heladera1 = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 2, fechaAperturaH1, -20f, 5f);
         HeladeraActiva heladera2 = new HeladeraActiva("HeladeraPrueba2", new Ubicacion(-34.6092, -58.3842, "Avenida de Mayo 1370", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaAperturaH2, -20f, 5f);
         HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
-        HacerseCargoDeHeladera hacerseCargoDeHeladera = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaApertura, heladera1);
+        HacerseCargoDeHeladera hacerseCargoDeHeladera1 = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaAperturaH1, heladera1);
         heladera1.darDeAlta();
-        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera);
+        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera1, fechaAperturaH1);
+        HacerseCargoDeHeladera hacerseCargoDeHeladera2 = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaAperturaH2, heladera2);
+        heladera2.darDeAlta();
+        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera2, fechaAperturaH2);
 
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
@@ -173,7 +179,7 @@ public class EstadoSolicitudTest {
         HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
         HacerseCargoDeHeladera hacerseCargoDeHeladera = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaApertura, heladera);
         heladera.darDeAlta();
-        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera);
+        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera, fechaApertura);
 
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");

@@ -24,11 +24,27 @@ public class Oferta {
         imagen = vImagen;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Double getCosto() {
+        return costo;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
     public void validarPuntos(Colaborador colaborador) {
         Double puntosColaborador = colaborador.getPuntos();
         
         if (puntosColaborador < costo) {
-            throw new IllegalArgumentException("No se cuenta con los puntos necesarios para adquirir este beneficio");
+            throw new IllegalArgumentException("No cuenta con los puntos necesarios para adquirir este beneficio");
         }
     }
 

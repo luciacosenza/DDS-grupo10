@@ -15,7 +15,7 @@ public class DonacionDinero extends Contribucion {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final Double multiplicador_puntos = 0.5;
     
-    public enum FrecuenciaDePago { // Tal vez podriamos implementar una clase, para que no quede toda esta logica en DonacionDinero
+    public enum FrecuenciaDePago {
         SEMANAL {
             @Override
             public Integer periodo() {
@@ -83,6 +83,14 @@ public class DonacionDinero extends Contribucion {
         frecuencia = vFrecuencia;
         ultimaActualizacion = LocalDateTime.now();
         completada = false;
+    }
+
+    public Double getMonto() {
+        return monto;
+    }
+
+    public FrecuenciaDePago getFrecuencia() {
+        return frecuencia;
     }
 
     // obtenerDetalles()

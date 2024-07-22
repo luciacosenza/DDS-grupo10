@@ -26,6 +26,11 @@ public class HeladeraActiva extends Heladera {
     }
 
     @Override
+    public Ubicacion getUbicacion() {
+        return ubicacion;
+    }
+
+    @Override
     public ArrayList<Vianda> getViandas() {
         return viandas;
     }
@@ -33,6 +38,20 @@ public class HeladeraActiva extends Heladera {
     @Override
     public Integer getCapacidad() {
         return capacidad;
+    }
+
+    @Override
+    public LocalDateTime getFechaApertura() {
+        return fechaApertura;
+    }
+
+    @Override
+    public Float getTempMin() {
+        return tempMin;
+    }
+
+    @Override public Float getTempMax() {
+        return tempMax;
     }
 
     @Override

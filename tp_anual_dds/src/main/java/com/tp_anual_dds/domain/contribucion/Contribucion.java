@@ -23,6 +23,10 @@ public abstract class Contribucion {
         return completada;
     }
 
+    public void setFechaContribucion(LocalDateTime vFechaContribucion) {
+        fechaContribucion = vFechaContribucion;
+    }
+
     // obtenerDetalles()
 
     protected Boolean esColaboradorHumano(Colaborador colaboradorAspirante) {
@@ -37,9 +41,10 @@ public abstract class Contribucion {
 
     protected abstract void calcularPuntos();
 
-    public void confirmar() {
+    public void confirmar(LocalDateTime vFechaContribucion) {
         // Podemos agregar logica para confirmar que la Contribucion fue efectivamente realizada
         completada = true;
+        setFechaContribucion(vFechaContribucion);   // Para actualizar fechaContribucion al momento en el que se confirma la realizacion de la Contribucion
         calcularPuntos();
     }
 }

@@ -10,7 +10,7 @@ import com.tp_anual_dds.domain.colaborador.Colaborador;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 
 public class HacerseCargoDeHeladera extends Contribucion {
-    private HeladeraActiva heladeraObjetivo;
+    private final HeladeraActiva heladeraObjetivo;
     private LocalDateTime ultimaActualizacion;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final Double multiplicador_puntos = 5d;
@@ -25,6 +25,10 @@ public class HacerseCargoDeHeladera extends Contribucion {
 
     // obtenerDetalles()
     
+    public HeladeraActiva getHeladeraObjetivo() {
+        return heladeraObjetivo;
+    }
+
     @Override
     public void validarIdentidad() {}
 

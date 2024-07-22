@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.tp_anual_dds.domain.colaborador.Colaborador;
-import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.contribucion.Contribucion;
 import com.tp_anual_dds.domain.contribucion.DistribucionViandas;
 import com.tp_anual_dds.domain.contribucion.DonacionVianda;

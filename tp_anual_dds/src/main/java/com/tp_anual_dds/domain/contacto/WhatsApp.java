@@ -7,6 +7,10 @@ public class WhatsApp extends MedioDeContacto {
         numero = vNumero;
     }
 
+    public String getNumero() {
+        return numero;
+    }
+
     @Override
     public void contactar(String asunto, String cuerpo) {} // Se implementara posteriormente, esto es para que no tire error
 }

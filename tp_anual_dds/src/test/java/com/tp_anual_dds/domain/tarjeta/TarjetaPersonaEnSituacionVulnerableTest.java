@@ -70,7 +70,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         tarjeta.setTitular(personaEnSituacionVulnerable);
         personaEnSituacionVulnerable.setTarjeta(tarjeta);
         personaEnSituacionVulnerable.darDeAlta();
-        colaboradorHumano.confirmarContribucion(registroPersonaEnSituacionVulnerable);
+        colaboradorHumano.confirmarContribucion(registroPersonaEnSituacionVulnerable, LocalDateTime.now());
 
         final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
 
@@ -145,7 +145,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         tarjeta.setTitular(personaEnSituacionVulnerable);
         personaEnSituacionVulnerable.setTarjeta(tarjeta);
         personaEnSituacionVulnerable.darDeAlta();
-        colaboradorHumano.confirmarContribucion(registroPersonaEnSituacionVulnerable);
+        colaboradorHumano.confirmarContribucion(registroPersonaEnSituacionVulnerable, LocalDateTime.now());
 
         final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
 
@@ -225,7 +225,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         tarjeta.setTitular(personaEnSituacionVulnerable);
         personaEnSituacionVulnerable.setTarjeta(tarjeta);
         personaEnSituacionVulnerable.darDeAlta();
-        colaboradorHumano.confirmarContribucion(registroPersonaEnSituacionVulnerable);
+        colaboradorHumano.confirmarContribucion(registroPersonaEnSituacionVulnerable, LocalDateTime.now());
 
         final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
 

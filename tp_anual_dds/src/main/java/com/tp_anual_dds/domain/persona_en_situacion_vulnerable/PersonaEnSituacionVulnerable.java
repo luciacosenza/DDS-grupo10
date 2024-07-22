@@ -9,9 +9,9 @@ import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 import com.tp_anual_dds.sistema.Sistema;
 
 public class PersonaEnSituacionVulnerable {
-    private PersonaFisica persona;
+    private final PersonaFisica persona;
     private Ubicacion domicilio;
-    private LocalDateTime fechaRegistro;
+    private final LocalDateTime fechaRegistro;
     private Integer menoresACargo;
     private TarjetaPersonaEnSituacionVulnerable tarjeta;
 
@@ -20,6 +20,18 @@ public class PersonaEnSituacionVulnerable {
         domicilio = vDomicilio;
         fechaRegistro = vFechaRegistro;
         menoresACargo = vMenoresACargo;
+    }
+
+    public PersonaFisica getPersona() {
+        return persona;
+    }
+
+    public Ubicacion getDomicilio() {
+        return domicilio;
+    }
+
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
     }
 
     public Integer getMenoresACargo() {

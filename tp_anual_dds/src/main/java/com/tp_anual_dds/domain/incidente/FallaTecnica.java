@@ -6,9 +6,9 @@ import com.tp_anual_dds.domain.colaborador.Colaborador;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 
 public class FallaTecnica extends Incidente {
-    private Colaborador colaborador;
-    private String descripcion;
-    private String foto;
+    private final Colaborador colaborador;
+    private final String descripcion;
+    private final String foto;
 
     public FallaTecnica(LocalDateTime vFecha, HeladeraActiva vHeladera, Colaborador vColaborador, String vDescripcion, String vFoto) {
         fecha = vFecha;
@@ -16,5 +16,17 @@ public class FallaTecnica extends Incidente {
         colaborador = vColaborador;
         descripcion = vDescripcion;
         foto = vFoto;
+    }
+
+    public Colaborador getColaborador() {
+        return colaborador;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public String getFoto() {
+        return foto;
     }
 }

@@ -13,8 +13,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorJuridico;
-import com.tp_anual_dds.domain.contribucion.HacerseCargoDeHeladera;
-import com.tp_anual_dds.domain.contribucion.HacerseCargoDeHeladeraCreator;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.persona.PersonaJuridica;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
@@ -34,7 +32,7 @@ public class HacerseCargoDeHeladeraTest {
         HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
         HacerseCargoDeHeladera hacerseCargoDeHeladera = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaAperturaH, heladera);
         heladera.darDeAlta();
-        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera);
+        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera, fechaAperturaH);
 
         Assertions.assertTrue(Sistema.getHeladeras().size() == 1 && colaboradorJuridico.getContribuciones().size() == 1 && colaboradorJuridico.getContribuciones().getFirst().getClass() == HacerseCargoDeHeladera.class);
     }

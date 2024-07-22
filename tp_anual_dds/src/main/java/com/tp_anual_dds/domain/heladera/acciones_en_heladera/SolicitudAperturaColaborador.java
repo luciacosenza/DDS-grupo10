@@ -6,7 +6,7 @@ import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 
 public class SolicitudAperturaColaborador extends AccionColaborador {
-    private MotivoSolicitud motivo;
+    private final MotivoSolicitud motivo;
 
     public enum MotivoSolicitud {
         INGRESAR_DONACION,
@@ -19,5 +19,9 @@ public class SolicitudAperturaColaborador extends AccionColaborador {
         heladera = vHeladera;
         responsable = vResponsable;
         motivo = vMotivo;
+    }
+
+    public MotivoSolicitud getMotivo() {
+        return motivo;
     }
 }

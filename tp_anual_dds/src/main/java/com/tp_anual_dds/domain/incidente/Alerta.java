@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 
 public class Alerta extends Incidente {
-    private TipoAlerta tipo;
+    private final TipoAlerta tipo;
 
     public enum TipoAlerta {
         TEMPERATURA,
@@ -17,5 +17,9 @@ public class Alerta extends Incidente {
         fecha = vFecha;
         heladera = vHeladera;
         tipo = vTipo;
+    }
+
+    public TipoAlerta getTipo() {
+        return tipo;
     }
 }

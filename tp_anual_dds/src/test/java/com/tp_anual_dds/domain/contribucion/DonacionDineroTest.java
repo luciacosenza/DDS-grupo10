@@ -14,8 +14,6 @@ import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.colaborador.ColaboradorJuridico;
-import com.tp_anual_dds.domain.contribucion.DonacionDinero;
-import com.tp_anual_dds.domain.contribucion.DonacionDineroCreator;
 import com.tp_anual_dds.domain.documento.Documento;
 import com.tp_anual_dds.domain.documento.Documento.Sexo;
 import com.tp_anual_dds.domain.documento.Documento.TipoDocumento;
@@ -35,7 +33,7 @@ public class DonacionDineroTest {
 
         DonacionDineroCreator donacionDineroCreator = new DonacionDineroCreator();
         DonacionDinero donacionDinero1 = (DonacionDinero) colaboradorHumano.colaborar(donacionDineroCreator, LocalDateTime.now(), monto1, frecuencia1);
-        colaboradorHumano.confirmarContribucion(donacionDinero1);
+        colaboradorHumano.confirmarContribucion(donacionDinero1, LocalDateTime.now());
 
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "RazonSocialPrueba", "RubroPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA);
         colaboradorJuridico.darDeAlta();
@@ -44,7 +42,7 @@ public class DonacionDineroTest {
         DonacionDinero.FrecuenciaDePago frecuencia2 = DonacionDinero.FrecuenciaDePago.UNICA_VEZ;
 
         DonacionDinero donacionDinero2 = (DonacionDinero) colaboradorJuridico.colaborar(donacionDineroCreator, LocalDateTime.now(), monto2, frecuencia2);
-        colaboradorJuridico.confirmarContribucion(donacionDinero2);
+        colaboradorJuridico.confirmarContribucion(donacionDinero2, LocalDateTime.now());
 
         Assertions.assertTrue(colaboradorHumano.getContribuciones().size() == 1 && colaboradorJuridico.getContribuciones().size() == 1 && colaboradorHumano.getContribuciones().getFirst().getClass() == DonacionDinero.class && colaboradorJuridico.getContribuciones().getFirst().getClass() == DonacionDinero.class);
     }
@@ -81,7 +79,7 @@ public class DonacionDineroTest {
         if (!latch.await(60, TimeUnit.SECONDS)) {   // Esperamos un maximo de 60 segundos
             throw new IllegalStateException("El cálculo de puntos no terminó a tiempo");
         }
-
+        
         Assertions.assertEquals(40d, colaboradorHumano.getPuntos());
     }
 }

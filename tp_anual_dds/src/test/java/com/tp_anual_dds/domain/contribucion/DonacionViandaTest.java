@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
-import com.tp_anual_dds.domain.contribucion.DonacionVianda;
-import com.tp_anual_dds.domain.contribucion.DonacionViandaCreator;
 import com.tp_anual_dds.domain.documento.Documento;
 import com.tp_anual_dds.domain.documento.Documento.Sexo;
 import com.tp_anual_dds.domain.documento.Documento.TipoDocumento;
@@ -45,7 +43,7 @@ public class DonacionViandaTest {
         vianda.setHeladera(heladera1);
         vianda.marcarEntrega();
         vianda.setFechaDonacion(LocalDateTime.now());
-        colaboradorHumano.confirmarContribucion(donacionVianda);
+        colaboradorHumano.confirmarContribucion(donacionVianda, LocalDateTime.now());
 
         Assertions.assertTrue(Sistema.getAccionesHeladeras().size() == 2 && colaboradorHumano.getContribuciones().size() == 1 && colaboradorHumano.getContribuciones().getFirst().getClass() == DonacionVianda.class);
     }

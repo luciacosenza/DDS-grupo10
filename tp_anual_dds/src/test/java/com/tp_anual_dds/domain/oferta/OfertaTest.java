@@ -32,7 +32,7 @@ public class OfertaTest {
 
         DonacionDineroCreator donacionDineroCreator = new DonacionDineroCreator();
         DonacionDinero donacionDinero = (DonacionDinero) colaboradorHumano.colaborar(donacionDineroCreator, fechaDonacion, 60d, DonacionDinero.FrecuenciaDePago.UNICA_VEZ);
-        colaboradorHumano.confirmarContribucion(donacionDinero);
+        colaboradorHumano.confirmarContribucion(donacionDinero, fechaDonacion);
 
         Oferta oferta = new Oferta("PlayStation 5", 20d, Oferta.Categoria.ELECTRONICA, "ImagenPrueba");
         LocalDateTime fechaCarga = LocalDateTime.parse("2024-07-15T00:00:00");
@@ -40,7 +40,7 @@ public class OfertaTest {
         CargaOfertaCreator cargaOfertaCreator = new CargaOfertaCreator();
         CargaOferta cargaOferta = (CargaOferta) colaboradorJuridico.colaborar(cargaOfertaCreator, fechaCarga, oferta);
         oferta.darDeAlta();
-        colaboradorJuridico.confirmarContribucion(cargaOferta);
+        colaboradorJuridico.confirmarContribucion(cargaOferta, fechaCarga);
         
         Thread.sleep(5000);
 
@@ -61,7 +61,7 @@ public class OfertaTest {
 
         DonacionDineroCreator donacionDineroCreator = new DonacionDineroCreator();
         DonacionDinero donacionDinero = (DonacionDinero) colaboradorHumano.colaborar(donacionDineroCreator, fechaDonacion, 20d, DonacionDinero.FrecuenciaDePago.UNICA_VEZ);
-        colaboradorHumano.confirmarContribucion(donacionDinero);
+        colaboradorHumano.confirmarContribucion(donacionDinero, fechaDonacion);
 
         Oferta oferta = new Oferta("PlayStation 5", 20d, Oferta.Categoria.ELECTRONICA, "ImagenPrueba");
         LocalDateTime fechaCarga = LocalDateTime.parse("2024-07-15T00:00:00");
@@ -69,7 +69,7 @@ public class OfertaTest {
         CargaOfertaCreator cargaOfertaCreator = new CargaOfertaCreator();
         CargaOferta cargaOferta = (CargaOferta) colaboradorJuridico.colaborar(cargaOfertaCreator, fechaCarga, oferta);
         oferta.darDeAlta();
-        colaboradorJuridico.confirmarContribucion(cargaOferta);
+        colaboradorJuridico.confirmarContribucion(cargaOferta, fechaCarga);
         
         Thread.sleep(5000);
 

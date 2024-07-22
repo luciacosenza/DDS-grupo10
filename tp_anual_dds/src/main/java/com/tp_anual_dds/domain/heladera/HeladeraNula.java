@@ -1,8 +1,10 @@
 package com.tp_anual_dds.domain.heladera;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.tp_anual_dds.domain.incidente.Alerta;
+import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 
 public class HeladeraNula extends Heladera {
     public HeladeraNula() {
@@ -19,7 +21,12 @@ public class HeladeraNula extends Heladera {
 
     @Override
     public String getNombre() {
-        throw new UnsupportedOperationException("Heladera Nula no tiene nombre");
+        return nombre;
+    }
+
+    @Override
+    public Ubicacion getUbicacion() {
+        throw new UnsupportedOperationException("Heladera Nula no tiene ubicación");
     }
 
     @Override
@@ -30,6 +37,20 @@ public class HeladeraNula extends Heladera {
     @Override
     public Integer getCapacidad() {
         return capacidad;
+    }
+
+    @Override
+    public LocalDateTime getFechaApertura() {
+        throw new UnsupportedOperationException("Heladera Nula no tiene fecha de apertura");
+    }
+
+    @Override
+    public Float getTempMin() {
+        return tempMin;
+    }
+
+    @Override public Float getTempMax() {
+        return tempMax;
     }
 
     @Override

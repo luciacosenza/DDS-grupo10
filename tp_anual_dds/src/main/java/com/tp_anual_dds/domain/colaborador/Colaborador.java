@@ -105,8 +105,8 @@ public abstract class Colaborador {
         return contribucion;
     }
 
-    public void confirmarContribucion(Contribucion contribucion) {
-        contribucion.confirmar();
+    public void confirmarContribucion(Contribucion contribucion, LocalDateTime fechaContribucion) {
+        contribucion.confirmar(fechaContribucion);  // Generalmente sera LocalDateTime.now(), salvo cuando se cargue una Contribucion hecha con anterioridad
         agregarContribucion(contribucion);
         eliminarContribucionPendiente(contribucion);
     }

@@ -17,4 +17,16 @@ public class PersonaJuridica extends Persona {
         tipo = vTipo;
         rubro = vRubro;
     }
+
+    public String getRazonSocial() {
+        return razonSocial;
+    }
+
+    public TipoPersonaJuridica getTipo() {
+        return tipo;
+    }
+
+    public String getRubro() {
+        return rubro;
+    }
 }

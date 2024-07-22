@@ -8,8 +8,8 @@ import com.tp_anual_dds.domain.heladera.Vianda;
 
 
 public class DonacionVianda extends Contribucion {
-    private Vianda vianda;
-    private HeladeraActiva heladera;
+    private final Vianda vianda;
+    private final HeladeraActiva heladera;
     private final Double multiplicador_puntos = 1.5;
 
     public DonacionVianda(Colaborador vColaborador, LocalDateTime vFechaContribucion, Vianda vVianda, HeladeraActiva vHeladera) {
@@ -20,6 +20,10 @@ public class DonacionVianda extends Contribucion {
         completada = false;
     }
     
+    public Vianda getVianda() {
+        return vianda;
+    }
+
     public HeladeraActiva getHeladera() {
         return heladera;
     }

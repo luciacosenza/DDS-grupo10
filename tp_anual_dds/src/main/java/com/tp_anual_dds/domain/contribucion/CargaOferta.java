@@ -6,7 +6,7 @@ import com.tp_anual_dds.domain.colaborador.Colaborador;
 import com.tp_anual_dds.domain.oferta.Oferta;
 
 public class CargaOferta extends Contribucion {
-    private Oferta oferta;
+    private final Oferta oferta;
 
     public CargaOferta(Colaborador vColaborador, LocalDateTime vFechaContribucion, Oferta vOferta) {
         colaborador = vColaborador;
@@ -17,6 +17,10 @@ public class CargaOferta extends Contribucion {
 
     // obtenerDetalles()
     
+    public Oferta getOferta() {
+        return oferta;
+    }
+
     @Override
     public void validarIdentidad() {}
 

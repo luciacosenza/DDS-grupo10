@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorJuridico;
-import com.tp_anual_dds.domain.contribucion.CargaOferta;
-import com.tp_anual_dds.domain.contribucion.CargaOfertaCreator;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona.PersonaJuridica;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
@@ -28,7 +26,7 @@ public class CargaOfertaTest {
         CargaOfertaCreator cargaOfertaCreator = new CargaOfertaCreator();
         CargaOferta cargaOferta = (CargaOferta) colaboradorJuridico.colaborar(cargaOfertaCreator, LocalDateTime.now(), oferta);
         oferta.darDeAlta();
-        colaboradorJuridico.confirmarContribucion(cargaOferta);
+        colaboradorJuridico.confirmarContribucion(cargaOferta, LocalDateTime.now());
 
         Assertions.assertTrue(Sistema.getOfertas().size() == 1 && colaboradorJuridico.getContribuciones().size() == 1 && colaboradorJuridico.getContribuciones().getFirst().getClass() == CargaOferta.class);
     }

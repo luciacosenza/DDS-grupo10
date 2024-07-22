@@ -34,24 +34,24 @@ public class ReporteIncidentesPorHeladeraTest {
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "RazonSocialPrueba", "RubroPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA);
         colaboradorJuridico.darDeAlta();
 
-        LocalDateTime fechaApertura1 = LocalDateTime.parse("2024-01-01T00:00:00");
-        HeladeraActiva heladera1 = new HeladeraActiva("HeladeraPrueba1", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaApertura1, -20f, 5f);
+        LocalDateTime fechaAperturaH1 = LocalDateTime.parse("2024-01-01T00:00:00");
+        HeladeraActiva heladera1 = new HeladeraActiva("HeladeraPrueba1", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaAperturaH1, -20f, 5f);
         HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
-        HacerseCargoDeHeladera hacerseCargoDeHeladera1 = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaApertura1, heladera1);
+        HacerseCargoDeHeladera hacerseCargoDeHeladera1 = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaAperturaH1, heladera1);
         heladera1.darDeAlta();
-        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera1);
+        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera1, fechaAperturaH1);
 
-        LocalDateTime fechaApertura2 = LocalDateTime.parse("2024-02-01T00:00:00");
-        HeladeraActiva heladera2 = new HeladeraActiva("HeladeraPrueba2", new Ubicacion(-34.6092, -58.3842, "Avenida de Mayo 1370", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaApertura2, -20f, 5f);
-        HacerseCargoDeHeladera hacerseCargoDeHeladera2 = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaApertura2, heladera2);
+        LocalDateTime fechaAperturaH2 = LocalDateTime.parse("2024-02-01T00:00:00");
+        HeladeraActiva heladera2 = new HeladeraActiva("HeladeraPrueba2", new Ubicacion(-34.6092, -58.3842, "Avenida de Mayo 1370", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaAperturaH2, -20f, 5f);
+        HacerseCargoDeHeladera hacerseCargoDeHeladera2 = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaAperturaH2, heladera2);
         heladera2.darDeAlta();
-        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera2);
+        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera2, fechaAperturaH2);
 
-        LocalDateTime fechaApertura3 = LocalDateTime.parse("2024-03-01T00:00:00");
-        HeladeraActiva heladera3 = new HeladeraActiva("HeladeraPrueba3", new Ubicacion(-34.59866429352556, -58.419901047570306, "Avenida Medrano 951", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaApertura3, -20f, 5f);
-        HacerseCargoDeHeladera hacerseCargoDeHeladera3 = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaApertura3, heladera3);
+        LocalDateTime fechaAperturaH3 = LocalDateTime.parse("2024-03-01T00:00:00");
+        HeladeraActiva heladera3 = new HeladeraActiva("HeladeraPrueba3", new Ubicacion(-34.59866429352556, -58.419901047570306, "Avenida Medrano 951", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaAperturaH3, -20f, 5f);
+        HacerseCargoDeHeladera hacerseCargoDeHeladera3 = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaAperturaH3, heladera3);
         heladera3.darDeAlta();
-        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera3);
+        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera3, fechaAperturaH3);
 
         ColaboradorHumano colaboradorHumano1 = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba1", "ApellidoPrueba1", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
         colaboradorHumano1.darDeAlta();

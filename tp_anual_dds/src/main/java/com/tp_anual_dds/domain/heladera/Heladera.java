@@ -19,9 +19,17 @@ public abstract class Heladera implements HeladeraObserver {
     
     public abstract String getNombre();
 
+    public abstract Ubicacion getUbicacion();
+
     public abstract ArrayList<Vianda> getViandas();
 
     public abstract Integer getCapacidad();
+
+    public abstract LocalDateTime getFechaApertura();
+
+    public abstract Float getTempMin();
+
+    public abstract Float getTempMax();
 
     public abstract Float getTempActual();
 

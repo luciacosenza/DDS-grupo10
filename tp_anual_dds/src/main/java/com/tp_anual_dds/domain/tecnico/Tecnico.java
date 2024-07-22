@@ -9,9 +9,9 @@ import com.tp_anual_dds.domain.persona.PersonaFisica;
 import com.tp_anual_dds.sistema.Sistema;
 
 public class Tecnico {
-    private PersonaFisica persona;
+    private final PersonaFisica persona;
     private String cuil;
-    private MedioDeContacto medioDeContacto;
+    private MedioDeContacto medioDeContacto;    // Puede ser plural en un futuro
     private Area areaDeCobertura;
 
     public Tecnico(String vNombre, String vApellido, Documento vDocumento, LocalDateTime vFechaNacimiento, String vCuil, MedioDeContacto vMedioDeContacto, Area vAreaDeCobertura) {
@@ -19,6 +19,22 @@ public class Tecnico {
         cuil = vCuil;
         medioDeContacto = vMedioDeContacto;
         areaDeCobertura = vAreaDeCobertura;
+    }
+
+    public PersonaFisica getPersona() {
+        return persona;
+    }
+
+    public String getCuil() {
+        return cuil;
+    }
+
+    public MedioDeContacto getMedioDeContacto() {
+        return medioDeContacto;
+    }
+
+    public Area getAreaDeCobertura() {
+        return areaDeCobertura;
     }
 
     public void darDeAlta() {

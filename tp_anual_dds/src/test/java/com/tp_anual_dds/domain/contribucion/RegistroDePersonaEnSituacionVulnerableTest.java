@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
-import com.tp_anual_dds.domain.contribucion.RegistroDePersonaEnSituacionVulnerable;
-import com.tp_anual_dds.domain.contribucion.RegistroDePersonaEnSituacionVulnerableCreator;
 import com.tp_anual_dds.domain.documento.Documento;
 import com.tp_anual_dds.domain.documento.Documento.Sexo;
 import com.tp_anual_dds.domain.documento.Documento.TipoDocumento;
@@ -33,7 +31,7 @@ public class RegistroDePersonaEnSituacionVulnerableTest {
         tarjeta.setTitular(personaEnSituacionVulnerable);
         personaEnSituacionVulnerable.setTarjeta(tarjeta);
         personaEnSituacionVulnerable.darDeAlta();
-        colaboradorHumano.confirmarContribucion(registroPersonaEnSituacionVulnerable);
+        colaboradorHumano.confirmarContribucion(registroPersonaEnSituacionVulnerable, LocalDateTime.now());
 
         Assertions.assertTrue(Sistema.getPersonasEnSituacionVulnerable().size() == 1 && colaboradorHumano.getContribuciones().size() == 1 && colaboradorHumano.getContribuciones().getFirst().getClass() == RegistroDePersonaEnSituacionVulnerable.class);
     }

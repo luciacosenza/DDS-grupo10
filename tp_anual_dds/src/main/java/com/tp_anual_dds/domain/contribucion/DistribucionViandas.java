@@ -6,10 +6,10 @@ import com.tp_anual_dds.domain.colaborador.Colaborador;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 
 public class DistribucionViandas extends Contribucion {
-    private HeladeraActiva origen;
-    private HeladeraActiva destino;
-    private Integer cantidadViandasAMover;
-    private MotivoDistribucion motivo;
+    private final HeladeraActiva origen;
+    private final HeladeraActiva destino;
+    private final Integer cantidadViandasAMover;
+    private final MotivoDistribucion motivo;
 
     public enum MotivoDistribucion {
         DESPERFECTO_EN_LA_HELADERA,
@@ -36,6 +36,10 @@ public class DistribucionViandas extends Contribucion {
 
     public Integer getCantidadViandasAMover() {
         return cantidadViandasAMover;
+    }
+
+    public MotivoDistribucion getMotivo() {
+        return motivo;
     }
 
     // obtenerDetalles()

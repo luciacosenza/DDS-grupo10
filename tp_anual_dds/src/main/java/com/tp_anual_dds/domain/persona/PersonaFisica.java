@@ -28,4 +28,8 @@ public class PersonaFisica extends Persona {
     public Documento getDocumento() {
         return documento;
     }
+
+    public LocalDateTime getFechaNacimiento() {
+        return fechaNacimiento;
+    }
 }

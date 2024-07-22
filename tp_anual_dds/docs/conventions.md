@@ -4,6 +4,24 @@
 
 En los Constructores, decidimos ponerle a los parámetros **`vAtributo`** haciendo referencia a "Valor Atributo", para que queden nombres distintos.
 
+## Uso de Modificador *final*
+
+En los atributos de las diferentes clases, usamos *final* cuando estamos seguros de que el valor de ese atributo se va a mantener constante.
+
+### No usamos *final*
+
+- Cuando creemos que es un atributo que puede cambiar de valor, como:
+  - Nombres
+  - Apellidos
+  - Documentos (a chequear)
+  - Domicilios / Ubicaciones / Areas de cobertura
+  - Medios de contacto
+  - Menores a cargo
+  - Atributos de Vianda
+  - Atributos de Oferta
+  - Etc.
+- Cuando los atributos se definen en una clase abstracta (por cómo manejamos los constructores, estos sólo se implementan en las clases concretas)
+
 ## Tipo de Datos para Documentos
 
 Para todo lo referido a números de documento (tanto de **DNI**, **Pasaporte**, **CUIL**, etc.) decidimos usar **Strings** (también para teléfonos y otros tipos).
