@@ -103,6 +103,11 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
       - PermisoAperturaNulo (*Class*)
     - **Real Object**
       - PermisoAperturaActivo (*Class*)
+  - En **EnvioDeDatos**
+    - **Null Object**
+      - EnvioNulo (*Class*)
+    - **Real Object**
+      - EnvioEMail (*Class*)
 
 - **OBSERVER**
   - En **Heladera**
@@ -137,7 +142,7 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
       - Migrador (*Class*)
     - **Strategy**
       - En **ExtraccionDeDatos**:
-        - ExtraccionDatosStrategy (*Interface*)
+        - ExtraccionDeDatosStrategy (*Interface*)
         - ExtraccionDeDatos (*Abstract Class*)
         - ExtraccionCSV (*Class*)
       - En **EnvioDeDatos**:

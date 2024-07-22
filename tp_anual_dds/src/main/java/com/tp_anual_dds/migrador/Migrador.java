@@ -1,13 +1,15 @@
 package com.tp_anual_dds.migrador;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 
 public class Migrador {
-    private static EnvioDeDatos protocoloEnvio = new EnvioEMail();
-    private static ExtraccionDeDatos protocoloExtraccion = new ExtraccionCSV();
+    private static ExtraccionDeDatos protocoloExtraccion;
     private static final TransformacionDeDatos transformador = new TransformacionDeDatos();
+    private static EnvioDeDatos protocoloEnvio;
 
     private static final String ASUNTO = "Gracias por tu apoyo! Aquí están tus credenciales de acceso al nuevo sistema";
     private static final String CUERPO =
@@ -52,7 +54,7 @@ public class Migrador {
         protocoloEnvio = protocolo;
     }
 
-    public static void migrar(String csv) {        
+    public static void migrar(String csv) throws IOException, URISyntaxException {        
         ArrayList<String[]> dataColaboradores = protocoloExtraccion.extract(csv);
         ArrayList<ColaboradorHumano> colaboradoresAMigrar = transformador.transform(dataColaboradores);
 

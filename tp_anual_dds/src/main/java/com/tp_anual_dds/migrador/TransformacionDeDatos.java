@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,13 +19,15 @@ import com.tp_anual_dds.domain.documento.Documento;
 
 public class TransformacionDeDatos {
     private String quitarEspacios(String string) {
-        string = string.replaceAll("\\s+", "");
-        return string;
+        return string.replaceAll("\\s+", "");
     }
 
     private String quitarNumericosYEspeciales(String string) {
-        string = string.replaceAll("[^a-zA-Z]", "");
-        return string;
+        return string.replaceAll("[^a-zA-Z]", "");
+    }
+
+    private String limpiarTexto(String string) {
+        return quitarEspacios(quitarNumericosYEspeciales(string));
     }
 
     private Contribucion registrarContribucion(String formaContribucionStr, ColaboradorHumano colaborador, LocalDateTime fechaContribucion) {
@@ -33,6 +36,11 @@ public class TransformacionDeDatos {
     }
     
     private ColaboradorHumano procesarColaborador(String[] data) {
+        if(data.length != 8) { 
+            System.err.println("Error: Fila de datos incompleta: " + Arrays.toString(data));
+            return null;
+        }
+        
         String tipoDocStr = data[0];
         String numDoc = data[1];
         String nombre = data[2];
@@ -43,8 +51,7 @@ public class TransformacionDeDatos {
         Integer cantColabs = Integer.valueOf(data[7]);
 
         // Transforma a documento
-        String tipoDocStrCleaned = quitarEspacios(quitarNumericosYEspeciales(tipoDocStr));
-        Documento.TipoDocumento tipoDoc = ConversorTipoDocumento.convertirStrATipoDocumento(tipoDocStrCleaned);
+        Documento.TipoDocumento tipoDoc = ConversorTipoDocumento.convertirStrATipoDocumento(tipoDocStr);
         Documento documento = new Documento(tipoDoc, numDoc, null);
         
         // Transforma a eMail
