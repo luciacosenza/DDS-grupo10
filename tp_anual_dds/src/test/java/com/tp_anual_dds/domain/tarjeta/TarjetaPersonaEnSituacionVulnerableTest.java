@@ -182,8 +182,8 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
     }
 
     @Test
-    @DisplayName("Testeo la UnsupportedOperationException querer retirar una Vianda de una Heladera vacía")
-    public void UnsupportedOperationEstaVaciaTarjetaTest() {
+    @DisplayName("Testeo la UnsupportedOperationException al querer retirar una Vianda de una Heladera vacía")
+    public void UnsupportedOperationEstaVaciaTarjetaPESVTest() {
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 10, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
         heladera.darDeAlta();
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");

@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.junit.Test;
-import org.assertj.core.api.Assertions;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
@@ -142,8 +144,38 @@ public class TarjetaColaboradorActivaTest {
         accionesColaborador.add(solicitud6);
         accionesColaborador.add(apertura6);
 
-        Assertions.assertThat(Sistema.getAccionesHeladeras())
+        assertThat(Sistema.getAccionesHeladeras())
         .usingRecursiveFieldByFieldElementComparator()
         .containsExactlyInAnyOrderElementsOf(accionesColaborador);
+    }
+
+    @Test
+    @DisplayName("Testeo la UnsupportedOperationException al querer solicitar una apertura para retirar Viandas de una Heladera vacía")
+    public void UnsupportedOperationEstaVaciaTarjetaCTest() {
+        ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "RazonSocialPrueba", "RubroPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA);
+    
+        LocalDateTime fechaApertura = LocalDateTime.parse("2024-01-01T00:00:00");
+        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaApertura, -20f, 5f);
+        HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
+        HacerseCargoDeHeladera hacerseCargoDeHeladera1 = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaApertura, heladera);
+        heladera.darDeAlta();
+        colaboradorJuridico.confirmarContribucion(hacerseCargoDeHeladera1);
+
+        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
+        
+        LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
+        Vianda vianda = new Vianda("ComidaPrueba", colaboradorHumano, fechaCaducidadV, null, 0, 0, false);
+        DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
+        DonacionVianda donacionVianda = (DonacionVianda) colaboradorHumano.colaborar(donacionViandaCreator, LocalDateTime.now(), vianda, heladera);
+        
+        TarjetaColaboradorCreator tarjetaColaboradorCreator = new TarjetaColaboradorCreator();
+        TarjetaColaboradorActiva tarjetaColaboradorActiva = (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta(colaboradorHumano);
+        colaboradorHumano.setTarjeta(tarjetaColaboradorActiva);
+
+        UnsupportedOperationException exception = assertThrows(UnsupportedOperationException.class, () -> {
+            SolicitudAperturaColaborador solicitud = colaboradorHumano.getTarjeta().solicitarApertura(heladera, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION);
+        });
+
+        assertEquals("La Heladera se encuentra vacía", exception.getMessage());
     }
 }
