@@ -70,6 +70,10 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
             throw new UnsupportedOperationException("La Heladera se encuentra vacía");
         }
 
+        if((motivo == SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION || motivo == SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION) && heladeraInvolucrada.estaLlena()) {
+            throw new UnsupportedOperationException("La Heladera se encuentra llena");
+        }
+
         SolicitudAperturaColaborador solicitudApertura = new SolicitudAperturaColaborador(LocalDateTime.now(), heladeraInvolucrada, this.getTitular(), motivo);
         solicitudApertura.darDeAlta();
 

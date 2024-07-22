@@ -32,7 +32,7 @@ public class ReporteIncidentesPorHeladera extends Reporte {
                 
                 hashMap.put(heladera, cantidadIncidentes);
             }
-             
+            
             System.out.println("REPORTE - INCIDENTES POR HELADERA\n");
             for(HeladeraActiva heladera : hashMap.keySet()) {
                 System.out.println(

@@ -2,8 +2,13 @@ package com.tp_anual_dds.domain.heladera;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Objects;
 
+import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
+import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.domain.incidente.Alerta;
+import com.tp_anual_dds.domain.suscripcion.GestorSuscripciones;
+import com.tp_anual_dds.domain.suscripcion.Suscripcion;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 import com.tp_anual_dds.sistema.Sistema;
 
@@ -85,6 +90,11 @@ public class HeladeraActiva extends Heladera {
     }
 
     @Override
+    public Boolean estaLlena() {
+        return Objects.equals(viandasActuales(), capacidad);
+    }
+
+    @Override
     public Integer viandasActuales() {
         return viandas.size();
     }
@@ -94,12 +104,56 @@ public class HeladeraActiva extends Heladera {
         return viandasActuales() < capacidad;
     }
 
+    @Override                                                   // Para evitar Raw Type Warning
+    public <T extends MedioDeContacto> void notificarColaborador(@SuppressWarnings("rawtypes") Suscripcion suscripcion, String asunto, String cuerpo) {
+        ColaboradorHumano colaborador = suscripcion.getColaborador();
+        // Para evitar Unchecked Warning
+        @SuppressWarnings("unchecked")
+        Class<T> tipoMedioDeContacto = suscripcion.getMedioDeContactoElegido();
+        MedioDeContacto medioDeContacto = colaborador.getContacto(tipoMedioDeContacto);
+        medioDeContacto.contactar(asunto, cuerpo);
+    }
+
+    @Override
+    public void verificarCondiciones() {
+        GestorSuscripciones gestorSuscripciones = Sistema.getGestorSuscripciones();
+        // Para evitar Raw Type Warning
+        @SuppressWarnings("rawtypes")
+        ArrayList<Suscripcion> suscripciones = gestorSuscripciones.suscripcionesPorHeladera(this);
+        
+            // Para evitar Raw Type Warning
+        for (@SuppressWarnings("rawtypes") Suscripcion suscripcion : suscripciones) {
+            if(viandasActuales() <= suscripcion.getViandasDisponiblesMin()) {
+                notificarColaborador(
+                    suscripcion,
+                    "La Heladera " + this.getNombre() + " se está vaciando.",
+                    "La Heladera tiene " + this.viandasActuales() + " viandas disponibles. " +
+                    "Sería conveniente traer viandas de la Heladera %o");
+                    // Completar %o con la Heladera mas llena de las cercanas
+            }
+            if((capacidad - viandas.size()) <= suscripcion.getViandasParaLlenarMax()) {
+                notificarColaborador(
+                    suscripcion, "La heladera " + this.getNombre() + " está casi llena.",
+                    "Faltan " + (this.getCapacidad() - this.viandasActuales()) + " viandas para llenarla. " +
+                    "Sería conveniente llevar viandas a la Heladera %o");
+                    // Completar %o con la Heladera menos llena de las cercanas
+            }
+            if(suscripcion.getNotificarDesperfecto() && !estado) {
+                notificarColaborador(
+                    suscripcion, "La heladera "+ this.getNombre() + " ha sufrido un desperfecto.",
+                    "Las viandas deben ser trasladadas a %s.");
+                    // Completar %s con la Heladera/s mas cercanas
+            }
+        }
+    }
+
     @Override
     public void agregarVianda(Vianda vianda) {
         if (!verificarCapacidad()) {
             throw new IllegalStateException("No se puede agregar la vianda. Se superaría la capacidad de la Heladera");
         }
         viandas.add(vianda);
+        verificarCondiciones();
     }
 
     @Override
@@ -108,7 +162,9 @@ public class HeladeraActiva extends Heladera {
             throw new IllegalStateException("La Heladera no tiene más viandas para retirar");
         }
         
-        return viandas.removeFirst();
+        Vianda viandaRetirada = viandas.removeFirst();
+        verificarCondiciones();
+        return viandaRetirada;
     }
 
     @Override

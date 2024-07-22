@@ -9,6 +9,7 @@ import com.tp_anual_dds.domain.heladera.acciones_en_heladera.AccionHeladera;
 import com.tp_anual_dds.domain.incidente.Incidente;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
+import com.tp_anual_dds.domain.suscripcion.GestorSuscripciones;
 import com.tp_anual_dds.domain.tecnico.Tecnico;
 import com.tp_anual_dds.domain.tecnico.Visita;
 import com.tp_anual_dds.reporte.ReporteIncidentesPorHeladera;
@@ -25,6 +26,7 @@ public class Sistema {
     private static final ArrayList<Oferta> ofertas = new ArrayList<>();
     private static final ArrayList<AccionHeladera> accionesHeladeras = new ArrayList<>();
     private static final ArrayList<Incidente> incidentes = new ArrayList<>();
+    private static final GestorSuscripciones gestorSuscripciones = new GestorSuscripciones();
     private static final ReporteIncidentesPorHeladera reporteIncidentesPorHeladera = new ReporteIncidentesPorHeladera();
     private static final ReporteMovimientosViandaPorHeladera reporteMovimientosViandaPorHeladera = new ReporteMovimientosViandaPorHeladera();
     private static final ReporteViandasPorColaborador reporteViandasPorColaborador = new ReporteViandasPorColaborador();
@@ -63,6 +65,10 @@ public class Sistema {
 
     public static ArrayList<Incidente> getIncidentes() {
         return incidentes;
+    }
+
+    public static GestorSuscripciones getGestorSuscripciones() {
+        return gestorSuscripciones;
     }
 
     public static ReporteIncidentesPorHeladera getReporteIncidentesPorHeladera() {

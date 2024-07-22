@@ -11,14 +11,17 @@ import com.tp_anual_dds.domain.contribucion.DonacionDineroCreator;
 import com.tp_anual_dds.domain.contribucion.DonacionViandaCreator;
 import com.tp_anual_dds.domain.contribucion.RegistroDePersonaEnSituacionVulnerableCreator;
 import com.tp_anual_dds.domain.documento.Documento;
+import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona.PersonaFisica;
+import com.tp_anual_dds.domain.suscripcion.Suscripcion;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaborador;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorNula;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 
 public class ColaboradorHumano extends Colaborador {
     protected TarjetaColaborador tarjeta;
+    protected ArrayList<Suscripcion> suscripciones;
 
     public ColaboradorHumano(Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos , String vNombre, String vApellido, Documento vDocumento , LocalDateTime vFechaNacimiento) {
         persona = new PersonaFisica(vNombre, vApellido, vDocumento, vFechaNacimiento);
@@ -49,5 +52,22 @@ public class ColaboradorHumano extends Colaborador {
 
     public void setTarjeta(TarjetaColaborador vTarjeta) {
         tarjeta = vTarjeta;
+    }
+
+                                    // Para evitar Raw Type Warning
+    public void agregarSuscripcion(@SuppressWarnings("rawtypes") Suscripcion suscripcion) {
+        suscripciones.add(suscripcion);
+    }
+
+    // Para evitar Raw Type Warning
+    @SuppressWarnings("rawtypes")
+    public Suscripcion suscribirse(HeladeraActiva heladeraObjetivo, Integer viandasDisponiblesMin, Integer viandasParaLlenarMax, Boolean notificarDesperfecto, Class<? extends MedioDeContacto> tipoMedioDeContacto) {
+        // Para evitar Unchecked Warning
+        @SuppressWarnings("unchecked")
+        Suscripcion suscripcion = new Suscripcion(this, heladeraObjetivo, viandasDisponiblesMin, viandasParaLlenarMax, notificarDesperfecto, tipoMedioDeContacto);
+        suscripcion.darDeAlta();
+        agregarSuscripcion(suscripcion);
+
+        return suscripcion;
     }
 }

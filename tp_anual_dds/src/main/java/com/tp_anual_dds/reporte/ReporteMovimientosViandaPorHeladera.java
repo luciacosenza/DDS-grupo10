@@ -16,7 +16,7 @@ import com.tp_anual_dds.sistema.Sistema;
 
 public class ReporteMovimientosViandaPorHeladera extends Reporte{
     private final LinkedHashMap<HeladeraActiva, Pair<Integer, Integer>> hashMap = new LinkedHashMap<>();
-     
+    
     public LinkedHashMap<HeladeraActiva, Pair<Integer, Integer>> getHashMap(){
         return hashMap;
     }
