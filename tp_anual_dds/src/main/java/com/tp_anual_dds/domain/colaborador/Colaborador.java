@@ -35,7 +35,7 @@ public abstract class Colaborador {
         return contribuciones;
     }
 
-    public ArrayList<Contribucion> getContribucionPendiente() {
+    public ArrayList<Contribucion> getContribucionesPendientes() {
         return contribucionesPendientes;
     }
 
