@@ -14,13 +14,15 @@ En los atributos de las diferentes clases, usamos *final* cuando estamos seguros
   - Nombres
   - Apellidos
   - Documentos (a chequear)
-  - Domicilios / Ubicaciones / Areas de cobertura
+  - Ubicaciones / Areas (no sus atributos \*)
   - Medios de contacto
   - Menores a cargo
   - Atributos de Vianda
   - Atributos de Oferta
   - Etc.
 - Cuando los atributos se definen en una clase abstracta (por cómo manejamos los constructores, estos sólo se implementan en las clases concretas)
+
+> \* Los objetos de tipo Ubicacion y Area, usados por Colaborador (domicilio), PersonaEnSituacionVulnerable (domicilio), Tecnico (areaDeCobertura), etc. son modificados reemplazándolos por otro objeto del mismo tipo. Por eso es que estos no son final, pero sus atributos (latitud, longitud, domicilio, x, y, etc.) sí.
 
 ## Tipo de Datos para Documentos
 

@@ -37,7 +37,7 @@ public class Alertador {
             return tecnicos.get(indexTecnico);
         }
         else {
-            throw new IllegalArgumentException("No hay ningún Técnico que cubra esta heladera.");
+            throw new IllegalArgumentException("No hay ningún Técnico que cubra esta heladera");
         }
     }
 
