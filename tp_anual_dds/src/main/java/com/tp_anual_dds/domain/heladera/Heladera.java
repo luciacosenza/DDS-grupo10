@@ -3,12 +3,11 @@ package com.tp_anual_dds.domain.heladera;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.domain.incidente.Alerta;
 import com.tp_anual_dds.domain.suscripcion.Suscripcion;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 
-public abstract class Heladera implements HeladeraObserver {
+public abstract class Heladera implements HeladeraObserver, HeladeraSubject {
     protected String nombre;
     protected Ubicacion ubicacion;
     protected ArrayList<Vianda> viandas;
@@ -50,8 +49,9 @@ public abstract class Heladera implements HeladeraObserver {
     public abstract Integer viandasActuales();
 
     public abstract Boolean verificarCapacidad();
-                                                                        // Para evitar Raw Type Warning
-    public abstract <T extends MedioDeContacto> void notificarColaborador(@SuppressWarnings("rawtypes") Suscripcion suscripcion, String asunto, String cuerpo);
+
+    @Override
+    public abstract void notificarColaborador(Suscripcion suscripcion, String asunto, String cuerpo);
     
     public abstract void verificarCondiciones();
 

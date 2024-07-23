@@ -5,15 +5,15 @@ import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.sistema.Sistema;
 
-public class Suscripcion <T extends MedioDeContacto> {
+public class Suscripcion {
     private final ColaboradorHumano colaborador;
     private final HeladeraActiva heladera;
     private Integer viandasDisponiblesMin;
     private Integer viandasParaLlenarMax;
     private Boolean notificarDesperfecto;
-    private Class<T> medioDeContactoElegido;
+    private MedioDeContacto medioDeContactoElegido;
 
-    public Suscripcion(ColaboradorHumano vColaborador, HeladeraActiva vHeladera, Integer vViandasDisponiblesMin, Integer vViandasParaLlenarMax, Boolean vNotificarDesperfecto, Class<T> vMedioDeContactoElegido) {
+    public Suscripcion(ColaboradorHumano vColaborador, HeladeraActiva vHeladera, Integer vViandasDisponiblesMin, Integer vViandasParaLlenarMax, Boolean vNotificarDesperfecto, MedioDeContacto vMedioDeContactoElegido) {
         colaborador = vColaborador;
         heladera = vHeladera;
         viandasDisponiblesMin = vViandasDisponiblesMin;
@@ -42,7 +42,7 @@ public class Suscripcion <T extends MedioDeContacto> {
         return notificarDesperfecto;
     }
     
-    public Class<T> getMedioDeContactoElegido() {
+    public MedioDeContacto getMedioDeContactoElegido() {
         return medioDeContactoElegido;
     }
 

@@ -19,9 +19,9 @@ import com.tp_anual_dds.domain.tarjeta.TarjetaColaborador;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorNula;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 
-public class ColaboradorHumano extends Colaborador {
+public class ColaboradorHumano extends Colaborador {    // Implementa una Interfaz "ColaboradorHumanoObserver" a nivel conceptual
     protected TarjetaColaborador tarjeta;
-    protected ArrayList<Suscripcion> suscripciones;
+    protected final ArrayList<Suscripcion> suscripciones = new ArrayList<>();
 
     public ColaboradorHumano(Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos , String vNombre, String vApellido, Documento vDocumento , LocalDateTime vFechaNacimiento) {
         persona = new PersonaFisica(vNombre, vApellido, vDocumento, vFechaNacimiento);
@@ -54,17 +54,12 @@ public class ColaboradorHumano extends Colaborador {
         tarjeta = vTarjeta;
     }
 
-                                    // Para evitar Raw Type Warning
-    public void agregarSuscripcion(@SuppressWarnings("rawtypes") Suscripcion suscripcion) {
+    public void agregarSuscripcion(Suscripcion suscripcion) {
         suscripciones.add(suscripcion);
     }
 
-    // Para evitar Raw Type Warning
-    @SuppressWarnings("rawtypes")
-    public Suscripcion suscribirse(HeladeraActiva heladeraObjetivo, Integer viandasDisponiblesMin, Integer viandasParaLlenarMax, Boolean notificarDesperfecto, Class<? extends MedioDeContacto> tipoMedioDeContacto) {
-        // Para evitar Unchecked Warning
-        @SuppressWarnings("unchecked")
-        Suscripcion suscripcion = new Suscripcion(this, heladeraObjetivo, viandasDisponiblesMin, viandasParaLlenarMax, notificarDesperfecto, tipoMedioDeContacto);
+    public Suscripcion suscribirse(HeladeraActiva heladeraObjetivo, Integer viandasDisponiblesMin, Integer viandasParaLlenarMax, Boolean notificarDesperfecto, MedioDeContacto medioDeContacto) {
+        Suscripcion suscripcion = new Suscripcion(this, heladeraObjetivo, viandasDisponiblesMin, viandasParaLlenarMax, notificarDesperfecto, medioDeContacto);
         suscripcion.darDeAlta();
         agregarSuscripcion(suscripcion);
 

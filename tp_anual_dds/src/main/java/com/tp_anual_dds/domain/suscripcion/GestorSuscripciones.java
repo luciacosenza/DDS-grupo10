@@ -15,7 +15,7 @@ public class GestorSuscripciones {
     public void agregarSuscripcion(Suscripcion suscripcion) {
         suscripciones.add(suscripcion);
     }
-
+    
     public void eliminarSuscripcion(Suscripcion suscripcion) {
         suscripciones.remove(suscripcion);
     }

@@ -18,7 +18,7 @@ public abstract class Sensor implements SensorSubject {
     }
 
     @Override
-    public abstract void notificar();
+    public abstract void notificarHeladera();
     
     public abstract void programarNotificacion();
 }

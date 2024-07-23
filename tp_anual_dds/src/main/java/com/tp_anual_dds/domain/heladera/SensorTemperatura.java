@@ -19,7 +19,7 @@ public class SensorTemperatura extends Sensor {
     }
 
     @Override
-    public void notificar() {
+    public void notificarHeladera() {
         heladera.setTempActual(tempActual);
     }
 
@@ -36,7 +36,7 @@ public class SensorTemperatura extends Sensor {
             if (!funcionaSensorFisico()) {
                 notificarFalla();
             }
-            notificar();
+            notificarHeladera();
         };
         
         // Programa la tarea para que se ejecute cada 5 minutos

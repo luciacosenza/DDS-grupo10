@@ -121,6 +121,15 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
       - Sensor (*Abstract Class*)
       - SensorMovimiento (*Class*)
       - SensorTemperatura (*Class*)
+  - En **Heladera**
+    - **Observer**
+      - ColaboradorHumanoObserver (*Interface*) (A nivel conceptual)
+      - ColaboradorHumano (*Class*)
+    - **Subject**
+      - HeladeraSubject(*Interface*)
+      - Heladera (*Abstract Class*)
+      - HeladeraActiva (*Class*)
+      - HeladeraNula (*Class*)
 
 - **STATE**
   - En **TarjetaColaborador**

@@ -3,7 +3,6 @@ package com.tp_anual_dds.domain.heladera;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.domain.incidente.Alerta;
 import com.tp_anual_dds.domain.suscripcion.Suscripcion;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
@@ -94,8 +93,8 @@ public class HeladeraNula extends Heladera {
         return false;
     }
 
-    @Override                                                  // Para evitar Raw Type Warning
-    public <T extends MedioDeContacto> void notificarColaborador(@SuppressWarnings("rawtypes") Suscripcion suscripcion, String asunto, String cuerpo) {}
+    @Override
+    public void notificarColaborador(Suscripcion suscripcion, String asunto, String cuerpo) {}
 
     @Override
     public void verificarCondiciones() {}

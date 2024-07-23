@@ -15,7 +15,7 @@ public class SensorMovimiento extends Sensor {
     }
 
     @Override
-    public void notificar() {
+    public void notificarHeladera() {
         heladera.reportarFraude();
     }
     
@@ -26,7 +26,7 @@ public class SensorMovimiento extends Sensor {
         
         Runnable notificacionMovimiento = () -> {
             if(hayMovimiento == true) {
-                notificar();
+                notificarHeladera();
             }
         };
 
