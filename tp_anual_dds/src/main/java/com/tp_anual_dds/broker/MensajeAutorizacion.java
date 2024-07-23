@@ -24,5 +24,4 @@ public class MensajeAutorizacion implements Mensaje {
     public void procesar() {
         // A implementar
     }
-
 }

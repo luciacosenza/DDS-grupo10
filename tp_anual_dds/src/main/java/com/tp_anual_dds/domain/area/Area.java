@@ -1,10 +1,12 @@
 package com.tp_anual_dds.domain.area;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 public class Area {
-    private Double x1;
-    private Double y1;
-    private Double x2;
-    private Double y2;
+    private final Double x1;
+    private final Double y1;
+    private final Double x2;
+    private final Double y2;
 
     public Area(Double vX1, Double vY1, Double vX2, Double vY2) {
         x1 = vX1;
@@ -23,5 +25,21 @@ public class Area {
 
     public Boolean estaDentro(Double x, Double y) {
         return entraEnX(x) && entraEnY(y); 
+    }
+
+    public Pair<Double, Double> puntoMedio() {
+        Double xM = (x2 - x1) / 2;
+        Double yM = (y2 - y1) / 2;
+
+        return Pair.of(xM, yM);
+    }
+    
+    public static Double distanciaEntre2Puntos(Pair<Double, Double> tupla1, Pair<Double, Double> tupla2) { 
+        Double xT1 = tupla1.getLeft();
+        Double yT1 = tupla1.getRight();
+        Double xT2 = tupla2.getLeft();
+        Double yT2 = tupla2.getRight();
+
+        return Math.sqrt(Math.pow(xT1 - xT2, 2) + Math.pow(yT1 - yT2, 2));
     }
 }

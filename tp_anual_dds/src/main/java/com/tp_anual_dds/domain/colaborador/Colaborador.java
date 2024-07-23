@@ -115,7 +115,7 @@ public abstract class Colaborador {
         oferta.validarPuntos(this);
         oferta.darDeBaja();
         agregarBeneficio(oferta);
-    } 
+    }
 
     public void reportarFallaTecnica(HeladeraActiva heladera, String descripcion, String foto) {
         FallaTecnica fallaTecnica = new FallaTecnica(LocalDateTime.now(), heladera, this, descripcion, foto);

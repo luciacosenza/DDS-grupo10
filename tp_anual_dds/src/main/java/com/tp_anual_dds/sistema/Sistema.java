@@ -3,6 +3,7 @@ package com.tp_anual_dds.sistema;
 import java.util.ArrayList;
 
 import com.tp_anual_dds.broker.Broker;
+import com.tp_anual_dds.domain.alertador.Alertador;
 import com.tp_anual_dds.domain.colaborador.Colaborador;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.heladera.Sensor;
@@ -29,6 +30,7 @@ public class Sistema {
     private static final ArrayList<Incidente> incidentes = new ArrayList<>();
     private static final Broker broker = new Broker();
     private static final GestorSuscripciones gestorSuscripciones = new GestorSuscripciones();
+    private static final Alertador alertador = new Alertador();
     private static final ReporteIncidentesPorHeladera reporteIncidentesPorHeladera = new ReporteIncidentesPorHeladera();
     private static final ReporteMovimientosViandaPorHeladera reporteMovimientosViandaPorHeladera = new ReporteMovimientosViandaPorHeladera();
     private static final ReporteViandasPorColaborador reporteViandasPorColaborador = new ReporteViandasPorColaborador();
@@ -75,6 +77,10 @@ public class Sistema {
 
     public static GestorSuscripciones getGestorSuscripciones() {
         return gestorSuscripciones;
+    }
+
+    public static Alertador getAlertador() {
+        return alertador;
     }
 
     public static ReporteIncidentesPorHeladera getReporteIncidentesPorHeladera() {

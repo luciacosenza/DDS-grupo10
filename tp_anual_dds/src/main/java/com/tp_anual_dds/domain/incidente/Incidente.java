@@ -15,6 +15,8 @@ public abstract class Incidente {
 
     public void darDeAlta() {
         Sistema.agregarIncidente(this);
+
+        Sistema.getAlertador().alertarDe(this);
     }
 
     public void darDeBaja() {
