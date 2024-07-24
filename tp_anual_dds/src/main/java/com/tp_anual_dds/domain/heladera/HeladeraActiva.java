@@ -105,7 +105,7 @@ public class HeladeraActiva extends Heladera {
 
     @Override
     public void notificarColaborador(Suscripcion suscripcion, String asunto, String cuerpo) {
-        MedioDeContacto medioDeContacto = suscripcion.getMedioDeContactoElegido();
+        MedioDeContacto medioDeContacto = suscripcion.getMedioDeContactoElegido();  // Usa el Medio de Contacto previamente elegido por el colaborador
         medioDeContacto.contactar(asunto, cuerpo);
     }
 
@@ -115,28 +115,30 @@ public class HeladeraActiva extends Heladera {
         ArrayList<Suscripcion> suscripciones = gestorSuscripciones.suscripcionesPorHeladera(this);
         
         for (Suscripcion suscripcion : suscripciones) {
+            // Verifica si se está vaciando
             if(viandasActuales() <= suscripcion.getViandasDisponiblesMin()) {
                 notificarColaborador(
                     suscripcion,
-                    "La Heladera " + this.getNombre() + " se está vaciando.",
-                    "La Heladera tiene " + this.viandasActuales() + " viandas disponibles. " +
-                    "Sería conveniente traer viandas de la Heladera %o");
-                    // Completar %o con la Heladera mas llena de las cercanas
+                    "La heladera " + nombre + " se está vaciando.",
+                    "La heladera en cuestión tiene " + viandasActuales() + " viandas disponibles. " +
+                    "Sería conveniente traer viandas de la heldera %o");
+                    // Completar %o con la Heladera más llena de las cercanas (TODO)
             }
             
-            if((capacidad - viandas.size()) <= suscripcion.getViandasParaLlenarMax()) {
+            //Verifica si se está llenando
+            if((capacidad - viandas.size()) >= suscripcion.getViandasParaLlenarMax()) {
                 notificarColaborador(
-                    suscripcion, "La heladera " + this.getNombre() + " está casi llena.",
-                    "Faltan " + (this.getCapacidad() - this.viandasActuales()) + " viandas para llenarla. " +
-                    "Sería conveniente llevar viandas a la Heladera %o");
-                    // Completar %o con la Heladera menos llena de las cercanas
+                    suscripcion, "La heladera " + nombre + " está casi llena.",
+                    "Faltan " + (capacidad - viandasActuales()) + " viandas para llenar la heladera en cuestión. " +
+                    "Sería conveniente llevar viandas a la heladera %o");
+                    // Completar %o con la Heladera menos llena de las cercanas (TODO)
             }
 
             if(suscripcion.getNotificarDesperfecto() && !estado) {
                 notificarColaborador(
-                    suscripcion, "La heladera "+ this.getNombre() + " ha sufrido un desperfecto.",
+                    suscripcion, "La heladera "+ nombre + " ha sufrido un desperfecto.",
                     "Las viandas deben ser trasladadas a %s.");
-                    // Completar %s con la Heladera/s mas cercanas
+                    // Completar %s con la Heladera/s más cercanas (TODO)
             }
         }
     }
@@ -144,20 +146,20 @@ public class HeladeraActiva extends Heladera {
     @Override
     public void agregarVianda(Vianda vianda) {
         if (!verificarCapacidad()) {
-            throw new IllegalStateException("No se puede agregar la vianda. Se superaría la capacidad de la Heladera");
+            throw new IllegalStateException("No se puede agregar la vianda. Se superaría la capacidad de la heladera " + nombre);
         }
         viandas.add(vianda);
-        verificarCondiciones();
+        verificarCondiciones(); // Verifica condiciones cuando agregamos una Vianda (una de las dos únicas formas en que la cantidad de Viandas en la Heladera puede cambiar)
     }
 
     @Override
     public Vianda retirarVianda() {
         if(estaVacia()) {
-            throw new IllegalStateException("La Heladera no tiene más viandas para retirar");
+            throw new IllegalStateException("La heladera " + nombre + " no tiene más viandas para retirar");
         }
         
         Vianda viandaRetirada = viandas.removeFirst();
-        verificarCondiciones();
+        verificarCondiciones(); // Verifica condiciones cuando retiramos una Vianda (una de las dos únicas formas en que la cantidad de Viandas en la Heladera puede cambiar)
         return viandaRetirada;
     }
 
@@ -171,17 +173,18 @@ public class HeladeraActiva extends Heladera {
     @Override
     public void setTempActual(Float temperatura) {
         tempActual = temperatura;
-        verificarTempActual();
+        verificarTempActual();  // Siempre que setea / actualiza su temperatura, debe chequearla posteriormente
     }
 
     @Override
-    public void desactivar() {
+    public void marcarComoInactiva() {
         setEstado(false);
     }
 
+    // La lógica de este método puede cambiar al implementar el Broker (TODO)
     @Override
     public void reportarAlerta(Alerta.TipoAlerta tipo) {
-        desactivar();
+        marcarComoInactiva();   // Si una Alerta debe ser reportada, previamente, se marca la Heladera como inactiva
 
         Alerta alerta = new Alerta(LocalDateTime.now(), this, tipo);
         alerta.darDeAlta();

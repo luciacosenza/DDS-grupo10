@@ -10,6 +10,7 @@ public class Broker {
 
     public Broker() {
         new Thread( () -> {
+            // Lo pongo en espera activa
             while(true) { 
                 try {
                     Mensaje mensaje = queue.take();

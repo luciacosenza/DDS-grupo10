@@ -51,6 +51,6 @@ public class RegistroDePersonaEnSituacionVulnerableTest {
             colaboradorHumano.colaborar(registroDePersonaEnSituacionVulnerableCreator, LocalDateTime.now(), tarjeta);
         });
 
-        Assertions.assertEquals("El colaborador aspirante no posee domicilio. Para Registrar Personas Vulnerables debe actualizar su información.", exception.getMessage());
+        Assertions.assertEquals("El colaborador aspirante no posee domicilio. Para Registrar Personas Vulnerables debe actualizar su información", exception.getMessage());
     }
 }

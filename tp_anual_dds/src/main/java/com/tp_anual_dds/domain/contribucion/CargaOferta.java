@@ -15,16 +15,16 @@ public class CargaOferta extends Contribucion {
         completada = false;
     }
 
-    // obtenerDetalles()
+    // public void obtenerDetalles() (TODO)
     
     public Oferta getOferta() {
         return oferta;
     }
 
     @Override
-    public void validarIdentidad() {}
+    public void validarIdentidad() {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
 
     @Override
-    protected void calcularPuntos() {} // Esta contribucion no entra entre las que suman puntos
+    protected void calcularPuntos() {} // Esta Contribución no entra entre las que suman puntos
 
 }

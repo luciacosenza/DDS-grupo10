@@ -19,7 +19,7 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
 
     @Override
     public ColaboradorHumano getTitular() {
-        throw new UnsupportedOperationException("Tarjeta Nula no tiene un titular.");
+        throw new UnsupportedOperationException("Tarjeta Nula no tiene un titular");
     }
 
     @Override

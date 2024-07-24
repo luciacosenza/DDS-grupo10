@@ -6,7 +6,7 @@ public class TarjetaColaboradorCreator implements TarjetaCreator {
     @Override
     public Tarjeta crearTarjeta(Object titular) {
         if(!(titular instanceof ColaboradorHumano)) {
-            throw new IllegalArgumentException("Argumentos inválidos para asignar una Tarjeta de Colaborador");
+            throw new IllegalArgumentException("Datos inválidos para asignar una tarjeta solidaria");
         }
 
         return new TarjetaColaboradorActiva((ColaboradorHumano) titular);

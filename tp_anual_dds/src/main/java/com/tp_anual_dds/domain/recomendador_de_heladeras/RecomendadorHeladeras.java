@@ -37,7 +37,7 @@ public class RecomendadorHeladeras {
             valores.addAll(valoresAux);
             
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace();    // Hay que cambiar esto (TODO)
         }
 
         return valores;

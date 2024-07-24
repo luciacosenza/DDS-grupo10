@@ -15,7 +15,7 @@ public class DistribucionViandasCreator implements ContribucionCreator {
                 !(args[3] instanceof DistribucionViandas.MotivoDistribucion) ||
                 (args[0] == args[1])) {
             
-            throw new IllegalArgumentException("Argumentos inválidos para realizar una Distribución de Viandas");
+            throw new IllegalArgumentException("Datos inválidos para realizar una distribución de viandas");
         }
         
         return new DistribucionViandas(colaborador, fechaContribucion, (HeladeraActiva) args[0], (HeladeraActiva) args[1], (Integer) args[2], (DistribucionViandas.MotivoDistribucion) args[3]);

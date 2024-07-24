@@ -36,6 +36,7 @@ public class PermisoAperturaActivo extends PermisoApertura {
         heladeraPermitida = vHeladera;
     }
 
+    // Este método es llamado cuando se revocan los Permisos de Apertura sobre una Heladera
     @Override
     public void resetHeladeraPermitida() {
         heladeraPermitida = null;

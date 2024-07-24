@@ -15,7 +15,7 @@ public class DonacionDinero extends Contribucion {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final Double multiplicador_puntos = 0.5;
     
-    public enum FrecuenciaDePago {
+    public enum FrecuenciaDePago {  // Hacemos que Frecuencia de Pago sea una "interfaz común" para las distintas frecuencias, brindando los métodos periodo() unidad() para el uso de polimorfismo
         SEMANAL {
             @Override
             public Integer periodo() {
@@ -93,16 +93,16 @@ public class DonacionDinero extends Contribucion {
         return frecuencia;
     }
 
-    // obtenerDetalles()
+    // public void obtenerDetalles() (TODO)
     
     @Override
-    public void validarIdentidad() {}
+    public void validarIdentidad() {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
 
     @Override
     protected void calcularPuntos() {    
         if (frecuencia == FrecuenciaDePago.UNICA_VEZ) {
             colaborador.sumarPuntos(monto * multiplicador_puntos);
-            return; // Corta la ejecucion del metodo
+            return; // Corta la ejecución del método, dado que un pago único suma puntos una única vez
         } 
 
         Integer periodo = 1;
@@ -111,13 +111,13 @@ public class DonacionDinero extends Contribucion {
         Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
             Long periodosPasados = frecuencia.unidad().between(ultimaActualizacion, ahora);
-            if (periodosPasados >= frecuencia.periodo()) {      // Dado que en el test nos dimos cuenta que puede fallar por milesimas, podriamos pensar en restarle un segundo, por ejemplo, a periodosPasadosos
+            if (periodosPasados >= frecuencia.periodo()) {      // Dado que en el test nos dimos cuenta que puede fallar por milésimas, podríamos pensar en restarle un segundo, por ejemplo, a períodos pasados (TODO)
                 colaborador.sumarPuntos(monto * multiplicador_puntos);
                 ultimaActualizacion = ahora;
             }
         };
 
-        // Programa la tarea para que se ejecute una vez por dia
-        scheduler.scheduleAtFixedRate(calculoPuntos, 0, periodo, unidad);  // Ejecuta una vez por dia, puede ser ineficiente en casos como MENSUAL, SEMESTRAL o ANUAL
+        // Programa la tarea para que se ejecute una vez por día
+        scheduler.scheduleAtFixedRate(calculoPuntos, 0, periodo, unidad);  // Ejecuta una vez por día (puede ser ineficiente en casos como mensual, semestral o anual)
     }
 }

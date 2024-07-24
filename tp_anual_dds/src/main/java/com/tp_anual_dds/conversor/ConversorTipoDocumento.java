@@ -4,14 +4,14 @@ import java.util.HashMap;
 
 import com.tp_anual_dds.domain.documento.Documento.TipoDocumento;
 
-// A los conversores les pasamos los strings: en minuscula, solo con caracteres alfabeticos (removiendo numericos y especiales) y sin espacios
+// A los conversores les pasamos los strings en minúscula, sólo con caracteres alfabéticos (removiendo numéricos y especiales) y sin espacios
 public class ConversorTipoDocumento {
     private static final HashMap<String, TipoDocumento> conversorTipoDocumento = new HashMap<>();
 
     static {
         conversorTipoDocumento.put("dni", TipoDocumento.DNI);
         
-        // Esto queda comentado, eran opciones para atajar la falta de normalizacion (aguardamos respuesta sobre si incluirlos o borrarlos)
+        // Esto queda comentado, eran opciones para atajar la falta de normalización (aguardamos respuesta sobre si incluirlos o borrarlos)
         
         /* 
         conversorTipoDocumento.put("docnacional", TipoDocumento.DNI);
@@ -27,7 +27,7 @@ public class ConversorTipoDocumento {
         */
 
 
-        // Esto queda comentado porque no aparece entre las opciones de Tipo Doc en el enunciado de Migracion
+        // Esto queda comentado porque no aparece entre las opciones de Tipo Doc en el enunciado de Migración
 
         /*
         conversorTipoDocumento.put("pp", TipoDocumento.DNI);
@@ -38,7 +38,7 @@ public class ConversorTipoDocumento {
         */
 
 
-        // Esto queda comentado porque no aparece entre las opciones de Tipo Doc en el enunciado de Migracion
+        // Esto queda comentado porque no aparece entre las opciones de Tipo Doc en el enunciado de Migración
 
         /*
         conversorTipoDocumento.put("licconducir",TipoDocumento.LICENCIA_CONDUCIR);
@@ -70,7 +70,7 @@ public class ConversorTipoDocumento {
 
         conversorTipoDocumento.put("lc",TipoDocumento.LIBRETA_CIVICA);
         
-        // Esto queda comentado, eran opciones para atajar la falta de normalizacion (aguardamos respuesta sobre si incluirlos o borrarlos)
+        // Esto queda comentado, eran opciones para atajar la falta de normalización (aguardamos respuesta sobre si incluirlos o borrarlos)
 
         /*
         conversorTipoDocumento.put("libciv",TipoDocumento.LIBRETA_CIVICA);
@@ -82,7 +82,7 @@ public class ConversorTipoDocumento {
 
         conversorTipoDocumento.put("le",TipoDocumento.LIBRETA_ENROLAMIENTO);
         
-        // Esto queda comentado, eran opciones para atajar la falta de normalizacion (aguardamos respuesta sobre si incluirlos o borrarlos)
+        // Esto queda comentado, eran opciones para atajar la falta de normalización (aguardamos respuesta sobre si incluirlos o borrarlos)
 
         /*
         conversorTipoDocumento.put("libenrolamiento",TipoDocumento.LIBRETA_ENROLAMIENTO);

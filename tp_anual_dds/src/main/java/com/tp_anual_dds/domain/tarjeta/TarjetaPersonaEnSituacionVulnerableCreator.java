@@ -6,7 +6,7 @@ public class TarjetaPersonaEnSituacionVulnerableCreator implements TarjetaCreato
     @Override
     public Tarjeta crearTarjeta(Object titular) {
         if(!(titular instanceof PersonaEnSituacionVulnerable)) {
-            throw new IllegalArgumentException("Argumentos inválidos para asignar una Tarjeta de Persona en Situación Vulnerable");
+            throw new IllegalArgumentException("Datos inválidos para asignar una tarjeta de persona en situación vulnerable");
         }
 
         return new TarjetaPersonaEnSituacionVulnerable((PersonaEnSituacionVulnerable) titular);

@@ -15,7 +15,7 @@ import com.tp_anual_dds.sistema.Sistema;
 public class Tecnico {
     private final PersonaFisica persona;
     private String cuil;
-    private MedioDeContacto medioDeContacto;    // Puede ser plural en un futuro
+    private MedioDeContacto medioDeContacto;    // Puede ser plural en un futuro (TODO)(?
     private Area areaDeCobertura;
     private final ArrayList<Incidente> pendientes = new ArrayList<>();
 
@@ -58,11 +58,13 @@ public class Tecnico {
         pendientes.add(incidente);
     }
 
+    // La lógica de este método puede cambiar al implementar el Broker (TODO)
     public void registrarVisita(LocalDateTime fecha, String descripcion, String foto, Boolean estadoConsulta) {
         Visita visita = new Visita(this, fecha, descripcion, foto, estadoConsulta);
         visita.darDeAlta();
     }
 
+    // Como convención, para aproximar la Ubicación de un Técnico, vamos a usar el punto medio de su área de cobertura
     public Pair<Double,Double> ubicacionAprox(){
         return areaDeCobertura.puntoMedio();
     }

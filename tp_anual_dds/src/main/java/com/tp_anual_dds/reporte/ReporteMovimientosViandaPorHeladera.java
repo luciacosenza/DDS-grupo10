@@ -26,43 +26,52 @@ public class ReporteMovimientosViandaPorHeladera extends Reporte{
         
         Runnable reportar;
         reportar = () -> {
+            // Limpio el HashMap, para reiniciar el Reporte
             hashMap.clear();
             
             ArrayList<HeladeraActiva> heladeras = Sistema.getHeladeras();
             ArrayList<Colaborador> colaboradores = Sistema.getColaboradores();
 
+            // Obtengo, el total de Contribuciones registradas
             ArrayList<Contribucion> contribuciones = (ArrayList<Contribucion>) colaboradores.stream()
                 .flatMap(colaborador -> colaborador.getContribuciones().stream())
                 .collect(Collectors.toList());
             
+            // Obtengo, de esas Contribuciones, las Donaciones de Vianda
             ArrayList<DonacionVianda> donacionesVianda = (ArrayList<DonacionVianda>) contribuciones.stream()
                 .filter(contribucion -> contribucion instanceof DonacionVianda)
                 .map(donacionVianda -> (DonacionVianda) donacionVianda)
                 .collect(Collectors.toList());
             
+            // Ovtengo, de esas Contribuciones, las Distribuciones de Viandas
             ArrayList<DistribucionViandas> distribucionesVianda = (ArrayList<DistribucionViandas>) contribuciones.stream()
                 .filter(contribucion -> contribucion instanceof DistribucionViandas)
                 .map(distribucionViandas -> (DistribucionViandas) distribucionViandas)
                 .collect(Collectors.toList());
 
+            // Obtengo, por cada Heladera, sus ingresos y egresos de Viandas
             for (HeladeraActiva heladera : heladeras) {
+                // Sumo a los ingresos las Viandas introducidas por Donaciones
                 Integer ingresos = donacionesVianda.stream()
                     .filter(distribucion -> distribucion.getHeladera() == heladera)
                     .collect(Collectors.toList())
-                    .size(); // Usamos size() porque la cantidad de viandas donadas siempre es 1
+                    .size(); // Usamos size() porque la cantidad de Viandas donadas siempre es 1 (por Donación)
                 
+                // Sumo a los ingresos las Viandas introducidas por Distribuciones
                 ingresos += distribucionesVianda.stream()
                     .filter(distribucion -> distribucion.getDestino() == heladera)
                     .map(distribucion -> distribucion.getCantidadViandasAMover())
                     .mapToInt(Integer::intValue)
                     .sum();
                 
+                // Calculo, para los egresos, las Viandas retiradas por Distribuciones
                 Integer egresos = distribucionesVianda.stream()
                     .filter(distribucion -> distribucion.getOrigen() == heladera)
                     .map(distribucion -> distribucion.getCantidadViandasAMover())
                     .mapToInt(Integer::intValue)
                     .sum();
 
+                // Armo una Dupla (Pair) con ambos valores
                 hashMap.put(heladera, Pair.of(ingresos, egresos));
             }
 

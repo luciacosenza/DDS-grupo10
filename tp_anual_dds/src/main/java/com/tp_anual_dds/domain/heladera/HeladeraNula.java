@@ -114,7 +114,7 @@ public class HeladeraNula extends Heladera {
     public void setTempActual(Float temperatura) {}
 
     @Override
-    public void desactivar() {}
+    public void marcarComoInactiva() {}
 
     @Override
     public void reportarAlerta(Alerta.TipoAlerta tipo) {}

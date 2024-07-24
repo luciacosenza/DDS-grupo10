@@ -11,7 +11,7 @@ public class DonacionDineroCreator implements ContribucionCreator {
                 !(args[0] instanceof Double) ||
                 !(args[1] instanceof DonacionDinero.FrecuenciaDePago)) {
             
-            throw new IllegalArgumentException("Argumentos inválidos para realizar una Donación de Dinero");
+            throw new IllegalArgumentException("Datos inválidos para realizar una donación de dinero");
         }
         
         return new DonacionDinero(colaborador, fechaContribucion, (Double) args[0], (DonacionDinero.FrecuenciaDePago) args[1]);

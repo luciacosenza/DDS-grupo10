@@ -11,7 +11,7 @@ public class Suscripcion {
     private Integer viandasDisponiblesMin;
     private Integer viandasParaLlenarMax;
     private Boolean notificarDesperfecto;
-    private MedioDeContacto medioDeContactoElegido;
+    private MedioDeContacto medioDeContactoElegido; // El Colaborador elige por qué Medio de Contacto ser notificado sobre cuestiones de la Suscripción
 
     public Suscripcion(ColaboradorHumano vColaborador, HeladeraActiva vHeladera, Integer vViandasDisponiblesMin, Integer vViandasParaLlenarMax, Boolean vNotificarDesperfecto, MedioDeContacto vMedioDeContactoElegido) {
         colaborador = vColaborador;

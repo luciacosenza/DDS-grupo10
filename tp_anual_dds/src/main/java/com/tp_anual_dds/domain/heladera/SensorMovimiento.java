@@ -34,5 +34,5 @@ public class SensorMovimiento extends Sensor {
         scheduler.scheduleAtFixedRate(notificacionMovimiento, 0, periodo, unidad); // En este caso, hicimos que ejecute cada 5 minutos como ejemplo
     }
 
-    // Esto en si no hace nada util, faltaria la vinculacion con el sensor fisico
+    // Esto en sí no hace nada útil, faltaría la vinculación con el Sensor físico (TODO)(?
 }

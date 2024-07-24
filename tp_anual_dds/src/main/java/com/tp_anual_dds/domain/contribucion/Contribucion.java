@@ -3,8 +3,6 @@ package com.tp_anual_dds.domain.contribucion;
 import java.time.LocalDateTime;
 
 import com.tp_anual_dds.domain.colaborador.Colaborador;
-import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
-import com.tp_anual_dds.domain.colaborador.ColaboradorJuridico;
 
 public abstract class Contribucion {
     protected Colaborador colaborador;
@@ -27,24 +25,16 @@ public abstract class Contribucion {
         fechaContribucion = vFechaContribucion;
     }
 
-    // obtenerDetalles()
-
-    protected Boolean esColaboradorHumano(Colaborador colaboradorAspirante) {
-        return colaboradorAspirante.getClass() == ColaboradorHumano.class;
-    }
-
-    protected Boolean esColaboradorJuridico(Colaborador colaboradorAspirante) {
-        return colaboradorAspirante.getClass() == ColaboradorJuridico.class;
-    }
+    // public abstract void obtenerDetalles() (TODO)
 
     public abstract void validarIdentidad();
 
     protected abstract void calcularPuntos();
 
     public void confirmar(LocalDateTime vFechaContribucion) {
-        // Podemos agregar logica para confirmar que la Contribucion fue efectivamente realizada
+        // Podemos agregar lógica para confirmar que la Contribución fue efectivamente realizada
         completada = true;
-        setFechaContribucion(vFechaContribucion);   // Para actualizar fechaContribucion al momento en el que se confirma la realizacion de la Contribucion
+        setFechaContribucion(vFechaContribucion);   // Actualizo la fecha de contribución al momento que se confirma la realización de la Contribución
         calcularPuntos();
     }
 }

@@ -8,14 +8,14 @@ import com.tp_anual_dds.domain.contribucion.DonacionDineroCreator;
 import com.tp_anual_dds.domain.contribucion.DonacionViandaCreator;
 import com.tp_anual_dds.domain.contribucion.RegistroDePersonaEnSituacionVulnerableCreator;
 
-// A los conversores les pasamos los strings: en minuscula, solo con caracteres alfabeticos (removiendo numericos y especiales) y sin espacios
+// A los conversores les pasamos los strings en minúscula, sólo con caracteres alfabéticos (removiendo numéricos y especiales) y sin espacios
 public class ConversorFormaContribucion {
     private static final HashMap<String, ContribucionCreator> conversorFormaContribucion = new HashMap<>();
 
     static {
         conversorFormaContribucion.put("dinero", new DonacionDineroCreator());
         
-        // Esto queda comentado, eran opciones para atajar la falta de normalizacion (aguardamos respuesta sobre si incluirlos o borrarlos)
+        // Esto queda comentado, eran opciones para atajar la falta de normalización (aguardamos respuesta sobre si incluirlos o borrarlos)
 
         /* 
         conversorFormaContribucion.put("donardinero", new DonacionDineroCreator());
@@ -26,7 +26,7 @@ public class ConversorFormaContribucion {
 
         conversorFormaContribucion.put("donacionviandas", new DonacionViandaCreator());
         
-        // Esto queda comentado, eran opciones para atajar la falta de normalizacion (aguardamos respuesta sobre si incluirlos o borrarlos)
+        // Esto queda comentado, eran opciones para atajar la falta de normalización (aguardamos respuesta sobre si incluirlos o borrarlos)
 
         /* 
         conversorFormaContribucion.put("donarvianda", new DonacionViandaCreator());
@@ -39,7 +39,7 @@ public class ConversorFormaContribucion {
 
         conversorFormaContribucion.put("redistribucionviandas", new DistribucionViandasCreator());
 
-        // Esto queda comentado, eran opciones para atajar la falta de normalizacion (aguardamos respuesta sobre si incluirlos o borrarlos)
+        // Esto queda comentado, eran opciones para atajar la falta de normalización (aguardamos respuesta sobre si incluirlos o borrarlos)
             
         /* 
         conversorFormaContribucion.put("distribuirvianda", new DistribucionViandasCreator());
@@ -58,7 +58,7 @@ public class ConversorFormaContribucion {
 
         conversorFormaContribucion.put("entregatarjetas", new RegistroDePersonaEnSituacionVulnerableCreator());
 
-        // Esto queda comentado, eran opciones para atajar la falta de normalizacion (aguardamos respuesta sobre si incluirlos o borrarlos)
+        // Esto queda comentado, eran opciones para atajar la falta de normalización (aguardamos respuesta sobre si incluirlos o borrarlos)
 
         /* 
         conversorFormaContribucion.put("entregatarjeta", new RegistroDePersonaEnSituacionVulnerableCreator());

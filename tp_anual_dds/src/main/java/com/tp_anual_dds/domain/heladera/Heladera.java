@@ -64,7 +64,7 @@ public abstract class Heladera implements HeladeraObserver, HeladeraSubject {
     @Override
     public abstract void setTempActual(Float temperatura);
 
-    public abstract void desactivar();
+    public abstract void marcarComoInactiva();
 
     public abstract void reportarAlerta(Alerta.TipoAlerta tipo);
     

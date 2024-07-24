@@ -21,19 +21,25 @@ public class ReporteViandasPorColaborador extends Reporte {
     @Override
     public void programarReporte() {
         Runnable reportar = () -> {
+            // Limpio el HashMap, para reiniciar el Reporte
             hashMap.clear();
             
             ArrayList<Colaborador> colaboradores = Sistema.getColaboradores();
+
+            // Hago un filtro y me quedo únicamente con los Colaboradores Humanos
             ArrayList<ColaboradorHumano> colaboradoresHumanos = colaboradores.stream()
                 .filter(colaborador -> colaborador instanceof ColaboradorHumano)
                 .map(colaborador -> (ColaboradorHumano) colaborador)
                 .collect(Collectors.toCollection(ArrayList::new));
 
+            // Obtengo, por cada Colaborador, su cantidad de Viandas donadas / distribuidas
             for (ColaboradorHumano colaborador : colaboradoresHumanos) {
+                // Sumo a la cantidad de Viandas las que corresponden a Donaciones
                 Integer cantidadViandas = colaborador.getContribuciones().stream()
                     .filter(contribucion -> contribucion instanceof DonacionVianda)
                     .collect(Collectors.toList()).size();
 
+                // Sumo a la cantidad de Viandas las que corresponden a Distribuciones
                 cantidadViandas += colaborador.getContribuciones().stream()
                     .filter(contribucion -> contribucion instanceof DistribucionViandas)
                     .map(distribucionViandas -> (DistribucionViandas) distribucionViandas)

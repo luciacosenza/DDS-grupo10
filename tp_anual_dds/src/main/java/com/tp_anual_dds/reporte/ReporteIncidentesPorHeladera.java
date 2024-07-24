@@ -20,11 +20,13 @@ public class ReporteIncidentesPorHeladera extends Reporte {
     public void programarReporte() {
         
         Runnable reportar = () -> {
+            // Limpio el HashMap, para reiniciar el Reporte
             hashMap.clear();
 
             ArrayList<HeladeraActiva> heladeras = Sistema.getHeladeras();
             ArrayList<Incidente> incidentes = Sistema.getIncidentes();
 
+            // Obtengo, por cada Heladera, su cantidad de Incidentes
             for(HeladeraActiva heladera : heladeras) {
                 Integer cantidadIncidentes = incidentes.stream()
                     .filter(incidente -> incidente.getHeladera() == heladera)

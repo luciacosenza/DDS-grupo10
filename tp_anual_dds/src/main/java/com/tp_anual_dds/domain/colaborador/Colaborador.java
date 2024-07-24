@@ -21,7 +21,7 @@ public abstract class Colaborador {
     protected ArrayList<MedioDeContacto> mediosDeContacto;
     protected ArrayList<Contribucion> contribuciones;
     protected Set<Class<? extends ContribucionCreator>> creatorsPermitidos;
-    protected ArrayList<Contribucion> contribucionesPendientes;   // Esto podria ser plural en un futuro
+    protected ArrayList<Contribucion> contribucionesPendientes;
     protected ArrayList<Oferta> beneficiosAdquiridos;
     protected Double puntos;
 
@@ -47,7 +47,8 @@ public abstract class Colaborador {
         return puntos;
     }
 
-    public <T extends MedioDeContacto> T getContacto(Class<T> tipoMedioDeContacto) {    // Con este metodo, suponemos que el Colaborador no puede tener mas de un medioDeContacto del mismo tipo
+    // Obtenemos el Medio de Contacto correspondiente a la Clase que pasemos como argumento. Con este método, suponemos que el Colaborador no puede tener más de un Medio de Contacto del mismo tipo
+    public <T extends MedioDeContacto> T getContacto(Class<T> tipoMedioDeContacto) {
         for (MedioDeContacto contacto : mediosDeContacto) {
             if (tipoMedioDeContacto.isInstance(contacto)) {
                 return tipoMedioDeContacto.cast(contacto);
@@ -93,7 +94,8 @@ public abstract class Colaborador {
         Sistema.eliminarColaborador(this);
     }
 
-    public Contribucion colaborar(ContribucionCreator creator, LocalDateTime fechaContribucion, Object... args) {
+    // Este método equivale a seleccionar una Contribución, no a llevarla a cabo
+    public Contribucion colaborar(ContribucionCreator creator, LocalDateTime fechaContribucion /* generalmente LocalDateTime.now() */, Object... args) {
         if(!esCreatorPermitido(creator.getClass())) {
             throw new IllegalArgumentException("No es una forma válida de colaborar");
         }
@@ -105,21 +107,25 @@ public abstract class Colaborador {
         return contribucion;
     }
 
+    // Este es el método correspondiente a confirmar la ejecución / llevada a cabo de una Contribución
     public void confirmarContribucion(Contribucion contribucion, LocalDateTime fechaContribucion) {
-        contribucion.confirmar(fechaContribucion);  // Generalmente sera LocalDateTime.now(), salvo cuando se cargue una Contribucion hecha con anterioridad
+        // La fecha de contribución generalmente será LocalDateTime.now(), salvo cuando se cargue una Contribución hecha con anterioridad (lo mismo que pasa en "colaborar()")
+        contribucion.confirmar(fechaContribucion);  
         agregarContribucion(contribucion);
         eliminarContribucionPendiente(contribucion);
     }
 
     public void intentarAdquirirBeneficio(Oferta oferta) {
+        // Primero chequea tener los puntos suficientes
         oferta.validarPuntos(this);
         oferta.darDeBaja();
         agregarBeneficio(oferta);
     }
 
+    // La lógica de este método puede cambiar al implementar el Broker (TODO)
     public void reportarFallaTecnica(HeladeraActiva heladera, String descripcion, String foto) {
         FallaTecnica fallaTecnica = new FallaTecnica(LocalDateTime.now(), heladera, this, descripcion, foto);
         fallaTecnica.darDeAlta();
-        heladera.desactivar();
+        heladera.marcarComoInactiva();
     }
 }

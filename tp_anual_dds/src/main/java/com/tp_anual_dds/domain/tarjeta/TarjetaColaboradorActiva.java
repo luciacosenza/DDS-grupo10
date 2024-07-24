@@ -40,7 +40,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
 
     @Override
     public Boolean puedeUsar() {
-        return true; // Se puede definir alguna logica especifica si es necesario
+        return true; // Se puede definir alguna lógica específica si es necesario
     }
 
     @Override
@@ -58,27 +58,32 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
             }
         };
 
-        // Programa la tarea para que se ejecute una vez despues de 3 horas
+        // Programa la tarea para que se ejecute una vez después de 3 horas
         timer.schedule(revocacionPermisos, delay, unidad);
     }
 
+    // Este método se ejecuta siempre que un Colaborador quiera solicitar la Apertura de una Heladera (generalmente para una Donación de Vianda, un retiro de lote para una Distribución de Viandas o un depósito de lote para una Distribución de Viandas)
+    // La lógica de este método puede cambiar al implementar el Broker (TODO)
     @Override
     public SolicitudAperturaColaborador solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo) {
         estadoSolicitud.manejar(this);
+        // A partir de acá, el Estado de Solicitud pasará a Pendiente, hasta que se de de alta la Solicitud de Apertura
         
         if(motivo == SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION && heladeraInvolucrada.estaVacia()) {
-            throw new UnsupportedOperationException("La Heladera se encuentra vacía");
+            throw new UnsupportedOperationException("La heladera " + heladeraInvolucrada.getNombre() + " se encuentra vacía");
         }
 
         if((motivo == SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION || motivo == SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION) && heladeraInvolucrada.estaLlena()) {
-            throw new UnsupportedOperationException("La Heladera se encuentra llena");
+            throw new UnsupportedOperationException("La heladera " + heladeraInvolucrada.getNombre() + " se encuentra llena");
         }
 
         SolicitudAperturaColaborador solicitudApertura = new SolicitudAperturaColaborador(LocalDateTime.now(), heladeraInvolucrada, this.getTitular(), motivo);
         solicitudApertura.darDeAlta();
 
         setEstadoSolicitud(new EstadoRealizada());
+        // A partir de acá, el Estado de Solicitud pasará a Realizada, hasta que se revoquen los permisos, pasadas las 3 horas
 
+        // Actualizo (añado) los permisos correspondientes a la Heladera involucrada
         permiso.setHeladeraPermitida(heladeraInvolucrada);
         permiso.actualizarFechaOtorgamiento();
 
@@ -87,16 +92,20 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
         return solicitudApertura;
     }
 
+    // Este método se ejecuta siempre que un Colaborador quiera realizar la Apertura de una Heladera (generalmente para una Donación de Vianda, un retiro de lote para una Distribución de Viandas o un depósito de lote para una Distribución de Viandas)
+    // La lógica de este método puede cambiar al implementar el Broker (TODO)
     @Override
     public AperturaColaborador intentarApertura(HeladeraActiva heladeraInvolucrada) {
         if(!(estadoSolicitud instanceof EstadoRealizada) || !(permiso.esHeladeraPermitida(heladeraInvolucrada))) {
-            throw new UnsupportedOperationException("No cuenta con los permisos para abrir esta heladera");
+            throw new UnsupportedOperationException("No cuenta con los permisos para abrir la heladera " + heladeraInvolucrada.getNombre());
         }
 
         AperturaColaborador apertura = new AperturaColaborador(LocalDateTime.now(), heladeraInvolucrada, this.getTitular());
         apertura.darDeAlta();
 
+        // Reseteo el Estado de Solicitud
         setEstadoSolicitud(new EstadoPosible());
+        // A partir de acá, el Estado de Solicitud pasará a Posible, hasta que se solicite una nueva Apertura
 
         return apertura;
     }

@@ -34,6 +34,7 @@ public class Area {
         return Pair.of(xM, yM);
     }
     
+    // Este método es estático dado que es propio de un Área, pero no debería hacer falta llamar a un Objeto de este tipo para usarlo
     public static Double distanciaEntre2Puntos(Pair<Double, Double> tupla1, Pair<Double, Double> tupla2) { 
         Double xT1 = tupla1.getLeft();
         Double yT1 = tupla1.getRight();

@@ -52,25 +52,27 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
             resetUsos();
         };
 
-        // Programa la tarea para que se ejecute una vez por dia
+        // Programa la tarea para que se ejecute una vez por día
         timer.scheduleAtFixedRate(reseteoUsos, 0, periodo, unidad);
     }
 
+    // Este método se ejecuta siempre que una Persona en Situación Vulnerable quiera realizar la Apertura de una Heladera (generalmente para retirar una Vianda)
     @Override
     public AperturaPersonaEnSituacionVulnerable intentarApertura(HeladeraActiva heladeraInvolucrada) {
         if(!puedeUsar()) {
-            throw new UnsupportedOperationException("Ya agotó los usos diarios de su Tarjeta");
+            throw new UnsupportedOperationException("Ya agotó los usos diarios de su tarjeta");
         }
 
         if(heladeraInvolucrada.estaVacia()) {
-            throw new UnsupportedOperationException("La Heladera se encuentra vacía");
+            throw new UnsupportedOperationException("La heladera " + heladeraInvolucrada.getNombre() + " se encuentra vacía");
         }
 
-        LocalDateTime ahora= LocalDateTime.now();
+        LocalDateTime ahora = LocalDateTime.now();   // Guardo el valor en una variable para usar exactamente el mismo en las líneas de código posteriores
 
         AperturaPersonaEnSituacionVulnerable apertura = new AperturaPersonaEnSituacionVulnerable(ahora, heladeraInvolucrada, this.getTitular());
         apertura.darDeAlta();
 
+        // Registro el Uso de la Tarjeta en la Heladera correspondiente
         UsoTarjeta uso = new UsoTarjeta(ahora, heladeraInvolucrada);
         agregarUso(uso);
 

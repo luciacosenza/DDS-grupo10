@@ -21,7 +21,7 @@ import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 
 public class ColaboradorHumano extends Colaborador {    // Implementa una Interfaz "ColaboradorHumanoObserver" a nivel conceptual
     protected TarjetaColaborador tarjeta;
-    protected final ArrayList<Suscripcion> suscripciones = new ArrayList<>();
+    protected final ArrayList<Suscripcion> suscripciones = new ArrayList<>();   // Será una Suscripción por Heladera
 
     public ColaboradorHumano(Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos , String vNombre, String vApellido, Documento vDocumento , LocalDateTime vFechaNacimiento) {
         persona = new PersonaFisica(vNombre, vApellido, vDocumento, vFechaNacimiento);

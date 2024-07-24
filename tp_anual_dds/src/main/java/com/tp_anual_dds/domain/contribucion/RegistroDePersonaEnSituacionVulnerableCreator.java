@@ -9,7 +9,7 @@ public class RegistroDePersonaEnSituacionVulnerableCreator implements Contribuci
     @Override
     public Contribucion crearContribucion(Colaborador colaborador, LocalDateTime fechaContribucion, Object... args) {
         if(args.length != 1 || !(args[0] instanceof TarjetaPersonaEnSituacionVulnerable)) {
-            throw new IllegalArgumentException("Argumentos inválidos para Registrar una Persona En Situacion Vulnerable");
+            throw new IllegalArgumentException("Datos inválidos para registrar una persona en situación vulnerable");
         }
         
         return new RegistroDePersonaEnSituacionVulnerable(colaborador, fechaContribucion, (TarjetaPersonaEnSituacionVulnerable) args[0]);

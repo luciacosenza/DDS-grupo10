@@ -15,7 +15,7 @@ public class SensorTemperatura extends Sensor {
     }
 
     public Boolean funcionaSensorFisico() {
-        return true;    // Simulamos el buen funcionamiento del SensorFisico
+        return true;    // Suponemos el buen funcionamiento del Sensor físico (esto debería ser modificado si se implementara la conexión con el mismo) (TODO)(?
     }
 
     @Override
@@ -43,5 +43,5 @@ public class SensorTemperatura extends Sensor {
         scheduler.scheduleAtFixedRate(notificacionTemperatura, 0, periodo, unidad);
     }
 
-    // Esto en si no hace nada util, faltaria la vinculacion con el sensor fisico
+    // Esto en sí no hace nada útil, faltaría la vinculación con el Sensor físico (TODO)(?
 }

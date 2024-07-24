@@ -9,7 +9,8 @@ public class ValidadorPassword {
         criterios = vCriterios;
     }
 
+    // Este método valida que la contraseña cumpla, para cada Criterio pedido
     public Boolean esValida(String contrasenia) {
-        return criterios.stream().noneMatch(criterio -> !criterio.validar(contrasenia));
+        return criterios.stream().allMatch(criterio -> criterio.validar(contrasenia));
     }
 }

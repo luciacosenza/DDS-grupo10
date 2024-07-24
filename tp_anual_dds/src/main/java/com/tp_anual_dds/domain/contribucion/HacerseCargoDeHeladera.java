@@ -23,14 +23,14 @@ public class HacerseCargoDeHeladera extends Contribucion {
         completada = false;
     }
 
-    // obtenerDetalles()
+    // public void obtenerDetalles() (TODO)
     
     public HeladeraActiva getHeladeraObjetivo() {
         return heladeraObjetivo;
     }
 
     @Override
-    public void validarIdentidad() {}
+    public void validarIdentidad() {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
 
     @Override
     protected void calcularPuntos() {
@@ -40,13 +40,13 @@ public class HacerseCargoDeHeladera extends Contribucion {
         Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
             long mesesPasados = ChronoUnit.MONTHS.between(ultimaActualizacion, ahora);
-            if (mesesPasados >= 1 && heladeraObjetivo.getEstado()) {    // Dado que en el test nos dimos cuenta que puede fallar por milesimas, podriamos pensar en restarle un segundo, por ejemplo, a mesesPasados
+            if (mesesPasados >= 1 && heladeraObjetivo.getEstado()) {    // Dado que en el test nos dimos cuenta que puede fallar por milésimas, podríamos pensar en restarle un segundo, por ejemplo, a meses pasados (TODO)
                 colaborador.sumarPuntos(multiplicador_puntos);
                 ultimaActualizacion = ahora;
             }
         };
 
-        // Programa la tarea para que se ejecute una vez por dia
-        scheduler.scheduleAtFixedRate(calculoPuntos, 0, periodo, unidad);  // Ejecuta una vez por dia, puede ser ineficiente
+        // Programa la tarea para que se ejecute una vez por día
+        scheduler.scheduleAtFixedRate(calculoPuntos, 0, periodo, unidad);  // Ejecuta una vez por día (puede ser ineficiente)
     }
 }

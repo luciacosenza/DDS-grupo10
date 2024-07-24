@@ -67,7 +67,7 @@ public class TransformacionDeDatos {
             fechaContribucion = LocalDateTime.parse(fechaContribucionStr, dateFormat);
 
         } catch (DateTimeParseException e) {
-            e.printStackTrace();
+            e.printStackTrace();    // Hay que cambiar esto (TODO)
             return null;
         }
         

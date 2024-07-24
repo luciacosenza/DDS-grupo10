@@ -21,12 +21,12 @@ public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
         return tarjetaAsignada;
     }
 
-    // obtenerDetalles()
+    // public void obtenerDetalles() (TODO)
     
     @Override
     public void validarIdentidad() {
         if(colaborador.getDomicilio() == null) {
-            throw new IllegalArgumentException("El colaborador aspirante no posee domicilio. Para Registrar Personas Vulnerables debe actualizar su información.");
+            throw new IllegalArgumentException("El colaborador aspirante no posee domicilio. Para registrar personas en situación vulnerable debe actualizar su información");
         }
     }
 

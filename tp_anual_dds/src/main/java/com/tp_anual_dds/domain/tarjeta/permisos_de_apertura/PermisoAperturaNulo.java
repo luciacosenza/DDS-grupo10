@@ -7,7 +7,7 @@ import com.tp_anual_dds.domain.heladera.HeladeraNula;
 
 public class PermisoAperturaNulo extends PermisoApertura {
     public PermisoAperturaNulo() {
-        heladeraPermitida = new HeladeraNula();   // No usamos Null Object porque creimos que no lo ameritaba
+        heladeraPermitida = new HeladeraNula();
         fechaOtorgamiento = null;
     }
 
@@ -18,7 +18,7 @@ public class PermisoAperturaNulo extends PermisoApertura {
 
     @Override
     public LocalDateTime getFechaOtorgamiento() {
-        throw new UnsupportedOperationException("Permiso Nulo no tiene una fecha de otorgamiento.");
+        throw new UnsupportedOperationException("Permiso Nulo no tiene fecha de otorgamiento");
     }
 
     @Override
