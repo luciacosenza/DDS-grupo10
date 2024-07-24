@@ -3,7 +3,9 @@ package com.tp_anual_dds.domain.heladera;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import com.tp_anual_dds.domain.colaborador.Colaborador;
 import com.tp_anual_dds.domain.incidente.Alerta;
+import com.tp_anual_dds.domain.incidente.Incidente;
 import com.tp_anual_dds.domain.suscripcion.Suscripcion;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 
@@ -117,14 +119,12 @@ public class HeladeraNula extends Heladera {
     public void marcarComoInactiva() {}
 
     @Override
-    public void reportarAlerta(Alerta.TipoAlerta tipo) {}
+    public void producirAlerta(Alerta.TipoAlerta tipo) {}
 
     @Override
-    public void reportarTemperatura() {}
-
+    public void producirFallaTecnica(Colaborador colaborador, String descripcion, String foto) {}
+    
     @Override
-    public void reportarFraude() {}
+    public void reportarIncidente(Incidente incidente) {}
 
-    @Override
-    public void reportarFallaConexion() {}
 }

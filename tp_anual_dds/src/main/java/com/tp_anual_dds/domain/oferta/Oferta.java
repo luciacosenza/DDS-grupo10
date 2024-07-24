@@ -14,7 +14,7 @@ public class Oferta {
         GASTRONOMIA,
         ELECTRONICA,
         ARTICULOS_PARA_EL_HOGAR
-        // Completar, de ser necesario (TODO)
+        // TODO Completar, de ser necesario
     }
 
     public Oferta(String vNombre, Double vCosto, Categoria vCategoria, String vImagen) {

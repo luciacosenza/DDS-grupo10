@@ -25,6 +25,10 @@ public class Broker {
         }).start();
     }
 
+    public void agregarMensaje(Mensaje mensaje) throws InterruptedException {
+        queue.put(mensaje);
+    }
+
     public void procesarMensaje(Mensaje mensaje) {
         mensaje.procesar();
     }

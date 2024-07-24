@@ -9,6 +9,8 @@ public abstract class Sensor implements SensorSubject {
     protected HeladeraActiva heladera;
     protected final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
+    public abstract HeladeraActiva getHeladera();
+
     public void darDeAlta() {
         Sistema.agregarSensor(this);
     }

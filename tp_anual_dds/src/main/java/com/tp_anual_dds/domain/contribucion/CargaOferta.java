@@ -15,7 +15,7 @@ public class CargaOferta extends Contribucion {
         completada = false;
     }
 
-    // public void obtenerDetalles() (TODO)
+    // TODO public void obtenerDetalles()
     
     public Oferta getOferta() {
         return oferta;

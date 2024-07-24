@@ -21,6 +21,6 @@ public class MensajeTemperatura implements Mensaje {
 
     @Override
     public void procesar() {
-        // A implementar
+        heladera.setTempActual(temperatura);
     }
 }

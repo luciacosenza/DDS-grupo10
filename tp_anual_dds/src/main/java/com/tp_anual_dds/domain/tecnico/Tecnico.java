@@ -14,10 +14,10 @@ import com.tp_anual_dds.sistema.Sistema;
 
 public class Tecnico {
     private final PersonaFisica persona;
-    private String cuil;
-    private MedioDeContacto medioDeContacto;    // Puede ser plural en un futuro (TODO)(?
+    private final String cuil;
+    private MedioDeContacto medioDeContacto;    // TODO Puede ser plural en un futuro
     private Area areaDeCobertura;
-    private final ArrayList<Incidente> pendientes = new ArrayList<>();
+    private ArrayList<Incidente> pendientes = new ArrayList<>();
 
     public Tecnico(String vNombre, String vApellido, Documento vDocumento, LocalDateTime vFechaNacimiento, String vCuil, MedioDeContacto vMedioDeContacto, Area vAreaDeCobertura) {
         persona = new PersonaFisica(vNombre, vApellido, vDocumento, vFechaNacimiento);
@@ -58,7 +58,7 @@ public class Tecnico {
         pendientes.add(incidente);
     }
 
-    // La lógica de este método puede cambiar al implementar el Broker (TODO)
+    // TODO La lógica de este método puede cambiar al implementar el Broker
     public void registrarVisita(LocalDateTime fecha, String descripcion, String foto, Boolean estadoConsulta) {
         Visita visita = new Visita(this, fecha, descripcion, foto, estadoConsulta);
         visita.darDeAlta();

@@ -63,7 +63,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
     }
 
     // Este método se ejecuta siempre que un Colaborador quiera solicitar la Apertura de una Heladera (generalmente para una Donación de Vianda, un retiro de lote para una Distribución de Viandas o un depósito de lote para una Distribución de Viandas)
-    // La lógica de este método puede cambiar al implementar el Broker (TODO)
+    // TODO La lógica de este método puede cambiar al implementar el Broker
     @Override
     public SolicitudAperturaColaborador solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo) {
         estadoSolicitud.manejar(this);
@@ -93,7 +93,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
     }
 
     // Este método se ejecuta siempre que un Colaborador quiera realizar la Apertura de una Heladera (generalmente para una Donación de Vianda, un retiro de lote para una Distribución de Viandas o un depósito de lote para una Distribución de Viandas)
-    // La lógica de este método puede cambiar al implementar el Broker (TODO)
+    // TODO La lógica de este método puede cambiar al implementar el Broker
     @Override
     public AperturaColaborador intentarApertura(HeladeraActiva heladeraInvolucrada) {
         if(!(estadoSolicitud instanceof EstadoRealizada) || !(permiso.esHeladeraPermitida(heladeraInvolucrada))) {

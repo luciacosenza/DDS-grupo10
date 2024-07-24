@@ -2,6 +2,8 @@ package com.tp_anual_dds.domain.heladera;
 
 import java.util.concurrent.TimeUnit;
 
+import com.tp_anual_dds.domain.incidente.Alerta.TipoAlerta;
+
 public class SensorMovimiento extends Sensor {
     private Boolean hayMovimiento;
     
@@ -10,13 +12,22 @@ public class SensorMovimiento extends Sensor {
         hayMovimiento = false;
     }
     
+    @Override
+    public HeladeraActiva getHeladera() {
+        return heladera;
+    }
+
+    public Boolean getMovimiento() {
+        return hayMovimiento;
+    }
+
     public void setHayMovimiento(Boolean vHayMovimiento) {
         hayMovimiento = vHayMovimiento;
     }
 
     @Override
     public void notificarHeladera() {
-        heladera.reportarFraude();
+        heladera.producirAlerta(TipoAlerta.FRAUDE);
     }
     
     @Override
@@ -34,5 +45,5 @@ public class SensorMovimiento extends Sensor {
         scheduler.scheduleAtFixedRate(notificacionMovimiento, 0, periodo, unidad); // En este caso, hicimos que ejecute cada 5 minutos como ejemplo
     }
 
-    // Esto en sí no hace nada útil, faltaría la vinculación con el Sensor físico (TODO)(?
+    // TODO Esto en sí no hace nada útil, faltaría la vinculación con el Sensor físico
 }

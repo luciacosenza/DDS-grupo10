@@ -11,7 +11,13 @@ public class Suscripcion {
     private Integer viandasDisponiblesMin;
     private Integer viandasParaLlenarMax;
     private Boolean notificarDesperfecto;
-    private MedioDeContacto medioDeContactoElegido; // El Colaborador elige por qué Medio de Contacto ser notificado sobre cuestiones de la Suscripción
+    private final MedioDeContacto medioDeContactoElegido; // El Colaborador elige por qué Medio de Contacto ser notificado sobre cuestiones de la Suscripción
+
+    public enum AtributoSuscripcion {
+        VIANDAS_MIN,
+        VIANDAS_MAX,
+        NOTIFICAR_DESPERFECTO
+    }
 
     public Suscripcion(ColaboradorHumano vColaborador, HeladeraActiva vHeladera, Integer vViandasDisponiblesMin, Integer vViandasParaLlenarMax, Boolean vNotificarDesperfecto, MedioDeContacto vMedioDeContactoElegido) {
         colaborador = vColaborador;
@@ -26,7 +32,7 @@ public class Suscripcion {
         return colaborador;
     }
 
-    public HeladeraActiva getHeladera(){
+    public HeladeraActiva getHeladera() {
         return heladera;
     }
 
@@ -46,6 +52,18 @@ public class Suscripcion {
         return medioDeContactoElegido;
     }
 
+    public void setViandasDisponiblesMin(Integer vViandasDisponiblesMin) {
+        viandasDisponiblesMin = vViandasDisponiblesMin;
+    }
+
+    public void setViandasParaLlenarMax(Integer vViandasParaLlenarMax) {
+        viandasParaLlenarMax = vViandasParaLlenarMax;
+    }
+
+    public void setNotificarDesperfecto(Boolean vNotificarDesperfecto) {
+        notificarDesperfecto = vNotificarDesperfecto;
+    }
+    
     public void darDeAlta() {
         Sistema.getGestorSuscripciones().agregarSuscripcion(this);
     }

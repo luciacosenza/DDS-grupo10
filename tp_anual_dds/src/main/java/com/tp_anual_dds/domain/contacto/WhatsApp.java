@@ -12,5 +12,5 @@ public class WhatsApp extends MedioDeContacto {
     }
 
     @Override
-    public void contactar(String asunto, String cuerpo) {} // Se implementará posteriormente, por ahora sólo lo creamos para los Tests (TODO)
+    public void contactar(String asunto, String cuerpo) {} // TODO Se implementará posteriormente, por ahora sólo lo creamos para los Tests
 }

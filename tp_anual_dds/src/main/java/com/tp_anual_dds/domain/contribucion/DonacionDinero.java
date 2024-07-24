@@ -93,7 +93,7 @@ public class DonacionDinero extends Contribucion {
         return frecuencia;
     }
 
-    // public void obtenerDetalles() (TODO)
+    // TODO public void obtenerDetalles()
     
     @Override
     public void validarIdentidad() {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
@@ -111,7 +111,7 @@ public class DonacionDinero extends Contribucion {
         Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
             Long periodosPasados = frecuencia.unidad().between(ultimaActualizacion, ahora);
-            if (periodosPasados >= frecuencia.periodo()) {      // Dado que en el test nos dimos cuenta que puede fallar por milésimas, podríamos pensar en restarle un segundo, por ejemplo, a períodos pasados (TODO)
+            if (periodosPasados >= frecuencia.periodo()) {      // TODO Dado que en el test nos dimos cuenta que puede fallar por milésimas, podríamos pensar en restarle un segundo, por ejemplo, a períodos pasados
                 colaborador.sumarPuntos(monto * multiplicador_puntos);
                 ultimaActualizacion = ahora;
             }

@@ -1,9 +1,12 @@
+
 package com.tp_anual_dds.domain.heladera;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import com.tp_anual_dds.domain.colaborador.Colaborador;
 import com.tp_anual_dds.domain.incidente.Alerta;
+import com.tp_anual_dds.domain.incidente.Incidente;
 import com.tp_anual_dds.domain.suscripcion.Suscripcion;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 
@@ -66,12 +69,10 @@ public abstract class Heladera implements HeladeraObserver, HeladeraSubject {
 
     public abstract void marcarComoInactiva();
 
-    public abstract void reportarAlerta(Alerta.TipoAlerta tipo);
-    
-    public abstract void reportarTemperatura();
-
     @Override
-    public abstract void reportarFraude();
+    public abstract void producirAlerta(Alerta.TipoAlerta tipo);
+    
+    public abstract void producirFallaTecnica(Colaborador colaborador, String descripcion, String foto);
 
-    public abstract void reportarFallaConexion();
+    public abstract void reportarIncidente(Incidente incidente);
 }

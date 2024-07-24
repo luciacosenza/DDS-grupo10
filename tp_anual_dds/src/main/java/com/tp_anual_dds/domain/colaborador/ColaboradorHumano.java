@@ -65,4 +65,24 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
 
         return suscripcion;
     }
+
+    public void modificarSuscripcion(Suscripcion suscripcion, Suscripcion.AtributoSuscripcion flag, Integer nuevoValor) {
+        // Tenemos un flag que nos indica qué atributo debe ser cambiado
+        switch(flag) {
+        
+        case VIANDAS_MIN:
+            suscripcion.setViandasDisponiblesMin(nuevoValor);
+            break;
+        
+        case VIANDAS_MAX:
+            suscripcion.setViandasParaLlenarMax(nuevoValor);
+            break;
+            
+        case NOTIFICAR_DESPERFECTO:
+            suscripcion.setNotificarDesperfecto(nuevoValor != 0);
+            
+        default:
+            break;
+        }
+    }
 }

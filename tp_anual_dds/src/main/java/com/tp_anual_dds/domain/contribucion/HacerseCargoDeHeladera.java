@@ -23,7 +23,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
         completada = false;
     }
 
-    // public void obtenerDetalles() (TODO)
+    // TODO public void obtenerDetalles()
     
     public HeladeraActiva getHeladeraObjetivo() {
         return heladeraObjetivo;

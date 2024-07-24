@@ -4,8 +4,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import com.tp_anual_dds.broker.MensajeIncidente;
 import com.tp_anual_dds.domain.contacto.MedioDeContacto;
+import com.tp_anual_dds.domain.colaborador.Colaborador;
 import com.tp_anual_dds.domain.incidente.Alerta;
+import com.tp_anual_dds.domain.incidente.Alerta.TipoAlerta;
+import com.tp_anual_dds.domain.incidente.FallaTecnica;
+import com.tp_anual_dds.domain.incidente.Incidente;
 import com.tp_anual_dds.domain.suscripcion.GestorSuscripciones;
 import com.tp_anual_dds.domain.suscripcion.Suscripcion;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
@@ -122,23 +127,24 @@ public class HeladeraActiva extends Heladera {
                     "La heladera " + nombre + " se está vaciando.",
                     "La heladera en cuestión tiene " + viandasActuales() + " viandas disponibles. " +
                     "Sería conveniente traer viandas de la heldera %o");
-                    // Completar %o con la Heladera más llena de las cercanas (TODO)
+                    // TODO Completar %o con la Heladera más llena de las cercanas
             }
             
-            //Verifica si se está llenando
+            // Verifica si se está llenando
             if((capacidad - viandas.size()) >= suscripcion.getViandasParaLlenarMax()) {
                 notificarColaborador(
                     suscripcion, "La heladera " + nombre + " está casi llena.",
                     "Faltan " + (capacidad - viandasActuales()) + " viandas para llenar la heladera en cuestión. " +
                     "Sería conveniente llevar viandas a la heladera %o");
-                    // Completar %o con la Heladera menos llena de las cercanas (TODO)
+                    // TODO Completar %o con la Heladera menos llena de las cercanas
             }
 
+            // Verifica si hay un desperfecto
             if(suscripcion.getNotificarDesperfecto() && !estado) {
                 notificarColaborador(
                     suscripcion, "La heladera "+ nombre + " ha sufrido un desperfecto.",
                     "Las viandas deben ser trasladadas a %s.");
-                    // Completar %s con la Heladera/s más cercanas (TODO)
+                    // TODO Completar %s con la Heladera/s más cercanas
             }
         }
     }
@@ -166,7 +172,7 @@ public class HeladeraActiva extends Heladera {
     @Override
     public void verificarTempActual() {
         if(tempActual < tempMin || tempActual > tempMax) {
-            reportarTemperatura();
+            producirAlerta(TipoAlerta.TEMPERATURA);
         }
     }
 
@@ -181,27 +187,37 @@ public class HeladeraActiva extends Heladera {
         setEstado(false);
     }
 
-    // La lógica de este método puede cambiar al implementar el Broker (TODO)
     @Override
-    public void reportarAlerta(Alerta.TipoAlerta tipo) {
+    public void producirAlerta(TipoAlerta tipo) {
         marcarComoInactiva();   // Si una Alerta debe ser reportada, previamente, se marca la Heladera como inactiva
 
         Alerta alerta = new Alerta(LocalDateTime.now(), this, tipo);
         alerta.darDeAlta();
+
+        reportarIncidente(alerta);
     }
 
     @Override
-    public void reportarTemperatura() {
-        reportarAlerta(Alerta.TipoAlerta.TEMPERATURA);
+    public void producirFallaTecnica(Colaborador colaborador, String descripcion, String foto) {
+        marcarComoInactiva();
+
+        FallaTecnica fallaTecnica = new FallaTecnica(LocalDateTime.now(), this, colaborador, descripcion, foto);
+        fallaTecnica.darDeAlta();
+
+        reportarIncidente(fallaTecnica);
     }
 
     @Override
-    public void reportarFraude() {
-        reportarAlerta(Alerta.TipoAlerta.FRAUDE);
-    }
-
-    @Override
-    public void reportarFallaConexion() {
-        reportarAlerta(Alerta.TipoAlerta.FALLA_CONEXION);
+    public void reportarIncidente(Incidente incidente) {
+        MensajeIncidente mensajeIncidente = new MensajeIncidente(this, incidente);
+        
+        new Thread( () -> {
+            try {
+                Sistema.getBroker().agregarMensaje(mensajeIncidente);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.err.println("El hilo fue interrumpido: " + e.getMessage()); // TODO Chequear si está bien que lo tire en System.err
+            }
+        }).start();
     }
 }

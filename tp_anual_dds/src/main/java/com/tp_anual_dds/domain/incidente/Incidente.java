@@ -13,11 +13,8 @@ public abstract class Incidente {
         return heladera;
     }
 
-    // La lógica de este método puede cambiar al implementar el Broker (TODO)
     public void darDeAlta() {
         Sistema.agregarIncidente(this);
-
-        Sistema.getAlertador().alertarDe(this); // Pusimos esta línea en este método para centralizar el llamado del Alertador (que no tenga que ser llamado por Colaboradores y Heladeras), pero puede cambiar al implementar el Broker (TODO)
     }
 
     public void darDeBaja() {

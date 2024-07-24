@@ -21,7 +21,7 @@ public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
         return tarjetaAsignada;
     }
 
-    // public void obtenerDetalles() (TODO)
+    // TODO public void obtenerDetalles()
     
     @Override
     public void validarIdentidad() {

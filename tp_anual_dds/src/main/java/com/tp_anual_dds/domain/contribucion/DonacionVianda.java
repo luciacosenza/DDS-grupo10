@@ -28,7 +28,7 @@ public class DonacionVianda extends Contribucion {
         return heladera;
     }
 
-    // public void obtenerDetalles() (TODO)
+    // TODO public void obtenerDetalles()
     
     @Override
     public void validarIdentidad() {

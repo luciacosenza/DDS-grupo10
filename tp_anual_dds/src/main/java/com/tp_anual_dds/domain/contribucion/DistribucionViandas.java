@@ -42,7 +42,7 @@ public class DistribucionViandas extends Contribucion {
         return motivo;
     }
 
-    // public void obtenerDetalles() (TODO)
+    // TODO public void obtenerDetalles()
     
     @Override
     public void validarIdentidad() {

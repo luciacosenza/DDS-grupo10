@@ -9,7 +9,6 @@ import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.domain.contribucion.Contribucion;
 import com.tp_anual_dds.domain.contribucion.ContribucionCreator;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
-import com.tp_anual_dds.domain.incidente.FallaTecnica;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona.Persona;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
@@ -110,7 +109,7 @@ public abstract class Colaborador {
     // Este es el método correspondiente a confirmar la ejecución / llevada a cabo de una Contribución
     public void confirmarContribucion(Contribucion contribucion, LocalDateTime fechaContribucion) {
         // La fecha de contribución generalmente será LocalDateTime.now(), salvo cuando se cargue una Contribución hecha con anterioridad (lo mismo que pasa en "colaborar()")
-        contribucion.confirmar(fechaContribucion);  
+        contribucion.confirmar(fechaContribucion);
         agregarContribucion(contribucion);
         eliminarContribucionPendiente(contribucion);
     }
@@ -122,10 +121,7 @@ public abstract class Colaborador {
         agregarBeneficio(oferta);
     }
 
-    // La lógica de este método puede cambiar al implementar el Broker (TODO)
     public void reportarFallaTecnica(HeladeraActiva heladera, String descripcion, String foto) {
-        FallaTecnica fallaTecnica = new FallaTecnica(LocalDateTime.now(), heladera, this, descripcion, foto);
-        fallaTecnica.darDeAlta();
-        heladera.marcarComoInactiva();
+        heladera.producirFallaTecnica(this, descripcion, foto);
     }
 }

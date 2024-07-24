@@ -25,7 +25,7 @@ public abstract class Contribucion {
         fechaContribucion = vFechaContribucion;
     }
 
-    // public abstract void obtenerDetalles() (TODO)
+    // TODO public abstract void obtenerDetalles()
 
     public abstract void validarIdentidad();
 
