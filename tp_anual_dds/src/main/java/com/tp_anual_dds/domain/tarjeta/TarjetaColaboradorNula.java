@@ -23,6 +23,12 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
     }
 
     @Override
+    public EstadoSolicitud getEstadoSolicitud() {
+        throw new UnsupportedOperationException("Tarjeta Nula no tiene estado de solicitud");
+    }
+
+
+    @Override
     public PermisoApertura getPermiso() {
         return permiso;
     }
@@ -44,7 +50,7 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
     }
 
     @Override
-    public AperturaColaborador intentarApertura(HeladeraActiva heladeraAAbrir) {
+    public AperturaColaborador intentarApertura(HeladeraActiva heladeraAAbrir)  throws InterruptedException {
         throw new UnsupportedOperationException("Tarjeta Nula no puede ejecutar aperturas");
     }
 }

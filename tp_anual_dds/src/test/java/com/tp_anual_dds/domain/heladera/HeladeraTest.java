@@ -32,7 +32,7 @@ public class HeladeraTest {
     
     @Test
     @DisplayName("Testeo la puesta en marcha de dos Heladeras y la adición de Viandas a estas por medio de distintas Contribuciones")
-    public void HeladeraViandasTest() {
+    public void HeladeraViandasTest() throws InterruptedException{
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "RazonSocialPrueba", "RubroPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA);
         colaboradorJuridico.darDeAlta();
 

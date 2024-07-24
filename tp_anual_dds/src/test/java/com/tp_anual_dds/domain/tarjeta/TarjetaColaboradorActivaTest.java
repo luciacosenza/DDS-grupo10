@@ -34,7 +34,7 @@ public class TarjetaColaboradorActivaTest {
     
     @Test
     @DisplayName("Testeo la correcta carga de Solicitutes de Apertura y Aperturas en el Sistema")
-    public void CargaAccionesColaborador() {
+    public void CargaAccionesColaborador() throws InterruptedException {
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "RazonSocialPrueba", "RubroPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA);
         
         LocalDateTime fechaAperturaH1 = LocalDateTime.parse("2024-01-01T00:00:00");

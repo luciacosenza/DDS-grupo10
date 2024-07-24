@@ -15,6 +15,8 @@ public abstract class TarjetaColaborador extends Tarjeta {
     @Override
     public abstract ColaboradorHumano getTitular();
 
+    public abstract EstadoSolicitud getEstadoSolicitud();
+
     public abstract PermisoApertura getPermiso();
 
     public abstract void setEstadoSolicitud(EstadoSolicitud vEstadoSolicitud);
@@ -24,5 +26,5 @@ public abstract class TarjetaColaborador extends Tarjeta {
     public abstract SolicitudAperturaColaborador solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo);
 
     @Override
-    public abstract AperturaColaborador intentarApertura(HeladeraActiva heladeraAAbrir);
+    public abstract AperturaColaborador intentarApertura(HeladeraActiva heladeraAAbrir) throws InterruptedException;
 }

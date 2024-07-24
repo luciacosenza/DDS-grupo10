@@ -27,6 +27,7 @@ public class HeladeraActiva extends Heladera {
         tempMax = vTempMax;
         tempActual = 0f;
         estado = true;
+        gestorDeAperturas = new GestorDeAperturas();
     }
     
     @Override
@@ -71,6 +72,11 @@ public class HeladeraActiva extends Heladera {
     @Override
     public Boolean getEstado() {
         return estado;
+    }
+
+    @Override
+    public GestorDeAperturas getGestorDeAperturas() {
+        return gestorDeAperturas;
     }
 
     @Override
@@ -211,6 +217,7 @@ public class HeladeraActiva extends Heladera {
     public void reportarIncidente(Incidente incidente) {
         MensajeIncidente mensajeIncidente = new MensajeIncidente(this, incidente);
         
+        // Envío al Broker el Mensaje de Incidente
         new Thread( () -> {
             try {
                 Sistema.getBroker().agregarMensaje(mensajeIncidente);

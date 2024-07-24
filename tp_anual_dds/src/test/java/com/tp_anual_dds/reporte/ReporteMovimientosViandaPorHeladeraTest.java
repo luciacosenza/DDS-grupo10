@@ -30,10 +30,10 @@ import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 import com.tp_anual_dds.sistema.Sistema;
 
 
-public class ReporteMovimientosViandaPorHeladeraTest{
+public class ReporteMovimientosViandaPorHeladeraTest {
     @Test
     @DisplayName("Testeo la carga correcta del ReporteMovimientosViandaPorHeladera")
-    public void CargaReporteMovimientosViandaPorHeladeraTest(){
+    public void CargaReporteMovimientosViandaPorHeladeraTest() throws InterruptedException {
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "RazonSocialPrueba", "RubroPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA);
         colaboradorJuridico.darDeAlta();
 

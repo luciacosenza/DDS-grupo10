@@ -1,4 +1,3 @@
-
 package com.tp_anual_dds.domain.heladera;
 
 import java.time.LocalDateTime;
@@ -20,6 +19,7 @@ public abstract class Heladera implements HeladeraObserver, HeladeraSubject {
     protected Float tempMax;
     protected Float tempActual;
     protected Boolean estado;
+    protected GestorDeAperturas gestorDeAperturas;
     
     public abstract String getNombre();
 
@@ -38,6 +38,8 @@ public abstract class Heladera implements HeladeraObserver, HeladeraSubject {
     public abstract Float getTempActual();
 
     public abstract Boolean getEstado();
+
+    public abstract GestorDeAperturas getGestorDeAperturas();
 
     public abstract void setEstado(Boolean nuevoEstado);
 

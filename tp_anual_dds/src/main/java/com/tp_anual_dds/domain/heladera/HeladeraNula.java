@@ -20,6 +20,7 @@ public class HeladeraNula extends Heladera {
         tempMax = 0f;
         tempActual = 0f;
         estado = false;
+        gestorDeAperturas = null;
     }
 
     @Override
@@ -64,6 +65,11 @@ public class HeladeraNula extends Heladera {
     @Override
     public Boolean getEstado() {
         return false;
+    }
+
+    @Override
+    public GestorDeAperturas getGestorDeAperturas() {
+        throw new UnsupportedOperationException("Heladera Nula no tiene gestor de aperturas");
     }
 
     @Override

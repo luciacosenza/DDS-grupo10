@@ -1,13 +1,16 @@
 package com.tp_anual_dds.migrador;
 
-import java.io.BufferedReader;
+import com.opencsv.CSVReader;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
+
 public class ExtraccionCSV extends ExtraccionDeDatos {
     @Override
-    public ArrayList<String[]> extract(String csv) {
+    /*public ArrayList<String[]> extract(String csv) {
         String linea;
         String separador = ",";
         ArrayList<String[]> dataColaboradores = new ArrayList<>();
@@ -22,5 +25,22 @@ public class ExtraccionCSV extends ExtraccionDeDatos {
         }
 
         return dataColaboradores;
-    }    
+    }*/
+    public ArrayList<String[]> extract(String csv) {
+        ArrayList<String[]> dataColaboradores = new ArrayList<>();
+
+        try (CSVReader reader = new CSVReader(new FileReader(csv))) {
+            String[] nextLine;
+            while ((nextLine = reader.readNext()) != null) {
+                dataColaboradores.add(nextLine);
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo CSV: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Error inesperado: " + e.getMessage());
+        }
+
+        return dataColaboradores;
+    }        
+
 }

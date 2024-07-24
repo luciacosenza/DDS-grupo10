@@ -23,7 +23,7 @@ public class DistribucionViandasTest {
     
     @Test
     @DisplayName("Testeo la carga y correcto funcionamiento de una DistribucionViandas")
-    public void CargaDistribucionViandasTest() { 
+    public void CargaDistribucionViandasTest() throws InterruptedException { 
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
         colaboradorHumano.darDeAlta();
 
@@ -67,7 +67,7 @@ public class DistribucionViandasTest {
 
     @Test
     @DisplayName("Testeo la IllegalArgumentException al querer hacer una DistribucionViandas sin tener domicilio registrado")
-    public void IllegalArgumentValidarIdentidadDistribucionViandasTest() { 
+    public void IllegalArgumentValidarIdentidadDistribucionViandasTest() throws InterruptedException { 
         ColaboradorHumano colaboradorHumano1 = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
         colaboradorHumano1.darDeAlta();
 

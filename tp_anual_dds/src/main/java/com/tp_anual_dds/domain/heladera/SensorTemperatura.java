@@ -35,6 +35,7 @@ public class SensorTemperatura extends Sensor {
     public void notificarHeladera() {
         MensajeTemperatura mensajeTemperatura = new MensajeTemperatura(heladera, tempActual);
         
+        // Envío al Broker el Mensaje de Temperatura
         new Thread( () -> {
             try {
                 Sistema.getBroker().agregarMensaje(mensajeTemperatura);

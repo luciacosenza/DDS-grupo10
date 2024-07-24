@@ -14,5 +14,5 @@ public abstract class Tarjeta {
 
     public abstract Boolean puedeUsar();
 
-    public abstract AccionHeladera intentarApertura(HeladeraActiva heladeraAAbrir);
+    public abstract AccionHeladera intentarApertura(HeladeraActiva heladeraAAbrir)  throws InterruptedException;
 }

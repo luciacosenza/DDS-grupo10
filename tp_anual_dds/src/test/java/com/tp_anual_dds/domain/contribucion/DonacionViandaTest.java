@@ -22,7 +22,7 @@ import com.tp_anual_dds.sistema.Sistema;
 public class DonacionViandaTest {
     @Test
     @DisplayName("Testeo la carga y correcto funcionamiento de una DonacionVianda")
-    public void CargaDonacionViandaTest() { 
+    public void CargaDonacionViandaTest() throws InterruptedException { 
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
         colaboradorHumano.darDeAlta();
 
@@ -50,7 +50,7 @@ public class DonacionViandaTest {
 
     @Test
     @DisplayName("Testeo la IllegalArgumentException al querer hacer una DonacionVianda sin tener domicilio registrado")
-    public void IllegalArgumentValidarIdentidadDDonacionViandaTest() { 
+    public void IllegalArgumentValidarIdentidadDDonacionViandaTest() throws InterruptedException { 
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"));
         colaboradorHumano.darDeAlta();
 
