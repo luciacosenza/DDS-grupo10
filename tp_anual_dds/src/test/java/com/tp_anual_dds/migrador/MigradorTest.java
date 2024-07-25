@@ -10,7 +10,7 @@ public class MigradorTest{
         ExtraccionDeDatos protocoloExtraccion = new ExtraccionCSV();
         EnvioDeDatos protocoloEnvio = new EnvioNulo();
         
-        String rutaCSV = "registro_migracion.csv";
+        String rutaCSV = "/tp_anual_dds/src/test/resources/registro_migracion.csv";
 
         Migrador.setExtraccionDeDatosStrategy(protocoloExtraccion);
         Migrador.setEnvioDeDatosStrategy(protocoloEnvio);

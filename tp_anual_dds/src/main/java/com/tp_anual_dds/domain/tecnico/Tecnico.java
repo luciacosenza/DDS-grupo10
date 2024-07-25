@@ -60,12 +60,14 @@ public class Tecnico {
 
     // TODO La lógica de este método puede cambiar al implementar el Broker
     public void registrarVisita(LocalDateTime fecha, String descripcion, String foto, Boolean estadoConsulta) {
-        Visita visita = new Visita(this, fecha, descripcion, foto, estadoConsulta);
-        visita.darDeAlta();
+        Incidente ultimoIncidenteTratado = pendientes.removeFirst();    // Suponemos que el Tecnico atiende los Incidentes por FIFO
+        
+        Visita visita = new Visita(this, ultimoIncidenteTratado, fecha, descripcion, foto, estadoConsulta);
+        Sistema.getGestorVisitas().agregarVisita(visita);
     }
 
     // Como convención, para aproximar la Ubicación de un Técnico, vamos a usar el punto medio de su área de cobertura
-    public Pair<Double,Double> ubicacionAprox(){
+    public Pair<Double,Double> ubicacionAprox() {
         return areaDeCobertura.puntoMedio();
     }
 }

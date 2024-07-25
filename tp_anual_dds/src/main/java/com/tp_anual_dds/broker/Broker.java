@@ -19,7 +19,7 @@ public class Broker {
                     Thread.currentThread().interrupt();
                     logger.log(Level.SEVERE, "El hilo del Broker fue interrumpido");
                 } catch (Exception e) {
-                    logger.log(Level.SEVERE, "Error al procesar el mensaje: {0}", e.getMessage());
+                    logger.log(Level.SEVERE, "Error al procesar el mensaje: %o", e.getMessage());
                 }
             }
         }).start();
