@@ -11,7 +11,7 @@ public class Suscripcion {
     private Integer viandasDisponiblesMin;
     private Integer viandasParaLlenarMax;
     private Boolean notificarDesperfecto;
-    private final MedioDeContacto medioDeContactoElegido; // El Colaborador elige por qué Medio de Contacto ser notificado sobre cuestiones de la Suscripción
+    private MedioDeContacto medioDeContactoElegido; // El Colaborador elige por qué Medio de Contacto ser notificado sobre cuestiones de la Suscripción
 
     public enum AtributoSuscripcion {
         VIANDAS_MIN,

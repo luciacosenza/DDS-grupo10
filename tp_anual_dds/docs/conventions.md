@@ -19,6 +19,7 @@ En los atributos de las diferentes clases, usamos *final* cuando estamos seguros
   - Menores a cargo
   - Atributos de Vianda
   - Atributos de Oferta
+  - Atributos de Suscripción (salvo Colaborador y Heladera)
   - Etc.
 - Cuando los atributos se definen en una clase abstracta (por cómo manejamos los constructores, estos sólo se implementan en las clases concretas)
 
