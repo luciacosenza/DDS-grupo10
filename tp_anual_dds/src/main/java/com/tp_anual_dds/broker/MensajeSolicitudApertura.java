@@ -4,25 +4,25 @@ import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador.MotivoSolicitud;
 
 public class MensajeSolicitudApertura implements Mensaje {
-    private HeladeraActiva heladera;
-    private MotivoSolicitud motivoSolicitud;
+    private final HeladeraActiva heladera;
+    private final MotivoSolicitud motivo;
 
-    public MensajeSolicitudApertura(HeladeraActiva vHeladera, MotivoSolicitud vMotivoSolicitud) {
+    public MensajeSolicitudApertura(HeladeraActiva vHeladera, MotivoSolicitud vMotivo) {
         heladera = vHeladera;
-        motivoSolicitud = vMotivoSolicitud;
+        motivo = vMotivo;
     }
     
     public HeladeraActiva getHeladera() {
         return heladera;
     }
 
-    public MotivoSolicitud getMotivoSolicitud() {
-        return motivoSolicitud;
+    public MotivoSolicitud getMotivo() {
+        return motivo;
     }
     
     @Override
     public void procesar() {
-        heladera.getGestorDeAperturas().revisarSolicitudApertura(motivoSolicitud);
+        heladera.getGestorDeAperturas().revisarSolicitudApertura(motivo);
     }
 
 }

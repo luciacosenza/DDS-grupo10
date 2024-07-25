@@ -3,12 +3,13 @@ package com.tp_anual_dds.sistema;
 import java.util.ArrayList;
 
 import com.tp_anual_dds.broker.Broker;
-import com.tp_anual_dds.domain.alertador.Alertador;
 import com.tp_anual_dds.domain.colaborador.Colaborador;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.heladera.Sensor;
 import com.tp_anual_dds.domain.heladera.acciones_en_heladera.AccionHeladera;
 import com.tp_anual_dds.domain.incidente.Incidente;
+import com.tp_anual_dds.domain.notificador.NotificadorDeEstado;
+import com.tp_anual_dds.domain.notificador.NotificadorDeIncidentes;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual_dds.domain.suscripcion.GestorSuscripciones;
@@ -30,11 +31,12 @@ public class Sistema {
     private static final ArrayList<Incidente> incidentes = new ArrayList<>();
     private static final Broker broker = new Broker();
     private static final GestorSuscripciones gestorSuscripciones = new GestorSuscripciones();
-    private static final Alertador alertador = new Alertador();
+    private static final NotificadorDeEstado notificadorDeEstado = new NotificadorDeEstado();
+    private static final NotificadorDeIncidentes notificadorDeIncidentes = new NotificadorDeIncidentes();
     private static final ReporteIncidentesPorHeladera reporteIncidentesPorHeladera = new ReporteIncidentesPorHeladera();
     private static final ReporteMovimientosViandaPorHeladera reporteMovimientosViandaPorHeladera = new ReporteMovimientosViandaPorHeladera();
     private static final ReporteViandasPorColaborador reporteViandasPorColaborador = new ReporteViandasPorColaborador();
-
+    
     public static ArrayList<Colaborador> getColaboradores() {
         return colaboradores;
     }
@@ -79,8 +81,12 @@ public class Sistema {
         return gestorSuscripciones;
     }
 
-    public static Alertador getAlertador() {
-        return alertador;
+    public static NotificadorDeEstado getNotificadorDeEstado() {
+        return notificadorDeEstado;
+    }
+
+    public static NotificadorDeIncidentes getNotificadorDeIncidentes() {
+        return notificadorDeIncidentes;
     }
 
     public static ReporteIncidentesPorHeladera getReporteIncidentesPorHeladera() {

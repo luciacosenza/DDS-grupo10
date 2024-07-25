@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.tp_anual_dds.domain.colaborador.Colaborador;
+import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.domain.incidente.Alerta;
 import com.tp_anual_dds.domain.incidente.Incidente;
 import com.tp_anual_dds.domain.suscripcion.Suscripcion;
+import com.tp_anual_dds.domain.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 
 public class HeladeraNula extends Heladera {
@@ -102,9 +104,6 @@ public class HeladeraNula extends Heladera {
     }
 
     @Override
-    public void notificarColaborador(Suscripcion suscripcion, String asunto, String cuerpo) {}
-
-    @Override
     public void verificarCondiciones() {}
 
     @Override
@@ -125,11 +124,17 @@ public class HeladeraNula extends Heladera {
     public void marcarComoInactiva() {}
 
     @Override
+    public void reaccionarAnteIncidente() {}
+
+    @Override
     public void producirAlerta(Alerta.TipoAlerta tipo) {}
 
     @Override
     public void producirFallaTecnica(Colaborador colaborador, String descripcion, String foto) {}
     
+    @Override
+    public void reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion condicion, MedioDeContacto medioDeContactoElegido) {}
+
     @Override
     public void reportarIncidente(Incidente incidente) {}
 

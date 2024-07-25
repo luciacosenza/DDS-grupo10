@@ -1,4 +1,4 @@
-package com.tp_anual_dds.domain.alertador;
+package com.tp_anual_dds.domain.notificador;
 
 import java.util.ArrayList;
 import java.util.OptionalDouble;
@@ -12,7 +12,8 @@ import com.tp_anual_dds.domain.incidente.Incidente;
 import com.tp_anual_dds.domain.tecnico.Tecnico;
 import com.tp_anual_dds.sistema.Sistema;
 
-public class Alertador {
+public class NotificadorDeIncidentes {
+    public NotificadorDeIncidentes() {}
 
     public Tecnico obtenerTecnicoCercanoA(Incidente incidente) {
         //Obtengo la Ubicación de la Heladera en cuestión
@@ -40,7 +41,7 @@ public class Alertador {
         return tecnicos.get(indexTecnico);
     }
 
-    public void alertarDe(Incidente incidente){
+    public void notificarIncidente(Incidente incidente){
         Tecnico tecnicoAAlertar = obtenerTecnicoCercanoA(incidente);
         tecnicoAAlertar.agregarAPendientes(incidente);
         

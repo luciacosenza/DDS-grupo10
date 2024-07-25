@@ -4,12 +4,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.tp_anual_dds.domain.colaborador.Colaborador;
+import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.domain.incidente.Alerta;
 import com.tp_anual_dds.domain.incidente.Incidente;
-import com.tp_anual_dds.domain.suscripcion.Suscripcion;
+import com.tp_anual_dds.domain.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 
-public abstract class Heladera implements HeladeraObserver, HeladeraSubject {
+public abstract class Heladera implements HeladeraObserver {    // Implementa una Interfaz "HeladeraSubject" a nivel conceptual
     protected String nombre;
     protected Ubicacion ubicacion;
     protected ArrayList<Vianda> viandas;
@@ -54,9 +55,6 @@ public abstract class Heladera implements HeladeraObserver, HeladeraSubject {
     public abstract Integer viandasActuales();
 
     public abstract Boolean verificarCapacidad();
-
-    @Override
-    public abstract void notificarColaborador(Suscripcion suscripcion, String asunto, String cuerpo);
     
     public abstract void verificarCondiciones();
 
@@ -71,10 +69,14 @@ public abstract class Heladera implements HeladeraObserver, HeladeraSubject {
 
     public abstract void marcarComoInactiva();
 
+    public abstract void reaccionarAnteIncidente();
+
     @Override
     public abstract void producirAlerta(Alerta.TipoAlerta tipo);
     
     public abstract void producirFallaTecnica(Colaborador colaborador, String descripcion, String foto);
+
+    public abstract void reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion condicion, MedioDeContacto medioDeContactoElegido);
 
     public abstract void reportarIncidente(Incidente incidente);
 }

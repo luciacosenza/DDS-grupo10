@@ -34,11 +34,11 @@ Para todo lo referido a números de documento (tanto de **DNI**, **Pasaporte**, 
 1. **Constructores** (cuando aplique).
 2. **Getters y Setters**.
 3. **Métodos Simples**:
-   - Métodos similares a setters (como sumar y restar a un atributo).
-   - Comparadores (de atributos propios con un valor pasado).
-   - Modificadores de listas propias (agregar/quitar elemento o limpiar).
+    - Métodos similares a setters (como sumar y restar a un atributo).
+    - Comparadores (de atributos propios con un valor pasado).
+    - Modificadores de listas propias (agregar/quitar elemento o limpiar).
 4. **Resto de Métodos**:
-   - Agrupados por contextos en los que son utilizados.
+    - Agrupados por contextos en los que son utilizados.
 
 ## Convenciones de Nombres para Getters y Setters
 
@@ -129,7 +129,7 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
       - ColaboradorHumanoObserver (*Interface*) (A nivel conceptual)
       - ColaboradorHumano (*Class*)
     - **Subject**
-      - HeladeraSubject(*Interface*)
+      - HeladeraSubject(*Interface*) (A nivel conceptual)
       - Heladera (*Abstract Class*)
       - HeladeraActiva (*Class*)
       - HeladeraNula (*Class*)

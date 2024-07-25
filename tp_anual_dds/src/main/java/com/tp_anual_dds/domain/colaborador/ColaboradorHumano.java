@@ -15,6 +15,7 @@ import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona.PersonaFisica;
 import com.tp_anual_dds.domain.suscripcion.Suscripcion;
+import com.tp_anual_dds.domain.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaborador;
 import com.tp_anual_dds.domain.tarjeta.TarjetaColaboradorNula;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
@@ -66,23 +67,18 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
         return suscripcion;
     }
 
-    public void modificarSuscripcion(Suscripcion suscripcion, Suscripcion.AtributoSuscripcion flag, Integer nuevoValor) {
+    public void modificarSuscripcion(Suscripcion suscripcion, CondicionSuscripcion flag, Integer nuevoValor) {
         // Tenemos un flag que nos indica qué atributo debe ser cambiado
         switch(flag) {
         
-        case VIANDAS_MIN:
-            suscripcion.setViandasDisponiblesMin(nuevoValor);
-            break;
+        case VIANDAS_MIN -> suscripcion.setViandasDisponiblesMin(nuevoValor);
         
-        case VIANDAS_MAX:
-            suscripcion.setViandasParaLlenarMax(nuevoValor);
-            break;
+        case VIANDAS_MAX -> suscripcion.setViandasParaLlenarMax(nuevoValor);
             
-        case NOTIFICAR_DESPERFECTO:
-            suscripcion.setNotificarDesperfecto(nuevoValor != 0);
+        case DESPERFECTO -> suscripcion.setNotificarDesperfecto(nuevoValor != 0);
             
-        default:
-            break;
+        default -> {}
+        
         }
     }
 }

@@ -23,6 +23,6 @@ public class MensajeIncidente implements Mensaje {
 
     @Override
     public void procesar() {
-        Sistema.getAlertador().alertarDe(this.getIncidente());
+        Sistema.getNotificadorDeIncidentes().notificarIncidente(this.getIncidente());
     }
 }

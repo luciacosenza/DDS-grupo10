@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import com.tp_anual_dds.broker.MensajeEstado;
 import com.tp_anual_dds.broker.MensajeIncidente;
 import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.domain.colaborador.Colaborador;
@@ -13,6 +14,7 @@ import com.tp_anual_dds.domain.incidente.FallaTecnica;
 import com.tp_anual_dds.domain.incidente.Incidente;
 import com.tp_anual_dds.domain.suscripcion.GestorSuscripciones;
 import com.tp_anual_dds.domain.suscripcion.Suscripcion;
+import com.tp_anual_dds.domain.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
 import com.tp_anual_dds.sistema.Sistema;
 
@@ -115,42 +117,25 @@ public class HeladeraActiva extends Heladera {
     }
 
     @Override
-    public void notificarColaborador(Suscripcion suscripcion, String asunto, String cuerpo) {
-        MedioDeContacto medioDeContacto = suscripcion.getMedioDeContactoElegido();  // Usa el Medio de Contacto previamente elegido por el colaborador
-        medioDeContacto.contactar(asunto, cuerpo);
-    }
-
-    @Override
     public void verificarCondiciones() {
         GestorSuscripciones gestorSuscripciones = Sistema.getGestorSuscripciones();
         ArrayList<Suscripcion> suscripciones = gestorSuscripciones.suscripcionesPorHeladera(this);
         
         for (Suscripcion suscripcion : suscripciones) {
-            // Verifica si se está vaciando
+            // Verifico si se está vaciando
             if(viandasActuales() <= suscripcion.getViandasDisponiblesMin()) {
-                notificarColaborador(
-                    suscripcion,
-                    "La heladera " + nombre + " se está vaciando.",
-                    "La heladera en cuestión tiene " + viandasActuales() + " viandas disponibles. " +
-                    "Sería conveniente traer viandas de la heldera %o");
-                    // TODO Completar %o con la Heladera más llena de las cercanas
+                reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.VIANDAS_MIN, suscripcion.getMedioDeContactoElegido());
             }
             
-            // Verifica si se está llenando
+            // Verifico si se está llenando
             if((capacidad - viandas.size()) >= suscripcion.getViandasParaLlenarMax()) {
-                notificarColaborador(
-                    suscripcion, "La heladera " + nombre + " está casi llena.",
-                    "Faltan " + (capacidad - viandasActuales()) + " viandas para llenar la heladera en cuestión. " +
-                    "Sería conveniente llevar viandas a la heladera %o");
-                    // TODO Completar %o con la Heladera menos llena de las cercanas
+                reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.VIANDAS_MAX, suscripcion.getMedioDeContactoElegido());
+                
             }
 
-            // Verifica si hay un desperfecto
+            // Verifico si hay un desperfecto
             if(suscripcion.getNotificarDesperfecto() && !estado) {
-                notificarColaborador(
-                    suscripcion, "La heladera "+ nombre + " ha sufrido un desperfecto.",
-                    "Las viandas deben ser trasladadas a %s.");
-                    // TODO Completar %s con la Heladera/s más cercanas
+                reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.DESPERFECTO, suscripcion.getMedioDeContactoElegido());
             }
         }
     }
@@ -194,8 +179,14 @@ public class HeladeraActiva extends Heladera {
     }
 
     @Override
+    public void reaccionarAnteIncidente() {
+        marcarComoInactiva();
+        verificarCondiciones();
+    }
+
+    @Override
     public void producirAlerta(TipoAlerta tipo) {
-        marcarComoInactiva();   // Si una Alerta debe ser reportada, previamente, se marca la Heladera como inactiva
+        reaccionarAnteIncidente();  // Si una Alerta debe ser reportada, previamente, se marca la Heladera como inactiva y se avisa a los Colaboradores suscriptos
 
         Alerta alerta = new Alerta(LocalDateTime.now(), this, tipo);
         alerta.darDeAlta();
@@ -205,12 +196,27 @@ public class HeladeraActiva extends Heladera {
 
     @Override
     public void producirFallaTecnica(Colaborador colaborador, String descripcion, String foto) {
-        marcarComoInactiva();
+        reaccionarAnteIncidente();  // Si una Falla Técnica debe ser reportada, previamente, se marca la Heladera como inactiva y se avisa a los Colaboradores suscriptos
 
         FallaTecnica fallaTecnica = new FallaTecnica(LocalDateTime.now(), this, colaborador, descripcion, foto);
         fallaTecnica.darDeAlta();
 
         reportarIncidente(fallaTecnica);
+    }
+
+    @Override
+    public void reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion condicion, MedioDeContacto medioDeContactoElegido) {   // Usa el Medio de Contacto previamente elegido por el colaborador
+        MensajeEstado mensajeEstado = new MensajeEstado(this, condicion, medioDeContactoElegido);
+
+        // Envío al Broker el Mensaje de Estado
+        new Thread( () -> {
+            try {
+                Sistema.getBroker().agregarMensaje(mensajeEstado);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.err.println("El hilo fue interrumpido: " + e.getMessage()); // TODO Chequear si está bien que lo tire en System.err
+            }
+        }).start();
     }
 
     @Override

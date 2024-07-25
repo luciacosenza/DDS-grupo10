@@ -5,7 +5,6 @@ import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 
 public class MensajeApertura implements Mensaje {
     private final HeladeraActiva heladera;
-
     private final ColaboradorHumano colaborador;
 
     public MensajeApertura(HeladeraActiva vHeladera, ColaboradorHumano vColaborador) {

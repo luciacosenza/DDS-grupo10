@@ -13,10 +13,10 @@ public class Suscripcion {
     private Boolean notificarDesperfecto;
     private MedioDeContacto medioDeContactoElegido; // El Colaborador elige por qué Medio de Contacto ser notificado sobre cuestiones de la Suscripción
 
-    public enum AtributoSuscripcion {
+    public enum CondicionSuscripcion {
         VIANDAS_MIN,
         VIANDAS_MAX,
-        NOTIFICAR_DESPERFECTO
+        DESPERFECTO
     }
 
     public Suscripcion(ColaboradorHumano vColaborador, HeladeraActiva vHeladera, Integer vViandasDisponiblesMin, Integer vViandasParaLlenarMax, Boolean vNotificarDesperfecto, MedioDeContacto vMedioDeContactoElegido) {
