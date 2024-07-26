@@ -58,12 +58,11 @@ public class Tecnico {
         pendientes.add(incidente);
     }
 
-    // TODO La lógica de este método puede cambiar al implementar el Broker
     public void registrarVisita(LocalDateTime fecha, String descripcion, String foto, Boolean estadoConsulta) {
         Incidente ultimoIncidenteTratado = pendientes.removeFirst();    // Suponemos que el Tecnico atiende los Incidentes por FIFO
         
         Visita visita = new Visita(this, ultimoIncidenteTratado, fecha, descripcion, foto, estadoConsulta);
-        Sistema.getGestorVisitas().agregarVisita(visita);
+        Sistema.getGestorDeVisitas().agregarVisita(visita);
     }
 
     // Como convención, para aproximar la Ubicación de un Técnico, vamos a usar el punto medio de su área de cobertura

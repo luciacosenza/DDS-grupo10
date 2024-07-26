@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import com.tp_anual_dds.domain.incidente.Incidente;
 import com.tp_anual_dds.sistema.Sistema;
 
-public class GestorVisitas {
+public class GestorDeVisitas {
     private final ArrayList<Visita> visitas = new ArrayList<>();
 
-    public GestorVisitas() {}
+    public GestorDeVisitas() {}
 
-    
     public void gestionarVisita() {
         // Obtengo la primer Visita registrada
         Visita visita = visitas.removeFirst();
@@ -26,5 +25,6 @@ public class GestorVisitas {
 
     public void agregarVisita(Visita visita) {
         visitas.add(visita);
+        gestionarVisita();
     }
 }

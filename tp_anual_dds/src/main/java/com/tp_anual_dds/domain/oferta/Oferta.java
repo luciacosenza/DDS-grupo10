@@ -4,7 +4,6 @@ import com.tp_anual_dds.domain.colaborador.Colaborador;
 import com.tp_anual_dds.sistema.Sistema;
 
 public class Oferta {
-
     private String nombre;
     private Double costo;
     private Categoria categoria;

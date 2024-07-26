@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import com.tp_anual_dds.broker.MensajeAperturaPersonaEnSituacionVulnerable;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 import com.tp_anual_dds.domain.heladera.acciones_en_heladera.AperturaPersonaEnSituacionVulnerable;
 import com.tp_anual_dds.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
+import com.tp_anual_dds.sistema.Sistema;
 
 public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
     private PersonaEnSituacionVulnerable titular;
@@ -59,13 +61,17 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
     // Este método se ejecuta siempre que una Persona en Situación Vulnerable quiera realizar la Apertura de una Heladera (generalmente para retirar una Vianda)
     @Override
     public AperturaPersonaEnSituacionVulnerable intentarApertura(HeladeraActiva heladeraInvolucrada) {
-        if(!puedeUsar()) {
-            throw new UnsupportedOperationException("Ya agotó los usos diarios de su tarjeta");
-        }
-
-        if(heladeraInvolucrada.estaVacia()) {
-            throw new UnsupportedOperationException("La heladera " + heladeraInvolucrada.getNombre() + " se encuentra vacía");
-        }
+        MensajeAperturaPersonaEnSituacionVulnerable mensajeApertura = new MensajeAperturaPersonaEnSituacionVulnerable(heladeraInvolucrada, getTitular());
+        
+        // Envío al Broker el Mensaje de Apertura
+        new Thread( () -> {
+            try {
+                Sistema.getBroker().agregarMensaje(mensajeApertura);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.err.println("El hilo fue interrumpido: " + e.getMessage()); // TODO Chequear si está bien que lo tire en System.err
+            }
+        }).start();
 
         LocalDateTime ahora = LocalDateTime.now();   // Guardo el valor en una variable para usar exactamente el mismo en las líneas de código posteriores
 

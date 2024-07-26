@@ -3,11 +3,11 @@ package com.tp_anual_dds.broker;
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.heladera.HeladeraActiva;
 
-public class MensajeApertura implements Mensaje {
+public class MensajeAperturaColaborador implements Mensaje {
     private final HeladeraActiva heladera;
     private final ColaboradorHumano colaborador;
 
-    public MensajeApertura(HeladeraActiva vHeladera, ColaboradorHumano vColaborador) {
+    public MensajeAperturaColaborador(HeladeraActiva vHeladera, ColaboradorHumano vColaborador) {
         heladera = vHeladera;
         colaborador = vColaborador;
     }
@@ -22,6 +22,6 @@ public class MensajeApertura implements Mensaje {
 
     @Override
     public void procesar() {
-        heladera.getGestorDeAperturas().revisarPermisoApertura(colaborador);
+        heladera.getGestorDeAperturas().revisarPermisoAperturaC(colaborador);
     }
 }

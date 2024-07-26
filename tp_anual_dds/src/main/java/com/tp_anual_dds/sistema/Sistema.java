@@ -12,8 +12,8 @@ import com.tp_anual_dds.domain.notificador.NotificadorDeEstado;
 import com.tp_anual_dds.domain.notificador.NotificadorDeIncidentes;
 import com.tp_anual_dds.domain.oferta.Oferta;
 import com.tp_anual_dds.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
-import com.tp_anual_dds.domain.suscripcion.GestorSuscripciones;
-import com.tp_anual_dds.domain.tecnico.GestorVisitas;
+import com.tp_anual_dds.domain.suscripcion.GestorDeSuscripciones;
+import com.tp_anual_dds.domain.tecnico.GestorDeVisitas;
 import com.tp_anual_dds.domain.tecnico.Tecnico;
 import com.tp_anual_dds.domain.tecnico.Visita;
 import com.tp_anual_dds.reporte.ReporteIncidentesPorHeladera;
@@ -31,8 +31,8 @@ public class Sistema {
     private static final ArrayList<AccionHeladera> accionesHeladeras = new ArrayList<>();
     private static final ArrayList<Incidente> incidentes = new ArrayList<>();
     private static final Broker broker = new Broker();
-    private static final GestorSuscripciones gestorSuscripciones = new GestorSuscripciones();
-    private static final GestorVisitas gestorVisitas = new GestorVisitas();
+    private static final GestorDeSuscripciones gestorDeSuscripciones = new GestorDeSuscripciones();
+    private static final GestorDeVisitas gestorDeVisitas = new GestorDeVisitas();
     private static final NotificadorDeEstado notificadorDeEstado = new NotificadorDeEstado();
     private static final NotificadorDeIncidentes notificadorDeIncidentes = new NotificadorDeIncidentes();
     private static final ReporteIncidentesPorHeladera reporteIncidentesPorHeladera = new ReporteIncidentesPorHeladera();
@@ -79,12 +79,12 @@ public class Sistema {
         return broker;
     }
 
-    public static GestorSuscripciones getGestorSuscripciones() {
-        return gestorSuscripciones;
+    public static GestorDeSuscripciones getGestorDeSuscripciones() {
+        return gestorDeSuscripciones;
     }
 
-    public static GestorVisitas getGestorVisitas() {
-        return gestorVisitas;
+    public static GestorDeVisitas getGestorDeVisitas() {
+        return gestorDeVisitas;
     }
 
     public static NotificadorDeEstado getNotificadorDeEstado() {

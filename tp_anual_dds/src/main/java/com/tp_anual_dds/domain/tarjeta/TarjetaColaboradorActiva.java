@@ -4,8 +4,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
 
-import com.tp_anual_dds.broker.Mensaje;
-import com.tp_anual_dds.broker.MensajeApertura;
+import com.tp_anual_dds.broker.MensajeAperturaColaborador;
 import com.tp_anual_dds.broker.MensajeSolicitudApertura;
 import com.tp_anual_dds.domain.colaborador.ColaboradorHumano;
 import com.tp_anual_dds.domain.estado_de_solicitud.EstadoExpirada;
@@ -110,7 +109,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
     // Este método se ejecuta siempre que un Colaborador quiera realizar la Apertura de una Heladera (generalmente para una Donación de Vianda, un retiro de lote para una Distribución de Viandas o un depósito de lote para una Distribución de Viandas)
     @Override
     public AperturaColaborador intentarApertura(HeladeraActiva heladeraInvolucrada) throws InterruptedException {
-        MensajeApertura mensajeApertura = new MensajeApertura(heladeraInvolucrada, getTitular());
+        MensajeAperturaColaborador mensajeApertura = new MensajeAperturaColaborador(heladeraInvolucrada, getTitular());
         
         // Envío al Broker el Mensaje de Apertura
         new Thread( () -> {

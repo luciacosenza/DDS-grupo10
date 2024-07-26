@@ -12,7 +12,7 @@ import com.tp_anual_dds.domain.incidente.Alerta;
 import com.tp_anual_dds.domain.incidente.Alerta.TipoAlerta;
 import com.tp_anual_dds.domain.incidente.FallaTecnica;
 import com.tp_anual_dds.domain.incidente.Incidente;
-import com.tp_anual_dds.domain.suscripcion.GestorSuscripciones;
+import com.tp_anual_dds.domain.suscripcion.GestorDeSuscripciones;
 import com.tp_anual_dds.domain.suscripcion.Suscripcion;
 import com.tp_anual_dds.domain.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual_dds.domain.ubicacion.Ubicacion;
@@ -29,7 +29,7 @@ public class HeladeraActiva extends Heladera {
         tempMax = vTempMax;
         tempActual = 0f;
         estado = true;
-        gestorDeAperturas = new GestorDeAperturas();
+        gestorDeAperturas = new GestorDeAperturas(this);
     }
     
     @Override
@@ -118,8 +118,8 @@ public class HeladeraActiva extends Heladera {
 
     @Override
     public void verificarCondiciones() {
-        GestorSuscripciones gestorSuscripciones = Sistema.getGestorSuscripciones();
-        ArrayList<Suscripcion> suscripciones = gestorSuscripciones.suscripcionesPorHeladera(this);
+        GestorDeSuscripciones gestorDeSuscripciones = Sistema.getGestorDeSuscripciones();
+        ArrayList<Suscripcion> suscripciones = gestorDeSuscripciones.suscripcionesPorHeladera(this);
         
         for (Suscripcion suscripcion : suscripciones) {
             // Verifico si se está vaciando

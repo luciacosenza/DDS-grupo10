@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 
 import com.tp_anual_dds.domain.heladera.Heladera;
 
-public class GestorSuscripciones {
+public class GestorDeSuscripciones {
     private final ArrayList<Suscripcion> suscripciones = new ArrayList<>();
 
-    public GestorSuscripciones() {}
+    public GestorDeSuscripciones() {}
 
     public void agregarSuscripcion(Suscripcion suscripcion) {
         suscripciones.add(suscripcion);

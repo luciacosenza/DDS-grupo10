@@ -65,10 +65,10 @@ public class Suscripcion {
     }
     
     public void darDeAlta() {
-        Sistema.getGestorSuscripciones().agregarSuscripcion(this);
+        Sistema.getGestorDeSuscripciones().agregarSuscripcion(this);
     }
 
     public void darDeBaja() {
-        Sistema.getGestorSuscripciones().eliminarSuscripcion(this);
+        Sistema.getGestorDeSuscripciones().eliminarSuscripcion(this);
     }
 }

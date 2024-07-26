@@ -25,6 +25,10 @@ public abstract class Contribucion {
         fechaContribucion = vFechaContribucion;
     }
 
+    public void marcarComoCompletada() {
+        completada = true;
+    }
+
     // TODO public abstract void obtenerDetalles()
 
     public abstract void validarIdentidad();
@@ -33,7 +37,7 @@ public abstract class Contribucion {
 
     public void confirmar(LocalDateTime vFechaContribucion) {
         // Podemos agregar lógica para confirmar que la Contribución fue efectivamente realizada
-        completada = true;
+        marcarComoCompletada();
         setFechaContribucion(vFechaContribucion);   // Actualizo la fecha de contribución al momento que se confirma la realización de la Contribución
         calcularPuntos();
     }
