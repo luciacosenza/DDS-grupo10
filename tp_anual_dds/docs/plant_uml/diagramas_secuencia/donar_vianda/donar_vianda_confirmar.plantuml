@@ -1,4 +1,4 @@
-@startuml distribuir_viandas_confirmar
+@startuml donar_vianda_confirmar
 actor Colaborador_Usuario as User
 participant INTERFAZ
 participant CONTROLLER
