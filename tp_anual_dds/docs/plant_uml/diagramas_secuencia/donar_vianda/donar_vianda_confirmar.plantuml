@@ -1,0 +1,20 @@
+@startuml distribuir_viandas_confirmar
+actor Colaborador_Usuario as User
+participant INTERFAZ
+participant CONTROLLER
+participant "Colaborador" as Colaborador
+participant "DonacionVianda" as DonacionVianda
+
+User -> INTERFAZ: Solicitar confirmarContribucion(donacionVianda, fechaContribucion)
+INTERFAZ -> CONTROLLER: Solicitar confirmarContribucion(donacionVianda, fechaContribucion)
+CONTROLLER -> Colaborador: confirmarContribucion(donacionVianda, fechaContribucion)
+Colaborador -> DonacionVianda: confirmar(fechaContribucion)
+DonacionVianda -> DonacionVianda: marcarComoCompletada()
+DonacionVianda -> DonacionVianda: calcularPuntos()
+DonacionVianda --> Colaborador: Confirmación válida
+Colaborador -> Colaborador: agregarContribucion(donacionVianda)
+Colaborador -> Colaborador: eliminarContribucionPendiente(donacionVianda)
+Colaborador --> CONTROLLER: Donación de Vianda confirmada
+CONTROLLER --> INTERFAZ: Donación de Vianda confirmada
+INTERFAZ --> User: Donación de Vianda confirmada
+@enduml

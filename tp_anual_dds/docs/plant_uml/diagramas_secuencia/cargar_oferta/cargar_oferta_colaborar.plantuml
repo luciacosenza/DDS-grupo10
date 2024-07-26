@@ -1,0 +1,24 @@
+@startuml cargar_oferta_colaborar
+actor Colaborador_Usuario as User
+participant INTERFAZ
+participant CONTROLLER
+participant "Colaborador" as Colaborador
+participant "CargaOfertaCreator" as CargaOfertaCreator
+
+User -> INTERFAZ: Solicitar colaborar (CargaOfertaCreator, fechaContribucion, oferta)
+INTERFAZ -> CONTROLLER: Solicitar colaborar (CargaOfertaCreator, fechaContribucion, oferta)
+CONTROLLER -> Colaborador: colaborar(CargaOfertaCreator, fechaContribucion, oferta)
+Colaborador -> Colaborador: esCreatorPermitido(CargaOfertaCreator.getClass())
+alt Creator permitido
+    Colaborador -> CargaOfertaCreator: crearContribucion(colaborador, fechaContribucion, oferta)
+    CargaOfertaCreator -> Colaborador: new CargaOferta(colaborador, fechaContribucion, oferta)
+    Colaborador -> Colaborador: agregarContribucionPendiente(cargaOferta)
+    Colaborador --> CONTROLLER: Carga de Oferta creada
+    CONTROLLER --> INTERFAZ: Carga de Oferta creada
+    INTERFAZ --> User: Carga de Oferta creada
+else Creator no permitido
+    Colaborador --> CONTROLLER: Error
+    CONTROLLER --> INTERFAZ: Error
+    INTERFAZ --> User: No es una forma válida de colaborar
+end
+@enduml

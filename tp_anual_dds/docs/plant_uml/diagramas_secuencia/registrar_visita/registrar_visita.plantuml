@@ -1,0 +1,33 @@
+@startuml registrar_visita
+actor Tecnico_Usuario as User
+participant INTERFAZ
+participant CONTROLLER
+participant "Tecnico" as Tecnico
+participant "GestorDeVisitas" as GestorDeVisitas
+participant "Incidente" as Incidente
+participant "NotificadorDeIncidentes" as NotificadorDeIncidentes
+participant "Visita" as Visita
+participant "Sistema" as Sistema
+
+User -> INTERFAZ: Solicitar registrarVisita(fecha, descripcion, foto, estadoConsulta)
+INTERFAZ -> CONTROLLER: Solicitar registrarVisita(fecha, descripcion, foto, estadoConsulta)
+CONTROLLER -> Tecnico: registrarVisita(fecha, descripcion, foto, estadoConsulta)
+Tecnico -> GestorDeVisitas: agregarVisita(visita)
+GestorDeVisitas -> GestorDeVisitas: gestionarVisita()
+alt Visita exitosa
+    GestorDeVisitas -> Visita: darDeAlta()
+    Visita -> Sistema: agregarVisita(visita)
+    Sistema -> CONTROLLER: Visita registrada
+    CONTROLLER --> INTERFAZ: Visita registrada
+    INTERFAZ --> User: Visita registrada
+else Visita no exitosa
+    GestorDeVisitas -> NotificadorDeIncidentes: notificarIncidente(incidente)
+    NotificadorDeIncidentes0 --> GestorDeVisitas: Notificación confirmada
+    GestorDeVisitas -> Visita: darDeAlta()
+    Visita -> Sistema: agregarVisita(visita)
+    Sistema -> CONTROLLER: Visita registrada
+    CONTROLLER --> INTERFAZ: Visita registrada
+    INTERFAZ --> User: Visita registrada
+end
+@enduml
+

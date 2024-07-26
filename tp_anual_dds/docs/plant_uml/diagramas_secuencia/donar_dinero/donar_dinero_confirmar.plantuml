@@ -1,0 +1,20 @@
+@startuml donar_dinero_confirmar
+actor Colaborador_Usuario as User
+participant INTERFAZ
+participant CONTROLLER
+participant "Colaborador" as Colaborador
+participant "DonacionDinero" as DonacionDinero
+
+User -> INTERFAZ: Solicitar confirmarContribucion(donacionDinero, fechaContribucion)
+INTERFAZ -> CONTROLLER: Solicitar confirmarContribucion(donacionDinero, fechaContribucion)
+CONTROLLER -> Colaborador: confirmarContribucion(donacionDinero, fechaContribucion)
+Colaborador -> DonacionDinero: confirmar(fechaContribucion)
+DonacionDinero -> DonacionDinero: marcarComoCompletada()
+DonacionDinero -> DonacionDinero: calcularPuntos()
+DonacionDinero --> Colaborador: Confirmación válida
+Colaborador -> Colaborador: agregarContribucion(donacionDinero)
+Colaborador -> Colaborador: eliminarContribucionPendiente(donacionDinero)
+Colaborador --> CONTROLLER: Donación de Dinero confirmada
+CONTROLLER --> INTERFAZ: Donación de Dinero confirmada
+INTERFAZ --> User: Donación de Dinero confirmada
+@enduml

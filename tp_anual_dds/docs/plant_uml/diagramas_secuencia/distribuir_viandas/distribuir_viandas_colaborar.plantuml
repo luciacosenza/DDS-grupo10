@@ -1,0 +1,24 @@
+@startuml distribuir_viandas_colaborar
+actor Colaborador_Usuario as User
+participant INTERFAZ
+participant CONTROLLER
+participant "Colaborador" as Colaborador
+participant "DistribucionViandasCreator" as DistribucionViandasCreator
+
+User -> INTERFAZ: Solicitar colaborar (DistribucionViandasCreator, fechaContribucion, origen, destino, cantidadViandasAMover, motivo)
+INTERFAZ -> CONTROLLER: Solicitar colaborar (DistribucionViandasCreator, fechaContribucion, origen, destino, cantidadViandasAMover, motivo)
+CONTROLLER -> Colaborador: colaborar(DistribucionViandasCreator, fechaContribucion, origen, destino, cantidadViandasAMover, motivo)
+Colaborador -> Colaborador: esCreatorPermitido(DistribucionViandasCreator.getClass())
+alt Creator permitido
+    Colaborador -> DistribucionViandasCreator: crearContribucion(colaborador, fechaContribucion, origen, destino, cantidadViandasAMover, motivo)
+    DistribucionViandasCreator -> Colaborador: new DistribucionViandas(colaborador, fechaContribucion, origen, destino, cantidadViandasAMover, motivo)
+    Colaborador -> Colaborador: agregarContribucionPendiente(distribucionViandas)
+    Colaborador --> CONTROLLER: Distribución de Viandas creada
+    CONTROLLER --> INTERFAZ: Distribución de Viandas creada
+    INTERFAZ --> User: Distribución de Viandas creada
+else Creator no permitido
+    Colaborador --> CONTROLLER: Error
+    CONTROLLER --> INTERFAZ: Error
+    INTERFAZ --> User: No es una forma válida de colaborar
+end
+@enduml

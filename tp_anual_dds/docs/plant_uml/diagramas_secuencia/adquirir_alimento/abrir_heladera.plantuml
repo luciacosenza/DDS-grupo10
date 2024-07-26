@@ -1,0 +1,45 @@
+@startuml abrir_heladera
+actor PersonaEnSituacionVulnerable_Usuario as User
+participant INTERFAZ
+participant CONTROLLER
+participant "PersonaEnSituacionVulnerable" as PersonaEnSituacionVulnerable
+participant "TarjetaPersonaEnSituacionVulnerable" as TarjetaPersonaEnSituacionVulnerable
+participant "Broker" as Broker
+participant "MensajeAperturaPersonaEnSituacionVulnerable" as MensajeAperturaPersonaEnSituacionVulnerable
+participant "GestorDeAperturas" as GestorDeAperturas
+participant "AperturaPersonaEnSituacionVulnerable" as AperturaPersonaEnSituacionVulnerable
+participant "Sistema" as Sistema
+
+User -> INTERFAZ: Solicitar adquirirAlimento(heladera)
+INTERFAZ -> CONTROLLER: Solicitar adquirirAlimento(heladera)
+CONTROLLER -> PersonaEnSituacionVulnerable: adquirirAlimento(heladera)
+PersonaEnSituacionVulnerable -> TarjetaPersonaEnSituacionVulnerable: intentarApertura(heladera)
+TarjetaPersonaEnSituacionVulnerable -> Broker: agregarMensaje(MensajeAperturaPersonaEnSituacionVulnerable)
+Broker -> Broker: procesarMensaje(mensajeAperturaPersonaEnSituacionVulnerable)
+Broker -> MensajeAperturaPersonaEnSituacionVulnerable: procesar()
+MensajeAperturaPersonaEnSituacionVulnerable -> GestorDeAperturas: revisarPermisoAperturaP(personaEnSituacionVulnerable)
+alt Puede usar
+    alt Heladera no vacía
+        GestorDeAperturas -> Broker: Permiso confirmado
+        Broker -> TarjetaPersonaEnSituacionVulnerable: Permiso confirmado
+        TarjetaPersonaEnSituacionVulnerable -> AperturaPersonaEnSituacionVulnerable: darDeAlta()
+        AperturaPersonaEnSituacionVulnerable -> Sistema: agregarAccionHeladera(aperturaPersonaEnSituacionVulnerable)
+        Sistema --> AperturaPersonaEnSituacionVulnerable: Apertura registrada
+        AperturaPersonaEnSituacionVulnerable --> TarjetaPersonaEnSituacionVulnerable: Apertura registrada
+        TarjetaPersonaEnSituacionVulnerable -> TarjetaPersonaEnSituacionVulnerable: agregarUso(uso)
+        TarjetaPersonaEnSituacionVulnerable -> CONTROLLER: Apertura registrada
+        CONTROLLER --> INTERFAZ: Apertura registrada
+        INTERFAZ --> User: Apertura registrada
+    else Heladera vacía
+        GestorDeAperturas --> Broker: Error
+        Broker --> CONTROLLER: Error
+        CONTROLLER --> INTERFAZ: Error
+        INTERFAZ --> User: La heladera (nombre) se encuentra vacía
+    end
+else No puede usar
+    GestorDeAperturas --> Broker: Error
+        Broker --> CONTROLLER: Error
+        CONTROLLER --> INTERFAZ: Error
+        INTERFAZ --> User: Ya agotó los usos diarios de su tarjeta
+end
+@enduml

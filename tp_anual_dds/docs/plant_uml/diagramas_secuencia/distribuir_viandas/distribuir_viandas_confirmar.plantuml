@@ -1,0 +1,20 @@
+@startuml distribuir_viandas_confirmar
+actor Colaborador_Usuario as User
+participant INTERFAZ
+participant CONTROLLER
+participant "Colaborador" as Colaborador
+participant "DistribucionViandas" as DistribucionViandas
+
+User -> INTERFAZ: Solicitar confirmarContribucion(distribucionViandas, fechaContribucion)
+INTERFAZ -> CONTROLLER: Solicitar confirmarContribucion(distribucionViandas, fechaContribucion)
+CONTROLLER -> Colaborador: confirmarContribucion(distribucionViandas, fechaContribucion)
+Colaborador -> DistribucionViandas: confirmar(fechaContribucion)
+DistribucionViandas -> DistribucionViandas: marcarComoCompletada()
+DistribucionViandas -> DistribucionViandas: calcularPuntos()
+DistribucionViandas --> Colaborador: Confirmación válida
+Colaborador -> Colaborador: agregarContribucion(distribucionViandas)
+Colaborador -> Colaborador: eliminarContribucionPendiente(distribucionViandas)
+Colaborador --> CONTROLLER: Distribución de Viandas confirmada
+CONTROLLER --> INTERFAZ: Distribución de Viandas confirmada
+INTERFAZ --> User: Distribución de Viandas confirmada
+@enduml
