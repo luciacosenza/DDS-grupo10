@@ -48,7 +48,8 @@ public class NotificadorDeEstado {
             HeladeraActiva heladeraMenosLlena = ubicador.obtenerHeladeraMenosLlena(heladerasCercanas);
 
             enviarNotificacion(
-            contacto, "La heladera " + heladera.getNombre() + " está casi llena.",
+            contacto,
+            "La heladera " + heladera.getNombre() + " está casi llena.",
             "Faltan " + (heladera.getCapacidad() - heladera.viandasActuales()) + " viandas para llenar la heladera en cuestión. " +
             "Sería conveniente llevar viandas a la heladera " + heladeraMenosLlena.getNombre() + ", " +
             "que está situada en " + heladeraMenosLlena.getUbicacion().getDireccion());

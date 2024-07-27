@@ -20,7 +20,7 @@ public class CriterioTop10000MasComun extends CriterioValidacion {
             Path path = Paths.get(getClass().getClassLoader().getResource("10k-most-common.txt").toURI());
             contraseniasComunes = Files.lines(path).collect(Collectors.toList());
         } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();    // Hay que cambiar esto (TODO)
+            e.printStackTrace();    // TODO: Hay que cambiar esto
             contraseniasComunes = List.of();    // Si hay un error, asigna una Lista vacía
         }
         

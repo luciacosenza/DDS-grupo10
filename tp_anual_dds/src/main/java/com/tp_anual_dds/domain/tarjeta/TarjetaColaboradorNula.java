@@ -51,6 +51,6 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
 
     @Override
     public AperturaColaborador intentarApertura(HeladeraActiva heladeraAAbrir)  throws InterruptedException {
-        throw new UnsupportedOperationException("Tarjeta Nula no puede ejecutar aperturas");
+        throw new UnsupportedOperationException("Tarjeta Nula no puede realizar aperturas");
     }
 }

@@ -11,7 +11,7 @@ public class Migrador {
     private static final TransformacionDeDatos transformador = new TransformacionDeDatos();
     private static EnvioDeDatos protocoloEnvio;
 
-    private static final String ASUNTO = "Gracias por tu apoyo! Aquí están tus credenciales de acceso al nuevo sistema";
+    private static final String ASUNTO = "Gracias por tu apoyo! Aquí están tus credenciales de acceso al nuevo Sistema";
     private static final String CUERPO =
             """
             Estimado/a %s,

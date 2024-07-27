@@ -1,29 +1,13 @@
 package com.tp_anual_dds.migrador;
 
-import com.opencsv.CSVReader;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.opencsv.CSVReader;
+
 public class ExtraccionCSV extends ExtraccionDeDatos {
     @Override
-    /*public ArrayList<String[]> extract(String csv) {
-        String linea;
-        String separador = ",";
-        ArrayList<String[]> dataColaboradores = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(csv))) {
-            while ((linea = reader.readLine()) != null) {
-                String[] dataColaborador = linea.split(separador);
-                dataColaboradores.add(dataColaborador);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();    // TODO Hay que cambiar esto
-        }
-
-        return dataColaboradores;
-    }*/
     public ArrayList<String[]> extract(String csv) {
         ArrayList<String[]> dataColaboradores = new ArrayList<>();
         
@@ -41,7 +25,25 @@ public class ExtraccionCSV extends ExtraccionDeDatos {
         }
 
         return dataColaboradores;
-    }        
+    }
+
+/*public ArrayList<String[]> extract(String csv) {
+        String linea;
+        String separador = ",";
+        ArrayList<String[]> dataColaboradores = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(csv))) {
+            while ((linea = reader.readLine()) != null) {
+                String[] dataColaborador = linea.split(separador);
+                dataColaboradores.add(dataColaborador);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();    // TODO Hay que cambiar esto
+        }
+
+        return dataColaboradores;
+    }*/
+
 /* public ArrayList<String[]> extract(String csv) {
         ArrayList<String[]> dataColaboradores = new ArrayList<>();
 

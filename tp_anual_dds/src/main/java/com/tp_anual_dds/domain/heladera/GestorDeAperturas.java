@@ -10,7 +10,7 @@ import com.tp_anual_dds.domain.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoApertura;
 
 public class GestorDeAperturas {
-    private HeladeraActiva heladera;
+    private final HeladeraActiva heladera;
 
     public GestorDeAperturas(HeladeraActiva vHeladera) {
         heladera = vHeladera;
