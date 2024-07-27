@@ -11,7 +11,7 @@ CONTROLLER -> Colaborador: colaborar(DonacionDineroCreator, fechaContribucion, m
 Colaborador -> Colaborador: esCreatorPermitido(DonacionDineroCreator.getClass())
 alt Creator permitido
     Colaborador -> DonarDineroCreator: crearContribucion(colaborador, fechaContribucion, monto, frecuencia)
-    DonarDineroCreator -> Colaborador: new CargaOferta(colaborador, fechaContribucion, monto, frecuencia)
+    DonarDineroCreator -> Colaborador: new DonacionDinero(colaborador, fechaContribucion, monto, frecuencia)
     Colaborador -> Colaborador: agregarContribucionPendiente(donacionDinero)
     Colaborador --> CONTROLLER: Donación de Dinero creada
     CONTROLLER --> INTERFAZ: Donación de Dinero creada
