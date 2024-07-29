@@ -25,9 +25,8 @@ public class RecomendadorHeladeras {
         try {
             HttpResponse<String> respuesta = cliente.send(request, HttpResponse.BodyHandlers.ofString());
 
-            if (respuesta.statusCode() != 200) {
+            if (respuesta.statusCode() != 200)
                 throw new RuntimeException("Error al obtener la respuesta: " + respuesta.statusCode());
-            }
 
             String data = respuesta.body();
             
@@ -37,7 +36,7 @@ public class RecomendadorHeladeras {
             valores.addAll(valoresAux);
             
         } catch (Exception e) {
-            e.printStackTrace();    // TODO Hay que cambiar esto
+            e.printStackTrace();    // TODO: Hay que cambiar esto
         }
 
         return valores;

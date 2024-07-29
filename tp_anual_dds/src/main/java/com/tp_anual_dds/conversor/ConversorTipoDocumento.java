@@ -93,9 +93,9 @@ public class ConversorTipoDocumento {
 
     public static TipoDocumento convertirStrATipoDocumento(String tipoDocumentoStr) {
         TipoDocumento tipoDocumento = conversorTipoDocumento.get(tipoDocumentoStr);
-        if (tipoDocumento == null) {
+        if (tipoDocumento == null) 
             System.out.println("Tipo de documento no válido");  // TODO Chequear si está bien que lo tire en System.out
-        }
+        
         return tipoDocumento;
     }
 }

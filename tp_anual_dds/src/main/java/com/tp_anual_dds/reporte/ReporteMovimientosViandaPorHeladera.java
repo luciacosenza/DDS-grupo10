@@ -76,7 +76,7 @@ public class ReporteMovimientosViandaPorHeladera extends Reporte{
             }
 
             System.out.println("REPORTE - MOVIMIENTOS DE VIANDA POR HELADERA\n");
-            for(HeladeraActiva heladera : hashMap.keySet()) {
+            for (HeladeraActiva heladera : hashMap.keySet()) {
                 System.out.println(
                     heladera.getNombre() + ": " +  
                     "Ingresos - " + hashMap.get(heladera).getLeft() + " | " + 

@@ -28,13 +28,12 @@ public class DonacionVianda extends Contribucion {
         return heladera;
     }
 
-    // TODO public void obtenerDetalles()
+    // TODO: public void obtenerDetalles()
     
     @Override
     public void validarIdentidad() {
-        if(colaborador.getDomicilio() == null) {
+        if (colaborador.getDomicilio() == null)
             throw new IllegalArgumentException("El colaborador aspirante no posee domicilio. Para recibir la tarjeta solidaria debe actualizar su información");
-        }
     }
 
     @Override

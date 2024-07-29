@@ -78,9 +78,9 @@ public class ConversorFormaContribucion {
 
     public static ContribucionCreator convertirStrAContribucionCreator(String formaContribucionStr) {
         ContribucionCreator creator = conversorFormaContribucion.get(formaContribucionStr);
-        if (creator == null) {
+        if (creator == null) 
             System.out.println("Forma de contribución no válida");  // TODO Chequear si está bien que lo tire en System.out
-        }
+        
         return creator;
     }
 }

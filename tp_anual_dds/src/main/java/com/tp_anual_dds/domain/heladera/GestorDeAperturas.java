@@ -16,14 +16,21 @@ public class GestorDeAperturas {
         heladera = vHeladera;
     }
 
-    public void revisarSolicitudApertura(MotivoSolicitud motivo) {
-        if(motivo == MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION && heladera.estaVacia()) {
-            throw new UnsupportedOperationException("La heladera " + heladera.getNombre() + " se encuentra vacía");
-        }
+    public HeladeraActiva getHeladera() {
+        return heladera;
+    }
 
-        if((motivo == MotivoSolicitud.INGRESAR_DONACION || motivo == MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION) && heladera.estaLlena()) {
+    public void revisarSolicitudApertura(MotivoSolicitud motivo) {
+        if (motivo == MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION &&
+            heladera.estaVacia())
+            
+            throw new UnsupportedOperationException("La heladera " + heladera.getNombre() + " se encuentra vacía");
+
+        if ((motivo == MotivoSolicitud.INGRESAR_DONACION ||
+            motivo == MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION) &&
+            heladera.estaLlena())
+
             throw new UnsupportedOperationException("La heladera " + heladera.getNombre() + " se encuentra llena");
-        }
     }
     
     public void revisarPermisoAperturaC(ColaboradorHumano colaborador) {
@@ -31,20 +38,19 @@ public class GestorDeAperturas {
         EstadoSolicitud estadoSolicitud = tarjetaColaborador.getEstadoSolicitud();
         PermisoApertura permisoApertura = tarjetaColaborador.getPermiso();
 
-        if(!(estadoSolicitud instanceof EstadoRealizada) || !(permisoApertura.esHeladeraPermitida(heladera))) {
-            throw new UnsupportedOperationException("No cuenta con los permisos para abrir la heladera " + heladera.getNombre());
-        }
+        if (!(estadoSolicitud instanceof EstadoRealizada) ||
+            !(permisoApertura.esHeladeraPermitida(heladera)))
+            
+                throw new UnsupportedOperationException("No cuenta con los permisos para abrir la heladera " + heladera.getNombre());
     }
 
     public void revisarPermisoAperturaP(PersonaEnSituacionVulnerable personaEnSituacionVulnerable) {
         TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable = personaEnSituacionVulnerable.getTarjeta();
         
-        if(!tarjetaPersonaEnSituacionVulnerable.puedeUsar()) {
+        if (!tarjetaPersonaEnSituacionVulnerable.puedeUsar())
             throw new UnsupportedOperationException("Ya agotó los usos diarios de su tarjeta");
-        }
 
-        if(heladera.estaVacia()) {
+        if(heladera.estaVacia())
             throw new UnsupportedOperationException("La heladera " + heladera.getNombre() + " se encuentra vacía");
-        }
     }
 }

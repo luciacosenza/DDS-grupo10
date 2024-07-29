@@ -49,9 +49,8 @@ public abstract class Colaborador {
     // Obtenemos el Medio de Contacto correspondiente a la Clase que pasemos como argumento. Con este método, suponemos que el Colaborador no puede tener más de un Medio de Contacto del mismo tipo
     public <T extends MedioDeContacto> T getContacto(Class<T> tipoMedioDeContacto) {
         for (MedioDeContacto contacto : mediosDeContacto) {
-            if (tipoMedioDeContacto.isInstance(contacto)) {
+            if (tipoMedioDeContacto.isInstance(contacto)) 
                 return tipoMedioDeContacto.cast(contacto);
-            }
         }
 
         throw new NoSuchElementException("El colaborador no cuenta con ese medio de contacto");
@@ -95,9 +94,8 @@ public abstract class Colaborador {
 
     // Este método equivale a seleccionar una Contribución, no a llevarla a cabo
     public Contribucion colaborar(ContribucionCreator creator, LocalDateTime fechaContribucion /* generalmente LocalDateTime.now() */, Object... args) {
-        if(!esCreatorPermitido(creator.getClass())) {
+        if (!esCreatorPermitido(creator.getClass())) 
             throw new IllegalArgumentException("No es una forma válida de colaborar");
-        }
 
         Contribucion contribucion = creator.crearContribucion(this, fechaContribucion, args);
         contribucion.validarIdentidad();

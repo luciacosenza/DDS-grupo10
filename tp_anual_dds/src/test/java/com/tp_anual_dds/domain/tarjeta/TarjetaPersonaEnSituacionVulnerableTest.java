@@ -66,7 +66,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         TarjetaPersonaEnSituacionVulnerable tarjeta = new TarjetaPersonaEnSituacionVulnerable(null);
         RegistroDePersonaEnSituacionVulnerableCreator registroDePersonaEnSituacionVulnerableCreator = new RegistroDePersonaEnSituacionVulnerableCreator();
         
-        RegistroDePersonaEnSituacionVulnerable registroPersonaEnSituacionVulnerable = (RegistroDePersonaEnSituacionVulnerable) colaboradorHumano.colaborar(registroDePersonaEnSituacionVulnerableCreator, LocalDateTime.now(), personaEnSituacionVulnerable, tarjeta);
+        RegistroDePersonaEnSituacionVulnerable registroPersonaEnSituacionVulnerable = (RegistroDePersonaEnSituacionVulnerable) colaboradorHumano.colaborar(registroDePersonaEnSituacionVulnerableCreator, LocalDateTime.now(), tarjeta);
         tarjeta.setTitular(personaEnSituacionVulnerable);
         personaEnSituacionVulnerable.setTarjeta(tarjeta);
         personaEnSituacionVulnerable.darDeAlta();
@@ -141,7 +141,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         TarjetaPersonaEnSituacionVulnerable tarjeta = new TarjetaPersonaEnSituacionVulnerable(null);
         RegistroDePersonaEnSituacionVulnerableCreator registroDePersonaEnSituacionVulnerableCreator = new RegistroDePersonaEnSituacionVulnerableCreator();
         
-        RegistroDePersonaEnSituacionVulnerable registroPersonaEnSituacionVulnerable = (RegistroDePersonaEnSituacionVulnerable) colaboradorHumano.colaborar(registroDePersonaEnSituacionVulnerableCreator, LocalDateTime.now(), personaEnSituacionVulnerable, tarjeta);
+        RegistroDePersonaEnSituacionVulnerable registroPersonaEnSituacionVulnerable = (RegistroDePersonaEnSituacionVulnerable) colaboradorHumano.colaborar(registroDePersonaEnSituacionVulnerableCreator, LocalDateTime.now(), tarjeta);
         tarjeta.setTitular(personaEnSituacionVulnerable);
         personaEnSituacionVulnerable.setTarjeta(tarjeta);
         personaEnSituacionVulnerable.darDeAlta();
@@ -178,7 +178,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
             heladera.retirarVianda();
         });
 
-        Assertions.assertTrue(exception.getMessage() == "Ya agotó los usos diarios de su Tarjeta" && heladera.viandasActuales() == 2);
+        Assertions.assertTrue("Ya agotó los usos diarios de su tarjeta".equals(exception.getMessage()) && heladera.viandasActuales() == 2);
     }
 
     @Test
@@ -221,7 +221,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         TarjetaPersonaEnSituacionVulnerable tarjeta = new TarjetaPersonaEnSituacionVulnerable(null);
         RegistroDePersonaEnSituacionVulnerableCreator registroDePersonaEnSituacionVulnerableCreator = new RegistroDePersonaEnSituacionVulnerableCreator();
         
-        RegistroDePersonaEnSituacionVulnerable registroPersonaEnSituacionVulnerable = (RegistroDePersonaEnSituacionVulnerable) colaboradorHumano.colaborar(registroDePersonaEnSituacionVulnerableCreator, LocalDateTime.now(), personaEnSituacionVulnerable, tarjeta);
+        RegistroDePersonaEnSituacionVulnerable registroPersonaEnSituacionVulnerable = (RegistroDePersonaEnSituacionVulnerable) colaboradorHumano.colaborar(registroDePersonaEnSituacionVulnerableCreator, LocalDateTime.now(), tarjeta);
         tarjeta.setTitular(personaEnSituacionVulnerable);
         personaEnSituacionVulnerable.setTarjeta(tarjeta);
         personaEnSituacionVulnerable.darDeAlta();
@@ -258,7 +258,6 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
             heladera.retirarVianda();
         });
 
-        Assertions.assertEquals("La Heladera se encuentra vacía", exception.getMessage());
+        Assertions.assertEquals("La heladera HeladeraPrueba se encuentra vacía", exception.getMessage());
     }
-
 }

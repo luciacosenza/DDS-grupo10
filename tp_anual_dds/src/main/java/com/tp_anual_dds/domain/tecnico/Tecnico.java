@@ -15,7 +15,7 @@ import com.tp_anual_dds.sistema.Sistema;
 public class Tecnico {
     private final PersonaFisica persona;
     private final String cuil;
-    private MedioDeContacto medioDeContacto;    // TODO Puede ser plural en un futuro
+    private MedioDeContacto medioDeContacto;    // TODO: Puede ser plural en un futuro
     private Area areaDeCobertura;
     private ArrayList<Incidente> pendientes = new ArrayList<>();
 

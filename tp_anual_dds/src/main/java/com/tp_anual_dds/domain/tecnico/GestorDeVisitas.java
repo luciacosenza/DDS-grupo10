@@ -14,7 +14,7 @@ public class GestorDeVisitas {
         Visita visita = visitas.removeFirst();
         
         // Chequeo si fue exitosa. Si no lo fue, vuelvo a llamar a un Tecnico para que vaya a ocuparse
-        if(!visita.getEstado()) {
+        if (!visita.getEstado()) {
             Incidente incidente = visita.getIncidente();
             Sistema.getNotificadorDeIncidentes().notificarIncidente(incidente);
         }

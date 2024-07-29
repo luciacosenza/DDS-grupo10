@@ -51,7 +51,7 @@ public class ReporteViandasPorColaborador extends Reporte {
             }
 
             System.out.println("REPORTE - VIANDAS POR COLABORADOR\n");
-            for(ColaboradorHumano colaborador : hashMap.keySet()) {
+            for (ColaboradorHumano colaborador : hashMap.keySet()) {
                 System.out.println(
                     colaborador.getPersona().getNombre() + " " +
                     colaborador.getPersona().getApellido() + ": " +  hashMap.get(colaborador));

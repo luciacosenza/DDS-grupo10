@@ -13,7 +13,7 @@ public class Oferta {
         GASTRONOMIA,
         ELECTRONICA,
         ARTICULOS_PARA_EL_HOGAR
-        // TODO Completar, de ser necesario
+        // TODO: Completar, de ser necesario
     }
 
     public Oferta(String vNombre, Double vCosto, Categoria vCategoria, String vImagen) {
@@ -42,9 +42,8 @@ public class Oferta {
     public void validarPuntos(Colaborador colaborador) {
         Double puntosColaborador = colaborador.getPuntos();
         
-        if (puntosColaborador < costo) {
+        if (puntosColaborador < costo)
             throw new IllegalArgumentException("No cuenta con los puntos necesarios para adquirir este beneficio");
-        }
     }
 
     public void darDeAlta() {

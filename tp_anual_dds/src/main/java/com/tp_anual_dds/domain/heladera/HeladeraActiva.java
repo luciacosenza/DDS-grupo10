@@ -4,10 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import com.tp_anual_dds.broker.MensajeEstado;
-import com.tp_anual_dds.broker.MensajeIncidente;
-import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.domain.colaborador.Colaborador;
+import com.tp_anual_dds.domain.contacto.MedioDeContacto;
 import com.tp_anual_dds.domain.incidente.Alerta;
 import com.tp_anual_dds.domain.incidente.Alerta.TipoAlerta;
 import com.tp_anual_dds.domain.incidente.FallaTecnica;
@@ -123,37 +121,32 @@ public class HeladeraActiva extends Heladera {
         
         for (Suscripcion suscripcion : suscripciones) {
             // Verifico si se está vaciando
-            if(viandasActuales() <= suscripcion.getViandasDisponiblesMin()) {
+            if (viandasActuales() <= suscripcion.getViandasDisponiblesMin())
                 reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.VIANDAS_MIN, suscripcion.getMedioDeContactoElegido());
-            }
             
             // Verifico si se está llenando
-            if((capacidad - viandas.size()) >= suscripcion.getViandasParaLlenarMax()) {
+            if ((capacidad - viandas.size()) >= suscripcion.getViandasParaLlenarMax())
                 reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.VIANDAS_MAX, suscripcion.getMedioDeContactoElegido());
-                
-            }
 
             // Verifico si hay un desperfecto
-            if(suscripcion.getNotificarDesperfecto() && !estado) {
+            if (suscripcion.getNotificarDesperfecto() && !estado)
                 reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.DESPERFECTO, suscripcion.getMedioDeContactoElegido());
-            }
         }
     }
 
     @Override
     public void agregarVianda(Vianda vianda) {
-        if (!verificarCapacidad()) {
+        if (!verificarCapacidad())
             throw new IllegalStateException("No se puede agregar la vianda. Se superaría la capacidad de la heladera " + nombre);
-        }
+        
         viandas.add(vianda);
         verificarCondiciones(); // Verifica condiciones cuando agregamos una Vianda (una de las dos únicas formas en que la cantidad de Viandas en la Heladera puede cambiar)
     }
 
     @Override
     public Vianda retirarVianda() {
-        if(estaVacia()) {
+        if (estaVacia())
             throw new IllegalStateException("La heladera " + nombre + " no tiene más viandas para retirar");
-        }
         
         Vianda viandaRetirada = viandas.removeFirst();
         verificarCondiciones(); // Verifica condiciones cuando retiramos una Vianda (una de las dos únicas formas en que la cantidad de Viandas en la Heladera puede cambiar)
@@ -162,9 +155,8 @@ public class HeladeraActiva extends Heladera {
 
     @Override
     public void verificarTempActual() {
-        if(tempActual < tempMin || tempActual > tempMax) {
+        if (tempActual < tempMin || tempActual > tempMax)
             producirAlerta(TipoAlerta.TEMPERATURA);
-        }
     }
 
     @Override
@@ -206,31 +198,11 @@ public class HeladeraActiva extends Heladera {
 
     @Override
     public void reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion condicion, MedioDeContacto medioDeContactoElegido) {   // Usa el Medio de Contacto previamente elegido por el colaborador
-        MensajeEstado mensajeEstado = new MensajeEstado(this, condicion, medioDeContactoElegido);
-
-        // Envío al Broker el Mensaje de Estado
-        new Thread( () -> {
-            try {
-                Sistema.getBroker().agregarMensaje(mensajeEstado);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                System.err.println("El hilo fue interrumpido: " + e.getMessage()); // TODO Chequear si está bien que lo tire en System.err
-            }
-        }).start();
+        Sistema.getNotificadorDeEstado().notificarEstado(this, condicion, medioDeContactoElegido);
     }
 
     @Override
-    public void reportarIncidente(Incidente incidente) {
-        MensajeIncidente mensajeIncidente = new MensajeIncidente(this, incidente);
-        
-        // Envío al Broker el Mensaje de Incidente
-        new Thread( () -> {
-            try {
-                Sistema.getBroker().agregarMensaje(mensajeIncidente);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                System.err.println("El hilo fue interrumpido: " + e.getMessage()); // TODO Chequear si está bien que lo tire en System.err
-            }
-        }).start();
+    public void reportarIncidente(Incidente incidente) {        
+        Sistema.getNotificadorDeIncidentes().notificarIncidente(incidente);
     }
 }

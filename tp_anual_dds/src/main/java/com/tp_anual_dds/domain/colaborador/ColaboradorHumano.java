@@ -62,7 +62,7 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
     public void eliminarSuscripcion(Suscripcion suscripcion) {
         suscripciones.remove(suscripcion);
     }
-
+    
     public Suscripcion suscribirse(HeladeraActiva heladeraObjetivo, Integer viandasDisponiblesMin, Integer viandasParaLlenarMax, Boolean notificarDesperfecto, MedioDeContacto medioDeContacto) {
         Suscripcion suscripcion = new Suscripcion(this, heladeraObjetivo, viandasDisponiblesMin, viandasParaLlenarMax, notificarDesperfecto, medioDeContacto);
         suscripcion.darDeAlta();

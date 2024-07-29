@@ -27,7 +27,7 @@ public class ReporteIncidentesPorHeladera extends Reporte {
             ArrayList<Incidente> incidentes = Sistema.getIncidentes();
 
             // Obtengo, por cada Heladera, su cantidad de Incidentes
-            for(HeladeraActiva heladera : heladeras) {
+            for (HeladeraActiva heladera : heladeras) {
                 Integer cantidadIncidentes = incidentes.stream()
                     .filter(incidente -> incidente.getHeladera() == heladera)
                     .collect(Collectors.toList()).size();
@@ -36,7 +36,7 @@ public class ReporteIncidentesPorHeladera extends Reporte {
             }
             
             System.out.println("REPORTE - INCIDENTES POR HELADERA\n");
-            for(HeladeraActiva heladera : hashMap.keySet()) {
+            for (HeladeraActiva heladera : hashMap.keySet()) {
                 System.out.println(
                     heladera.getNombre() + ": " +  hashMap.get(heladera));
             }

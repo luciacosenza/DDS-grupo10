@@ -39,9 +39,8 @@ public class UbicadorTecnico {
         
             OptionalDouble distanciaMinima = distancias.stream().mapToDouble(Double::doubleValue).min();
         
-        if(!distanciaMinima.isPresent()) {
-            throw new IllegalArgumentException("No hay ningún técnico que cubra esta heladera");
-        }
+        if (!distanciaMinima.isPresent())
+            throw new IllegalArgumentException("No hay ningún técnico que cubra la heladera " + heladera.getNombre());
 
         // Si la mónada "Optional distanciaMinima" no esté vacía, la desarmo. Sólo puede llegar vacía si no hay Técnicos cuya área de cobertura cubra la Heladera
         Double distancia = distanciaMinima.getAsDouble();

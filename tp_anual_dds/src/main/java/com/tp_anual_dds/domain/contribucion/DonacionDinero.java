@@ -93,7 +93,8 @@ public class DonacionDinero extends Contribucion {
         return frecuencia;
     }
 
-    // TODO TODO public void obtenerDetal   
+    // TODO: public void obtenerDetalles()
+
     @Override
     public void validarIdentidad() {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
 

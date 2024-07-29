@@ -58,7 +58,7 @@ public class Migrador {
         ArrayList<String[]> dataColaboradores = protocoloExtraccion.extract(csv);
         ArrayList<ColaboradorHumano> colaboradoresAMigrar = transformador.transform(dataColaboradores);
 
-        for(ColaboradorHumano colaborador : colaboradoresAMigrar) {
+        for (ColaboradorHumano colaborador : colaboradoresAMigrar) {
             colaborador.darDeAlta();
             protocoloEnvio.send(colaborador, ASUNTO, CUERPO);
         }

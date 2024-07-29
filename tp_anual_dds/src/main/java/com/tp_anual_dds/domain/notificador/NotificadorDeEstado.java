@@ -73,7 +73,7 @@ public class NotificadorDeEstado {
         HeladeraActiva heladera1 = heladeras.removeFirst();
         String nombresYDirecciones = "Nombre: " + heladera1.getNombre() + " | Dirección: " + heladera1.getUbicacion().getDireccion() + "\n"; 
         
-        for(HeladeraActiva heladera : heladeras) {
+        for (HeladeraActiva heladera : heladeras) {
             nombresYDirecciones += "Nombre: " + heladera.getNombre() + " | Dirección: " + heladera.getUbicacion().getDireccion() + "\n";
         }
 

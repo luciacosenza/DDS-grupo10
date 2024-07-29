@@ -18,5 +18,4 @@ public class NotificadorDeIncidentes {
         HeladeraActiva heladera = incidente.getHeladera();
         tecnicoAAlertar.getMedioDeContacto().contactar("Ocurrió un Incidente en la Heladera " + heladera.getNombre(), ". Necesitamos que atiendas lo antes posible el incidente de tipo " + incidente.getClass().getName() + " en la Heladera " + heladera.getNombre() + ".");
     }
-    
 }

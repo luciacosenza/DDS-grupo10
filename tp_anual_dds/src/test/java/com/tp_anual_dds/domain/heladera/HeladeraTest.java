@@ -179,7 +179,7 @@ public class HeladeraTest {
             }
         });
 
-        Assertions.assertEquals("No se puede agregar la vianda. Se superaría la capacidad de la Heladera", exception.getMessage());
+        Assertions.assertEquals("No se puede agregar la vianda. Se superaría la capacidad de la heladera HeladeraPrueba", exception.getMessage());
     }
 
     @Test
@@ -217,6 +217,6 @@ public class HeladeraTest {
             }
         });
 
-        Assertions.assertEquals("La Heladera no tiene más viandas para retirar", exception.getMessage());
+        Assertions.assertEquals("La heladera HeladeraPrueba no tiene más viandas para retirar", exception.getMessage());
     }
 }

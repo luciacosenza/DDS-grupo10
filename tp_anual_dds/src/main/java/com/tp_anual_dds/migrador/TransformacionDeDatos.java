@@ -36,7 +36,7 @@ public class TransformacionDeDatos {
     }
     
     private ColaboradorHumano procesarColaborador(String[] data) {
-        if(data.length != 8) { 
+        if (data.length != 8) { 
             System.err.println("Error: Fila de datos incompleta: " + Arrays.toString(data));
             return null;
         }
@@ -75,7 +75,7 @@ public class TransformacionDeDatos {
         ColaboradorHumano colaborador = new ColaboradorHumano(null, contactos, new ArrayList<>(), new ArrayList<>(), null, nombre, apellido, documento, null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
         
         // Agrega contribuciones a colaborador
-        for(Integer i = 0; i < cantColabs; i++){
+        for (Integer i = 0; i < cantColabs; i++) {
             Contribucion contribucion = registrarContribucion(formaContribucionStr, colaborador, fechaContribucion);
             colaborador.agregarContribucion(contribucion);
         }
@@ -86,12 +86,11 @@ public class TransformacionDeDatos {
     public ArrayList<ColaboradorHumano> transform(ArrayList<String[]> data) {
         Map<String, ColaboradorHumano> colaboradoresProcesados = new HashMap<>();
 
-        for(String[] dataColaborador : data) {
+        for (String[] dataColaborador : data) {
             ColaboradorHumano colaborador = procesarColaborador(dataColaborador);
 
-            if(colaborador == null) {
+            if (colaborador == null)
                 continue;
-            }
             
             String clave = colaborador.getPersona().getDocumento().getTipo().name()
                 + "-" + colaborador.getPersona().getDocumento().getNumero()

@@ -1,26 +1,26 @@
 package com.tp_anual_dds.broker;
 
-import com.tp_anual_dds.domain.heladera.HeladeraActiva;
+import com.tp_anual_dds.domain.heladera.SensorTemperatura;
 
 public class MensajeTemperatura implements Mensaje {
-    private final HeladeraActiva heladera;
+    private final SensorTemperatura sensor;
     private final Float temperatura;
 
-    public MensajeTemperatura(HeladeraActiva vHeladera, Float vTemperatura) {
-        heladera = vHeladera;
+    public MensajeTemperatura(SensorTemperatura vSensor, Float vTemperatura) {
+        sensor = vSensor;
         temperatura = vTemperatura;
     }
 
-    public HeladeraActiva getHeladera() {
-        return heladera;
+    public SensorTemperatura getSensor() {
+        return sensor;
     }
-    
+
     public Float getTemperatura() {
         return temperatura;
     }
 
     @Override
     public void procesar() {
-        heladera.setTempActual(temperatura);
+        sensor.setTempActual(temperatura);
     }
 }

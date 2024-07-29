@@ -69,7 +69,7 @@ public class EstadoSolicitudTest {
 
     @Test
     @DisplayName("Testeo la UnsupportedOperationException generada al querer hacer una Solicitud cuando ya hay una Realizada")
-    public void UnsupportedOperationEstadoRealizadaTest() {
+    public void UnsupportedOperationEstadoRealizadaTest() throws InterruptedException {
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "RazonSocialPrueba", "RubroPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA);
         LocalDateTime fechaAperturaH1 = LocalDateTime.parse("2024-01-01T00:00:00");
         LocalDateTime fechaAperturaH2   = LocalDateTime.parse("2024-02-01T00:00:00");
@@ -87,11 +87,19 @@ public class EstadoSolicitudTest {
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
         Vianda vianda = new Vianda("ComidaPrueba", colaboradorHumano, fechaCaducidadV, null, 0, 0, false);
         DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
-        colaboradorHumano.colaborar(donacionViandaCreator, LocalDateTime.now(), vianda, heladera1);
+        DonacionVianda donacionVianda = (DonacionVianda) colaboradorHumano.colaborar(donacionViandaCreator, LocalDateTime.now(), vianda, heladera1);
         
         TarjetaColaboradorCreator tarjetaColaboradorCreator = new TarjetaColaboradorCreator();
         TarjetaColaboradorActiva tarjetaColaboradorActiva = (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta(colaboradorHumano);
         colaboradorHumano.setTarjeta(tarjetaColaboradorActiva);
+
+        colaboradorHumano.getTarjeta().solicitarApertura(heladera1, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);
+        colaboradorHumano.getTarjeta().intentarApertura(heladera1);
+        heladera1.agregarVianda(vianda);
+        vianda.setHeladera(heladera1);
+        vianda.marcarEntrega();
+        vianda.setFechaDonacion(LocalDateTime.now());
+        colaboradorHumano.confirmarContribucion(donacionVianda, LocalDateTime.now());
 
         colaboradorHumano.getTarjeta().solicitarApertura(heladera1, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);
         
@@ -111,7 +119,7 @@ public class EstadoSolicitudTest {
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "RazonSocialPrueba", "RubroPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA);
         LocalDateTime fechaAperturaH1 = LocalDateTime.parse("2024-01-01T00:00:00");
         LocalDateTime fechaAperturaH2   = LocalDateTime.parse("2024-02-01T00:00:00");
-        HeladeraActiva heladera1 = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 2, fechaAperturaH1, -20f, 5f);
+        HeladeraActiva heladera1 = new HeladeraActiva("HeladeraPrueba1", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 2, fechaAperturaH1, -20f, 5f);
         HeladeraActiva heladera2 = new HeladeraActiva("HeladeraPrueba2", new Ubicacion(-34.6092, -58.3842, "Avenida de Mayo 1370", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 5, fechaAperturaH2, -20f, 5f);
         HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
         HacerseCargoDeHeladera hacerseCargoDeHeladera1 = (HacerseCargoDeHeladera) colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, fechaAperturaH1, heladera1);
@@ -125,13 +133,19 @@ public class EstadoSolicitudTest {
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
         Vianda vianda = new Vianda("ComidaPrueba", colaboradorHumano, fechaCaducidadV, null, 0, 0, false);
         DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
-        colaboradorHumano.colaborar(donacionViandaCreator, LocalDateTime.now(), vianda, heladera1);
+        DonacionVianda donacionVianda = (DonacionVianda) colaboradorHumano.colaborar(donacionViandaCreator, LocalDateTime.now(), vianda, heladera1);
         
         TarjetaColaboradorCreator tarjetaColaboradorCreator = new TarjetaColaboradorCreator();
         TarjetaColaboradorActiva tarjetaColaboradorActiva = (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta(colaboradorHumano);
         colaboradorHumano.setTarjeta(tarjetaColaboradorActiva);
 
         colaboradorHumano.getTarjeta().solicitarApertura(heladera1, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);
+        colaboradorHumano.getTarjeta().intentarApertura(heladera1);
+        heladera1.agregarVianda(vianda);
+        vianda.setHeladera(heladera1);
+        vianda.marcarEntrega();
+        vianda.setFechaDonacion(LocalDateTime.now());
+        colaboradorHumano.confirmarContribucion(donacionVianda, LocalDateTime.now());
 
         final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
 
@@ -218,6 +232,6 @@ public class EstadoSolicitudTest {
             colaboradorHumano.getTarjeta().intentarApertura(heladera);
         });
 
-        Assertions.assertEquals("No cuenta con los permisos para abrir esta heladera", exception.getMessage());
+        Assertions.assertEquals("No cuenta con los permisos para abrir la heladera HeladeraPrueba", exception.getMessage());
     }
 }
