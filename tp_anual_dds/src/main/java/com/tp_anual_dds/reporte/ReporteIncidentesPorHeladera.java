@@ -30,7 +30,7 @@ public class ReporteIncidentesPorHeladera extends Reporte {
             for (HeladeraActiva heladera : heladeras) {
                 Integer cantidadIncidentes = incidentes.stream()
                     .filter(incidente -> incidente.getHeladera() == heladera)
-                    .collect(Collectors.toList()).size();
+                    .collect(Collectors.toCollection(ArrayList::new)).size();
                 
                 hashMap.put(heladera, cantidadIncidentes);
             }

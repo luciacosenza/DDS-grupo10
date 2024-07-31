@@ -16,7 +16,8 @@ import com.tp_anual_dds.domain.heladera.acciones_en_heladera.SolicitudAperturaCo
 import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoApertura;
 import com.tp_anual_dds.domain.tarjeta.permisos_de_apertura.PermisoAperturaActivo;
 
-public class TarjetaColaboradorActiva extends TarjetaColaborador {    
+public class TarjetaColaboradorActiva extends TarjetaColaborador {
+    
     public TarjetaColaboradorActiva(ColaboradorHumano vTitular) {
         codigo = GeneradorCodigo.generarCodigo(true);
         titular = vTitular;

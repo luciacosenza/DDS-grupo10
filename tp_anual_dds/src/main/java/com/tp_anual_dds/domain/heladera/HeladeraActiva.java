@@ -202,7 +202,7 @@ public class HeladeraActiva extends Heladera {
     }
 
     @Override
-    public void reportarIncidente(Incidente incidente) {        
+    public void reportarIncidente(Incidente incidente) {    
         Sistema.getNotificadorDeIncidentes().notificarIncidente(incidente);
     }
 }

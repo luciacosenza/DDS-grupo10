@@ -33,28 +33,28 @@ public class ReporteMovimientosViandaPorHeladera extends Reporte{
             ArrayList<Colaborador> colaboradores = Sistema.getColaboradores();
 
             // Obtengo, el total de Contribuciones registradas
-            ArrayList<Contribucion> contribuciones = (ArrayList<Contribucion>) colaboradores.stream()
+            ArrayList<Contribucion> contribuciones = colaboradores.stream()
                 .flatMap(colaborador -> colaborador.getContribuciones().stream())
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(ArrayList::new));
             
             // Obtengo, de esas Contribuciones, las Donaciones de Vianda
-            ArrayList<DonacionVianda> donacionesVianda = (ArrayList<DonacionVianda>) contribuciones.stream()
+            ArrayList<DonacionVianda> donacionesVianda = contribuciones.stream()
                 .filter(contribucion -> contribucion instanceof DonacionVianda)
                 .map(donacionVianda -> (DonacionVianda) donacionVianda)
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(ArrayList::new));
             
             // Ovtengo, de esas Contribuciones, las Distribuciones de Viandas
-            ArrayList<DistribucionViandas> distribucionesVianda = (ArrayList<DistribucionViandas>) contribuciones.stream()
+            ArrayList<DistribucionViandas> distribucionesVianda = contribuciones.stream()
                 .filter(contribucion -> contribucion instanceof DistribucionViandas)
                 .map(distribucionViandas -> (DistribucionViandas) distribucionViandas)
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(ArrayList::new));
 
             // Obtengo, por cada Heladera, sus ingresos y egresos de Viandas
             for (HeladeraActiva heladera : heladeras) {
                 // Sumo a los ingresos las Viandas introducidas por Donaciones
                 Integer ingresos = donacionesVianda.stream()
                     .filter(distribucion -> distribucion.getHeladera() == heladera)
-                    .collect(Collectors.toList())
+                    .collect(Collectors.toCollection(ArrayList::new))
                     .size(); // Usamos size() porque la cantidad de Viandas donadas siempre es 1 (por Donación)
                 
                 // Sumo a los ingresos las Viandas introducidas por Distribuciones

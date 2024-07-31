@@ -36,6 +36,7 @@ public class SensorTemperatura extends Sensor {
 
     public void setTempActual(Float vTempActual) {
         tempActual = vTempActual;
+        ultimaActualizacion = LocalDateTime.now();
     }
 
     public void setUltimaActualizacion(LocalDateTime vUltimaActualizacion) {

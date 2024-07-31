@@ -1,3 +1,5 @@
+// TODO: Cambiar este Diagrama
+
 @startuml abrir_heladera
 actor PersonaEnSituacionVulnerable_Usuario as User
 participant INTERFAZ

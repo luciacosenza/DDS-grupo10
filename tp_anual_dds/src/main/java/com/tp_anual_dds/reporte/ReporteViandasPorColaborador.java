@@ -37,7 +37,7 @@ public class ReporteViandasPorColaborador extends Reporte {
                 // Sumo a la cantidad de Viandas las que corresponden a Donaciones
                 Integer cantidadViandas = colaborador.getContribuciones().stream()
                     .filter(contribucion -> contribucion instanceof DonacionVianda)
-                    .collect(Collectors.toList()).size();
+                    .collect(Collectors.toCollection(ArrayList::new)).size();
 
                 // Sumo a la cantidad de Viandas las que corresponden a Distribuciones
                 cantidadViandas += colaborador.getContribuciones().stream()

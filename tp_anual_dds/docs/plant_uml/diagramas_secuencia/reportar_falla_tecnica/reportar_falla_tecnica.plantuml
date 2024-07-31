@@ -6,8 +6,6 @@ participant "Colaborador" as Colaborador
 participant "HeladeraActiva" as HeladeraActiva
 participant "FallaTecnica" as FallaTecnica
 participant "Sistema" as Sistema
-participant "Broker" as Broker
-participant "MensajeIncidente" as MensajeIncidente
 participant "NotificadorDeIncidentes" as NotificadorDeIncidentes
 participant "UbicadorTecnico" as UbicadorTecnico
 participant "Tecnico" as Tecnico
@@ -22,10 +20,7 @@ FallaTecnica -> Sistema: agregarIncidente(fallaTecnica)
 Sistema --> FallaTecnica: Falla Técnica registrada
 FallaTecnica --> HeladeraActiva: Falla Técnica registrada
 HeladeraActiva -> HeladeraActiva: reportarIncidente(incidente)
-HeladeraActiva -> Broker: agregarMensaje(mensajeIncidente)
-Broker -> Broker: procesarMensaje(mensajeIncidente)
-Broker -> MensajeIncidente: procesar()
-MensajeIncidente -> NotificadorDeIncidentes: notificarIncidente(incidente)
+HeladeraActiva -> NotificadorDeIncidentes: notificarIncidente(incidente)
 NotificadorDeIncidentes -> UbicadorTecnico: obtenerTecnicoCercanoA(incidente)
 UbicadorTecnico -> NotificadorDeIncidentes: Técnico a alertar
 NotificadorDeIncidentes -> Tecnico: contactar(incidente)

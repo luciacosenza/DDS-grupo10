@@ -37,7 +37,7 @@ public class UbicadorTecnico {
             .map(puntoMedio -> Area.distanciaEntre2Puntos(puntoMedio, ubicacionHeladera))
             .collect(Collectors.toCollection(ArrayList::new));
         
-            OptionalDouble distanciaMinima = distancias.stream().mapToDouble(Double::doubleValue).min();
+        OptionalDouble distanciaMinima = distancias.stream().mapToDouble(Double::doubleValue).min();
         
         if (!distanciaMinima.isPresent())
             throw new IllegalArgumentException("No hay ningún técnico que cubra la heladera " + heladera.getNombre());

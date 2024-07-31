@@ -53,7 +53,7 @@ public class DonacionDineroTest {
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")); // Uso ColaboradorHumano porque Colaborador es abstract y DonacionDinero es valida para ambos (Humano y Juridico)
         colaboradorHumano.darDeAlta();
 
-        final LocalDateTime[] ultimaActualizacion = { LocalDateTime.now() };    // Usamos un Array para tener una final reference no directa al objeto y que nos permita modificarlo en el lambda
+        final LocalDateTime[] ultimaActualizacion = { LocalDateTime.now() };    // Usamos un Array para tener una final reference no directa al objeto y que nos permita modificarlo en el runnable
         Integer monto = 10;
         Double multiplicador_puntos = 1d; 
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -69,16 +69,15 @@ public class DonacionDineroTest {
                 ultimaActualizacion[0] = ahora;
             }
             latch.countDown();
-            if (latch.getCount() == 0) {
+            
+            if (latch.getCount() == 0) 
                 scheduler.shutdown();
-            }
         };
 
         scheduler.scheduleAtFixedRate(calculoPuntos, 0, 5, TimeUnit.SECONDS);
         
-        if (!latch.await(60, TimeUnit.SECONDS)) {   // Esperamos un maximo de 60 segundos
+        if (!latch.await(60, TimeUnit.SECONDS))   // Esperamos un maximo de 60 segundos
             throw new IllegalStateException("El cálculo de puntos no terminó a tiempo");
-        }
         
         Assertions.assertEquals(40d, colaboradorHumano.getPuntos());
     }
