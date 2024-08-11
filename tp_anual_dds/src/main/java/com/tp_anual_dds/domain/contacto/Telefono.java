@@ -1,10 +1,22 @@
 package com.tp_anual_dds.domain.contacto;
 
 public class Telefono extends MedioDeContacto {
+    private final String codPais;
+    private final String codArea;
     private final String numero;
     
-    public Telefono(String vNumero) {
+    public Telefono(String vCodPais, String vCodArea, String vNumero) {
+        codPais = vCodPais;
+        codArea = vCodArea;
         numero = vNumero;
+    }
+
+    public String getCodPais() {
+        return codPais;
+    }
+
+    public String getCodArea() {
+        return codArea;
     }
 
     public String getNumero() {
@@ -12,5 +24,5 @@ public class Telefono extends MedioDeContacto {
     }
 
     @Override
-    public void contactar(String asunto, String cuerpo) {} // TODO Se implementará posteriormente, por ahora sólo lo creamos para los Tests
+    public void contactar(String asunto, String cuerpo) {} // TODO: Se implementará posteriormente, por ahora sólo lo creamos para los Tests
 }

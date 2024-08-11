@@ -4,6 +4,7 @@ public class Ubicacion {
     private final Double latitud;
     private final Double longitud;
     private final String direccion;
+    // TODO: Ver si agregamos codigoPostal
     private final String ciudad;
     private final String pais;
 
