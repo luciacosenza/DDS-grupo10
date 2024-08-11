@@ -21,12 +21,14 @@ import com.tp_anual_dds.sistema.Sistema;
 
 public class AlertaTest {
     
-    @Test
+    @Test   // Creo una función similar a la del Sensor (dado que sino habría que cambiar las unidades del Sensor para hacer el Test)
     @DisplayName("Testeo la carga de Alerta de Temperatura")
-    public void AlertaTemperaturaTest() throws InterruptedException {
+    public void CargaAlertaTemperaturaTest() throws InterruptedException {
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
         heladera.darDeAlta();
+
         SensorTemperatura sensor = new SensorTemperatura(heladera);
+        sensor.darDeAlta();
         
         sensor.setTempActual(6f);
 
@@ -49,7 +51,7 @@ public class AlertaTest {
 
         scheduler.scheduleAtFixedRate(notificacionTemperatura, 0, 5, TimeUnit.MINUTES);
 
-        if (!latch.await(2, TimeUnit.SECONDS))   // Esperamos un maximo de 2 segundos
+        if (!latch.await(2, TimeUnit.SECONDS))   // Esperamos un máximo de 2 segundos
             throw new IllegalStateException("El cálculo de puntos no terminó a tiempo");
 
         scheduler.shutdown();
@@ -69,10 +71,12 @@ public class AlertaTest {
 
     @Test
     @DisplayName("Testeo la carga de Alerta de Fraude")
-    public void AlertaFraudeTest() {
+    public void CargaAlertaFraudeTest() {
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
         heladera.darDeAlta();
+
         SensorMovimiento sensor = new SensorMovimiento(heladera);
+        sensor.darDeAlta();
 
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             sensor.setHayMovimiento(true);
@@ -88,6 +92,32 @@ public class AlertaTest {
             .collect(Collectors.toCollection(ArrayList::new));
 
         Assertions.assertEquals("No hay ningún técnico que cubra la heladera HeladeraPrueba", exception.getMessage());  // Verificamos que se lanza la Exception del Técnico
-        Assertions.assertTrue(heladera.getEstado() == false && alertasDeFraudeDelSistema.size() == 1); // En realidad debería haber 1 Incidente pero, como Sistema es static, se carga el Incidente del otro test tambien
+        Assertions.assertTrue(heladera.getEstado() == false && alertasDeFraudeDelSistema.size() == 1);
+    }
+
+    @Test   // Llamo directo al método notificarFalla()
+    @DisplayName("Testeo la carga de Alerta de Falla de Conexión")
+    public void CargaAlertaFallaConexionTest() {
+        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
+        heladera.darDeAlta();
+
+        SensorTemperatura sensor = new SensorTemperatura(heladera);
+        sensor.darDeAlta();
+
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            sensor.notificarFalla();
+        });
+
+        ArrayList<Incidente> alertasDelSistema = Sistema.getIncidentes().stream()
+            .filter(incidente -> incidente instanceof Alerta)
+            .collect(Collectors.toCollection(ArrayList::new));
+
+        ArrayList<Alerta> alertasDeFallaConexionDelSistema = alertasDelSistema.stream()
+            .map(alerta -> (Alerta) alerta)
+            .filter(alerta -> alerta.getTipo() == TipoAlerta.FALLA_CONEXION)
+            .collect(Collectors.toCollection(ArrayList::new));
+
+        Assertions.assertEquals("No hay ningún técnico que cubra la heladera HeladeraPrueba", exception.getMessage());  // Verificamos que se lanza la Exception del Técnico
+        Assertions.assertTrue(heladera.getEstado() == false && alertasDeFallaConexionDelSistema.size() == 1);
     }
 }

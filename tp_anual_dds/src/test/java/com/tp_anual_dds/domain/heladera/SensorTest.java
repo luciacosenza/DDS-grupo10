@@ -16,12 +16,14 @@ import com.tp_anual_dds.sistema.Sistema;
 
 public class SensorTest {
     
-    @Test
+    @Test   // Creo una función similar a la del Sensor (dado que sino habría que cambiar las unidades del Sensor para hacer el Test)
     @DisplayName("Testeo el flujo correcto de datos entre la Heladera y su SensorTemperatura")
     public void SensorTemperaturaOKTest() throws InterruptedException {
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
         heladera.darDeAlta();
+
         SensorTemperatura sensor = new SensorTemperatura(heladera);
+        sensor.darDeAlta();
         
         sensor.setTempActual(-15f);
 
@@ -57,7 +59,9 @@ public class SensorTest {
     public void SensorTemperaturaAlertaTest() throws InterruptedException {
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
         heladera.darDeAlta();
+
         SensorTemperatura sensor = new SensorTemperatura(heladera);
+        sensor.darDeAlta();
         
         sensor.setTempActual(-35f);
 
@@ -89,12 +93,14 @@ public class SensorTest {
         Assertions.assertTrue(heladera.getTempActual() == -35f && heladera.getEstado() == false && !Sistema.getIncidentes().isEmpty());
     }
     
-    @Test
+    @Test   // Creo una función similar a la del Sensor (dado que sino habría que cambiar las unidades del Sensor para hacer el Test)
     @DisplayName("Testeo el flujo correcto de datos entre la Heladera y su SensorMovimiento")
     public void SensorMovimientoAlertaTest() {
         HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
         heladera.darDeAlta();
+
         SensorMovimiento sensor = new SensorMovimiento(heladera);
+        sensor.darDeAlta();
 
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             sensor.setHayMovimiento(true);
