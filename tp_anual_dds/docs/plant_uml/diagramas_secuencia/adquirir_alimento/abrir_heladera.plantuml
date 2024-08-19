@@ -6,8 +6,6 @@ participant INTERFAZ
 participant CONTROLLER
 participant "PersonaEnSituacionVulnerable" as PersonaEnSituacionVulnerable
 participant "TarjetaPersonaEnSituacionVulnerable" as TarjetaPersonaEnSituacionVulnerable
-participant "Broker" as Broker
-participant "MensajeAperturaPersonaEnSituacionVulnerable" as MensajeAperturaPersonaEnSituacionVulnerable
 participant "GestorDeAperturas" as GestorDeAperturas
 participant "AperturaPersonaEnSituacionVulnerable" as AperturaPersonaEnSituacionVulnerable
 participant "Sistema" as Sistema
@@ -16,14 +14,10 @@ User -> INTERFAZ: Solicitar adquirirAlimento(heladera)
 INTERFAZ -> CONTROLLER: Solicitar adquirirAlimento(heladera)
 CONTROLLER -> PersonaEnSituacionVulnerable: adquirirAlimento(heladera)
 PersonaEnSituacionVulnerable -> TarjetaPersonaEnSituacionVulnerable: intentarApertura(heladera)
-TarjetaPersonaEnSituacionVulnerable -> Broker: agregarMensaje(MensajeAperturaPersonaEnSituacionVulnerable)
-Broker -> Broker: procesarMensaje(mensajeAperturaPersonaEnSituacionVulnerable)
-Broker -> MensajeAperturaPersonaEnSituacionVulnerable: procesar()
-MensajeAperturaPersonaEnSituacionVulnerable -> GestorDeAperturas: revisarPermisoAperturaP(personaEnSituacionVulnerable)
+TarjetaPersonaEnSituacionVulnerable -> GestorDeAperturas: revisarPermisoAperturaP(personaEnSituacionVulnerable)
 alt Puede usar
     alt Heladera no vacía
-        GestorDeAperturas -> Broker: Permiso confirmado
-        Broker -> TarjetaPersonaEnSituacionVulnerable: Permiso confirmado
+        GestorDeAperturas -> TarjetaPersonaEnSituacionVulnerable: Permiso confirmado
         TarjetaPersonaEnSituacionVulnerable -> AperturaPersonaEnSituacionVulnerable: darDeAlta()
         AperturaPersonaEnSituacionVulnerable -> Sistema: agregarAccionHeladera(aperturaPersonaEnSituacionVulnerable)
         Sistema --> AperturaPersonaEnSituacionVulnerable: Apertura registrada
@@ -33,15 +27,15 @@ alt Puede usar
         CONTROLLER --> INTERFAZ: Apertura registrada
         INTERFAZ --> User: Apertura registrada
     else Heladera vacía
-        GestorDeAperturas --> Broker: Error
-        Broker --> CONTROLLER: Error
-        CONTROLLER --> INTERFAZ: Error
+        GestorDeAperturas --> TarjetaPersonaEnSituacionVulnerable: Permiso denegado (heladera vacía)
+        TarjetaPersonaEnSituacionVulnerable --> CONTROLLER: Permiso denegado (heladera vacía)
+        CONTROLLER --> INTERFAZ: Permiso denegado (heladera vacía)
         INTERFAZ --> User: La heladera (nombre) se encuentra vacía
     end
 else No puede usar
-    GestorDeAperturas --> Broker: Error
-        Broker --> CONTROLLER: Error
-        CONTROLLER --> INTERFAZ: Error
+    GestorDeAperturas --> TarjetaPersonaEnSituacionVulnerable: Permiso denegado (usos agotados)
+        TarjetaPersonaEnSituacionVulnerable --> CONTROLLER: Permiso denegado (usos agotados)
+        CONTROLLER --> INTERFAZ: Permiso denegado (usos agotados)
         INTERFAZ --> User: Ya agotó los usos diarios de su tarjeta
 end
 @enduml
