@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body{
+    font-family: "Inter";
+}
+
 .navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
     text-decoration: underline;
     text-decoration-color: #0c6dfd;
@@ -13,9 +19,9 @@
 
 #hero{
     background-image: 
-        url('../assets/vector3.svg'),
-        url('../assets/vector1.svg'),
-        url('../assets/vector2.svg');
+        url('../assets/vectores-hero/vector3.svg'),
+        url('../assets/vectores-hero/vector1.svg'),
+        url('../assets/vectores-hero/vector2.svg');
         background-position: right -30%, right top, left 100px;
         background-repeat: no-repeat;
         background-size: 40%;
@@ -25,4 +31,35 @@
 }
 h1{
     font-size: 5rem;
+}
+
+#elementos-main{
+    height: 50vh;
+    margin: 10%;
+}
+#elementos-main .container {
+    height: 80%;
+}
+#elementos-main .container div{
+    height: 90%;
+}
+#elementos-main .col{
+    height: 100%;
+}
+.card-vector{
+    width: 100%;
+    height: 100px;
+    background-image: url('../assets/vector-card.svg');
+    background-position: center;
+    background-size:contain;
+    background-repeat: no-repeat;
+    padding: 20px;
+    color: #000;
+}
+.card-vector img{
+    width: 35%;
+}
+#elementos-main .col .btn{
+    --bs-btn-font-weight: 700;
+    font-size: 1.5rem;
 }
