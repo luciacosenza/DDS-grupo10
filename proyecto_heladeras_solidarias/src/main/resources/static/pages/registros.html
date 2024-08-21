@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colaborar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .icon-box {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+        .icon-box:hover {
+            background-color: #f1f1f1;
+        }
+        .icon-box i {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .icon-box p {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a class="navbar-brand" href="../index.html">
+                    <img src="./assets/logo_negro.png" alt="Logo" height="50">
+                </a>
+                <!-- Navegación -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Quiénes somos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Cómo participar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contacto</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Colaborar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="container text-center">
+        <h1 class="fw-bold">Reportes</h1>
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="icon-box">
+                    <i class="fa-solid fa-sack-dollar"></i>
+                    <p>Cantidad de fallas por heladeras</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="icon-box">
+                    <i class="bi bi-box-seam"></i>
+                    <p>Cantidad de viandas retiradas/colocadas</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="icon-box">
+                    <i class="bi bi-truck"></i>
+                    <p>Cantidad de viandas por colaborador</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-3 d-flex flex-column">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="./index.html" class="nav-link px-2 text-body-secondary">Inicio</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Quiénes somos</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Cómo participar</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Contacto</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Colaborar</a></li>
+        </ul>
+        <a href="/" class="d-flex align-items-center justify-content-center mb-3 mb-md-0 link-body-emphasis text-decoration-none p-3">
+            <img src="./assets/logo_negro.png" alt="logo heladeras solidarias" width="50">
+        </a>
+        <p class="text-center text-muted text-sm">proyecto.heladeras.solidarias@gmail.com</p>
+        <p class="text-center text-body-secondary">© Desarrollado por Grupo 10</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

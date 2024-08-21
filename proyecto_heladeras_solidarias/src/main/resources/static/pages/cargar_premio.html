@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargar Premio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 80px;
+        }
+        .card {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .custom-file-upload {
+            border: 2px dashed #6c757d;
+            display: inline-block;
+            padding: 20px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            color: #6c757d;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a class="navbar-brand" href="../index.html">
+                    <img src="./assets/logo_negro.png" alt="Logo" height="50">
+                </a>
+                <!-- Navegación -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Quiénes somos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Cómo participar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contacto</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Colaborar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container text-center">
+        <h1 class="fw-bold">Cargar Premio</h1>
+        <div class="card mt-4">
+            <form>
+                <div class="mb-3">
+                    <label for="nombrePremio" class="form-label">Nombre del premio</label>
+                    <input type="text" class="form-control" id="nombrePremio" placeholder="Ej: Cena para 4 personas">
+                </div>
+                <div class="mb-3">
+                    <label for="costoPuntos" class="form-label">Costo de puntos</label>
+                    <input type="number" class="form-control" id="costoPuntos" placeholder="Sólo el número">
+                </div>
+                <div class="mb-3">
+                    <label for="categoria" class="form-label">Categoría</label>
+                    <select class="form-select" id="categoria">
+                        <option selected>Seleccionar opción</option>
+                        <option value="1">Opción 1</option>
+                        <option value="2">Opción 2</option>
+                        <option value="3">Opción 3</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="adjuntarImagen" class="form-label">Adjuntar imagen</label>
+                    <label class="custom-file-upload">
+                        <input type="file" id="adjuntarImagen" accept="image/*">
+                        <i class="bi bi-upload"></i> máx 5 mb
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-dark w-100">Cargar</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="py-3 d-flex flex-column">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="./index.html" class="nav-link px-2 text-body-secondary">Inicio</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Quiénes somos</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Cómo participar</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Contacto</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Colaborar</a></li>
+        </ul>
+        <a href="/" class="d-flex align-items-center justify-content-center mb-3 mb-md-0 link-body-emphasis text-decoration-none p-3">
+            <img src="./assets/logo_negro.png" alt="logo heladeras solidarias" width="50">
+        </a>
+        <p class="text-center text-muted text-sm">proyecto.heladeras.solidarias@gmail.com</p>
+        <p class="text-center text-body-secondary">© Desarrollado por Grupo 10</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
