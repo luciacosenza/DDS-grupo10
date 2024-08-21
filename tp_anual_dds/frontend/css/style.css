@@ -3,7 +3,10 @@
 body{
     font-family: "Inter";
 }
-
+.btn a{
+    text-decoration: none;
+    color: #fff;
+}
 .navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
     text-decoration: underline;
     text-decoration-color: #0c6dfd;
@@ -36,6 +39,10 @@ body{
 
 h1{
     font-size: 4rem;
+}
+
+.btn-light{
+    border: 1px solid #000
 }
 
 #elementos-main{
@@ -123,7 +130,7 @@ footer ul li:hover{
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     background-color: #E6E6E6;
 }
 .container-imagen img{
@@ -131,8 +138,7 @@ footer ul li:hover{
 }
 .register-card{ 
     padding: 5%;
-    width: 600px;
-    margin-top: 5%;
+    width: 700px;
 }
 .register-card h4{
     font-weight: 300;
@@ -142,4 +148,16 @@ footer ul li:hover{
     background-color: #fff;
     border: 1px solid #D9D9D9;
     border-radius: 8px;
+}
+.form-control::placeholder{
+    color: #bbbbbb;
+}
+.form-select{
+    color: #bbbbbb;
+}
+.form-control{
+    
+}
+.span-form{
+    font-weight: 600;
 }

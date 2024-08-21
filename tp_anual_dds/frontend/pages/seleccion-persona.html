@@ -14,7 +14,7 @@
         <nav class="navbar navbar-expand-lg navbar-light ">
             <div class="container-fluid">
                 <!-- Logo -->
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="../index.html">
                     <img src="../assets/logo_negro.png" alt="Logo" height="50">
                 </a>
                 <!-- Navegación -->
@@ -39,11 +39,6 @@
                             <a class="nav-link" href="#">Colaborar</a>
                         </li>
                     </ul>
-                    <!-- Botones de Iniciar Sesión y Registrarse -->
-                    <div class="d-flex ms-lg-3">
-                        <button class="btn btn-outline-primary me-2" type="button">Iniciar Sesión</button>
-                        <button class="btn btn-primary" type="button">Registrarse</button>
-                    </div>
                 </div>
             </div>
         </nav>
@@ -55,18 +50,22 @@
         <h2 class="mb-4 text-center">Registrarse</h2>
         <hr>
         <div class="d-flex justify-content-center align-items-cente flex-wrap">
-            <div class="card-seleccion-registro d-flex flex-column align-items-cente m-4">
-                <img src="../assets/personaHumana2.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <a href="./registro-persona.html" class="btn">Soy persona humana</a>
+            <a href="./registro-persona-humana.html">
+                <div class="card-seleccion-registro d-flex flex-column align-items-cente m-4">
+                    <img src="../assets/personaHumana2.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <button class="btn" id="persona-humana">Soy persona humana</button>
+                    </div>
                 </div>
-            </div>
-            <div class="card-seleccion-registro d-flex flex-column align-items-center m-4">
-                <img src="../assets/negocio2.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <a href="./registro-persona.html" class="btn">Soy persona jurídica</a>
+            </a>
+            <a href="./registro-persona-juridica.html">
+                <div class="card-seleccion-registro d-flex flex-column align-items-center m-4">
+                    <img src="../assets/negocio2.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <button class="btn" id="persona-juridica">Soy persona jurídica</button>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
     <footer class="py-3 d-flex flex-column">
