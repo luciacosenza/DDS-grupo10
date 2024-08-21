@@ -1,3 +1,33 @@
-<svg width="364" height="305" viewBox="0 0 364 305" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M17.929 202.482C39.2623 213.982 80.129 242.582 72.929 264.982C65.729 287.382 101.596 300.982 120.429 304.982C151.929 293.815 226.429 272.282 272.429 275.482C318.429 278.682 349.929 223.148 359.929 194.982C366.929 156.148 368.429 76.4818 318.429 68.4818C268.429 60.4818 237.929 33.4818 228.929 20.9818C202.429 5.14843 140.729 -17.0182 105.929 20.9818C71.129 58.9818 32.7623 94.4818 17.929 107.482C4.39936 129.315 -14.5422 178.882 17.929 202.482Z" fill="#F5F5F5"/>
-</svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="364"
+   height="305"
+   viewBox="0 0 364 305"
+   fill="none"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="vector-card.svg"
+   xml:space="preserve"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+     id="defs1" /><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.6249178"
+     inkscape:cx="128.62189"
+     inkscape:cy="90.158407"
+     inkscape:window-width="1680"
+     inkscape:window-height="1050"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg1" /></svg>
