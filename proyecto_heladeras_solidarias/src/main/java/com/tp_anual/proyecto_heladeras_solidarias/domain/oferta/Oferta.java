@@ -1,0 +1,56 @@
+package com.tp_anual.proyecto_heladeras_solidarias.domain.oferta;
+
+import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
+
+public class Oferta {
+    private String nombre;
+    private Double costo;
+    private Categoria categoria;
+    private String imagen;
+    
+    public enum Categoria {
+        GASTRONOMIA,
+        ELECTRONICA,
+        ARTICULOS_PARA_EL_HOGAR
+        // TODO: Completar, de ser necesario
+    }
+
+    public Oferta(String vNombre, Double vCosto, Categoria vCategoria, String vImagen) {
+        nombre = vNombre;
+        costo = vCosto;
+        categoria = vCategoria;
+        imagen = vImagen;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Double getCosto() {
+        return costo;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void validarPuntos(Colaborador colaborador) {
+        Double puntosColaborador = colaborador.getPuntos();
+        
+        if (puntosColaborador < costo)
+            throw new IllegalArgumentException("No cuenta con los puntos necesarios para adquirir este beneficio");
+    }
+
+    public void darDeAlta() {
+        Sistema.agregarOferta(this);
+    }
+
+    public void darDeBaja() {
+        Sistema.eliminarOferta(this);
+    }
+}

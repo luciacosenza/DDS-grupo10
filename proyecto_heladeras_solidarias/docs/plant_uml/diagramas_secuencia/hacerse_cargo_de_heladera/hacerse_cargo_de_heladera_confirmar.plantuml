@@ -1,0 +1,20 @@
+@startuml hacerse_cargo_de_heladera_confirmar
+actor Colaborador_Usuario as User
+participant INTERFAZ
+participant CONTROLLER
+participant "Colaborador" as Colaborador
+participant "HacerseCargoDeHeladera" as HacerseCargoDeHeladera
+
+User -> INTERFAZ: Solicitar confirmarContribucion(hacerseCargoDeHeladera, fechaContribucion)
+INTERFAZ -> CONTROLLER: Solicitar confirmarContribucion(hacerseCargoDeHeladera, fechaContribucion)
+CONTROLLER -> Colaborador: confirmarContribucion(hacerseCargoDeHeladera, fechaContribucion)
+Colaborador -> HacerseCargoDeHeladera: confirmar(fechaContribucion)
+HacerseCargoDeHeladera -> HacerseCargoDeHeladera: marcarComoCompletada()
+HacerseCargoDeHeladera -> HacerseCargoDeHeladera: calcularPuntos()
+HacerseCargoDeHeladera --> Colaborador: Confirmación válida
+Colaborador -> Colaborador: agregarContribucion(hacerseCargoDeHeladera)
+Colaborador -> Colaborador: eliminarContribucionPendiente(hacerseCargoDeHeladera)
+Colaborador --> CONTROLLER: Hacerse Cargo De Heladera confirmada
+CONTROLLER --> INTERFAZ: Hacerse Cargo De Heladera confirmada
+INTERFAZ --> User: Hacerse Cargo De Heladera confirmada
+@enduml

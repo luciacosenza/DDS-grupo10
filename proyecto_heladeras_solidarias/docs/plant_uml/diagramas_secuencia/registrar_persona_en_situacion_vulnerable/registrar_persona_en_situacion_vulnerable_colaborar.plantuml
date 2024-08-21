@@ -1,0 +1,24 @@
+@startuml registrar_persona_en_situacion_vulnerable_colaborar
+actor Colaborador_Usuario as User
+participant INTERFAZ
+participant CONTROLLER
+participant "Colaborador" as Colaborador
+participant "RegistroDePersonaEnSituacionVulnerableCreator" as RegistroPersonaEnSituacionVulnerable
+
+User -> INTERFAZ: Solicitar colaborar (RegistroDePersonaEnSituacionVulnerableCreator, fechaContribucion tarjetaAsignada)
+INTERFAZ -> CONTROLLER: Solicitar colaborar (RegistroDePersonaEnSituacionVulnerableCreator, fechaContribucion, tarjetaAsignada)
+CONTROLLER -> Colaborador: colaborar(RegistroDePersonaEnSituacionVulnerableCreator, fechaContribucion, tarjetaAsignada)
+Colaborador -> Colaborador: esCreatorPermitido(RegistroDePersonaEnSituacionVulnerableCreator.getClass())
+alt Creator permitido
+    Colaborador -> RegistroPersonaEnSituacionVulnerable: crearContribucion(colaborador, fechaContribucion, tarjetaAsignada)
+    RegistroPersonaEnSituacionVulnerable -> Colaborador: new RegistroDePersonaEnSituacionVulnerable(colaborador, fechaContribucion, tarjetaAsignada)
+    Colaborador -> Colaborador: agregarContribucionPendiente(registroDePersonaEnSituacionVulnerable)
+    Colaborador --> CONTROLLER: Registro de Persona en Situación Vulnerable creada
+    CONTROLLER --> INTERFAZ: Registro de Persona en Situación Vulnerable creada
+    INTERFAZ --> User: Registro de Persona en Situación Vulnerable creada
+else Creator no permitido
+    Colaborador --> CONTROLLER: Error
+    CONTROLLER --> INTERFAZ: Error
+    INTERFAZ --> User: No es una forma válida de colaborar
+end
+@enduml

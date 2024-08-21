@@ -1,0 +1,20 @@
+@startuml cargar_oferta_confirmar
+actor Colaborador_Usuario as User
+participant INTERFAZ
+participant CONTROLLER
+participant "Colaborador" as Colaborador
+participant "CargaOferta" as CargaOferta
+
+User -> INTERFAZ: Solicitar confirmarContribucion(cargaOferta, fechaContribucion)
+INTERFAZ -> CONTROLLER: Solicitar confirmarContribucion(cargaOferta, fechaContribucion)
+CONTROLLER -> Colaborador: confirmarContribucion(cargaOferta, fechaContribucion)
+Colaborador -> CargaOferta: confirmar(fechaContribucion)
+CargaOferta -> CargaOferta: marcarComoCompletada()
+CargaOferta -> CargaOferta: calcularPuntos()
+CargaOferta --> Colaborador: Confirmación válida
+Colaborador -> Colaborador: agregarContribucion(cargaOferta)
+Colaborador -> Colaborador: eliminarContribucionPendiente(cargaOferta)
+Colaborador --> CONTROLLER: Carga de Oferta confirmada
+CONTROLLER --> INTERFAZ: Carga de Oferta confirmada
+INTERFAZ --> User: Carga de Oferta confirmada
+@enduml

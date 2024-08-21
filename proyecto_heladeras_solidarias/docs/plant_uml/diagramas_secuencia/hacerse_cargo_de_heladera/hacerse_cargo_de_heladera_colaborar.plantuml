@@ -1,0 +1,24 @@
+@startuml hacerse_cargo_de_heladera_colaborar
+actor Colaborador_Usuario as User
+participant INTERFAZ
+participant CONTROLLER
+participant "Colaborador" as Colaborador
+participant "HacerseCargoDeHeladeraCreator" as HacerseCargoDeHeladeraCreator
+
+User -> INTERFAZ: Solicitar colaborar (HacerseCargoDeHeladeraCreator, fechaContribucion, heladera)
+INTERFAZ -> CONTROLLER: Solicitar colaborar (HacerseCargoDeHeladeraCreator, fechaContribucion, heladera)
+CONTROLLER -> Colaborador: colaborar(HacerseCargoDeHeladeraCreator, fechaContribucion, heladera)
+Colaborador -> Colaborador: esCreatorPermitido(HacerseCargoDeHeladeraCreator.getClass())
+alt Creator permitido
+    Colaborador -> HacerseCargoDeHeladeraCreator: crearContribucion(colaborador fechaContribucion, heladera)
+    HacerseCargoDeHeladeraCreator-> Colaborador: new HacerseCargoDeHeladera(colaborador fechaContribucion, heladera)
+    Colaborador -> Colaborador: agregarContribucionPendiente(chacerseCargoDeHelade
+    Colaborador --> CONTROLLER: Hacerse Cargo de Heladera creada
+    CONTROLLER --> INTERFAZ: Hacerse Cargo de Heladera creada
+    INTERFAZ --> User: Hacerse Cargo de Heladera creada
+else Creator no permitido
+    Colaborador --> CONTROLLER: Error
+    CONTROLLER --> INTERFAZ: Error
+    INTERFAZ --> User: No es una forma válida de colaborar
+end
+@endumll

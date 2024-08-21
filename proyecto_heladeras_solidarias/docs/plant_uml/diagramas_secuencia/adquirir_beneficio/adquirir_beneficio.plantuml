@@ -1,0 +1,28 @@
+@startuml adquirir_beneficio
+actor Colaborador_Usuario as User
+participant INTERFAZ
+participant CONTROLLER
+participant "Colaborador" as Colaborador
+participant "Oferta" as Oferta
+participant "Sistema" as Sistema
+
+User -> INTERFAZ: Solicitar intentarAdquirirBeneficio(oferta)
+INTERFAZ -> CONTROLLER: Solicitar intentarAdquirirBeneficio(oferta)
+CONTROLLER -> Colaborador: intentarAdquirirBeneficio(oferta)
+Colaborador -> Oferta: validarPuntos(this)
+alt Puntos suficientes
+    Oferta -> Oferta: darDeBaja()
+    Oferta -> Sistema: eliminarOferta(oferta)
+    Sistema --> Oferta: Oferta eliminada
+    Oferta --> Colaborador: Puntos válidos
+    Colaborador -> Colaborador: agregarBeneficio(oferta)
+    Colaborador --> CONTROLLER: Beneficio adquirido
+    CONTROLLER --> INTERFAZ: Beneficio adquirido
+    INTERFAZ --> User: Beneficio adquirido
+else Puntos insuficientes
+    Oferta --> Colaborador: Error (puntos insuficientes)
+    Colaborador --> CONTROLLER: Error
+    CONTROLLER --> INTERFAZ: Error
+    INTERFAZ --> User: Error (puntos insuficientes)
+end
+@enduml

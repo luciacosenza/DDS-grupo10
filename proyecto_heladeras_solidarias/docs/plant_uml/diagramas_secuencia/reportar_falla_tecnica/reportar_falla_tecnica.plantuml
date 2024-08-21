@@ -1,0 +1,33 @@
+@startuml reportar_falla_tecnica
+actor Colaborador_Usuario as User
+participant INTERFAZ
+participant CONTROLLER
+participant "Colaborador" as Colaborador
+participant "HeladeraActiva" as HeladeraActiva
+participant "FallaTecnica" as FallaTecnica
+participant "Sistema" as Sistema
+participant "NotificadorDeIncidentes" as NotificadorDeIncidentes
+participant "UbicadorTecnico" as UbicadorTecnico
+participant "Tecnico" as Tecnico
+
+User -> INTERFAZ: Solicitar reportarFallaTecnica(heladera, descripcion, foto)
+INTERFAZ -> CONTROLLER: Solicitar reportarFallaTecnica(heladera, descripcion, foto)
+CONTROLLER -> Colaborador: reportarFallaTecnica(heladera, descripcion, foto)
+Colaborador -> HeladeraActiva: producirFallaTecnica(colaborador, descripcion, foto)
+HeladeraActiva -> HeladeraActiva: reaccionarAnteIncidente()
+HeladeraActiva -> FallaTecnica: darDeAlta()
+FallaTecnica -> Sistema: agregarIncidente(fallaTecnica)
+Sistema --> FallaTecnica: Falla Técnica registrada
+FallaTecnica --> HeladeraActiva: Falla Técnica registrada
+HeladeraActiva -> HeladeraActiva: reportarIncidente(incidente)
+HeladeraActiva -> NotificadorDeIncidentes: notificarIncidente(incidente)
+NotificadorDeIncidentes -> UbicadorTecnico: obtenerTecnicoCercanoA(incidente)
+UbicadorTecnico -> NotificadorDeIncidentes: Técnico a alertar
+NotificadorDeIncidentes -> Tecnico: contactar(incidente)
+Tecnico --> NotificadorDeIncidentes: Contacto confirmado
+NotificadorDeIncidentes --> Broker: Notificación confirmada
+Broker --> HeladeraActiva: Reporte confirmado
+HeladeraActiva --> CONTROLLER: Reporte confirmado
+CONTROLLER --> INTERFAZ: Reporte confirmado
+INTERFAZ --> User: Reporte confirmado
+@enduml
