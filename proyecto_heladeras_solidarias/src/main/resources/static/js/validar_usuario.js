@@ -65,7 +65,7 @@ if(document.querySelector("#index")){
                                     </ul>
                                 <div class="d-flex flex-column ms-lg-3">
                                     <span class="material-symbols-outlined">
-                                    account_circle
+                                        account_circle
                                     </span>
                                     admin
                                 </div>
