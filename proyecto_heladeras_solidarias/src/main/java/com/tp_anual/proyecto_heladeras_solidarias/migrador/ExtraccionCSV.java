@@ -28,7 +28,8 @@ public class ExtraccionCSV extends ExtraccionDeDatos {
         return dataColaboradores;
     }
 
-/*public ArrayList<String[]> extract(String csv) {
+/*
+public ArrayList<String[]> extract(String csv) {
         String linea;
         String separador = ",";
         ArrayList<String[]> dataColaboradores = new ArrayList<>();
@@ -43,9 +44,11 @@ public class ExtraccionCSV extends ExtraccionDeDatos {
         }
 
         return dataColaboradores;
-    }*/
+    }
+*/
 
-/* public ArrayList<String[]> extract(String csv) {
+/*
+public ArrayList<String[]> extract(String csv) {
         ArrayList<String[]> dataColaboradores = new ArrayList<>();
 
         // Verificar si el archivo existe y se puede leer
@@ -73,7 +76,7 @@ public class ExtraccionCSV extends ExtraccionDeDatos {
         }
 
         return dataColaboradores;
-    }*/
-
+    }
+*/
 
 }
