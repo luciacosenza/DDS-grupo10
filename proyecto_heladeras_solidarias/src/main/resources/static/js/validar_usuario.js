@@ -12,7 +12,7 @@ if(document.querySelector("#iniciar-sesion")){
 
         if(usuarioValue == 'admin' && passwordValue == 'admin'){
             tipo_usuario = 'admin';
-            localStorage.setItem('usuario', tipo_usuario)
+            sessionStorage.setItem('usuario', tipo_usuario)
             Swal.fire({
                 title: "Sesion iniciada como administrador",
                 confirmButtonText: "Continuar a inicio",
@@ -26,7 +26,7 @@ if(document.querySelector("#iniciar-sesion")){
     }
 
 if(document.querySelector("#index")){
-    const tipo_usuario_guardado = localStorage.getItem('usuario');
+    const tipo_usuario_guardado = sessionStorage.getItem('usuario');
     let navbar = document.querySelector(".navbar");
     if(tipo_usuario_guardado == 'admin'){
         navbar.innerHTML = ` <div class="container-fluid">
@@ -42,7 +42,7 @@ if(document.querySelector("#index")){
                                             <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="./pages/migracion-datos.html">Cargar archivo</a>
+                                            <a class="nav-link" href="./pages/migracion-datos.html">Migrar archivo</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="">Alertas</a>

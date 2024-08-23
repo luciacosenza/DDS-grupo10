@@ -4,6 +4,7 @@
 body{
     font-family: "Inter";
     background-color: #f8f9fa;
+    width: 100%;
 }
 h1{
     font-size: 4rem;
@@ -24,7 +25,7 @@ h1{
 .container {
     margin-top: 80px;
 }
-/* ----- INDEX ----- */
+/* -------------------- INDEX -------------------- */
 #hero{
     background-image: 
         url('../assets/vectores-hero/vector3.svg'),
@@ -62,12 +63,17 @@ h1{
     transform: scale(1.1);
     transition: 0.5s;
 }
+.opciones-main:not(hover){
+    transform: scale(1);
+    transition: 0.5s;
+}
+
 #elementos-main .col .btn{
     --bs-btn-font-weight: 700;
     font-size: 1.5rem;
 }
 
-/* ----- SELECCION TIPO DE PERSONA -----*/
+/* --------- SELECCION TIPO DE PERSONA ---------*/
 #seleccion-persona{
     margin: 0;
     background-color: #E6E6E6;
@@ -117,7 +123,7 @@ h1{
     border-radius: 8px;
 }
 
-/* ----- REGISTRO ----- */
+/* ----------------- REGISTRO ----------------- */
 #registro{
     width: 100%;
     height: max-content;
@@ -151,7 +157,7 @@ h1{
     font-weight: 600;
 }
 
-/* ----- INICIAR SESION ----- */
+/* --------------- INICIAR SESION --------------- */
 #iniciar-sesion{
     width: 100%;
     height: 100vh;
@@ -164,19 +170,190 @@ h1{
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
     background-color: white;
 }
+.toggle-pass-icon{
+    font-size: 20px;
+    color: black;
+}
+.toggle-pass-icon:hover{
+    transform: scale(1.15);
+    transition: 0.3s;
+}
+.toggle-pass-icon:not(:hover){
+    transform: scale(1);
+    transition: 0.3s;
+}
+.input-group .toggle-password{
+    position:absolute;
+    right: 0;
+    top: 3px;
+    border-top-right-radius:0;
+    border-bottom-right-radius: 0;
+    border: none;
+}
+#password{
+    border-radius: 6px;
+}
+#password-repeat{
+    border-radius: 6px;
+}
 .custom-file-upload {
+    display: inline-block;
     border: 2px dashed #bbbbbb;
     border-radius: 8px;
-    display: inline-block;
     padding: 20px;
     cursor: pointer;
     width: 100%;
-    text-align: center;
     color: #bbbbbb;
     margin-top: 10px;
+    text-align: center;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.custom-file-upload:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.06);
+    transition: 1s;
 }
 input::-webkit-file-upload-button{
     display: none;
 }
 
-/* ----- COLOCAR HELADERA ----- */
+/* --------------- DONAR DINERO --------------- */
+.card-donacion-dinero{
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+.option-circle { 
+    text-align: center;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+}
+
+.option-circle {
+    width: 100px; 
+    height: 100px; 
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    text-align: center;
+    background-color: #ffffff;
+    appearance: none;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+    box-sizing: border-box;
+    color: #2C2C2C;
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-size: 14px;
+    font-weight: 500;
+    max-width: 100%;
+    overflow: visible;
+    padding: 2px 24px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    will-change: transform,opacity;
+    z-index: 0;
+}
+
+.option-circle:hover {
+    background: #F6F9FE;
+    color: #174ea6;
+}
+
+.option-circle:active {
+    box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+    outline: none;
+    transform: scale(0.9);
+}
+
+.option-circle:focus {
+    outline: none;
+    border: 2px solid #4285f4;
+}
+
+.option-circle:not(:disabled) {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+
+.option-circle:not(:disabled):hover {
+    box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
+}
+
+.option-circle:not(:disabled):focus {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+
+.option-circle:not(:disabled):active {
+    box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
+}
+
+.option-circle:disabled {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.icon-container div {
+    text-align: center;
+    cursor: pointer;
+}
+
+.icon-container div:hover {
+    color: #007bff;
+}
+
+.selected {
+    background-color: #007bff;
+    color: white;
+}
+.oculto{
+    display: none;
+}
+.input-monto{
+    display: none;
+}
+
+/* --------------- MIGRACION DATOS --------------- */
+.migrador-container{
+    height: 70vh;
+    max-width: 100%;
+}
+#migradorCSV{
+    opacity: 0;
+}
+
+/* --------- REPORTES ---------  */
+.icon-box {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+.icon-box:hover {
+    background-color: #f1f1f1;
+}
+.icon-box i {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+.icon-box p {
+    font-weight: bold;
+}
