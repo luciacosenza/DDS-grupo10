@@ -9,14 +9,8 @@ h1{
     font-size: 4rem;
 }
 
-
 .material-symbols-outlined{
     font-size: 48px;
-}
-/* ----- FOOTER ----- */
-footer ul li:hover{
-    transform: scale(1.05);
-    transition: 0.2s;
 }
 
 /* ----- COMPONENTES ----- */
@@ -36,12 +30,12 @@ footer ul li:hover{
         url('../assets/vectores-hero/vector3.svg'),
         url('../assets/vectores-hero/vector1.svg'),
         url('../assets/vectores-hero/vector2.svg');
-        background-position: right -30%, right top, left 100px;
-        background-repeat: no-repeat;
-        background-size: 40%;
-        height: 60vh;
-        padding: 20px;
-        color: #000;
+    background-position: right -30%, right top, left 100px;
+    background-repeat: no-repeat;
+    background-size: 40%;
+    height: 60vh;
+    padding: 20px;
+    color: #000;
 }
 #hero hr{
     width: 450px;
@@ -126,10 +120,10 @@ footer ul li:hover{
 /* ----- REGISTRO ----- */
 #registro{
     width: 100%;
+    height: max-content;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    background-color: #E6E6E6;
 }
 .container-imagen img{
     width: 600px;
@@ -150,7 +144,7 @@ footer ul li:hover{
 .form-control::placeholder{
     color: #bbbbbb;
 }
-.form-select{
+.form-select {
     color: #bbbbbb;
 }
 .span-form{
@@ -170,7 +164,6 @@ footer ul li:hover{
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
     background-color: white;
 }
-
 .custom-file-upload {
     border: 2px dashed #bbbbbb;
     border-radius: 8px;
@@ -185,3 +178,5 @@ footer ul li:hover{
 input::-webkit-file-upload-button{
     display: none;
 }
+
+/* ----- COLOCAR HELADERA ----- */

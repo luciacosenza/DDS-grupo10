@@ -37,5 +37,5 @@ button_submit.addEventListener("click", function(e) {
     }
 
     // Si todo es válido, redirigir a la página de crear usuario
-    window.location.href = "./crear-usuario.html";
+    window.location.href = "./crear_usuario.html";
 });
