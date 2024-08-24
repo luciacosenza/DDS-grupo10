@@ -21,7 +21,11 @@ public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
         return tarjetaAsignada;
     }
 
-    // TODO: public void obtenerDetalles()
+    @Override
+    public void obtenerDetalles() {
+        super.obtenerDetalles();
+        System.out.println("Persona registrada: " + tarjetaAsignada.getTitular());
+    }
     
     @Override
     public void validarIdentidad() {

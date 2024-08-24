@@ -23,7 +23,11 @@ public class HacerseCargoDeHeladera extends Contribucion {
         completada = false;
     }
 
-    // TODO: public void obtenerDetalles()
+    @Override
+    public void obtenerDetalles() {
+        super.obtenerDetalles();
+        System.out.println("Heladera: " + heladeraObjetivo.getNombre());
+    }
     
     public HeladeraActiva getHeladeraObjetivo() {
         return heladeraObjetivo;

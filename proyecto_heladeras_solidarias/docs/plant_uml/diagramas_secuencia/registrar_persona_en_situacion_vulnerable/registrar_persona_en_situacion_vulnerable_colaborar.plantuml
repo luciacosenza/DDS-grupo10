@@ -10,7 +10,7 @@ INTERFAZ -> CONTROLLER: Solicitar colaborar (RegistroDePersonaEnSituacionVulnera
 CONTROLLER -> Colaborador: colaborar(RegistroDePersonaEnSituacionVulnerableCreator, fechaContribucion, tarjetaAsignada)
 Colaborador -> Colaborador: esCreatorPermitido(RegistroDePersonaEnSituacionVulnerableCreator.getClass())
 alt Creator permitido
-    Colaborador -> RegistroPersonaEnSituacionVulnerable: crearContribucion(colaborador, fechaContribucion, tarjetaAsignada)
+    Colaborador -> RegistroPersonaEnSituacionVulnerable: crearContribucion(colaborador, fechaContribucion, paraMigrar, tarjetaAsignada)
     RegistroPersonaEnSituacionVulnerable -> Colaborador: new RegistroDePersonaEnSituacionVulnerable(colaborador, fechaContribucion, tarjetaAsignada)
     Colaborador -> Colaborador: agregarContribucionPendiente(registroDePersonaEnSituacionVulnerable)
     Colaborador --> CONTROLLER: Registro de Persona en Situación Vulnerable creada

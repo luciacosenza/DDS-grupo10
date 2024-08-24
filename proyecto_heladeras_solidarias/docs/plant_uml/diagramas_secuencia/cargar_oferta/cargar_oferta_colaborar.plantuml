@@ -10,7 +10,7 @@ INTERFAZ -> CONTROLLER: Solicitar colaborar (CargaOfertaCreator, fechaContribuci
 CONTROLLER -> Colaborador: colaborar(CargaOfertaCreator, fechaContribucion, oferta)
 Colaborador -> Colaborador: esCreatorPermitido(CargaOfertaCreator.getClass())
 alt Creator permitido
-    Colaborador -> CargaOfertaCreator: crearContribucion(colaborador, fechaContribucion, oferta)
+    Colaborador -> CargaOfertaCreator: crearContribucion(colaborador, fechaContribucion, paraMigrar, oferta)
     CargaOfertaCreator -> Colaborador: new CargaOferta(colaborador, fechaContribucion, oferta)
     Colaborador -> Colaborador: agregarContribucionPendiente(cargaOferta)
     Colaborador --> CONTROLLER: Carga de Oferta creada

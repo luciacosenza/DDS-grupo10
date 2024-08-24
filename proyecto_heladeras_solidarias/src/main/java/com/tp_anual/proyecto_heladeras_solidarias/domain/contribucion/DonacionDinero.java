@@ -93,7 +93,11 @@ public class DonacionDinero extends Contribucion {
         return frecuencia;
     }
 
-    // TODO: public void obtenerDetalles()
+    @Override
+    public void obtenerDetalles() {
+        super.obtenerDetalles();
+        System.out.println("Monto: " + getMonto() + " | Frecuencia: " + getFrecuencia());
+    }
 
     @Override
     public void validarIdentidad() {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador

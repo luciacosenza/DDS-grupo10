@@ -10,7 +10,7 @@ INTERFAZ -> CONTROLLER: Solicitar colaborar (DistribucionViandasCreator, fechaCo
 CONTROLLER -> Colaborador: colaborar(DistribucionViandasCreator, fechaContribucion, origen, destino, cantidadViandasAMover, motivo)
 Colaborador -> Colaborador: esCreatorPermitido(DistribucionViandasCreator.getClass())
 alt Creator permitido
-    Colaborador -> DistribucionViandasCreator: crearContribucion(colaborador, fechaContribucion, origen, destino, cantidadViandasAMover, motivo)
+    Colaborador -> DistribucionViandasCreator: crearContribucion(colaborador, fechaContribucion, paraMigrar, origen, destino, cantidadViandasAMover, motivo)
     DistribucionViandasCreator -> Colaborador: new DistribucionViandas(colaborador, fechaContribucion, origen, destino, cantidadViandasAMover, motivo)
     Colaborador -> Colaborador: agregarContribucionPendiente(distribucionViandas)
     Colaborador --> CONTROLLER: Distribución de Viandas creada

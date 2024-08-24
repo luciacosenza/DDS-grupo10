@@ -17,7 +17,7 @@ public class MessageLoader {
             }
             properties.load(input);
         } catch (IOException e) {
-            e.printStackTrace();    // TODO Hay que cambiar esto
+            System.out.println("Falló el load"); // TODO Hay que cambiar esto (normalizar errores)
         }
     }
 

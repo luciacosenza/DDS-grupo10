@@ -36,7 +36,7 @@ public class RecomendadorHeladeras {
             valores.addAll(valoresAux);
             
         } catch (Exception e) {
-            e.printStackTrace();    // TODO: Hay que cambiar esto
+            System.out.println("Falló la respuesta a la API"); // TODO Hay que cambiar esto (normalizar errores)
         }
 
         return valores;

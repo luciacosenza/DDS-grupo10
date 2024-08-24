@@ -92,12 +92,35 @@ public abstract class Colaborador {
         Sistema.eliminarColaborador(this);
     }
 
+    public void obtenerDetalles() {
+        persona.obtenerDetalles();
+        System.out.println("Domicilio: " + domicilio.getDireccion() + ", " + domicilio.getCiudad() + ", " + domicilio.getPais());
+        
+        System.out.println("Medios de Contacto:");
+        for (MedioDeContacto medioDeContacto : mediosDeContacto) {
+            System.out.println(medioDeContacto.getClass().getName());
+            // TODO: Ver si tendríamos que agregar los datos (número en el caso de teléfono, etc)
+        }
+        
+        System.out.println("Contribuciones:");
+        for (Contribucion contribucion : contribuciones) {
+            System.out.println("" + contribucion.getClass().getSimpleName());
+        }
+
+        System.out.println("Beneficios adquiridos:");
+        for (Oferta beneficioAdquirido : beneficiosAdquiridos) {
+            beneficioAdquirido.getNombre();
+        }
+
+        System.out.println("Puntos: " + puntos);
+    }
+
     // Este método equivale a seleccionar una Contribución, no a llevarla a cabo
     public Contribucion colaborar(ContribucionCreator creator, LocalDateTime fechaContribucion /* generalmente LocalDateTime.now() */, Object... args) {
         if (!esCreatorPermitido(creator.getClass())) 
             throw new IllegalArgumentException("No es una forma válida de colaborar");
 
-        Contribucion contribucion = creator.crearContribucion(this, fechaContribucion, args);
+        Contribucion contribucion = creator.crearContribucion(this, fechaContribucion, false , args);
         contribucion.validarIdentidad();
         agregarContribucionPendiente(contribucion);
 

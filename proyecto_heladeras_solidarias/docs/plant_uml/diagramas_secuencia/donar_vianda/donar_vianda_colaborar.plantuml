@@ -10,7 +10,7 @@ INTERFAZ -> CONTROLLER: Solicitar colaborar (DonacionViandaCreator, fechaContrib
 CONTROLLER -> Colaborador: colaborar(DonacionViandaCreator, fechaContribucion, vianda, heladera)
 Colaborador -> Colaborador: esCreatorPermitido(DonacionViandaCreator.getClass())
 alt Creator permitido
-    Colaborador -> DonacionViandaCreator: crearContribucion(colaborador, fechaContribucion, vianda, heladera)
+    Colaborador -> DonacionViandaCreator: crearContribucion(colaborador, fechaContribucion, paraMigrar, vianda, heladera)
     DonacionViandaCreator -> Colaborador: new DonacionVianda(colaborador, fechaContribucion, vianda, heladera)
     Colaborador -> Colaborador: agregarContribucionPendiente(donacionVianda)
     Colaborador --> CONTROLLER: Donación de Vianda creada

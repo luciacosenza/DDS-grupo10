@@ -43,7 +43,7 @@ public class EMailSenderService {
 			Transport.send(mensaje);
 
 		} catch (MessagingException me) {
-			me.printStackTrace();	// TODO Hay que cambiar esto
+			System.out.println("Falló el envío del mensaje"); // TODO Hay que cambiar esto (normalizar errores)
         }
     }
 }

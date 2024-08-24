@@ -10,9 +10,9 @@ INTERFAZ -> CONTROLLER: Solicitar colaborar (HacerseCargoDeHeladeraCreator, fech
 CONTROLLER -> Colaborador: colaborar(HacerseCargoDeHeladeraCreator, fechaContribucion, heladera)
 Colaborador -> Colaborador: esCreatorPermitido(HacerseCargoDeHeladeraCreator.getClass())
 alt Creator permitido
-    Colaborador -> HacerseCargoDeHeladeraCreator: crearContribucion(colaborador fechaContribucion, heladera)
+    Colaborador -> HacerseCargoDeHeladeraCreator: crearContribucion(colaborador fechaContribucion, paraMigrar, heladera)
     HacerseCargoDeHeladeraCreator-> Colaborador: new HacerseCargoDeHeladera(colaborador fechaContribucion, heladera)
-    Colaborador -> Colaborador: agregarContribucionPendiente(chacerseCargoDeHelade
+    Colaborador -> Colaborador: agregarContribucionPendiente(hacerseCargoDeHeladera)
     Colaborador --> CONTROLLER: Hacerse Cargo de Heladera creada
     CONTROLLER --> INTERFAZ: Hacerse Cargo de Heladera creada
     INTERFAZ --> User: Hacerse Cargo de Heladera creada
