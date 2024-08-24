@@ -15,7 +15,11 @@ public class CargaOferta extends Contribucion {
         completada = false;
     }
 
-    // TODO: public void obtenerDetalles()
+    @Override
+    public void obtenerDetalles() {
+        super.obtenerDetalles();
+        System.out.println("Oferta: " + oferta.getNombre());
+    }
     
     public Oferta getOferta() {
         return oferta;
@@ -25,6 +29,6 @@ public class CargaOferta extends Contribucion {
     public void validarIdentidad() {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
 
     @Override
-    protected void calcularPuntos() {} // Esta Contribución no entra entre las que suman puntos
+    protected void calcularPuntos() {}  // Esta Contribución no entra entre las que suman puntos
 
 }

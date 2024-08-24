@@ -33,7 +33,7 @@ public class TransformacionDeDatos {
 
     private Contribucion registrarContribucion(String formaContribucionStr, ColaboradorHumano colaborador, LocalDateTime fechaContribucion) {
         ContribucionCreator creator = ConversorFormaContribucion.convertirStrAContribucionCreator(formaContribucionStr);
-        return creator.crearContribucion(colaborador, fechaContribucion); // Posible error al querer crear una contribucion a traves de un Creator sin pasarle el resto de argumentos necesarios
+        return creator.crearContribucion(colaborador, fechaContribucion, true);
     }
     
     private ColaboradorHumano procesarColaborador(String[] data) {
@@ -68,7 +68,7 @@ public class TransformacionDeDatos {
             fechaContribucion = LocalDateTime.parse(fechaContribucionStr, dateFormat);
 
         } catch (DateTimeParseException e) {
-            e.printStackTrace();    // TODO Hay que cambiar esto
+            System.out.println("Falló el parseo de la fecha");    // TODO: Hay que cambiar esto (normalizar errores)
             return null;
         }
         
@@ -94,8 +94,7 @@ public class TransformacionDeDatos {
                 continue;
             
             String clave = colaborador.getPersona().getDocumento().getTipo().name()
-                + "-" + colaborador.getPersona().getDocumento().getNumero()
-                + "-" + colaborador.getPersona().getDocumento().getSexo().name();
+                + "-" + colaborador.getPersona().getDocumento().getNumero();
 
             // Junta los repetidos
             if (colaboradoresProcesados.containsKey(clave)) {

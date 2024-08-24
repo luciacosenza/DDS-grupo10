@@ -42,7 +42,14 @@ public class DistribucionViandas extends Contribucion {
         return motivo;
     }
 
-    // TODO: public void obtenerDetalles()
+    @Override
+    public void obtenerDetalles() {
+        super.obtenerDetalles();
+        System.out.println("Heladera Origen: " + origen.getNombre());
+        System.out.println("Heladera Destino: " + destino.getNombre());
+        System.out.println("Cantidad: " + cantidadViandasAMover);
+        System.out.println("Motivo: " + motivo);
+    }
     
     @Override
     public void validarIdentidad() {

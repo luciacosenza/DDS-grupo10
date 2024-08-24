@@ -50,11 +50,9 @@ public class ExtraccionCSV extends ExtraccionDeDatos {
                 dataColaboradores.add(dataColaborador);
             }
         } catch (IOException e) {
-            e.printStackTrace();    // TODO Hay que cambiar esto
+            System.out.println("En método extract() falló el bufferReader"); // TODO Hay que cambiar esto (normalizar errores)
         }
 
         return dataColaboradores;
     }
-
-
 }

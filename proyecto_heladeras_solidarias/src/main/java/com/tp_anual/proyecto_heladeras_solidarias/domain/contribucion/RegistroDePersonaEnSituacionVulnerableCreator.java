@@ -7,7 +7,15 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaPersonaE
 
 public class RegistroDePersonaEnSituacionVulnerableCreator implements ContribucionCreator {
     @Override
-    public Contribucion crearContribucion(Colaborador colaborador, LocalDateTime fechaContribucion, Object... args) {
+    public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
+        return new RegistroDePersonaEnSituacionVulnerable(colaborador, fechaContribucion, new TarjetaPersonaEnSituacionVulnerable(null));
+    }
+    
+    @Override
+    public Contribucion crearContribucion(Colaborador colaborador, LocalDateTime fechaContribucion, Boolean paraMigrar, Object... args) {
+        if (paraMigrar)
+            return crearContribucionDefault(colaborador, fechaContribucion);
+        
         if(args.length != 1 ||
             !(args[0] instanceof TarjetaPersonaEnSituacionVulnerable))
             

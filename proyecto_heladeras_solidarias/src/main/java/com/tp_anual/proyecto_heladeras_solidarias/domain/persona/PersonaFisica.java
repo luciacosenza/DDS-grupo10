@@ -32,4 +32,12 @@ public class PersonaFisica extends Persona {
     public LocalDateTime getFechaNacimiento() {
         return fechaNacimiento;
     }
+
+    @Override
+    public void obtenerDetalles() {
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Apellido: " + apellido);
+        System.out.println("Documento: " + documento.getTipo() + " | " + documento.getNumero());
+        System.out.println("Fecha de nacimiento: " + fechaNacimiento);
+    }
 }
