@@ -60,6 +60,7 @@ public class Migrador {
 
         for (ColaboradorHumano colaborador : colaboradoresAMigrar) {
             colaborador.darDeAlta();
+            System.out.println("Dado de alta");
             protocoloEnvio.send(colaborador, ASUNTO, CUERPO);
         }
     }

@@ -9,7 +9,7 @@ public class ConversorTipoDocumento {
     private static final HashMap<String, TipoDocumento> conversorTipoDocumento = new HashMap<>();
 
     static {
-        conversorTipoDocumento.put("dni", TipoDocumento.DNI);
+        conversorTipoDocumento.put("DNI", TipoDocumento.DNI);
         
         // Esto queda comentado, eran opciones para atajar la falta de normalización (aguardamos respuesta sobre si incluirlos o borrarlos)
         
@@ -68,7 +68,7 @@ public class ConversorTipoDocumento {
         */
 
 
-        conversorTipoDocumento.put("lc",TipoDocumento.LIBRETA_CIVICA);
+        conversorTipoDocumento.put("LC",TipoDocumento.LIBRETA_CIVICA);
         
         // Esto queda comentado, eran opciones para atajar la falta de normalización (aguardamos respuesta sobre si incluirlos o borrarlos)
 
@@ -80,7 +80,7 @@ public class ConversorTipoDocumento {
         */
 
 
-        conversorTipoDocumento.put("le",TipoDocumento.LIBRETA_ENROLAMIENTO);
+        conversorTipoDocumento.put("LE",TipoDocumento.LIBRETA_ENROLAMIENTO);
         
         // Esto queda comentado, eran opciones para atajar la falta de normalización (aguardamos respuesta sobre si incluirlos o borrarlos)
 

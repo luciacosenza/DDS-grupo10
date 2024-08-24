@@ -13,18 +13,19 @@ public class ConversorFormaContribucion {
     private static final HashMap<String, ContribucionCreator> conversorFormaContribucion = new HashMap<>();
 
     static {
-        conversorFormaContribucion.put("dinero", new DonacionDineroCreator());
+        conversorFormaContribucion.put("DINERO", new DonacionDineroCreator());
         
         // Esto queda comentado, eran opciones para atajar la falta de normalización (aguardamos respuesta sobre si incluirlos o borrarlos)
 
         /* 
+        conversorFormaContribucion.put("dinero", new DonacionDineroCreator());
         conversorFormaContribucion.put("donardinero", new DonacionDineroCreator());
         conversorFormaContribucion.put("donaciondinero", new DonacionDineroCreator());
         conversorFormaContribucion.put("donaciondedinero", new DonacionDineroCreator());
         */
 
 
-        conversorFormaContribucion.put("donacionviandas", new DonacionViandaCreator());
+        conversorFormaContribucion.put("DONACION_VIANDAS", new DonacionViandaCreator());
         
         // Esto queda comentado, eran opciones para atajar la falta de normalización (aguardamos respuesta sobre si incluirlos o borrarlos)
 
@@ -32,12 +33,13 @@ public class ConversorFormaContribucion {
         conversorFormaContribucion.put("donarvianda", new DonacionViandaCreator());
         conversorFormaContribucion.put("donarviandas", new DonacionViandaCreator());
         conversorFormaContribucion.put("donacionvianda", new DonacionViandaCreator());
+        conversorFormaContribucion.put("donacionviandas", new DonacionViandaCreator());
         conversorFormaContribucion.put("donaciondevianda", new DonacionViandaCreator());
         conversorFormaContribucion.put("donaciondeviandas", new DonacionViandaCreator());
         */
 
 
-        conversorFormaContribucion.put("redistribucionviandas", new DistribucionViandasCreator());
+        conversorFormaContribucion.put("REDISTRIBUCION_VIANDAS", new DistribucionViandasCreator());
 
         // Esto queda comentado, eran opciones para atajar la falta de normalización (aguardamos respuesta sobre si incluirlos o borrarlos)
             
@@ -51,17 +53,19 @@ public class ConversorFormaContribucion {
         conversorFormaContribucion.put("distribuciondevianda", new DistribucionViandasCreator());
         conversorFormaContribucion.put("distribuciondeviandas", new DistribucionViandasCreator());
         conversorFormaContribucion.put("redistribucionvianda", new DistribucionViandasCreator());
+        conversorFormaContribucion.put("redistribucionviandas", new DistribucionViandasCreator());
         conversorFormaContribucion.put("redistribuciondevianda", new DistribucionViandasCreator());
         conversorFormaContribucion.put("redistribuciondeviandas", new DistribucionViandasCreator());
         */
 
 
-        conversorFormaContribucion.put("entregatarjetas", new RegistroDePersonaEnSituacionVulnerableCreator());
+        conversorFormaContribucion.put("ENTREGA_TARJETAS", new RegistroDePersonaEnSituacionVulnerableCreator());
 
         // Esto queda comentado, eran opciones para atajar la falta de normalización (aguardamos respuesta sobre si incluirlos o borrarlos)
 
         /* 
         conversorFormaContribucion.put("entregatarjeta", new RegistroDePersonaEnSituacionVulnerableCreator());
+        conversorFormaContribucion.put("entregatarjetas", new RegistroDePersonaEnSituacionVulnerableCreator());
         conversorFormaContribucion.put("entregartarjeta", new RegistroDePersonaEnSituacionVulnerableCreator());
         conversorFormaContribucion.put("entregartarjetas", new RegistroDePersonaEnSituacionVulnerableCreator());
         conversorFormaContribucion.put("registrarpersonavulnerable", new RegistroDePersonaEnSituacionVulnerableCreator());
