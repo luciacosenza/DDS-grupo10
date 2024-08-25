@@ -18,13 +18,6 @@ public class PersonaJuridica extends Persona {
         rubro = vRubro;
     }
 
-    @Override
-    public void obtenerDetalles() {
-        System.out.println("Nombre: " + razonSocial);
-        System.out.println("Tipo de Persona Jurídica: " + tipo);
-        System.out.println("Rubro: " + rubro);
-    }
-
     public String getRazonSocial() {
         return razonSocial;
     }
@@ -35,5 +28,18 @@ public class PersonaJuridica extends Persona {
 
     public String getRubro() {
         return rubro;
+    }
+
+    // Método para obtener los detalles "importantes" que identifican de forma sencilla a una Persona, implementado en ambos tipos de Persona
+    @Override
+    public String getNombre(Integer n) {
+        return razonSocial;
+    }
+
+    @Override
+    public void obtenerDetalles() {
+        System.out.println("Nombre: " + razonSocial);
+        System.out.println("Tipo de Persona Jurídica: " + tipo);
+        System.out.println("Rubro: " + rubro);
     }
 }

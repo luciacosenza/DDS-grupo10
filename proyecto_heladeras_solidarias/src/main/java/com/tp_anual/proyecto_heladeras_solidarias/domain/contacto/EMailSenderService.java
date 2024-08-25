@@ -1,6 +1,8 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.contacto;
 
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -10,7 +12,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+
 public class EMailSenderService {
+	private static final Logger logger = Logger.getLogger(Colaborador.class.getName());
     private static final Properties propiedades = new Properties();
 	private static final String usuario = "proyecto.heladeras.solidarias@gmail.com";		
 	private static final String password = ""; // TODO Hay que completar esto, encriptando la contraseña
@@ -43,7 +49,8 @@ public class EMailSenderService {
 			Transport.send(mensaje);
 
 		} catch (MessagingException me) {
-			System.out.println("Falló el envío del mensaje"); // TODO Hay que cambiar esto (normalizar errores)
+			logger.log(Level.SEVERE, I18n.getMessage("contacto.EMailSenderService.enviarEMail_err", receptor));
+			throw new RuntimeException(I18n.getMessage("contacto.EMailSenderService.enviarEMail_exception"));
         }
     }
 }

@@ -1,11 +1,15 @@
 package com.tp_anual.proyecto_heladeras_solidarias.conversor;
 
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento.TipoDocumento;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 
 // A los conversores les pasamos los strings en minúscula, sólo con caracteres alfabéticos (removiendo numéricos y especiales) y sin espacios
 public class ConversorTipoDocumento {
+    private static final Logger logger = Logger.getLogger(ConversorTipoDocumento.class.getName());
     private static final HashMap<String, TipoDocumento> conversorTipoDocumento = new HashMap<>();
 
     static {
@@ -93,8 +97,11 @@ public class ConversorTipoDocumento {
 
     public static TipoDocumento convertirStrATipoDocumento(String tipoDocumentoStr) {
         TipoDocumento tipoDocumento = conversorTipoDocumento.get(tipoDocumentoStr);
-        if (tipoDocumento == null) 
-            System.out.println("Tipo de documento no válido");  // TODO Chequear si está bien que lo tire en System.out
+        
+        if (tipoDocumento == null) {
+            logger.log(Level.SEVERE, I18n.getMessage("conversor.ConversorTipoDeDocumento.convertirStrATipoDocumento_err", tipoDocumentoStr));
+            throw new IllegalArgumentException(I18n.getMessage("conversor.ConversorTipoDeDocumento.convertirStrATipoDocumento_exception"));
+        }
         
         return tipoDocumento;
     }

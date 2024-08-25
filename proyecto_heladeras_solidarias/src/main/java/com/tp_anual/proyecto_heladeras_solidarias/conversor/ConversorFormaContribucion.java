@@ -1,15 +1,19 @@
 package com.tp_anual.proyecto_heladeras_solidarias.conversor;
 
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.ContribucionCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DistribucionViandasCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DonacionDineroCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DonacionViandaCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.RegistroDePersonaEnSituacionVulnerableCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 
 // A los conversores les pasamos los strings en minúscula, sólo con caracteres alfabéticos (removiendo numéricos y especiales) y sin espacios
 public class ConversorFormaContribucion {
+    private static final Logger logger = Logger.getLogger(ConversorFormaContribucion.class.getName());
     private static final HashMap<String, ContribucionCreator> conversorFormaContribucion = new HashMap<>();
 
     static {
@@ -82,9 +86,12 @@ public class ConversorFormaContribucion {
 
     public static ContribucionCreator convertirStrAContribucionCreator(String formaContribucionStr) {
         ContribucionCreator creator = conversorFormaContribucion.get(formaContribucionStr);
-        if (creator == null) 
-            System.out.println("Forma de contribución no válida");  // TODO Chequear si está bien que lo tire en System.out
         
+        if (creator == null) {
+            logger.log(Level.SEVERE, I18n.getMessage("conversor.ConversorFormaContribucion.convertirStrAContribucionCreator_err", formaContribucionStr));
+            throw new IllegalArgumentException(I18n.getMessage("conversor.ConversorFormaContribucion.convertirStrAContribucionCreator_exception"));
+        }
+
         return creator;
     }
 }

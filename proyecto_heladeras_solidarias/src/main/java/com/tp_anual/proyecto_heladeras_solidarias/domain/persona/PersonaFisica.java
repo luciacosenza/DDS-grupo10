@@ -33,6 +33,16 @@ public class PersonaFisica extends Persona {
         return fechaNacimiento;
     }
 
+    // Método para obtener los detalles "importantes" que identifican de forma sencilla a una Persona, implementado en ambos tipos de Persona
+    @Override
+    public String getNombre(Integer n) {
+        return switch (n) {
+            case 0 -> nombre;
+            case 1 -> apellido;
+            default -> nombre + " " + apellido;
+        };
+    }
+
     @Override
     public void obtenerDetalles() {
         System.out.println("Nombre: " + nombre);

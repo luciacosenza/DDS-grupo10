@@ -3,6 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.Contribucion;
@@ -19,6 +20,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.suscripcion.Suscripcion
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColaboradorNula;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 
 public class ColaboradorHumano extends Colaborador {    // Implementa una Interfaz "ColaboradorHumanoObserver" a nivel conceptual
     protected TarjetaColaborador tarjeta;
@@ -67,6 +69,7 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
         Suscripcion suscripcion = new Suscripcion(this, heladeraObjetivo, viandasDisponiblesMin, viandasParaLlenarMax, notificarDesperfecto, medioDeContacto);
         suscripcion.darDeAlta();
         agregarSuscripcion(suscripcion);
+        logger.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.agregarSuscripcion_info", persona.getNombre(2), suscripcion.getHeladera().getNombre()));
 
         return suscripcion;
     }
@@ -78,16 +81,19 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
         case VIANDAS_MIN -> suscripcion.setViandasDisponiblesMin(nuevoValor);
         
         case VIANDAS_MAX -> suscripcion.setViandasParaLlenarMax(nuevoValor);
-            
+        
         case DESPERFECTO -> suscripcion.setNotificarDesperfecto(nuevoValor != 0);
-            
+        
         default -> {}
         
         }
+
+        logger.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.modificarSuscripcion_info", suscripcion.getHeladera().getNombre(), persona.getNombre(2)));
     }
 
     public void cancelarSuscripcion(Suscripcion suscripcion) {
         suscripcion.darDeBaja();
         eliminarSuscripcion(suscripcion);
+        logger.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.cancelarSuscripcion_info", suscripcion.getHeladera().getNombre(), persona.getNombre(2)));
     }
 }

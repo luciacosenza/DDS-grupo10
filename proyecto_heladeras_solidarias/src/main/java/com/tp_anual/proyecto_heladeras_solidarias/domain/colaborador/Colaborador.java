@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.Contribucion;
@@ -11,10 +13,13 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.Contribuci
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.Persona;
+import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public abstract class Colaborador {
+    protected static final Logger logger = Logger.getLogger(Colaborador.class.getName());
     protected Persona persona;
     protected Ubicacion domicilio;
     protected ArrayList<MedioDeContacto> mediosDeContacto;
@@ -53,7 +58,9 @@ public abstract class Colaborador {
                 return tipoMedioDeContacto.cast(contacto);
         }
 
-        throw new NoSuchElementException("El colaborador no cuenta con ese medio de contacto");
+        PersonaFisica personaFisica = (PersonaFisica) persona;
+        logger.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.getContacto_err", personaFisica.getNombre(), personaFisica.getApellido(), tipoMedioDeContacto.getClass().getSimpleName()));
+        throw new NoSuchElementException(I18n.getMessage("colaborador.Colaborador.getContacto_exception"));
     }
 
     public Boolean esCreatorPermitido(Class<? extends ContribucionCreator> creatorClass) {
@@ -93,36 +100,48 @@ public abstract class Colaborador {
     }
 
     public void obtenerDetalles() {
+        Integer i;
+        
         persona.obtenerDetalles();
-        System.out.println("Domicilio: " + domicilio.getDireccion() + ", " + domicilio.getCiudad() + ", " + domicilio.getPais());
         
-        System.out.println("Medios de Contacto:");
+        System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_domicilio", domicilio.getDireccionCompleta()));
+        
+        System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_medios_de_contacto_title"));
+        i = 0;
         for (MedioDeContacto medioDeContacto : mediosDeContacto) {
-            System.out.println(medioDeContacto.getClass().getName());
+            System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_medios_de_contacto_body", i, medioDeContacto.getClass().getSimpleName()));
             // TODO: Ver si tendríamos que agregar los datos (número en el caso de teléfono, etc)
+            i++;
         }
         
-        System.out.println("Contribuciones:");
+        System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_contribuciones_title"));
+        i = 0;
         for (Contribucion contribucion : contribuciones) {
-            System.out.println("" + contribucion.getClass().getSimpleName());
+            System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_contribuciones_body", i, contribucion.getClass().getSimpleName()));
+            i++;
         }
 
-        System.out.println("Beneficios adquiridos:");
+        System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_beneficios_adquiridos_title"));
+        i = 0;
         for (Oferta beneficioAdquirido : beneficiosAdquiridos) {
-            beneficioAdquirido.getNombre();
+            System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_beneficios_adquiridos_body", i, beneficioAdquirido.getNombre()));
+            i++;
         }
 
-        System.out.println("Puntos: " + puntos);
+        System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_puntos", puntos));
     }
 
     // Este método equivale a seleccionar una Contribución, no a llevarla a cabo
     public Contribucion colaborar(ContribucionCreator creator, LocalDateTime fechaContribucion /* generalmente LocalDateTime.now() */, Object... args) {
-        if (!esCreatorPermitido(creator.getClass())) 
-            throw new IllegalArgumentException("No es una forma válida de colaborar");
+        if (!esCreatorPermitido(creator.getClass())) {
+            logger.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.colaborar_err", creator.getClass().getSimpleName(), persona.getNombre(2), persona.getTipoPersona()));
+            throw new IllegalArgumentException(I18n.getMessage("colaborador.Colaborador.colaborar_exception"));
+        }
 
         Contribucion contribucion = creator.crearContribucion(this, fechaContribucion, false , args);
         contribucion.validarIdentidad();
         agregarContribucionPendiente(contribucion);
+        logger.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.colaborar_info", contribucion.getClass().getSimpleName(), persona.getNombre(2)));
 
         return contribucion;
     }
@@ -133,6 +152,7 @@ public abstract class Colaborador {
         contribucion.confirmar(fechaContribucion);
         agregarContribucion(contribucion);
         eliminarContribucionPendiente(contribucion);
+        logger.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.confirmarContribucion_info", contribucion.getClass().getSimpleName(), persona.getNombre(2)));
     }
 
     public void intentarAdquirirBeneficio(Oferta oferta) {
@@ -140,6 +160,7 @@ public abstract class Colaborador {
         oferta.validarPuntos(this);
         oferta.darDeBaja();
         agregarBeneficio(oferta);
+        logger.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.adquirirBeneficio_info", oferta.getNombre(), persona.getNombre(2)));
     }
 
     public void reportarFallaTecnica(HeladeraActiva heladera, String descripcion, String foto) {

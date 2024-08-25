@@ -4,6 +4,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+
 public class Broker {
     private static final Logger logger = Logger.getLogger(Broker.class.getName());
     private LinkedBlockingQueue<Mensaje> queue = new LinkedBlockingQueue<>();
@@ -17,9 +19,9 @@ public class Broker {
                     procesarMensaje(mensaje);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
-                    logger.log(Level.SEVERE, "El hilo del Broker fue interrumpido");
+                    logger.log(Level.SEVERE, I18n.getMessage("broker.Broker.interrupcion_hilo"));
                 } catch (Exception e) {
-                    logger.log(Level.SEVERE, "Error al procesar el mensaje: %o", e.getMessage());
+                    logger.log(Level.SEVERE, I18n.getMessage("broker.Broker.error_procesamiento_mensaje"));
                 }
             }
         }).start();
