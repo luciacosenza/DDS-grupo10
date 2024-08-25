@@ -31,7 +31,7 @@ public class DonacionVianda extends Contribucion {
     public void obtenerDetalles() {
         super.obtenerDetalles();
         System.out.println("Vianda con: " + vianda.getComida());
-        System.out.println("Heladera Destino: " + heladera.getNombre());
+        System.out.println("Heladera Destino: " + heladera.getNombre() + "\n");
     }
     
     @Override

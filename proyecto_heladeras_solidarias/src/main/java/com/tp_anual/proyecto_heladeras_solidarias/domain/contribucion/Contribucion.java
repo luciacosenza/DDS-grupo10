@@ -33,8 +33,9 @@ public abstract class Contribucion {
         System.out.println("Contribucion: " + getClass().getSimpleName() + "\n");
         System.out.println("Colaborador:");
         colaborador.obtenerDetalles();
-        System.out.println("\n");
-        System.out.println("Fecha: " + fechaContribucion);
+        
+        if (fechaContribucion != null)
+            System.out.println("Fecha: " + fechaContribucion);
     }
 
     public abstract void validarIdentidad();
