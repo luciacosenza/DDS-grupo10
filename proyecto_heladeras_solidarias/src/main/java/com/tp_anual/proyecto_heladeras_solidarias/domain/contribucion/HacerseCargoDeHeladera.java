@@ -26,7 +26,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
     @Override
     public void obtenerDetalles() {
         super.obtenerDetalles();
-        System.out.println("Heladera: " + heladeraObjetivo.getNombre());
+        System.out.println("Heladera: " + heladeraObjetivo.getNombre() + "\n");
     }
     
     public HeladeraActiva getHeladeraObjetivo() {

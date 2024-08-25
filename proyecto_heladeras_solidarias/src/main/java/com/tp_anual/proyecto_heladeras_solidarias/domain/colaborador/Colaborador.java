@@ -94,25 +94,37 @@ public abstract class Colaborador {
 
     public void obtenerDetalles() {
         persona.obtenerDetalles();
-        System.out.println("Domicilio: " + domicilio.getDireccion() + ", " + domicilio.getCiudad() + ", " + domicilio.getPais());
         
-        System.out.println("Medios de Contacto:");
-        for (MedioDeContacto medioDeContacto : mediosDeContacto) {
-            System.out.println(medioDeContacto.getClass().getName());
-            // TODO: Ver si tendríamos que agregar los datos (número en el caso de teléfono, etc)
+        if(domicilio.getDireccion() != null &&
+            domicilio.getCiudad() != null &&
+            domicilio.getPais() != null)
+            
+            System.out.println("Domicilio: " + domicilio.getDireccion() + ", " + domicilio.getCiudad() + ", " + domicilio.getPais());
+        
+        if (!mediosDeContacto.isEmpty()) {
+            System.out.println("\nMedios de Contacto:");
+            for (MedioDeContacto medioDeContacto : mediosDeContacto) {
+                System.out.println(medioDeContacto.getClass().getSimpleName());
+                // TODO: Ver si tendríamos que agregar los datos (número en el caso de teléfono, etc)
+            }
         }
         
-        System.out.println("Contribuciones:");
-        for (Contribucion contribucion : contribuciones) {
-            System.out.println("" + contribucion.getClass().getSimpleName());
+        if (!contribuciones.isEmpty()) {
+            System.out.println("\nContribuciones:");
+            for (Contribucion contribucion : contribuciones) {
+                System.out.println(contribucion.getClass().getSimpleName());
+            }
         }
 
-        System.out.println("Beneficios adquiridos:");
-        for (Oferta beneficioAdquirido : beneficiosAdquiridos) {
-            beneficioAdquirido.getNombre();
+        if (!beneficiosAdquiridos.isEmpty()) {
+            System.out.println("\nBeneficios adquiridos:");
+            for (Oferta beneficioAdquirido : beneficiosAdquiridos) {
+                beneficioAdquirido.getNombre();
+            }
         }
 
-        System.out.println("Puntos: " + puntos);
+        if (puntos != null)
+            System.out.println("\nPuntos: " + puntos);
     }
 
     // Este método equivale a seleccionar una Contribución, no a llevarla a cabo

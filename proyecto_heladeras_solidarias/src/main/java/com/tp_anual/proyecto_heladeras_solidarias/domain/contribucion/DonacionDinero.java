@@ -96,7 +96,7 @@ public class DonacionDinero extends Contribucion {
     @Override
     public void obtenerDetalles() {
         super.obtenerDetalles();
-        System.out.println("Monto: " + getMonto() + " | Frecuencia: " + getFrecuencia());
+        System.out.println("Monto: " + getMonto() + " | Frecuencia: " + getFrecuencia() + "\n");
     }
 
     @Override

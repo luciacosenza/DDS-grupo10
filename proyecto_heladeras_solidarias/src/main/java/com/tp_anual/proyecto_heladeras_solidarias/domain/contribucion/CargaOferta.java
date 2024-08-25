@@ -18,7 +18,7 @@ public class CargaOferta extends Contribucion {
     @Override
     public void obtenerDetalles() {
         super.obtenerDetalles();
-        System.out.println("Oferta: " + oferta.getNombre());
+        System.out.println("Oferta: " + oferta.getNombre() + "\n");
     }
     
     public Oferta getOferta() {
