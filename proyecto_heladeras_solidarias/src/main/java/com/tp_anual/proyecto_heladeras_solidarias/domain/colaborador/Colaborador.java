@@ -104,31 +104,39 @@ public abstract class Colaborador {
         
         persona.obtenerDetalles();
         
-        System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_domicilio", domicilio.getDireccionCompleta()));
+        if (domicilio.getDireccion() != null && domicilio.getCiudad() != null && domicilio.getPais() != null)
+            System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_domicilio", domicilio.getDireccionCompleta()));
         
-        System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_medios_de_contacto_title"));
-        i = 0;
-        for (MedioDeContacto medioDeContacto : mediosDeContacto) {
-            System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_medios_de_contacto_body", i, medioDeContacto.getClass().getSimpleName()));
-            // TODO: Ver si tendríamos que agregar los datos (número en el caso de teléfono, etc)
-            i++;
-        }
-        
-        System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_contribuciones_title"));
-        i = 0;
-        for (Contribucion contribucion : contribuciones) {
-            System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_contribuciones_body", i, contribucion.getClass().getSimpleName()));
-            i++;
+        if (!mediosDeContacto.isEmpty()) {
+            System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_medios_de_contacto_title"));
+            i = 0;
+            for (MedioDeContacto medioDeContacto : mediosDeContacto) {
+                System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_medios_de_contacto_body", i, medioDeContacto.getClass().getSimpleName()));
+                // TODO: Ver si tendríamos que agregar los datos (número en el caso de teléfono, etc)
+                i++;
+            }
         }
 
-        System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_beneficios_adquiridos_title"));
-        i = 0;
-        for (Oferta beneficioAdquirido : beneficiosAdquiridos) {
-            System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_beneficios_adquiridos_body", i, beneficioAdquirido.getNombre()));
-            i++;
+        if (!contribuciones.isEmpty()) {
+            System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_contribuciones_title"));
+            i = 0;
+            for (Contribucion contribucion : contribuciones) {
+                System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_contribuciones_body", i, contribucion.getClass().getSimpleName()));
+                i++;
+        }
         }
 
-        System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_puntos", puntos));
+        if (!beneficiosAdquiridos.isEmpty()) {
+            System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_beneficios_adquiridos_title"));
+            i = 0;
+            for (Oferta beneficioAdquirido : beneficiosAdquiridos) {
+                System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_beneficios_adquiridos_body", i, beneficioAdquirido.getNombre()));
+                i++;
+            }
+        }
+
+        if (puntos != null)
+            System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_puntos", puntos));
     }
 
     // Este método equivale a seleccionar una Contribución, no a llevarla a cabo
