@@ -38,6 +38,8 @@ public class PersonaFisica extends Persona {
         System.out.println("Nombre: " + nombre);
         System.out.println("Apellido: " + apellido);
         System.out.println("Documento: " + documento.getTipo() + " | " + documento.getNumero());
-        System.out.println("Fecha de nacimiento: " + fechaNacimiento);
+        
+        if(fechaNacimiento != null)
+            System.out.println("Fecha de nacimiento: " + fechaNacimiento);
     }
 }
