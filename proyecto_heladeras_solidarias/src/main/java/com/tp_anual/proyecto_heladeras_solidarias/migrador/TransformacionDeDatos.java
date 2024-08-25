@@ -16,6 +16,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.contacto.MedioDeContact
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.ContribucionCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento;
+import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
 
 public class TransformacionDeDatos {
     private String quitarEspacios(String string) {
@@ -32,7 +33,7 @@ public class TransformacionDeDatos {
 
     private Contribucion registrarContribucion(String formaContribucionStr, ColaboradorHumano colaborador, LocalDateTime fechaContribucion) {
         ContribucionCreator creator = ConversorFormaContribucion.convertirStrAContribucionCreator(formaContribucionStr);
-        return creator.crearContribucion(colaborador, fechaContribucion); // Posible error al querer crear una contribucion a traves de un Creator sin pasarle el resto de argumentos necesarios
+        return creator.crearContribucion(colaborador, fechaContribucion, true);
     }
     
     private ColaboradorHumano procesarColaborador(String[] data) {
@@ -60,19 +61,19 @@ public class TransformacionDeDatos {
         contactos.add(mail);
 
         // Transforma a fechaContribucion
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime fechaContribucion;
         
         try {
             fechaContribucion = LocalDateTime.parse(fechaContribucionStr, dateFormat);
 
         } catch (DateTimeParseException e) {
-            e.printStackTrace();    // TODO Hay que cambiar esto
+            System.out.println("Falló el parseo de la fecha");    // TODO: Hay que cambiar esto (normalizar errores)
             return null;
         }
         
         // Transforma a colaborador
-        ColaboradorHumano colaborador = new ColaboradorHumano(null, contactos, new ArrayList<>(), new ArrayList<>(), null, nombre, apellido, documento, null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
+        ColaboradorHumano colaborador = new ColaboradorHumano(new Ubicacion(null, null, null, null, null), contactos, new ArrayList<>(), new ArrayList<>(), null, nombre, apellido, documento, null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
         
         // Agrega contribuciones a colaborador
         for (Integer i = 0; i < cantColabs; i++) {
@@ -93,8 +94,7 @@ public class TransformacionDeDatos {
                 continue;
             
             String clave = colaborador.getPersona().getDocumento().getTipo().name()
-                + "-" + colaborador.getPersona().getDocumento().getNumero()
-                + "-" + colaborador.getPersona().getDocumento().getSexo().name();
+                + "-" + colaborador.getPersona().getDocumento().getNumero();
 
             // Junta los repetidos
             if (colaboradoresProcesados.containsKey(clave)) {

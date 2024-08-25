@@ -10,7 +10,7 @@ INTERFAZ -> CONTROLLER: Solicitar colaborar (DonacionDineroCreator, fechaContrib
 CONTROLLER -> Colaborador: colaborar(DonacionDineroCreator, fechaContribucion, monto, frecuencia)
 Colaborador -> Colaborador: esCreatorPermitido(DonacionDineroCreator.getClass())
 alt Creator permitido
-    Colaborador -> DonarDineroCreator: crearContribucion(colaborador, fechaContribucion, monto, frecuencia)
+    Colaborador -> DonarDineroCreator: crearContribucion(colaborador, fechaContribucion, paraMigrar, monto, frecuencia)
     DonarDineroCreator -> Colaborador: new DonacionDinero(colaborador, fechaContribucion, monto, frecuencia)
     Colaborador -> Colaborador: agregarContribucionPendiente(donacionDinero)
     Colaborador --> CONTROLLER: Donación de Dinero creada

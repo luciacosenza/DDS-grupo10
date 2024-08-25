@@ -18,6 +18,17 @@ public class PersonaJuridica extends Persona {
         rubro = vRubro;
     }
 
+    @Override
+    public void obtenerDetalles() {
+        System.out.println("Nombre: " + razonSocial);
+        
+        if(tipo != null)
+            System.out.println("Tipo de Persona Jurídica: " + tipo);
+        
+        if(rubro != null)
+            System.out.println("Rubro: " + rubro);
+    }
+
     public String getRazonSocial() {
         return razonSocial;
     }

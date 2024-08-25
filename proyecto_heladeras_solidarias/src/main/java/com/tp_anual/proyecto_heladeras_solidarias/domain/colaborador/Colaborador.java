@@ -92,12 +92,47 @@ public abstract class Colaborador {
         Sistema.eliminarColaborador(this);
     }
 
+    public void obtenerDetalles() {
+        persona.obtenerDetalles();
+        
+        if(domicilio.getDireccion() != null &&
+            domicilio.getCiudad() != null &&
+            domicilio.getPais() != null)
+            
+            System.out.println("Domicilio: " + domicilio.getDireccion() + ", " + domicilio.getCiudad() + ", " + domicilio.getPais());
+        
+        if (!mediosDeContacto.isEmpty()) {
+            System.out.println("\nMedios de Contacto:");
+            for (MedioDeContacto medioDeContacto : mediosDeContacto) {
+                System.out.println(medioDeContacto.getClass().getSimpleName());
+                // TODO: Ver si tendríamos que agregar los datos (número en el caso de teléfono, etc)
+            }
+        }
+        
+        if (!contribuciones.isEmpty()) {
+            System.out.println("\nContribuciones:");
+            for (Contribucion contribucion : contribuciones) {
+                System.out.println(contribucion.getClass().getSimpleName());
+            }
+        }
+
+        if (!beneficiosAdquiridos.isEmpty()) {
+            System.out.println("\nBeneficios adquiridos:");
+            for (Oferta beneficioAdquirido : beneficiosAdquiridos) {
+                beneficioAdquirido.getNombre();
+            }
+        }
+
+        if (puntos != null)
+            System.out.println("\nPuntos: " + puntos);
+    }
+
     // Este método equivale a seleccionar una Contribución, no a llevarla a cabo
     public Contribucion colaborar(ContribucionCreator creator, LocalDateTime fechaContribucion /* generalmente LocalDateTime.now() */, Object... args) {
         if (!esCreatorPermitido(creator.getClass())) 
             throw new IllegalArgumentException("No es una forma válida de colaborar");
 
-        Contribucion contribucion = creator.crearContribucion(this, fechaContribucion, args);
+        Contribucion contribucion = creator.crearContribucion(this, fechaContribucion, false , args);
         contribucion.validarIdentidad();
         agregarContribucionPendiente(contribucion);
 

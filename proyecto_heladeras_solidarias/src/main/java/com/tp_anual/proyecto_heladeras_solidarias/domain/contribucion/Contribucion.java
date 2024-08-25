@@ -29,7 +29,14 @@ public abstract class Contribucion {
         completada = true;
     }
 
-    // TODO public abstract void obtenerDetalles()
+    public void obtenerDetalles() {
+        System.out.println("Contribucion: " + getClass().getSimpleName() + "\n");
+        System.out.println("Colaborador:");
+        colaborador.obtenerDetalles();
+        
+        if (fechaContribucion != null)
+            System.out.println("Fecha: " + fechaContribucion);
+    }
 
     public abstract void validarIdentidad();
 

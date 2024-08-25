@@ -6,7 +6,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Vianda;
 
-
 public class DonacionVianda extends Contribucion {
     private final Vianda vianda;
     private final HeladeraActiva heladera;
@@ -28,7 +27,12 @@ public class DonacionVianda extends Contribucion {
         return heladera;
     }
 
-    // TODO: public void obtenerDetalles()
+    @Override
+    public void obtenerDetalles() {
+        super.obtenerDetalles();
+        System.out.println("Vianda con: " + vianda.getComida());
+        System.out.println("Heladera Destino: " + heladera.getNombre() + "\n");
+    }
     
     @Override
     public void validarIdentidad() {
