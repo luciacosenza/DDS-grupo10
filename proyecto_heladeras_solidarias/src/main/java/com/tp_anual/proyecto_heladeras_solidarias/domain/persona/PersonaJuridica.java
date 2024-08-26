@@ -1,5 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.persona;
 
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+
 public class PersonaJuridica extends Persona {
     private String razonSocial;
     private TipoPersonaJuridica tipo;
@@ -38,12 +40,12 @@ public class PersonaJuridica extends Persona {
 
     @Override
     public void obtenerDetalles() {
-        System.out.println("Nombre: " + razonSocial);
+        System.out.println(I18n.getMessage("persona.PersonaJuridica.obtenerDetalles_out_razon_social", razonSocial));
         
         if (tipo != null)
-            System.out.println("Tipo de Persona Jurídica: " + tipo);
+            System.out.println(I18n.getMessage("persona.PersonaJuridica.obtenerDetalles_out_tipo", tipo));
         
         if (rubro != null)
-            System.out.println("Rubro: " + rubro);
+            System.out.println(I18n.getMessage("persona.PersonaJuridica.obtenerDetalles_out_rubro", rubro));
     }
 }

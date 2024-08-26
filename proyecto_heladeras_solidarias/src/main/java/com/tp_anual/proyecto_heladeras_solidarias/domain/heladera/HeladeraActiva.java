@@ -140,7 +140,7 @@ public class HeladeraActiva extends Heladera {
     public void agregarVianda(Vianda vianda) {
         if (!verificarCapacidad()) {
             logger.log(Level.SEVERE, I18n.getMessage("heladera.HeladeraActiva.agregarVianda_err", nombre));
-            throw new IllegalStateException(I18n.getMessage("heladera.HeladeraActiva.agregarVianda_exception", nombre));
+            throw new IllegalStateException(I18n.getMessage("heladera.HeladeraActiva.agregarVianda_exception"));
         }
 
         viandas.add(vianda);
@@ -152,7 +152,7 @@ public class HeladeraActiva extends Heladera {
     public Vianda retirarVianda() {
         if (estaVacia()) {
             logger.log(Level.SEVERE, I18n.getMessage("heladera.HeladeraActiva.retirarVianda_err", nombre));
-            throw new IllegalStateException(I18n.getMessage("heladera.HeladeraActiva.retirarVianda_exception", nombre));
+            throw new IllegalStateException(I18n.getMessage("heladera.HeladeraActiva.retirarVianda_exception"));
         }
         
         Vianda viandaRetirada = viandas.removeFirst();

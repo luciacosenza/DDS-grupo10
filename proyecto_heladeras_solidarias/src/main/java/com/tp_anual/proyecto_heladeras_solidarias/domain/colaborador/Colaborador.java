@@ -58,8 +58,7 @@ public abstract class Colaborador {
                 return tipoMedioDeContacto.cast(contacto);
         }
 
-        PersonaFisica personaFisica = (PersonaFisica) persona;
-        logger.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.getContacto_err", personaFisica.getNombre(), personaFisica.getApellido(), tipoMedioDeContacto.getClass().getSimpleName()));
+        logger.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.getContacto_err", persona.getNombre(2), tipoMedioDeContacto.getClass().getSimpleName()));
         throw new NoSuchElementException(I18n.getMessage("colaborador.Colaborador.getContacto_exception"));
     }
 

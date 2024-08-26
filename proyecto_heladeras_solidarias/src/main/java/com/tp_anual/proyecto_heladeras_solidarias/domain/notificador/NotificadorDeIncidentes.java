@@ -5,6 +5,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva
 import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tecnico.Tecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicador.UbicadorTecnico;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 
 public class NotificadorDeIncidentes {
     private final UbicadorTecnico ubicador = new UbicadorTecnico();
@@ -16,6 +17,6 @@ public class NotificadorDeIncidentes {
         tecnicoAAlertar.agregarAPendientes(incidente);
         
         HeladeraActiva heladera = incidente.getHeladera();
-        tecnicoAAlertar.getMedioDeContacto().contactar("Ocurrió un Incidente en la Heladera " + heladera.getNombre(), ". Necesitamos que atiendas lo antes posible el incidente de tipo " + incidente.getClass().getName() + " en la Heladera " + heladera.getNombre() + ".");
+        tecnicoAAlertar.getMedioDeContacto().contactar(I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_body", heladera.getNombre()), I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_body", incidente.getClass().getSimpleName(), heladera.getNombre()));
     }
 }

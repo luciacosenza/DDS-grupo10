@@ -1,9 +1,14 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.oferta;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class Oferta {
+    private static final Logger logger = Logger.getLogger(Oferta.class.getName());
     private String nombre;
     private Double costo;
     private Categoria categoria;
@@ -42,8 +47,10 @@ public class Oferta {
     public void validarPuntos(Colaborador colaborador) {
         Double puntosColaborador = colaborador.getPuntos();
         
-        if (puntosColaborador < costo)
-            throw new IllegalArgumentException("No cuenta con los puntos necesarios para adquirir este beneficio");
+        if (puntosColaborador < costo) {
+            logger.log(Level.SEVERE, I18n.getMessage("oferta.Oferta.validarPuntos_err", colaborador.getPersona().getNombre(2), colaborador.getPuntos(), costo, nombre));
+            throw new UnsupportedOperationException(I18n.getMessage("oferta.Oferta.validarPuntos_exception"));
+        }
     }
 
     public void darDeAlta() {

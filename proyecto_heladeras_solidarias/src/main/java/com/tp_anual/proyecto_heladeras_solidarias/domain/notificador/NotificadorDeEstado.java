@@ -6,6 +6,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.contacto.MedioDeContact
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicador.UbicadorHeladera;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 
 public class NotificadorDeEstado {
     private final UbicadorHeladera ubicador = new UbicadorHeladera();
@@ -26,7 +27,6 @@ public class NotificadorDeEstado {
     }
 
     public void notificarEstado(HeladeraActiva heladera, CondicionSuscripcion condicion, MedioDeContacto contacto) {    // Usa el Medio de Contacto previamente elegido por el colaborador
-        
         ArrayList<HeladeraActiva> heladerasCercanas = ubicador.obtenerHeladerasCercanasA(heladera, cantidadHeladeras);
         
         switch(condicion) {
@@ -37,10 +37,10 @@ public class NotificadorDeEstado {
 
             enviarNotificacion(
             contacto,
-            "La heladera " + heladera.getNombre() + " se está vaciando.",
-            "La heladera en cuestión tiene " + heladera.viandasActuales() + " viandas disponibles. " +
-            "Sería conveniente traer viandas de la heladera " + heladeraMasLlena.getNombre() + ", " +
-            "que está situada en " + heladeraMasLlena.getUbicacion().getDireccion());
+            I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_title",
+            heladera.getNombre()),
+            I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_body",
+            heladera.getNombre(), heladera.viandasActuales(), heladeraMasLlena.getNombre(), heladeraMasLlena.getUbicacion().getDireccion()));
         }
         
         case VIANDAS_MAX -> {
@@ -49,19 +49,20 @@ public class NotificadorDeEstado {
 
             enviarNotificacion(
             contacto,
-            "La heladera " + heladera.getNombre() + " está casi llena.",
-            "Faltan " + (heladera.getCapacidad() - heladera.viandasActuales()) + " viandas para llenar la heladera en cuestión. " +
-            "Sería conveniente llevar viandas a la heladera " + heladeraMenosLlena.getNombre() + ", " +
-            "que está situada en " + heladeraMenosLlena.getUbicacion().getDireccion());
+            I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmx_title",
+            heladera.getNombre()),
+            I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_body",
+            (heladera.getCapacidad() - heladera.viandasActuales()), heladera.getNombre(), heladeraMenosLlena.getNombre(), heladeraMenosLlena.getUbicacion().getDireccion()));
         }
 
         case DESPERFECTO -> {
 
             enviarNotificacion(
             contacto,
-            "La heladera "+ heladera.getNombre() + " ha sufrido un desperfecto.",
-            "Las viandas deben ser trasladadas de inmediato a alguna de estas Heladeras: \n" + 
-            obtenerNombresYDireccionesDe(heladerasCercanas));
+            I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_d_title",
+            heladera.getNombre()),
+            I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_d_body",
+            obtenerNombresYDireccionesDe(heladerasCercanas)));
         }
 
         default -> {}
@@ -71,10 +72,10 @@ public class NotificadorDeEstado {
 
     public String obtenerNombresYDireccionesDe(ArrayList<HeladeraActiva> heladeras) {
         HeladeraActiva heladera1 = heladeras.removeFirst();
-        String nombresYDirecciones = "Nombre: " + heladera1.getNombre() + " | Dirección: " + heladera1.getUbicacion().getDireccion() + "\n"; 
+        String nombresYDirecciones = I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_d_body", heladera1.getNombre(), heladera1.getUbicacion().getDireccion());
         
         for (HeladeraActiva heladera : heladeras) {
-            nombresYDirecciones += "Nombre: " + heladera.getNombre() + " | Dirección: " + heladera.getUbicacion().getDireccion() + "\n";
+            nombresYDirecciones += I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_d_body", heladera.getNombre(), heladera.getUbicacion().getDireccion());
         }
 
         return nombresYDirecciones;
