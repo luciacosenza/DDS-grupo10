@@ -2,6 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.heladera;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contacto.MedioDeContacto;
@@ -11,6 +12,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.suscripcion.Suscripcion
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
 
 public abstract class Heladera implements HeladeraObserver {    // Implementa una Interfaz "HeladeraSubject" a nivel conceptual
+    protected static final Logger logger = Logger.getLogger(Heladera.class.getName());
     protected String nombre;
     protected Ubicacion ubicacion;
     protected ArrayList<Vianda> viandas;

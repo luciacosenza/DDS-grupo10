@@ -1,5 +1,8 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.heladera;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.estado_de_solicitud.EstadoRealizada;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.estado_de_solicitud.EstadoSolicitud;
@@ -8,8 +11,10 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.persona_en_situacion_vu
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_apertura.PermisoApertura;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 
 public class GestorDeAperturas {
+    private static final Logger logger = Logger.getLogger(GestorDeAperturas.class.getName());
     private final HeladeraActiva heladera;
 
     public GestorDeAperturas(HeladeraActiva vHeladera) {
@@ -22,15 +27,19 @@ public class GestorDeAperturas {
 
     public void revisarSolicitudApertura(MotivoSolicitud motivo) {
         if (motivo == MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION &&
-            heladera.estaVacia())
+            heladera.estaVacia()) {
             
-            throw new UnsupportedOperationException("La heladera " + heladera.getNombre() + " se encuentra vacía");
+            logger.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_err_heladera_vacia", heladera.getNombre()));
+            throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_exception_heladera_vacia", heladera.getNombre()));
+        }
 
         if ((motivo == MotivoSolicitud.INGRESAR_DONACION ||
             motivo == MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION) &&
-            heladera.estaLlena())
+            heladera.estaLlena()) {
 
-            throw new UnsupportedOperationException("La heladera " + heladera.getNombre() + " se encuentra llena");
+            logger.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_err_heladera_llena", heladera.getNombre()));
+            throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_exception_heladera_llena", heladera.getNombre()));
+        }
     }
     
     public void revisarPermisoAperturaC(ColaboradorHumano colaborador) {
@@ -39,18 +48,24 @@ public class GestorDeAperturas {
         PermisoApertura permisoApertura = tarjetaColaborador.getPermiso();
 
         if (!(estadoSolicitud instanceof EstadoRealizada) ||
-            !(permisoApertura.esHeladeraPermitida(heladera)))
+            !(permisoApertura.esHeladeraPermitida(heladera))) {
             
-                throw new UnsupportedOperationException("No cuenta con los permisos para abrir la heladera " + heladera.getNombre());
+            logger.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_err", colaborador.getPersona().getNombre(2), heladera.getNombre()));
+            throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_exception", heladera.getNombre()));
+        }
     }
 
     public void revisarPermisoAperturaP(PersonaEnSituacionVulnerable personaEnSituacionVulnerable) {
         TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable = personaEnSituacionVulnerable.getTarjeta();
         
-        if (!tarjetaPersonaEnSituacionVulnerable.puedeUsar())
-            throw new UnsupportedOperationException("Ya agotó los usos diarios de su tarjeta");
+        if (!tarjetaPersonaEnSituacionVulnerable.puedeUsar()) {
+            logger.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_err_usos_agotados", personaEnSituacionVulnerable.getPersona().getNombre(2)));
+            throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_exception_usos_agotados", personaEnSituacionVulnerable.getPersona().getNombre(2)));
+        }
 
-        if(heladera.estaVacia())
-            throw new UnsupportedOperationException("La heladera " + heladera.getNombre() + " se encuentra vacía");
+        if(heladera.estaVacia()) {
+            logger.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.resvisarPermisoAperturaP_err_heladera_vacia", heladera.getNombre()));
+            throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_exception_heladera_vacia", heladera.getNombre()));
+        }
     }
 }

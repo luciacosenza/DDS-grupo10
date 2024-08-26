@@ -3,6 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.heladera;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contacto.MedioDeContacto;
@@ -14,6 +15,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.suscripcion.GestorDeSus
 import com.tp_anual.proyecto_heladeras_solidarias.domain.suscripcion.Suscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class HeladeraActiva extends Heladera {
@@ -136,20 +138,27 @@ public class HeladeraActiva extends Heladera {
 
     @Override
     public void agregarVianda(Vianda vianda) {
-        if (!verificarCapacidad())
-            throw new IllegalStateException("No se puede agregar la vianda. Se superaría la capacidad de la heladera " + nombre);
-        
+        if (!verificarCapacidad()) {
+            logger.log(Level.SEVERE, I18n.getMessage("heladera.HeladeraActiva.agregarVianda_err", nombre));
+            throw new IllegalStateException(I18n.getMessage("heladera.HeladeraActiva.agregarVianda_exception", nombre));
+        }
+
         viandas.add(vianda);
         verificarCondiciones(); // Verifica condiciones cuando agregamos una Vianda (una de las dos únicas formas en que la cantidad de Viandas en la Heladera puede cambiar)
+        logger.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.agregarVianda_info", vianda.getComida(), nombre));
     }
 
     @Override
     public Vianda retirarVianda() {
-        if (estaVacia())
-            throw new IllegalStateException("La heladera " + nombre + " no tiene más viandas para retirar");
+        if (estaVacia()) {
+            logger.log(Level.SEVERE, I18n.getMessage("heladera.HeladeraActiva.retirarVianda_err", nombre));
+            throw new IllegalStateException(I18n.getMessage("heladera.HeladeraActiva.retirarVianda_exception", nombre));
+        }
         
         Vianda viandaRetirada = viandas.removeFirst();
         verificarCondiciones(); // Verifica condiciones cuando retiramos una Vianda (una de las dos únicas formas en que la cantidad de Viandas en la Heladera puede cambiar)
+        logger.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.retirarVianda_info", viandaRetirada.getComida(), nombre));
+
         return viandaRetirada;
     }
 
@@ -184,6 +193,7 @@ public class HeladeraActiva extends Heladera {
         alerta.darDeAlta();
 
         reportarIncidente(alerta);
+        logger.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.producirAlerta_info", alerta.getTipo(), nombre));
     }
 
     @Override
@@ -194,6 +204,7 @@ public class HeladeraActiva extends Heladera {
         fallaTecnica.darDeAlta();
 
         reportarIncidente(fallaTecnica);
+        logger.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.producirFallaTecnica_info", nombre));
     }
 
     @Override

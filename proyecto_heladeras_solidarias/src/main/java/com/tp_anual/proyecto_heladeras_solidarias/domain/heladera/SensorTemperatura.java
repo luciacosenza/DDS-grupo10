@@ -3,10 +3,14 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.heladera;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Alerta.TipoAlerta;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 
 public class SensorTemperatura extends Sensor {
+    private static final Logger logger = Logger.getLogger(SensorTemperatura.class.getName());
     private Float tempActual;
     private LocalDateTime ultimaActualizacion;
     private final long minutosPasadosMaximos = 5;   // Seteamos el tiempo (arbitrario) máximo que puede pasar sin recibir la temperatura del Sensor Físico para mandar una Alerta
@@ -56,6 +60,7 @@ public class SensorTemperatura extends Sensor {
     @Override
     public void notificarHeladera() {
         heladera.setTempActual(tempActual);
+        logger.log(Level.INFO, I18n.getMessage("heladera.SensorTemperatura.notificarHeladera_info", heladera.getNombre()));
     }
 
     public void notificarFalla() {
