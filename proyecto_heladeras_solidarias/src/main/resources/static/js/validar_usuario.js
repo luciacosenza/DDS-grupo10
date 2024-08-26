@@ -1,7 +1,6 @@
 let tipo_usuario;
 
 if(document.querySelector("#iniciar-sesion")){
-    console.log("entra");
     const btn_login = document.querySelector("#btn-login");
     btn_login.addEventListener("click", function(e){
         e.preventDefault();
@@ -23,6 +22,10 @@ if(document.querySelector("#iniciar-sesion")){
                 });
             }
         })
+
+        
+
+
     }
 
 if(document.querySelector("#index")){
