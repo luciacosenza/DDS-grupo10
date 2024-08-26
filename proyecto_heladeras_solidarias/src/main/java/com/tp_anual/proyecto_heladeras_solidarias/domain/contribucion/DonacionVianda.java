@@ -1,12 +1,17 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion;
 
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Vianda;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 
 public class DonacionVianda extends Contribucion {
+    private static final Logger logger = Logger.getLogger(DonacionVianda.class.getName());
+
     private final Vianda vianda;
     private final HeladeraActiva heladera;
     private final Double multiplicador_puntos = 1.5;
@@ -30,14 +35,16 @@ public class DonacionVianda extends Contribucion {
     @Override
     public void obtenerDetalles() {
         super.obtenerDetalles();
-        System.out.println("Vianda con: " + vianda.getComida());
-        System.out.println("Heladera Destino: " + heladera.getNombre() + "\n");
+        System.out.println(I18n.getMessage("contribucion.DonacionVianda.obtenerDetalles_out_vianda_comida", vianda.getComida()));
+        System.out.println(I18n.getMessage("contribucion.DonacionVianda.obtenerDetalles_out_vianda_comida", heladera.getNombre()));
     }
     
     @Override
     public void validarIdentidad() {
-        if (colaborador.getDomicilio() == null)
-            throw new IllegalArgumentException("El colaborador aspirante no posee domicilio. Para recibir la tarjeta solidaria debe actualizar su información");
+        if (colaborador.getDomicilio() == null) {
+            logger.log(Level.SEVERE, I18n.getMessage("contribucion.DonacionVianda.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
+            throw new IllegalArgumentException(I18n.getMessage("contribucion.DonacionVianda.validarIdentidad_exception"));
+        }
     }
 
     @Override

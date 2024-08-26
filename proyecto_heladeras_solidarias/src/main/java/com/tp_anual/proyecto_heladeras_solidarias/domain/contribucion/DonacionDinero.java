@@ -7,6 +7,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 
 public class DonacionDinero extends Contribucion {
     private final Double monto;
@@ -96,7 +97,7 @@ public class DonacionDinero extends Contribucion {
     @Override
     public void obtenerDetalles() {
         super.obtenerDetalles();
-        System.out.println("Monto: " + getMonto() + " | Frecuencia: " + getFrecuencia() + "\n");
+        System.out.println(I18n.getMessage("contribucion.DonacionDinero.obtenerDetalles_out_monto_frecuencia", monto, frecuencia));
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.oferta.Oferta;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 
 public class CargaOferta extends Contribucion {
     private final Oferta oferta;
@@ -18,7 +19,7 @@ public class CargaOferta extends Contribucion {
     @Override
     public void obtenerDetalles() {
         super.obtenerDetalles();
-        System.out.println("Oferta: " + oferta.getNombre() + "\n");
+        System.out.println(I18n.getMessage("contribucion.CargaOferta.obtenerDetalles_out", oferta.getNombre()));
     }
     
     public Oferta getOferta() {

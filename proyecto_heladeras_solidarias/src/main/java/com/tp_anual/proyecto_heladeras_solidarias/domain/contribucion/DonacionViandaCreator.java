@@ -2,13 +2,18 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 
 public class DonacionViandaCreator implements ContribucionCreator {
+    private static final Logger logger = Logger.getLogger(DonacionViandaCreator.class.getName());
+
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
         return new DonacionVianda(colaborador, fechaContribucion,
@@ -23,9 +28,11 @@ public class DonacionViandaCreator implements ContribucionCreator {
 
         if (args.length != 2 ||
             !(args[0] instanceof Vianda) ||
-            !(args[1] instanceof HeladeraActiva))
+            !(args[1] instanceof HeladeraActiva)) {
             
-            throw new IllegalArgumentException("Datos inválidos para realizar una donación de vianda");
+            logger.log(Level.SEVERE, I18n.getMessage("contribucion.DonacionViandaCreator.crearContribucion_err"));
+            throw new IllegalArgumentException(I18n.getMessage("contribucion.DonacionViandaCreator.crearContribucion_exception"));
+        }
         
         return new DonacionVianda(colaborador, fechaContribucion, (Vianda) args[0], (HeladeraActiva) args[1]);
     }

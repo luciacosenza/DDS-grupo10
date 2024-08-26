@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 
 public class HacerseCargoDeHeladera extends Contribucion {
     private final HeladeraActiva heladeraObjetivo;
@@ -26,7 +27,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
     @Override
     public void obtenerDetalles() {
         super.obtenerDetalles();
-        System.out.println("Heladera: " + heladeraObjetivo.getNombre() + "\n");
+        System.out.println(I18n.getMessage("contribucion.HacerseCargoDeHeladera.obtenerDetalles_out_heladera_objetivo", heladeraObjetivo.getNombre()));
     }
     
     public HeladeraActiva getHeladeraObjetivo() {

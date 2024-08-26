@@ -3,6 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion;
 import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 
 public abstract class Contribucion {
     protected Colaborador colaborador;
@@ -30,12 +31,12 @@ public abstract class Contribucion {
     }
 
     public void obtenerDetalles() {
-        System.out.println("Contribucion: " + getClass().getSimpleName() + "\n");
-        System.out.println("Colaborador:");
+        System.out.println(I18n.getMessage("contribucion.Contribucion.obtenerDetalles_out_nombre", getClass().getSimpleName()));
+        System.out.println(I18n.getMessage("contribucion.Contribucion.obtenerDetalles_out_colaborador_title"));
         colaborador.obtenerDetalles();
         
         if (fechaContribucion != null)
-            System.out.println("Fecha: " + fechaContribucion);
+            System.out.println(I18n.getMessage("contribucion.Contribucion.obtenerDetalles_out_fecha_contribucion", fechaContribucion));
     }
 
     public abstract void validarIdentidad();

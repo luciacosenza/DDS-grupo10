@@ -1,12 +1,16 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion;
 
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.Tarjeta;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaPersonaEnSituacionVulnerable;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 
 public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
+    private static final Logger logger = Logger.getLogger(RegistroDePersonaEnSituacionVulnerable.class.getName());
     private final TarjetaPersonaEnSituacionVulnerable tarjetaAsignada;
     private final Double multiplicador_puntos = 2d;
     
@@ -24,13 +28,15 @@ public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
     @Override
     public void obtenerDetalles() {
         super.obtenerDetalles();
-        System.out.println("Persona registrada: " + tarjetaAsignada.getTitular() + "\n");
+        System.out.println(I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.obtenerDetalles_out_tarjeta_asignada_titular", tarjetaAsignada.getTitular()));
     }
     
     @Override
     public void validarIdentidad() {
-        if(colaborador.getDomicilio() == null)
-            throw new IllegalArgumentException("El colaborador aspirante no posee domicilio. Para registrar personas en situación vulnerable debe actualizar su información");
+        if(colaborador.getDomicilio() == null) {
+            logger.log(Level.SEVERE, I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
+            throw new IllegalArgumentException(I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.validarIdentidad_exception"));
+        }   
     }
 
     @Override
