@@ -1,5 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta;
 
+import java.util.logging.Logger;
+
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.estado_de_solicitud.EstadoSolicitud;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
@@ -8,6 +10,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_he
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_apertura.PermisoApertura;
 
 public abstract class TarjetaColaborador extends Tarjeta {
+    protected static final Logger logger = Logger.getLogger(TarjetaColaborador.class.getName());
     protected ColaboradorHumano titular;
     protected EstadoSolicitud estadoSolicitud;
     protected PermisoApertura permiso;

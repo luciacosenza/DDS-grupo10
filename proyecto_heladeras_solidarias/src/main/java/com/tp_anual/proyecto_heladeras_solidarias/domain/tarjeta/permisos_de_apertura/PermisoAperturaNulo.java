@@ -1,9 +1,11 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_apertura;
 
 import java.time.LocalDateTime;
+import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraNula;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 
 public class PermisoAperturaNulo extends PermisoApertura {
     public PermisoAperturaNulo() {
@@ -18,7 +20,8 @@ public class PermisoAperturaNulo extends PermisoApertura {
 
     @Override
     public LocalDateTime getFechaOtorgamiento() {
-        throw new UnsupportedOperationException("Permiso Nulo no tiene fecha de otorgamiento");
+        logger.log(Level.SEVERE, I18n.getMessage("tarjeta.permisos_de_apertura.PermisoAperturaNulo.getFechaOtorgamiento_exception"));
+        throw new UnsupportedOperationException(I18n.getMessage("tarjeta.permisos_de_apertura.PermisoAperturaNulo.getFechaOtorgamiento_exception"));
     }
 
     @Override

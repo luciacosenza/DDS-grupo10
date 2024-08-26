@@ -3,12 +3,16 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_heladera.AperturaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
+import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
 
 public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
+    private static final Logger logger = Logger.getLogger(TarjetaPersonaEnSituacionVulnerable.class.getName());
     private PersonaEnSituacionVulnerable titular;
     protected ArrayList<UsoTarjeta> usos;
 
@@ -50,6 +54,7 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
         
         Runnable reseteoUsos = () -> {
             resetUsos();
+            logger.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.programarRevocacionPermisos_info", titular.getPersona().getNombre(2)));
         };
 
         // Programa la tarea para que se ejecute una vez por día
@@ -70,6 +75,8 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
         // Registro el Uso de la Tarjeta en la Heladera correspondiente
         UsoTarjeta uso = new UsoTarjeta(ahora, heladeraInvolucrada);
         agregarUso(uso);
+
+        logger.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.intentarApertura_info", heladeraInvolucrada.getNombre(), titular.getPersona().getNombre(2)));
 
         return apertura;
     }

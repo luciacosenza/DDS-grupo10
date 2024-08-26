@@ -9,6 +9,7 @@ public class GeneradorCodigo {
     public static String generarCodigo(boolean esColaborador) {
         // Asigno el prefijo del Código, según el tipo de titular
         String prefijo = esColaborador ? "C" : "P";
+        
         // Obtengo el siguiente número (e itero) del auto-incremental, según el tipo de titular
         long numero = esColaborador ? contadorColaboradores.getAndIncrement() : contadorPersonas.getAndIncrement();
 

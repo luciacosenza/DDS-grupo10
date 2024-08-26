@@ -68,6 +68,7 @@ public abstract class Colaborador {
 
     public void sumarPuntos(Double puntosASumar) {
         puntos += puntosASumar;
+        logger.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.sumarPuntos_info", puntosASumar, persona.getNombre(2)));
     }
 
     public void agregarContacto(MedioDeContacto contacto) {
