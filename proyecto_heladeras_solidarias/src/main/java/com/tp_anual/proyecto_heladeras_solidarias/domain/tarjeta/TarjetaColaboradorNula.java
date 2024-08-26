@@ -10,7 +10,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_he
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_apertura.PermisoApertura;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_apertura.PermisoAperturaNulo;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class TarjetaColaboradorNula extends TarjetaColaborador {
     public TarjetaColaboradorNula() {

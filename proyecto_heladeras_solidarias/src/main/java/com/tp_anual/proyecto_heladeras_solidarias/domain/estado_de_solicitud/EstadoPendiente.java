@@ -4,7 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class EstadoPendiente implements EstadoSolicitud {
     private static final Logger logger = Logger.getLogger(EstadoPendiente.class.getName());

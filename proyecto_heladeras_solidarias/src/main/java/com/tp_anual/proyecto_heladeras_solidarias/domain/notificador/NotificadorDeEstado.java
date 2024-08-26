@@ -6,7 +6,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.contacto.MedioDeContact
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicador.UbicadorHeladera;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class NotificadorDeEstado {
     private final UbicadorHeladera ubicador = new UbicadorHeladera();

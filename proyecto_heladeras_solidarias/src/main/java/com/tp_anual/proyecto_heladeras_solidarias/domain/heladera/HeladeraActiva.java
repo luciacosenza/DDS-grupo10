@@ -15,7 +15,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.suscripcion.GestorDeSus
 import com.tp_anual.proyecto_heladeras_solidarias.domain.suscripcion.Suscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class HeladeraActiva extends Heladera {

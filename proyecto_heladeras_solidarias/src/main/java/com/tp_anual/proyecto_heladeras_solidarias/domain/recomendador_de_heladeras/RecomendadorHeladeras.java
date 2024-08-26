@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class RecomendadorHeladeras {
     private static final Logger logger = Logger.getLogger(RecomendadorHeladeras.class.getName());

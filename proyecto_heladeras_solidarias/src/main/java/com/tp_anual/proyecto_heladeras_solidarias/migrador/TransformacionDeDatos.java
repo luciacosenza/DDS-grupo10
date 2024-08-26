@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.conversor.ConversorFormaContribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.conversor.ConversorTipoDocumento;
@@ -17,8 +19,11 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.Contribuci
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.ContribucionCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class TransformacionDeDatos {
+    private static final Logger logger = Logger.getLogger(TransformacionDeDatos.class.getName());
+
     private String quitarEspacios(String string) {
         return string.replaceAll("\\s+", "");
     }
@@ -37,9 +42,9 @@ public class TransformacionDeDatos {
     }
     
     private ColaboradorHumano procesarColaborador(String[] data) {
-        if (data.length != 8) { 
-            System.err.println("Error: Fila de datos incompleta: " + Arrays.toString(data));
-            return null;
+        if (data.length != 8) {
+            logger.log(Level.SEVERE, I18n.getMessage("migrador.TransformacionDeDatos.procesarColaborador_err_fila_incompleta", Arrays.toString(data)));
+            throw new RuntimeException(I18n.getMessage("migrador.TransformacionDeDatos.procesarColaborador_exception_fila_incompleta"));
         }
         
         String tipoDocStr = data[0];
@@ -63,14 +68,7 @@ public class TransformacionDeDatos {
         // Transforma a fechaContribucion
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime fechaContribucion;
-        
-        try {
-            fechaContribucion = LocalDateTime.parse(fechaContribucionStr, dateFormat);
-
-        } catch (DateTimeParseException e) {
-            System.out.println("Falló el parseo de la fecha");    // TODO: Hay que cambiar esto (normalizar errores)
-            return null;
-        }
+        fechaContribucion = LocalDateTime.parse(fechaContribucionStr, dateFormat);
         
         // Transforma a colaborador
         ColaboradorHumano colaborador = new ColaboradorHumano(new Ubicacion(null, null, null, null, null), contactos, new ArrayList<>(), new ArrayList<>(), null, nombre, apellido, documento, null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
@@ -83,6 +81,10 @@ public class TransformacionDeDatos {
 
         return colaborador;
     }    
+
+    public void confirmarTransformation() {
+        logger.log(Level.INFO, I18n.getMessage("migrador.TransformacionDeDatos.confirmarTransformation_info"));
+    }
 
     public ArrayList<ColaboradorHumano> transform(ArrayList<String[]> data) {
         Map<String, ColaboradorHumano> colaboradoresProcesados = new HashMap<>();
@@ -104,6 +106,8 @@ public class TransformacionDeDatos {
                 colaboradoresProcesados.put(clave, colaborador);
             }
         }
+
+        confirmarTransformation();
 
         return new ArrayList<>(colaboradoresProcesados.values());
     }

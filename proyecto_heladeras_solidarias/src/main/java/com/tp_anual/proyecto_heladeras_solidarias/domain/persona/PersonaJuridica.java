@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.persona;
 
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class PersonaJuridica extends Persona {
     private String razonSocial;

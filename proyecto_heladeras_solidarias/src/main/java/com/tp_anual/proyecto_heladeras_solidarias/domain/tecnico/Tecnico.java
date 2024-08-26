@@ -12,7 +12,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.contacto.MedioDeContact
 import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaFisica;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class Tecnico {

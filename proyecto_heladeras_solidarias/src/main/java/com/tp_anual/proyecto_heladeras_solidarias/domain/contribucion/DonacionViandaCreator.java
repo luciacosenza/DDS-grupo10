@@ -9,7 +9,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class DonacionViandaCreator implements ContribucionCreator {
     private static final Logger logger = Logger.getLogger(DonacionViandaCreator.class.getName());

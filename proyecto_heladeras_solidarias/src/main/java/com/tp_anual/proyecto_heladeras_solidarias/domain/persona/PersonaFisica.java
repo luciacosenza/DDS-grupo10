@@ -3,7 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.persona;
 import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class PersonaFisica extends Persona {
     private String nombre;

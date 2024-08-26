@@ -15,7 +15,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.Persona;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public abstract class Colaborador {

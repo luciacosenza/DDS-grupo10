@@ -5,7 +5,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva
 import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tecnico.Tecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicador.UbicadorTecnico;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class NotificadorDeIncidentes {
     private final UbicadorTecnico ubicador = new UbicadorTecnico();

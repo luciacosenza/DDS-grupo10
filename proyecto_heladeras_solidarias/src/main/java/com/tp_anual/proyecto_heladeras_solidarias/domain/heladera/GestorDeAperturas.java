@@ -11,7 +11,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.persona_en_situacion_vu
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_apertura.PermisoApertura;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class GestorDeAperturas {
     private static final Logger logger = Logger.getLogger(GestorDeAperturas.class.getName());

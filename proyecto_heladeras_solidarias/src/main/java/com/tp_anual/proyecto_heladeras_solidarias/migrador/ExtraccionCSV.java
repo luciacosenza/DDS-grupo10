@@ -3,9 +3,11 @@ package com.tp_anual.proyecto_heladeras_solidarias.migrador;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class ExtraccionCSV extends ExtraccionDeDatos {
     
@@ -24,10 +26,14 @@ public class ExtraccionCSV extends ExtraccionDeDatos {
                 dataColaboradores.add(linea);
             }
         } catch (IOException e) {
-            System.out.println("Error de I/O al leer el archivo CSV");  // TODO Hay que cambiar esto
+            logger.log(Level.SEVERE, I18n.getMessage("migrador.ExtraccionCSV.extract_err_io", csv));
+            throw new RuntimeException(I18n.getMessage("migrador.ExtraccionCSV.extract_exception_io"));
         } catch (CsvException e) {
-            System.out.println("Error al procesar el archivo CSV"); // TODO Hay que cambiar esto
+            logger.log(Level.SEVERE, I18n.getMessage("migrador.ExtraccionCSV.extract_err_procesamiento_csv", csv));
+            throw new RuntimeException(I18n.getMessage("migrador.ExtraccionCSV.extract_exception_procesamiento_csv"));
         }
+        
+        confirmarExtraction();
 
         return dataColaboradores;
     }
