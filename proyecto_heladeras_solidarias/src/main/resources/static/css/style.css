@@ -429,6 +429,7 @@ input::-webkit-file-upload-button{
 .card-colaborar{
     margin: 0 auto;
     width: 1000px;
+    height: 350px;
     padding: 70px;
     border-radius: 10px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
