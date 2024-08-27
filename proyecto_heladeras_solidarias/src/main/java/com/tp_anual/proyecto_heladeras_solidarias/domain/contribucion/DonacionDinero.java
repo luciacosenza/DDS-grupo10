@@ -1,6 +1,8 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion;
 
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -10,6 +12,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class DonacionDinero extends Contribucion {
+    private static final Logger logger = Logger.getLogger(DonacionDinero.class.getName());
     private final Double monto;
     private final FrecuenciaDePago frecuencia;
     private LocalDateTime ultimaActualizacion;
@@ -104,10 +107,16 @@ public class DonacionDinero extends Contribucion {
     public void validarIdentidad() {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
 
     @Override
+    protected void confirmarSumaPuntos(Double puntosSumados) {
+        logger.log(Level.INFO, I18n.getMessage("contribucion.DonacionDinero.calcularPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
+    }
+
+    @Override
     protected void calcularPuntos() {    
         if (frecuencia == FrecuenciaDePago.UNICA_VEZ) {
-            colaborador.sumarPuntos(monto * multiplicador_puntos);
-            return; // Corta la ejecución del método, dado que un pago único suma puntos una única vez
+            Double puntosASumar = monto * multiplicador_puntos;
+            colaborador.sumarPuntos(puntosASumar);
+            confirmarSumaPuntos(puntosASumar);
         } 
 
         Integer periodo = 1;
@@ -116,8 +125,10 @@ public class DonacionDinero extends Contribucion {
         Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
             Long periodosPasados = frecuencia.unidad().between(ultimaActualizacion, ahora);
-            if (periodosPasados >= frecuencia.periodo()) {      // TODO Dado que en el test nos dimos cuenta que puede fallar por milésimas, podríamos pensar en restarle un segundo, por ejemplo, a períodos pasados
-                colaborador.sumarPuntos(monto * multiplicador_puntos);
+            if (periodosPasados >= frecuencia.periodo()) {  // TODO: Dado que en el test nos dimos cuenta que puede fallar por milésimas, podríamos pensar en restarle un segundo, por ejemplo, a períodos pasados
+                Double puntosASumarL = monto * multiplicador_puntos;
+                colaborador.sumarPuntos(puntosASumarL);
+                confirmarSumaPuntos(puntosASumarL);
                 ultimaActualizacion = ahora;
             }
         };

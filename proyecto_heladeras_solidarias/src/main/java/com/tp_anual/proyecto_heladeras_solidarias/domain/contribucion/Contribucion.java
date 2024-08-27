@@ -41,6 +41,8 @@ public abstract class Contribucion {
 
     public abstract void validarIdentidad();
 
+    protected abstract void confirmarSumaPuntos(Double puntosSumados);
+
     protected abstract void calcularPuntos();
 
     public void confirmar(LocalDateTime vFechaContribucion) {

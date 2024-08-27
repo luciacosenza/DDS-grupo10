@@ -14,6 +14,7 @@ public class DistribucionViandas extends Contribucion {
     private final HeladeraActiva destino;
     private final Integer cantidadViandasAMover;
     private final MotivoDistribucion motivo;
+    private final Double multiplicador_puntos = 1d;
 
     public enum MotivoDistribucion {
         DESPERFECTO_EN_LA_HELADERA,
@@ -64,7 +65,14 @@ public class DistribucionViandas extends Contribucion {
     }
 
     @Override
+    protected void confirmarSumaPuntos(Double puntosSumados) {
+        logger.log(Level.INFO, I18n.getMessage("contribucion.DistribucionViandas.calcularPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
+    }
+
+    @Override
     protected void calcularPuntos() {
-        colaborador.sumarPuntos(Double.valueOf(cantidadViandasAMover));
+        Double puntosASumar = Double.valueOf(cantidadViandasAMover) * multiplicador_puntos;
+        colaborador.sumarPuntos(puntosASumar);
+        confirmarSumaPuntos(puntosASumar);
     }
 }

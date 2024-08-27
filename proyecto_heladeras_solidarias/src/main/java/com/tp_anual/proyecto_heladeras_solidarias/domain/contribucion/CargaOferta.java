@@ -30,6 +30,10 @@ public class CargaOferta extends Contribucion {
     public void validarIdentidad() {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
 
     @Override
+    protected void confirmarSumaPuntos(Double puntosSumados) {} // Esta Contribución no entra entre las que suman puntos
+
+    @Override
     protected void calcularPuntos() {}  // Esta Contribución no entra entre las que suman puntos
+
 
 }

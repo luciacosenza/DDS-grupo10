@@ -13,7 +13,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.Contribuci
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.Persona;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
@@ -68,7 +67,6 @@ public abstract class Colaborador {
 
     public void sumarPuntos(Double puntosASumar) {
         puntos += puntosASumar;
-        logger.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.sumarPuntos_info", puntosASumar, persona.getNombre(2)));
     }
 
     public void agregarContacto(MedioDeContacto contacto) {
