@@ -3,10 +3,14 @@ package com.tp_anual.proyecto_heladeras_solidarias.migrador;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.ColaboradorHumano;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class Migrador {
+    private static final Logger logger = Logger.getLogger(Migrador.class.getName());
     private static ExtraccionDeDatos protocoloExtraccion;
     private static final TransformacionDeDatos transformador = new TransformacionDeDatos();
     private static EnvioDeDatos protocoloEnvio;
@@ -54,14 +58,19 @@ public class Migrador {
         protocoloEnvio = protocolo;
     }
 
+    public static void confirmarLoading() {
+        logger.log(Level.INFO, I18n.getMessage("migrador.Migrador.confirmarLoading_info"));
+    }
+
     public static void migrar(String csv) throws IOException, URISyntaxException {        
         ArrayList<String[]> dataColaboradores = protocoloExtraccion.extract(csv);
         ArrayList<ColaboradorHumano> colaboradoresAMigrar = transformador.transform(dataColaboradores);
 
         for (ColaboradorHumano colaborador : colaboradoresAMigrar) {
             colaborador.darDeAlta();
-            System.out.println("Dado de alta");
             protocoloEnvio.send(colaborador, ASUNTO, CUERPO);
         }
+
+        confirmarLoading();
     }
 }

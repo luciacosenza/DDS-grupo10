@@ -5,12 +5,15 @@ import java.time.temporal.ChronoUnit;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class HacerseCargoDeHeladera extends Contribucion {
+    private static final Logger logger = Logger.getLogger(HacerseCargoDeHeladera.class.getName());
     private final HeladeraActiva heladeraObjetivo;
     private LocalDateTime ultimaActualizacion;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -38,6 +41,11 @@ public class HacerseCargoDeHeladera extends Contribucion {
     public void validarIdentidad() {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
 
     @Override
+    protected void confirmarSumaPuntos(Double puntosSumados) {
+        logger.log(Level.INFO, I18n.getMessage("contribucion.HacerseCargoDeHeladera.calcularPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
+    }
+    
+    @Override
     protected void calcularPuntos() {
         Integer periodo = 1;
         TimeUnit unidad = TimeUnit.DAYS;
@@ -46,7 +54,9 @@ public class HacerseCargoDeHeladera extends Contribucion {
             LocalDateTime ahora = LocalDateTime.now();
             long mesesPasados = ChronoUnit.MONTHS.between(ultimaActualizacion, ahora);
             if (mesesPasados >= 1 && heladeraObjetivo.getEstado()) {    // Dado que en el test nos dimos cuenta que puede fallar por milésimas, podríamos pensar en restarle un segundo, por ejemplo, a meses pasados (TODO)
-                colaborador.sumarPuntos(multiplicador_puntos);
+                Double puntosASumar = multiplicador_puntos;
+                colaborador.sumarPuntos(puntosASumar);
+                confirmarSumaPuntos(puntosASumar);
                 ultimaActualizacion = ahora;
             }
         };

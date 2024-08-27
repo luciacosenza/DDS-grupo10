@@ -3,6 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.persona;
 import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class PersonaFisica extends Persona {
     private String nombre;
@@ -45,11 +46,11 @@ public class PersonaFisica extends Persona {
 
     @Override
     public void obtenerDetalles() {
-        System.out.println("Nombre: " + nombre);
-        System.out.println("Apellido: " + apellido);
-        System.out.println("Documento: " + documento.getTipo() + " | " + documento.getNumero());
+        System.out.println(I18n.getMessage("persona.PersonaFisica.obtenerDetalles_out_nombre", nombre));
+        System.out.println(I18n.getMessage("persona.PersonaFisica.obtenerDetalles_out_apellido", apellido));
+        System.out.println(I18n.getMessage("persona.PersonaFisica.obtenerDetalles_out_documento", documento.getTipo(), documento.getNumero()));
         
         if(fechaNacimiento != null)
-            System.out.println("Fecha de nacimiento: " + fechaNacimiento);
+            System.out.println(I18n.getMessage("persona.PersonaFisica.obtenerDetalles_out_fecha_nacimiento", fechaNacimiento));
     }
 }

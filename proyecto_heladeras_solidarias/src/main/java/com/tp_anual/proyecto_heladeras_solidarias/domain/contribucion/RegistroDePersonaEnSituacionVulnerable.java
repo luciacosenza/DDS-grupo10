@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.Tarjeta;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaPersonaEnSituacionVulnerable;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
     private static final Logger logger = Logger.getLogger(RegistroDePersonaEnSituacionVulnerable.class.getName());
@@ -40,7 +40,14 @@ public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
     }
 
     @Override
+    protected void confirmarSumaPuntos(Double puntosSumados) {
+        logger.log(Level.INFO, I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.calcularPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
+    }
+
+    @Override
     protected void calcularPuntos() {
-        colaborador.sumarPuntos(multiplicador_puntos);
+        Double puntosASumar = multiplicador_puntos;
+        colaborador.sumarPuntos(puntosASumar);
+        confirmarSumaPuntos(puntosASumar);
     }
 }

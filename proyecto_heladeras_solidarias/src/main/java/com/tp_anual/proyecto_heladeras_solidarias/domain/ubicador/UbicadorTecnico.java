@@ -2,6 +2,8 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.ubicador;
 
 import java.util.ArrayList;
 import java.util.OptionalDouble;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -10,9 +12,11 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.area.Area;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tecnico.Tecnico;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class UbicadorTecnico {
+    private static final Logger logger = Logger.getLogger(UbicadorTecnico.class.getName());
 
     public UbicadorTecnico() {}
 
@@ -39,8 +43,10 @@ public class UbicadorTecnico {
         
         OptionalDouble distanciaMinima = distancias.stream().mapToDouble(Double::doubleValue).min();
         
-        if (!distanciaMinima.isPresent())
-            throw new IllegalArgumentException("No hay ningún técnico que cubra la heladera " + heladera.getNombre());
+        if (!distanciaMinima.isPresent()) {
+            logger.log(Level.SEVERE, I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_err", heladera.getNombre()));
+            throw new IllegalArgumentException(I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception"));
+        }
 
         // Si la mónada "Optional distanciaMinima" no esté vacía, la desarmo. Sólo puede llegar vacía si no hay Técnicos cuya área de cobertura cubra la Heladera
         Double distancia = distanciaMinima.getAsDouble();

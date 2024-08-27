@@ -9,5 +9,4 @@ public class ProyectoHeladerasSolidariasApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoHeladerasSolidariasApplication.class, args);
 	}
-
 }

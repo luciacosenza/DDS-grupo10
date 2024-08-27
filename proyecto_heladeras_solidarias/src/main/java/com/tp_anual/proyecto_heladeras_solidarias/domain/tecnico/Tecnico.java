@@ -2,6 +2,8 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.tecnico;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -10,9 +12,11 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.contacto.MedioDeContact
 import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaFisica;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class Tecnico {
+    private static final Logger logger = Logger.getLogger(Tecnico.class.getName());
     private final PersonaFisica persona;
     private final String cuil;
     private MedioDeContacto medioDeContacto;    // TODO: Puede ser plural en un futuro
@@ -63,6 +67,8 @@ public class Tecnico {
         
         Visita visita = new Visita(this, ultimoIncidenteTratado, fecha, descripcion, foto, estadoConsulta);
         Sistema.getGestorDeVisitas().agregarVisita(visita);
+
+        logger.log(Level.INFO, I18n.getMessage("tecnico.Tecnico.registrarVisita_info", ultimoIncidenteTratado.getHeladera().getNombre(), ultimoIncidenteTratado.getClass().getSimpleName(), persona.getNombre(2)));
     }
 
     // Como convención, para aproximar la Ubicación de un Técnico, vamos a usar el punto medio de su área de cobertura

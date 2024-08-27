@@ -13,9 +13,8 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.Contribuci
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.Persona;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public abstract class Colaborador {
@@ -58,8 +57,7 @@ public abstract class Colaborador {
                 return tipoMedioDeContacto.cast(contacto);
         }
 
-        PersonaFisica personaFisica = (PersonaFisica) persona;
-        logger.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.getContacto_err", personaFisica.getNombre(), personaFisica.getApellido(), tipoMedioDeContacto.getClass().getSimpleName()));
+        logger.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.getContacto_err", persona.getNombre(2), tipoMedioDeContacto.getClass().getSimpleName()));
         throw new NoSuchElementException(I18n.getMessage("colaborador.Colaborador.getContacto_exception"));
     }
 

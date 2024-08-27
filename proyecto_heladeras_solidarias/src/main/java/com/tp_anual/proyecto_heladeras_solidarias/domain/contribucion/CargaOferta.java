@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.oferta.Oferta;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class CargaOferta extends Contribucion {
     private final Oferta oferta;
@@ -30,6 +30,10 @@ public class CargaOferta extends Contribucion {
     public void validarIdentidad() {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
 
     @Override
+    protected void confirmarSumaPuntos(Double puntosSumados) {} // Esta Contribución no entra entre las que suman puntos
+
+    @Override
     protected void calcularPuntos() {}  // Esta Contribución no entra entre las que suman puntos
+
 
 }

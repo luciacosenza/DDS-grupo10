@@ -3,6 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.estado_de_solicitud.EstadoExpirada;
@@ -15,6 +16,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_he
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador.MotivoSolicitud;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_apertura.PermisoApertura;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_apertura.PermisoAperturaActivo;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class TarjetaColaboradorActiva extends TarjetaColaborador {
     
@@ -63,6 +65,8 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
                 permiso.resetHeladeraPermitida();
                 setEstadoSolicitud(new EstadoExpirada());
             }
+
+            logger.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaboradorActiva.programarRevocacionPermisos_info", permiso.getHeladeraPermitida().getNombre(), titular.getPersona().getNombre(2)));
         };
 
         // Programa la tarea para que se ejecute una vez después de 3 horas
@@ -88,6 +92,8 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
         permiso.setHeladeraPermitida(heladeraInvolucrada);
         permiso.actualizarFechaOtorgamiento();
 
+        logger.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaboradorActiva.solicitarApertura_info", heladeraInvolucrada.getNombre(), titular.getPersona().getNombre(2)));
+
         programarRevocacionPermisos();
 
         return solicitudApertura;
@@ -102,10 +108,12 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
         // Registramos la Apertura en el Sistema
         AperturaColaborador apertura = new AperturaColaborador(LocalDateTime.now(), heladeraInvolucrada, this.getTitular());
         apertura.darDeAlta();
-
+        
         // Reseteo el Estado de Solicitud
         setEstadoSolicitud(new EstadoPosible());
         // A partir de acá, el Estado de Solicitud pasará a Posible, hasta que se solicite una nueva Apertura
+
+        logger.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaboradorActiva.intentarApertura_info", heladeraInvolucrada.getNombre(), titular.getPersona().getNombre(2)));
 
         return apertura;
     }

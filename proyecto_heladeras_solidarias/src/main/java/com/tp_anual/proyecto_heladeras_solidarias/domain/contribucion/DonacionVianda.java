@@ -7,11 +7,10 @@ import java.util.logging.Logger;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Vianda;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class DonacionVianda extends Contribucion {
     private static final Logger logger = Logger.getLogger(DonacionVianda.class.getName());
-
     private final Vianda vianda;
     private final HeladeraActiva heladera;
     private final Double multiplicador_puntos = 1.5;
@@ -48,7 +47,14 @@ public class DonacionVianda extends Contribucion {
     }
 
     @Override
+    protected void confirmarSumaPuntos(Double puntosSumados) {
+        logger.log(Level.INFO, I18n.getMessage("contribucion.DonacionVianda.calcularPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
+    }
+
+    @Override
     protected void calcularPuntos() {
+        Double puntosASumar = multiplicador_puntos;
         colaborador.sumarPuntos(multiplicador_puntos);
+        confirmarSumaPuntos(puntosASumar);
     }
 }

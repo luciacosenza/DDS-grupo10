@@ -9,7 +9,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.Distribuci
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DonacionDineroCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DonacionViandaCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.RegistroDePersonaEnSituacionVulnerableCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.message_loader.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 // A los conversores les pasamos los strings en minúscula, sólo con caracteres alfabéticos (removiendo numéricos y especiales) y sin espacios
 public class ConversorFormaContribucion {
