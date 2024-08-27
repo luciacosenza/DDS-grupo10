@@ -2,6 +2,8 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.heladera;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -12,10 +14,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class SensorTest {
-    
+    private static final Logger logger = Logger.getLogger(SensorTest.class.getName());
+
     @Test   // Creo una función similar a la del Sensor (dado que sino habría que cambiar las unidades del Sensor para hacer el Test)
     @DisplayName("Testeo el flujo correcto de datos entre la Heladera y su SensorTemperatura")
     public void SensorTemperaturaOKTest() throws InterruptedException {
@@ -46,9 +50,13 @@ public class SensorTest {
 
         scheduler.scheduleAtFixedRate(notificacionTemperatura, 0, 5, TimeUnit.MINUTES);
 
-        if (!latch.await(2, TimeUnit.SECONDS))   // Esperamos un maximo de 2 segundos
-            throw new IllegalStateException("El cálculo de puntos no terminó a tiempo");
+        long timeout = 2;
 
+        if (!latch.await(timeout, TimeUnit.SECONDS)) {    // Esperamos un máximo de 2 segundos
+            logger.log(Level.SEVERE, I18n.getMessage("heladera.SensorTest.SensorTemperaturaOKTest_err", sensor.getHeladera().getNombre(), timeout));
+            throw new IllegalStateException(I18n.getMessage("heladera.SensorTest.SensorTemperaturaOKTest_exception"));
+        }
+        
         Assertions.assertTrue(heladera.getTempActual() == -15f && heladera.getEstado() == true);
 
         scheduler.shutdown();
@@ -84,8 +92,12 @@ public class SensorTest {
 
         scheduler.scheduleAtFixedRate(notificacionTemperatura, 0, 5, TimeUnit.MINUTES);
 
-        if (!latch.await(2, TimeUnit.SECONDS))   // Esperamos un maximo de 2 segundos
-            throw new IllegalStateException("El cálculo de puntos no terminó a tiempo");
+        long timeout = 2;
+
+        if (!latch.await(timeout, TimeUnit.SECONDS)) {    // Esperamos un máximo de 2 segundos
+            logger.log(Level.SEVERE, I18n.getMessage("heladera.SensorTest.SensorTemperaturaAlertaTest_err", sensor.getHeladera().getNombre(), timeout));
+            throw new IllegalStateException(I18n.getMessage("heladera.SensorTest.SensorTemperaturaAlertaTest_exception"));    
+        }
 
         scheduler.shutdown();
 
@@ -106,7 +118,7 @@ public class SensorTest {
             sensor.setHayMovimiento(true);
         });
 
-        Assertions.assertEquals("No hay ningún técnico que cubra la heladera HeladeraPrueba", exception.getMessage());  // Verificamos que se lanza la Exception del Técnico
-        Assertions.assertTrue(heladera.getEstado() == false && !Sistema.getIncidentes().isEmpty()); // En realidad debería haber 1 Incidente pero, como Sistema es static, se carga el Incidente del otro test tambien
+        Assertions.assertEquals(I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception"), exception.getMessage());  // Verificamos que se lanza la Exception del Técnico (porque no implementamos que haya uno que la atienda)
+        Assertions.assertTrue(heladera.getEstado() == false && !Sistema.getIncidentes().isEmpty()); // En realidad debería haber 1 Incidente pero, como Sistema es static, se carga el Incidente del otro test también
     }
 }

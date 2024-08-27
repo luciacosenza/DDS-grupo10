@@ -28,6 +28,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_he
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class TarjetaColaboradorActivaTest {
@@ -176,6 +177,6 @@ public class TarjetaColaboradorActivaTest {
             colaboradorHumano.getTarjeta().solicitarApertura(heladera, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION);
         });
 
-        assertEquals("La Heladera se encuentra vacía", exception.getMessage());
+        assertEquals(I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_exception_heladera_vacia"), exception.getMessage());
     }
 }

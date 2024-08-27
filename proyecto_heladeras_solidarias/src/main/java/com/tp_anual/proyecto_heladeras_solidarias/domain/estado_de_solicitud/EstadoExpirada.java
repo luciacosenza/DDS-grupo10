@@ -11,7 +11,7 @@ public class EstadoExpirada implements EstadoSolicitud {
 
     @Override
     public void manejar(TarjetaColaborador tarjeta) {
-        logger.log(Level.INFO, I18n.getMessage("estado_de_solicitud.EstadoExpirada.manejar_info", tarjeta.getTitular()));
+        logger.log(Level.INFO, I18n.getMessage("estado_de_solicitud.EstadoExpirada.manejar_info", tarjeta.getTitular().getPersona().getNombre(2)));
         tarjeta.setEstadoSolicitud(new EstadoPosible());
     }
 }

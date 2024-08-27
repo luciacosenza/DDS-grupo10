@@ -20,6 +20,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class TarjetaPersonaEnSituacionVulnerableTest {
     @Test
@@ -178,7 +179,8 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
             heladera.retirarVianda();
         });
 
-        Assertions.assertTrue("Ya agotó los usos diarios de su tarjeta".equals(exception.getMessage()) && heladera.viandasActuales() == 2);
+        Assertions.assertEquals(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_exception_usos_agotados"), exception.getMessage());
+        Assertions.assertEquals(2, heladera.viandasActuales());
     }
 
     @Test
@@ -192,9 +194,6 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         Vianda vianda3 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         Vianda vianda4 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         Vianda vianda5 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
-        Vianda vianda6 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
-        Vianda vianda7 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
-        Vianda vianda8 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         
         ArrayList<Vianda> viandasAAgregar = new ArrayList<>();
         viandasAAgregar.add(vianda1);
@@ -202,11 +201,8 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         viandasAAgregar.add(vianda3);
         viandasAAgregar.add(vianda4);
         viandasAAgregar.add(vianda5);
-        viandasAAgregar.add(vianda6);
-        viandasAAgregar.add(vianda7);
-        viandasAAgregar.add(vianda8);
 
-        Integer cantidadAAgregar = 8;
+        Integer cantidadAAgregar = 5;
 
         for(Integer i = 1; i <= cantidadAAgregar; i++) {
                 Vianda viandaAux = viandasAAgregar.removeFirst();
@@ -246,18 +242,12 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         heladera.retirarVianda();
         personaEnSituacionVulnerable.getTarjeta().intentarApertura(heladera);
         heladera.retirarVianda();
-        personaEnSituacionVulnerable.getTarjeta().intentarApertura(heladera);
-        heladera.retirarVianda();
-        personaEnSituacionVulnerable.getTarjeta().intentarApertura(heladera);
-        heladera.retirarVianda();
-        personaEnSituacionVulnerable.getTarjeta().intentarApertura(heladera);
-        heladera.retirarVianda();
 
         UnsupportedOperationException exception = Assertions.assertThrows(UnsupportedOperationException.class, () -> {
             personaEnSituacionVulnerable.getTarjeta().intentarApertura(heladera);
             heladera.retirarVianda();
         });
 
-        Assertions.assertEquals("La heladera HeladeraPrueba se encuentra vacía", exception.getMessage());
+        Assertions.assertEquals(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_exception_heladera_vacia"), exception.getMessage());
     }
 }

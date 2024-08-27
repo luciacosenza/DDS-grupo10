@@ -1,6 +1,8 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion;
 
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
@@ -16,10 +18,12 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class HacerseCargoDeHeladeraTest {
-    
+    private static final Logger logger = Logger.getLogger(HacerseCargoDeHeladeraTest.class.getName());
+
     @Test
     @DisplayName("Testeo la carga y correcto funcionamiento de una HacerseCargoDeHeladera")
     public void CargaHacerseCargoDeHeladeraTest() { 
@@ -60,6 +64,7 @@ public class HacerseCargoDeHeladeraTest {
                 ultimaActualizacion[0] = ahora;
             }
             latch.countDown();
+            
             if (latch.getCount() == 0) {
                 scheduler.shutdown();
             }
@@ -67,8 +72,11 @@ public class HacerseCargoDeHeladeraTest {
 
         scheduler.scheduleAtFixedRate(calculoPuntos, 0, 5, TimeUnit.SECONDS);
         
-        if (!latch.await(60, TimeUnit.SECONDS)) {   // Esperamos un maximo de 60 segundos
-            throw new IllegalStateException("El cálculo de puntos no terminó a tiempo");
+        long timeout = 60;
+
+        if (!latch.await(timeout, TimeUnit.SECONDS)) {  // Esperamos un máximo de 60 segundos
+            logger.log(Level.SEVERE, I18n.getMessage("contribucion.HacerseCargoDeHeladeraTest.CalcularPuntosDDTest_err", HacerseCargoDeHeladera.class.getSimpleName(), timeout));
+            throw new IllegalStateException(I18n.getMessage("contribucion.HacerseCargoDeHeladeraTest.CalcularPuntosDDTest_exception"));
         }
 
         Assertions.assertEquals(4d, colaboradorJuridico.getPuntos());

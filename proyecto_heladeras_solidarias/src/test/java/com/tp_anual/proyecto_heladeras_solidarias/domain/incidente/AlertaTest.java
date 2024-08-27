@@ -2,6 +2,8 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.incidente;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -17,9 +19,11 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.SensorMovimien
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.SensorTemperatura;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Alerta.TipoAlerta;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class AlertaTest {
+    private static final Logger logger = Logger.getLogger(AlertaTest.class.getName());
     
     @Test   // Creo una función similar a la del Sensor (dado que sino habría que cambiar las unidades del Sensor para hacer el Test)
     @DisplayName("Testeo la carga de Alerta de Temperatura")
@@ -51,9 +55,13 @@ public class AlertaTest {
 
         scheduler.scheduleAtFixedRate(notificacionTemperatura, 0, 5, TimeUnit.MINUTES);
 
-        if (!latch.await(2, TimeUnit.SECONDS))   // Esperamos un máximo de 2 segundos
-            throw new IllegalStateException("El cálculo de puntos no terminó a tiempo");
+        long timeout = 2;
 
+        if (!latch.await(timeout, TimeUnit.SECONDS)) {  // Esperamos un máximo de 2 segundos
+            logger.log(Level.SEVERE, I18n.getMessage("incidente.AlertaTest.CargaAlertaTemperaturaTest_err", sensor.getHeladera().getNombre(), timeout));
+            throw new IllegalStateException(I18n.getMessage("incidente.AlertaTest.CargaAlertaTemperaturaTest_exception"));
+        }
+        
         scheduler.shutdown();
 
         ArrayList<Incidente> alertasDelSistema = Sistema.getIncidentes().stream()
@@ -91,7 +99,7 @@ public class AlertaTest {
             .filter(alerta -> alerta.getTipo() == TipoAlerta.FRAUDE)
             .collect(Collectors.toCollection(ArrayList::new));
 
-        Assertions.assertEquals("No hay ningún técnico que cubra la heladera HeladeraPrueba", exception.getMessage());  // Verificamos que se lanza la Exception del Técnico
+        Assertions.assertEquals(I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception"), exception.getMessage());  // Verificamos que se lanza la Exception del Técnico (porque no implementamos que haya uno que la atienda)
         Assertions.assertTrue(heladera.getEstado() == false && alertasDeFraudeDelSistema.size() == 1);
     }
 
@@ -117,7 +125,7 @@ public class AlertaTest {
             .filter(alerta -> alerta.getTipo() == TipoAlerta.FALLA_CONEXION)
             .collect(Collectors.toCollection(ArrayList::new));
 
-        Assertions.assertEquals("No hay ningún técnico que cubra la heladera HeladeraPrueba", exception.getMessage());  // Verificamos que se lanza la Exception del Técnico
+        Assertions.assertEquals(I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception"), exception.getMessage());  // Verificamos que se lanza la Exception del Técnico (porque no implementamos que haya uno que la atienda)
         Assertions.assertTrue(heladera.getEstado() == false && alertasDeFallaConexionDelSistema.size() == 1);
     }
 }

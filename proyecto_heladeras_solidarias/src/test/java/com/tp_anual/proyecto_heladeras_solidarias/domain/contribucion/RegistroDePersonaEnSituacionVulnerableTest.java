@@ -14,6 +14,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento.Tip
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class RegistroDePersonaEnSituacionVulnerableTest {
@@ -51,6 +52,6 @@ public class RegistroDePersonaEnSituacionVulnerableTest {
             colaboradorHumano.colaborar(registroDePersonaEnSituacionVulnerableCreator, LocalDateTime.now(), tarjeta);
         });
 
-        Assertions.assertEquals("El colaborador aspirante no posee domicilio. Para Registrar Personas Vulnerables debe actualizar su información", exception.getMessage());
+        Assertions.assertEquals(I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.validarIdentidad_exception"), exception.getMessage());
     }
 }

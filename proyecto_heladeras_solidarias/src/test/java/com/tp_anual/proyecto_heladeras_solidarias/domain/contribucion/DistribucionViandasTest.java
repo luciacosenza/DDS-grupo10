@@ -17,6 +17,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_he
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColaboradorActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColaboradorCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class DistribucionViandasTest {
@@ -100,6 +101,6 @@ public class DistribucionViandasTest {
             colaboradorHumano2.colaborar(distribucionViandasCreator, LocalDateTime.now(), heladera1, heladera2, 1, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
         });
 
-        Assertions.assertEquals("El colaborador aspirante no posee domicilio. Para recibir la Tarjeta Solidaria debe actualizar su información", exception.getMessage());
+        Assertions.assertEquals(I18n.getMessage("contribucion.DistribucionViandas.validarIdentidad_exception"), exception.getMessage());
     }
 }

@@ -48,7 +48,7 @@ public class DonacionVianda extends Contribucion {
 
     @Override
     protected void confirmarSumaPuntos(Double puntosSumados) {
-        logger.log(Level.INFO, I18n.getMessage("contribucion.DonacionVianda.calcularPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
+        logger.log(Level.INFO, I18n.getMessage("contribucion.DonacionVianda.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
     @Override

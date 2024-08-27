@@ -42,7 +42,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
 
     @Override
     protected void confirmarSumaPuntos(Double puntosSumados) {
-        logger.log(Level.INFO, I18n.getMessage("contribucion.HacerseCargoDeHeladera.calcularPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
+        logger.log(Level.INFO, I18n.getMessage("contribucion.HacerseCargoDeHeladera.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
     
     @Override

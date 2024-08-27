@@ -26,6 +26,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaJuridica
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColaboradorActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColaboradorCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class HeladeraTest {
@@ -179,7 +180,7 @@ public class HeladeraTest {
             }
         });
 
-        Assertions.assertEquals("No se puede agregar la vianda. Se superaría la capacidad de la heladera HeladeraPrueba", exception.getMessage());
+        Assertions.assertEquals(I18n.getMessage("heladera.HeladeraActiva.agregarVianda_exception"), exception.getMessage());
     }
 
     @Test
@@ -217,6 +218,6 @@ public class HeladeraTest {
             }
         });
 
-        Assertions.assertEquals("La heladera HeladeraPrueba no tiene más viandas para retirar", exception.getMessage());
+        Assertions.assertEquals(I18n.getMessage("heladera.HeladeraActiva.retirarVianda_exception"), exception.getMessage());
     }
 }

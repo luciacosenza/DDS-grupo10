@@ -20,6 +20,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaJuridica
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class Colaborador1Test {
     
@@ -46,7 +47,7 @@ public class Colaborador1Test {
             colaboradorHumano.getContacto(WhatsApp.class);
         });
     
-        Assertions.assertEquals("El colaborador no cuenta con ese medio de contacto", exception.getMessage());
+        Assertions.assertEquals(I18n.getMessage("colaborador.Colaborador.getContacto_exception"), exception.getMessage());
     }
 
     @Test
@@ -62,7 +63,7 @@ public class Colaborador1Test {
             colaboradorHumano.colaborar(hacerseCargoDeHeladeraCreator, LocalDateTime.now(), heladera);
         });
 
-        Assertions.assertEquals("No es una forma válida de colaborar", exception.getMessage());
+        Assertions.assertEquals(I18n.getMessage("colaborador.Colaborador.colaborar_exception"), exception.getMessage());
     }
 
     @Test
@@ -79,6 +80,6 @@ public class Colaborador1Test {
             colaboradorJuridico.colaborar(registroDePersonaEnSituacionVulnerableCreator, LocalDateTime.now(), tarjeta);
         });
 
-        Assertions.assertEquals("No es una forma válida de colaborar", exception.getMessage());
+        Assertions.assertEquals(I18n.getMessage("colaborador.Colaborador.colaborar_exception"), exception.getMessage());
     }
 }

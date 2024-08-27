@@ -17,6 +17,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class ContribucionCreatorTest {
     
@@ -33,7 +34,7 @@ public class ContribucionCreatorTest {
             colaboradorJuridico.colaborar(cargaOfertaCreator, LocalDateTime.now(), heladera);
         });
 
-        Assertions.assertEquals("Argumentos inválidos para realizar una Carga de Oferta", exception.getMessage());
+        Assertions.assertEquals(I18n.getMessage("contribucion.CargaOfertaCreator.crearContribucion_exception"), exception.getMessage());
     }
 
     @Test
@@ -50,7 +51,7 @@ public class ContribucionCreatorTest {
             colaboradorHumano.colaborar(distribucionViandasCreator, LocalDateTime.now(), vianda, heladera);
         });
 
-        Assertions.assertEquals("Argumentos inválidos para realizar una Distribución de Viandas", exception.getMessage());
+        Assertions.assertEquals(I18n.getMessage("contribucion.DistribucionViandasCreator.crearContribucion_exception"), exception.getMessage());
     }
 
     @Test
@@ -67,7 +68,7 @@ public class ContribucionCreatorTest {
             colaboradorHumano.colaborar(donacionDineroCreator, LocalDateTime.now(), vianda, heladera);
         });
 
-        Assertions.assertEquals("Argumentos inválidos para realizar una Donación de Dinero", exception.getMessage());
+        Assertions.assertEquals(I18n.getMessage("contribucion.DonacionDineroCreator.crearContribucion_exception"), exception.getMessage());
     }
 
     @Test
@@ -84,7 +85,7 @@ public class ContribucionCreatorTest {
             colaboradorHumano.colaborar(donacionViandaCreator, LocalDateTime.now(), heladera1, heladera2, 5, DistribucionViandas.MotivoDistribucion.DESPERFECTO_EN_LA_HELADERA);
         });
 
-        Assertions.assertEquals("Argumentos inválidos para realizar una Donación de Vianda", exception.getMessage());
+        Assertions.assertEquals(I18n.getMessage("contribucion.DonacionViandaCreator.crearContribucion_exception"), exception.getMessage());
     }
 
     @Test
@@ -100,7 +101,7 @@ public class ContribucionCreatorTest {
             colaboradorJuridico.colaborar(hacerseCargoDeHeladeraCreator, LocalDateTime.now(), oferta);
         });
 
-        Assertions.assertEquals("Argumentos inválidos para Hacerse Cargo de una Heladera", exception.getMessage());
+        Assertions.assertEquals(I18n.getMessage("contribucion.HacerseCargoDeHeladeraCreator.crearContribucion_exception"), exception.getMessage());
     }
 
     @Test
@@ -117,6 +118,6 @@ public class ContribucionCreatorTest {
             colaboradorHumano.colaborar(registroDePersonaEnSituacionVulnerableCreator, LocalDateTime.now(), monto, frecuencia);
         });
 
-        Assertions.assertEquals("Argumentos inválidos para Registrar una Persona En Situacion Vulnerable", exception.getMessage());
+        Assertions.assertEquals(I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerableCreator.crearContribucion_exception"), exception.getMessage());
     }
 }

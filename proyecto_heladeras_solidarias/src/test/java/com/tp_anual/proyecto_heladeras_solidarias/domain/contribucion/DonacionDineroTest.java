@@ -1,6 +1,8 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion;
 
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
@@ -19,9 +21,11 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento.Sex
 import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento.TipoDocumento;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class DonacionDineroTest {
-    
+    private static final Logger logger = Logger.getLogger(DonacionDineroTest.class.getName());
+
     @Test
     @DisplayName("Testeo la carga y correcto funcionamiento de una DonacionDinero")
     public void CargaDonacionDineroTest() { 
@@ -49,7 +53,7 @@ public class DonacionDineroTest {
 
     @Test
     @DisplayName("Testeo el cálculo de Puntos de DonacionDinero utilizando un Scheduler")
-    public void CalcularPuntosDDTest() throws InterruptedException {  // Testeamos una version modificada de calcularPuntos(), dado que la original cuenta con periodos muy largos de ejecucion como para ser testeada
+    public void CalcularPuntosDDTest() throws InterruptedException {    // Testeamos una version modificada de calcularPuntos(), dado que la original cuenta con periodos muy largos de ejecucion como para ser testeada
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d, "NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")); // Uso ColaboradorHumano porque Colaborador es abstract y DonacionDinero es valida para ambos (Humano y Juridico)
         colaboradorHumano.darDeAlta();
 
@@ -76,9 +80,13 @@ public class DonacionDineroTest {
 
         scheduler.scheduleAtFixedRate(calculoPuntos, 0, 5, TimeUnit.SECONDS);
         
-        if (!latch.await(60, TimeUnit.SECONDS))   // Esperamos un maximo de 60 segundos
-            throw new IllegalStateException("El cálculo de puntos no terminó a tiempo");
-        
+        long timeout = 60;
+
+        if (!latch.await(timeout, TimeUnit.SECONDS)) {   // Esperamos un máximo de 60 segundos
+            logger.log(Level.SEVERE, I18n.getMessage("contribucion.DonacionDineroTest.CalcularPuntosDDTest_err", DonacionDinero.class.getSimpleName(), timeout));
+            throw new IllegalStateException(I18n.getMessage("contribucion.DonacionDineroTest.CalcularPuntosDDTest_exception"));
+        }
+
         Assertions.assertEquals(40d, colaboradorHumano.getPuntos());
     }
 }

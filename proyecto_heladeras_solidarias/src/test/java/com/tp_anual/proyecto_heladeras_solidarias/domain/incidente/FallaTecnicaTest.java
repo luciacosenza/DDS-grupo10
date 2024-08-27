@@ -14,6 +14,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento.Sex
 import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento.TipoDocumento;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class FallaTecnicaTest {
@@ -36,7 +37,7 @@ public class FallaTecnicaTest {
             .map(fallaTecnica -> (FallaTecnica) fallaTecnica)
             .collect(Collectors.toCollection(ArrayList::new));
 
-        Assertions.assertEquals("No hay ningún técnico que cubra la heladera HeladeraPrueba", exception.getMessage());  // Verificamos que se lanza la Exception del Técnico
+        Assertions.assertEquals(I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception"), exception.getMessage());  // Verificamos que se lanza la Exception del Técnico
         Assertions.assertTrue(heladera.getEstado() == false && fallasTecnicasDelSistema.size() == 1);
     }
 
