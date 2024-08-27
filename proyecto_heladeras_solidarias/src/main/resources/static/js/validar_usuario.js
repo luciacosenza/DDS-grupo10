@@ -1,7 +1,6 @@
 let tipo_usuario;
 
 if(document.querySelector("#iniciar-sesion")){
-    console.log("entra");
     const btn_login = document.querySelector("#btn-login");
     btn_login.addEventListener("click", function(e){
         e.preventDefault();
@@ -23,6 +22,10 @@ if(document.querySelector("#iniciar-sesion")){
                 });
             }
         })
+
+        
+
+
     }
 
 if(document.querySelector("#index")){
@@ -42,19 +45,19 @@ if(document.querySelector("#index")){
                                             <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="./pages/migracion-datos.html">Migrar archivo</a>
+                                            <a class="nav-link" href="./pages/migracion_datos.html">Migrar archivo</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Alertas</a>
+                                            <a class="nav-link" href="./pages/alertas.html">Alertas</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="#">Reportes</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="./pages/quienes-somos.html">Quiénes somos</a>
+                                            <a class="nav-link" href="./pages/quienes_somos.html">Quiénes somos</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="./pages/como-participar.html">Cómo participar</a>
+                                            <a class="nav-link" href="./pages/como_participar.html">Cómo participar</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="./pages/contacto.html">Contacto</a>
@@ -70,7 +73,6 @@ if(document.querySelector("#index")){
                                     admin
                                 </div>
                             </div>
-                        </div>
-        `
+                        </div>`
     }
 }

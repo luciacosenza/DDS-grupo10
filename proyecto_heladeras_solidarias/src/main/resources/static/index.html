@@ -25,16 +25,23 @@
                             <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Quiénes somos</a>
+                            <a class="nav-link" href="./pages/quienes_somos.html">Quiénes somos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Cómo participar</a>
+                            <a class="nav-link" href="./pages/como_participar.html">Cómo participar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contacto</a>
+                            <a class="nav-link" href="./pages/contacto.html">Contacto</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Colaborar</a>
+                        <!-- !! NOTA: lo de abajo es provisorio hasta poder diferenciar entre colaboradores -->
+                        <li class="nav-item dropdown"> 
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Colaborar
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="./pages/colaborar_personas_fisicas.html">Colaborador Humano</a></li>
+                                <li><a class="dropdown-item" href="./pages/colaborar_personas_juridicas.html">Colaborador Jurídico</a></li>
+                            </ul>
                         </li>
                     </ul>
                     <div class="d-flex ms-lg-3">
@@ -59,8 +66,19 @@
                         <p class="lead mt-0">Colaborá con nosotros, colaborá con los demás!</p>
                         <hr>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                            <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Colaborar</button>
-                            <button type="button" class="btn btn-light btn-lg px-4">Suscribirse a heladera</button>
+                            <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Colaborar
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item bg-primary" href="./pages/colaborar_personas_fisicas.html">Colaborador Humano</a></li>
+                                        <li><a class="dropdown-item bg-primary" href="./pages/colaborar_personas_juridicas.html">Colaborador Jurídico</a></li>
+                                    </ul>
+                                
+                            </button> 
+                            <a href="./pages/suscrbirse.html">                  
+                                <button type="button" class="btn btn-light btn-lg px-4">Suscribirse a heladera</button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -73,25 +91,31 @@
                         <div class="card-vector d-flex flex-column align-items-center justify-content-center">
                             <img src="./assets/buscar_heladeras.png" alt="mapa heladeras">
                         </div>
-                        <button class="btn m-3">
-                            Buscar una heladera
-                        </button>
+                        <a href="./pages/mapa_heladeras.html">
+                            <button class="btn m-3">
+                                Buscar una heladera
+                            </button>
+                        </a>
                     </div>
                     <div class="opciones-main col d-flex flex-column align-items-center justify-content-center">
                         <div class="card-vector d-flex flex-column align-items-center justify-content-center">
                             <img src="./assets/trofeo.png" alt="trofeo">
                         </div>
-                        <button class="btn m-3">
-                            Ver tienda de premios
-                        </button>
+                        <a href="./pages/tienda.html">
+                            <button class="btn m-3">
+                                Ver tienda de premios
+                            </button>
+                        </a>
                     </div>
                     <div class="opciones-main col d-flex flex-column align-items-center justify-content-center">
                         <div class="card-vector d-flex flex-column align-items-center justify-content-center">
                             <img src="./assets/fallas.png" alt="gente solucionando una falla">
                         </div>
-                        <button class="btn m-3">
-                            Reportar una falla
-                        </button>
+                        <a href="./pages/reportar_falla_tecnica.html">
+                            <button class="btn m-3">
+                                Reportar una falla
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
