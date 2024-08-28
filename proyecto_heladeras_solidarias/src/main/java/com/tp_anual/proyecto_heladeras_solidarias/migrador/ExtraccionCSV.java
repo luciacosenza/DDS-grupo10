@@ -1,7 +1,8 @@
 package com.tp_anual.proyecto_heladeras_solidarias.migrador;
 
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -15,7 +16,10 @@ public class ExtraccionCSV extends ExtraccionDeDatos {
     public ArrayList<String[]> extract(String csv) {
         ArrayList<String[]> dataColaboradores = new ArrayList<>();
 
-        try (CSVReader reader = new CSVReader(new FileReader(csv))) {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(csv);
+            InputStreamReader isr = new InputStreamReader(inputStream);
+            CSVReader reader = new CSVReader(isr)) {
+            
             // Leo y descarto la primera línea (header)
             reader.readNext();
             
