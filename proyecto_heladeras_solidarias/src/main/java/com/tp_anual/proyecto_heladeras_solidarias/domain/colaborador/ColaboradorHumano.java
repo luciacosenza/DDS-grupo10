@@ -57,11 +57,11 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
         tarjeta = vTarjeta;
     }
 
-    public void agregarSuscripcion(Suscripcion suscripcion) {
+    private void agregarSuscripcion(Suscripcion suscripcion) {
         suscripciones.add(suscripcion);
     }
 
-    public void eliminarSuscripcion(Suscripcion suscripcion) {
+    private void eliminarSuscripcion(Suscripcion suscripcion) {
         suscripciones.remove(suscripcion);
     }
     

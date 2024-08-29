@@ -28,7 +28,7 @@ public class AlertaTest {
     @Test   // Creo una función similar a la del Sensor (dado que sino habría que cambiar las unidades del Sensor para hacer el Test)
     @DisplayName("Testeo la carga de Alerta de Temperatura")
     public void CargaAlertaTemperaturaTest() throws InterruptedException {
-        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
+        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
         heladera.darDeAlta();
 
         SensorTemperatura sensor = new SensorTemperatura(heladera);
@@ -80,7 +80,7 @@ public class AlertaTest {
     @Test
     @DisplayName("Testeo la carga de Alerta de Fraude")
     public void CargaAlertaFraudeTest() {
-        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
+        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
         heladera.darDeAlta();
 
         SensorMovimiento sensor = new SensorMovimiento(heladera);
@@ -106,7 +106,7 @@ public class AlertaTest {
     @Test   // Llamo directo al método notificarFalla()
     @DisplayName("Testeo la carga de Alerta de Falla de Conexión")
     public void CargaAlertaFallaConexionTest() {
-        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
+        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
         heladera.darDeAlta();
 
         SensorTemperatura sensor = new SensorTemperatura(heladera);

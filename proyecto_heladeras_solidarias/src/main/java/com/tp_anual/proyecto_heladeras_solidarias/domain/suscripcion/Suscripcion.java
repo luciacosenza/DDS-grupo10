@@ -63,6 +63,10 @@ public class Suscripcion {
     public void setNotificarDesperfecto(Boolean vNotificarDesperfecto) {
         notificarDesperfecto = vNotificarDesperfecto;
     }
+
+    public void setMedioDeContactoElegido(MedioDeContacto vMedioDeContactoElegido) {
+        medioDeContactoElegido = vMedioDeContactoElegido;
+    }
     
     public void darDeAlta() {
         Sistema.getGestorDeSuscripciones().agregarSuscripcion(this);

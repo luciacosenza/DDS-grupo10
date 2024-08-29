@@ -3,6 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_ap
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 
+import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraNula;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
@@ -33,7 +34,7 @@ public class PermisoAperturaNulo extends PermisoApertura {
     }
 
     @Override
-    public void setHeladeraPermitida(HeladeraActiva heladera) {}
+    public void setHeladeraPermitida(Heladera heladera) {}
 
     @Override
     public void resetHeladeraPermitida() {}

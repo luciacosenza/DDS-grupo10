@@ -18,7 +18,6 @@ public class Oferta {
         GASTRONOMIA,
         ELECTRONICA,
         ARTICULOS_PARA_EL_HOGAR
-        // TODO: Completar, de ser necesario
     }
 
     public Oferta(String vNombre, Double vCosto, Categoria vCategoria, String vImagen) {
@@ -42,6 +41,22 @@ public class Oferta {
 
     public String getImagen() {
         return imagen;
+    }
+
+    public void setNombre(String vNombre) {
+        nombre = vNombre;
+    }
+
+    public void setCosto(Double vCosto) {
+        costo = vCosto;
+    }
+
+    public void setCategoria(Categoria vCategoria) {
+        categoria = vCategoria;
+    }
+
+    public void setImagen(String vImagen) {
+        imagen = vImagen;
     }
 
     public void validarPuntos(Colaborador colaborador) {

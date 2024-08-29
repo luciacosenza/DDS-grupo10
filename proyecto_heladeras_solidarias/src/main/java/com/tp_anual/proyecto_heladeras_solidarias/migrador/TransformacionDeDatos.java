@@ -2,7 +2,6 @@ package com.tp_anual.proyecto_heladeras_solidarias.migrador;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -71,7 +70,7 @@ public class TransformacionDeDatos {
         fechaContribucion = LocalDateTime.parse(fechaContribucionStr, dateFormat);
         
         // Transforma a colaborador
-        ColaboradorHumano colaborador = new ColaboradorHumano(new Ubicacion(null, null, null, null, null), contactos, new ArrayList<>(), new ArrayList<>(), null, nombre, apellido, documento, null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
+        ColaboradorHumano colaborador = new ColaboradorHumano(new Ubicacion(null, null, null, null, null, null), contactos, new ArrayList<>(), new ArrayList<>(), null, nombre, apellido, documento, null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
         
         // Agrega contribuciones a colaborador
         for (Integer i = 0; i < cantColabs; i++) {

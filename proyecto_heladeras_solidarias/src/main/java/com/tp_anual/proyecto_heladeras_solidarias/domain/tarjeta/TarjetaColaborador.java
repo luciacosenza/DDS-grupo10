@@ -24,7 +24,7 @@ public abstract class TarjetaColaborador extends Tarjeta {
 
     public abstract void setEstadoSolicitud(EstadoSolicitud vEstadoSolicitud);
 
-    public abstract void programarRevocacionPermisos();
+    protected abstract void programarRevocacionPermisos();
 
     public abstract SolicitudAperturaColaborador solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo);
 

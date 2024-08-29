@@ -34,6 +34,22 @@ public class PersonaFisica extends Persona {
         return fechaNacimiento;
     }
 
+    public void setNombre(String vNombre) {
+        nombre = vNombre;
+    }
+
+    public void setApellido(String vApellido) {
+        apellido = vApellido;
+    }
+
+    public void setDocumento(Documento vDocumento) {
+        documento = vDocumento;
+    }
+
+    public void setFechaNacimiento(LocalDateTime vFechaNacimiento) {
+        fechaNacimiento = vFechaNacimiento;
+    }
+
     // Método para obtener los detalles "importantes" que identifican de forma sencilla a una Persona, implementado en ambos tipos de Persona
     @Override
     public String getNombre(Integer n) {

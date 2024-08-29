@@ -112,12 +112,12 @@ public class HeladeraActiva extends Heladera {
     }
 
     @Override
-    public Boolean verificarCapacidad() {
+    protected Boolean verificarCapacidad() {
         return viandasActuales() < capacidad;
     }
 
     @Override
-    public void verificarCondiciones() {
+    protected void verificarCondiciones() {
         GestorDeSuscripciones gestorDeSuscripciones = Sistema.getGestorDeSuscripciones();
         ArrayList<Suscripcion> suscripciones = gestorDeSuscripciones.suscripcionesPorHeladera(this);
         
@@ -163,7 +163,7 @@ public class HeladeraActiva extends Heladera {
     }
 
     @Override
-    public void verificarTempActual() {
+    protected void verificarTempActual() {
         if (tempActual < tempMin || tempActual > tempMax)
             producirAlerta(TipoAlerta.TEMPERATURA);
     }
@@ -186,6 +186,16 @@ public class HeladeraActiva extends Heladera {
     }
 
     @Override
+    public void reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion condicion, MedioDeContacto medioDeContactoElegido) {   // Usa el Medio de Contacto previamente elegido por el colaborador
+        Sistema.getNotificadorDeEstado().notificarEstado(this, condicion, medioDeContactoElegido);
+    }
+
+    @Override
+    public void reportarIncidente(Incidente incidente) {    
+        Sistema.getNotificadorDeIncidentes().notificarIncidente(incidente);
+    }
+
+    @Override
     public void producirAlerta(TipoAlerta tipo) {
         reaccionarAnteIncidente();  // Si una Alerta debe ser reportada, previamente, se marca la Heladera como inactiva y se avisa a los Colaboradores suscriptos
 
@@ -205,15 +215,5 @@ public class HeladeraActiva extends Heladera {
 
         reportarIncidente(fallaTecnica);
         logger.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.producirFallaTecnica_info", nombre));
-    }
-
-    @Override
-    public void reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion condicion, MedioDeContacto medioDeContactoElegido) {   // Usa el Medio de Contacto previamente elegido por el colaborador
-        Sistema.getNotificadorDeEstado().notificarEstado(this, condicion, medioDeContactoElegido);
-    }
-
-    @Override
-    public void reportarIncidente(Incidente incidente) {    
-        Sistema.getNotificadorDeIncidentes().notificarIncidente(incidente);
     }
 }

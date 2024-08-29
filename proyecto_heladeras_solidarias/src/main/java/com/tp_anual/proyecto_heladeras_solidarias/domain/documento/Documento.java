@@ -11,7 +11,6 @@ public class Documento {
         LICENCIA_CONDUCIR,
         LIBRETA_CIVICA,
         LIBRETA_ENROLAMIENTO;
-        // TODO: Completar, de ser necesario
     }
     
     public enum Sexo {

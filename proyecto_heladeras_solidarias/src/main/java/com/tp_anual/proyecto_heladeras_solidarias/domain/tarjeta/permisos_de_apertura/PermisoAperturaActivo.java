@@ -2,6 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_ap
 
 import java.time.LocalDateTime;
 
+import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraNula;
 
@@ -32,13 +33,13 @@ public class PermisoAperturaActivo extends PermisoApertura {
     }
 
     @Override
-    public void setHeladeraPermitida(HeladeraActiva vHeladera) {
+    public void setHeladeraPermitida(Heladera vHeladera) {
         heladeraPermitida = vHeladera;
     }
 
     // Este método es llamado cuando se revocan los Permisos de Apertura sobre una Heladera
     @Override
     public void resetHeladeraPermitida() {
-        heladeraPermitida = null;
+        setHeladeraPermitida(new HeladeraNula());
     }
 }

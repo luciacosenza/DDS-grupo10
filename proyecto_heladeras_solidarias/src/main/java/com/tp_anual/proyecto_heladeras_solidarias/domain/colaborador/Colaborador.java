@@ -102,7 +102,7 @@ public abstract class Colaborador {
         
         persona.obtenerDetalles();
         
-        if (domicilio.getDireccion() != null && domicilio.getCiudad() != null && domicilio.getPais() != null)
+        if (domicilio.getDireccion() != null && domicilio.getCodigoPostal() != null && domicilio.getCiudad() != null && domicilio.getPais() != null)
             System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_domicilio", domicilio.getDireccionCompleta()));
         
         if (!mediosDeContacto.isEmpty()) {

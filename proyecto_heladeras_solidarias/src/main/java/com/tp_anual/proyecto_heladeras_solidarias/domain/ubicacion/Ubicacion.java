@@ -4,14 +4,15 @@ public class Ubicacion {
     private final Double latitud;
     private final Double longitud;
     private final String direccion;
-    // TODO: Ver si agregamos codigoPostal
+    private final String codigoPostal;
     private final String ciudad;
     private final String pais;
 
-    public Ubicacion(Double vLatitud, Double vLongitud, String vDireccion, String vCiudad, String vPais) {
+    public Ubicacion(Double vLatitud, Double vLongitud, String vDireccion, String vCodigoPostal, String vCiudad, String vPais) {
         latitud = vLatitud;
         longitud = vLongitud;
         direccion = vDireccion;
+        codigoPostal = vCodigoPostal;
         ciudad = vCiudad;
         pais = vPais;
     }
@@ -26,6 +27,10 @@ public class Ubicacion {
 
     public String getDireccion() {
         return direccion;
+    }
+
+    public String getCodigoPostal() {
+        return codigoPostal;
     }
 
     public String getCiudad() {

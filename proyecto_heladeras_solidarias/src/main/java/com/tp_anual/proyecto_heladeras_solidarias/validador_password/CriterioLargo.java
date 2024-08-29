@@ -9,16 +9,16 @@ public class CriterioLargo extends CriterioValidacion {
         longitudMaxima = vLongitudMaxima;
     }
 
-    @Override
-    public Boolean validar(String contrasenia) {
-        return ((!esCorta(contrasenia)) && (!esLarga(contrasenia)));
-    }
-
     public Boolean esCorta(String contrasenia) {
         return contrasenia.length() < longitudMinima;
     }
 
     public Boolean esLarga(String contrasenia) {
         return contrasenia.length() > longitudMaxima;
+    }
+
+    @Override
+    public Boolean validar(String contrasenia) {
+        return ((!esCorta(contrasenia)) && (!esLarga(contrasenia)));
     }
 }
