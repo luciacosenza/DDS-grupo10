@@ -67,7 +67,7 @@
                         </div>
                         <div class="mb-3">
                             <span class="span-form">Documento</span>
-                            <label for="tipo-documento" class="form-label w-100">Tipo</label>
+                            <label for="tipo-documento" class="form-label w-100 mt-2">Tipo</label>
                             <div class="d-flex justify-content-center gap-2">
                                 <select class="form-select w-auto" id="tipo-documento">
                                     <option selected>Tipo</option>
@@ -82,15 +82,19 @@
                             <label for="situacionVivienda" class="form-label">Situación de vivienda</label>
                             <select class="form-select" id="situacionVivienda">
                                 <option selected>Seleccione una opción</option>
-                                <option value="propia">Propia</option>
-                                <option value="alquilada">Alquilada</option>
-                                <option value="prestada">Prestada</option>
+                                <option value="posee-domicilio">Posee domicilio</option>
                                 <option value="calle">En situación de calle</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="ciudad" class="form-label">Ciudad</label>
-                            <input type="text" class="form-control" id="ciudad" placeholder="Ej: Puerto Madryn">
+                        <div class="row">
+                            <div class="mb-3 col-md-8">
+                                <label for="ciudad" class="form-label">Ciudad</label>
+                                <input type="text" class="form-control" id="ciudad" placeholder="Ej: Puerto Madryn">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="codigo-postal" class="form-label">Código postal</label>
+                                <input type="text" class="form-control" id="codigo-postal" placeholder="Ej: 1407">
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-8 mb-3">

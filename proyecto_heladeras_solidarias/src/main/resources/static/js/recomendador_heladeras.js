@@ -1,16 +1,17 @@
 async function recomendarPuntosHeladeras(){
     const url = "https://69cf53c9-48f7-431e-b667-601a587589a8.mock.pstmn.io/recommendation";
-    const response = await fetch(url);
-    const data = await response.json();
-    //const puntosRecomendados = data.i
-    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-    console.log(data);
-    /*data.forEach(punto =>{
-                const puntoRecomendado = new AdvancedMarkerElement({
-                    position: punto,
-                    map: mapa,
-                    title: "Punto recomendado"
-                })})*/
+    try{
+        const response = await fetch(url);
+        const data = await response.json();
+        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+        console.log(data);
+        /*data.forEach(punto =>{
+                    const puntoRecomendado = new AdvancedMarkerElement({
+                        position: punto,
+                        map: mapa,
+                        title: "Punto recomendado"
+                    })})*/
+    }catch(error){}
 }
 
 async function abrirMapa() {
