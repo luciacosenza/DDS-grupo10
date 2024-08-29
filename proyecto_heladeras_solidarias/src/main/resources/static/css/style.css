@@ -182,7 +182,7 @@ h1{
     height: 100vh;
 }
 .card {
-    max-width: 400px;
+    max-width: 500px;
     margin: 0 auto;
     padding: 20px;
     border-radius: 10px;
@@ -378,14 +378,15 @@ input::-webkit-file-upload-button{
 }
 
 #map{
-    width: 500px;
+    width: 75%;
     height: 500px;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+
 }
 
 /* -------– REPORTES -------- */
-#reportes{
 
-}
 .btn-reportes{
     width: 100%;
     height:100px;
