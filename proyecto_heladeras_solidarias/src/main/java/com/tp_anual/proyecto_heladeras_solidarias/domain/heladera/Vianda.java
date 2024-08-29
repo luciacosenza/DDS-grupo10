@@ -57,17 +57,39 @@ public class Vianda {
         return entregada;
     }
 
+    public void setComida(String vComida) {
+        comida = vComida;
+    }
+
     public void setHeladera(Heladera vHeladera) {
         heladera = vHeladera;
+    }
+
+    public void setColaborador(ColaboradorHumano vColaborador) {
+        colaborador = vColaborador;
+    }
+
+    public void setFechaCaducidad(LocalDateTime vFechaCaducidad) {
+        fechaCaducidad = vFechaCaducidad;
     }
 
     public void setFechaDonacion(LocalDateTime vFechaDonacion) {
         fechaDonacion = vFechaDonacion;
     }
 
+    public void setCalorias(Integer vCalorias) {
+        calorias = vCalorias;
+    }
+
+    public void setPeso(Integer vPeso) {
+        peso = vPeso;
+    }
+
     public void setEntregada(Boolean vEntregada) {
         entregada = vEntregada;
     }
+
+
 
     // Este método debe ser llamado cuando una Vianda es retirada de una Heladera (se queda "sin Heladera", momentáneamente)
     public void quitarDeHeladera() {

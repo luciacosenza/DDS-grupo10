@@ -47,7 +47,7 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
     }
 
     @Override
-    public void programarRevocacionPermisos() {}
+    protected void programarRevocacionPermisos() {}
 
     @Override
     public SolicitudAperturaColaborador solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo) {

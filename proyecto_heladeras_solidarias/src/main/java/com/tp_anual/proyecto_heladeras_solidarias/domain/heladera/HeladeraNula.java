@@ -103,12 +103,12 @@ public class HeladeraNula extends Heladera {
     }
 
     @Override
-    public Boolean verificarCapacidad() {
+    protected Boolean verificarCapacidad() {
         return false;
     }
 
     @Override
-    public void verificarCondiciones() {}
+    protected void verificarCondiciones() {}
 
     @Override
     public void agregarVianda(Vianda vianda) {}
@@ -120,7 +120,7 @@ public class HeladeraNula extends Heladera {
     }
 
     @Override
-    public void verificarTempActual() {}
+    protected void verificarTempActual() {}
 
     @Override
     public void setTempActual(Float temperatura) {}
@@ -132,14 +132,14 @@ public class HeladeraNula extends Heladera {
     public void reaccionarAnteIncidente() {}
 
     @Override
-    public void producirAlerta(Alerta.TipoAlerta tipo) {}
-
-    @Override
-    public void producirFallaTecnica(Colaborador colaborador, String descripcion, String foto) {}
-    
-    @Override
     public void reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion condicion, MedioDeContacto medioDeContactoElegido) {}
 
     @Override
     public void reportarIncidente(Incidente incidente) {}
+
+    @Override
+    public void producirAlerta(Alerta.TipoAlerta tipo) {}
+
+    @Override
+    public void producirFallaTecnica(Colaborador colaborador, String descripcion, String foto) {}
 }

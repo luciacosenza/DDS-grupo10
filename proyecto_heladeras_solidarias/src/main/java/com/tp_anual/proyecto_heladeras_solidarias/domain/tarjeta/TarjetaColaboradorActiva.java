@@ -53,7 +53,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
     }
 
     @Override
-    public void programarRevocacionPermisos() {
+    protected void programarRevocacionPermisos() {
         Integer delay = 3;
         TimeUnit unidad = TimeUnit.HOURS;
         

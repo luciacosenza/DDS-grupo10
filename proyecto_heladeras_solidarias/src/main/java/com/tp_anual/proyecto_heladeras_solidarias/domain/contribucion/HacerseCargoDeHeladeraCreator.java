@@ -15,7 +15,7 @@ public class HacerseCargoDeHeladeraCreator implements ContribucionCreator {
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador,LocalDateTime fechaContribucion) {
         return new HacerseCargoDeHeladera(colaborador, fechaContribucion,
-            new HeladeraActiva(null, new Ubicacion(null, null, null, null, null),
+            new HeladeraActiva(null, new Ubicacion(null, null, null, null, null, null),
             null, null, null, null, null));
     }
 

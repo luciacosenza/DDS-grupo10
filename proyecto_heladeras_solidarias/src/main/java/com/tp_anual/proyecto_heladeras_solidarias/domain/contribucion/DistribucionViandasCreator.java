@@ -16,8 +16,8 @@ public class DistribucionViandasCreator implements ContribucionCreator {
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
         return new DistribucionViandas(colaborador, fechaContribucion,
-            new HeladeraActiva(null, new Ubicacion(null, null, null, null, null), new ArrayList<>(), null, null, null, null),
-            new HeladeraActiva(null, new Ubicacion(null, null, null, null, null), new ArrayList<>(), null, null, null, null),
+            new HeladeraActiva(null, new Ubicacion(null, null, null, null, null, null), new ArrayList<>(), null, null, null, null),
+            new HeladeraActiva(null, new Ubicacion(null, null, null, null, null, null), new ArrayList<>(), null, null, null, null),
             null, null);
     }
     

@@ -41,6 +41,7 @@ public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
 
     @Override
     protected void confirmarSumaPuntos(Double puntosSumados) {
+        tarjetaAsignada.programarReseteoUsos();
         logger.log(Level.INFO, I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 

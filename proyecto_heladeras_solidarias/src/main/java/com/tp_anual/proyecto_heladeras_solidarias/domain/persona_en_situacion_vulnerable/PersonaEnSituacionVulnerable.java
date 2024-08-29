@@ -42,6 +42,14 @@ public class PersonaEnSituacionVulnerable {
         return tarjeta;
     }
 
+    public void setDomicilio(Ubicacion vDomicilio) {
+        domicilio = vDomicilio;
+    }
+
+    public void setMenoresACargo(Integer vMenoresACargo) {
+        menoresACargo = vMenoresACargo;
+    }
+
     public void setTarjeta(TarjetaPersonaEnSituacionVulnerable tarjetaAsignada) {
         tarjeta = tarjetaAsignada;
     }

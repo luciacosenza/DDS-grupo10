@@ -56,15 +56,15 @@ public abstract class Heladera implements HeladeraObserver {    // Implementa un
 
     public abstract Integer viandasActuales();
 
-    public abstract Boolean verificarCapacidad();
+    protected abstract Boolean verificarCapacidad();
     
-    public abstract void verificarCondiciones();
+    protected abstract void verificarCondiciones();
 
     public abstract void agregarVianda(Vianda vianda);
 
     public abstract Vianda retirarVianda();
 
-    public abstract void verificarTempActual();
+    protected abstract void verificarTempActual();
 
     @Override
     public abstract void setTempActual(Float temperatura);
@@ -73,12 +73,12 @@ public abstract class Heladera implements HeladeraObserver {    // Implementa un
 
     public abstract void reaccionarAnteIncidente();
 
+    public abstract void reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion condicion, MedioDeContacto medioDeContactoElegido);
+
+    public abstract void reportarIncidente(Incidente incidente);
+
     @Override
     public abstract void producirAlerta(Alerta.TipoAlerta tipo);
     
     public abstract void producirFallaTecnica(Colaborador colaborador, String descripcion, String foto);
-
-    public abstract void reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion condicion, MedioDeContacto medioDeContactoElegido);
-
-    public abstract void reportarIncidente(Incidente incidente);
 }

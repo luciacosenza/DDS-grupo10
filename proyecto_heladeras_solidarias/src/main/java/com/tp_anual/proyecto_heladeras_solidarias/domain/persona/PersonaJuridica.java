@@ -32,6 +32,18 @@ public class PersonaJuridica extends Persona {
         return rubro;
     }
 
+    public void razonSocial(String vRazonSocial) {
+        razonSocial = vRazonSocial;
+    }
+
+    public void setTipo(TipoPersonaJuridica vTipo) {
+        tipo = vTipo;
+    }
+
+    public void setRubro(String vRubro) {
+        rubro = vRubro;
+    }
+
     // Método para obtener los detalles "importantes" que identifican de forma sencilla a una Persona, implementado en ambos tipos de Persona
     @Override
     public String getNombre(Integer n) {

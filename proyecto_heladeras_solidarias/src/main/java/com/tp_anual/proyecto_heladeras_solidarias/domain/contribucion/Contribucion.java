@@ -26,8 +26,12 @@ public abstract class Contribucion {
         fechaContribucion = vFechaContribucion;
     }
 
+    public void setCompletada(Boolean vCompletada) {
+        completada = vCompletada;
+    }
+
     public void marcarComoCompletada() {
-        completada = true;
+        setCompletada(true);
     }
 
     public void obtenerDetalles() {

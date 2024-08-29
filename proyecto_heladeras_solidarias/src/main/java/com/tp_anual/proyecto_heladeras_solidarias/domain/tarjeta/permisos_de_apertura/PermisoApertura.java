@@ -19,7 +19,7 @@ public abstract class PermisoApertura {
 
     public abstract Boolean esHeladeraPermitida(HeladeraActiva heladera);
 
-    public abstract void setHeladeraPermitida(HeladeraActiva heladera);
+    public abstract void setHeladeraPermitida(Heladera heladera);
 
     public abstract void resetHeladeraPermitida();
 }
