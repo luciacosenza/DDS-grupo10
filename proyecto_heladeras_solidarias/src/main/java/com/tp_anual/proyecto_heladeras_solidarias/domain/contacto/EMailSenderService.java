@@ -21,9 +21,14 @@ public class EMailSenderService {
 	private static final Logger logger = Logger.getLogger(Colaborador.class.getName());
     private static final Properties propiedades = new Properties();
 	private static final Dotenv dotenv = Dotenv.load();
-    private static final String  username = dotenv.get("EMAIL_USER");
+    private static final String  username = dotenv.get("EMAIL_USERNAME");
     private static final String password = dotenv.get("EMAIL_PASSWORD");
 	private static Session sesion;
+
+	static {
+		System.out.println("EMAIL_USER: " + username);
+		System.out.println("EMAIL_PASSWORD: " + password);
+	}
 
 	private static void init() {
 		propiedades.put("mail.smtp.auth", "true");
