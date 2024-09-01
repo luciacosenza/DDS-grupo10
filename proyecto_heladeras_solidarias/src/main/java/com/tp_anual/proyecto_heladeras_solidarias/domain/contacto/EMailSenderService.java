@@ -15,11 +15,14 @@ import javax.mail.internet.MimeMessage;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 public class EMailSenderService {
 	private static final Logger logger = Logger.getLogger(Colaborador.class.getName());
     private static final Properties propiedades = new Properties();
-	private static final String usuario = "proyecto.heladeras.solidarias@gmail.com";		
-	private static final String password = ""; // TODO Hay que completar esto, encriptando la contraseña
+	private static final Dotenv dotenv = Dotenv.load();
+    private static final String  username = dotenv.get("EMAIL_USER");
+    private static final String password = dotenv.get("EMAIL_PASSWORD");
 	private static Session sesion;
 
 	private static void init() {
@@ -31,7 +34,7 @@ public class EMailSenderService {
 		sesion = Session.getInstance(propiedades, new javax.mail.Authenticator() {
             @Override
 			protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(usuario, password);
+                return new PasswordAuthentication(username, password);
             }
         });
 	}
@@ -41,7 +44,7 @@ public class EMailSenderService {
 
         try {
             MimeMessage mensaje = new MimeMessage(sesion);
-			mensaje.setFrom(new InternetAddress(usuario));
+			mensaje.setFrom(new InternetAddress(username));
 			mensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
 			mensaje.setSubject(asunto);
 			mensaje.setText(cuerpo);

@@ -36,6 +36,7 @@
 	<dependencies>
 
 		<!-- Spring Boot Dependencies -->
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -54,7 +55,9 @@
 			<scope>provided</scope>
 		</dependency>
 
+
 		<!-- Third-Party Libraries -->
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -72,6 +75,13 @@
 			<artifactId>opencsv</artifactId>
 			<version>5.9</version>
 		</dependency>
+
+		<dependency>
+			<groupId>io.github.cdimascio</groupId>
+			<artifactId>dotenv-java</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+
 
 		<!-- Testing Dependencies -->
 
