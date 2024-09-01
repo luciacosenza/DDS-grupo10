@@ -1,3 +1,4 @@
+// lugares de ejemplo, lista provisoria
 const lugares = [
     {
         position: { lat: -34.603684, lng: -58.381559 },
@@ -43,16 +44,7 @@ async function iniciarMapa(){
         center: posicion,
         mapId: "c793049f56f6348b"
     });
-    const marker = new Marker({
-        position: {lat: -34.598625070369835,  lng: -58.42011968362257},
-        map: mapa,
-        title: 'UTN MEDRANO',
-        icon: {
-            url: '../assets/iconUbicacionHeladeras.png',
-            scaledSize: new google.maps.Size(40, 45),
-            origin: new google.maps.Point(0, 0)
-        }
-    });
+
     lugares.forEach(lugar => {
         const marker = new Marker({
             position: lugar.position,
@@ -87,22 +79,5 @@ async function iniciarMapa(){
 
     document.querySelector('#search-button').addEventListener('click', buscarHeladeras());
 }
-function buscarHeladeras() {
-    const query = document.querySelector('search-input').value.toLowerCase();
-    const resultado = lugares.find(lugar => lugar.title.toLowerCase().includes(query));
 
-    console.log(resultado)
-    if (resultado) {
-        marcador.setPosition(resultado.position);
-        marcador.setTitle(resultado.title);
-        const infoWindow = new google.maps.InfoWindow({
-            content: resultado.content
-        });
-        infoWindow.open(mapa, marcador);
-        mapa.setCenter(resultado.position);
-        mapa.setZoom(12);
-    } else {
-        alert('No se encontraron heladeras que coincidan con la búsqueda.');
-    }
-}
 iniciarMapa();
