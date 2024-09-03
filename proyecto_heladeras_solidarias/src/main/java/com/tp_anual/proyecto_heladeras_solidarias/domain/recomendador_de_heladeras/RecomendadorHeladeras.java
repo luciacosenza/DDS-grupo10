@@ -16,10 +16,10 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 public class RecomendadorHeladeras {
     private static final Logger logger = Logger.getLogger(RecomendadorHeladeras.class.getName());
-    private static final String apiUrl = "https://69cf53c9-48f7-431e-b667-601a587589a8.mock.pstmn.io/recommendation";
+    private static final String apiUrl = "https://74d20d86-99bd-452c-8c65-77ce0eac7fef.mock.pstmn.io/recommendation";
 
-    public static List<Map<String, Double>> obtenerValoresDesdeAPI() {
-        List<Map<String, Double>> valores = new ArrayList<>();
+    public static List<Map<String, String>> obtenerValoresDesdeAPI() {
+        List<Map<String, String>> valores = new ArrayList<>();
         HttpClient cliente = HttpClient.newHttpClient();
 
         HttpRequest request = HttpRequest.newBuilder()
@@ -37,8 +37,8 @@ public class RecomendadorHeladeras {
             String data = respuesta.body();
             
             ObjectMapper objectMapper = new ObjectMapper();
-            Map<String, List<Map<String, Double>>> jsonMap = objectMapper.readValue(data, new TypeReference<Map<String, List<Map<String, Double>>>>() {});
-            List<Map<String, Double>> valoresAux = jsonMap.get("puntosRecomendados");
+            Map<String, List<Map<String, String>>> jsonMap = objectMapper.readValue(data, new TypeReference<Map<String, List<Map<String, String>>>>() {});
+            List<Map<String, String>> valoresAux = jsonMap.get("puntosRecomendados");
             valores.addAll(valoresAux);
             
         } catch (Exception e) {
