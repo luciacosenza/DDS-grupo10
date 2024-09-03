@@ -1,37 +1,32 @@
-// lugares de ejemplo, lista provisoria
-const lugares = [
-    {
-        position: { lat: -34.603684, lng: -58.381559 },
-        title: 'Heladera Obelisco',
-        direccion: 'Av. 9 de Julio s/n, C1043 Cdad. Autónoma de Buenos Aires'
-    },
-    {
-        position: { lat: -34.65896377270432, lng: -58.46725554554328},
-        title: 'Heladera UTN Lugano',
-        direccion: 'Mozart 2300, C1407 Cdad. Autónoma de Buenos Aires'
-    },
-    {
-        position: {lat: -34.59928951940777, lng: -58.383902401574176},
-        title: 'Heladera Teatro Colón',
-        direccion: 'Tucumán 1171, C1049 Cdad. Autónoma de Buenos Aires'
-    },
-    {
-        position: {lat: -34.54388366787101, lng: -58.4879967286211},
-        title: 'Heladera Shopping Dot',
-        direccion: 'Vedia 3600, C1430 Cdad. Autónoma de Buenos Aires'
-    },
-    {
-        position: {lat:-34.61666164992063, lng:-58.49813170588592},
-        title: 'Heladera All Boys',
-        direccion: 'Mercedes 1951, C1407 AIK, Cdad. Autónoma de Buenos Aires'
-    },
-    {
-        position: {lat: -34.598625070369835,  lng: -58.42011968362257},
-        title: 'Heladera UTN Medrano',
-        direccion: 'Av. Medrano 951, C1179AAQ Cdad. Autónoma de Buenos Aires'
-    }
-];
-
+async function obtenerHeladeras(){
+    const url = "https://ebabbd6d-dfd4-4f3d-bea8-c85e634b2a74.mock.pstmn.io/heladeras";
+    try{
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        const { Marker } = await google.maps.importLibrary("marker");
+        data.heladeras.forEach(heladera =>{
+                    const posicionHeladera = new Marker({
+                        position: heladera.position,
+                        map: mapa,
+                        title: "Heladera",
+                        icon: {
+                            url: '../assets/iconUbicacionHeladeras.png',
+                            scaledSize: new google.maps.Size(30, 35),
+                            origin: new google.maps.Point(0, 0)
+                        }
+                    })
+                    const infoWindow = new google.maps.InfoWindow({
+                        content: `<h4>${heladera.title}</h4>
+                                    <p>${heladera.direccion}</p>` 
+                    });
+            
+                    posicionHeladera.addListener('click', () => {
+                        infoWindow.open(mapa, posicionHeladera);
+                    });
+                })
+    }catch(error){}
+}
 
 let mapa;
 
@@ -45,27 +40,7 @@ async function iniciarMapa(){
         mapId: "c793049f56f6348b"
     });
 
-    lugares.forEach(lugar => {
-        const marker = new Marker({
-            position: lugar.position,
-            map: mapa,
-            title: lugar.title,
-            icon: {
-                url: '../assets/iconUbicacionHeladeras.png',
-                scaledSize: new google.maps.Size(40, 45),
-                origin: new google.maps.Point(0, 0)
-            }
-        });
-
-        const infoWindow = new google.maps.InfoWindow({
-            content: `<h4>${lugar.title}</h4>
-                        <p>${lugar.direccion}</p>`
-        });
-
-        marker.addListener('click', () => {
-            infoWindow.open(mapa, marker);
-        });
-    });
+    obtenerHeladeras();
 
     // Crear la InfoWindow con el contenido de la leyenda
     const infoWindow = new google.maps.InfoWindow({
@@ -77,7 +52,6 @@ async function iniciarMapa(){
         infoWindow.open(mapa, marker);
     });
 
-    document.querySelector('#search-button').addEventListener('click', buscarHeladeras());
 }
 
 iniciarMapa();

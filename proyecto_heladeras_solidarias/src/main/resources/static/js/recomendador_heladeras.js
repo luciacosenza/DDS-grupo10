@@ -1,5 +1,5 @@
 async function recomendarPuntosHeladeras(){
-    const url = "https://69cf53c9-48f7-431e-b667-601a587589a8.mock.pstmn.io/recommendation";
+    const url = "https://74d20d86-99bd-452c-8c65-77ce0eac7fef.mock.pstmn.io/recommendation";
     try{
         const response = await fetch(url);
         const data = await response.json();
@@ -17,8 +17,7 @@ async function recomendarPuntosHeladeras(){
                         }
                     })
                     const infoWindow = new google.maps.InfoWindow({
-                        content: `<h4>Punto Recomendado</h4>
-                                    <p></p>` //! Faltaria agregar un nombre y dirección al lugar
+                        content: `<h4>${punto.direccion}</h4>`
                     });
             
                     puntoRecomendado.addListener('click', () => {

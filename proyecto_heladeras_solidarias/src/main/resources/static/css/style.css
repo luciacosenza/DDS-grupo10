@@ -436,3 +436,20 @@ input::-webkit-file-upload-button{
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
     background-color: white;
 }
+
+/* ----- Tienda ----- */
+.categorias-tienda-container{
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 12px;
+    border: 1px solid #0000002c;
+}
+.category:hover{
+    cursor: pointer;
+    color: #007bff;
+}
+.category{
+    width: 20%;
+}

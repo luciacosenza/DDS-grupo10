@@ -34,8 +34,14 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contacto</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Colaborar</a>
+                        <li class="nav-item dropdown"> 
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Colaborar
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="./colaborar_personas_fisicas.html">Colaborador Humano</a></li>
+                                <li><a class="dropdown-item" href="./colaborar_personas_juridicas.html">Colaborador Jurídico</a></li>
+                            </ul>
                         </li>
                     </ul>
                     <div class="d-flex ms-lg-3">
@@ -59,20 +65,16 @@
                         </div>
                         <div class="mb-3 text-start">
                             <label for="origen" class="form-label">Origen</label>
-                            <select class="form-select" id="origen">
+                            <select class="form-select select-heladeras" id="origen">
                                 <option  selected>Seleccione heladera de origen</option>
-                                <option value="1">Heladera 1</option>
-                                <option value="2">Heladera 2</option>
-                                <option value="3">Heladera 3</option>
+                                <!-- heladeras -->
                             </select>
                         </div>
                         <div class="mb-3 text-start">
                             <label for="destino" class="form-label">Destino</label>
-                            <select class="form-select" id="destino">
+                            <select class="form-select select-heladeras" id="destino">
                                 <option selected>Seleccione heladera de destino</option>
-                                <option value="1">Heladera 1</option>
-                                <option value="2">Heladera 2</option>
-                                <option value="3">Heladera 3</option>
+                                <!-- heladeras -->
                             </select>
                         </div>
                         <div class="mb-3 text-start">
@@ -103,6 +105,7 @@
         <p class="text-center text-muted text-sm">proyecto.heladeras.solidarias@gmail.com</p>
         <p class="text-center text-body-secondary">© Desarrollado por Grupo 10</p>
     </footer>
+    <script src="../js/heladeras.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@ if(document.querySelector("#iniciar-sesion")){
         const usuarioValue = usuario.value;
         const passwordValue = password.value;
 
+        //! lo de abajo es provisorio hasta que podamos diferenciar entre tipos de usuarios
         if(usuarioValue == 'admin' && passwordValue == 'admin'){
             tipo_usuario = 'admin';
             sessionStorage.setItem('usuario', tipo_usuario)
@@ -22,10 +23,6 @@ if(document.querySelector("#iniciar-sesion")){
                 });
             }
         })
-
-        
-
-
     }
 
 if(document.querySelector("#index")){
