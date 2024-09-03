@@ -49,9 +49,9 @@
     </header>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6 text-center">
-                <h1 class="fw-bold mb-0">Colocar</h1>
-                <h2 class="text-muted fw-light mt-0"> una heladera</h2>
+            <h1 class="fw-bold mb-0 text-center">Colocar</h1>
+            <h2 class="text-muted fw-light mt-0 text-center"> una heladera</h2>
+            <div class="d-flex align-items-center justify-content-center text-center">
                 <div class="card my-4" width="500px">
                     <form>
                         <div class="mb-3 text-start">
@@ -95,8 +95,10 @@
                         <button type="submit" class="btn btn-dark w-50 mt-3">Confirmar</button>
                     </form>
                 </div>
-                <div class="map-recomendacion bg-white"  style="width: 500px; height: 500px;"></div>
-
+                <div class="map-container" style="display: none;">
+                    <h4>Recomendación de puntos de colocación</h4>
+                    <div class="map-recomendacion bg-white"  style="width: 500px; height: 500px;"></div>
+                </div>
             </div>
         </div>
     </div>
