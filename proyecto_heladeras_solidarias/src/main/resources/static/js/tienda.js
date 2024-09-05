@@ -18,7 +18,7 @@ const articulos = [
         categoria: "ELECTRONICA",
         articulo: "Televisor",
         precio: "300",
-        img: "https://noblex.com.ar/media/catalog/product/cache/c8f6a96bef9e9f64cd4973587df2520f/p/o/pop_tv_lineal_2023_1200x922_db58x7500.jpg"
+        img: "https://medias.musimundo.com/medias/size1200-149482-01.jpg?context=bWFzdGVyfGltYWdlc3w5NzgxM3xpbWFnZS9qcGVnfGFHUTJMMmd5TVM4eE1EVTJPRFl5T1RBNU1qTTRNaTl6YVhwbE1USXdNRjh4TkRrME9ESmZNREV1YW5Cbnw1NjQ4YjcxNGE1NGQ1ZWRiMjdlNzZkNjc2NmU3YWE1ODQyNTBmNmRjNzVlZDc0ODk4ZmEyYmYzZWQzYjExMjVl"
     },
     {
         id: 4,
@@ -53,7 +53,7 @@ const articulos = [
         categoria: "GASTRONOMIA",
         articulo: "Batidora",
         precio: "45",
-        img: "https://atma.com.ar/media/catalog/product/cache/c8f6a96bef9e9f64cd4973587df2520f/b/m/bm8740ap.jpg"
+        img: "https://electroluxar.vtexassets.com/arquivos/ids/162195/StandMixer_EKM40_Perspective_Electrolux_1000x1000.png?v=637934170908270000"
     },
     {
         id: 9,
@@ -71,54 +71,70 @@ const articulos = [
     }
 ];
 
-function renderItems(){
-    const itemsContainer = document.querySelector("#items-container");
-    articulos.forEach(articulo => {
+const itemsContainer = document.querySelector('#items-container');
+const puntos = document.querySelector('.puntos');
+const btnsAdquirir = document.querySelectorAll('.btn-adquirir');
+
+let puntosUsuario = 500 // provisoriamente 
+
+function renderItems(unosArticulos){
+    itemsContainer.innerHTML = '';
+    unosArticulos.forEach(articulo => {
         itemsContainer.innerHTML += `<div class="card mx-0 my-5" style="width: 18rem;">
                                         <img src="${articulo.img}" class="card-img-top img-fluid h-100" alt="${articulo.articulo}">
                                         <div class="card-body h-100">
                                             <h5 class="card-title">${articulo.articulo}</h5>
-                                            <p class="card-text">${articulo.precio} puntos</p>
-                                            <button class="btn btn-primary" onclick="mostrarConfirmacion()">Adquirir</button>
+                                            <p class="card-text"><span class="precio">${articulo.precio}</span> puntos</p>
+                                            <button class="btn btn-primary btn-adquirir" onclick="adquirir(${articulo.precio})">Adquirir</button>
                                         </div>
                                     </div>`
-
     })
+    puntos.innerHTML = '';
+    puntos.innerHTML = `Puntos: ${puntosUsuario}`;
 }
 
 function filtrarPor(categoria){
-    const itemsContainer = document.querySelector("#items-container");
-    itemsContainer.innerHTML = "";
+    const filtro = []
     articulos.forEach(articulo => {
-        if(articulo.categoria === categoria){
-            itemsContainer.innerHTML += `<div class="card mx-0 my-5" style="width: 18rem;">
-                                        <img src="${articulo.img}" class="card-img-top img-fluid h-100" alt="${articulo.articulo}">
-                                        <div class="card-body h-100">
-                                            <h5 class="card-title">${articulo.articulo}</h5>
-                                            <p class="card-text">${articulo.precio} puntos</p>
-                                            <button class="btn btn-primary" onclick="mostrarConfirmacion()> Adquirir</button>
-                                        </div>
-                                    </div>`
-            }
-        if(categoria === 'TODOS'){
-            itemsContainer.innerHTML += `<div class="card mx-0 my-5" style="width: 18rem;">
-                                        <img src="${articulo.img}" class="card-img-top img-fluid h-100" alt="${articulo.articulo}">
-                                        <div class="card-body h-100">
-                                            <h5 class="card-title">${articulo.articulo}</h5>
-                                            <p class="card-text">${articulo.precio} puntos</p>
-                                            <button class="btn btn-primary" onclick="mostrarConfirmacion()>Adquirir</button>
-                                        </div>
-                                    </div>`
-        }
+    if(articulo.categoria === categoria) {
+        filtro.push(articulo)
+    }
+    renderItems(filtro);
     })
+    if (categoria === 'TODOS') renderItems(articulos) ;
 }
-renderItems();
-function mostrarConfirmacion(){
-    Swal.fire({
-        icon: "success",
-        title: "Beneficio adquirido",
-        showConfirmButton: false,
-        timer: 1500
-    });
-}
+
+renderItems(articulos);
+
+const categoriaSelect = document.querySelector(".categorias-tienda-container");
+categoriaSelect.addEventListener("click", (e) => {
+    if(e.target.classList.contains("category")){
+        const categoria = e.target.id;
+        filtrarPor(categoria);
+        }
+        })
+
+        function adquirir(precio) {
+            const precioArticulo = parseInt(precio); // Asegurarse de que el precio sea un número
+        
+            if (puntosUsuario >= precioArticulo) {
+                puntosUsuario -= precioArticulo; // Restar los puntos
+                Swal.fire({
+                    icon: "success",
+                    title: "Beneficio adquirido",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Puntos insuficientes",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        
+            // Actualizar los puntos en la página
+            puntos.innerHTML = `Puntos: ${puntosUsuario}`;
+        }      
 
