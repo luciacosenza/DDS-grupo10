@@ -2,7 +2,7 @@ let tipo_usuario;
 
 if(document.querySelector("#iniciar-sesion")){
     const btn_login = document.querySelector("#btn-login");
-    btn_login.addEventListener("submit", function(e){
+    btn_login.addEventListener("click", function(e){
         e.preventDefault();
         const usuario = document.querySelector("#usuario");
         const password = document.querySelector("#password");
