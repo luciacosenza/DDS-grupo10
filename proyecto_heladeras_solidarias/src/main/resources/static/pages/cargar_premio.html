@@ -48,42 +48,32 @@
     <div class="container text-center">
         <h1 class="fw-bold">Cargar premio</h1>
         <div class="card my-4">
-            <form class="needs-validation" novalidate>
+            <form>
                 <div class="mb-3">
                     <label for="nombrePremio" class="text-start w-100 py-2">Nombre del premio</label>
-                    <input type="text" class="form-control" id="nombrePremio" placeholder="Ej: cena para 4 personas" required>
-                    <div class="invalid-feedback">
-                        Por favor, ingrese el nombre del premio.
-                    </div>
+                    <input type="text" class="form-control" id="nombrePremio" placeholder="Ej: cena para 4 personas">
                 </div>
                 <div class="mb-3">
                     <label for="costoPuntos" class="text-start w-100 py-2">Costo de puntos</label>
-                    <input type="number" class="form-control" id="costoPuntos" placeholder="Ingrese sólo el número" required>
-                    <div class="invalid-feedback">
-                        Por favor, ingrese el costo en puntos.
-                    </div>
+                    <input type="number" class="form-control" id="costoPuntos" placeholder="Ingrese sólo el número">
                 </div>
                 <div class="mb-3">
                     <label for="categoria" class="text-start w-100 py-2">Categoría</label>
-                    <select class="form-select" id="categoria" required>
-                        <option value="" selected disabled>Seleccionar opción</option>
+                    <select class="form-select" id="categoria">
+                        <option selected>Seleccionar opción</option>
                         <option value="1">Gastronomía</option>
                         <option value="2">Electrónica</option>
                         <option value="3">Artículos para el hogar</option>
                     </select>
-                    <div class="invalid-feedback">
-                        Por favor, seleccione una categoría.
-                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="adjuntarImagen" class="text-start w-100 py-2">Adjuntar imagen</label>
                     <label class="custom-file-upload">
                         <input type="file" id="adjuntarImagen" class="ms-xxl-5 w-100" accept="image/*">
-                        <span class="material-symbols-outlined">upload_file</span>
+                        <span class="material-symbols-outlined">
+                            upload_file
+                        </span>
                     </label>
-                    <div class="invalid-feedback">
-                        Por favor, adjunte una imagen.
-                    </div>
                 </div>
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-dark w-50 mt-3">Cargar</button>
@@ -106,6 +96,5 @@
         <p class="text-center text-body-secondary">© Desarrollado por Grupo 10</p>
     </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../js/validacion_registro.js"></script>
 </body>
 </html>
