@@ -7,7 +7,7 @@ function initializeFormValidation(formSelector) {
         if (!form.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
-    }
+        }
         form.classList.add('was-validated');
     }, false);
 }
@@ -16,4 +16,4 @@ function inicializarFormRegistroPersona() {
     initializeFormValidation('.register-form');
 }
 
-document.addEventListener('DOMContentLoaded', initializeFormValidations);
+document.addEventListener('DOMContentLoaded', inicializarFormRegistroPersona);

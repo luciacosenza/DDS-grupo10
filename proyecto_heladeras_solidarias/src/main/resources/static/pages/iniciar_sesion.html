@@ -54,25 +54,25 @@
         <div class="register-card">
             <h2 class="fw-bold">Iniciar sesión</h2>
             <hr>
-            <form class="register-form mb-3 needs-validation" novalidate>
-                <label for="usuario" class="form-label">Usuario</label>
-                <div class="mb-3 input-group">
-                    <span class="input-group-text" id="basic-addon1">@</span>
-                    <input type="text" class="form-control" id="usuario" placeholder="Ej: juanperez" required>
-                    <div class="invalid-feedback">Por favor, ingresa un nombre de usuario.</div>
+            <form class="register-form needs-validation mb-3" novalidate>
+                <div class="mb-3">
+                    <label for="usuario" class="form-label">Usuario</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">@</span>
+                        <input type="text" class="form-control" id="usuario" placeholder="Ej: juanperez" required>
+                        <div class="invalid-feedback">Por favor, ingresa un nombre de usuario.</div>
+                    </div>
                 </div>
-            
-                <label for="password" class="form-label">Contraseña</label>
-                <div class="input-group mb-3">
-                    <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
-                    <button class="btn toggle-password" type="button">
-                        <span class="material-symbols-outlined toggle-pass-icon">
-                            visibility
-                        </span>
-                    </button>
-                    <div class="invalid-feedback">Por favor, ingresa una contraseña.</div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+                        <button class="btn btn-outline-secondary" type="button">
+                            <span class="material-symbols-outlined toggle-pass-icon">visibility</span>
+                        </button>
+                        <div class="invalid-feedback">Por favor, ingresa una contraseña.</div>
+                    </div>
                 </div>
-            
                 <button id="btn-login" type="submit" class="btn btn-dark w-100">Listo</button>
             </form>
             <a class="w-100" href="./seleccion_persona.html">¿No tenés cuenta? Registrate</a>
@@ -95,5 +95,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/validar_usuario.js"></script>
     <script src="../js/togglepass.js"></script>
+    <script src="../js/validacion_registro.js"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@ let tipo_usuario;
 
 if(document.querySelector("#iniciar-sesion")){
     const btn_login = document.querySelector("#btn-login");
-    btn_login.addEventListener("click", function(e){
+    btn_login.addEventListener("submit", function(e){
         e.preventDefault();
         const usuario = document.querySelector("#usuario");
         const password = document.querySelector("#password");
@@ -14,7 +14,7 @@ if(document.querySelector("#iniciar-sesion")){
             tipo_usuario = 'admin';
             sessionStorage.setItem('usuario', tipo_usuario)
             Swal.fire({
-                title: "Sesion iniciada como administrador",
+                title: "Sesión iniciada como administrador",
                 confirmButtonText: "Continuar a inicio",
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -26,7 +26,7 @@ if(document.querySelector("#iniciar-sesion")){
             tipo_usuario = 'colHumano';
             sessionStorage.setItem('usuario', tipo_usuario)
             Swal.fire({
-                title: "Sesion iniciada como colaborador humano",
+                title: "Sesión iniciada como colaborador humano",
                 confirmButtonText: "Continuar a inicio",
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -38,7 +38,7 @@ if(document.querySelector("#iniciar-sesion")){
             tipo_usuario = 'colJuridico';
             sessionStorage.setItem('usuario', tipo_usuario)
             Swal.fire({
-                title: "Sesion iniciada como colaborador humano",
+                title: "Sesion iniciada como colaborador jurídico",
                 confirmButtonText: "Continuar a inicio",
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -48,7 +48,6 @@ if(document.querySelector("#iniciar-sesion")){
             }
         })
     }
-
 
 let navbar = document.querySelector(".navbar");
 
@@ -62,9 +61,9 @@ if(document.querySelector("#index")){
     }
     if(tipo_usuario_guardado == 'colJuridico'){
         renderColJuridico()
-    }
-        
+    }     
 }
+
 function renderAdmin(){
     navbar.innerHTML = ` <div class="container-fluid">
                                 <a class="navbar-brand" href="#">
@@ -108,7 +107,8 @@ function renderAdmin(){
                                 </div>
                             </div>
                         </div>`
-    }
+}
+
 function renderColHumano(){
     navbar.innerHTML = ` <div class="container-fluid">
                                 <a class="navbar-brand" href="#">
@@ -143,6 +143,7 @@ function renderColHumano(){
                             </div>
                         </div>`
 }
+
 function renderColJuridico(){
     navbar.innerHTML = ` <div class="container-fluid">
                                 <a class="navbar-brand" href="#">
@@ -178,22 +179,21 @@ function renderColJuridico(){
                         </div>`
 }
 
-
 // Validación personalizada de Bootstrap
 function validar() {
     'use strict';
     const forms = document.querySelectorAll('.needs-validation');
-  
+
     Array.from(forms).forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-  
-        form.classList.add('was-validated');
-      }, false);
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        
+            form.classList.add('was-validated');
+        }, false);
     });
-  }
+}
 
 validar();
