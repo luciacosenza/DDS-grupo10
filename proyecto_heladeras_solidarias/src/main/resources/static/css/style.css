@@ -5,14 +5,6 @@ html, body{
     margin: 0;
 }
 
-body{
-    display: flex;
-    flex-direction: column;
-    font-family: "Inter";
-    background-color: #f8f9fa;
-    width: 100%;
-}
-
 main{
     flex: 1;
 }
@@ -202,6 +194,7 @@ h1{
 .toggle-pass-icon{
     font-size: 20px;
     color: black;
+    border: none;
 }
 .toggle-pass-icon:hover{
     transform: scale(1.15);
@@ -225,6 +218,9 @@ h1{
 #password-repeat{
     border-radius: 6px;
 }
+
+
+/* ---------------------- */
 .custom-file-upload {
     display: inline-block;
     border: 2px dashed #bbbbbb;
