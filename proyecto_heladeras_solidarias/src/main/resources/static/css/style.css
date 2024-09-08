@@ -1,15 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-html, body{
+html, body {
     height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
     margin: 0;
 }
-
-main{
-    flex: 1;
+main {
+    flex: 1; /* Para que el contenido principal ocupe todo el espacio disponible */
 }
+
 h1{
     font-size: 4rem;
+}
+
+p{
+    font-size: 1.25rem;
 }
 
 .material-symbols-outlined{
@@ -27,16 +35,7 @@ h1{
 }
 
 /* ----- COMPONENTES ----- */
-.btn-light{
-    border: 1px solid #000
-}
-.btn a{
-    text-decoration: none;
-    color: #fff;
-}
-.container {
-    margin-top: 80px;
-}
+
 /* -------------------- INDEX -------------------- */
 #hero{
     background-image: 
@@ -146,11 +145,15 @@ h1{
 
 /* ----------------- REGISTRO ----------------- */
 #registro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: max-content;
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    flex: 1;
 }
 .container-imagen img{
     width: 600px;
@@ -459,3 +462,4 @@ input::-webkit-file-upload-button{
 .category{
     width: 20%;
 }
+/* -------------------------- */

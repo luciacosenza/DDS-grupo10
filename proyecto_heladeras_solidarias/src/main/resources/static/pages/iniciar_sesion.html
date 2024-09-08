@@ -59,21 +59,21 @@
                     <label for="usuario" class="form-label">Usuario</label>
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1">@</span>
-                        <input type="text" class="form-control" id="usuario" placeholder="Ej: juanperez" required>
+                        <input type="text" class="form-control" id="usuario" placeholder="Ej: juanperez" required autocomplete="username">
                         <div class="invalid-feedback">Por favor, ingresa un nombre de usuario.</div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+                        <input type="password" class="form-control" id="password" placeholder="Contraseña" required autocomplete="current-password">
                         <button class="btn toggle-password" type="button">
                             <span class="material-symbols-outlined toggle-pass-icon">visibility</span>
                         </button>
                         <div class="invalid-feedback">Por favor, ingresa una contraseña.</div>
                     </div>
                 </div>
-                <button id="btn-login" type="submit" class="btn btn-dark w-100">Listo</button>
+                <button type="submit" class="btn btn-dark w-100">Listo</button>
             </form>
             <a class="w-100" href="./seleccion_persona.html">¿No tenés cuenta? Registrate</a>
         </div>

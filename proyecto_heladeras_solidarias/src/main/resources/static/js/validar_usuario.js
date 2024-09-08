@@ -1,8 +1,8 @@
 let tipo_usuario;
 
 if(document.querySelector("#iniciar-sesion")){
-    const btn_login = document.querySelector("#btn-login");
-    btn_login.addEventListener("click", function(e){
+    const formInicio = document.querySelector(".register-form");
+    formInicio.addEventListener("submit", function(e){
         e.preventDefault();
         const usuario = document.querySelector("#usuario");
         const password = document.querySelector("#password");
@@ -55,7 +55,7 @@ if(document.querySelector("#index")){
     nombrePaginaActual = "index"
     const tipo_usuario_guardado = sessionStorage.getItem('usuario');
     if(tipo_usuario_guardado == 'admin'){
-        renderAdmin(nombrePaginaActual)
+        renderNavbarAdmin()
     }
     if(tipo_usuario_guardado == 'colHumano'){
         renderColHumano(nombrePaginaActual)
@@ -70,7 +70,7 @@ if(document.querySelector("#quienes-somos")){
     nombrePaginaActual = "quienes_somos"
     const tipo_usuario_guardado = sessionStorage.getItem('usuario');
     if(tipo_usuario_guardado == 'admin'){
-        renderAdmin(nombrePaginaActual)
+        renderNavbarAdmin()
     }
     if(tipo_usuario_guardado == 'colHumano'){
         renderColHumano(nombrePaginaActual)
@@ -85,7 +85,7 @@ if(document.querySelector("#como-participar")){
     nombrePaginaActual = "como_participar"
     const tipo_usuario_guardado = sessionStorage.getItem('usuario');
     if(tipo_usuario_guardado == 'admin'){
-        renderAdmin(nombrePaginaActual)
+        renderNavbarAdmin()
     }
     if(tipo_usuario_guardado == 'colHumano'){
         renderColHumano(nombrePaginaActual)
@@ -95,8 +95,25 @@ if(document.querySelector("#como-participar")){
     }     
 }
 
-function renderAdmin(nombrePaginaActual) {
-    console.log("Renderizando navbar para Admin");
+function renderNavbarAdmin() {
+    const onlyAdminFeatures = document.querySelectorAll('.admin-only'); // paginas solo para administrador
+    const colab = document.querySelector('.href-colab'); // colaborar
+    const defaultPages = document.querySelectorAll('.default-pages'); // quienes somos y como colaborar
+    const loginBtn = document.querySelector('.btn-login'); // boton de inicio de sesion
+    const registerBtn = document.querySelector('.btn-register'); // boton de registro
+    const textUser = document.querySelector('.text-user'); // el nombre que aparece abajo del icono de perfil
+
+    onlyAdminFeatures.forEach(element => {
+        element.style.display = 'block';
+        });
+    colab.style.display = 'none';
+    defaultPages.forEach(element => {
+        element.style.display = 'none'
+        });
+    loginBtn.style.display = 'none';
+    registerBtn.style.display = 'none';
+    textUser.textContent = 'Admin'
+    /*console.log("Renderizando navbar para Admin");
     
     console.log("nombrePaginaActual:", nombrePaginaActual);
     let esIndex = nombrePaginaActual.includes("index");
@@ -137,7 +154,7 @@ function renderAdmin(nombrePaginaActual) {
                             </div>`;
 
     const linksNavegacion = document.querySelectorAll('.nav-link');
-    linkActivo(linksNavegacion, nombrePaginaActual);
+    linkActivo(linksNavegacion, nombrePaginaActual);*/
 }
 
 function renderColHumano(nombrePaginaActual) {

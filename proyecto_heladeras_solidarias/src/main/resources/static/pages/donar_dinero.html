@@ -44,45 +44,47 @@
             </div>
         </nav>
     </header>
-    <div class="container" style="min-height: 50vh">
-        <div class="row justify-content-center">
-            <div class="col-md-10 w-100 text-center">
-                <h1 class="mb-0 fw-bold">Donar dinero</h1>
-                <div class="card-donacion-dinero my-4 p-4">
-                    <h4>Frecuencia de pago</h4>
-                    <div class="d-flex justify-content-center flex-wrap">
-                        <div class="option-circle">Única vez</div>
-                        <div class="option-circle">Semanal</div>
-                        <div class="option-circle">Mensual</div>
-                        <div class="option-circle">Semestral</div>
-                        <div class="option-circle">Anual</div>
+    <main>
+        <div class="container" style="min-height: 50vh">
+            <div class="row justify-content-center">
+                <div class="col-md-10 w-100 text-center">
+                    <h1 class="mb-0 fw-bold">Donar dinero</h1>
+                    <div class="card-donacion-dinero my-4 p-4">
+                        <h4>Frecuencia de pago</h4>
+                        <div class="d-flex justify-content-center flex-wrap">
+                            <div class="option-circle">Única vez</div>
+                            <div class="option-circle">Semanal</div>
+                            <div class="option-circle">Mensual</div>
+                            <div class="option-circle">Semestral</div>
+                            <div class="option-circle">Anual</div>
+                        </div>
+                    </div>
+                    <div id="medioPago" class="my-4 p-4 card-donacion-dinero oculto">
+                        <h4>Medio de pago</h4>
+                        <div class="icon-container">
+                            <div class="option-circle">Crédito</div>
+                            <div class="option-circle">Débito</div>
+                            <div class="option-circle">Efectivo</div>
+                            <div class="option-circle">MercadoPago</div>
+                            <div class="option-circle">Transferencia</div>
+                        </div>
+                    </div>
+                    <div id="monto" class="my-4 p-4 card-donacion-dinero oculto">
+                        <h4>Monto</h4>
+                        <div class="d-flex justify-content-center flex-wrap">
+                            <div class="option-circle">$5.000</div>
+                            <div class="option-circle">$10.000</div>
+                            <div class="option-circle">$15.000</div>
+                            <div class="option-circle">$20.000</div>
+                            <div class="option-circle" id="otroImporte">Otro importe</div>
+                        </div>
+                        <input type="number" min="0" id="montoPersonalizado" class="input-monto form-control" placeholder="Ingrese monto $" />
                     </div>
                 </div>
-                <div id="medioPago" class="my-4 p-4 card-donacion-dinero oculto">
-                    <h4>Medio de pago</h4>
-                    <div class="icon-container">
-                        <div class="option-circle">Crédito</div>
-                        <div class="option-circle">Débito</div>
-                        <div class="option-circle">Efectivo</div>
-                        <div class="option-circle">MercadoPago</div>
-                        <div class="option-circle">Transferencia</div>
-                    </div>
-                </div>
-                <div id="monto" class="my-4 p-4 card-donacion-dinero oculto">
-                    <h4>Monto</h4>
-                    <div class="d-flex justify-content-center flex-wrap">
-                        <div class="option-circle">$5.000</div>
-                        <div class="option-circle">$10.000</div>
-                        <div class="option-circle">$15.000</div>
-                        <div class="option-circle">$20.000</div>
-                        <div class="option-circle" id="otroImporte">Otro importe</div>
-                    </div>
-                    <input type="number" min="0" id="montoPersonalizado" class="input-monto form-control" placeholder="Ingrese monto $" />
-                </div>
+                <button id="btnDonar" class="btn btn-dark col-1 oculto">Donar</button>
             </div>
-            <button id="btnDonar" class="btn btn-dark col-1 oculto">Donar</button>
         </div>
-    </div>
+    </main>
     <footer class="mt-5 pt-4 d-flex flex-column">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
             <li class="nav-item"><a href="../index.html" class="nav-link px-2 text-body-secondary">Inicio</a></li>
