@@ -187,7 +187,6 @@ p{
     height: 100vh;
 }
 .card {
-    max-width: 500px;
     margin: 0 auto;
     padding: 20px;
     border-radius: 10px;
@@ -413,18 +412,24 @@ input::-webkit-file-upload-button{
 
 /* ----- ALERTA  -----*/
 .alerta{
-    width: 50%;
+    width: 90%;
     display: flex;
     align-items: center;
-    margin: 0 auto;
-    padding: 40px;
-    border-radius: 12px;
+    margin: 0 10px;
+    padding: 20px 30px 20px 30px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 0, 0, 0.075);
+    border-left: 3px solid red;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-    background-color: white;
+    background-color: rgba(255, 0, 0, 0.04);
+    font-size: 20px;
+}
+.alerta p{
+    font-size: 16px;
 }
 .alertas-container{
     overflow-y: scroll;
-    height: 70vh;
+    height: 50vh;
 }
 /* ----- COLABORAR (HUMANO) ----- */
 .btn-colaborar{
@@ -462,4 +467,65 @@ input::-webkit-file-upload-button{
 .category{
     width: 20%;
 }
-/* -------------------------- */
+/* -------------ADMIN------------- */
+.admin-sidebar {
+    height: auto;
+    background-color: #f8f9fa;
+    padding: 1rem;
+}
+
+.admin-content {
+    padding: 2rem;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+    font-size: 1rem;
+    padding: 0.75rem;
+    color: #333;
+    text-decoration: none;
+}
+
+.sidebar-link:hover {
+    background-color: #e9ecef;
+    border-radius: 4px;
+}
+
+.sidebar-link span{
+    font-size: 1.5rem;
+}
+
+/* Barra superior */
+.top-bar {
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-bar .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.top-bar .user-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.dropdown-menu-end {
+    right: 0;
+    left: auto;
+}
+
+.reportes{
+    overflow-y: scroll;
+    height: 50vh;
+    padding: 5% 8%;
+}

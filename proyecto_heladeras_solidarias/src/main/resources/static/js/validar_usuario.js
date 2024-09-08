@@ -18,7 +18,7 @@ if(document.querySelector("#iniciar-sesion")){
                 confirmButtonText: "Continuar a inicio",
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "../index.html";
+                        window.location.href = "./admin.html"
                     }
                 });
             }
@@ -55,7 +55,7 @@ if(document.querySelector("#index")){
     nombrePaginaActual = "index"
     const tipo_usuario_guardado = sessionStorage.getItem('usuario');
     if(tipo_usuario_guardado == 'admin'){
-        renderNavbarAdmin()
+        window.location.href = "./admin.html"
     }
     if(tipo_usuario_guardado == 'colHumano'){
         renderColHumano(nombrePaginaActual)
@@ -70,7 +70,7 @@ if(document.querySelector("#quienes-somos")){
     nombrePaginaActual = "quienes_somos"
     const tipo_usuario_guardado = sessionStorage.getItem('usuario');
     if(tipo_usuario_guardado == 'admin'){
-        renderNavbarAdmin()
+        window.location.href = "./admin.html"
     }
     if(tipo_usuario_guardado == 'colHumano'){
         renderColHumano(nombrePaginaActual)
@@ -85,7 +85,7 @@ if(document.querySelector("#como-participar")){
     nombrePaginaActual = "como_participar"
     const tipo_usuario_guardado = sessionStorage.getItem('usuario');
     if(tipo_usuario_guardado == 'admin'){
-        renderNavbarAdmin()
+        window.location.href = "./admin.html";
     }
     if(tipo_usuario_guardado == 'colHumano'){
         renderColHumano(nombrePaginaActual)
@@ -94,69 +94,6 @@ if(document.querySelector("#como-participar")){
         renderColJuridico(nombrePaginaActual)
     }     
 }
-
-function renderNavbarAdmin() {
-    const onlyAdminFeatures = document.querySelectorAll('.admin-only'); // paginas solo para administrador
-    const colab = document.querySelector('.href-colab'); // colaborar
-    const defaultPages = document.querySelectorAll('.default-pages'); // quienes somos y como colaborar
-    const loginBtn = document.querySelector('.btn-login'); // boton de inicio de sesion
-    const registerBtn = document.querySelector('.btn-register'); // boton de registro
-    const textUser = document.querySelector('.text-user'); // el nombre que aparece abajo del icono de perfil
-
-    onlyAdminFeatures.forEach(element => {
-        element.style.display = 'block';
-        });
-    colab.style.display = 'none';
-    defaultPages.forEach(element => {
-        element.style.display = 'none'
-        });
-    loginBtn.style.display = 'none';
-    registerBtn.style.display = 'none';
-    textUser.textContent = 'Admin'
-    /*console.log("Renderizando navbar para Admin");
-    
-    console.log("nombrePaginaActual:", nombrePaginaActual);
-    let esIndex = nombrePaginaActual.includes("index");
-    console.log("esIndex:", esIndex);
-
-    const basePath = esIndex ? "./" : "../";
-    console.log("Base path para Admin:", basePath);
-
-    navbar.innerHTML = ` <div class="container-fluid">
-                                <a class="navbar-brand" href="#">
-                                    <img src="${basePath}assets/logo_negro.png" alt="Logo" height="50">
-                                </a>
-                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="navbar-toggler-icon"></span>
-                                </button>
-                                <div class="collapse navbar-collapse" id="navbarNav">
-                                    <ul class="navbar-nav ms-auto">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="${basePath}index.html">Inicio</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="${basePath}pages/migracion_datos.html">Migrar archivo</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="${basePath}pages/alertas.html">Alertas</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="${basePath}pages/reportes.html">Reportes</a>
-                                        </li>
-                                    </ul>
-                                    <div class="d-flex flex-column ms-lg-3">
-                                        <span class="icon-perfil material-symbols-outlined">
-                                            account_circle
-                                        </span>
-                                        admin
-                                    </div>
-                                </div>
-                            </div>`;
-
-    const linksNavegacion = document.querySelectorAll('.nav-link');
-    linkActivo(linksNavegacion, nombrePaginaActual);*/
-}
-
 function renderColHumano(nombrePaginaActual) {
     console.log("Renderizando navbar para Colaborador Humano");
     
