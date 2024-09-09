@@ -12,12 +12,14 @@ async function recomendarPuntosHeladeras(){
                         title: "Punto recomendado",
                         icon: {
                             url: '../assets/iconRecomendacionHeladeras.png',
-                            scaledSize: new google.maps.Size(30, 35),
+                            scaledSize: new google.maps.Size(25, 35),
                             origin: new google.maps.Point(0, 0)
                         }
                     })
                     const infoWindow = new google.maps.InfoWindow({
-                        content: `<h4>${punto.direccion}</h4>`
+                        content:    `<h4>Punto recomendado</h4>
+                                    <p>${punto.direccion}</p>`
+                        
                     });
             
                     puntoRecomendado.addListener('click', () => {
@@ -26,7 +28,43 @@ async function recomendarPuntosHeladeras(){
                 })
     }catch(error){}
 }
+async function obtenerHeladeras() {
+    const url = "https://ebabbd6d-dfd4-4f3d-bea8-c85e634b2a74.mock.pstmn.io/heladeras";
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
 
+        const { Marker } = await google.maps.importLibrary("marker");
+        let heladeras = []; 
+
+        data.heladeras.forEach(heladera => {
+            const marker = new Marker({
+                position: heladera.position,
+                map: mapa,
+                title: heladera.title,
+                icon: {
+                    url: '../assets/iconUbicacionHeladeras.png',
+                    scaledSize: new google.maps.Size(25, 35),
+                    origin: new google.maps.Point(0, 0)
+                }
+            });
+
+            const infoWindow = new google.maps.InfoWindow({
+                content: `<h4>${heladera.title}</h4><p>${heladera.direccion}</p>`
+            });
+
+            marker.addListener('click', () => {
+                infoWindow.open(mapa, marker);
+            });
+
+            heladeras.push({ marker: marker, position: heladera.position });
+        });
+
+        return heladeras; 
+    } catch (error) {
+        console.error('Error fetching heladeras data:', error);
+    }
+}
 async function abrirMapa() {
     if (document.querySelector('#colocar-heladera')){
         const btnAbrirMapa = document.querySelector('#btn-abrir-mapa');
@@ -45,12 +83,14 @@ async function iniciarMapa() {
                 mapId: "c793049f56f6348b" 
             });
 }
-        document.querySelector('#btn-abrir-mapa').addEventListener("click", function(e) {
-            e.preventDefault();
-            let mapDisplay = document.querySelector(".map-container").style.display
-            document.querySelector(".map-container").style.display = (mapDisplay == 'none')? 'block': 'none';
-            iniciarMapa()
-            recomendarPuntosHeladeras()
-            if (!Map) {
-                iniciarMapa();
-            }})
+
+document.querySelector('#btn-abrir-mapa').addEventListener("click", function(e) {
+    e.preventDefault();
+    let mapDisplay = document.querySelector(".map-container").style.display
+    document.querySelector(".map-container").style.display = (mapDisplay == 'none')? 'block': 'none';
+    iniciarMapa()
+    if(document.querySelector('#colocar-heladera')) recomendarPuntosHeladeras();
+    obtenerHeladeras()
+    if (!Map) {
+        iniciarMapa();
+    }})

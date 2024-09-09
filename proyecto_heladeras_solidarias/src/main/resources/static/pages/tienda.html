@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda de Premios</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -32,11 +33,26 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Colaborar</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link href-colab active" href="#">Tienda de premios</a>
+                        </li>
                     </ul>
                     <div class="d-flex ms-lg-3">
-                        <span class="material-symbols-outlined">
+                        <a href="./pages/iniciar_sesion.html">
+                            <button class="btn btn-outline-primary me-2 btn-login" type="button">Iniciar Sesión</button>
+                        </a>
+                        <a href="./pages/seleccion_persona.html">
+                            <button class="btn btn-primary btn-register" type="button">Registrarse</button>
+                        </a>
+                    </div>
+                    <div class="d-flex flex-column ms-lg-3 align-items-center">
+                        <span class="icon-perfil material-symbols-outlined text-dark" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
                             account_circle
                         </span>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item cerrar-sesion" href="../index.html">Cerrar Sesión</a></li>
+                        </ul>
+                        <span class="text-user">Usuario</span>
                     </div>
                 </div>
             </div>
@@ -81,17 +97,19 @@
             <li class="nav-item"><a href="../index.html" class="nav-link px-2 text-body-secondary">Inicio</a></li>
             <li class="nav-item"><a href="./quienes_somos.html" class="nav-link px-2 text-body-secondary">Quiénes somos</a></li>
             <li class="nav-item"><a href="./como_participar.html" class="nav-link px-2 text-body-secondary">Cómo participar</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Colaborar</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary href-colab">Colaborar</a></li>
         </ul>
         <a href="../index.html" class="d-flex align-items-center justify-content-center mb-3 mb-md-0 link-body-emphasis text-decoration-none p-3">
             <img src="../assets/logo_negro.png" alt="logo heladeras solidarias" width="50">
         </a>
-        <p class="text-center text-muted text-sm">proyecto.heladeras.solidarias@gmail.com</p>
+        <a href="mailto:proyecto.heladeras.solidarias@gmail.com" class="text-center text-muted text-sm">proyecto.heladeras.solidarias@gmail.com</a>
         <p class="text-center text-body-secondary">© Desarrollado por Grupo 10</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/tienda.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/render_segun_usuario.js"></script>
+    <script src="../js/cerrar_sesion.js"></script>
 </body>
 </html>

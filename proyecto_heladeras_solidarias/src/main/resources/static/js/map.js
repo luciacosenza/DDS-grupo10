@@ -94,7 +94,7 @@ async function obtenerHeladeras() {
                 title: heladera.title,
                 icon: {
                     url: '../assets/iconUbicacionHeladeras.png',
-                    scaledSize: new google.maps.Size(30, 35),
+                    scaledSize: new google.maps.Size(25, 35),
                     origin: new google.maps.Point(0, 0)
                 }
             });

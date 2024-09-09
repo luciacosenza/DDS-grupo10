@@ -12,40 +12,52 @@
 
 <body class="vectores-fondo" id="mapa-heladeras">
     <header>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="../index.html">
-                <img src="../assets/logo_negro.png" alt="Logo" height="50">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../index.html">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./quienes_somos.html">Quiénes somos</a>
-                    </li>
-                    <li class="./como-participar.html">
-                        <a class="nav-link" href="./como_participar.html">Cómo participar</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./iniciar_sesion.html">Colaborar</a>
-                    </li>
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../index.html">
+                    <img src="../assets/logo_negro.png" alt="Logo" height="50">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Quiénes somos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./como_participar.html">Cómo participar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link href-colab" href="./iniciar_sesion.html">Colaborar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link href-colab active" href="#">Mapa de heladeras</a>
+                        </li>
+                    </ul>
                     <div class="d-flex ms-lg-3">
                         <a href="./iniciar_sesion.html">
-                            <button class="btn btn-outline-primary me-2" type="button">Iniciar Sesión</button>
+                            <button class="btn btn-outline-primary me-2 btn-register" type="button">Iniciar Sesión</button>
                         </a>
                         <a href="./seleccion_persona.html">
-                            <button class="btn btn-primary" type="button">Registrarse</button>
+                            <button class="btn btn-primary btn-login" type="button">Registrarse</button>
                         </a>
                     </div>
-                </ul>
+                    <div class="d-flex flex-column ms-lg-3 align-items-center">
+                        <span class="icon-perfil material-symbols-outlined text-dark" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                            account_circle
+                        </span>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item cerrar-sesion" href="../index.html">Cerrar Sesión</a></li>
+                        </ul>
+                        <span class="text-user">Usuario</span>
+                    </div>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
     </header>
     <div class="container" style="min-height: 70vh;">
         <div class="row justify-content-center align-items-center">
@@ -60,21 +72,23 @@
         <li class="nav-item"><a href="../index.html" class="nav-link px-2 text-body-secondary">Inicio</a></li>
         <li class="nav-item"><a href="./quienes_somos.html" class="nav-link px-2 text-body-secondary">Quiénes somos</a></li>
         <li class="nav-item"><a href="./como_participar.html" class="nav-link px-2 text-body-secondary">Cómo participar</a></li>
-        <li class="nav-item"><a href="./iniciar_sesion.html" class="nav-link px-2 text-body-secondary">Colaborar</a></li>
+        <li class="nav-item"><a href="./iniciar_sesion.html" class="nav-link px-2 text-body-secondary href-colab">Colaborar</a></li>
     </ul>
     <a href="../index.html" class="d-flex align-items-center justify-content-center mb-3 mb-md-0 link-body-emphasis text-decoration-none p-3">
         <img src="../assets/logo_negro.png" alt="logo heladeras solidarias" width="50">
     </a>
-    <p class="text-center text-muted text-sm">proyecto.heladeras.solidarias@gmail.com</p>
+    <a href="mailto:proyecto.heladeras.solidarias@gmail.com" class="text-center text-muted text-sm">proyecto.heladeras.solidarias@gmail.com</a>
     <p class="text-center text-body-secondary">© Desarrollado por Grupo 10</p>
 </footer>
-        <script>
-            (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-                key: "AIzaSyDY6fOEVQ0EQZW00aFfg8SClSmfQWwrD1g",
-                v: "weekly",
-            });
-        </script>
+    <script>
+        (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+            key: "AIzaSyDY6fOEVQ0EQZW00aFfg8SClSmfQWwrD1g",
+            v: "weekly",
+        });
+    </script>
 
-<script src="../js/map.js"></script>
-        </body>
+    <script src="../js/map.js"></script>
+    <script src="../js/render_segun_usuario.js"></script>
+    <script src="../js/cerrar_sesion.js"></script>
+</body>
 </html>
