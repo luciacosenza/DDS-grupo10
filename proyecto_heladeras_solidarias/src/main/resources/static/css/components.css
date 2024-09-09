@@ -1,4 +1,4 @@
-/* ! Acá van los componentes comunes a todas las páginas, como header y footer */
+/* Acá van los componentes comunes a todas las páginas, como header y footer */
 
 /* ---- HEADER ---- */
 
@@ -26,7 +26,7 @@ footer {
 }
 
 footer ul li:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
     transition: 0.2s;
 }
 

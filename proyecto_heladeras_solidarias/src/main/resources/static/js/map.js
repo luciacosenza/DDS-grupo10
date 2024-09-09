@@ -17,7 +17,7 @@ async function iniciarMapa() {
         mapId: "c793049f56f6348b"
     });
 
-    marker = new Marker({
+    marker = new Marker( {
         map: mapa,
         title: "Posición de búsqueda",
         visible: false  
@@ -48,7 +48,7 @@ async function iniciarMapa() {
         const heladeraMasCerca = encontrarHeladeraMasCercana(place.geometry.location, heladeras, spherical);
         
         if (heladeraMasCerca) {
-            const infoWindow = new google.maps.InfoWindow({
+            const infoWindow = new google.maps.InfoWindow( {
                 content: `<h4>Heladera más cercana</h4><p>${heladeraMasCerca.marker.getTitle()}</p>`
             });
 
@@ -99,7 +99,7 @@ async function obtenerHeladeras() {
                 }
             });
 
-            const infoWindow = new google.maps.InfoWindow({
+            const infoWindow = new google.maps.InfoWindow( {
                 content: `<h4>${heladera.title}</h4><p>${heladera.direccion}</p>`
             });
 

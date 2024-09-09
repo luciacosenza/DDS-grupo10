@@ -1,7 +1,7 @@
 document.querySelector('.cerrar-sesion').addEventListener('click', cerrarSesion);
 
 function esIndex(){
-    return document.querySelector('#index')
+    return document.querySelector('#index');
 }
 
 function cerrarSesion(){

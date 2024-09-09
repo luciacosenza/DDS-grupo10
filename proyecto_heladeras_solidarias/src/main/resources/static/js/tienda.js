@@ -75,9 +75,9 @@ const itemsContainer = document.querySelector('#items-container');
 const puntos = document.querySelector('.puntos');
 const btnsAdquirir = document.querySelectorAll('.btn-adquirir');
 
-let puntosUsuario = 500 // provisoriamente 
+let puntosUsuario = 500 // provisorio
 
-function renderItems(unosArticulos){
+function renderItems(unosArticulos) {
     itemsContainer.innerHTML = '';
     unosArticulos.forEach(articulo => {
         itemsContainer.innerHTML += `<div class="card mx-0 my-5" style="width: 18rem;">
@@ -93,7 +93,7 @@ function renderItems(unosArticulos){
     puntos.innerHTML = `Puntos: ${puntosUsuario}`;
 }
 
-function filtrarPor(categoria){
+function filtrarPor(categoria) {
     const filtro = []
     articulos.forEach(articulo => {
     if(articulo.categoria === categoria) {
@@ -108,7 +108,7 @@ renderItems(articulos);
 
 const categoriaSelect = document.querySelector(".categorias-tienda-container");
 categoriaSelect.addEventListener("click", (e) => {
-    if(e.target.classList.contains("category")){
+    if (e.target.classList.contains("category")) {
         const categoria = e.target.id;
         filtrarPor(categoria);
         }
@@ -119,14 +119,14 @@ categoriaSelect.addEventListener("click", (e) => {
         
             if (puntosUsuario >= precioArticulo) {
                 puntosUsuario -= precioArticulo; // Restar los puntos
-                Swal.fire({
+                Swal.fire( {
                     icon: "success",
                     title: "Beneficio adquirido",
                     showConfirmButton: false,
                     timer: 1500
                 });
             } else {
-                Swal.fire({
+                Swal.fire( {
                     icon: "error",
                     title: "Puntos insuficientes",
                     showConfirmButton: false,

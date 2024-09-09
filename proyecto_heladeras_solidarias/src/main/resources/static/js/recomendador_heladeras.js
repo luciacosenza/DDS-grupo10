@@ -1,12 +1,12 @@
 async function recomendarPuntosHeladeras(){
     const url = "https://74d20d86-99bd-452c-8c65-77ce0eac7fef.mock.pstmn.io/recommendation";
-    try{
+    try {
         const response = await fetch(url);
         const data = await response.json();
         
         const { Marker } = await google.maps.importLibrary("marker");
-        data.puntosRecomendados.forEach(punto =>{
-                    const puntoRecomendado = new Marker({
+        data.puntosRecomendados.forEach(punto => {
+                    const puntoRecomendado = new Marker( {
                         position: {lat: punto.latitud, lng: punto.longitud},
                         map: mapa,
                         title: "Punto recomendado",
@@ -38,7 +38,7 @@ async function obtenerHeladeras() {
         let heladeras = []; 
 
         data.heladeras.forEach(heladera => {
-            const marker = new Marker({
+            const marker = new Marker( {
                 position: heladera.position,
                 map: mapa,
                 title: heladera.title,
@@ -49,7 +49,7 @@ async function obtenerHeladeras() {
                 }
             });
 
-            const infoWindow = new google.maps.InfoWindow({
+            const infoWindow = new google.maps.InfoWindow( {
                 content: `<h4>${heladera.title}</h4><p>${heladera.direccion}</p>`
             });
 
@@ -66,7 +66,7 @@ async function obtenerHeladeras() {
     }
 }
 async function abrirMapa() {
-    if (document.querySelector('#colocar-heladera')){
+    if (document.querySelector('#colocar-heladera')) {
         const btnAbrirMapa = document.querySelector('#btn-abrir-mapa');
         btnAbrirMapa.addEventListener('click', async () => {
         
@@ -89,7 +89,7 @@ document.querySelector('#btn-abrir-mapa').addEventListener("click", function(e) 
     let mapDisplay = document.querySelector(".map-container").style.display
     document.querySelector(".map-container").style.display = (mapDisplay == 'none')? 'block': 'none';
     iniciarMapa()
-    if(document.querySelector('#colocar-heladera')) recomendarPuntosHeladeras();
+    if (document.querySelector('#colocar-heladera')) recomendarPuntosHeladeras();
     obtenerHeladeras()
     if (!Map) {
         iniciarMapa();

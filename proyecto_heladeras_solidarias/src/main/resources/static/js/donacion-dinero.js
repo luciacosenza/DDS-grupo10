@@ -13,10 +13,10 @@ let seleccionMonto = null;
 // Función para seleccionar un botón y abrir la pestaña siguiente
 function seleccionarBotonFrecuencia() {
     btnsFrecuencia.forEach(btn => {
-        btn.addEventListener('click', function(e){
+        btn.addEventListener('click', function(e) {
             e.preventDefault();
             validarUnicidad(btnsFrecuencia);
-            if (!btn.classList.contains('selected')){
+            if (!btn.classList.contains('selected')) {
                 btn.className = 'option-circle selected';
                 seleccionFrecuencia = btn.textContent.trim();
                 mostrarSeccionMedioPago();
@@ -28,10 +28,10 @@ function seleccionarBotonFrecuencia() {
 
 function seleccionarBotonMedioPago() {
     btnsMedioPago.forEach(btn => {
-        btn.addEventListener('click', function(e){
+        btn.addEventListener('click', function(e) {
             e.preventDefault();
             validarUnicidad(btnsMedioPago);
-            if (!btn.classList.contains('selected')){
+            if (!btn.classList.contains('selected')) {
                 btn.className = 'option-circle selected';
                 seleccionMedioPago = btn.textContent.trim();
                 mostrarSeccionMonto();
@@ -43,7 +43,7 @@ function seleccionarBotonMedioPago() {
 
 function seleccionarBotonMonto() {
     btnsMonto.forEach(btn => {
-        btn.addEventListener('click', function(e){
+        btn.addEventListener('click', function(e) {
             e.preventDefault();
             if (btn.id === 'otroImporte') {
                 inputMontoPersonalizado.classList.remove('input-monto');
