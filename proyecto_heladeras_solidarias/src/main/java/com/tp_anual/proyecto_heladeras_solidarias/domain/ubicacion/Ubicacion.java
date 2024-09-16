@@ -19,4 +19,8 @@ public class Ubicacion {
         ciudad = vCiudad;
         pais = vPais;
     }
+
+    public String getDireccionCompleta() {
+        return direccion + ", " + ciudad + ", " + pais;
+    }
 }
