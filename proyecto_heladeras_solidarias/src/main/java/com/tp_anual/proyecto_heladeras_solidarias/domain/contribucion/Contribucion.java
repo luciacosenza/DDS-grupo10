@@ -4,30 +4,20 @@ import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public abstract class Contribucion {
-    protected Colaborador colaborador;
+    protected final Colaborador colaborador;
     protected LocalDateTime fechaContribucion;
     protected Boolean completada;
 
-    public Colaborador getColaborador() {
-        return colaborador;
-    }
-
-    public LocalDateTime getFechaContribucion() {
-        return fechaContribucion;
-    }
-
-    public Boolean estaCompletada() {
-        return completada;
-    }
-
-    public void setFechaContribucion(LocalDateTime vFechaContribucion) {
+    protected Contribucion(Colaborador vColaborador, LocalDateTime vFechaContribucion) {
+        colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
-    }
-
-    public void setCompletada(Boolean vCompletada) {
-        completada = vCompletada;
+        completada = false;
     }
 
     public void marcarComoCompletada() {

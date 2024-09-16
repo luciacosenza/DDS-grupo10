@@ -1,5 +1,8 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion;
 
+import lombok.Getter;
+
+@Getter
 public class Ubicacion {
     private final Double latitud;
     private final Double longitud;
@@ -15,33 +18,5 @@ public class Ubicacion {
         codigoPostal = vCodigoPostal;
         ciudad = vCiudad;
         pais = vPais;
-    }
-
-    public Double getLatitud() {
-        return latitud;
-    }
-
-    public Double getLongitud() {
-        return longitud;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public String getCodigoPostal() {
-        return codigoPostal;
-    }
-
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public String getPais() {
-        return pais;
-    }
-
-    public String getDireccionCompleta() {
-        return direccion + ", " + ciudad + ", " + pais;
     }
 }

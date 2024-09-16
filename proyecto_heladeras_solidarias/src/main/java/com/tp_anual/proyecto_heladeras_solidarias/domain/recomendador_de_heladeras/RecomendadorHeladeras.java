@@ -13,9 +13,10 @@ import java.util.logging.Logger;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.extern.java.Log;
 
+@Log
 public class RecomendadorHeladeras {
-    private static final Logger logger = Logger.getLogger(RecomendadorHeladeras.class.getName());
     private static final String apiUrl = "https://74d20d86-99bd-452c-8c65-77ce0eac7fef.mock.pstmn.io/recommendation";
 
     public static List<Map<String, String>> obtenerValoresDesdeAPI() {
@@ -30,7 +31,7 @@ public class RecomendadorHeladeras {
             HttpResponse<String> respuesta = cliente.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (respuesta.statusCode() != 200) {
-                logger.log(Level.SEVERE, I18n.getMessage("recomendador_de_heladeras.RecomendadorHeladeras.obtenerValoresDesdeAPI_err_obtencion_respuesta", respuesta.statusCode()));
+                log.log(Level.SEVERE, I18n.getMessage("recomendador_de_heladeras.RecomendadorHeladeras.obtenerValoresDesdeAPI_err_obtencion_respuesta", respuesta.statusCode()));
                 throw new RuntimeException(I18n.getMessage("recomendador_de_heladeras.RecomendadorHeladeras.obtenerValoresDesdeAPI_exception_obtencion_respuesta", respuesta.statusCode()));
             }
 
@@ -42,7 +43,7 @@ public class RecomendadorHeladeras {
             valores.addAll(valoresAux);
             
         } catch (Exception e) {
-            logger.log(Level.SEVERE, I18n.getMessage("recomendador_de_heladeras.RecomendadorHeladeras.obtenerValoresDesdeAPI_err_comunicacion_api"));
+            log.log(Level.SEVERE, I18n.getMessage("recomendador_de_heladeras.RecomendadorHeladeras.obtenerValoresDesdeAPI_err_comunicacion_api"));
             throw new RuntimeException(I18n.getMessage("recomendador_de_heladeras.RecomendadorHeladeras.obtenerValoresDesdeAPI_exception_comunicacion_api"));
         }
 

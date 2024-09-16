@@ -5,13 +5,14 @@ import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.extern.java.Log;
 
+@Log
 public class EstadoExpirada implements EstadoSolicitud {
-    private static final Logger logger = Logger.getLogger(EstadoExpirada.class.getName());
 
     @Override
     public void manejar(TarjetaColaborador tarjeta) {
-        logger.log(Level.INFO, I18n.getMessage("estado_de_solicitud.EstadoExpirada.manejar_info", tarjeta.getTitular().getPersona().getNombre(2)));
+        log.log(Level.INFO, I18n.getMessage("estado_de_solicitud.EstadoExpirada.manejar_info", tarjeta.getTitular().getPersona().getNombre(2)));
         tarjeta.setEstadoSolicitud(new EstadoPosible());
     }
 }

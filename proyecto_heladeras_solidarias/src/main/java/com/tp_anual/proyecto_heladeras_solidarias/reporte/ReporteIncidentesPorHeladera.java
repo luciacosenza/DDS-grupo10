@@ -8,14 +8,12 @@ import java.util.stream.Collectors;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
+import lombok.Getter;
 
+@Getter
 public class ReporteIncidentesPorHeladera extends Reporte {
     private final LinkedHashMap<HeladeraActiva, Integer> hashMap = new LinkedHashMap<>(); // Usamos LinkedHashMap para que persista el orden de insercion de los elementos (por fechaInscripcion)
-
-    public LinkedHashMap<HeladeraActiva, Integer> getHashMap(){
-        return hashMap;
-    }
-
+    
     @Override
     public void programarReporte() {
         

@@ -5,12 +5,19 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_heladera.AccionHeladera;
+import lombok.AccessLevel;
+import lombok.Getter;
 
+@Getter
 public abstract class Tarjeta {
-    protected String codigo;
-    protected final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
+    protected final String codigo;
 
-    public abstract Object getTitular();
+    protected Tarjeta(String vCodigo) {
+        codigo = vCodigo;
+    }
+
+    @Getter(AccessLevel.NONE)
+    protected final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
 
     public abstract Boolean puedeUsar();
 

@@ -7,9 +7,10 @@ import java.util.logging.Logger;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.extern.java.Log;
 
+@Log
 public class CargaOfertaCreator implements ContribucionCreator {
-    private static final Logger logger = Logger.getLogger(CargaOfertaCreator.class.getName());
 
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
@@ -24,7 +25,7 @@ public class CargaOfertaCreator implements ContribucionCreator {
         if (args.length != 1 ||
             !(args[0] instanceof Oferta)) {
             
-            logger.log(Level.SEVERE, I18n.getMessage("contribucion.CargaOfertaCreator.crearContribucion_err"));
+            log.log(Level.SEVERE, I18n.getMessage("contribucion.CargaOfertaCreator.crearContribucion_err"));
             throw new IllegalArgumentException(I18n.getMessage("contribucion.CargaOfertaCreator.crearContribucion_exception"));
         }
 

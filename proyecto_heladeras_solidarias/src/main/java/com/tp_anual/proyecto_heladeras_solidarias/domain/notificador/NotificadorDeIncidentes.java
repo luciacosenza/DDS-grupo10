@@ -7,11 +7,15 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tecnico.Tecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicador.UbicadorTecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.Getter;
 
+@Getter
 public class NotificadorDeIncidentes extends Notificador {
-    private final UbicadorTecnico ubicador = new UbicadorTecnico();
+    private final UbicadorTecnico ubicador;
     
-    public NotificadorDeIncidentes() {}
+    public NotificadorDeIncidentes() {
+        ubicador = new UbicadorTecnico();
+    }
 
     public void notificarIncidente(Incidente incidente) {
         Tecnico tecnicoAAlertar = ubicador.obtenerTecnicoCercanoA(incidente);

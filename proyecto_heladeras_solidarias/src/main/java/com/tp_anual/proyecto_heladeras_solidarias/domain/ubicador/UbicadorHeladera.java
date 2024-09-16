@@ -3,6 +3,8 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.ubicador;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.Comparator;
+
+import lombok.extern.java.Log;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.area.Area;
@@ -10,8 +12,8 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva
 
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
+@Log
 public class UbicadorHeladera {
-
     public UbicadorHeladera() {}
 
     public ArrayList<HeladeraActiva> obtenerHeladerasCercanasA(HeladeraActiva heladeraObjetivo, Integer cantidadHeladeras) {

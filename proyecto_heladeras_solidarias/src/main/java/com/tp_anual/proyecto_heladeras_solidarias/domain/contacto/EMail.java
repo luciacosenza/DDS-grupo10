@@ -5,9 +5,13 @@ import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.java.Log;
 
+@Log
+@Getter
 public class EMail extends MedioDeContacto {
-    private static final Logger logger = Logger.getLogger(Colaborador.class.getName());
     private final String direccionCorreo;
 
     public EMail(String vDireccionCorreo) {
@@ -17,6 +21,6 @@ public class EMail extends MedioDeContacto {
     @Override
     public void contactar(String asunto, String cuerpo) {
         EMailSenderService.enviarEMail(direccionCorreo, asunto, cuerpo);
-        logger.log(Level.INFO, I18n.getMessage("contacto.EMail.contactar_info", direccionCorreo));
+        log.log(Level.INFO, I18n.getMessage("contacto.EMail.contactar_info", direccionCorreo));
     }
 }

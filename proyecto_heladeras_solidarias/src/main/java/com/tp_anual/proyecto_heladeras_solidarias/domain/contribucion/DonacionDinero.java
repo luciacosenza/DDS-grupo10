@@ -10,15 +10,21 @@ import java.util.concurrent.TimeUnit;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.extern.java.Log;
 
+@Log
+@Getter
 public class DonacionDinero extends Contribucion {
-    private static final Logger logger = Logger.getLogger(DonacionDinero.class.getName());
     private final Double monto;
     private final FrecuenciaDePago frecuencia;
     private LocalDateTime ultimaActualizacion;
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final Double multiplicador_puntos = 0.5;
-    
+
+    @Getter(AccessLevel.NONE)
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
     public enum FrecuenciaDePago {  // Hacemos que Frecuencia de Pago sea una "interfaz común" para las distintas frecuencias, brindando los métodos periodo() unidad() para el uso de polimorfismo
         SEMANAL {
             @Override
@@ -81,20 +87,10 @@ public class DonacionDinero extends Contribucion {
     }
 
     public DonacionDinero(Colaborador vColaborador, LocalDateTime vFechaContribucion, Double vMonto, FrecuenciaDePago vFrecuencia) {
-        colaborador = vColaborador;
-        fechaContribucion = vFechaContribucion;
+        super(vColaborador, vFechaContribucion);
         monto = vMonto;
         frecuencia = vFrecuencia;
         ultimaActualizacion = LocalDateTime.now();
-        completada = false;
-    }
-
-    public Double getMonto() {
-        return monto;
-    }
-
-    public FrecuenciaDePago getFrecuencia() {
-        return frecuencia;
     }
 
     @Override
@@ -108,7 +104,7 @@ public class DonacionDinero extends Contribucion {
 
     @Override
     protected void confirmarSumaPuntos(Double puntosSumados) {
-        logger.log(Level.INFO, I18n.getMessage("contribucion.DonacionDinero.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
+        log.log(Level.INFO, I18n.getMessage("contribucion.DonacionDinero.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
     @Override

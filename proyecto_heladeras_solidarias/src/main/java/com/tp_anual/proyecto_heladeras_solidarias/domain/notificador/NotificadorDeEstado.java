@@ -7,19 +7,18 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva
 import com.tp_anual.proyecto_heladeras_solidarias.domain.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicador.UbicadorHeladera;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class NotificadorDeEstado extends Notificador {
-    private final UbicadorHeladera ubicador = new UbicadorHeladera();
-    private Integer cantidadHeladeras = 10; // Esta cantidad es arbitraria, pero puede ser modificada
+    private final UbicadorHeladera ubicador;
+    private Integer cantidadHeladeras;
     
-    public NotificadorDeEstado() {}
-
-    public Integer getCantidadHeladeras() {
-        return cantidadHeladeras;
-    }
-
-    public void setCantidadHeladeras(Integer vCantidadHeladeras) {
-        cantidadHeladeras = vCantidadHeladeras;
+    public NotificadorDeEstado() {
+        ubicador = new UbicadorHeladera();
+        cantidadHeladeras = 10; // Esta cantidad es arbitraria, pero puede ser modificada
     }
 
     public void notificarEstado(HeladeraActiva heladera, CondicionSuscripcion condicion, MedioDeContacto contacto) {    // Usa el Medio de Contacto previamente elegido por el colaborador

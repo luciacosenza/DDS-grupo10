@@ -8,27 +8,20 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.Getter;
+import lombok.extern.java.Log;
 
+@Log
+@Getter
 public class DonacionVianda extends Contribucion {
-    private static final Logger logger = Logger.getLogger(DonacionVianda.class.getName());
     private final Vianda vianda;
     private final HeladeraActiva heladera;
     private final Double multiplicador_puntos = 1.5;
 
     public DonacionVianda(Colaborador vColaborador, LocalDateTime vFechaContribucion, Vianda vVianda, HeladeraActiva vHeladera) {
-        colaborador = vColaborador;
-        fechaContribucion = vFechaContribucion;
+        super(vColaborador, vFechaContribucion);
         vianda = vVianda;
         heladera = vHeladera;
-        completada = false;
-    }
-    
-    public Vianda getVianda() {
-        return vianda;
-    }
-
-    public HeladeraActiva getHeladera() {
-        return heladera;
     }
 
     @Override
@@ -41,20 +34,19 @@ public class DonacionVianda extends Contribucion {
     @Override
     public void validarIdentidad() {
         if (colaborador.getDomicilio() == null) {
-            logger.log(Level.SEVERE, I18n.getMessage("contribucion.DonacionVianda.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
+            log.log(Level.SEVERE, I18n.getMessage("contribucion.DonacionVianda.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
             throw new IllegalArgumentException(I18n.getMessage("contribucion.DonacionVianda.validarIdentidad_exception"));
         }
     }
 
     @Override
     protected void confirmarSumaPuntos(Double puntosSumados) {
-        logger.log(Level.INFO, I18n.getMessage("contribucion.DonacionVianda.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
+        log.log(Level.INFO, I18n.getMessage("contribucion.DonacionVianda.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
     @Override
     protected void calcularPuntos() {
-        Double puntosASumar = multiplicador_puntos;
         colaborador.sumarPuntos(multiplicador_puntos);
-        confirmarSumaPuntos(puntosASumar);
+        confirmarSumaPuntos(multiplicador_puntos);
     }
 }

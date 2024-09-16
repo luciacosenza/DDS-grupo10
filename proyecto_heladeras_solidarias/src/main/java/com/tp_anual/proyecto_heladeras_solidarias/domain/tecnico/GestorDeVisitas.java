@@ -3,11 +3,15 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.tecnico;
 import java.util.ArrayList;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
+import lombok.Getter;
 
+@Getter
 public class GestorDeVisitas {
-    private final ArrayList<Visita> visitas = new ArrayList<>();
+    private final ArrayList<Visita> visitas;
 
-    public GestorDeVisitas() {}
+    public GestorDeVisitas() {
+        visitas = new ArrayList<>();
+    }
 
     public void gestionarVisita() {
         // Obtengo la primer Visita registrada

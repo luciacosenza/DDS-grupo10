@@ -6,9 +6,10 @@ import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.extern.java.Log;
 
+@Log
 public class DonacionDineroCreator implements ContribucionCreator {
-    private static final Logger logger = Logger.getLogger(DonacionDineroCreator.class.getName());
 
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
@@ -24,7 +25,7 @@ public class DonacionDineroCreator implements ContribucionCreator {
             !(args[0] instanceof Double) ||
             !(args[1] instanceof DonacionDinero.FrecuenciaDePago)) {
             
-            logger.log(Level.SEVERE, I18n.getMessage("contribucion.DonacionDineroCreator.crearContribucion_err"));
+            log.log(Level.SEVERE, I18n.getMessage("contribucion.DonacionDineroCreator.crearContribucion_err"));
             throw new IllegalArgumentException(I18n.getMessage("contribucion.DonacionDineroCreator.crearContribucion_exception"));
         }
         

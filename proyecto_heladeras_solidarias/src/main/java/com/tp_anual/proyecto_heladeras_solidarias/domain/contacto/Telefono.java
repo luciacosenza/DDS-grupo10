@@ -1,5 +1,10 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.contacto;
 
+import lombok.Getter;
+import lombok.extern.java.Log;
+
+@Log
+@Getter
 public class Telefono extends MedioDeContacto {
     private final String codPais;
     private final String codArea;
@@ -11,18 +16,6 @@ public class Telefono extends MedioDeContacto {
         numero = vNumero;
     }
 
-    public String getCodPais() {
-        return codPais;
-    }
-
-    public String getCodArea() {
-        return codArea;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
     @Override
-    public void contactar(String asunto, String cuerpo) {} // TODO: Se implementará posteriormente, por ahora sólo lo creamos para los Tests
+    public void contactar(String asunto, String cuerpo) {} // TODO Se implementará posteriormente, por ahora sólo lo creamos para los Tests
 }

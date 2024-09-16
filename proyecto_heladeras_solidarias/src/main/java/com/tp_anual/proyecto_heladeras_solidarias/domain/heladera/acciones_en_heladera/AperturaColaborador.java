@@ -7,8 +7,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva
 
 public class AperturaColaborador extends AccionColaborador {
     public AperturaColaborador(LocalDateTime vFecha, HeladeraActiva vHeladera, ColaboradorHumano vResponsable) {
-        fecha = vFecha;
-        heladera = vHeladera;
-        responsable = vResponsable;
+        super(vFecha, vHeladera, vResponsable);
     }
 }

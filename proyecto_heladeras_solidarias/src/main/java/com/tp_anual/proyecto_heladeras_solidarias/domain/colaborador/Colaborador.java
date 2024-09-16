@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.Contribucion;
@@ -16,48 +15,41 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.Persona;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
+import lombok.extern.java.Log;
+import lombok.Getter;
+import lombok.Setter;
 
+@Log
+@Getter
+@Setter
 public abstract class Colaborador {
-    protected static final Logger logger = Logger.getLogger(Colaborador.class.getName());
-    protected Persona persona;
+    protected final Persona persona;
     protected Ubicacion domicilio;
-    protected ArrayList<MedioDeContacto> mediosDeContacto;
-    protected ArrayList<Contribucion> contribuciones;
+    protected final ArrayList<MedioDeContacto> mediosDeContacto;
+    protected final ArrayList<Contribucion> contribuciones;
+    protected final ArrayList<Contribucion> contribucionesPendientes;
+    protected final ArrayList<Oferta> beneficiosAdquiridos;
     protected Set<Class<? extends ContribucionCreator>> creatorsPermitidos;
-    protected ArrayList<Contribucion> contribucionesPendientes;
-    protected ArrayList<Oferta> beneficiosAdquiridos;
     protected Double puntos;
 
-    public abstract Persona getPersona();
-
-    public Ubicacion getDomicilio() {
-        return domicilio;
-    }
-
-    public ArrayList<Contribucion> getContribuciones() {
-        return contribuciones;
-    }
-
-    public ArrayList<Contribucion> getContribucionesPendientes() {
-        return contribucionesPendientes;
-    }
-
-    public ArrayList<Oferta> getBeneficiosAdquiridos() {
-        return beneficiosAdquiridos;
-    }
-
-    public Double getPuntos() {
-        return puntos;
+    protected Colaborador(Persona vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
+        persona = vPersona;
+        domicilio = vDomicilio;
+        mediosDeContacto = vMediosDeContacto;
+        contribuciones = vContribuciones;
+        contribucionesPendientes = new ArrayList<>();
+        beneficiosAdquiridos = vBeneficiosAdquiridos;
+        puntos = vPuntos;
     }
 
     // Obtenemos el Medio de Contacto correspondiente a la Clase que pasemos como argumento. Con este método, suponemos que el Colaborador no puede tener más de un Medio de Contacto del mismo tipo
-    public <T extends MedioDeContacto> T getContacto(Class<T> tipoMedioDeContacto) {
+    public <T extends MedioDeContacto> T getMedioDeContacto(Class<T> tipoMedioDeContacto) {
         for (MedioDeContacto contacto : mediosDeContacto) {
             if (tipoMedioDeContacto.isInstance(contacto)) 
                 return tipoMedioDeContacto.cast(contacto);
         }
 
-        logger.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.getContacto_err", persona.getNombre(2), tipoMedioDeContacto.getClass().getSimpleName()));
+        log.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.getContacto_err", persona.getNombre(2), tipoMedioDeContacto.getClass().getSimpleName()));
         throw new NoSuchElementException(I18n.getMessage("colaborador.Colaborador.getContacto_exception"));
     }
 
@@ -140,14 +132,14 @@ public abstract class Colaborador {
     // Este método equivale a seleccionar una Contribución, no a llevarla a cabo
     public Contribucion colaborar(ContribucionCreator creator, LocalDateTime fechaContribucion /* generalmente LocalDateTime.now() */, Object... args) {
         if (!esCreatorPermitido(creator.getClass())) {
-            logger.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.colaborar_err", creator.getClass().getSimpleName(), persona.getNombre(2), persona.getTipoPersona()));
+            log.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.colaborar_err", creator.getClass().getSimpleName(), persona.getNombre(2), persona.getTipoPersona()));
             throw new IllegalArgumentException(I18n.getMessage("colaborador.Colaborador.colaborar_exception"));
         }
 
         Contribucion contribucion = creator.crearContribucion(this, fechaContribucion, false , args);
         contribucion.validarIdentidad();
         agregarContribucionPendiente(contribucion);
-        logger.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.colaborar_info", contribucion.getClass().getSimpleName(), persona.getNombre(2)));
+        log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.colaborar_info", contribucion.getClass().getSimpleName(), persona.getNombre(2)));
 
         return contribucion;
     }
@@ -158,7 +150,7 @@ public abstract class Colaborador {
         contribucion.confirmar(fechaContribucion);
         agregarContribucion(contribucion);
         eliminarContribucionPendiente(contribucion);
-        logger.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.confirmarContribucion_info", contribucion.getClass().getSimpleName(), persona.getNombre(2)));
+        log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.confirmarContribucion_info", contribucion.getClass().getSimpleName(), persona.getNombre(2)));
     }
 
     public void intentarAdquirirBeneficio(Oferta oferta) {
@@ -166,7 +158,7 @@ public abstract class Colaborador {
         oferta.validarPuntos(this);
         oferta.darDeBaja();
         agregarBeneficio(oferta);
-        logger.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.adquirirBeneficio_info", oferta.getNombre(), persona.getNombre(2)));
+        log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.adquirirBeneficio_info", oferta.getNombre(), persona.getNombre(2)));
     }
 
     public void reportarFallaTecnica(HeladeraActiva heladera, String descripcion, String foto) {

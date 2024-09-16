@@ -21,40 +21,32 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColabora
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColaboradorNula;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.java.Log;
 
+@Log
+@Getter
+@Setter
 public class ColaboradorHumano extends Colaborador {    // Implementa una Interfaz "ColaboradorHumanoObserver" a nivel conceptual
     protected TarjetaColaborador tarjeta;
-    protected final ArrayList<Suscripcion> suscripciones = new ArrayList<>();   // Será una Suscripción por Heladera
+    protected final ArrayList<Suscripcion> suscripciones;   // Será una Suscripción por Heladera
 
-    public ColaboradorHumano(Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos , String vNombre, String vApellido, Documento vDocumento , LocalDateTime vFechaNacimiento) {
-        persona = new PersonaFisica(vNombre, vApellido, vDocumento, vFechaNacimiento);
-        domicilio = vDomicilio;
-        mediosDeContacto = vMediosDeContacto;
-        contribuciones = vContribuciones;
-        contribucionesPendientes = new ArrayList<>();
-
+    public ColaboradorHumano(PersonaFisica vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
+        super(vPersona, vDomicilio, vMediosDeContacto, vContribuciones, vBeneficiosAdquiridos, vPuntos);
         creatorsPermitidos = new HashSet<>();
         creatorsPermitidos.add(DistribucionViandasCreator.class);
         creatorsPermitidos.add(DonacionDineroCreator.class);
         creatorsPermitidos.add(DonacionViandaCreator.class);
         creatorsPermitidos.add(RegistroDePersonaEnSituacionVulnerableCreator.class);
 
-        beneficiosAdquiridos = vBeneficiosAdquiridos;
-        puntos = vPuntos;
         tarjeta = new TarjetaColaboradorNula();
+        suscripciones = new ArrayList<>();
     }
 
     @Override
     public PersonaFisica getPersona() {
         return (PersonaFisica) persona;
-    }
-
-    public TarjetaColaborador getTarjeta() {
-        return tarjeta;
-    }
-
-    public void setTarjeta(TarjetaColaborador vTarjeta) {
-        tarjeta = vTarjeta;
     }
 
     private void agregarSuscripcion(Suscripcion suscripcion) {
@@ -69,7 +61,7 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
         Suscripcion suscripcion = new Suscripcion(this, heladeraObjetivo, viandasDisponiblesMin, viandasParaLlenarMax, notificarDesperfecto, medioDeContacto);
         suscripcion.darDeAlta();
         agregarSuscripcion(suscripcion);
-        logger.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.agregarSuscripcion_info", persona.getNombre(2), suscripcion.getHeladera().getNombre()));
+        log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.agregarSuscripcion_info", persona.getNombre(2), suscripcion.getHeladera().getNombre()));
 
         return suscripcion;
     }
@@ -88,12 +80,12 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
         
         }
 
-        logger.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.modificarSuscripcion_info", suscripcion.getHeladera().getNombre(), persona.getNombre(2)));
+        log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.modificarSuscripcion_info", suscripcion.getHeladera().getNombre(), persona.getNombre(2)));
     }
 
     public void cancelarSuscripcion(Suscripcion suscripcion) {
         suscripcion.darDeBaja();
         eliminarSuscripcion(suscripcion);
-        logger.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.cancelarSuscripcion_info", suscripcion.getHeladera().getNombre(), persona.getNombre(2)));
+        log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.cancelarSuscripcion_info", suscripcion.getHeladera().getNombre(), persona.getNombre(2)));
     }
 }

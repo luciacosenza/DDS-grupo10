@@ -17,75 +17,16 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.suscripcion.Suscripcion
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
+import lombok.Getter;
+import lombok.extern.java.Log;
 
+@Log
 public class HeladeraActiva extends Heladera {
     public HeladeraActiva(String vNombre, Ubicacion vUbicacion, ArrayList<Vianda> vViandas, Integer vCapacidad, LocalDateTime vFechaApertura, Float vTempMin, Float vTempMax) {
-        nombre = vNombre;
-        ubicacion = vUbicacion;
-        viandas = vViandas;
-        capacidad = vCapacidad;
-        fechaApertura = vFechaApertura;
-        tempMin = vTempMin;
-        tempMax = vTempMax;
-        tempActual = 0f;
-        estado = true;
+        super(vNombre, vUbicacion, vCapacidad, vTempMin, vTempMax, vViandas, 0f, vFechaApertura, true);
         gestorDeAperturas = new GestorDeAperturas(this);
     }
-    
-    @Override
-    public String getNombre() {
-        return nombre;
-    }
 
-    @Override
-    public Ubicacion getUbicacion() {
-        return ubicacion;
-    }
-
-    @Override
-    public ArrayList<Vianda> getViandas() {
-        return viandas;
-    }
-
-    @Override
-    public Integer getCapacidad() {
-        return capacidad;
-    }
-
-    @Override
-    public LocalDateTime getFechaApertura() {
-        return fechaApertura;
-    }
-
-    @Override
-    public Float getTempMin() {
-        return tempMin;
-    }
-
-    @Override public Float getTempMax() {
-        return tempMax;
-    }
-
-    @Override
-    public Float getTempActual() {
-        return tempActual;
-    }
-
-    @Override
-    public Boolean getEstado() {
-        return estado;
-    }
-
-    @Override
-    public GestorDeAperturas getGestorDeAperturas() {
-        return gestorDeAperturas;
-    }
-
-    @Override
-    public void setEstado(Boolean nuevoEstado) {
-        estado = nuevoEstado;
-    }
-    
     @Override
     public void darDeAlta() {
         Sistema.agregarHeladera(this);
@@ -139,25 +80,25 @@ public class HeladeraActiva extends Heladera {
     @Override
     public void agregarVianda(Vianda vianda) {
         if (!verificarCapacidad()) {
-            logger.log(Level.SEVERE, I18n.getMessage("heladera.HeladeraActiva.agregarVianda_err", nombre));
+            log.log(Level.SEVERE, I18n.getMessage("heladera.HeladeraActiva.agregarVianda_err", nombre));
             throw new IllegalStateException(I18n.getMessage("heladera.HeladeraActiva.agregarVianda_exception"));
         }
 
         viandas.add(vianda);
         verificarCondiciones(); // Verifica condiciones cuando agregamos una Vianda (una de las dos únicas formas en que la cantidad de Viandas en la Heladera puede cambiar)
-        logger.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.agregarVianda_info", vianda.getComida(), nombre));
+        log.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.agregarVianda_info", vianda.getComida(), nombre));
     }
 
     @Override
     public Vianda retirarVianda() {
         if (estaVacia()) {
-            logger.log(Level.SEVERE, I18n.getMessage("heladera.HeladeraActiva.retirarVianda_err", nombre));
+            log.log(Level.SEVERE, I18n.getMessage("heladera.HeladeraActiva.retirarVianda_err", nombre));
             throw new IllegalStateException(I18n.getMessage("heladera.HeladeraActiva.retirarVianda_exception"));
         }
         
         Vianda viandaRetirada = viandas.removeFirst();
         verificarCondiciones(); // Verifica condiciones cuando retiramos una Vianda (una de las dos únicas formas en que la cantidad de Viandas en la Heladera puede cambiar)
-        logger.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.retirarVianda_info", viandaRetirada.getComida(), nombre));
+        log.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.retirarVianda_info", viandaRetirada.getComida(), nombre));
 
         return viandaRetirada;
     }
@@ -176,7 +117,7 @@ public class HeladeraActiva extends Heladera {
 
     @Override
     public void marcarComoInactiva() {
-        setEstado(false);
+        estado = false;
     }
 
     @Override
@@ -203,7 +144,7 @@ public class HeladeraActiva extends Heladera {
         alerta.darDeAlta();
 
         reportarIncidente(alerta);
-        logger.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.producirAlerta_info", alerta.getTipo(), nombre));
+        log.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.producirAlerta_info", alerta.getTipo(), nombre));
     }
 
     @Override
@@ -214,6 +155,6 @@ public class HeladeraActiva extends Heladera {
         fallaTecnica.darDeAlta();
 
         reportarIncidente(fallaTecnica);
-        logger.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.producirFallaTecnica_info", nombre));
+        log.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.producirFallaTecnica_info", nombre));
     }
 }

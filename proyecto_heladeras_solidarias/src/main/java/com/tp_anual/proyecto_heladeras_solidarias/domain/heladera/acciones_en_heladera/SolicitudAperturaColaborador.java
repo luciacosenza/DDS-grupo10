@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
+import lombok.Getter;
 
+@Getter
 public class SolicitudAperturaColaborador extends AccionColaborador {
     private final MotivoSolicitud motivo;
 
@@ -15,13 +17,7 @@ public class SolicitudAperturaColaborador extends AccionColaborador {
     }
 
     public SolicitudAperturaColaborador(LocalDateTime vFecha, HeladeraActiva vHeladera, ColaboradorHumano vResponsable, MotivoSolicitud vMotivo) {
-        fecha = vFecha;
-        heladera = vHeladera;
-        responsable = vResponsable;
+        super(vFecha, vHeladera, vResponsable);
         motivo = vMotivo;
-    }
-
-    public MotivoSolicitud getMotivo() {
-        return motivo;
     }
 }

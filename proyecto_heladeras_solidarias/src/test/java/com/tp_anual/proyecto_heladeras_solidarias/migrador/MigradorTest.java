@@ -18,8 +18,8 @@ public class MigradorTest {
         
         String rutaCSV = "registro_migracion.csv";
 
-        Migrador.setExtraccionDeDatosStrategy(protocoloExtraccion);
-        Migrador.setEnvioDeDatosStrategy(protocoloEnvio);
+        Migrador.setProtocoloExtraccion(protocoloExtraccion);
+        Migrador.setProtocoloEnvio(protocoloEnvio);
         Migrador.migrar(rutaCSV);
 
         ArrayList<Colaborador> colaboradores = Sistema.getColaboradores();

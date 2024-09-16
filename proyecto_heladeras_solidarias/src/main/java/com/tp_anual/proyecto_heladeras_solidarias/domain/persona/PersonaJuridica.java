@@ -1,7 +1,11 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.persona;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class PersonaJuridica extends Persona {
     private String razonSocial;
     private TipoPersonaJuridica tipo;
@@ -17,30 +21,6 @@ public class PersonaJuridica extends Persona {
     public PersonaJuridica(String vRazonSocial, TipoPersonaJuridica vTipo, String vRubro) {
         razonSocial = vRazonSocial;
         tipo = vTipo;
-        rubro = vRubro;
-    }
-
-    public String getRazonSocial() {
-        return razonSocial;
-    }
-
-    public TipoPersonaJuridica getTipo() {
-        return tipo;
-    }
-
-    public String getRubro() {
-        return rubro;
-    }
-
-    public void razonSocial(String vRazonSocial) {
-        razonSocial = vRazonSocial;
-    }
-
-    public void setTipo(TipoPersonaJuridica vTipo) {
-        tipo = vTipo;
-    }
-
-    public void setRubro(String vRubro) {
         rubro = vRubro;
     }
 

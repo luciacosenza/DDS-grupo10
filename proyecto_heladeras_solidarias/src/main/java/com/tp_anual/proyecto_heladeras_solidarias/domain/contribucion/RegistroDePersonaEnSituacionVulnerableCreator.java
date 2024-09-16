@@ -7,10 +7,11 @@ import java.util.logging.Logger;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.extern.java.Log;
 
+@Log
 public class RegistroDePersonaEnSituacionVulnerableCreator implements ContribucionCreator {
-    private static final Logger logger = Logger.getLogger(RegistroDePersonaEnSituacionVulnerableCreator.class.getName());
-
+    
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
         return new RegistroDePersonaEnSituacionVulnerable(colaborador, fechaContribucion, new TarjetaPersonaEnSituacionVulnerable(null));
@@ -24,7 +25,7 @@ public class RegistroDePersonaEnSituacionVulnerableCreator implements Contribuci
         if(args.length != 1 ||
             !(args[0] instanceof TarjetaPersonaEnSituacionVulnerable)) {
             
-            logger.log(Level.SEVERE, I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerableCreator.crearContribucion_err"));
+            log.log(Level.SEVERE, I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerableCreator.crearContribucion_err"));
             throw new IllegalArgumentException(I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerableCreator.crearContribucion_exception"));
         }
         

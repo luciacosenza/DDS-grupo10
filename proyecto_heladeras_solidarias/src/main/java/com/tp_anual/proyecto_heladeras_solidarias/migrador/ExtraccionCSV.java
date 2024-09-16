@@ -9,7 +9,9 @@ import java.util.logging.Level;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.extern.java.Log;
 
+@Log
 public class ExtraccionCSV extends ExtraccionDeDatos {
     
     @Override
@@ -30,10 +32,10 @@ public class ExtraccionCSV extends ExtraccionDeDatos {
                 dataColaboradores.add(linea);
             }
         } catch (IOException e) {
-            logger.log(Level.SEVERE, I18n.getMessage("migrador.ExtraccionCSV.extract_err_io", csv));
+            log.log(Level.SEVERE, I18n.getMessage("migrador.ExtraccionCSV.extract_err_io", csv));
             throw new RuntimeException(I18n.getMessage("migrador.ExtraccionCSV.extract_exception_io"));
         } catch (CsvException e) {
-            logger.log(Level.SEVERE, I18n.getMessage("migrador.ExtraccionCSV.extract_err_procesamiento_csv", csv));
+            log.log(Level.SEVERE, I18n.getMessage("migrador.ExtraccionCSV.extract_err_procesamiento_csv", csv));
             throw new RuntimeException(I18n.getMessage("migrador.ExtraccionCSV.extract_exception_procesamiento_csv"));
         }
         

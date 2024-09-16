@@ -9,9 +9,10 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.extern.java.Log;
 
+@Log
 public class DistribucionViandasCreator implements ContribucionCreator {
-    private static final Logger logger = Logger.getLogger(DistribucionViandasCreator.class.getName());
 
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
@@ -33,7 +34,7 @@ public class DistribucionViandasCreator implements ContribucionCreator {
             !(args[3] instanceof DistribucionViandas.MotivoDistribucion) ||
             (args[0] == args[1])) {
             
-            logger.log(Level.SEVERE, I18n.getMessage("contribucion.DistribucionViandasCreator.crearContribucion_err"));
+            log.log(Level.SEVERE, I18n.getMessage("contribucion.DistribucionViandasCreator.crearContribucion_err"));
             throw new IllegalArgumentException(I18n.getMessage("contribucion.DistribucionViandasCreator.crearContribucion_exception"));
         }
         

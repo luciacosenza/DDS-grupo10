@@ -1,7 +1,9 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.area;
 
+import lombok.Getter;
 import org.apache.commons.lang3.tuple.Pair;
 
+@Getter
 public class Area {
     private final Double x1;
     private final Double y1;

@@ -1,5 +1,8 @@
 package com.tp_anual.proyecto_heladeras_solidarias.validador_password;
 
+import lombok.extern.java.Log;
+
+@Log
 public class CriterioLargo extends CriterioValidacion {
     private final Integer longitudMinima;
     private final Integer longitudMaxima;

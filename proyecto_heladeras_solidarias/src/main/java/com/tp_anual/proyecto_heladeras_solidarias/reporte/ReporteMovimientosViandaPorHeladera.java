@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import lombok.Getter;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
@@ -14,13 +15,10 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DonacionVi
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
+@Getter
 public class ReporteMovimientosViandaPorHeladera extends Reporte{
     private final LinkedHashMap<HeladeraActiva, Pair<Integer, Integer>> hashMap = new LinkedHashMap<>();
     
-    public LinkedHashMap<HeladeraActiva, Pair<Integer, Integer>> getHashMap(){
-        return hashMap;
-    }
-
     @Override
     public void programarReporte() {
         

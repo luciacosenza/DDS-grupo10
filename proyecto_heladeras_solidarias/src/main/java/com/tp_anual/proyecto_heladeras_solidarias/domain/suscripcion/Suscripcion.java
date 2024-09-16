@@ -4,7 +4,11 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Suscripcion {
     private final ColaboradorHumano colaborador;
     private final HeladeraActiva heladera;
@@ -25,46 +29,6 @@ public class Suscripcion {
         viandasDisponiblesMin = vViandasDisponiblesMin;
         viandasParaLlenarMax = vViandasParaLlenarMax;
         notificarDesperfecto = vNotificarDesperfecto;
-        medioDeContactoElegido = vMedioDeContactoElegido;
-    }
-
-    public ColaboradorHumano getColaborador() {
-        return colaborador;
-    }
-
-    public HeladeraActiva getHeladera() {
-        return heladera;
-    }
-
-    public Integer getViandasDisponiblesMin() {
-        return viandasDisponiblesMin;
-    }
-    
-    public Integer getViandasParaLlenarMax() {
-        return viandasParaLlenarMax;
-    }
-    
-    public Boolean getNotificarDesperfecto() {
-        return notificarDesperfecto;
-    }
-    
-    public MedioDeContacto getMedioDeContactoElegido() {
-        return medioDeContactoElegido;
-    }
-
-    public void setViandasDisponiblesMin(Integer vViandasDisponiblesMin) {
-        viandasDisponiblesMin = vViandasDisponiblesMin;
-    }
-
-    public void setViandasParaLlenarMax(Integer vViandasParaLlenarMax) {
-        viandasParaLlenarMax = vViandasParaLlenarMax;
-    }
-
-    public void setNotificarDesperfecto(Boolean vNotificarDesperfecto) {
-        notificarDesperfecto = vNotificarDesperfecto;
-    }
-
-    public void setMedioDeContactoElegido(MedioDeContacto vMedioDeContactoElegido) {
         medioDeContactoElegido = vMedioDeContactoElegido;
     }
     

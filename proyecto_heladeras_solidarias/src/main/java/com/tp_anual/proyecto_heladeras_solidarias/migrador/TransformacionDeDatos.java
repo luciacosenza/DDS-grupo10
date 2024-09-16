@@ -19,9 +19,10 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.Contribuci
 import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.extern.java.Log;
 
+@Log
 public class TransformacionDeDatos {
-    private static final Logger logger = Logger.getLogger(TransformacionDeDatos.class.getName());
 
     private String quitarEspacios(String string) {
         return string.replaceAll("\\s+", "");
@@ -42,7 +43,7 @@ public class TransformacionDeDatos {
     
     private ColaboradorHumano procesarColaborador(String[] data) {
         if (data.length != 8) {
-            logger.log(Level.SEVERE, I18n.getMessage("migrador.TransformacionDeDatos.procesarColaborador_err_fila_incompleta", Arrays.toString(data)));
+            log.log(Level.SEVERE, I18n.getMessage("migrador.TransformacionDeDatos.procesarColaborador_err_fila_incompleta", Arrays.toString(data)));
             throw new RuntimeException(I18n.getMessage("migrador.TransformacionDeDatos.procesarColaborador_exception_fila_incompleta"));
         }
         
@@ -82,7 +83,7 @@ public class TransformacionDeDatos {
     }    
 
     public void confirmarTransformation() {
-        logger.log(Level.INFO, I18n.getMessage("migrador.TransformacionDeDatos.confirmarTransformation_info"));
+        log.log(Level.INFO, I18n.getMessage("migrador.TransformacionDeDatos.confirmarTransformation_info"));
     }
 
     public ArrayList<ColaboradorHumano> transform(ArrayList<String[]> data) {

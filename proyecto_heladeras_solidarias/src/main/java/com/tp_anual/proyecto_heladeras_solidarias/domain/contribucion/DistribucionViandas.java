@@ -7,9 +7,12 @@ import java.util.logging.Logger;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.Getter;
+import lombok.extern.java.Log;
 
+@Log
+@Getter
 public class DistribucionViandas extends Contribucion {
-    private static final Logger logger = Logger.getLogger(DistribucionViandas.class.getName());
     private final HeladeraActiva origen;
     private final HeladeraActiva destino;
     private final Integer cantidadViandasAMover;
@@ -22,29 +25,11 @@ public class DistribucionViandas extends Contribucion {
     }
     
     public DistribucionViandas(Colaborador vColaborador, LocalDateTime vFechaContribucion, HeladeraActiva vOrigen, HeladeraActiva vDestino, Integer vCantidadViandasAMover, MotivoDistribucion vMotivo) {
-        colaborador = vColaborador;
-        fechaContribucion = vFechaContribucion;
+        super(vColaborador, vFechaContribucion);
         origen = vOrigen;
         destino = vDestino;
         cantidadViandasAMover = vCantidadViandasAMover;
         motivo = vMotivo;
-        completada = false;
-    }
-
-    public HeladeraActiva getOrigen() {
-        return origen;
-    }
-
-    public HeladeraActiva getDestino() {
-        return destino;
-    }
-
-    public Integer getCantidadViandasAMover() {
-        return cantidadViandasAMover;
-    }
-
-    public MotivoDistribucion getMotivo() {
-        return motivo;
     }
 
     @Override
@@ -59,14 +44,14 @@ public class DistribucionViandas extends Contribucion {
     @Override
     public void validarIdentidad() {
         if(colaborador.getDomicilio() == null) {
-            logger.log(Level.SEVERE, I18n.getMessage("contribucion.DistribucionViandas.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
+            log.log(Level.SEVERE, I18n.getMessage("contribucion.DistribucionViandas.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
             throw new IllegalArgumentException(I18n.getMessage("contribucion.DistribucionViandas.validarIdentidad_exception"));
         }
     }
 
     @Override
     protected void confirmarSumaPuntos(Double puntosSumados) {
-        logger.log(Level.INFO, I18n.getMessage("contribucion.DistribucionViandas.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
+        log.log(Level.INFO, I18n.getMessage("contribucion.DistribucionViandas.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
     @Override

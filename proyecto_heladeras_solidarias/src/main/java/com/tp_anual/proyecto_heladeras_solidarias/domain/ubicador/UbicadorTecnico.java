@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import lombok.extern.java.Log;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.area.Area;
@@ -15,9 +16,8 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.tecnico.Tecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
+@Log
 public class UbicadorTecnico {
-    private static final Logger logger = Logger.getLogger(UbicadorTecnico.class.getName());
-
     public UbicadorTecnico() {}
 
     public Tecnico obtenerTecnicoCercanoA(Incidente incidente) {
@@ -44,7 +44,7 @@ public class UbicadorTecnico {
         OptionalDouble distanciaMinima = distancias.stream().mapToDouble(Double::doubleValue).min();
         
         if (!distanciaMinima.isPresent()) {
-            logger.log(Level.SEVERE, I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_err", heladera.getNombre()));
+            log.log(Level.SEVERE, I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_err", heladera.getNombre()));
             throw new IllegalArgumentException(I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception"));
         }
 

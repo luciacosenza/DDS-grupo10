@@ -4,17 +4,16 @@ import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
+import lombok.Getter;
 
+@Getter
 public abstract class AccionHeladera {
-    protected LocalDateTime fecha;
-    protected Heladera heladera;
+    protected final LocalDateTime fecha;
+    protected final Heladera heladera;
 
-    public LocalDateTime getFecha() {
-        return fecha;
-    }
-
-    public Heladera getHeladera() {
-        return heladera;
+    protected AccionHeladera(LocalDateTime vFecha, Heladera vHeladera) {
+        fecha = vFecha;
+        heladera = vHeladera;
     }
 
     public void darDeAlta() {

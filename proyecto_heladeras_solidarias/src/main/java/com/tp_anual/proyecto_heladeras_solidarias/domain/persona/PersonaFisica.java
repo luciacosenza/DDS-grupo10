@@ -4,12 +4,16 @@ import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class PersonaFisica extends Persona {
     private String nombre;
     private String apellido;
-    private Documento documento;
-    private LocalDateTime fechaNacimiento;
+    private final Documento documento;
+    private final LocalDateTime fechaNacimiento;
 
     public PersonaFisica(String vNombre, String vApellido, Documento vDocumento, LocalDateTime vFechaDeNacimiento) {
         nombre = vNombre;
@@ -17,39 +21,7 @@ public class PersonaFisica extends Persona {
         documento = vDocumento;
         fechaNacimiento = vFechaDeNacimiento;
     }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public Documento getDocumento() {
-        return documento;
-    }
-
-    public LocalDateTime getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setNombre(String vNombre) {
-        nombre = vNombre;
-    }
-
-    public void setApellido(String vApellido) {
-        apellido = vApellido;
-    }
-
-    public void setDocumento(Documento vDocumento) {
-        documento = vDocumento;
-    }
-
-    public void setFechaNacimiento(LocalDateTime vFechaNacimiento) {
-        fechaNacimiento = vFechaNacimiento;
-    }
-
+    
     // Método para obtener los detalles "importantes" que identifican de forma sencilla a una Persona, implementado en ambos tipos de Persona
     @Override
     public String getNombre(Integer n) {

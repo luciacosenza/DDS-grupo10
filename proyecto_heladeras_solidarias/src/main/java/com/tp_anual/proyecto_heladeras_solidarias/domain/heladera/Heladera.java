@@ -2,7 +2,6 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.heladera;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contacto.MedioDeContacto;
@@ -10,41 +9,35 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Alerta;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.java.Log;
 
+@Getter
+@Setter
 public abstract class Heladera implements HeladeraObserver {    // Implementa una Interfaz "HeladeraSubject" a nivel conceptual
-    protected static final Logger logger = Logger.getLogger(Heladera.class.getName());
     protected String nombre;
     protected Ubicacion ubicacion;
-    protected ArrayList<Vianda> viandas;
-    protected Integer capacidad;
-    protected LocalDateTime fechaApertura;
-    protected Float tempMin;
-    protected Float tempMax;
+    protected final Integer capacidad;
+    protected final Float tempMin;
+    protected final Float tempMax;
+    protected final ArrayList<Vianda> viandas;
     protected Float tempActual;
+    protected LocalDateTime fechaApertura;
     protected Boolean estado;
     protected GestorDeAperturas gestorDeAperturas;
-    
-    public abstract String getNombre();
 
-    public abstract Ubicacion getUbicacion();
-
-    public abstract ArrayList<Vianda> getViandas();
-
-    public abstract Integer getCapacidad();
-
-    public abstract LocalDateTime getFechaApertura();
-
-    public abstract Float getTempMin();
-
-    public abstract Float getTempMax();
-
-    public abstract Float getTempActual();
-
-    public abstract Boolean getEstado();
-
-    public abstract GestorDeAperturas getGestorDeAperturas();
-
-    public abstract void setEstado(Boolean nuevoEstado);
+    protected Heladera(String vNombre, Ubicacion vUbicacion, Integer vCapacidad, Float vTempMin, Float vTempMax, ArrayList<Vianda> vViandas, Float vTempActual, LocalDateTime vFechaApertura, Boolean vEstado) {
+        nombre = vNombre;
+        ubicacion = vUbicacion;
+        capacidad = vCapacidad;
+        tempMin = vTempMin;
+        tempMax = vTempMax;
+        viandas = vViandas;
+        tempActual = vTempActual;
+        fechaApertura = vFechaApertura;
+        estado = vEstado;
+    }
 
     public abstract void darDeAlta() ;
 

@@ -7,7 +7,9 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraNula;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.extern.java.Log;
 
+@Log
 public class PermisoAperturaNulo extends PermisoApertura {
     public PermisoAperturaNulo() {
         heladeraPermitida = new HeladeraNula();
@@ -21,7 +23,7 @@ public class PermisoAperturaNulo extends PermisoApertura {
 
     @Override
     public LocalDateTime getFechaOtorgamiento() {
-        logger.log(Level.SEVERE, I18n.getMessage("tarjeta.permisos_de_apertura.PermisoAperturaNulo.getFechaOtorgamiento_exception"));
+        log.log(Level.SEVERE, I18n.getMessage("tarjeta.permisos_de_apertura.PermisoAperturaNulo.getFechaOtorgamiento_exception"));
         throw new UnsupportedOperationException(I18n.getMessage("tarjeta.permisos_de_apertura.PermisoAperturaNulo.getFechaOtorgamiento_exception"));
     }
 
@@ -35,6 +37,9 @@ public class PermisoAperturaNulo extends PermisoApertura {
 
     @Override
     public void setHeladeraPermitida(Heladera heladera) {}
+
+    @Override
+    public void setFechaOtorgamiento(LocalDateTime fechaOtorgamiento) {}
 
     @Override
     public void resetHeladeraPermitida() {}

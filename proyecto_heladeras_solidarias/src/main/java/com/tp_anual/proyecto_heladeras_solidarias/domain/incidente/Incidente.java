@@ -4,14 +4,12 @@ import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
+import lombok.Getter;
 
+@Getter
 public abstract class Incidente {
     protected LocalDateTime fecha;
     protected HeladeraActiva heladera;
-
-    public HeladeraActiva getHeladera() {
-        return heladera;
-    }
 
     public void darDeAlta() {
         Sistema.agregarIncidente(this);

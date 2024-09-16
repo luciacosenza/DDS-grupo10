@@ -7,7 +7,11 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class PersonaEnSituacionVulnerable {
     private final PersonaFisica persona;
     private Ubicacion domicilio;
@@ -20,38 +24,6 @@ public class PersonaEnSituacionVulnerable {
         domicilio = vDomicilio;
         fechaRegistro = vFechaRegistro;
         menoresACargo = vMenoresACargo;
-    }
-
-    public PersonaFisica getPersona() {
-        return persona;
-    }
-
-    public Ubicacion getDomicilio() {
-        return domicilio;
-    }
-
-    public LocalDateTime getFechaRegistro() {
-        return fechaRegistro;
-    }
-
-    public Integer getMenoresACargo() {
-        return menoresACargo;
-    }
-
-    public TarjetaPersonaEnSituacionVulnerable getTarjeta() {
-        return tarjeta;
-    }
-
-    public void setDomicilio(Ubicacion vDomicilio) {
-        domicilio = vDomicilio;
-    }
-
-    public void setMenoresACargo(Integer vMenoresACargo) {
-        menoresACargo = vMenoresACargo;
-    }
-
-    public void setTarjeta(TarjetaPersonaEnSituacionVulnerable tarjetaAsignada) {
-        tarjeta = tarjetaAsignada;
     }
 
     public Boolean poseeMenoresACargo() {

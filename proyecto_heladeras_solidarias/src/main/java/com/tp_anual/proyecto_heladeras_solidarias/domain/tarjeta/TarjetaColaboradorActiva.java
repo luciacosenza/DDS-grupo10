@@ -17,34 +17,13 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_he
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_apertura.PermisoApertura;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_apertura.PermisoAperturaActivo;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.Getter;
+import lombok.extern.java.Log;
 
+@Log
 public class TarjetaColaboradorActiva extends TarjetaColaborador {
-    
     public TarjetaColaboradorActiva(ColaboradorHumano vTitular) {
-        codigo = GeneradorCodigo.generarCodigo(true);
-        titular = vTitular;
-        estadoSolicitud = new EstadoPosible();
-        permiso = new PermisoAperturaActivo();
-    }
-
-    @Override
-    public ColaboradorHumano getTitular() {
-        return titular;
-    }
-
-    @Override
-    public EstadoSolicitud getEstadoSolicitud() {
-        return estadoSolicitud;
-    }
-    
-    @Override
-    public PermisoApertura getPermiso() {
-        return permiso;
-    }
-
-    @Override
-    public void setEstadoSolicitud(EstadoSolicitud vEstadoSolicitud) {
-        estadoSolicitud = vEstadoSolicitud;
+        super(GeneradorCodigo.generarCodigo(true), vTitular, new EstadoPosible(), new PermisoAperturaActivo());
     }
 
     @Override
@@ -66,7 +45,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
                 setEstadoSolicitud(new EstadoExpirada());
             }
 
-            logger.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaboradorActiva.programarRevocacionPermisos_info", permiso.getHeladeraPermitida().getNombre(), titular.getPersona().getNombre(2)));
+            log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaboradorActiva.programarRevocacionPermisos_info", permiso.getHeladeraPermitida().getNombre(), titular.getPersona().getNombre(2)));
         };
 
         // Programa la tarea para que se ejecute una vez después de 3 horas
@@ -92,7 +71,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
         permiso.setHeladeraPermitida(heladeraInvolucrada);
         permiso.actualizarFechaOtorgamiento();
 
-        logger.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaboradorActiva.solicitarApertura_info", heladeraInvolucrada.getNombre(), titular.getPersona().getNombre(2)));
+        log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaboradorActiva.solicitarApertura_info", heladeraInvolucrada.getNombre(), titular.getPersona().getNombre(2)));
 
         programarRevocacionPermisos();
 
@@ -113,7 +92,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
         setEstadoSolicitud(new EstadoPosible());
         // A partir de acá, el Estado de Solicitud pasará a Posible, hasta que se solicite una nueva Apertura
 
-        logger.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaboradorActiva.intentarApertura_info", heladeraInvolucrada.getNombre(), titular.getPersona().getNombre(2)));
+        log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaboradorActiva.intentarApertura_info", heladeraInvolucrada.getNombre(), titular.getPersona().getNombre(2)));
 
         return apertura;
     }

@@ -6,9 +6,11 @@ import java.util.stream.Collectors;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Heladera;
 
 public class GestorDeSuscripciones {
-    private final ArrayList<Suscripcion> suscripciones = new ArrayList<>();
+    private final ArrayList<Suscripcion> suscripciones;
 
-    public GestorDeSuscripciones() {}
+    public GestorDeSuscripciones() {
+        suscripciones = new ArrayList<>();
+    }
 
     public void agregarSuscripcion(Suscripcion suscripcion) {
         suscripciones.add(suscripcion);

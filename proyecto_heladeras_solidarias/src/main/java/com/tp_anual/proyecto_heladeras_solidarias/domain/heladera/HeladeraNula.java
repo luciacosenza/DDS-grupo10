@@ -11,19 +11,12 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.extern.java.Log;
 
+@Log
 public class HeladeraNula extends Heladera {
     public HeladeraNula() {
-        nombre = "N/A";
-        ubicacion = null;
-        viandas = new ArrayList<>();
-        capacidad = 0;
-        fechaApertura = null;
-        tempMin = 0f;
-        tempMax = 0f;
-        tempActual = 0f;
-        estado = false;
-        gestorDeAperturas = null;
+        super("N/A", null, 0, 0f, 0f, new ArrayList<>(), 0f, null, false);
     }
 
     @Override
@@ -33,24 +26,13 @@ public class HeladeraNula extends Heladera {
 
     @Override
     public Ubicacion getUbicacion() {
-        logger.log(Level.SEVERE, I18n.getMessage("heladera.HeladerNula.getUbicacion_err"));
+        log.log(Level.SEVERE, I18n.getMessage("heladera.HeladerNula.getUbicacion_err"));
         throw new UnsupportedOperationException(I18n.getMessage("heladera.HeladeraNula.getUbicacion_exception"));
-    }
-
-    @Override
-    public ArrayList<Vianda> getViandas() {
-        return viandas;
     }
 
     @Override
     public Integer getCapacidad() {
         return capacidad;
-    }
-
-    @Override
-    public LocalDateTime getFechaApertura() {
-        logger.log(Level.SEVERE, I18n.getMessage("heladera.HeladerNula.getFechaApertura_err"));
-        throw new UnsupportedOperationException(I18n.getMessage("heladera.HeladeraNula.getFechaApertura_exception"));
     }
 
     @Override
@@ -63,8 +45,19 @@ public class HeladeraNula extends Heladera {
     }
 
     @Override
+    public ArrayList<Vianda> getViandas() {
+        return viandas;
+    }
+
+    @Override
     public Float getTempActual() {
         return tempActual;
+    }
+
+    @Override
+    public LocalDateTime getFechaApertura() {
+        log.log(Level.SEVERE, I18n.getMessage("heladera.HeladerNula.getFechaApertura_err"));
+        throw new UnsupportedOperationException(I18n.getMessage("heladera.HeladeraNula.getFechaApertura_exception"));
     }
 
     @Override
@@ -74,12 +67,25 @@ public class HeladeraNula extends Heladera {
 
     @Override
     public GestorDeAperturas getGestorDeAperturas() {
-        logger.log(Level.SEVERE, I18n.getMessage("heladera.HeladerNula.getGestorDeAperturas_err"));
+        log.log(Level.SEVERE, I18n.getMessage("heladera.HeladerNula.getGestorDeAperturas_err"));
         throw new UnsupportedOperationException(I18n.getMessage("heladera.HeladeraNula.getGestorDeAperturas_exception"));
     }
 
     @Override
-    public void setEstado(Boolean nuevoEstado) {}
+    public void setNombre(String nombre) {}
+
+    @Override
+    public void setUbicacion(Ubicacion ubicacion) {}
+
+    @Override
+    public void setFechaApertura(LocalDateTime fechaApertura) {}
+
+    @Override
+    public void setEstado(Boolean estado) {}
+
+    @Override
+    public void setGestorDeAperturas(GestorDeAperturas gestorDeAperturas) {}
+
     
     @Override
     public void darDeAlta() {}
@@ -115,7 +121,7 @@ public class HeladeraNula extends Heladera {
 
     @Override
     public Vianda retirarVianda() {
-        logger.log(Level.SEVERE, I18n.getMessage("heladera.HeladerNula.retirarVianda_err"));
+        log.log(Level.SEVERE, I18n.getMessage("heladera.HeladerNula.retirarVianda_err"));
         throw new UnsupportedOperationException(I18n.getMessage("heladera.HeladeraNula.retirarVianda_exception"));
     }
 

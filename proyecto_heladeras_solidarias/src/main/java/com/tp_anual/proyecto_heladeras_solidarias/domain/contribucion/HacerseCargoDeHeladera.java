@@ -11,20 +11,24 @@ import java.util.logging.Logger;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.extern.java.Log;
 
+@Log
+@Getter
 public class HacerseCargoDeHeladera extends Contribucion {
-    private static final Logger logger = Logger.getLogger(HacerseCargoDeHeladera.class.getName());
     private final HeladeraActiva heladeraObjetivo;
     private LocalDateTime ultimaActualizacion;
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final Double multiplicador_puntos = 5d;
 
+    @Getter(AccessLevel.NONE)
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
     public HacerseCargoDeHeladera(Colaborador vColaborador, LocalDateTime vFechaContribucion, HeladeraActiva vHeladeraObjetivo) {
-        colaborador = vColaborador;
-        fechaContribucion = vFechaContribucion;
+        super(vColaborador, vFechaContribucion);
         heladeraObjetivo = vHeladeraObjetivo;
         ultimaActualizacion = LocalDateTime.now();
-        completada = false;
     }
 
     @Override
@@ -32,17 +36,13 @@ public class HacerseCargoDeHeladera extends Contribucion {
         super.obtenerDetalles();
         System.out.println(I18n.getMessage("contribucion.HacerseCargoDeHeladera.obtenerDetalles_out_heladera_objetivo", heladeraObjetivo.getNombre()));
     }
-    
-    public HeladeraActiva getHeladeraObjetivo() {
-        return heladeraObjetivo;
-    }
 
     @Override
     public void validarIdentidad() {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
 
     @Override
     protected void confirmarSumaPuntos(Double puntosSumados) {
-        logger.log(Level.INFO, I18n.getMessage("contribucion.HacerseCargoDeHeladera.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
+        log.log(Level.INFO, I18n.getMessage("contribucion.HacerseCargoDeHeladera.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
     
     @Override

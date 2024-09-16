@@ -11,21 +11,21 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.HacerseCar
 import com.tp_anual.proyecto_heladeras_solidarias.domain.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.java.Log;
 
+@Log
+@Getter
+@Setter
 public class ColaboradorJuridico extends Colaborador {
-    public ColaboradorJuridico(Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos, String vRazonSocial, String vRubro, PersonaJuridica.TipoPersonaJuridica vTipo) {
-        persona = new PersonaJuridica(vRazonSocial, vTipo, vRubro);
-        domicilio = vDomicilio;
-        mediosDeContacto = vMediosDeContacto;
-        contribuciones = vContribuciones;
-        contribucionesPendientes = new ArrayList<>();
-
+    public ColaboradorJuridico(PersonaJuridica vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
+        super(vPersona, vDomicilio, vMediosDeContacto, vContribuciones, vBeneficiosAdquiridos, vPuntos);
         creatorsPermitidos = new HashSet<>();
         creatorsPermitidos.add(CargaOfertaCreator.class);
         creatorsPermitidos.add(DonacionDineroCreator.class);
         creatorsPermitidos.add(HacerseCargoDeHeladeraCreator.class);
 
-        beneficiosAdquiridos = vBeneficiosAdquiridos;
         puntos = vPuntos;
     }
 

@@ -10,25 +10,21 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_heladera.AperturaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.java.Log;
 
+@Log
+@Getter
+@Setter
 public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
-    private static final Logger logger = Logger.getLogger(TarjetaPersonaEnSituacionVulnerable.class.getName());
     private PersonaEnSituacionVulnerable titular;
-    protected ArrayList<UsoTarjeta> usos;
+    protected final ArrayList<UsoTarjeta> usos;
 
     public TarjetaPersonaEnSituacionVulnerable(PersonaEnSituacionVulnerable vTitular) {
-        codigo = GeneradorCodigo.generarCodigo(false);
+        super(GeneradorCodigo.generarCodigo(false));
         titular = vTitular;
         usos = new ArrayList<>();
-    }
-
-    @Override
-    public PersonaEnSituacionVulnerable getTitular() {
-        return titular;
-    }
-
-    public void setTitular(PersonaEnSituacionVulnerable vTitular) {
-        titular = vTitular;
     }
     
     public void agregarUso(UsoTarjeta uso) {
@@ -54,7 +50,7 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
         
         Runnable reseteoUsos = () -> {
             resetUsos();
-            logger.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.programarRevocacionPermisos_info", titular.getPersona().getNombre(2)));
+            log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.programarRevocacionPermisos_info", titular.getPersona().getNombre(2)));
         };
 
         // Programa la tarea para que se ejecute una vez por día
@@ -69,14 +65,14 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
 
         LocalDateTime ahora = LocalDateTime.now();   // Guardo el valor en una variable para usar exactamente el mismo en las líneas de código posteriores
 
-        AperturaPersonaEnSituacionVulnerable apertura = new AperturaPersonaEnSituacionVulnerable(ahora, heladeraInvolucrada, this.getTitular());
+        AperturaPersonaEnSituacionVulnerable apertura = new AperturaPersonaEnSituacionVulnerable(ahora, heladeraInvolucrada, titular);
         apertura.darDeAlta();
 
         // Registro el Uso de la Tarjeta en la Heladera correspondiente
         UsoTarjeta uso = new UsoTarjeta(ahora, heladeraInvolucrada);
         agregarUso(uso);
 
-        logger.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.intentarApertura_info", heladeraInvolucrada.getNombre(), titular.getPersona().getNombre(2)));
+        log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.intentarApertura_info", heladeraInvolucrada.getNombre(), titular.getPersona().getNombre(2)));
 
         return apertura;
     }

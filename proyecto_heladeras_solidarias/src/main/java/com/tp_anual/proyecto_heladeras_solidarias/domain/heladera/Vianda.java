@@ -3,7 +3,11 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.heladera;
 import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.ColaboradorHumano;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Vianda {
     private String comida;
     private Heladera heladera;
@@ -24,72 +28,6 @@ public class Vianda {
         peso = vPeso;
         entregada = vEntregada;
     }
-
-    public String getComida() {
-        return comida;
-    }
-
-    public Heladera getHeladera() {
-        return heladera;
-    }
-
-    public ColaboradorHumano getColaborador() {
-        return colaborador;
-    }
-
-    public LocalDateTime getFechaCaducidad() {
-        return fechaCaducidad;
-    }
-
-    public LocalDateTime getFechaDonacion() {
-        return fechaDonacion;
-    }
-
-    public Integer getCalorias() {
-        return calorias;
-    }
-
-    public Integer getPeso() {
-        return peso;
-    }
-
-    public Boolean fueEntregada() {
-        return entregada;
-    }
-
-    public void setComida(String vComida) {
-        comida = vComida;
-    }
-
-    public void setHeladera(Heladera vHeladera) {
-        heladera = vHeladera;
-    }
-
-    public void setColaborador(ColaboradorHumano vColaborador) {
-        colaborador = vColaborador;
-    }
-
-    public void setFechaCaducidad(LocalDateTime vFechaCaducidad) {
-        fechaCaducidad = vFechaCaducidad;
-    }
-
-    public void setFechaDonacion(LocalDateTime vFechaDonacion) {
-        fechaDonacion = vFechaDonacion;
-    }
-
-    public void setCalorias(Integer vCalorias) {
-        calorias = vCalorias;
-    }
-
-    public void setPeso(Integer vPeso) {
-        peso = vPeso;
-    }
-
-    public void setEntregada(Boolean vEntregada) {
-        entregada = vEntregada;
-    }
-
-
 
     // Este método debe ser llamado cuando una Vianda es retirada de una Heladera (se queda "sin Heladera", momentáneamente)
     public void quitarDeHeladera() {

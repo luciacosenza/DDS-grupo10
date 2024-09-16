@@ -1,5 +1,8 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.documento;
 
+import lombok.Getter;
+
+@Getter
 public class Documento {
     private final TipoDocumento tipo;
     private final String numero;
@@ -23,17 +26,5 @@ public class Documento {
         tipo = vTipo;
         numero = vNumero;
         sexo = vSexo;
-    }
-
-    public TipoDocumento getTipo() {
-        return tipo;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public Sexo getSexo() {
-        return sexo;
     }
 }

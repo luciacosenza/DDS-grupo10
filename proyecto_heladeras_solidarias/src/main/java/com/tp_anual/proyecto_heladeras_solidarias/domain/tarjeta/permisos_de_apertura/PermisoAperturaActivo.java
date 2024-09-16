@@ -5,7 +5,11 @@ import java.time.LocalDateTime;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraNula;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.java.Log;
 
+@Log
 public class PermisoAperturaActivo extends PermisoApertura {
     public PermisoAperturaActivo() {
         heladeraPermitida = new HeladeraNula();
@@ -18,11 +22,6 @@ public class PermisoAperturaActivo extends PermisoApertura {
     }
 
     @Override
-    public LocalDateTime getFechaOtorgamiento() {
-        return fechaOtorgamiento;
-    }
-
-    @Override
     public void actualizarFechaOtorgamiento(){
         fechaOtorgamiento = LocalDateTime.now();
     }
@@ -32,14 +31,9 @@ public class PermisoAperturaActivo extends PermisoApertura {
         return heladera == heladeraPermitida;
     }
 
-    @Override
-    public void setHeladeraPermitida(Heladera vHeladera) {
-        heladeraPermitida = vHeladera;
-    }
-
     // Este método es llamado cuando se revocan los Permisos de Apertura sobre una Heladera
     @Override
     public void resetHeladeraPermitida() {
-        setHeladeraPermitida(new HeladeraNula());
+        heladeraPermitida = new HeladeraNula();
     }
 }

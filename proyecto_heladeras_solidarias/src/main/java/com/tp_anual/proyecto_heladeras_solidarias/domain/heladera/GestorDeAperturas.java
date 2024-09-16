@@ -12,24 +12,23 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColabora
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_apertura.PermisoApertura;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.Getter;
+import lombok.extern.java.Log;
 
+@Log
+@Getter
 public class GestorDeAperturas {
-    private static final Logger logger = Logger.getLogger(GestorDeAperturas.class.getName());
     private final HeladeraActiva heladera;
 
     public GestorDeAperturas(HeladeraActiva vHeladera) {
         heladera = vHeladera;
     }
-
-    public HeladeraActiva getHeladera() {
-        return heladera;
-    }
-
+    
     public void revisarSolicitudApertura(MotivoSolicitud motivo) {
         if (motivo == MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION &&
             heladera.estaVacia()) {
             
-            logger.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_err_heladera_vacia", heladera.getNombre()));
+            log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_err_heladera_vacia", heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_exception_heladera_vacia"));
         }
 
@@ -37,7 +36,7 @@ public class GestorDeAperturas {
             motivo == MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION) &&
             heladera.estaLlena()) {
 
-            logger.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_err_heladera_llena", heladera.getNombre()));
+            log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_err_heladera_llena", heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_exception_heladera_llena"));
         }
     }
@@ -50,7 +49,7 @@ public class GestorDeAperturas {
         if (!(estadoSolicitud instanceof EstadoRealizada) ||
             !(permisoApertura.esHeladeraPermitida(heladera))) {
             
-            logger.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_err", colaborador.getPersona().getNombre(2), heladera.getNombre()));
+            log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_err", colaborador.getPersona().getNombre(2), heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_exception"));
         }
     }
@@ -59,12 +58,12 @@ public class GestorDeAperturas {
         TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable = personaEnSituacionVulnerable.getTarjeta();
         
         if (!tarjetaPersonaEnSituacionVulnerable.puedeUsar()) {
-            logger.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_err_usos_agotados", personaEnSituacionVulnerable.getPersona().getNombre(2)));
+            log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_err_usos_agotados", personaEnSituacionVulnerable.getPersona().getNombre(2)));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_exception_usos_agotados"));
         }
 
         if(heladera.estaVacia()) {
-            logger.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.resvisarPermisoAperturaP_err_heladera_vacia", heladera.getNombre()));
+            log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.resvisarPermisoAperturaP_err_heladera_vacia", heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_exception_heladera_vacia"));
         }
     }

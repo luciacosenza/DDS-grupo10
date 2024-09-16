@@ -3,7 +3,9 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.incidente;
 import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
+import lombok.Getter;
 
+@Getter
 public class Alerta extends Incidente {
     private final TipoAlerta tipo;
 
@@ -17,9 +19,5 @@ public class Alerta extends Incidente {
         fecha = vFecha;
         heladera = vHeladera;
         tipo = vTipo;
-    }
-
-    public TipoAlerta getTipo() {
-        return tipo;
     }
 }

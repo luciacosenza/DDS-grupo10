@@ -11,7 +11,7 @@ public class GeneradorCodigo {
         String prefijo = esColaborador ? "C" : "P";
         
         // Obtengo el siguiente número (e itero) del auto-incremental, según el tipo de titular
-        long numero = esColaborador ? contadorColaboradores.getAndIncrement() : contadorPersonas.getAndIncrement();
+        Long numero = esColaborador ? contadorColaboradores.getAndIncrement() : contadorPersonas.getAndIncrement();
 
         // Convierto el número a un String de longitud fija con ceros a la izquierda
         String numeroStr = String.format("%010d", numero);

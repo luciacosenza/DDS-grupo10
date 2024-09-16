@@ -8,22 +8,24 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_heladera.AperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_apertura.PermisoApertura;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.java.Log;
 
+@Getter
+@Setter
 public abstract class TarjetaColaborador extends Tarjeta {
-    protected static final Logger logger = Logger.getLogger(TarjetaColaborador.class.getName());
     protected ColaboradorHumano titular;
     protected EstadoSolicitud estadoSolicitud;
     protected PermisoApertura permiso;
 
-    @Override
-    public abstract ColaboradorHumano getTitular();
-
-    public abstract EstadoSolicitud getEstadoSolicitud();
-
-    public abstract PermisoApertura getPermiso();
-
-    public abstract void setEstadoSolicitud(EstadoSolicitud vEstadoSolicitud);
-
+    protected TarjetaColaborador(String vCodigo, ColaboradorHumano vTitular, EstadoSolicitud vEstadoSolicitud, PermisoApertura vPermiso) {
+        super(vCodigo);
+        titular = vTitular;
+        estadoSolicitud = vEstadoSolicitud;
+        permiso = vPermiso;
+    }
+    
     protected abstract void programarRevocacionPermisos();
 
     public abstract SolicitudAperturaColaborador solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo);

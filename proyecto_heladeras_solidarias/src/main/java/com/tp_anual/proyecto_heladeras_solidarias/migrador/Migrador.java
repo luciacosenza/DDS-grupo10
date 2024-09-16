@@ -8,14 +8,24 @@ import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.java.Log;
 
+@Log
 public class Migrador {
-    private static final Logger logger = Logger.getLogger(Migrador.class.getName());
-    private static ExtraccionDeDatos protocoloExtraccion;
-    private static final TransformacionDeDatos transformador = new TransformacionDeDatos();
-    private static EnvioDeDatos protocoloEnvio;
+    @Setter
+    private static ExtraccionDeDatos protocoloExtraccion = new ExtraccionCSV();
 
+    private static final TransformacionDeDatos transformador = new TransformacionDeDatos();
+
+    @Setter
+    private static EnvioDeDatos protocoloEnvio = new EnvioEMail();
+
+    @Getter(AccessLevel.NONE)
     private static final String ASUNTO = "Gracias por tu apoyo! Aquí están tus credenciales de acceso al nuevo Sistema";
+    @Getter(AccessLevel.NONE)
     private static final String CUERPO =
             """
             Estimado/a %s,
@@ -50,16 +60,8 @@ public class Migrador {
             [Datos de Contacto de la ONG]
             """;
 
-    public static void setExtraccionDeDatosStrategy(ExtraccionDeDatos protocolo) {
-        protocoloExtraccion = protocolo;
-    }
-    
-    public static void setEnvioDeDatosStrategy(EnvioDeDatos protocolo) {
-        protocoloEnvio = protocolo;
-    }
-
     public static void confirmarLoading() {
-        logger.log(Level.INFO, I18n.getMessage("migrador.Migrador.confirmarLoading_info"));
+        log.log(Level.INFO, I18n.getMessage("migrador.Migrador.confirmarLoading_info"));
     }
 
     public static void migrar(String csv) throws IOException, URISyntaxException {        

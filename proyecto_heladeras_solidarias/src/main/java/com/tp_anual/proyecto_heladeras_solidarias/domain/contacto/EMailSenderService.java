@@ -16,9 +16,11 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import lombok.Getter;
+import lombok.extern.java.Log;
 
+@Log
 public class EMailSenderService {
-	private static final Logger logger = Logger.getLogger(Colaborador.class.getName());
     private static final Properties propiedades = new Properties();
 	private static final Dotenv dotenv = Dotenv.load();
     private static final String  username = dotenv.get("EMAIL_USERNAME");
@@ -57,7 +59,7 @@ public class EMailSenderService {
 			Transport.send(mensaje);
 
 		} catch (MessagingException me) {
-			logger.log(Level.SEVERE, I18n.getMessage("contacto.EMailSenderService.enviarEMail_err", receptor));
+			log.log(Level.SEVERE, I18n.getMessage("contacto.EMailSenderService.enviarEMail_err", receptor));
 			throw new RuntimeException(I18n.getMessage("contacto.EMailSenderService.enviarEMail_exception"));
         }
     }

@@ -4,9 +4,10 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contacto.EMail;
 
 public class EnvioEMail extends EnvioDeDatos {
+
     @Override
     public void send(ColaboradorHumano colaborador, String asunto, String cuerpo) {
-        EMail eMail = colaborador.getContacto(EMail.class);
+        EMail eMail = colaborador.getMedioDeContacto(EMail.class);
         eMail.contactar(asunto, cuerpo.formatted(colaborador.getPersona().getNombre(), eMail));
 
         confirmarSending();

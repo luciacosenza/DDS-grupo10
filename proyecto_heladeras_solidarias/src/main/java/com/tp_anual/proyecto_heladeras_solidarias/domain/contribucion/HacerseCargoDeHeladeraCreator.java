@@ -8,9 +8,10 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import lombok.extern.java.Log;
 
+@Log
 public class HacerseCargoDeHeladeraCreator implements ContribucionCreator {
-    private static final Logger logger = Logger.getLogger(HacerseCargoDeHeladeraCreator.class.getName());
 
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador,LocalDateTime fechaContribucion) {
@@ -27,7 +28,7 @@ public class HacerseCargoDeHeladeraCreator implements ContribucionCreator {
         if (args.length != 1 ||
             !(args[0] instanceof HeladeraActiva)) {
             
-            logger.log(Level.SEVERE, I18n.getMessage("contribucion.HacerseCargoDeHeladeraCreator.crearContribucion_err"));
+            log.log(Level.SEVERE, I18n.getMessage("contribucion.HacerseCargoDeHeladeraCreator.crearContribucion_err"));
             throw new IllegalArgumentException(I18n.getMessage("contribucion.HacerseCargoDeHeladeraCreator.crearContribucion_exception"));
         }
         
