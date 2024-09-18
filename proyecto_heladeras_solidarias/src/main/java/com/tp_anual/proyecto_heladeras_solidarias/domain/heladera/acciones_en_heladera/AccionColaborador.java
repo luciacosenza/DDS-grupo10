@@ -4,10 +4,16 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Heladera;
 import lombok.Getter;
 
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@DiscriminatorValue("Acción Colaborador")
 @Getter
 public abstract class AccionColaborador extends AccionHeladera {
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "colaborador_id")
     protected ColaboradorHumano responsable;
 
     protected AccionColaborador(LocalDateTime vFecha, Heladera vHeladera, ColaboradorHumano vResponsable) {

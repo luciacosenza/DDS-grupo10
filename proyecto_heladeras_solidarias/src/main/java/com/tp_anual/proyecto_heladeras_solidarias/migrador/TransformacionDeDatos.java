@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.conversor.ConversorFormaContribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.conversor.ConversorTipoDocumento;
@@ -17,8 +16,10 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.contacto.MedioDeContact
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.ContribucionCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento;
+import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+
 import lombok.extern.java.Log;
 
 @Log
@@ -71,7 +72,7 @@ public class TransformacionDeDatos {
         fechaContribucion = LocalDateTime.parse(fechaContribucionStr, dateFormat);
         
         // Transforma a colaborador
-        ColaboradorHumano colaborador = new ColaboradorHumano(new Ubicacion(null, null, null, null, null, null), contactos, new ArrayList<>(), new ArrayList<>(), null, nombre, apellido, documento, null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
+        ColaboradorHumano colaborador = new ColaboradorHumano(new PersonaFisica(nombre, apellido, documento, null), new Ubicacion(null, null, null, null, null, null), contactos, new ArrayList<>(), new ArrayList<>(), null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
         
         // Agrega contribuciones a colaborador
         for (Integer i = 0; i < cantColabs; i++) {

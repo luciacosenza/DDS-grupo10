@@ -1,7 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.heladera;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.estado_de_solicitud.EstadoRealizada;

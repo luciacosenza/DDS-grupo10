@@ -4,15 +4,25 @@ import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity 
 @Getter
 @Setter
 public class PersonaFisica extends Persona {
+    
     private String nombre;
+
     private String apellido;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "documento_id")
     private final Documento documento;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private final LocalDateTime fechaNacimiento;
 
     public PersonaFisica(String vNombre, String vApellido, Documento vDocumento, LocalDateTime vFechaDeNacimiento) {

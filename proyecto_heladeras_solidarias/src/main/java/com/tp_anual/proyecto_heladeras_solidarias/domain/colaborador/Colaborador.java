@@ -15,21 +15,49 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.Persona;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
+
+import jakarta.persistence.*;
 import lombok.extern.java.Log;
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_colaborador")
 @Log
 @Getter
 @Setter
 public abstract class Colaborador {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "persona_id")
     protected final Persona persona;
+    
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ubicacion_id")
     protected Ubicacion domicilio;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "medio_de_contacto_id")
     protected final ArrayList<MedioDeContacto> mediosDeContacto;
+    
+    @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER)
     protected final ArrayList<Contribucion> contribuciones;
+    
+    @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER)
     protected final ArrayList<Contribucion> contribucionesPendientes;
+    
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "oferta_id")
     protected final ArrayList<Oferta> beneficiosAdquiridos;
+    
+    @Transient
     protected Set<Class<? extends ContribucionCreator>> creatorsPermitidos;
+    
     protected Double puntos;
 
     protected Colaborador(Persona vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
@@ -41,6 +69,8 @@ public abstract class Colaborador {
         beneficiosAdquiridos = vBeneficiosAdquiridos;
         puntos = vPuntos;
     }
+
+    public abstract Persona getPersona();
 
     // Obtenemos el Medio de Contacto correspondiente a la Clase que pasemos como argumento. Con este método, suponemos que el Colaborador no puede tener más de un Medio de Contacto del mismo tipo
     public <T extends MedioDeContacto> T getMedioDeContacto(Class<T> tipoMedioDeContacto) {

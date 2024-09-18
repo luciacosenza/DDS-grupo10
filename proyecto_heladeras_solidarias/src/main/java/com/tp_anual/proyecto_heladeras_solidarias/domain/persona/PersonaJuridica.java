@@ -1,14 +1,20 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.persona;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity
 @Getter
 @Setter
 public class PersonaJuridica extends Persona {
     private String razonSocial;
+
+    @Enumerated(EnumType.STRING)
     private TipoPersonaJuridica tipo;
+
     private String rubro;
 
     public enum TipoPersonaJuridica {

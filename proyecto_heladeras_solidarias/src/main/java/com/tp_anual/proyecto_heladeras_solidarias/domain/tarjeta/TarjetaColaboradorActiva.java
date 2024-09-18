@@ -9,17 +9,16 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador
 import com.tp_anual.proyecto_heladeras_solidarias.domain.estado_de_solicitud.EstadoExpirada;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.estado_de_solicitud.EstadoPosible;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.estado_de_solicitud.EstadoRealizada;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.estado_de_solicitud.EstadoSolicitud;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_heladera.AperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador.MotivoSolicitud;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_apertura.PermisoApertura;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_apertura.PermisoAperturaActivo;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import lombok.Getter;
 import lombok.extern.java.Log;
+import jakarta.persistence.*;
 
+@Entity
 @Log
 public class TarjetaColaboradorActiva extends TarjetaColaborador {
     public TarjetaColaboradorActiva(ColaboradorHumano vTitular) {
@@ -64,7 +63,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
         SolicitudAperturaColaborador solicitudApertura = new SolicitudAperturaColaborador(LocalDateTime.now(), heladeraInvolucrada, this.getTitular(), motivo);
         solicitudApertura.darDeAlta();
 
-        setEstadoSolicitud(new EstadoRealizada());
+        estadoSolicitud = new EstadoRealizada();
         // A partir de acá, el Estado de Solicitud pasará a Realizada, hasta que se revoquen los permisos, pasadas las 3 horas
 
         // Actualizo (añado) los permisos correspondientes a la Heladera involucrada
@@ -89,7 +88,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
         apertura.darDeAlta();
         
         // Reseteo el Estado de Solicitud
-        setEstadoSolicitud(new EstadoPosible());
+        estadoSolicitud = new EstadoPosible();
         // A partir de acá, el Estado de Solicitud pasará a Posible, hasta que se solicite una nueva Apertura
 
         log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaboradorActiva.intentarApertura_info", heladeraInvolucrada.getNombre(), titular.getPersona().getNombre(2)));

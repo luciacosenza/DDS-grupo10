@@ -2,15 +2,17 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.permisos_de_ap
 
 import java.time.LocalDateTime;
 
-import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraNula;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.java.Log;
 
+
+import lombok.extern.java.Log;
+import jakarta.persistence.*;
+
+@Entity
 @Log
 public class PermisoAperturaActivo extends PermisoApertura {
+    
     public PermisoAperturaActivo() {
         heladeraPermitida = new HeladeraNula();
         fechaOtorgamiento = null;

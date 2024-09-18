@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_heladera.AperturaPersonaEnSituacionVulnerable;
@@ -13,12 +12,20 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import jakarta.persistence.*;
 
+@Entity
 @Log
 @Getter
 @Setter
 public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
+    
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "persona_en_situacion_vulnerable_id")
     private PersonaEnSituacionVulnerable titular;
+    
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "uso_tarjeta_id")
     protected final ArrayList<UsoTarjeta> usos;
 
     public TarjetaPersonaEnSituacionVulnerable(PersonaEnSituacionVulnerable vTitular) {

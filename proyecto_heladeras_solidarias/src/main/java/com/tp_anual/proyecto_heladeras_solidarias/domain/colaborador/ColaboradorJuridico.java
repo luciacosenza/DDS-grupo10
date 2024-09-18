@@ -11,10 +11,14 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.HacerseCar
 import com.tp_anual.proyecto_heladeras_solidarias.domain.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
+@Entity
+@DiscriminatorValue("Juridico")
 @Log
 @Getter
 @Setter

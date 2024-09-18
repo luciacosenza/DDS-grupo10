@@ -1,22 +1,33 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.oferta;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
+
+import jakarta.persistence.*;
+import lombok.extern.java.Log;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.java.Log;
 
+@Entity
 @Log
 @Getter
 @Setter
 public class Oferta {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
+
     private String nombre;
+
     private Double costo;
+
+    @Enumerated(EnumType.STRING)
     private Categoria categoria;
+
     private String imagen;
     
     public enum Categoria {

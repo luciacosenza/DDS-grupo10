@@ -1,13 +1,28 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.area;
 
-import lombok.Getter;
 import org.apache.commons.lang3.tuple.Pair;
 
+import jakarta.persistence.*;
+import lombok.extern.java.Log;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Log
 @Getter
+@Setter
 public class Area {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected long id;
+
     private final Double x1;
+
     private final Double y1;
+
     private final Double x2;
+    
     private final Double y2;
 
     public Area(Double vX1, Double vY1, Double vX2, Double vY2) {

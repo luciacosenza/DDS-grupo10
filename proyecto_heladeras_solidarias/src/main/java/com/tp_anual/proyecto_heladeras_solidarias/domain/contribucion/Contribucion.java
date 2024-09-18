@@ -4,14 +4,28 @@ import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
 public abstract class Contribucion {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "colaborador_id")
     protected final Colaborador colaborador;
+
+    @Temporal(TemporalType.TIMESTAMP)
     protected LocalDateTime fechaContribucion;
+    
     protected Boolean completada;
 
     protected Contribucion(Colaborador vColaborador, LocalDateTime vFechaContribucion) {

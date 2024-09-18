@@ -1,6 +1,5 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.logging.Level;
@@ -11,7 +10,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.Distribuci
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DonacionDineroCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DonacionViandaCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.RegistroDePersonaEnSituacionVulnerableCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaFisica;
@@ -21,15 +19,23 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColabora
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColaboradorNula;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
+@Entity
+@DiscriminatorValue("Humano")
 @Log
 @Getter
 @Setter
 public class ColaboradorHumano extends Colaborador {    // Implementa una Interfaz "ColaboradorHumanoObserver" a nivel conceptual
+    
+    @OneToOne(mappedBy = "titular", fetch = FetchType.EAGER)
     protected TarjetaColaborador tarjeta;
+    
+    @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER)
     protected final ArrayList<Suscripcion> suscripciones;   // Será una Suscripción por Heladera
 
     public ColaboradorHumano(PersonaFisica vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {

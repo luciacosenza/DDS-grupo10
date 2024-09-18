@@ -9,22 +9,45 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Alerta;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.java.Log;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 @Setter
 public abstract class Heladera implements HeladeraObserver {    // Implementa una Interfaz "HeladeraSubject" a nivel conceptual
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
+
     protected String nombre;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ubicacion_id")
     protected Ubicacion ubicacion;
+    
     protected final Integer capacidad;
+
     protected final Float tempMin;
+
     protected final Float tempMax;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "heladera_id")
     protected final ArrayList<Vianda> viandas;
+    
     protected Float tempActual;
+
+    @Temporal(TemporalType.TIMESTAMP)
     protected LocalDateTime fechaApertura;
+
     protected Boolean estado;
+    
+    @Transient
     protected GestorDeAperturas gestorDeAperturas;
 
     protected Heladera(String vNombre, Ubicacion vUbicacion, Integer vCapacidad, Float vTempMin, Float vTempMax, ArrayList<Vianda> vViandas, Float vTempActual, LocalDateTime vFechaApertura, Boolean vEstado) {

@@ -3,19 +3,39 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.heladera;
 import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.ColaboradorHumano;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity
 @Getter
 @Setter
 public class Vianda {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
+
     private String comida;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "heladera_id")
     private Heladera heladera;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "colaborador_id")
     private ColaboradorHumano colaborador;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime fechaCaducidad;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime fechaDonacion;
+
     private Integer calorias;
+
     private Integer peso;
+
     private Boolean entregada;
 
     public Vianda(String vComida, ColaboradorHumano vColaborador, LocalDateTime vFechaCaducidad, LocalDateTime vFechaDonacion, Integer vCalorias, Integer vPeso, Boolean vEntregada) {

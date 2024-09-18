@@ -4,10 +4,15 @@ import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
+import jakarta.persistence.*;
 import lombok.Getter;
 
+@Entity
+@DiscriminatorValue("Solicitud Apertura Colaborador")
 @Getter
 public class SolicitudAperturaColaborador extends AccionColaborador {
+    
+    @Enumerated(EnumType.STRING)
     private final MotivoSolicitud motivo;
 
     public enum MotivoSolicitud {

@@ -3,7 +3,6 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.ubicador;
 import java.util.ArrayList;
 import java.util.OptionalDouble;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import lombok.extern.java.Log;

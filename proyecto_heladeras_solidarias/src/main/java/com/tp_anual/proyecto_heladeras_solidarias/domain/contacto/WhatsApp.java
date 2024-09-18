@@ -1,8 +1,10 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.contacto;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.extern.java.Log;
 
+@Entity
 @Log
 @Getter
 public class WhatsApp extends MedioDeContacto {

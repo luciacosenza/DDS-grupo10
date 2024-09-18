@@ -1,20 +1,23 @@
 package com.tp_anual.proyecto_heladeras_solidarias.domain.heladera;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Alerta.TipoAlerta;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.Getter;
+import jakarta.persistence.*;
 import lombok.extern.java.Log;
 
+@Entity
+@DiscriminatorValue("Movimiento")
 @Log
 @Getter
 public class SensorMovimiento extends Sensor {
+    
     private Boolean hayMovimiento;
     
     public SensorMovimiento(HeladeraActiva vHeladera) {
-        heladera = vHeladera;
+        super(vHeladera);
         hayMovimiento = false;
     }
 

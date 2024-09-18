@@ -2,19 +2,29 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion;
 
 import java.time.LocalDateTime;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.Tarjeta;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.extern.java.Log;
 
+@Entity
 @Log
 @Getter
 public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
+    
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "tarjeta_persona_en_situacion_vulnerable_id")
     private final TarjetaPersonaEnSituacionVulnerable tarjetaAsignada;
+    
+    @Transient
     private final Double multiplicador_puntos = 2d;
     
     public RegistroDePersonaEnSituacionVulnerable(Colaborador vColaborador, LocalDateTime vFechaContribucion, TarjetaPersonaEnSituacionVulnerable vTarjetaAsignada) {

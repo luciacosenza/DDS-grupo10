@@ -6,22 +6,36 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.java.Log;
 
+@Entity
 @Log
 @Getter
 public class HacerseCargoDeHeladera extends Contribucion {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id; 
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "heladera_id")
     private final HeladeraActiva heladeraObjetivo;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime ultimaActualizacion;
+
+    @Transient
     private final Double multiplicador_puntos = 5d;
 
+    @Transient
     @Getter(AccessLevel.NONE)
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 

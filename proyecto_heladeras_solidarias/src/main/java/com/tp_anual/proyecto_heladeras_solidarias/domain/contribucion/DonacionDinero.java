@@ -2,7 +2,6 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion;
 
 import java.time.LocalDateTime;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -10,18 +9,33 @@ import java.util.concurrent.TimeUnit;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.java.Log;
 
+@Entity
 @Log
 @Getter
 public class DonacionDinero extends Contribucion {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
+    
     private final Double monto;
+
+    @Enumerated(EnumType.STRING)
     private final FrecuenciaDePago frecuencia;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime ultimaActualizacion;
+    
+    @Transient
     private final Double multiplicador_puntos = 0.5;
 
+    @Transient
     @Getter(AccessLevel.NONE)
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 

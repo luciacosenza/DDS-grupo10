@@ -3,11 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.tecnico;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.java.Log;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.area.Area;
@@ -18,14 +14,37 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
+import jakarta.persistence.*;
+import lombok.extern.java.Log;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
 @Log
 @Getter
 @Setter
 public class Tecnico {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected long id;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "persona_id")    // TODO: ver si joinear con personafisica_id o persona_id no falla
     private final PersonaFisica persona;
+
     private final String cuil;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "medio_de_contacto_id")
     private MedioDeContacto medioDeContacto;    // TODO: Puede ser plural en un futuro
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "area_id")
     private Area areaDeCobertura;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "incidente_id")
     private final ArrayList<Incidente> pendientes = new ArrayList<>();
 
     public Tecnico(String vNombre, String vApellido, Documento vDocumento, LocalDateTime vFechaNacimiento, String vCuil, MedioDeContacto vMedioDeContacto, Area vAreaDeCobertura) {

@@ -2,21 +2,40 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion;
 
 import java.time.LocalDateTime;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import lombok.Getter;
-import lombok.extern.java.Log;
 
+import jakarta.persistence.*;
+import lombok.extern.java.Log;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
 @Log
 @Getter
+@Setter
 public class DistribucionViandas extends Contribucion {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id; 
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "heladera_id")
     private final HeladeraActiva origen;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "heladera_id")
     private final HeladeraActiva destino;
+
     private final Integer cantidadViandasAMover;
+
+    @Enumerated(EnumType.STRING)
     private final MotivoDistribucion motivo;
+
+    @Transient
     private final Double multiplicador_puntos = 1d;
 
     public enum MotivoDistribucion {

@@ -2,7 +2,6 @@ package com.tp_anual.proyecto_heladeras_solidarias.domain.contacto;
 
 import java.util.Properties;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -12,16 +11,14 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import lombok.Getter;
 import lombok.extern.java.Log;
 
 @Log
 public class EMailSenderService {
-    private static final Properties propiedades = new Properties();
+	private static final Properties propiedades = new Properties();
 	private static final Dotenv dotenv = Dotenv.load();
     private static final String  username = dotenv.get("EMAIL_USERNAME");
     private static final String password = dotenv.get("EMAIL_PASSWORD");
