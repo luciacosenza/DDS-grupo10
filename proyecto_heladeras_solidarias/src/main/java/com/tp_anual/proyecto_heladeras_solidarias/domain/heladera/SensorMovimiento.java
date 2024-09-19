@@ -9,7 +9,6 @@ import jakarta.persistence.*;
 import lombok.extern.java.Log;
 
 @Entity
-@DiscriminatorValue("Movimiento")
 @Log
 @Getter
 public class SensorMovimiento extends Sensor {

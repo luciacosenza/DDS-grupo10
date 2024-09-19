@@ -14,6 +14,7 @@ import lombok.extern.java.Log;
 
 @Log
 public class Migrador {
+    
     @Setter
     private static ExtraccionDeDatos protocoloExtraccion = new ExtraccionCSV();
 
@@ -24,6 +25,7 @@ public class Migrador {
 
     @Getter(AccessLevel.NONE)
     private static final String ASUNTO = "Gracias por tu apoyo! Aquí están tus credenciales de acceso al nuevo Sistema";
+    
     @Getter(AccessLevel.NONE)
     private static final String CUERPO =
             """

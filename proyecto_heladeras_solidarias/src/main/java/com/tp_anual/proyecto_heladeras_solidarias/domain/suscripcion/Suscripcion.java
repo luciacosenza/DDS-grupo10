@@ -28,11 +28,11 @@ public class Suscripcion {
     @JoinColumn(name = "heladera_id")
     private final HeladeraActiva heladera;
 
-    private Integer viandasDisponiblesMin;
+    private Integer viandasDisponiblesMin;  // Internamente, cuando el colaborador no selecciona esta opción, lo manejamos como -1
 
-    private Integer viandasParaLlenarMax;
+    private Integer viandasParaLlenarMax;   // Internamente, cuando el colaborador no selecciona esta opción, lo manejamos como -1
 
-    private Boolean notificarDesperfecto;
+    private Boolean notificarDesperfecto;   // Internamente, cuando el colaborador no selecciona esta opción, lo manejamos como false
 
     @OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
     @JoinColumn(name = "medio_de_contacto_id")

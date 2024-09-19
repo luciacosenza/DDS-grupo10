@@ -186,7 +186,6 @@ public abstract class Colaborador {
     public void intentarAdquirirBeneficio(Oferta oferta) {
         // Primero chequea tener los puntos suficientes
         oferta.validarPuntos(this);
-        oferta.darDeBaja();
         agregarBeneficio(oferta);
         log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.adquirirBeneficio_info", oferta.getNombre(), persona.getNombre(2)));
     }

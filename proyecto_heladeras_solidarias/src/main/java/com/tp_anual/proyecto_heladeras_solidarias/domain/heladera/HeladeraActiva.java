@@ -70,11 +70,11 @@ public class HeladeraActiva extends Heladera {
                 reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.VIANDAS_MIN, suscripcion.getMedioDeContactoElegido());
             
             // Verifico si se está llenando
-            if ((capacidad - viandas.size()) >= suscripcion.getViandasParaLlenarMax())
+            if ((capacidad - viandasActuales()) <= suscripcion.getViandasParaLlenarMax())
                 reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.VIANDAS_MAX, suscripcion.getMedioDeContactoElegido());
 
             // Verifico si hay un desperfecto
-            if (suscripcion.getNotificarDesperfecto() && !estado)
+            if (!estado && suscripcion.getNotificarDesperfecto())
                 reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.DESPERFECTO, suscripcion.getMedioDeContactoElegido());
         }
     }

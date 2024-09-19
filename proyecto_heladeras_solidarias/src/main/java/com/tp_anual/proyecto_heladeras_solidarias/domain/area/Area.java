@@ -15,7 +15,7 @@ public class Area {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    protected Long id;
 
     private final Double x1;
 

@@ -15,7 +15,6 @@ import jakarta.persistence.*;
 import lombok.extern.java.Log;
 
 @Entity
-@DiscriminatorValue("Temperatura")
 @Log
 @Getter
 @Setter

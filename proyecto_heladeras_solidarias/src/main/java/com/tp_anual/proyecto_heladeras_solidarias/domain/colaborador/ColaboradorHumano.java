@@ -77,11 +77,11 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
         // Tenemos un flag que nos indica qué atributo debe ser cambiado
         switch(flag) {
         
-        case VIANDAS_MIN -> suscripcion.setViandasDisponiblesMin(nuevoValor);
+        case VIANDAS_MIN -> suscripcion.setViandasDisponiblesMin(nuevoValor);   // Un -1 sería "destildarlo"
         
-        case VIANDAS_MAX -> suscripcion.setViandasParaLlenarMax(nuevoValor);
+        case VIANDAS_MAX -> suscripcion.setViandasParaLlenarMax(nuevoValor);    // Un -1 sería "destildarlo"
         
-        case DESPERFECTO -> suscripcion.setNotificarDesperfecto(nuevoValor != 0);
+        case DESPERFECTO -> suscripcion.setNotificarDesperfecto(nuevoValor != -1);  // Un -1 sería "destildarlo"
         
         default -> {}
         

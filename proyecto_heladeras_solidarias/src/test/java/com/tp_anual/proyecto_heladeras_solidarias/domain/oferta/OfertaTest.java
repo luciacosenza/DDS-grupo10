@@ -18,7 +18,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class OfertaTest {
     
@@ -48,7 +47,7 @@ public class OfertaTest {
 
         colaboradorHumano.intentarAdquirirBeneficio(oferta);
 
-        Assertions.assertTrue(colaboradorHumano.getBeneficiosAdquiridos().size() == 1 && Sistema.getOfertas().size() == 0); // Debería haber 0 Ofertas pero, como Sistema es static, se carga la Oferta del otro test si los corremos juntos
+        Assertions.assertTrue(colaboradorHumano.getBeneficiosAdquiridos().size() == 1);
     }
 
     @Test
@@ -80,6 +79,5 @@ public class OfertaTest {
         });
 
         Assertions.assertEquals(I18n.getMessage("oferta.Oferta.validarPuntos_exception"), exception.getMessage());
-        Assertions.assertEquals(1, Sistema.getOfertas().size());
     }
 }

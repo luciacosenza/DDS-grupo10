@@ -36,7 +36,7 @@ public abstract class Heladera implements HeladeraObserver {    // Implementa un
 
     protected final Float tempMax;
 
-    @OneToMany(mappedBy = "heladera", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH }, orphanRemoval = true)
+    @OneToMany(mappedBy = "heladera", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
     protected final ArrayList<Vianda> viandas;
     
     protected Float tempActual;
