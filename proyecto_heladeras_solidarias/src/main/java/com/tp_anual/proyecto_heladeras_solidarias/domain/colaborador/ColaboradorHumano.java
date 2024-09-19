@@ -32,14 +32,15 @@ import lombok.extern.java.Log;
 @Setter
 public class ColaboradorHumano extends Colaborador {    // Implementa una Interfaz "ColaboradorHumanoObserver" a nivel conceptual
     
-    @OneToOne(mappedBy = "titular", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "titular", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     protected TarjetaColaborador tarjeta;
     
-    @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     protected final ArrayList<Suscripcion> suscripciones;   // Será una Suscripción por Heladera
 
     public ColaboradorHumano(PersonaFisica vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
         super(vPersona, vDomicilio, vMediosDeContacto, vContribuciones, vBeneficiosAdquiridos, vPuntos);
+        
         creatorsPermitidos = new HashSet<>();
         creatorsPermitidos.add(DistribucionViandasCreator.class);
         creatorsPermitidos.add(DonacionDineroCreator.class);

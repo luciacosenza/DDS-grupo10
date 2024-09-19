@@ -26,7 +26,7 @@ public abstract class Heladera implements HeladeraObserver {    // Implementa un
 
     protected String nombre;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "ubicacion_id")
     protected Ubicacion ubicacion;
     
@@ -36,8 +36,7 @@ public abstract class Heladera implements HeladeraObserver {    // Implementa un
 
     protected final Float tempMax;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "heladera_id")
+    @OneToMany(mappedBy = "heladera", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH }, orphanRemoval = true)
     protected final ArrayList<Vianda> viandas;
     
     protected Float tempActual;

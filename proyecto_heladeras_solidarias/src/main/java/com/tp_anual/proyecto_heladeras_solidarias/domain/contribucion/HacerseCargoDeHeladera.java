@@ -25,7 +25,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id; 
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "heladera_id")
     private final HeladeraActiva heladeraObjetivo;
 

@@ -20,7 +20,7 @@ public class CargaOferta extends Contribucion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "oferta_id")
     private final Oferta oferta;
 

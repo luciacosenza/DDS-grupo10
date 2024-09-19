@@ -17,9 +17,9 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 import jakarta.persistence.*;
-import lombok.extern.java.Log;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.java.Log;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -33,25 +33,25 @@ public abstract class Colaborador {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "persona_id")
     protected final Persona persona;
     
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "ubicacion_id")
     protected Ubicacion domicilio;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "medio_de_contacto_id")
     protected final ArrayList<MedioDeContacto> mediosDeContacto;
     
-    @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     protected final ArrayList<Contribucion> contribuciones;
     
-    @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     protected final ArrayList<Contribucion> contribucionesPendientes;
     
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "oferta_id")
     protected final ArrayList<Oferta> beneficiosAdquiridos;
     

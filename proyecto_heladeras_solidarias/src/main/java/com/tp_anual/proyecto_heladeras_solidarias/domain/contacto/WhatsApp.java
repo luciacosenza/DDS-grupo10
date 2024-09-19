@@ -8,6 +8,7 @@ import lombok.extern.java.Log;
 @Log
 @Getter
 public class WhatsApp extends MedioDeContacto {
+
     private final String numero;    // TODO: Pensar si tiene que contener un Telefono o repetimos los atributos de Telefono
 
     public WhatsApp(String vNumero) {

@@ -23,7 +23,7 @@ public abstract class TarjetaColaborador extends Tarjeta {
 
     protected EstadoSolicitud estadoSolicitud;
     
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "permiso_apertura_id")
     protected PermisoApertura permiso;
 

@@ -25,6 +25,7 @@ import lombok.extern.java.Log;
 public class ColaboradorJuridico extends Colaborador {
     public ColaboradorJuridico(PersonaJuridica vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
         super(vPersona, vDomicilio, vMediosDeContacto, vContribuciones, vBeneficiosAdquiridos, vPuntos);
+        
         creatorsPermitidos = new HashSet<>();
         creatorsPermitidos.add(CargaOfertaCreator.class);
         creatorsPermitidos.add(DonacionDineroCreator.class);

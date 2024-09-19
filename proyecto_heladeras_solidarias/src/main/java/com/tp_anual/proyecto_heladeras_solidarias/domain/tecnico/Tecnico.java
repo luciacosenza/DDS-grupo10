@@ -29,21 +29,21 @@ public class Tecnico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "persona_id")    // TODO: ver si joinear con personafisica_id o persona_id no falla
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "persona_fisica_id")
     private final PersonaFisica persona;
 
     private final String cuil;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "medio_de_contacto_id")
     private MedioDeContacto medioDeContacto;    // TODO: Puede ser plural en un futuro
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "area_id")
     private Area areaDeCobertura;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
     @JoinColumn(name = "incidente_id")
     private final ArrayList<Incidente> pendientes = new ArrayList<>();
 

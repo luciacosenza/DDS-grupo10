@@ -20,7 +20,7 @@ public class DonacionVianda extends Contribucion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "vianda_id")
     private final Vianda vianda;
 

@@ -20,7 +20,7 @@ public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
     
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tarjeta_persona_en_situacion_vulnerable_id")
     private final TarjetaPersonaEnSituacionVulnerable tarjetaAsignada;
     

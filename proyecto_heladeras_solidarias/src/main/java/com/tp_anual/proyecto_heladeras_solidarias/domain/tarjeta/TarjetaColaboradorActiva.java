@@ -21,6 +21,7 @@ import jakarta.persistence.*;
 @Entity
 @Log
 public class TarjetaColaboradorActiva extends TarjetaColaborador {
+    
     public TarjetaColaboradorActiva(ColaboradorHumano vTitular) {
         super(GeneradorCodigo.generarCodigo(true), vTitular, new EstadoPosible(), new PermisoAperturaActivo());
     }

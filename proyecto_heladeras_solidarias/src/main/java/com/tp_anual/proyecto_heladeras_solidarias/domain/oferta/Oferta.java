@@ -30,6 +30,8 @@ public class Oferta {
 
     private String imagen;
     
+    // TODO: Agregar atributo status
+
     public enum Categoria {
         GASTRONOMIA,
         ELECTRONICA,

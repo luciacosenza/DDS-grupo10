@@ -24,7 +24,7 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
     @JoinColumn(name = "persona_en_situacion_vulnerable_id")
     private PersonaEnSituacionVulnerable titular;
     
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "uso_tarjeta_id")
     protected final ArrayList<UsoTarjeta> usos;
 

@@ -23,6 +23,7 @@ import lombok.extern.java.Log;
 @Entity
 @Log
 public class HeladeraActiva extends Heladera {
+    
     public HeladeraActiva(String vNombre, Ubicacion vUbicacion, ArrayList<Vianda> vViandas, Integer vCapacidad, LocalDateTime vFechaApertura, Float vTempMin, Float vTempMax) {
         super(vNombre, vUbicacion, vCapacidad, vTempMin, vTempMax, vViandas, 0f, vFechaApertura, true);
         gestorDeAperturas = new GestorDeAperturas(this);

@@ -23,11 +23,11 @@ public class PersonaEnSituacionVulnerable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "persona_id")
     private final PersonaFisica persona;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "ubicacion_id")
     private Ubicacion domicilio;
 
@@ -36,7 +36,7 @@ public class PersonaEnSituacionVulnerable {
 
     private Integer menoresACargo;
 
-    @OneToOne(mappedBy = "titular", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "titular", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private TarjetaPersonaEnSituacionVulnerable tarjeta;
 
     public PersonaEnSituacionVulnerable(String vNombre, String vApellido, Documento vDocumento, LocalDateTime vFechaNacimiento, Ubicacion vDomicilio, LocalDateTime vFechaRegistro, Integer vMenoresACargo) {

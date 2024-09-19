@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PersonaJuridica extends Persona {
+    
     private String razonSocial;
 
     @Enumerated(EnumType.STRING)
