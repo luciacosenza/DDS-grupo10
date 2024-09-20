@@ -15,6 +15,9 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion.CondicionSuscripcion;
+import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionDesperfecto;
+import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionViandasMax;
+import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionViandasMin;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaboradorNula;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
@@ -65,16 +68,21 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
     }
     
     public Suscripcion suscribirse(HeladeraActiva heladeraObjetivo, MedioDeContacto medioDeContacto, CondicionSuscripcion condicionSuscripcion, Integer valor) {
-        
+
+        Suscripcion suscripcion;
+
         switch(condicionSuscripcion) {
         
-            case VIANDAS_MIN -> SuscripcionViandasMin suscripcion = new SuscripcionViandasMin(this, heladeraObjetivo, medioDeContacto, valor);
+            case VIANDAS_MIN -> suscripcion = new SuscripcionViandasMin(this, heladeraObjetivo, medioDeContacto, valor);
             
-            case VIANDAS_MAX -> SuscripcionViandasMin suscripcion = new SuscripcionViandasMin(this, heladeraObjetivo, medioDeContacto, valor);
+            case VIANDAS_MAX -> suscripcion = new SuscripcionViandasMax(this, heladeraObjetivo, medioDeContacto, valor);
             
-            case DESPERFECTO -> SuscripcionViandasMin suscripcion = new SuscripcionViandasMin(this, heladeraObjetivo, medioDeContacto);
+            case DESPERFECTO -> suscripcion = new SuscripcionDesperfecto(this, heladeraObjetivo, medioDeContacto);
             
-            default -> {}
+            default -> {
+                log.log(Level.SEVERE, I18n.getMessage("heladera.HeladerNula.getUbicacion_err", persona.getNombre(2)));
+                throw new IllegalArgumentException(I18n.getMessage("colaborador.ColaboradorHumano.suscribirse_exception"));
+            }
             
             }
 
@@ -85,13 +93,13 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
         return suscripcion;
     }
 
-    public void modificarSuscripcion(Suscripcion suscripcion, CondicionSuscripcion condicionSuscripcion, Integer nuevoValor) {
+    public void modificarSuscripcion(Suscripcion suscripcion, Integer nuevoValor) {
         
-        switch(condicionSuscripcion) {
+        switch(suscripcion) {
         
-        case VIANDAS_MIN -> suscripcion.setViandasDisponiblesMin(nuevoValor);
+        case SuscripcionViandasMin suscripcionViandasMin -> suscripcionViandasMin.setViandasDisponiblesMin(nuevoValor);
         
-        case VIANDAS_MAX -> suscripcion.setViandasParaLlenarMax(nuevoValor);
+        case SuscripcionViandasMax suscripcionViandasMax -> suscripcionViandasMax.setViandasParaLlenarMax(nuevoValor);
         
         default -> {}
         

@@ -19,9 +19,9 @@ public class Broker {
                     procesarMensaje(mensaje);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
-                    logger.log(Level.SEVERE, I18n.getMessage("broker.Broker.interrupcion_hilo"));
+                    logger.log(Level.SEVERE, I18n.getMessage("broker.Broker_err_hilo"));
                 } catch (Exception e) {
-                    logger.log(Level.SEVERE, I18n.getMessage("broker.Broker.error_procesamiento_mensaje"));
+                    logger.log(Level.SEVERE, I18n.getMessage("broker.Broker_err_procesamiento_mensaje"));
                 }
             }
         }).start();

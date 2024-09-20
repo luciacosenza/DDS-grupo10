@@ -14,9 +14,9 @@ import jakarta.persistence.*;
 @Log
 @Getter
 @Setter
-puclic class SuscripcionViandasMax extends Suscripcion {
-    
-    public SuscripcionViandasMax(ColaboradorHumano vColaborador, HeladeraActiva vHeladera, MedioDeContacto vMedioDeContactoElegido, Integer vViandasParaLlenarMax) {
-        super(vColaborador, vHeladera, vMedioContactoElegido);
+public class SuscripcionDesperfecto extends Suscripcion {
+
+    public SuscripcionDesperfecto(ColaboradorHumano vColaborador, HeladeraActiva vHeladera, MedioDeContacto vMedioDeContactoElegido) {
+        super(vColaborador, vHeladera, vMedioDeContactoElegido);
     }
 }

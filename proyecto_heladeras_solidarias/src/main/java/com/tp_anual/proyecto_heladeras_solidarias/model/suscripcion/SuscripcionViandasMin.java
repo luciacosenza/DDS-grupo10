@@ -14,12 +14,12 @@ import jakarta.persistence.*;
 @Log
 @Getter
 @Setter
-puclic class SuscripcionViandasMin extends Suscripcion {
+public class SuscripcionViandasMin extends Suscripcion {
     
     private Integer viandasDisponiblesMin;
 
     public SuscripcionViandasMin(ColaboradorHumano vColaborador, HeladeraActiva vHeladera, MedioDeContacto vMedioDeContactoElegido, Integer vViandasDisponiblesMin) {
-        super(vColaborador, vHeladera, vMedioContactoElegido);
+        super(vColaborador, vHeladera, vMedioDeContactoElegido);
         viandasDisponiblesMin = vViandasDisponiblesMin;
     }
 }
