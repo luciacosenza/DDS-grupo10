@@ -8,11 +8,11 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import org.apache.commons.lang3.tuple.Pair;
 
-import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.Contribucion;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DistribucionViandas;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DonacionVianda;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DistribucionViandas;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionVianda;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 @Getter

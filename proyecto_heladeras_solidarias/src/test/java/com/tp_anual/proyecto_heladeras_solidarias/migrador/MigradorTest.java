@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
 
-import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class MigradorTest {

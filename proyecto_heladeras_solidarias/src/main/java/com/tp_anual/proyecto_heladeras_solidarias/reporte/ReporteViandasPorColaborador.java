@@ -5,10 +5,10 @@ import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.Colaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.ColaboradorHumano;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DistribucionViandas;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DonacionVianda;
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DistribucionViandas;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionVianda;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 import lombok.Getter;
 

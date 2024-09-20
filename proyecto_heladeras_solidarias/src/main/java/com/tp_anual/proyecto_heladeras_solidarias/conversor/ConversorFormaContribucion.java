@@ -2,13 +2,12 @@ package com.tp_anual.proyecto_heladeras_solidarias.conversor;
 
 import java.util.HashMap;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.ContribucionCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DistribucionViandasCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DonacionDineroCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DonacionViandaCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.RegistroDePersonaEnSituacionVulnerableCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.ContribucionCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DistribucionViandasCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionDineroCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionViandaCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.RegistroDePersonaEnSituacionVulnerableCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.extern.java.Log;
 

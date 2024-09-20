@@ -2,9 +2,8 @@ package com.tp_anual.proyecto_heladeras_solidarias.conversor;
 
 import java.util.HashMap;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento.TipoDocumento;
+import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento.TipoDocumento;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.extern.java.Log;
 

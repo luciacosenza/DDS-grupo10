@@ -4,29 +4,27 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaFisica;
+import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
-import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.ColaboradorHumano;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.ColaboradorJuridico;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DistribucionViandas;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DistribucionViandasCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DonacionVianda;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.DonacionViandaCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.HacerseCargoDeHeladera;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.HacerseCargoDeHeladeraCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento.Sexo;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento.TipoDocumento;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.Vianda;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaJuridica;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColaboradorActiva;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.tarjeta.TarjetaColaboradorCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJuridico;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DistribucionViandas;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DistribucionViandasCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionVianda;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionViandaCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.HacerseCargoDeHeladera;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.HacerseCargoDeHeladeraCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Vianda;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaJuridica;
+import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaboradorActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaboradorCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 public class ReporteViandasPorColaboradorTest {

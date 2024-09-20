@@ -5,8 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.HeladeraActiva;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.incidente.Incidente;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 import lombok.Getter;
 

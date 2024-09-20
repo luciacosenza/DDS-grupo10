@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.broker;
 
-import com.tp_anual.proyecto_heladeras_solidarias.domain.heladera.SensorTemperatura;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.SensorTemperatura;
 import lombok.Getter;
 
 @Getter

@@ -10,14 +10,14 @@ import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.conversor.ConversorFormaContribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.conversor.ConversorTipoDocumento;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.colaborador.ColaboradorHumano;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contacto.EMail;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contacto.MedioDeContacto;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.Contribucion;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.contribucion.ContribucionCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.documento.Documento;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.persona.PersonaFisica;
-import com.tp_anual.proyecto_heladeras_solidarias.domain.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.EMail;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.ContribucionCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
+import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
+import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import lombok.extern.java.Log;
