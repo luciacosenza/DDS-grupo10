@@ -13,7 +13,10 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.FallaTecnica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.GestorDeSuscripciones;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion;
-import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion.CondicionSuscripcion;
+import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionViandasMin;
+import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionViandasMax;
+import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionDesperfecto;
+
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
@@ -65,17 +68,31 @@ public class HeladeraActiva extends Heladera {
         ArrayList<Suscripcion> suscripciones = gestorDeSuscripciones.suscripcionesPorHeladera(this);
         
         for (Suscripcion suscripcion : suscripciones) {
-            // Verifico si se está vaciando
-            if (viandasActuales() <= suscripcion.getViandasDisponiblesMin())
-                reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.VIANDAS_MIN, suscripcion.getMedioDeContactoElegido());
-            
-            // Verifico si se está llenando
-            if ((capacidad - viandasActuales()) <= suscripcion.getViandasParaLlenarMax())
-                reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.VIANDAS_MAX, suscripcion.getMedioDeContactoElegido());
 
-            // Verifico si hay un desperfecto
-            if (!estado && suscripcion.getNotificarDesperfecto())
-                reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.DESPERFECTO, suscripcion.getMedioDeContactoElegido());
+            switch(suscripcion) {
+
+            case SuscripcionViandasMin suscripcionViandasMin:
+                // Verifico si se está vaciando    
+                if (viandasActuales() <= suscripcion.getViandasDisponiblesMin())
+                    reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.VIANDAS_MIN, suscripcion.getMedioDeContactoElegido());
+                break;
+            
+            case SuscripcionViandasMax suscripcionViandasMax:
+                // Verifico si se está llenando
+                if ((capacidad - viandasActuales()) <= suscripcion.getViandasParaLlenarMax())
+                    reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.VIANDAS_MAX, suscripcion.getMedioDeContactoElegido());
+                break;
+            
+            case SuscripcionDesperfecto suscripcionDesperfecto:
+                // Verifico si hay un desperfecto
+                if (!estado)
+                    reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.DESPERFECTO, suscripcion.getMedioDeContactoElegido());
+                break;
+
+            default:
+                break;
+
+            }
         }
     }
 

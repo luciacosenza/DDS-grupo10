@@ -64,8 +64,20 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
         suscripciones.remove(suscripcion);
     }
     
-    public Suscripcion suscribirse(HeladeraActiva heladeraObjetivo, Integer viandasDisponiblesMin, Integer viandasParaLlenarMax, Boolean notificarDesperfecto, MedioDeContacto medioDeContacto) {
-        Suscripcion suscripcion = new Suscripcion(this, heladeraObjetivo, viandasDisponiblesMin, viandasParaLlenarMax, notificarDesperfecto, medioDeContacto);
+    public Suscripcion suscribirse(HeladeraActiva heladeraObjetivo, MedioDeContacto medioDeContacto, CondicionSuscripcion condicionSuscripcion, Integer valor) {
+        
+        switch(condicionSuscripcion) {
+        
+            case VIANDAS_MIN -> SuscripcionViandasMin suscripcion = new SuscripcionViandasMin(this, heladeraObjetivo, medioDeContacto, valor);
+            
+            case VIANDAS_MAX -> SuscripcionViandasMin suscripcion = new SuscripcionViandasMin(this, heladeraObjetivo, medioDeContacto, valor);
+            
+            case DESPERFECTO -> SuscripcionViandasMin suscripcion = new SuscripcionViandasMin(this, heladeraObjetivo, medioDeContacto);
+            
+            default -> {}
+            
+            }
+
         suscripcion.darDeAlta();
         agregarSuscripcion(suscripcion);
         log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.agregarSuscripcion_info", persona.getNombre(2), suscripcion.getHeladera().getNombre()));
@@ -73,15 +85,13 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
         return suscripcion;
     }
 
-    public void modificarSuscripcion(Suscripcion suscripcion, CondicionSuscripcion flag, Integer nuevoValor) {
-        // Tenemos un flag que nos indica qué atributo debe ser cambiado
-        switch(flag) {
+    public void modificarSuscripcion(Suscripcion suscripcion, CondicionSuscripcion condicionSuscripcion, Integer nuevoValor) {
         
-        case VIANDAS_MIN -> suscripcion.setViandasDisponiblesMin(nuevoValor);   // Un -1 sería "destildarlo"
+        switch(condicionSuscripcion) {
         
-        case VIANDAS_MAX -> suscripcion.setViandasParaLlenarMax(nuevoValor);    // Un -1 sería "destildarlo"
+        case VIANDAS_MIN -> suscripcion.setViandasDisponiblesMin(nuevoValor);
         
-        case DESPERFECTO -> suscripcion.setNotificarDesperfecto(nuevoValor != -1);  // Un -1 sería "destildarlo"
+        case VIANDAS_MAX -> suscripcion.setViandasParaLlenarMax(nuevoValor);
         
         default -> {}
         

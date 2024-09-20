@@ -32,5 +32,10 @@
 
 2. **(Opcional) Modificación de Suscripción**
    4. El Colaborador solicita modificar una de sus Suscripciones.
-   5. El Colaborador elige qué atributos quiere modificar de la Suscripción.
+   5. El Colaborador elige el nuevo parámetro de la Suscripción.
    6. Se modifica la Suscripción.
+
+3. **(Opcional) Baja de Suscripción**
+   1. El Colaborador solicita dar de baja una de sus Suscripciones.
+   2. El Colaborador elige qué Suscripción dar de baja.
+   3. Se da de baja la Suscripción.
