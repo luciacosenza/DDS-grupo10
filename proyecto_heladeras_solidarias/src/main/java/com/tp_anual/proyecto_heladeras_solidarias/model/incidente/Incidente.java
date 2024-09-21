@@ -6,6 +6,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,7 @@ public abstract class Incidente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     protected Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -25,6 +27,11 @@ public abstract class Incidente {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_id")
     protected HeladeraActiva heladera;
+
+    protected Incidente(LocalDateTime vFecha, HeladeraActiva vHeladera) {
+        fecha = vFecha;
+        heladera = vHeladera;
+    }
 
     public void darDeAlta() {
         Sistema.agregarIncidente(this);

@@ -17,6 +17,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -31,6 +32,7 @@ public abstract class Colaborador {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     protected Long id;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -56,6 +58,7 @@ public abstract class Colaborador {
     protected final ArrayList<Oferta> beneficiosAdquiridos;
     
     @Transient
+    @Setter(AccessLevel.NONE)
     protected Set<Class<? extends ContribucionCreator>> creatorsPermitidos;
     
     protected Double puntos;
@@ -79,7 +82,7 @@ public abstract class Colaborador {
                 return tipoMedioDeContacto.cast(contacto);
         }
 
-        log.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.getContacto_err", persona.getNombre(2), tipoMedioDeContacto.getClass().getSimpleName()));
+        log.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.getContacto_err", persona.getNombre(2), tipoMedioDeContacto.getSimpleName()));
         throw new NoSuchElementException(I18n.getMessage("colaborador.Colaborador.getContacto_exception"));
     }
 
@@ -149,6 +152,7 @@ public abstract class Colaborador {
         if (!beneficiosAdquiridos.isEmpty()) {
             System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_beneficios_adquiridos_title"));
             i = 0;
+
             for (Oferta beneficioAdquirido : beneficiosAdquiridos) {
                 System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_beneficios_adquiridos_body", i, beneficioAdquirido.getNombre()));
                 i++;

@@ -23,8 +23,7 @@ public class Alerta extends Incidente {
     }
 
     public Alerta(LocalDateTime vFecha, HeladeraActiva vHeladera, TipoAlerta vTipo) {
-        fecha = vFecha;
-        heladera = vHeladera;
+        super(vFecha, vHeladera);
         tipo = vTipo;
     }
 }

@@ -7,14 +7,19 @@ import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 import lombok.AccessLevel;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.java.Log;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Log
 @Getter
+@Setter
 public abstract class Sensor implements SensorSubject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     protected Long id;
     
     @OneToOne(fetch = FetchType.EAGER)

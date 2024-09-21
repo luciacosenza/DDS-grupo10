@@ -72,20 +72,19 @@ public class HeladeraNula extends Heladera {
     }
 
     @Override
-    public void setNombre(String nombre) {}
+    public void setNombre(String vNombre) {}
 
     @Override
-    public void setUbicacion(Ubicacion ubicacion) {}
+    public void setUbicacion(Ubicacion vUbicacion) {}
 
     @Override
-    public void setFechaApertura(LocalDateTime fechaApertura) {}
+    public void setFechaApertura(LocalDateTime vFechaApertura) {}
 
     @Override
-    public void setEstado(Boolean estado) {}
+    public void setEstado(Boolean vEstado) {}
 
     @Override
-    public void setGestorDeAperturas(GestorDeAperturas gestorDeAperturas) {}
-
+    public void setGestorDeAperturas(GestorDeAperturas vGestorDeAperturas) {}
     
     @Override
     public void darDeAlta() {}

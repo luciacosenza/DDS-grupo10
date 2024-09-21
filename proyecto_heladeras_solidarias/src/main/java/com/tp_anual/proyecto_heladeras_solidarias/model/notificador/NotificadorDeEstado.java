@@ -26,42 +26,40 @@ public class NotificadorDeEstado extends Notificador {
         
         switch(condicion) {
         
-        case VIANDAS_MIN -> {
-            // Obtengo la Heladera más llena
-            HeladeraActiva heladeraMasLlena = ubicador.obtenerHeladeraMasLlena(heladerasCercanas);
+            case VIANDAS_MIN -> {
+                // Obtengo la Heladera más llena
+                HeladeraActiva heladeraMasLlena = ubicador.obtenerHeladeraMasLlena(heladerasCercanas);
 
-            enviarNotificacion(
-            contacto,
-            I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_title",
-            heladera.getNombre()),
-            I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_body",
-            heladera.getNombre(), heladera.viandasActuales(), heladeraMasLlena.getNombre(), heladeraMasLlena.getUbicacion().getDireccion()));
-        }
-        
-        case VIANDAS_MAX -> {
-            // Obtengo la Heladera menos llena
-            HeladeraActiva heladeraMenosLlena = ubicador.obtenerHeladeraMenosLlena(heladerasCercanas);
+                enviarNotificacion(
+                contacto,
+                I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_title",
+                heladera.getNombre()),
+                I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_body",
+                heladera.getNombre(), heladera.viandasActuales(), heladeraMasLlena.getNombre(), heladeraMasLlena.getUbicacion().getDireccion()));
+            }
 
-            enviarNotificacion(
-            contacto,
-            I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmx_title",
-            heladera.getNombre()),
-            I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_body",
-            (heladera.getCapacidad() - heladera.viandasActuales()), heladera.getNombre(), heladeraMenosLlena.getNombre(), heladeraMenosLlena.getUbicacion().getDireccion()));
-        }
+            case VIANDAS_MAX -> {
+                // Obtengo la Heladera menos llena
+                HeladeraActiva heladeraMenosLlena = ubicador.obtenerHeladeraMenosLlena(heladerasCercanas);
 
-        case DESPERFECTO -> {
+                enviarNotificacion(
+                contacto,
+                I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmx_title",
+                heladera.getNombre()),
+                I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_body",
+                (heladera.getCapacidad() - heladera.viandasActuales()), heladera.getNombre(), heladeraMenosLlena.getNombre(), heladeraMenosLlena.getUbicacion().getDireccion()));
+            }
 
-            enviarNotificacion(
-            contacto,
-            I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_d_title",
-            heladera.getNombre()),
-            I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_d_body",
-            obtenerNombresYDireccionesDe(heladerasCercanas)));
-        }
+            case DESPERFECTO -> {
+                enviarNotificacion(
+                contacto,
+                I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_d_title",
+                heladera.getNombre()),
+                I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_d_body",
+                obtenerNombresYDireccionesDe(heladerasCercanas)));
+            }
 
-        default -> {}
-
+            default -> {}
         }
     }
 

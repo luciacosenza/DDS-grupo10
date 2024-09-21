@@ -1,22 +1,19 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
-import com.tp_anual.proyecto_heladeras_solidarias.model.estado_de_solicitud.EstadoNoAplica;
-import com.tp_anual.proyecto_heladeras_solidarias.model.estado_de_solicitud.EstadoSolicitud;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.AperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.permisos_de_apertura.PermisoApertura;
-import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.permisos_de_apertura.PermisoAperturaNulo;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.extern.java.Log;
 
 @Log
 public class TarjetaColaboradorNula extends TarjetaColaborador {
     public TarjetaColaboradorNula() {
-        super("N/A", null, new EstadoNoAplica(), new PermisoAperturaNulo());
+        super("N/A", null, new ArrayList<>());
     }
 
     @Override
@@ -31,24 +28,15 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
     }
 
     @Override
-    public EstadoSolicitud getEstadoSolicitud() {
-        log.log(Level.SEVERE, I18n.getMessage("tarjeta.TarjetaColaboradorNula.getEstadoSolicitud_err"));
-        throw new UnsupportedOperationException(I18n.getMessage("tarjeta.TarjetaColaboradorNula.getEstadoSolicitud_exception"));
-    }
-
-    @Override
-    public PermisoApertura getPermiso() {
-        return permiso;
+    public ArrayList<PermisoApertura> getPermisos() {
+        return permisos;
     }
 
     @Override
     public void setTitular(ColaboradorHumano vTitular) {}
 
     @Override
-    public void setEstadoSolicitud(EstadoSolicitud vEstadoSolicitud) {}
-
-    @Override
-    public void setPermiso(PermisoApertura vPermisoApertura) {}
+    public void setPermisos(ArrayList<PermisoApertura> vPermisosApertura) {}
 
     @Override
     public Boolean puedeUsar() {
@@ -56,7 +44,13 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
     }
 
     @Override
-    protected void programarRevocacionPermisos() {}
+    public void agregarPermiso(PermisoApertura permiso) {}
+
+    @Override
+    public void eliminarPermiso(PermisoApertura permiso) {}
+
+    @Override
+    protected void programarRevocacionPermisos(PermisoApertura permiso) {}
 
     @Override
     public SolicitudAperturaColaborador solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo) {
@@ -65,7 +59,7 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
     }
 
     @Override
-    public AperturaColaborador intentarApertura(HeladeraActiva heladeraAAbrir)  throws InterruptedException {
+    public AperturaColaborador intentarApertura(HeladeraActiva heladeraAAbrir) {
         log.log(Level.SEVERE, I18n.getMessage("tarjeta.TarjetaColaboradorNula.intentarApertura_err"));
         throw new UnsupportedOperationException(I18n.getMessage("tarjeta.TarjetaColaboradorNula.intentarApertura_exception"));
     }

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
+import lombok.AccessLevel;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.area.Area;
@@ -27,6 +28,7 @@ public class Tecnico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     protected long id;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)

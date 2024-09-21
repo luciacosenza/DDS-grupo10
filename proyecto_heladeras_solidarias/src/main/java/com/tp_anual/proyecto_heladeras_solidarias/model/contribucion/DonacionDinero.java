@@ -13,15 +13,18 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.java.Log;
 
 @Entity
 @Log
 @Getter
+@Setter
 public class DonacionDinero extends Contribucion {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     protected Long id;
     
     private final Double monto;
@@ -34,6 +37,12 @@ public class DonacionDinero extends Contribucion {
     
     @Transient
     private final Double multiplicador_puntos = 0.5;
+
+    @Transient
+    private final Integer periodoCalculoPuntos = 1;
+
+    @Transient
+    private final TimeUnit unidadPeriodoCalculoPuntos = TimeUnit.DAYS;
 
     @Transient
     @Getter(AccessLevel.NONE)
@@ -127,10 +136,7 @@ public class DonacionDinero extends Contribucion {
             Double puntosASumar = monto * multiplicador_puntos;
             colaborador.sumarPuntos(puntosASumar);
             confirmarSumaPuntos(puntosASumar);
-        } 
-
-        Integer periodo = 1;
-        TimeUnit unidad = TimeUnit.DAYS;
+        }
 
         Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
@@ -144,6 +150,6 @@ public class DonacionDinero extends Contribucion {
         };
 
         // Programa la tarea para que se ejecute una vez por día
-        scheduler.scheduleAtFixedRate(calculoPuntos, 0, periodo, unidad);  // Ejecuta una vez por día (puede ser ineficiente en casos como mensual, semestral o anual)
+        scheduler.scheduleAtFixedRate(calculoPuntos, 0, periodoCalculoPuntos, unidadPeriodoCalculoPuntos);  // Ejecuta una vez por día (puede ser ineficiente en casos como mensual, semestral o anual)
     }
 }

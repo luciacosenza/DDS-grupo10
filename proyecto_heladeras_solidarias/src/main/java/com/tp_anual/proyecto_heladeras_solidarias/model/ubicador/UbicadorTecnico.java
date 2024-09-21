@@ -5,6 +5,8 @@ import java.util.OptionalDouble;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -16,6 +18,8 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 @Log
+@Getter
+@Setter
 public class UbicadorTecnico {
     public UbicadorTecnico() {}
 

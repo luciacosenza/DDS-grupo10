@@ -72,25 +72,25 @@ public class HeladeraActiva extends Heladera {
 
             switch(suscripcion) {
 
-            case SuscripcionViandasMin suscripcionViandasMin -> {
-                // Verifico si se está vaciando    
-                if (viandasActuales() <= suscripcionViandasMin.getViandasDisponiblesMin())
-                    reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.VIANDAS_MIN, suscripcion.getMedioDeContactoElegido());
-            }
+                case SuscripcionViandasMin suscripcionViandasMin -> {
+                    // Verifico si se está vaciando
+                    if (viandasActuales() <= suscripcionViandasMin.getViandasDisponiblesMin())
+                        reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.VIANDAS_MIN, suscripcion.getMedioDeContactoElegido());
+                }
             
-            case SuscripcionViandasMax suscripcionViandasMax -> {
-                // Verifico si se está llenando
-                if ((capacidad - viandasActuales()) <= suscripcionViandasMax.getViandasParaLlenarMax())
-                    reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.VIANDAS_MAX, suscripcion.getMedioDeContactoElegido());
-            }
+                case SuscripcionViandasMax suscripcionViandasMax -> {
+                    // Verifico si se está llenando
+                    if ((capacidad - viandasActuales()) <= suscripcionViandasMax.getViandasParaLlenarMax())
+                        reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.VIANDAS_MAX, suscripcion.getMedioDeContactoElegido());
+                }
             
-            case SuscripcionDesperfecto suscripcionDesperfecto -> {
-                // Verifico si hay un desperfecto
-                if (!estado)
-                    reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.DESPERFECTO, suscripcion.getMedioDeContactoElegido());
-            }
+                case SuscripcionDesperfecto suscripcionDesperfecto -> {
+                    // Verifico si hay un desperfecto
+                    if (!estado)
+                        reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.DESPERFECTO, suscripcion.getMedioDeContactoElegido());
+                }
 
-            default -> {}
+                default -> {}
 
             }
         }
@@ -136,7 +136,7 @@ public class HeladeraActiva extends Heladera {
 
     @Override
     public void marcarComoInactiva() {
-        estado = false;
+        setEstado(false);
     }
 
     @Override

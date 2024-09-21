@@ -1,6 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.extern.java.Log;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +9,6 @@ import lombok.Setter;
 @Entity
 @Log
 @Getter
-@Setter
 public class Ubicacion {
     
     @Id

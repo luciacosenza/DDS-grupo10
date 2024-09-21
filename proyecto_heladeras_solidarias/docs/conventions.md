@@ -34,7 +34,7 @@ Para todo lo referido a números de documento (tanto de **DNI**, **Pasaporte**, 
     - Comparadores (de atributos propios con un valor pasado).
     - Modificadores de listas propias (agregar/quitar elemento o limpiar).
 4. **Resto de Métodos**:
-    - Agrupados por contextos en los que son utilizados.
+    - Agrupados por contextos y orden en los que son utilizados (mayor prioridad al contexto).
 
 ## Convenciones de Nombres para Getters y Setters
 
@@ -89,14 +89,6 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
       - TarjetaColaboradorNula (*Class*)
     - **Real Object**
       - TarjetaColaboradorActiva (*Class*)
-  - En **EstadoSolicitud**
-    - **Null Object**
-      - EstadoNoAplica (*Class*)
-    - **Real Object**
-      - EstadoPosible (*Class*)
-      - EstadoPendiente (*Class*)
-      - EstadoRealizada (*Class*)
-      - EstadoExpirada (*Class*)
   - En **PermisoApertura**
     - **Null Object**
       - PermisoAperturaNulo (*Class*)
@@ -129,20 +121,6 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
       - Heladera (*Abstract Class*)
       - HeladeraActiva (*Class*)
       - HeladeraNula (*Class*)
-
-- **STATE**
-  - En **TarjetaColaborador**
-    - **Context**
-      - TarjetaColaborador (*Abstract Class*)
-      - TarjetaColaboradorActiva (*Class*)
-      - TarjetaColaboradorNula (*Class*)
-    - **State**
-      - EstadoSolicitudApertura (*Interface*)
-      - EstadoPosible (*Class*)
-      - EstadoPendiente (*Class*)
-      - EstadoRealizada (*Class*)
-      - EstadoExpirada (*Class*)
-      - EstadoNoAplica (*Class*)
 
 - **STRATEGY**
   - En **Migrador**

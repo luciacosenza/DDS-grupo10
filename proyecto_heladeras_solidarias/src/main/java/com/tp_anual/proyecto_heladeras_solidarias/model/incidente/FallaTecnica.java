@@ -23,8 +23,7 @@ public class FallaTecnica extends Incidente {
     private final String foto;
 
     public FallaTecnica(LocalDateTime vFecha, HeladeraActiva vHeladera, Colaborador vColaborador, String vDescripcion, String vFoto) {
-        fecha = vFecha;
-        heladera = vHeladera;
+        super(vFecha, vHeladera);
         colaborador = vColaborador;
         descripcion = vDescripcion;
         foto = vFoto;

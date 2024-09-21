@@ -46,6 +46,7 @@ public class SensorTemperatura extends Sensor {
     public Boolean funcionaSensorFisico() {
         LocalDateTime ahora = LocalDateTime.now();
         long minutosPasados = ChronoUnit.MINUTES.between(ultimaActualizacion, ahora);
+
         return minutosPasados <= minutosPasadosMaximos; // Si pasa más del tiempo estimado, se lanzará una Alerta
     }
 

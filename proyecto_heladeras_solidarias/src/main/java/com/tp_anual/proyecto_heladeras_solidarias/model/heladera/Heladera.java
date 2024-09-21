@@ -2,6 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
@@ -11,6 +12,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion.
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +24,7 @@ public abstract class Heladera implements HeladeraObserver {    // Implementa un
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     protected Long id;
 
     protected String nombre;
@@ -45,7 +48,13 @@ public abstract class Heladera implements HeladeraObserver {    // Implementa un
     protected LocalDateTime fechaApertura;
 
     protected Boolean estado;
-    
+
+    @Transient
+    protected final Integer tiempoPermiso = 3;
+
+    @Transient
+    protected final TimeUnit unidadTiempoPermiso = TimeUnit.HOURS;
+
     @Transient
     protected GestorDeAperturas gestorDeAperturas;
 

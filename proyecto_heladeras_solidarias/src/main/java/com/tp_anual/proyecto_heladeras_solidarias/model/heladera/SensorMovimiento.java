@@ -6,11 +6,13 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta.TipoAle
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.Getter;
 import jakarta.persistence.*;
+import lombok.Setter;
 import lombok.extern.java.Log;
 
 @Entity
 @Log
 @Getter
+@Setter
 public class SensorMovimiento extends Sensor {
     
     private Boolean hayMovimiento;

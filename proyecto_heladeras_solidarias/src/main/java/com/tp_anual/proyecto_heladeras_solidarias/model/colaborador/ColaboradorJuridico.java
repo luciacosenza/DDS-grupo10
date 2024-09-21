@@ -23,6 +23,7 @@ import lombok.extern.java.Log;
 @Getter
 @Setter
 public class ColaboradorJuridico extends Colaborador {
+
     public ColaboradorJuridico(PersonaJuridica vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
         super(vPersona, vDomicilio, vMediosDeContacto, vContribuciones, vBeneficiosAdquiridos, vPuntos);
         

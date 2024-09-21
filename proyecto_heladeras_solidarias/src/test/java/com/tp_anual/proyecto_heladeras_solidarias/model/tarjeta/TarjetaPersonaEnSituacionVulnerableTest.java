@@ -96,7 +96,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         personaEnSituacionVulnerable.getTarjeta().intentarApertura(heladera);
         heladera.retirarVianda();
 
-        Assertions.assertTrue(heladera.viandasActuales() == 4 && personaEnSituacionVulnerable.getTarjeta().cantidadUsos() == 6);
+        Assertions.assertTrue(heladera.viandasActuales() == 4 && personaEnSituacionVulnerable.getTarjeta().cantidadUsos() == 6);    // Si lo corremos junto con el otro, va a tirar error porque van a existir más usos en el Sistema
     }
 
     @Test

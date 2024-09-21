@@ -1,15 +1,15 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
-import com.tp_anual.proyecto_heladeras_solidarias.model.estado_de_solicitud.EstadoRealizada;
-import com.tp_anual.proyecto_heladeras_solidarias.model.estado_de_solicitud.EstadoSolicitud;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador.MotivoSolicitud;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEnSituacionVulnerable;
-import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.permisos_de_apertura.PermisoApertura;
+import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.PermisoApertura;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.Getter;
 import lombok.extern.java.Log;
@@ -23,7 +23,7 @@ public class GestorDeAperturas {
         heladera = vHeladera;
     }
     
-    public void revisarSolicitudApertura(MotivoSolicitud motivo) {
+    public void revisarMotivoApertura(MotivoSolicitud motivo) {
         if (motivo == MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION &&
             heladera.estaVacia()) {
             
@@ -42,12 +42,14 @@ public class GestorDeAperturas {
     
     public void revisarPermisoAperturaC(ColaboradorHumano colaborador) {
         TarjetaColaborador tarjetaColaborador = colaborador.getTarjeta();
-        EstadoSolicitud estadoSolicitud = tarjetaColaborador.getEstadoSolicitud();
-        PermisoApertura permisoApertura = tarjetaColaborador.getPermiso();
+        ArrayList<PermisoApertura> permisos = tarjetaColaborador.getPermisos();
 
-        if (!(estadoSolicitud instanceof EstadoRealizada) ||
-            !(permisoApertura.esHeladeraPermitida(heladera))) {
-            
+        PermisoApertura permisoARevisar = permisos.stream()
+            .filter(permiso -> permiso.esHeladeraPermitida(heladera))
+            .max(Comparator.comparing(PermisoApertura::getFechaOtorgamiento))
+            .orElse(null);
+
+        if (permisoARevisar == null || !permisoARevisar.getOtorgado()) {
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_err", colaborador.getPersona().getNombre(2), heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_exception"));
         }

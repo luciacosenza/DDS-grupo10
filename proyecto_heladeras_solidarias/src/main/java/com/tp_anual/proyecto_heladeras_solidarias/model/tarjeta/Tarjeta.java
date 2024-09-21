@@ -9,14 +9,17 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_hel
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Getter
+@Setter
 public abstract class Tarjeta {
     
     @Id
-    protected final String codigo;    
+    @Setter(AccessLevel.NONE)
+    protected String codigo;
 
     @Transient
     @Getter(AccessLevel.NONE)
@@ -28,5 +31,5 @@ public abstract class Tarjeta {
 
     public abstract Boolean puedeUsar();
 
-    public abstract AccionHeladera intentarApertura(HeladeraActiva heladeraAAbrir)  throws InterruptedException;
+    public abstract AccionHeladera intentarApertura(HeladeraActiva heladeraAAbrir);
 }

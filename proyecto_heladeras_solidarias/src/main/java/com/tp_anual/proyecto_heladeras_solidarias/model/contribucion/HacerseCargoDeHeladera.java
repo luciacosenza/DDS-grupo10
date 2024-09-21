@@ -14,15 +14,18 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.java.Log;
 
 @Entity
 @Log
 @Getter
+@Setter
 public class HacerseCargoDeHeladera extends Contribucion {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     protected Long id; 
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
@@ -34,6 +37,12 @@ public class HacerseCargoDeHeladera extends Contribucion {
 
     @Transient
     private final Double multiplicador_puntos = 5d;
+
+    @Transient
+    private final Integer periodoCalculoPuntos = 1;
+
+    @Transient
+    private final TimeUnit unidadPeriodoCalculoPuntos = TimeUnit.DAYS;
 
     @Transient
     @Getter(AccessLevel.NONE)
@@ -61,9 +70,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
     
     @Override
     protected void calcularPuntos() {
-        Integer periodo = 1;
-        TimeUnit unidad = TimeUnit.DAYS;
-        
+
         Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
             long mesesPasados = ChronoUnit.MONTHS.between(ultimaActualizacion, ahora);
@@ -76,6 +83,6 @@ public class HacerseCargoDeHeladera extends Contribucion {
         };
 
         // Programa la tarea para que se ejecute una vez por día
-        scheduler.scheduleAtFixedRate(calculoPuntos, 0, periodo, unidad);  // Ejecuta una vez por día (puede ser ineficiente)
+        scheduler.scheduleAtFixedRate(calculoPuntos, 0, periodoCalculoPuntos, unidadPeriodoCalculoPuntos);  // Ejecuta una vez por día (puede ser ineficiente)
     }
 }

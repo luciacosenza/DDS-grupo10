@@ -8,9 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Log
 @Getter
-@Setter
 public class Area {
     
     @Id

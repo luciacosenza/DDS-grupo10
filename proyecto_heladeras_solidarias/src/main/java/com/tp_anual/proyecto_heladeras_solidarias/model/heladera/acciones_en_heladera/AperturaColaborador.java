@@ -6,9 +6,11 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorH
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
 @DiscriminatorValue("Apertura Colaborador")
+@Getter
 public class AperturaColaborador extends AccionColaborador {
     
     public AperturaColaborador(LocalDateTime vFecha, HeladeraActiva vHeladera, ColaboradorHumano vResponsable) {

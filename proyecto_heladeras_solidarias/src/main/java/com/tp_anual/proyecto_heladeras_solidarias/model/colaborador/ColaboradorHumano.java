@@ -72,19 +72,19 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
         Suscripcion suscripcion;
 
         switch(condicionSuscripcion) {
-        
+
             case VIANDAS_MIN -> suscripcion = new SuscripcionViandasMin(this, heladeraObjetivo, medioDeContacto, valor);
-            
+
             case VIANDAS_MAX -> suscripcion = new SuscripcionViandasMax(this, heladeraObjetivo, medioDeContacto, valor);
-            
+
             case DESPERFECTO -> suscripcion = new SuscripcionDesperfecto(this, heladeraObjetivo, medioDeContacto);
-            
+
             default -> {
                 log.log(Level.SEVERE, I18n.getMessage("heladera.HeladerNula.getUbicacion_err", persona.getNombre(2)));
                 throw new IllegalArgumentException(I18n.getMessage("colaborador.ColaboradorHumano.suscribirse_exception"));
             }
             
-            }
+        }
 
         suscripcion.darDeAlta();
         agregarSuscripcion(suscripcion);
@@ -96,12 +96,12 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
     public void modificarSuscripcion(Suscripcion suscripcion, Integer nuevoValor) {
         
         switch(suscripcion) {
+
+            case SuscripcionViandasMin suscripcionViandasMin -> suscripcionViandasMin.setViandasDisponiblesMin(nuevoValor);
         
-        case SuscripcionViandasMin suscripcionViandasMin -> suscripcionViandasMin.setViandasDisponiblesMin(nuevoValor);
+            case SuscripcionViandasMax suscripcionViandasMax -> suscripcionViandasMax.setViandasParaLlenarMax(nuevoValor);
         
-        case SuscripcionViandasMax suscripcionViandasMax -> suscripcionViandasMax.setViandasParaLlenarMax(nuevoValor);
-        
-        default -> {}
+            default -> {}
         
         }
 

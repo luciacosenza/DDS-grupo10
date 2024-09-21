@@ -6,6 +6,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.extern.java.Log;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,6 @@ import lombok.Setter;
 @Entity
 @Log
 @Getter
-@Setter
 public class Visita {
 
     @Id

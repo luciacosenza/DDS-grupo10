@@ -9,6 +9,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.extern.java.Log;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public class PersonaEnSituacionVulnerable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     protected Long id;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)

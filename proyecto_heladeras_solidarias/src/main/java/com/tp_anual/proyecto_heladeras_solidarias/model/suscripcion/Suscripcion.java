@@ -5,6 +5,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -20,6 +21,7 @@ public abstract class Suscripcion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     protected long id;
 
     @ManyToOne(fetch = FetchType.EAGER)

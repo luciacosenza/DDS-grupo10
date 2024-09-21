@@ -8,8 +8,10 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Tecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicador.UbicadorTecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class NotificadorDeIncidentes extends Notificador {
     private final UbicadorTecnico ubicador;
     

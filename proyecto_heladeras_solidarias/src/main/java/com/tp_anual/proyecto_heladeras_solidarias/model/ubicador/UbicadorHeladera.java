@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.Comparator;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -13,6 +15,8 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 @Log
+@Getter
+@Setter
 public class UbicadorHeladera {
     public UbicadorHeladera() {}
 
