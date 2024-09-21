@@ -29,7 +29,7 @@ public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
     private final TarjetaPersonaEnSituacionVulnerable tarjetaAsignada;
     
     @Transient
-    private final Double multiplicador_puntos = 2d;
+    private final Double multiplicadorPuntos = 2d;
     
     public RegistroDePersonaEnSituacionVulnerable(Colaborador vColaborador, LocalDateTime vFechaContribucion, TarjetaPersonaEnSituacionVulnerable vTarjetaAsignada) {
         super(vColaborador, vFechaContribucion);
@@ -58,7 +58,7 @@ public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
 
     @Override
     protected void calcularPuntos() {
-        Double puntosASumar = multiplicador_puntos;
+        Double puntosASumar = multiplicadorPuntos;
         colaborador.sumarPuntos(puntosASumar);
         confirmarSumaPuntos(puntosASumar);
     }

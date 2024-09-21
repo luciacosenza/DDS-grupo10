@@ -38,7 +38,7 @@ public class DistribucionViandas extends Contribucion {
     private final MotivoDistribucion motivo;
 
     @Transient
-    private final Double multiplicador_puntos = 1d;
+    private final Double multiplicadorPuntos = 1d;
 
     public enum MotivoDistribucion {
         DESPERFECTO_EN_LA_HELADERA,
@@ -77,7 +77,7 @@ public class DistribucionViandas extends Contribucion {
 
     @Override
     protected void calcularPuntos() {
-        Double puntosASumar = Double.valueOf(cantidadViandasAMover) * multiplicador_puntos;
+        Double puntosASumar = Double.valueOf(cantidadViandasAMover) * multiplicadorPuntos;
         colaborador.sumarPuntos(puntosASumar);
         confirmarSumaPuntos(puntosASumar);
     }

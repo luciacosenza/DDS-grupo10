@@ -33,7 +33,7 @@ public class DonacionVianda extends Contribucion {
     private final HeladeraActiva heladera;
 
     @Transient
-    private final Double multiplicador_puntos = 1.5;
+    private final Double multiplicadorPuntos = 1.5;
 
     public DonacionVianda(Colaborador vColaborador, LocalDateTime vFechaContribucion, Vianda vVianda, HeladeraActiva vHeladera) {
         super(vColaborador, vFechaContribucion);
@@ -63,7 +63,7 @@ public class DonacionVianda extends Contribucion {
 
     @Override
     protected void calcularPuntos() {
-        colaborador.sumarPuntos(multiplicador_puntos);
-        confirmarSumaPuntos(multiplicador_puntos);
+        colaborador.sumarPuntos(multiplicadorPuntos);
+        confirmarSumaPuntos(multiplicadorPuntos);
     }
 }

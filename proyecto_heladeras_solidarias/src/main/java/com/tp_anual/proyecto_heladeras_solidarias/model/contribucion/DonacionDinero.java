@@ -36,7 +36,7 @@ public class DonacionDinero extends Contribucion {
     private LocalDateTime ultimaActualizacion;
     
     @Transient
-    private final Double multiplicador_puntos = 0.5;
+    private final Double multiplicadorPuntos = 0.5;
 
     @Transient
     private final Integer periodoCalculoPuntos = 1;
@@ -133,7 +133,7 @@ public class DonacionDinero extends Contribucion {
     @Override
     protected void calcularPuntos() {    
         if (frecuencia == FrecuenciaDePago.UNICA_VEZ) {
-            Double puntosASumar = monto * multiplicador_puntos;
+            Double puntosASumar = monto * multiplicadorPuntos;
             colaborador.sumarPuntos(puntosASumar);
             confirmarSumaPuntos(puntosASumar);
         }
@@ -142,7 +142,7 @@ public class DonacionDinero extends Contribucion {
             LocalDateTime ahora = LocalDateTime.now();
             Long periodosPasados = frecuencia.unidad().between(ultimaActualizacion, ahora);
             if (periodosPasados >= frecuencia.periodo()) {  // TODO: Dado que en el test nos dimos cuenta que puede fallar por milésimas, podríamos pensar en restarle un segundo, por ejemplo, a períodos pasados
-                Double puntosASumarL = monto * multiplicador_puntos;
+                Double puntosASumarL = monto * multiplicadorPuntos;
                 colaborador.sumarPuntos(puntosASumarL);
                 confirmarSumaPuntos(puntosASumarL);
                 ultimaActualizacion = ahora;

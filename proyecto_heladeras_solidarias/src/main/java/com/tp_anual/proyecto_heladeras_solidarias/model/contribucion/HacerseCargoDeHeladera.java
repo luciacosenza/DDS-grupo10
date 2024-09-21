@@ -36,7 +36,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
     private LocalDateTime ultimaActualizacion;
 
     @Transient
-    private final Double multiplicador_puntos = 5d;
+    private final Double multiplicadorPuntos = 5d;
 
     @Transient
     private final Integer periodoCalculoPuntos = 1;
@@ -75,7 +75,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
             LocalDateTime ahora = LocalDateTime.now();
             long mesesPasados = ChronoUnit.MONTHS.between(ultimaActualizacion, ahora);
             if (mesesPasados >= 1 && heladeraObjetivo.getEstado()) {    // Dado que en el test nos dimos cuenta que puede fallar por milésimas, podríamos pensar en restarle un segundo, por ejemplo, a meses pasados (TODO)
-                Double puntosASumar = multiplicador_puntos;
+                Double puntosASumar = multiplicadorPuntos;
                 colaborador.sumarPuntos(puntosASumar);
                 confirmarSumaPuntos(puntosASumar);
                 ultimaActualizacion = ahora;

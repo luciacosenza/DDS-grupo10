@@ -26,6 +26,12 @@ public class SensorTemperatura extends Sensor {
     private LocalDateTime ultimaActualizacion;
 
     @Transient
+    Integer periodoNotificacionFalla = 5;
+
+    @Transient
+    TimeUnit unidadPeriodoNotificacionFalla = TimeUnit.MINUTES;
+
+    @Transient
     private final long minutosPasadosMaximos = 5;   // Seteamos el tiempo (arbitrario) máximo que puede pasar sin recibir la temperatura del Sensor físico para mandar una Alerta
 
     public SensorTemperatura(HeladeraActiva vHeladera) {
@@ -61,9 +67,6 @@ public class SensorTemperatura extends Sensor {
     }
     
     public void programarNotificacion() {
-        Integer periodo = 5;
-        TimeUnit unidad = TimeUnit.MINUTES;
-        
         Runnable notificacionTemperatura = () -> {
             if (!funcionaSensorFisico())
                 notificarFalla();
@@ -72,6 +75,6 @@ public class SensorTemperatura extends Sensor {
         };
         
         // Programa la tarea para que se ejecute cada 5 minutos
-        scheduler.scheduleAtFixedRate(notificacionTemperatura, 0, periodo, unidad);
+        scheduler.scheduleAtFixedRate(notificacionTemperatura, 0, periodoNotificacionFalla, unidadPeriodoNotificacionFalla);
     }
 }
