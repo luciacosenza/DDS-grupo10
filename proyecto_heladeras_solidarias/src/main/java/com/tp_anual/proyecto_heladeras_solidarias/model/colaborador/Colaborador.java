@@ -17,6 +17,8 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +39,7 @@ public abstract class Colaborador {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "persona_id")
+    @NotNull
     protected final Persona persona;
     
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -45,22 +48,28 @@ public abstract class Colaborador {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "medio_de_contacto_id")
+    @NotNull
     protected final ArrayList<MedioDeContacto> mediosDeContacto;
     
     @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @NotNull
     protected final ArrayList<Contribucion> contribuciones;
     
     @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @NotNull
     protected final ArrayList<Contribucion> contribucionesPendientes;
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "oferta_id")
+    @NotNull
     protected final ArrayList<Oferta> beneficiosAdquiridos;
     
     @Transient
     @Setter(AccessLevel.NONE)
     protected Set<Class<? extends ContribucionCreator>> creatorsPermitidos;
     
+    @NotNull
+    @Min(value = 0)
     protected Double puntos;
 
     protected Colaborador(Persona vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {

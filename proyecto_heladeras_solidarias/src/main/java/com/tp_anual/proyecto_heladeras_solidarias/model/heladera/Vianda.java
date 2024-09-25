@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Getter
@@ -18,26 +20,32 @@ public class Vianda {
     @Setter(AccessLevel.NONE)
     protected Long id;
 
+    @NotBlank
     private String comida;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_id")
+    @NotNull
     private Heladera heladera;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "colaborador_id")
+    @NotNull
     private ColaboradorHumano colaborador;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
     private LocalDateTime fechaCaducidad;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
     private LocalDateTime fechaDonacion;
 
     private Integer calorias;
 
     private Integer peso;
-
+    
+    @NotNull
     private Boolean entregada;
 
     public Vianda(String vComida, ColaboradorHumano vColaborador, LocalDateTime vFechaCaducidad, LocalDateTime vFechaDonacion, Integer vCalorias, Integer vPeso, Boolean vEntregada) {

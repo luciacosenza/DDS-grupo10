@@ -8,6 +8,7 @@ import lombok.Getter;
 import jakarta.persistence.*;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Log
@@ -15,6 +16,7 @@ import lombok.extern.java.Log;
 @Setter
 public class SensorMovimiento extends Sensor {
     
+    @NotNull
     private Boolean hayMovimiento;
     
     public SensorMovimiento(HeladeraActiva vHeladera) {

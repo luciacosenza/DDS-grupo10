@@ -9,6 +9,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.AperturaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -22,10 +23,12 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
     
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "persona_en_situacion_vulnerable_id")
+    @NotNull
     private PersonaEnSituacionVulnerable titular;
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "uso_tarjeta_id")
+    @NotNull
     protected final ArrayList<UsoTarjeta> usos;
 
     public TarjetaPersonaEnSituacionVulnerable(PersonaEnSituacionVulnerable vTitular) {

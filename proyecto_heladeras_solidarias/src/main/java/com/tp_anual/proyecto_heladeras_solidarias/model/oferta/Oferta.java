@@ -11,6 +11,9 @@ import lombok.AccessLevel;
 import lombok.extern.java.Log;
 import lombok.Getter;
 import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Log
@@ -23,11 +26,15 @@ public class Oferta {
     @Setter(AccessLevel.NONE)
     protected Long id;
 
+    @NotBlank
     private String nombre;
 
+    @NotNull
+    @Min(value = 0)
     private Double costo;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
     private Categoria categoria;
 
     private String imagen;

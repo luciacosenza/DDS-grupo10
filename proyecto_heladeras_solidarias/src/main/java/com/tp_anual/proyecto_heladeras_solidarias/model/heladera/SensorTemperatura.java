@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 import jakarta.persistence.*;
 import lombok.extern.java.Log;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Log
@@ -20,9 +21,11 @@ import lombok.extern.java.Log;
 @Setter
 public class SensorTemperatura extends Sensor {
 
+    @NotNull
     private Float tempActual;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
     private LocalDateTime ultimaActualizacion;
 
     @Transient

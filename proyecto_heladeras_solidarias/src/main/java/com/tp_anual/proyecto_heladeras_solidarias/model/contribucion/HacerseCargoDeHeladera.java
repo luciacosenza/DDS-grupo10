@@ -12,6 +12,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,9 +31,11 @@ public class HacerseCargoDeHeladera extends Contribucion {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "heladera_id")
+    @NotNull
     private final HeladeraActiva heladeraObjetivo;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
     private LocalDateTime ultimaActualizacion;
 
     @Transient

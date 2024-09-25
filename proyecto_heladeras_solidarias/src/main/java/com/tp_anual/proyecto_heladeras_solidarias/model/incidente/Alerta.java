@@ -7,6 +7,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
 
 @Entity 
 @Getter
@@ -14,6 +15,7 @@ import lombok.Setter;
 public class Alerta extends Incidente {
     
     @Enumerated(EnumType.STRING)
+    @NotNull
     private final TipoAlerta tipo;
 
     public enum TipoAlerta {

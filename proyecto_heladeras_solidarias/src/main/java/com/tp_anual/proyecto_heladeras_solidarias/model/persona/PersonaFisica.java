@@ -8,21 +8,27 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity 
 @Getter
 @Setter
 public class PersonaFisica extends Persona {
     
+    @NotBlank
     private String nombre;
 
+    @NotBlank
     private String apellido;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "documento_id")
+    @NotNull
     private final Documento documento;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
     private final LocalDateTime fechaNacimiento;
 
     public PersonaFisica(String vNombre, String vApellido, Documento vDocumento, LocalDateTime vFechaDeNacimiento) {

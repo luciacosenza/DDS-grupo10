@@ -8,6 +8,8 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
 import lombok.AccessLevel;
 import lombok.extern.java.Log;
 import lombok.Getter;
@@ -26,15 +28,20 @@ public class DistribucionViandas extends Contribucion {
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_id")
+    @NotNull
     private final HeladeraActiva origen;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_id")
+    @NotNull
     private final HeladeraActiva destino;
 
+    @NotNull
+    @Min(value = 0)
     private final Integer cantidadViandasAMover;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
     private final MotivoDistribucion motivo;
 
     @Transient

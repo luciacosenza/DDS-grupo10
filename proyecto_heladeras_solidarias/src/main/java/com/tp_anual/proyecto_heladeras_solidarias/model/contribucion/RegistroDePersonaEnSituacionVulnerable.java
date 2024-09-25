@@ -8,6 +8,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEn
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
     
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tarjeta_persona_en_situacion_vulnerable_id")
+    @NotNull
     private final TarjetaPersonaEnSituacionVulnerable tarjetaAsignada;
     
     @Transient

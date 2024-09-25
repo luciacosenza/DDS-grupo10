@@ -6,6 +6,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorH
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import jakarta.persistence.*;
 import lombok.Getter;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @DiscriminatorValue("Solicitud Apertura Colaborador")
@@ -13,6 +14,7 @@ import lombok.Getter;
 public class SolicitudAperturaColaborador extends AccionColaborador {
     
     @Enumerated(EnumType.STRING)
+    @NotNull
     private final MotivoSolicitud motivo;
 
     public enum MotivoSolicitud {

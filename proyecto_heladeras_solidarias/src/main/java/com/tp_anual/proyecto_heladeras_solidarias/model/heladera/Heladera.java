@@ -15,6 +15,9 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -26,27 +29,37 @@ public abstract class Heladera implements HeladeraObserver {    // Implementa un
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     protected Long id;
-
+    
+    @NotBlank
     protected String nombre;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "ubicacion_id")
+    @NotNull
     protected Ubicacion ubicacion;
     
+    @NotNull
+    @Min(value = 0)
     protected final Integer capacidad;
 
+    @NotNull
     protected final Float tempMin;
 
+    @NotNull
     protected final Float tempMax;
 
     @OneToMany(mappedBy = "heladera", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+    @NotNull
     protected final ArrayList<Vianda> viandas;
     
+    @NotNull
     protected Float tempActual;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
     protected LocalDateTime fechaApertura;
 
+    @NotNull
     protected Boolean estado;
 
     @Transient

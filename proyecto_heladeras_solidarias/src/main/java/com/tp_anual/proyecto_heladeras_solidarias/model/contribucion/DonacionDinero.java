@@ -11,6 +11,8 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,12 +29,17 @@ public class DonacionDinero extends Contribucion {
     @Setter(AccessLevel.NONE)
     protected Long id;
     
+    @NotNull
+    @Min(value = 0)
     private final Double monto;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
+    @Min(value = 0)
     private final FrecuenciaDePago frecuencia;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
     private LocalDateTime ultimaActualizacion;
     
     @Transient
