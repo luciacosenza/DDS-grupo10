@@ -35,7 +35,7 @@ import lombok.extern.java.Log;
 @Getter
 @Setter
 public class ColaboradorHumano extends Colaborador {    // Implementa una Interfaz "ColaboradorHumanoObserver" a nivel conceptual
-    
+
     @OneToOne(mappedBy = "titular", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @NotNull
     protected TarjetaColaborador tarjeta;
@@ -62,11 +62,11 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
         return (PersonaFisica) persona;
     }
 
-    private void agregarSuscripcion(Suscripcion suscripcion) {
+    public void agregarSuscripcion(Suscripcion suscripcion) {
         suscripciones.add(suscripcion);
     }
 
-    private void eliminarSuscripcion(Suscripcion suscripcion) {
+    public void eliminarSuscripcion(Suscripcion suscripcion) {
         suscripciones.remove(suscripcion);
     }
     
