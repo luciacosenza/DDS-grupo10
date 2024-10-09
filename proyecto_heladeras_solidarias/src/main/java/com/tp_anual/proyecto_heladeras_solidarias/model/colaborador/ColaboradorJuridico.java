@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
-import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.CargaOfertaCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.CargaOfertaCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
-import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionDineroCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.HacerseCargoDeHeladeraCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionDineroCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.HacerseCargoDeHeladeraCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;

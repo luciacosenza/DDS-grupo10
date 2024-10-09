@@ -1,9 +1,11 @@
-package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
+package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.HacerseCargoDeHeladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
@@ -13,7 +15,7 @@ import lombok.extern.java.Log;
 public class HacerseCargoDeHeladeraCreator implements ContribucionCreator {
 
     @Override
-    public Contribucion crearContribucionDefault(Colaborador colaborador,LocalDateTime fechaContribucion) {
+    public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
         return new HacerseCargoDeHeladera(colaborador, fechaContribucion,
             new HeladeraActiva(null, new Ubicacion(null, null, null, null, null, null),
             null, null, null, null, null));

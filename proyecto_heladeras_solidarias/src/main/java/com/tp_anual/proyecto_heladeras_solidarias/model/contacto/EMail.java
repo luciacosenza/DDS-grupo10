@@ -4,6 +4,7 @@ import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
+import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.EMailSender;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Email;
@@ -25,7 +26,7 @@ public class EMail extends MedioDeContacto {
 
     @Override
     public void contactar(String asunto, String cuerpo) {
-        EMailSenderService.enviarEMail(direccionCorreo, asunto, cuerpo);
+        EMailSender.enviarEMail(direccionCorreo, asunto, cuerpo);
         log.log(Level.INFO, I18n.getMessage("contacto.EMail.contactar_info", direccionCorreo));
     }
 }

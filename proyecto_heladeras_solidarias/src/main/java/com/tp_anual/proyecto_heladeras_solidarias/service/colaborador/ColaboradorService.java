@@ -5,7 +5,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
-import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.ContribucionCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.ContribucionCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion;
@@ -18,14 +18,15 @@ import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.Contri
 import com.tp_anual.proyecto_heladeras_solidarias.repository.heladera.HeladeraRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.oferta.OfertaRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.suscripcion.SuscripcionRepository;
+import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.ContribucionService;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 
-@Log
 @Service
+@Log
 public class ColaboradorService {
 
     private final ColaboradorRepository colaboradorRepository;
@@ -50,23 +51,29 @@ public class ColaboradorService {
         heladeraService = vHeladeraService;
     }
 
+    public Boolean esCreatorPermitido(Long colaboradorId, Class<? extends ContribucionCreator> creatorClass) {
+        Colaborador colaborador = colaboradorRepository.findById(colaboradorId);
+
+        return colaborador.getCreatorsPermitidos().contains(creatorClass);
+    }
+
     public Contribucion colaborar(Long colaboradorId, ContribucionCreator creator, LocalDateTime fechaContribucion /* generalmente LocalDateTime.now() */, Object... args) {
         Colaborador colaborador = colaboradorRepository.findById(colaboradorId);
 
-        if (!colaborador.esCreatorPermitido(creator.getClass())) {
-            log.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.colaborar_err", creator.getClass().getSimpleName(), persona.getNombre(2), persona.getTipoPersona()));
+        if (!esCreatorPermitido(colaboradorId, creator.getClass())) {
+            log.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.colaborar_err", creator.getClass().getSimpleName(), colaborador.getPersona().getNombre(2), colaborador.getPersona().getTipoPersona()));
             throw new IllegalArgumentException(I18n.getMessage("colaborador.Colaborador.colaborar_exception"));
         }
 
-        Contribucion contribucion = contribucionService.crearContribucion(creator, colaborador, fechaContribucion, false, args);
+        Contribucion contribucion = creator.crearContribucion(colaborador, fechaContribucion, false , args);
 
         Long contribucionId = contribucionRepository.save(contribucion).getId();
-        contribucionService.validarIdentidad(contribucionId);
+        contribucionService.validarIdentidad(contribucionId, colaboradorId);
 
         colaborador.agregarContribucionPendiente(contribucion);
         colaboradorRepository.save(colaborador);
 
-        log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.colaborar_info", contribucion.getClass().getSimpleName(), persona.getNombre(2)));
+        log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.colaborar_info", contribucion.getClass().getSimpleName(), colaborador.getPersona().getNombre(2)));
 
         return contribucion;
     }
@@ -77,14 +84,14 @@ public class ColaboradorService {
 
         Contribucion contribucion = contribucionRepository.findById(contribucionId);
 
-        contribucionService.confirmar(contribucionId, fechaContribucion);
+        contribucionService.confirmar(contribucionId, colaboradorId, fechaContribucion);
         contribucionRepository.save(contribucion);
 
         colaborador.agregarContribucion(contribucion);
         colaborador.eliminarContribucionPendiente(contribucion);
         colaboradorRepository.save(colaborador);
 
-        log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.confirmarContribucion_info", contribucion.getClass().getSimpleName(), persona.getNombre(2)));
+        log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.confirmarContribucion_info", contribucion.getClass().getSimpleName(), colaborador.getPersona().getNombre(2)));
     }
 
     public void intentarAdquirirBeneficio(Long colaboradorId, Long ofertaId) {
@@ -97,7 +104,7 @@ public class ColaboradorService {
         colaborador.agregarBeneficio(oferta);
         colaboradorRepository.save(colaborador);
 
-        log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.adquirirBeneficio_info", oferta.getNombre(), persona.getNombre(2)));
+        log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.adquirirBeneficio_info", oferta.getNombre(), colaborador.getPersona().getNombre(2)));
     }
 
     public void reportarFallaTecnica(Long colaboradorId, Long heladeraId, String descripcion, String foto) {
@@ -123,7 +130,7 @@ public class ColaboradorService {
             case DESPERFECTO -> suscripcion = new SuscripcionDesperfecto(colaborador, heladera, medioDeContacto);
 
             default -> {
-                log.log(Level.SEVERE, I18n.getMessage("heladera.HeladerNula.getUbicacion_err", colaborador.getPersona().getNombre(2)));
+                log.log(Level.SEVERE, I18n.getMessage("colaborador.ColaboradorHumano.suscribirse_err", colaborador.getPersona().getNombre(2)));
                 throw new IllegalArgumentException(I18n.getMessage("colaborador.ColaboradorHumano.suscribirse_exception"));
             }
 
@@ -140,7 +147,8 @@ public class ColaboradorService {
         return suscripcion;
     }
 
-    public void modificarSuscripcion(Long suscripcionId, Integer nuevoValor) {
+    public void modificarSuscripcion(Long colaboradorId, Long suscripcionId, Integer nuevoValor) {
+        ColaboradorHumano colaborador = colaboradorRepository.findById(colaboradorId);
         Suscripcion suscripcion = suscripcionRepository.findById(suscripcionId);
 
         switch(suscripcion) {
@@ -159,7 +167,7 @@ public class ColaboradorService {
 
         }
 
-        log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.modificarSuscripcion_info", suscripcion.getHeladera().getNombre(), persona.getNombre(2)));
+        log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.modificarSuscripcion_info", suscripcion.getHeladera().getNombre(), colaborador.getPersona().getNombre(2)));
     }
 
     public void cancelarSuscripcion(Long colabarodorId, Long suscripcionId) {
@@ -172,7 +180,6 @@ public class ColaboradorService {
         suscripcion.darDeBaja();
         suscripcionRepository.delete(suscripcion);
 
-        log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.cancelarSuscripcion_info", suscripcion.getHeladera().getNombre(), persona.getNombre(2)));
+        log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.cancelarSuscripcion_info", suscripcion.getHeladera().getNombre(), colaborador.getPersona().getNombre(2)));
     }
-
 }

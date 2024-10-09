@@ -10,9 +10,9 @@ import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DistribucionViandas;
-import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DistribucionViandasCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DistribucionViandasCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionVianda;
-import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionViandaCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionViandaCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento.Sexo;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento.TipoDocumento;

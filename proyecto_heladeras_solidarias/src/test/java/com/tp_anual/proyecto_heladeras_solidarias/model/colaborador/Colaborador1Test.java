@@ -11,8 +11,8 @@ import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.EMail;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.WhatsApp;
-import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.HacerseCargoDeHeladeraCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.RegistroDePersonaEnSituacionVulnerableCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.HacerseCargoDeHeladeraCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.RegistroDePersonaEnSituacionVulnerableCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento.Sexo;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento.TipoDocumento;

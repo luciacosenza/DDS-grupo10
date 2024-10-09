@@ -1,4 +1,4 @@
-package com.tp_anual.proyecto_heladeras_solidarias.model.contacto;
+package com.tp_anual.proyecto_heladeras_solidarias.service.contacto;
 
 import java.util.Properties;
 import java.util.logging.Level;
@@ -17,7 +17,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import lombok.extern.java.Log;
 
 @Log
-public class EMailSenderService {
+public class EMailSender {
 	private static final Properties propiedades = new Properties();
 	private static final Dotenv dotenv = Dotenv.load();
     private static final String  username = dotenv.get("EMAIL_USERNAME");

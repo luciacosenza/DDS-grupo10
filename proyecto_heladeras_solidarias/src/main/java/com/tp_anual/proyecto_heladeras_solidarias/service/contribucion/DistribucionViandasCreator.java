@@ -1,10 +1,12 @@
-package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
+package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DistribucionViandas;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
