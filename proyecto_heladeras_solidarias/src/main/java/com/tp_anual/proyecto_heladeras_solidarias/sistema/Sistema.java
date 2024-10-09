@@ -8,17 +8,17 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Sensor;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.AccionHeladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
-import com.tp_anual.proyecto_heladeras_solidarias.model.notificador.NotificadorDeEstado;
-import com.tp_anual.proyecto_heladeras_solidarias.model.notificador.NotificadorDeIncidentes;
+import com.tp_anual.proyecto_heladeras_solidarias.service.notificador.NotificadorDeEstado;
+import com.tp_anual.proyecto_heladeras_solidarias.service.notificador.NotificadorDeIncidentes;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
-import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.GestorDeSuscripciones;
-import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.GestorDeVisitas;
+import com.tp_anual.proyecto_heladeras_solidarias.service.suscripcion.GestorDeSuscripciones;
+import com.tp_anual.proyecto_heladeras_solidarias.service.tecnico.GestorDeVisitas;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Tecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Visita;
-import com.tp_anual.proyecto_heladeras_solidarias.reporte.ReporteIncidentesPorHeladera;
-import com.tp_anual.proyecto_heladeras_solidarias.reporte.ReporteMovimientosViandaPorHeladera;
-import com.tp_anual.proyecto_heladeras_solidarias.reporte.ReporteViandasPorColaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.report.ReporteIncidentesPorHeladera;
+import com.tp_anual.proyecto_heladeras_solidarias.report.ReporteMovimientosViandaPorHeladera;
+import com.tp_anual.proyecto_heladeras_solidarias.report.ReporteViandasPorColaborador;
 
 public class Sistema {
     private static final ArrayList<Colaborador> colaboradores = new ArrayList<>();

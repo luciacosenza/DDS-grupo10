@@ -3,9 +3,10 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionDinero;
-import com.tp_anual.proyecto_heladeras_solidarias.repository.colaborador.ColaboradorRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.ContribucionRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.DonacionDineroRepository;
+import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +19,20 @@ import java.util.logging.Level;
 @Log
 public class DonacionDineroService extends ContribucionService {
 
-    private final ColaboradorRepository colaboradorRepository;
     private final DonacionDineroRepository donacionDineroRepository;
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1); // TODO: Probablemente no vaya acá el scheduler, porque los Services son Singletons
 
-    public DonacionDineroService(ContribucionRepository vContribucionRepository, ColaboradorRepository vColaboradorRepository, DonacionDineroRepository vDonacionDineroRepository) {
-        super(vContribucionRepository);
-        colaboradorRepository = vColaboradorRepository;
+    public DonacionDineroService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService, DonacionDineroRepository vDonacionDineroRepository) {
+        super(vContribucionRepository, vColaboradorService);
         donacionDineroRepository = vDonacionDineroRepository;
+    }
+
+    public DonacionDinero obtenerDonacionDinero(Long donacionDineroId) {
+        return donacionDineroRepository.findById(donacionDineroId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+    }
+
+    public DonacionDinero guardarDonacionDinero(DonacionDinero donacionDinero) {
+        return donacionDineroRepository.save(donacionDinero);
     }
 
     @Override
@@ -33,20 +40,20 @@ public class DonacionDineroService extends ContribucionService {
 
     @Override
     protected void confirmarSumaPuntos(Long contribucionId, Long colaboradorId, Double puntosSumados) {
-        Colaborador colaborador = colaboradorRepository.findById(colaboradorId);
+        Colaborador colaborador = colaboradorService.obtenerColaborador(colaboradorId);
         log.log(Level.INFO, I18n.getMessage("contribucion.DonacionDinero.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
     @Override
     protected void calcularPuntos(Long contribucionId, Long colaboradorId) {
-        DonacionDinero donacionDinero = donacionDineroRepository.findById(contribucionId);
-        Colaborador colaborador = colaboradorRepository.findById(colaboradorId);
+        DonacionDinero donacionDinero = obtenerDonacionDinero(contribucionId);
+        Colaborador colaborador = colaboradorService.obtenerColaborador(colaboradorId);
 
         if (donacionDinero.getFrecuencia() == DonacionDinero.FrecuenciaDePago.UNICA_VEZ) {
             Double puntosASumar = donacionDinero.getMonto() * donacionDinero.getMultiplicadorPuntos();
             colaborador.sumarPuntos(puntosASumar);
-            colaboradorRepository.save(colaborador);
-            confirmarSumaPuntos(colaboradorId, puntosASumar);
+            colaboradorService.guardarColaborador(colaborador);
+            confirmarSumaPuntos(contribucionId, colaboradorId, puntosASumar);
         }
 
         Runnable calculoPuntos = () -> {
@@ -55,10 +62,10 @@ public class DonacionDineroService extends ContribucionService {
             if (periodosPasados >= donacionDinero.getFrecuencia().periodo()) {  // TODO: Dado que en el test nos dimos cuenta que puede fallar por milésimas, podríamos pensar en restarle un segundo, por ejemplo, a períodos pasados
                 Double puntosASumarL = donacionDinero.getMonto() * donacionDinero.getMultiplicadorPuntos();
                 colaborador.sumarPuntos(puntosASumarL);
-                colaboradorRepository.save(colaborador);
+                colaboradorService.guardarColaborador(colaborador);
                 confirmarSumaPuntos(contribucionId, colaboradorId, puntosASumarL);
                 donacionDinero.setUltimaActualizacion(ahora);
-                donacionDineroRepository.save(donacionDinero);
+                guardarDonacionDinero(donacionDinero);
             }
         };
 

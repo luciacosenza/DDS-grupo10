@@ -11,6 +11,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.GestorDeAperturas;
 import lombok.extern.java.Log;
 
 @Log
@@ -108,12 +109,12 @@ public class HeladeraNula extends Heladera {
     }
 
     @Override
-    protected Boolean verificarCapacidad() {
+    public Boolean verificarCapacidad() {
         return false;
     }
 
     @Override
-    protected void verificarCondiciones() {}
+    public void verificarCondiciones() {}
 
     @Override
     public void agregarVianda(Vianda vianda) {}
@@ -125,7 +126,7 @@ public class HeladeraNula extends Heladera {
     }
 
     @Override
-    protected void verificarTempActual() {}
+    public void verificarTempActual() {}
 
     @Override
     public void setTempActual(Float temperatura) {}

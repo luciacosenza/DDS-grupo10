@@ -11,6 +11,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 
+import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.GestorDeAperturas;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -93,15 +94,15 @@ public abstract class Heladera implements HeladeraObserver {    // Implementa un
 
     public abstract Integer viandasActuales();
 
-    protected abstract Boolean verificarCapacidad();
+    public abstract Boolean verificarCapacidad();
     
-    protected abstract void verificarCondiciones();
+    public abstract void verificarCondiciones();
 
     public abstract void agregarVianda(Vianda vianda);
 
     public abstract Vianda retirarVianda();
 
-    protected abstract void verificarTempActual();
+    public abstract void verificarTempActual();
 
     @Override
     public abstract void setTempActual(Float temperatura);

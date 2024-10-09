@@ -2,6 +2,10 @@ package com.tp_anual.proyecto_heladeras_solidarias.validador_password;
 
 import java.util.ArrayList;
 
+import com.tp_anual.proyecto_heladeras_solidarias.service.validador_password.CriterioLargo;
+import com.tp_anual.proyecto_heladeras_solidarias.service.validador_password.CriterioTop10000MasComun;
+import com.tp_anual.proyecto_heladeras_solidarias.service.validador_password.CriterioValidacion;
+import com.tp_anual.proyecto_heladeras_solidarias.service.validador_password.ValidadorPassword;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

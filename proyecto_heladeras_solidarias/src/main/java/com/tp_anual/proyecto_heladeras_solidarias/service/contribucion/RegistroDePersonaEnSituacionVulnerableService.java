@@ -6,27 +6,34 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.RegistroDeP
 import com.tp_anual.proyecto_heladeras_solidarias.repository.colaborador.ColaboradorRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.ContribucionRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.RegistroDePersonaEnSituacionVulnerableRepository;
+import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
-
+import jakarta.persistence.EntityNotFoundException;
 import java.util.logging.Level;
 
 @Service
 @Log
 public class RegistroDePersonaEnSituacionVulnerableService extends ContribucionService {
 
-    private final ColaboradorRepository colaboradorRepository;
     private final RegistroDePersonaEnSituacionVulnerableRepository registroDePersonaEnSituacionVulnerableRepository;
 
-    public RegistroDePersonaEnSituacionVulnerableService(ContribucionRepository vContribucionRepository, ColaboradorRepository vColaboradorRepository, RegistroDePersonaEnSituacionVulnerableRepository vRegistroDePersonaEnSituacionVulnerableRepository) {
-        super(vContribucionRepository);
-        colaboradorRepository = vColaboradorRepository;
+    public RegistroDePersonaEnSituacionVulnerableService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService, RegistroDePersonaEnSituacionVulnerableRepository vRegistroDePersonaEnSituacionVulnerableRepository) {
+        super(vContribucionRepository, vColaboradorService);
         registroDePersonaEnSituacionVulnerableRepository = vRegistroDePersonaEnSituacionVulnerableRepository;
+    }
+
+    public RegistroDePersonaEnSituacionVulnerable obtenerRegistroDePersonaEnSituacionVulnerable(Long registroId) {
+        return registroDePersonaEnSituacionVulnerableRepository.findById(registroId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+    }
+
+    public RegistroDePersonaEnSituacionVulnerable guardarRegistroDePersonaEnSituacionVulnerable(RegistroDePersonaEnSituacionVulnerable registro) {
+        return registroDePersonaEnSituacionVulnerableRepository.save(registro);
     }
 
     @Override
     public void validarIdentidad(Long contribucionId, Long colaboradorId) {
-        ColaboradorHumano colaborador = colaboradorRepository.findById(colaboradorId);
+        ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
 
         if(colaborador.getDomicilio() == null) {
             log.log(Level.SEVERE, I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
@@ -36,8 +43,8 @@ public class RegistroDePersonaEnSituacionVulnerableService extends ContribucionS
 
     @Override
     protected void confirmarSumaPuntos(Long contribucionId, Long colaboradorId, Double puntosSumados) {
-        RegistroDePersonaEnSituacionVulnerable registroDePersonaEnSituacionVulnerable = registroDePersonaEnSituacionVulnerableRepository.findById(contribucionId);
-        ColaboradorHumano colaborador = colaboradorRepository.findById(colaboradorId);
+        RegistroDePersonaEnSituacionVulnerable registroDePersonaEnSituacionVulnerable = obtenerRegistroDePersonaEnSituacionVulnerable(contribucionId);
+        ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
 
         registroDePersonaEnSituacionVulnerable.getTarjetaAsignada().programarReseteoUsos();
         registroDePersonaEnSituacionVulnerableRepository.save(registroDePersonaEnSituacionVulnerable);
@@ -47,12 +54,12 @@ public class RegistroDePersonaEnSituacionVulnerableService extends ContribucionS
 
     @Override
     protected void calcularPuntos(Long contribucionId, Long colaboradorId) {
-        RegistroDePersonaEnSituacionVulnerable registroDePersonaEnSituacionVulnerable = registroDePersonaEnSituacionVulnerableRepository.findById(contribucionId);
-        ColaboradorHumano colaborador = colaboradorRepository.findById(colaboradorId);
+        RegistroDePersonaEnSituacionVulnerable registroDePersonaEnSituacionVulnerable = obtenerRegistroDePersonaEnSituacionVulnerable(contribucionId);
+        ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
 
         Double puntosASumar = registroDePersonaEnSituacionVulnerable.getMultiplicadorPuntos();
         colaborador.sumarPuntos(puntosASumar);
-        colaboradorRepository.save(colaborador);
+        colaboradorService.guardarColaborador(colaborador);
         confirmarSumaPuntos(contribucionId, colaboradorId, puntosASumar);
     }
 }

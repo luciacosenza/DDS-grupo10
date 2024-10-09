@@ -1,6 +1,10 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.CargaOferta;
+import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.CargaOfertaRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.ContribucionRepository;
+import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
@@ -8,8 +12,19 @@ import org.springframework.stereotype.Service;
 @Log
 public class CargaOfertaService extends ContribucionService {
 
-    public CargaOfertaService(ContribucionRepository vContribucionRepository) {
-        super(vContribucionRepository);
+    private final CargaOfertaRepository cargaOfertaRepository;
+
+    public CargaOfertaService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService, CargaOfertaRepository vCargaOfertaRepository) {
+        super(vContribucionRepository, vColaboradorService);
+        cargaOfertaRepository = vCargaOfertaRepository;
+    }
+
+    public CargaOferta obtenerCargaOferta(Long cargaOfertaId) {
+        return cargaOfertaRepository.findById(cargaOfertaId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+    }
+
+    public CargaOferta guardarCargaOferta(CargaOferta cargaOferta) {
+        return cargaOfertaRepository.save(cargaOferta);
     }
 
     @Override

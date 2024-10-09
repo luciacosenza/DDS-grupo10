@@ -6,6 +6,8 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.HacerseCarg
 import com.tp_anual.proyecto_heladeras_solidarias.repository.colaborador.ColaboradorRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.ContribucionRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.HacerseCargoDeHeladeraRepository;
+import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +21,20 @@ import java.util.logging.Level;
 @Log
 public class HacerseCargoDeHeladeraService extends ContribucionService {
 
-    private final ColaboradorRepository colaboradorRepository;
     private final HacerseCargoDeHeladeraRepository hacerseCargoDeHeladeraRepository;
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1); // TODO: Probablemente no vaya acá el scheduler, porque los Services son Singletons
 
-    public HacerseCargoDeHeladeraService(ContribucionRepository vContribucionRepository, ColaboradorRepository vColaboradorRepository, HacerseCargoDeHeladeraRepository vHacerseCargoDeHeladeraRepository) {
-        super(vContribucionRepository);
-        colaboradorRepository = vColaboradorRepository;
+    public HacerseCargoDeHeladeraService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService, HacerseCargoDeHeladeraRepository vHacerseCargoDeHeladeraRepository) {
+        super(vContribucionRepository, vColaboradorService);
         hacerseCargoDeHeladeraRepository = vHacerseCargoDeHeladeraRepository;
+    }
+
+    public HacerseCargoDeHeladera obtenerHacerseCargoDeHeladera(Long hacerseCargoId) {
+        return hacerseCargoDeHeladeraRepository.findById(hacerseCargoId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+    }
+
+    public HacerseCargoDeHeladera guardarHacerseCargoDeHeladera(HacerseCargoDeHeladera hacerseCargoDeHeladera) {
+        return hacerseCargoDeHeladeraRepository.save(hacerseCargoDeHeladera);
     }
 
     @Override
@@ -34,14 +42,14 @@ public class HacerseCargoDeHeladeraService extends ContribucionService {
 
     @Override
     protected void confirmarSumaPuntos(Long contribucionId, Long colaboradorId, Double puntosSumados) {
-        ColaboradorJuridico colaborador = colaboradorRepository.findById(colaboradorId);
+        ColaboradorJuridico colaborador = colaboradorService.obtenerColaboradorJuridico(colaboradorId);
         log.log(Level.INFO, I18n.getMessage("contribucion.HacerseCargoDeHeladera.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
     @Override
     protected void calcularPuntos(Long contribucionId, Long colaboradorId) {
-        HacerseCargoDeHeladera hacerseCargoDeHeladera = hacerseCargoDeHeladeraRepository.findById(contribucionId);
-        ColaboradorJuridico colaborador = colaboradorRepository.findById(colaboradorId);
+        HacerseCargoDeHeladera hacerseCargoDeHeladera = obtenerHacerseCargoDeHeladera(contribucionId);
+        ColaboradorJuridico colaborador = colaboradorService.obtenerColaboradorJuridico(colaboradorId);
 
         Runnable calculoPuntos = () -> {
             LocalDateTime ahora = LocalDateTime.now();
@@ -49,10 +57,10 @@ public class HacerseCargoDeHeladeraService extends ContribucionService {
             if (mesesPasados >= 1 && hacerseCargoDeHeladera.getHeladeraObjetivo().getEstado()) {    // Dado que en el test nos dimos cuenta que puede fallar por milésimas, podríamos pensar en restarle un segundo, por ejemplo, a meses pasados (TODO)
                 Double puntosASumar = hacerseCargoDeHeladera.getMultiplicadorPuntos();
                 colaborador.sumarPuntos(puntosASumar);
-                colaboradorRepository.save(colaborador);
+                colaboradorService.guardarColaborador(colaborador);
                 confirmarSumaPuntos(contribucionId, colaboradorId, puntosASumar);
                 hacerseCargoDeHeladera.setUltimaActualizacion(ahora);
-                hacerseCargoDeHeladeraRepository.save(hacerseCargoDeHeladera);
+                guardarHacerseCargoDeHeladera(hacerseCargoDeHeladera);
             }
         };
 

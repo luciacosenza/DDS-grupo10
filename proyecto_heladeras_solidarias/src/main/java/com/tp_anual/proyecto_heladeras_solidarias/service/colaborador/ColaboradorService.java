@@ -3,8 +3,10 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJuridico;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
+import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.ContribucionCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
@@ -13,13 +15,13 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionD
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionViandasMax;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionViandasMin;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.colaborador.ColaboradorRepository;
-import com.tp_anual.proyecto_heladeras_solidarias.repository.contacto.MedioDeContactoRepository;
-import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.ContribucionRepository;
-import com.tp_anual.proyecto_heladeras_solidarias.repository.heladera.HeladeraRepository;
-import com.tp_anual.proyecto_heladeras_solidarias.repository.oferta.OfertaRepository;
-import com.tp_anual.proyecto_heladeras_solidarias.repository.suscripcion.SuscripcionRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.ContribucionService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.oferta.OfertaService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.suscripcion.SuscripcionService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -30,35 +32,45 @@ import java.util.logging.Level;
 public class ColaboradorService {
 
     private final ColaboradorRepository colaboradorRepository;
-    private final ContribucionRepository contribucionRepository;
-    private final OfertaRepository ofertaRepository;
-    private final HeladeraRepository heladeraRepository;
-    private final MedioDeContactoRepository medioDeContactoRepository;
-    private final SuscripcionRepository suscripcionRepository;
     private final ContribucionService contribucionService;
     private final OfertaService ofertaService;
     private final HeladeraService heladeraService;
+    private final MedioDeContactoService medioDeContactoService;
+    private final SuscripcionService suscripcionService;
 
-    public ColaboradorService(ColaboradorRepository vColaboradorRepository, ContribucionRepository vContribucionRepository, OfertaRepository vOfertaRepository, HeladeraRepository vHeladeraRepository, MedioDeContactoRepository vMedioDeContactoRepository, SuscripcionRepository vSuscripcionRepository, ContribucionService vContribucionService, OfertaService vOfertaService, HeladeraService vHeladeraService) {
+    public ColaboradorService(ColaboradorRepository vColaboradorRepository, @Qualifier("contribucionService") ContribucionService vContribucionService, OfertaService vOfertaService, HeladeraService vHeladeraService, MedioDeContactoService vMedioDeContactoService, SuscripcionService vSuscripcionService) {
         colaboradorRepository = vColaboradorRepository;
-        contribucionRepository = vContribucionRepository;
-        ofertaRepository = vOfertaRepository;
-        heladeraRepository = vHeladeraRepository;
-        medioDeContactoRepository = vMedioDeContactoRepository;
-        suscripcionRepository = vSuscripcionRepository;
+        suscripcionService = vSuscripcionService;
         contribucionService = vContribucionService;
         ofertaService = vOfertaService;
         heladeraService = vHeladeraService;
+        medioDeContactoService = vMedioDeContactoService;
+    }
+
+    public Colaborador obtenerColaborador(Long colaboradorId) {
+        return colaboradorRepository.findById(colaboradorId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+    }
+
+    public ColaboradorHumano obtenerColaboradorHumano(Long colaboradorId) {
+        return (ColaboradorHumano) obtenerColaborador(colaboradorId);
+    }
+
+    public ColaboradorJuridico obtenerColaboradorJuridico(Long colaboradorId) {
+        return (ColaboradorJuridico) obtenerColaborador(colaboradorId);
+    }
+
+    public Colaborador guardarColaborador(Colaborador colaborador) {
+        return colaboradorRepository.save(colaborador);
     }
 
     public Boolean esCreatorPermitido(Long colaboradorId, Class<? extends ContribucionCreator> creatorClass) {
-        Colaborador colaborador = colaboradorRepository.findById(colaboradorId);
+        Colaborador colaborador = obtenerColaborador(colaboradorId);
 
         return colaborador.getCreatorsPermitidos().contains(creatorClass);
     }
 
     public Contribucion colaborar(Long colaboradorId, ContribucionCreator creator, LocalDateTime fechaContribucion /* generalmente LocalDateTime.now() */, Object... args) {
-        Colaborador colaborador = colaboradorRepository.findById(colaboradorId);
+        Colaborador colaborador = obtenerColaborador(colaboradorId);
 
         if (!esCreatorPermitido(colaboradorId, creator.getClass())) {
             log.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.colaborar_err", creator.getClass().getSimpleName(), colaborador.getPersona().getNombre(2), colaborador.getPersona().getTipoPersona()));
@@ -67,11 +79,11 @@ public class ColaboradorService {
 
         Contribucion contribucion = creator.crearContribucion(colaborador, fechaContribucion, false , args);
 
-        Long contribucionId = contribucionRepository.save(contribucion).getId();
+        Long contribucionId = contribucionService.guardarContribucion(contribucion).getId();
         contribucionService.validarIdentidad(contribucionId, colaboradorId);
 
         colaborador.agregarContribucionPendiente(contribucion);
-        colaboradorRepository.save(colaborador);
+        guardarColaborador(colaborador);
 
         log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.colaborar_info", contribucion.getClass().getSimpleName(), colaborador.getPersona().getNombre(2)));
 
@@ -80,45 +92,45 @@ public class ColaboradorService {
 
     // Este es el método correspondiente a confirmar la ejecución / llevada a cabo de una Contribución
     public void confirmarContribucion(Long colaboradorId, Long contribucionId, LocalDateTime fechaContribucion /* generalmente LocalDateTime.now() */) {
-        Colaborador colaborador = colaboradorRepository.findById(colaboradorId);
+        Colaborador colaborador = obtenerColaborador(colaboradorId);
 
-        Contribucion contribucion = contribucionRepository.findById(contribucionId);
+        Contribucion contribucion = contribucionService.obtenerContribucion(contribucionId);
 
         contribucionService.confirmar(contribucionId, colaboradorId, fechaContribucion);
-        contribucionRepository.save(contribucion);
+        contribucionService.guardarContribucion(contribucion);
 
         colaborador.agregarContribucion(contribucion);
         colaborador.eliminarContribucionPendiente(contribucion);
-        colaboradorRepository.save(colaborador);
+        guardarColaborador(colaborador);
 
         log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.confirmarContribucion_info", contribucion.getClass().getSimpleName(), colaborador.getPersona().getNombre(2)));
     }
 
     public void intentarAdquirirBeneficio(Long colaboradorId, Long ofertaId) {
-        Colaborador colaborador = colaboradorRepository.findById(colaboradorId);
-        Oferta oferta = ofertaRepository.findById(ofertaId);
+        Colaborador colaborador = obtenerColaborador(colaboradorId);
+        Oferta oferta = ofertaService.obtenerOferta(ofertaId);
 
         // Primero chequea tener los puntos suficientes
         ofertaService.validarPuntos(ofertaId, colaboradorId);
 
         colaborador.agregarBeneficio(oferta);
-        colaboradorRepository.save(colaborador);
+        guardarColaborador(colaborador);
 
         log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.adquirirBeneficio_info", oferta.getNombre(), colaborador.getPersona().getNombre(2)));
     }
 
     public void reportarFallaTecnica(Long colaboradorId, Long heladeraId, String descripcion, String foto) {
-        Colaborador colaborador = colaboradorRepository.findById(colaboradorId);
-        HeladeraActiva heladera = heladeraRepository.findById(heladeraId);
+        Colaborador colaborador = obtenerColaborador(colaboradorId);
+        HeladeraActiva heladera = heladeraService.obtenerHeladera(heladeraId);
 
-        heladeraService.producirFallaTecnica(colaboradorId, descripcion, foto);
-        heladeraRepository.save(heladera);
+        heladeraService.producirFallaTecnica(heladeraId, colaboradorId, descripcion, foto);
+        heladeraService.guardarHeladera(heladera);
     }
 
     public Suscripcion suscribirse(Long colaboradorId, Long heladeraId, Long medioDeContactoId, Suscripcion.CondicionSuscripcion condicionSuscripcion, Integer valor) {
-        ColaboradorHumano colaborador = colaboradorRepository.findById(colaboradorId);
-        HeladeraActiva heladera = heladeraRepository.findById(heladeraId);
-        MedioDeContacto medioDeContacto = medioDeContactoRepository.findById(medioDeContactoId);
+        ColaboradorHumano colaborador = obtenerColaboradorHumano(colaboradorId);
+        HeladeraActiva heladera = heladeraService.obtenerHeladera(heladeraId);
+        MedioDeContacto medioDeContacto = medioDeContactoService.obtenerMedioDeContacto(medioDeContactoId);
 
         Suscripcion suscripcion;
         switch(condicionSuscripcion) {
@@ -137,10 +149,10 @@ public class ColaboradorService {
         }
 
         colaborador.agregarSuscripcion(suscripcion);
-        colaboradorRepository.save(colaborador);
+        guardarColaborador(colaborador);
 
         suscripcion.darDeAlta();
-        suscripcionRepository.save(suscripcion);
+        suscripcionService.guardarSuscripcion(suscripcion);
 
         log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.agregarSuscripcion_info", colaborador.getPersona().getNombre(2), suscripcion.getHeladera().getNombre()));
 
@@ -148,19 +160,19 @@ public class ColaboradorService {
     }
 
     public void modificarSuscripcion(Long colaboradorId, Long suscripcionId, Integer nuevoValor) {
-        ColaboradorHumano colaborador = colaboradorRepository.findById(colaboradorId);
-        Suscripcion suscripcion = suscripcionRepository.findById(suscripcionId);
+        ColaboradorHumano colaborador = obtenerColaboradorHumano(colaboradorId);
+        Suscripcion suscripcion = suscripcionService.obtenerSuscripcion(suscripcionId);
 
         switch(suscripcion) {
 
             case SuscripcionViandasMin suscripcionViandasMin -> {
                 suscripcionViandasMin.setViandasDisponiblesMin(nuevoValor);
-                suscripcionRepository.save(suscripcionViandasMin);
+                suscripcionService.guardarSuscripcion(suscripcionViandasMin);
             }
 
             case SuscripcionViandasMax suscripcionViandasMax -> {
                 suscripcionViandasMax.setViandasParaLlenarMax(nuevoValor);
-                suscripcionRepository.save(suscripcionViandasMax);
+                suscripcionService.guardarSuscripcion(suscripcionViandasMax);
             }
 
             default -> {}
@@ -170,15 +182,15 @@ public class ColaboradorService {
         log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.modificarSuscripcion_info", suscripcion.getHeladera().getNombre(), colaborador.getPersona().getNombre(2)));
     }
 
-    public void cancelarSuscripcion(Long colabarodorId, Long suscripcionId) {
-        ColaboradorHumano colaborador = colaboradorRepository.findById(colabarodorId);
-        Suscripcion suscripcion = suscripcionRepository.findById(suscripcionId);
+    public void cancelarSuscripcion(Long colaboradorId, Long suscripcionId) {
+        ColaboradorHumano colaborador = obtenerColaboradorHumano(colaboradorId);
+        Suscripcion suscripcion = suscripcionService.obtenerSuscripcion(suscripcionId);
 
         colaborador.eliminarSuscripcion(suscripcion);
-        colaboradorRepository.save(colaborador);
+        guardarColaborador(colaborador);
 
         suscripcion.darDeBaja();
-        suscripcionRepository.delete(suscripcion);
+        suscripcionService.eliminarSuscripcion(suscripcion);
 
         log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.cancelarSuscripcion_info", suscripcion.getHeladera().getNombre(), colaborador.getPersona().getNombre(2)));
     }

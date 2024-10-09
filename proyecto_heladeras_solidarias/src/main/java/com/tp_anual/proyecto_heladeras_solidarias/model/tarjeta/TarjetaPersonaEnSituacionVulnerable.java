@@ -9,6 +9,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.AperturaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta.GeneradorCodigo;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;

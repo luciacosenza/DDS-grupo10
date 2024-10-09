@@ -12,6 +12,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_hel
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador.MotivoSolicitud;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta.GeneradorCodigo;
 import lombok.extern.java.Log;
 import jakarta.persistence.*;
 
@@ -39,7 +40,7 @@ public class TarjetaColaboradorActiva extends TarjetaColaborador {
     }
 
     @Override
-    protected void programarRevocacionPermisos(PermisoApertura permiso) {
+    public void programarRevocacionPermisos(PermisoApertura permiso) {
         HeladeraActiva heladeraInvolucrada = permiso.getHeladeraPermitida();
         Integer tiempoPermiso = heladeraInvolucrada.getTiempoPermiso();
         TimeUnit unidadTiempoPermiso = heladeraInvolucrada.getUnidadTiempoPermiso();

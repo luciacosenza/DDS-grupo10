@@ -11,7 +11,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta.TipoAlerta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.FallaTecnica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
-import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.GestorDeSuscripciones;
+import com.tp_anual.proyecto_heladeras_solidarias.service.suscripcion.GestorDeSuscripciones;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionViandasMin;
@@ -20,6 +20,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionD
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.GestorDeAperturas;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 import jakarta.persistence.*;
 import lombok.extern.java.Log;
@@ -59,12 +60,12 @@ public class HeladeraActiva extends Heladera {
     }
 
     @Override
-    protected Boolean verificarCapacidad() {
+    public Boolean verificarCapacidad() {
         return viandasActuales() < capacidad;
     }
 
     @Override
-    protected void verificarCondiciones() {
+    public void verificarCondiciones() {
         GestorDeSuscripciones gestorDeSuscripciones = Sistema.getGestorDeSuscripciones();
         ArrayList<Suscripcion> suscripciones = gestorDeSuscripciones.suscripcionesPorHeladera(this);
         
@@ -123,7 +124,7 @@ public class HeladeraActiva extends Heladera {
     }
 
     @Override
-    protected void verificarTempActual() {
+    public void verificarTempActual() {
         if (tempActual < tempMin || tempActual > tempMax)
             producirAlerta(TipoAlerta.TEMPERATURA);
     }
