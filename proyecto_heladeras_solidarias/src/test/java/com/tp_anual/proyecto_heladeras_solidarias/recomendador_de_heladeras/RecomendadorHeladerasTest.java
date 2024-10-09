@@ -1,4 +1,4 @@
-package com.tp_anual.proyecto_heladeras_solidarias.model.recomendador_de_heladeras;
+package com.tp_anual.proyecto_heladeras_solidarias.recomendador_de_heladeras;
 
 import java.util.Arrays;
 import java.util.List;
