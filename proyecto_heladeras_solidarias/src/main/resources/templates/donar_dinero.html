@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donar Dinero</title>
+    <link rel="shortcut icon" href="../assets/logo_blanco.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="vectores-fondo" >
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../index.html">
+                    <img src="../assets/logo_negro.png" alt="Logo" height="50">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./quienes_somos.html">Quiénes somos</a>
+                        </li>
+                        <li class="./como-participar.html">
+                            <a class="nav-link" href="./como_participar.html">Cómo participar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active href-colab" href="#">Colaborar</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex ms-lg-3">
+                        <a href="./iniciar_sesion.html">
+                            <button class="btn btn-outline-primary me-2 btn-login" type="button">Iniciar Sesión</button>
+                        </a>
+                        <a href="./seleccion_persona.html">
+                            <button class="btn btn-primary btn-register" type="button">Registrarse</button>
+                        </a>
+                    </div>
+                    <div class="d-flex flex-column ms-lg-3 align-items-center">
+                        <span class="icon-perfil material-symbols-outlined text-dark" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                            account_circle
+                        </span>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item cerrar-sesion" href="../index.html">Cerrar Sesión</a></li>
+                        </ul>
+                        <span class="text-user">Usuario</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container" style="min-height: 50vh">
+            <div class="row justify-content-center">
+                <div class="col-md-10 w-100 text-center">
+                    <h1 class="mb-0 fw-bold">Donar dinero</h1>
+                    <div class="card-donacion-dinero my-4 p-4">
+                        <h4>Frecuencia de pago</h4>
+                        <div class="d-flex justify-content-center flex-wrap">
+                            <div class="option-circle">Única vez</div>
+                            <div class="option-circle">Semanal</div>
+                            <div class="option-circle">Mensual</div>
+                            <div class="option-circle">Semestral</div>
+                            <div class="option-circle">Anual</div>
+                        </div>
+                    </div>
+                    <div id="medioPago" class="my-4 p-4 card-donacion-dinero oculto">
+                        <h4>Medio de pago</h4>
+                        <div class="icon-container">
+                            <div class="option-circle">Crédito</div>
+                            <div class="option-circle">Débito</div>
+                            <div class="option-circle">Efectivo</div>
+                            <div class="option-circle">MercadoPago</div>
+                            <div class="option-circle">Transferencia</div>
+                        </div>
+                    </div>
+                    <div id="monto" class="my-4 p-4 card-donacion-dinero oculto">
+                        <h4>Monto</h4>
+                        <div class="d-flex justify-content-center flex-wrap">
+                            <div class="option-circle">$5.000</div>
+                            <div class="option-circle">$10.000</div>
+                            <div class="option-circle">$15.000</div>
+                            <div class="option-circle">$20.000</div>
+                            <div class="option-circle" id="otroImporte">Otro importe</div>
+                        </div>
+                        <input type="number" min="0" id="montoPersonalizado" class="input-monto form-control" placeholder="Ingrese monto $" />
+                    </div>
+                </div>
+                <button id="btnDonar" class="btn btn-dark col-1 oculto">Donar</button>
+            </div>
+        </div>
+    </main>
+    <footer class="mt-5 pt-4 d-flex flex-column">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="../index.html" class="nav-link px-2 text-body-secondary">Inicio</a></li>
+            <li class="nav-item"><a href="./quienes_somos.html" class="nav-link px-2 text-body-secondary">Quiénes somos</a></li>
+            <li class="nav-item"><a href="./como_participar.html" class="nav-link px-2 text-body-secondary">Cómo participar</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary href-colab">Colaborar</a></li>
+        </ul>
+        <a href="../index.html" class="d-flex align-items-center justify-content-center mb-3 mb-md-0 link-body-emphasis text-decoration-none p-3">
+            <img src="../assets/logo_negro.png" alt="logo heladeras solidarias" width="50">
+        </a>
+        <a href="mailto:proyecto.heladeras.solidarias@gmail.com" class="text-center text-muted text-sm">proyecto.heladeras.solidarias@gmail.com</a>
+        <p class="text-center text-body-secondary">© Desarrollado por Grupo 10</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/donacion-dinero.js"></script>
+    <script src="../js/render_segun_usuario.js"></script>
+    <script src="../js/cerrar_sesion.js"></script>
+</body>
+</html>
