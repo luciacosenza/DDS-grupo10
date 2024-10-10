@@ -36,14 +36,27 @@ public abstract class Contribucion {
     @NotNull
     protected Boolean completada;
 
+    @NotNull
+    protected Boolean yaSumoPuntos;
+
     protected Contribucion(Colaborador vColaborador, LocalDateTime vFechaContribucion) {
         colaborador = vColaborador;
         fechaContribucion = vFechaContribucion;
         completada = false;
+        yaSumoPuntos = false;
     }
 
     public void marcarComoCompletada() {
         setCompletada(true);
+    }
+
+    public void sumoPuntos() {
+        setYaSumoPuntos(true);
+    }
+
+    public void seCompletoYSumoPuntos() {
+        marcarComoCompletada();
+        sumoPuntos();
     }
 
     public void obtenerDetalles() {

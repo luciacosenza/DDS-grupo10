@@ -35,7 +35,7 @@ public class ContribucionService {
 
     protected void confirmarSumaPuntos(Long contribucionId, Long colaboradorId, Double puntosSumados) {}
 
-    protected void calcularPuntos(Long contribucionId, Long colaboradorId) {}
+    protected void calcularPuntos() {}
 
     public void confirmar(Long contribucionId, Long colaboradorId, LocalDateTime vFechaContribucion) {
         Contribucion contribucion = obtenerContribucion(contribucionId);
@@ -44,6 +44,5 @@ public class ContribucionService {
 
         contribucion.marcarComoCompletada();
         contribucion.setFechaContribucion(vFechaContribucion);   // Actualizo la fecha de contribución al momento que se confirma la realización de la Contribución
-        calcularPuntos(contribucionId, colaboradorId);
     }
 }

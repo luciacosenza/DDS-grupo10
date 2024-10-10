@@ -18,7 +18,10 @@ public class DonacionDineroCreator implements ContribucionCreator {
 
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
-        return new DonacionDinero(colaborador, fechaContribucion,null,null);
+        DonacionDinero donacionDinero = new DonacionDinero(colaborador, fechaContribucion,null,null);
+        donacionDinero.seCompletoYSumoPuntos();
+
+        return donacionDinero;
     }
 
     @Override

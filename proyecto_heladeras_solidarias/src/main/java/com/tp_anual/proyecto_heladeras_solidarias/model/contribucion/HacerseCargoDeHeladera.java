@@ -23,7 +23,8 @@ import lombok.extern.java.Log;
 @Getter
 @Setter
 public class HacerseCargoDeHeladera extends Contribucion {
-    
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
@@ -37,15 +38,6 @@ public class HacerseCargoDeHeladera extends Contribucion {
     @Temporal(TemporalType.TIMESTAMP)
     @NotNull
     private LocalDateTime ultimaActualizacion;
-
-    @Transient
-    private final Double multiplicadorPuntos = 5d;
-
-    @Transient
-    private final Integer periodoCalculoPuntos = 1;
-
-    @Transient
-    private final TimeUnit unidadPeriodoCalculoPuntos = TimeUnit.DAYS;
 
     public HacerseCargoDeHeladera(Colaborador vColaborador, LocalDateTime vFechaContribucion, HeladeraActiva vHeladeraObjetivo) {
         super(vColaborador, vFechaContribucion);

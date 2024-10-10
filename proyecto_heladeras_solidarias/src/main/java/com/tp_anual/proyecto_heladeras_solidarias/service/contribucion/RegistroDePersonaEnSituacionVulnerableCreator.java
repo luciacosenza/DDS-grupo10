@@ -19,7 +19,10 @@ public class RegistroDePersonaEnSituacionVulnerableCreator implements Contribuci
 
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
-        return new com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.RegistroDePersonaEnSituacionVulnerable(colaborador, fechaContribucion, new TarjetaPersonaEnSituacionVulnerable(null));
+        RegistroDePersonaEnSituacionVulnerable registroDePersonaEnSituacionVulnerable = new com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.RegistroDePersonaEnSituacionVulnerable(colaborador, fechaContribucion, new TarjetaPersonaEnSituacionVulnerable("", null));
+        registroDePersonaEnSituacionVulnerable.seCompletoYSumoPuntos();
+
+        return registroDePersonaEnSituacionVulnerable;
     }
     
     @Override

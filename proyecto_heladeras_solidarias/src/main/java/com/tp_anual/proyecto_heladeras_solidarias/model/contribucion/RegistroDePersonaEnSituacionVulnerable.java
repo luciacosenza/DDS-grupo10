@@ -30,9 +30,6 @@ public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
     @NotNull
     private final TarjetaPersonaEnSituacionVulnerable tarjetaAsignada;
     
-    @Transient
-    private final Double multiplicadorPuntos = 2d;
-    
     public RegistroDePersonaEnSituacionVulnerable(Colaborador vColaborador, LocalDateTime vFechaContribucion, TarjetaPersonaEnSituacionVulnerable vTarjetaAsignada) {
         super(vColaborador, vFechaContribucion);
         tarjetaAsignada = vTarjetaAsignada;

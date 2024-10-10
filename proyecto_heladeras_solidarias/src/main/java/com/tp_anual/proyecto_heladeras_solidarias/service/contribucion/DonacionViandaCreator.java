@@ -22,9 +22,12 @@ public class DonacionViandaCreator implements ContribucionCreator {
 
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
-        return new DonacionVianda(colaborador, fechaContribucion,
-            new Vianda(null, null, null, null, null, null, null),
-            new HeladeraActiva(null, new Ubicacion(null, null, null, null, null, null), new ArrayList<>(), null, null, null, null));
+        DonacionVianda donacionVianda = new DonacionVianda(colaborador, fechaContribucion,
+                new Vianda(null, null, null, null, null, null, null),
+                new HeladeraActiva(null, new Ubicacion(null, null, null, null, null, null), new ArrayList<>(), null, null, null, null));
+        donacionVianda.seCompletoYSumoPuntos();
+
+        return donacionVianda;
     }
     
     @Override

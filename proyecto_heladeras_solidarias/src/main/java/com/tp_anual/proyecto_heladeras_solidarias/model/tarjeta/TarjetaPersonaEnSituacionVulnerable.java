@@ -24,7 +24,6 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
     
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "persona_en_situacion_vulnerable_id")
-    @NotNull
     private PersonaEnSituacionVulnerable titular;
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)

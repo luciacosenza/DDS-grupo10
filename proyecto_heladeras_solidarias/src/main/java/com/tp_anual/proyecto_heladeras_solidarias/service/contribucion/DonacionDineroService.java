@@ -8,9 +8,10 @@ import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.Donaci
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.logging.Level;
@@ -20,7 +21,8 @@ import java.util.logging.Level;
 public class DonacionDineroService extends ContribucionService {
 
     private final DonacionDineroRepository donacionDineroRepository;
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1); // TODO: Probablemente no vaya acá el scheduler, porque los Services son Singletons
+    private final Double multiplicadorPuntos = 0.5;
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public DonacionDineroService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService, DonacionDineroRepository vDonacionDineroRepository) {
         super(vContribucionRepository, vColaboradorService);
@@ -31,6 +33,10 @@ public class DonacionDineroService extends ContribucionService {
         return donacionDineroRepository.findById(donacionDineroId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
     }
 
+    public ArrayList<DonacionDinero> obtenerDonacionesDineroQueSumanPuntos() {
+        return new ArrayList<>(donacionDineroRepository.findDonacionesDineroParaCalcular());
+    }
+
     public DonacionDinero guardarDonacionDinero(DonacionDinero donacionDinero) {
         return donacionDineroRepository.save(donacionDinero);
     }
@@ -39,37 +45,26 @@ public class DonacionDineroService extends ContribucionService {
     public void validarIdentidad(Long contribucionId, Long colaboradorId) {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
 
     @Override
-    protected void confirmarSumaPuntos(Long contribucionId, Long colaboradorId, Double puntosSumados) {
+    public void confirmarSumaPuntos(Long contribucionId, Long colaboradorId, Double puntosSumados) {
         Colaborador colaborador = colaboradorService.obtenerColaborador(colaboradorId);
         log.log(Level.INFO, I18n.getMessage("contribucion.DonacionDinero.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
+    @Scheduled(cron = "0 0 0 * * ?")
     @Override
-    protected void calcularPuntos(Long contribucionId, Long colaboradorId) {
-        DonacionDinero donacionDinero = obtenerDonacionDinero(contribucionId);
-        Colaborador colaborador = colaboradorService.obtenerColaborador(colaboradorId);
+    public void calcularPuntos() {
+        ArrayList<DonacionDinero> donacionesDinero = obtenerDonacionesDineroQueSumanPuntos();
 
-        if (donacionDinero.getFrecuencia() == DonacionDinero.FrecuenciaDePago.UNICA_VEZ) {
-            Double puntosASumar = donacionDinero.getMonto() * donacionDinero.getMultiplicadorPuntos();
+        for(DonacionDinero donacionDinero : donacionesDinero) {
+            Double puntosASumar = donacionDinero.getMonto() * multiplicadorPuntos;
+            Colaborador colaborador = donacionDinero.getColaborador();
+
             colaborador.sumarPuntos(puntosASumar);
             colaboradorService.guardarColaborador(colaborador);
-            confirmarSumaPuntos(contribucionId, colaboradorId, puntosASumar);
+
+            donacionDinero.setYaSumoPuntos(true);
+            guardarDonacionDinero(donacionDinero);
+            confirmarSumaPuntos(donacionDinero.getId(), colaborador.getId(), puntosASumar);
         }
-
-        Runnable calculoPuntos = () -> {
-            LocalDateTime ahora = LocalDateTime.now();
-            Long periodosPasados = donacionDinero.getFrecuencia().unidad().between(donacionDinero.getUltimaActualizacion(), ahora);
-            if (periodosPasados >= donacionDinero.getFrecuencia().periodo()) {  // TODO: Dado que en el test nos dimos cuenta que puede fallar por milésimas, podríamos pensar en restarle un segundo, por ejemplo, a períodos pasados
-                Double puntosASumarL = donacionDinero.getMonto() * donacionDinero.getMultiplicadorPuntos();
-                colaborador.sumarPuntos(puntosASumarL);
-                colaboradorService.guardarColaborador(colaborador);
-                confirmarSumaPuntos(contribucionId, colaboradorId, puntosASumarL);
-                donacionDinero.setUltimaActualizacion(ahora);
-                guardarDonacionDinero(donacionDinero);
-            }
-        };
-
-        // Programa la tarea para que se ejecute una vez por día
-        scheduler.scheduleAtFixedRate(calculoPuntos, 0, donacionDinero.getPeriodoCalculoPuntos(), donacionDinero.getUnidadPeriodoCalculoPuntos());  // Ejecuta una vez por día (puede ser ineficiente en casos como mensual, semestral o anual)
     }
 }

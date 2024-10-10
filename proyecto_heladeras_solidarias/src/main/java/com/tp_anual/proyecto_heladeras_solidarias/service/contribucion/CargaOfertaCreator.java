@@ -20,7 +20,10 @@ public class CargaOfertaCreator implements ContribucionCreator {
 
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
-        return new CargaOferta(colaborador, fechaContribucion, new Oferta(null, null, null, null));
+        CargaOferta cargaOferta = new CargaOferta(colaborador, fechaContribucion, new Oferta(null, null, null, null));
+        cargaOferta.seCompletoYSumoPuntos();
+
+        return cargaOferta;
     }
     
     @Override

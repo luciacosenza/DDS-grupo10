@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.Comparator;
 
+import com.tp_anual.proyecto_heladeras_solidarias.service.area.AreaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -38,7 +37,7 @@ public class UbicadorHeladera {
         // Ordeno Heladeras por distancia
         return heladeras.stream()
                 .filter(heladera -> !heladera.equals(heladeraObjetivo) /* Evito incluir la Heladera misma */ && heladera.getEstado() /* Evito incluir Heladeras inactivas */ )
-                .sorted(Comparator.comparingDouble(heladera -> Area.distanciaEntre2Puntos(ubicacionHeladera, Pair.of(heladera.getUbicacion().getLatitud(), heladera.getUbicacion().getLongitud()))))
+                .sorted(Comparator.comparingDouble(heladera -> AreaService.distanciaEntre2Puntos(ubicacionHeladera, Pair.of(heladera.getUbicacion().getLatitud(), heladera.getUbicacion().getLongitud()))))
                 .limit(cantidadHeladeras)
                 .collect(Collectors.toCollection(ArrayList::new));
     }

@@ -3,6 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta;
@@ -24,6 +25,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 @Service
 @Log
@@ -52,6 +54,10 @@ public class HeladeraService {
 
     public HeladeraActiva obtenerHeladera(Long heladeraId) {
         return (HeladeraActiva) heladeraRepository.findById(heladeraId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+    }
+
+    public ArrayList<String> obtenerNombresDeHeladeras(){
+        return (ArrayList<String>) heladeraRepository.findAllNombres();
     }
 
     public HeladeraActiva guardarHeladera(HeladeraActiva heladera) {

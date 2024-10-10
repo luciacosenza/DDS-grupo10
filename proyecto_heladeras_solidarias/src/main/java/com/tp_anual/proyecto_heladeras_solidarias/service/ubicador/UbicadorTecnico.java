@@ -5,13 +5,12 @@ import java.util.OptionalDouble;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
+import com.tp_anual.proyecto_heladeras_solidarias.service.area.AreaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.incidente.IncidenteService;
-import lombok.Getter;
-import lombok.Setter;
+import com.tp_anual.proyecto_heladeras_solidarias.service.tecnico.TecnicoService;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.tuple.Pair;
 
-import com.tp_anual.proyecto_heladeras_solidarias.model.area.Area;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Tecnico;
@@ -23,9 +22,13 @@ import org.springframework.stereotype.Service;
 @Log
 public class UbicadorTecnico {
     private final IncidenteService incidenteService;
+    private final AreaService areaService;
+    private final TecnicoService tecnicoService;
 
-    public UbicadorTecnico(IncidenteService vIncidenteService) {
+    public UbicadorTecnico(IncidenteService vIncidenteService, AreaService vAreaService, TecnicoService vTecnicoService) {
         incidenteService = vIncidenteService;
+        areaService = vAreaService;
+        tecnicoService = vTecnicoService;
     }
 
     public Tecnico obtenerTecnicoCercanoA(Long incidenteId) {
@@ -37,18 +40,17 @@ public class UbicadorTecnico {
         
         // Obtengo la lista de Técnicos que tengan a la Heladera en su área de cobertura
         ArrayList<Tecnico> tecnicos = Sistema.getTecnicos().stream()
-            .filter(tecnico -> tecnico.getAreaDeCobertura()
-            .estaDentro(ubicacionHeladera.getLeft(), ubicacionHeladera.getRight()))
+            .filter(tecnico -> areaService.estaDentro(tecnico.getAreaDeCobertura().getId(), ubicacionHeladera.getLeft(), ubicacionHeladera.getRight()))
             .collect(Collectors.toCollection(ArrayList::new));
         
         // Obtengo las Ubicaciones de los Técnicos
         ArrayList<Pair<Double, Double>> puntosMedios = tecnicos.stream()
-            .map(tecnico -> tecnico.ubicacionAprox())
+            .map(tecnico -> tecnicoService.ubicacionAprox(tecnico.getId()))
             .collect(Collectors.toCollection(ArrayList::new));
         
         // Obtengo la distancia minima entre la Heladera y un Técnico
         ArrayList<Double> distancias = puntosMedios.stream()
-            .map(puntoMedio -> Area.distanciaEntre2Puntos(puntoMedio, ubicacionHeladera))
+            .map(puntoMedio -> AreaService.distanciaEntre2Puntos(puntoMedio, ubicacionHeladera))
             .collect(Collectors.toCollection(ArrayList::new));
         
         OptionalDouble distanciaMinima = distancias.stream().mapToDouble(Double::doubleValue).min();

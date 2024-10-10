@@ -18,6 +18,10 @@ public class AreaService {
         return areaRepository.findById(areaId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
     }
 
+    public Area guardarArea(Area area) {
+        return areaRepository.save(area);
+    }
+
     private Boolean entraEnX(Long areaId, Double x) {
         Area area = obtenerArea(areaId);
 

@@ -12,7 +12,6 @@ import java.util.logging.Level;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import com.tp_anual.proyecto_heladeras_solidarias.service.migrador.Migrador;
 import lombok.extern.java.Log;
 
 @Log

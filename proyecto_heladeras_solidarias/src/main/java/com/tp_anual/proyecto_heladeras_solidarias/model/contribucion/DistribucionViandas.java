@@ -44,9 +44,6 @@ public class DistribucionViandas extends Contribucion {
     @NotNull
     private final MotivoDistribucion motivo;
 
-    @Transient
-    private final Double multiplicadorPuntos = 1d;
-
     public enum MotivoDistribucion {
         DESPERFECTO_EN_LA_HELADERA,
         FALTA_DE_VIANDAS_EN_DESTINO

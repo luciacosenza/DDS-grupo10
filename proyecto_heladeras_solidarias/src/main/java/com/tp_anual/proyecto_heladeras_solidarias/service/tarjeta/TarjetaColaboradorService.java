@@ -44,7 +44,7 @@ public class TarjetaColaboradorService {
         heladeraService = vHeladeraService;
         accionHeladeraService = vAccionHeladeraService;
         gestorDeAperturas = vGestorDeAperturas;
-        tarjetaColaboradorCreator = vTarjetaColaboradorCreator
+        tarjetaColaboradorCreator = vTarjetaColaboradorCreator;
     }
 
     public TarjetaColaboradorActiva obtenerTarjetaColaborador(String tarjetaId) {

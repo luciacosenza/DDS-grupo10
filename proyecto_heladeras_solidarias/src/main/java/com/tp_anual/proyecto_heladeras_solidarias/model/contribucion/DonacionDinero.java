@@ -41,15 +41,6 @@ public class DonacionDinero extends Contribucion {
     @Temporal(TemporalType.TIMESTAMP)
     @NotNull
     private LocalDateTime ultimaActualizacion;
-    
-    @Transient
-    private final Double multiplicadorPuntos = 0.5;
-
-    @Transient
-    private final Integer periodoCalculoPuntos = 1;
-
-    @Transient
-    private final TimeUnit unidadPeriodoCalculoPuntos = TimeUnit.DAYS;
 
     public enum FrecuenciaDePago {  // Hacemos que Frecuencia de Pago sea una "interfaz común" para las distintas frecuencias, brindando los métodos periodo() unidad() para el uso de polimorfismo
         SEMANAL {
