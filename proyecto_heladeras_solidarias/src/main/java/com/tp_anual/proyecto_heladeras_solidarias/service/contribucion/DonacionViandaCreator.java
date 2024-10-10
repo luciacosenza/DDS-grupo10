@@ -12,9 +12,13 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.extern.java.Log;
+import org.springframework.stereotype.Service;
 
+@Service
 @Log
 public class DonacionViandaCreator implements ContribucionCreator {
+
+    public DonacionViandaCreator() {}
 
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {

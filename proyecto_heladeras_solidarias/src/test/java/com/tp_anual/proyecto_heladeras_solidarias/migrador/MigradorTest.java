@@ -15,13 +15,17 @@ public class MigradorTest {
     @DisplayName("Testeo el correcto funcionamiento del Migrador")
     public void CargaMasivaTest() throws Exception {
         ExtraccionDeDatos protocoloExtraccion = new ExtraccionCSV();
+        TransformacionDeDatos transformador = new TransformacionDeDatos();
         EnvioDeDatos protocoloEnvio = new EnvioNulo();
-        
-        String rutaCSV = "registro_migracion.csv";
 
-        Migrador.setProtocoloExtraccion(protocoloExtraccion);
-        Migrador.setProtocoloEnvio(protocoloEnvio);
-        Migrador.migrar(rutaCSV);
+        Migrador migrador = Migrador.getInstance();
+
+        migrador.setProtocoloExtraccion(protocoloExtraccion);
+        migrador.setTransformador(transformador);
+        migrador.setProtocoloEnvio(protocoloEnvio);
+
+        String rutaCSV = "registro_migracion.csv";
+        migrador.migrar(rutaCSV);
 
         ArrayList<Colaborador> colaboradores = Sistema.getColaboradores();
 

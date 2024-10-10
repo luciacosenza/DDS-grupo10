@@ -8,9 +8,13 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionDinero;
 import lombok.extern.java.Log;
+import org.springframework.stereotype.Service;
 
+@Service
 @Log
 public class DonacionDineroCreator implements ContribucionCreator {
+
+    public DonacionDineroCreator() {}
 
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {

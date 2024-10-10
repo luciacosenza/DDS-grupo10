@@ -9,10 +9,14 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.RegistroDeP
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.extern.java.Log;
+import org.springframework.stereotype.Service;
 
+@Service
 @Log
 public class RegistroDePersonaEnSituacionVulnerableCreator implements ContribucionCreator {
-    
+
+    public RegistroDePersonaEnSituacionVulnerableCreator() {}
+
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
         return new com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.RegistroDePersonaEnSituacionVulnerable(colaborador, fechaContribucion, new TarjetaPersonaEnSituacionVulnerable(null));

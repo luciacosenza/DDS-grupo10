@@ -11,23 +11,26 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import org.springframework.stereotype.Service;
 
+@Getter
+@Setter
 @Log
 public class Migrador {
-    
-    @Setter
-    private static ExtraccionDeDatos protocoloExtraccion = new ExtraccionCSV();
-
-    private static final TransformacionDeDatos transformador = new TransformacionDeDatos();
-
-    @Setter
-    private static EnvioDeDatos protocoloEnvio = new EnvioEMail();
 
     @Getter(AccessLevel.NONE)
-    private static final String ASUNTO = "Gracias por tu apoyo! Aquí están tus credenciales de acceso al nuevo Sistema";
-    
+    @Setter(AccessLevel.NONE)
+    private static Migrador instance;
+
+    private ExtraccionDeDatos protocoloExtraccion;
+    private TransformacionDeDatos transformador;
+    private EnvioDeDatos protocoloEnvio;
+
     @Getter(AccessLevel.NONE)
-    private static final String CUERPO =
+    private final String ASUNTO = "Gracias por tu apoyo! Aquí están tus credenciales de acceso al nuevo Sistema";
+
+    @Getter(AccessLevel.NONE)
+    private final String CUERPO =
             """
             Estimado/a %s,
 
@@ -61,11 +64,20 @@ public class Migrador {
             [Datos de Contacto de la ONG]
             """;
 
-    public static void confirmarLoading() {
+    private Migrador() {}
+
+    public static Migrador getInstance() {
+        if (instance == null) {
+            instance = new Migrador();
+        }
+        return instance;
+    }
+
+    public void confirmarLoading() {
         log.log(Level.INFO, I18n.getMessage("migrador.Migrador.confirmarLoading_info"));
     }
 
-    public static void migrar(String csv) throws IOException, URISyntaxException {        
+    public void migrar(String csv) throws IOException, URISyntaxException {
         ArrayList<String[]> dataColaboradores = protocoloExtraccion.extract(csv);
         ArrayList<ColaboradorHumano> colaboradoresAMigrar = transformador.transform(dataColaboradores);
 

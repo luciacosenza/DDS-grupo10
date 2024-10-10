@@ -80,7 +80,7 @@ public class HeladeraService {
 
     public void verificarCondiciones(Long heladeraId) {
         HeladeraActiva heladera = obtenerHeladera(heladeraId);
-        ArrayList<Suscripcion> suscripciones = gestorDeSuscripciones.suscripcionesPorHeladera(heladera);
+        ArrayList<Suscripcion> suscripciones = gestorDeSuscripciones.suscripcionesPorHeladera(heladeraId);
 
         for (Suscripcion suscripcion : suscripciones) {
 
@@ -174,7 +174,7 @@ public class HeladeraService {
         HeladeraActiva heladera = obtenerHeladera(heladeraId);
         MedioDeContacto medioDeContacto = medioDeContactoService.obtenerMedioDeContacto(medioDeContactoId);
 
-        notificadorDeEstado.notificarEstado(heladera, condicion,  medioDeContacto);
+        notificadorDeEstado.notificarEstado(heladera.getId(), medioDeContacto.getId(), condicion);
     }
 
     public void reportarIncidente(Long incidenteId) {

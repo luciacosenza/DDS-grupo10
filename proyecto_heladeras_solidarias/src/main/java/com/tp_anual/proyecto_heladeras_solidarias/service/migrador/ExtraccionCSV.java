@@ -10,10 +10,13 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.extern.java.Log;
+import org.springframework.stereotype.Service;
 
 @Log
 public class ExtraccionCSV extends ExtraccionDeDatos {
-    
+
+    public ExtraccionCSV() {}
+
     @Override
     public ArrayList<String[]> extract(String csv) {
         ArrayList<String[]> dataColaboradores = new ArrayList<>();

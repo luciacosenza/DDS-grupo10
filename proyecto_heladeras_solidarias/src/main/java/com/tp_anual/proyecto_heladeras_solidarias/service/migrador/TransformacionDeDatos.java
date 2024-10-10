@@ -21,9 +21,12 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import lombok.extern.java.Log;
+import org.springframework.stereotype.Service;
 
 @Log
 public class TransformacionDeDatos {
+
+    public TransformacionDeDatos() {}
 
     private String quitarEspacios(String string) {
         return string.replaceAll("\\s+", "");
