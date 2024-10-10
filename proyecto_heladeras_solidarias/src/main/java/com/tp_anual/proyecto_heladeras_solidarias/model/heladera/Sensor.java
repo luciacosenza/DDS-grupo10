@@ -27,10 +27,6 @@ public abstract class Sensor implements SensorSubject {
     @JoinColumn(name = "heladera_id")
     @NotNull
     protected HeladeraActiva heladera;
-
-    @Transient
-    @Getter(AccessLevel.NONE)
-    protected final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     
     protected Sensor(HeladeraActiva vHeladera) {
         heladera = vHeladera;
@@ -43,7 +39,4 @@ public abstract class Sensor implements SensorSubject {
     public void darDeBaja() {
         Sistema.eliminarSensor(this);
     }
-
-    @Override
-    public abstract void notificarHeladera();
 }

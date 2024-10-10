@@ -54,17 +54,4 @@ public abstract class Contribucion {
         if (fechaContribucion != null)
             System.out.println(I18n.getMessage("contribucion.Contribucion.obtenerDetalles_out_fecha_contribucion", fechaContribucion));
     }
-
-    public abstract void validarIdentidad();
-
-    protected abstract void confirmarSumaPuntos(Double puntosSumados);
-
-    protected abstract void calcularPuntos();
-
-    public void confirmar(LocalDateTime vFechaContribucion) {
-        // Podemos agregar lógica para confirmar que la Contribución fue efectivamente realizada
-        marcarComoCompletada();
-        setFechaContribucion(vFechaContribucion);   // Actualizo la fecha de contribución al momento que se confirma la realización de la Contribución
-        calcularPuntos();
-    }
 }

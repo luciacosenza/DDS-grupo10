@@ -12,7 +12,6 @@ public class MedioDeContactoService {
 
     private final MedioDeContactoRepository medioDeContactoRepository;
 
-
     public MedioDeContactoService(MedioDeContactoRepository vMedioDeContactoRepository) {
         medioDeContactoRepository = vMedioDeContactoRepository;
     }

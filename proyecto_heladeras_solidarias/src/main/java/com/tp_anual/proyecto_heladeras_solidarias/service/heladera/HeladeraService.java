@@ -58,11 +58,6 @@ public class HeladeraService {
         return heladeraRepository.save(heladera);
     }
 
-    public Integer viandasActuales(Long heladeraId) {
-        HeladeraActiva heladera = obtenerHeladera(heladeraId);
-        return heladera.getViandas().size();
-    }
-
     public Boolean estaVacia(Long heladeraId) {
         HeladeraActiva heladera = obtenerHeladera(heladeraId);
         return heladera.getViandas().isEmpty();
@@ -70,12 +65,12 @@ public class HeladeraService {
 
     public Boolean estaLlena(Long heladeraId) {
         HeladeraActiva heladera = obtenerHeladera(heladeraId);
-        return Objects.equals(viandasActuales(heladeraId), heladera.getCapacidad());
+        return Objects.equals(heladera.viandasActuales(), heladera.getCapacidad());
     }
 
     public Boolean verificarCapacidad(Long heladeraId) {
         HeladeraActiva heladera = obtenerHeladera(heladeraId);
-        return viandasActuales(heladeraId) < heladera.getCapacidad();
+        return heladera.viandasActuales() < heladera.getCapacidad();
     }
 
     public void verificarCondiciones(Long heladeraId) {
@@ -88,13 +83,13 @@ public class HeladeraService {
 
                 case SuscripcionViandasMin suscripcionViandasMin -> {
                     // Verifico si se está vaciando
-                    if (viandasActuales(heladeraId) <= suscripcionViandasMin.getViandasDisponiblesMin())
+                    if (heladera.viandasActuales() <= suscripcionViandasMin.getViandasDisponiblesMin())
                         reportarEstadoSegunCondicionSuscripcion(heladeraId, suscripcion.getMedioDeContactoElegido().getId(), Suscripcion.CondicionSuscripcion.VIANDAS_MIN);
                 }
 
                 case SuscripcionViandasMax suscripcionViandasMax -> {
                     // Verifico si se está llenando
-                    if ((heladera.getCapacidad() - viandasActuales(heladeraId)) <= suscripcionViandasMax.getViandasParaLlenarMax())
+                    if ((heladera.getCapacidad() - heladera.viandasActuales()) <= suscripcionViandasMax.getViandasParaLlenarMax())
                         reportarEstadoSegunCondicionSuscripcion(heladeraId, suscripcion.getMedioDeContactoElegido().getId(), Suscripcion.CondicionSuscripcion.VIANDAS_MAX);
                 }
 
@@ -167,7 +162,7 @@ public class HeladeraService {
         heladera.marcarComoInactiva();
         guardarHeladera(heladera);
 
-        heladera.verificarCondiciones();
+        verificarCondiciones(heladeraId);
     }
 
     public void reportarEstadoSegunCondicionSuscripcion(Long heladeraId, Long medioDeContactoId, Suscripcion.CondicionSuscripcion condicion) {   // Usa el Medio de Contacto previamente elegido por el colaborador

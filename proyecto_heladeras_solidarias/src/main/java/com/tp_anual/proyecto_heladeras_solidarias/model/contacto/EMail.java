@@ -23,10 +23,4 @@ public class EMail extends MedioDeContacto {
     public EMail(String vDireccionCorreo) {
         direccionCorreo = vDireccionCorreo;
     }
-
-    @Override
-    public void contactar(String asunto, String cuerpo) {
-        EMailSender.enviarEMail(direccionCorreo, asunto, cuerpo);
-        log.log(Level.INFO, I18n.getMessage("contacto.EMail.contactar_info", direccionCorreo));
-    }
 }

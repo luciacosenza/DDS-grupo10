@@ -14,7 +14,4 @@ public class Telegram extends MedioDeContacto{
     public Telegram(String vNumero) {
         numero = vNumero;
     }
-
-    @Override
-    public void contactar(String asunto, String cuerpo) {} // TODO: Se implementará posteriormente, por ahora sólo lo creamos para los Tests
 }

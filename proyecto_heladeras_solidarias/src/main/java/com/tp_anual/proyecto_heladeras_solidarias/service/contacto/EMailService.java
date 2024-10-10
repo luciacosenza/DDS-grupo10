@@ -14,9 +14,11 @@ import java.util.logging.Level;
 public class EMailService {
 
     private final EMailRepository eMailRepository;
+    private final EMailSender eMailSender;
 
-    public EMailService(EMailRepository vEMailRepository) {
+    public EMailService(EMailRepository vEMailRepository, EMailSender vEMailSender) {
         eMailRepository = vEMailRepository;
+        eMailSender = vEMailSender;
     }
 
     public EMail obtenerEMail(Long eMailId) {
@@ -26,7 +28,7 @@ public class EMailService {
     public void contactar(Long eMailId, String asunto, String cuerpo) {
         EMail eMail = obtenerEMail(eMailId);
 
-        EMailSender.enviarEMail(eMail.getDireccionCorreo(), asunto, cuerpo);
+        eMailSender.enviarEMail(eMail.getDireccionCorreo(), asunto, cuerpo);
         log.log(Level.INFO, I18n.getMessage("contacto.EMail.contactar_info", eMail.getDireccionCorreo()));
     }
 }

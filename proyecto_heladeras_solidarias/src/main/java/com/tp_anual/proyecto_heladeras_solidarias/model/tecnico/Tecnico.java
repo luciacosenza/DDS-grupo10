@@ -76,18 +76,4 @@ public class Tecnico {
     public void agregarAPendientes(Incidente incidente) {
         pendientes.add(incidente);
     }
-
-    public void registrarVisita(LocalDateTime fecha, String descripcion, String foto, Boolean estadoConsulta) {
-        Incidente ultimoIncidenteTratado = pendientes.removeFirst();    // Suponemos que el Tecnico atiende los Incidentes por FIFO
-        
-        Visita visita = new Visita(this, ultimoIncidenteTratado, fecha, descripcion, foto, estadoConsulta);
-        Sistema.getGestorDeVisitas().agregarVisita(visita);
-
-        log.log(Level.INFO, I18n.getMessage("tecnico.Tecnico.registrarVisita_info", ultimoIncidenteTratado.getHeladera().getNombre(), ultimoIncidenteTratado.getClass().getSimpleName(), persona.getNombre(2)));
-    }
-
-    // Como convención, para aproximar la Ubicación de un Técnico, vamos a usar el punto medio de su área de cobertura
-    public Pair<Double,Double> ubicacionAprox() {
-        return areaDeCobertura.puntoMedio();
-    }
 }

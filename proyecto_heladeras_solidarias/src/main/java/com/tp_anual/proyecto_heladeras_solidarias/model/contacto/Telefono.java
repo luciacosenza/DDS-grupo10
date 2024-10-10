@@ -28,7 +28,4 @@ public class Telefono extends MedioDeContacto {
         codArea = vCodArea;
         numero = vNumero;
     }
-
-    @Override
-    public void contactar(String asunto, String cuerpo) {}  // TODO: Se implementará posteriormente, por ahora sólo lo creamos para los Tests
 }

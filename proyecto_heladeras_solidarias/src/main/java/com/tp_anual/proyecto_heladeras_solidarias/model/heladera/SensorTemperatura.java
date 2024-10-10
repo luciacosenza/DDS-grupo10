@@ -43,41 +43,7 @@ public class SensorTemperatura extends Sensor {
         ultimaActualizacion = LocalDateTime.now();
     }
 
-    public void setTempActual(Float vTempActual) {
-        tempActual = vTempActual;
-        actualizarUltimaActualizacion();
-    }
-
     public void actualizarUltimaActualizacion() {
         setUltimaActualizacion(LocalDateTime.now());
-    }
-
-    public Boolean funcionaSensorFisico() {
-        LocalDateTime ahora = LocalDateTime.now();
-        long minutosPasados = ChronoUnit.MINUTES.between(ultimaActualizacion, ahora);
-
-        return minutosPasados <= minutosPasadosMaximos; // Si pasa más del tiempo estimado, se lanzará una Alerta
-    }
-
-    @Override
-    public void notificarHeladera() {
-        heladera.setTempActual(tempActual);
-        log.log(Level.INFO, I18n.getMessage("heladera.SensorTemperatura.notificarHeladera_info", heladera.getNombre()));
-    }
-
-    public void notificarFalla() {
-        heladera.producirAlerta(TipoAlerta.FALLA_CONEXION);
-    }
-    
-    public void programarNotificacion() {
-        Runnable notificacionTemperatura = () -> {
-            if (!funcionaSensorFisico())
-                notificarFalla();
-                
-            notificarHeladera();
-        };
-        
-        // Programa la tarea para que se ejecute cada 5 minutos
-        scheduler.scheduleAtFixedRate(notificacionTemperatura, 0, periodoNotificacionFalla, unidadPeriodoNotificacionFalla);
     }
 }

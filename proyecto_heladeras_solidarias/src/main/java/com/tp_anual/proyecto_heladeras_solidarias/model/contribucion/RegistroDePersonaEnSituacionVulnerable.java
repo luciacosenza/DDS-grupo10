@@ -43,25 +43,4 @@ public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
         super.obtenerDetalles();
         System.out.println(I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.obtenerDetalles_out_tarjeta_asignada_titular", tarjetaAsignada.getTitular()));
     }
-    
-    @Override
-    public void validarIdentidad() {
-        if(colaborador.getDomicilio() == null) {
-            log.log(Level.SEVERE, I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
-            throw new IllegalArgumentException(I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.validarIdentidad_exception"));
-        }   
-    }
-
-    @Override
-    protected void confirmarSumaPuntos(Double puntosSumados) {
-        tarjetaAsignada.programarReseteoUsos();
-        log.log(Level.INFO, I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
-    }
-
-    @Override
-    protected void calcularPuntos() {
-        Double puntosASumar = multiplicadorPuntos;
-        colaborador.sumarPuntos(puntosASumar);
-        confirmarSumaPuntos(puntosASumar);
-    }
 }

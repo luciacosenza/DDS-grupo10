@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Visita;
 import com.tp_anual.proyecto_heladeras_solidarias.service.notificador.NotificadorDeIncidentes;
-import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
-import lombok.Getter;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 

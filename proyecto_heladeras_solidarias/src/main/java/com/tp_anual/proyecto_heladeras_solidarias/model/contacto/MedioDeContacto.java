@@ -11,6 +11,4 @@ public abstract class MedioDeContacto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
-    
-    public abstract void contactar(String asunto, String cuerpo);
 }

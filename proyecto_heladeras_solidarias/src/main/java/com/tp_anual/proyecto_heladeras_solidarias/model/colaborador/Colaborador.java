@@ -95,10 +95,6 @@ public abstract class Colaborador {
         throw new NoSuchElementException(I18n.getMessage("colaborador.Colaborador.getContacto_exception"));
     }
 
-    public Boolean esCreatorPermitido(Class<? extends ContribucionCreator> creatorClass) {
-        return creatorsPermitidos.contains(creatorClass);
-    }
-
     public void sumarPuntos(Double puntosASumar) {
         puntos += puntosASumar;
     }
@@ -170,40 +166,5 @@ public abstract class Colaborador {
 
         if (puntos != null)
             System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_puntos", puntos));
-    }
-
-    // Este método equivale a seleccionar una Contribución, no a llevarla a cabo
-    public Contribucion colaborar(ContribucionCreator creator, LocalDateTime fechaContribucion /* generalmente LocalDateTime.now() */, Object... args) {
-        if (!esCreatorPermitido(creator.getClass())) {
-            log.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.colaborar_err", creator.getClass().getSimpleName(), persona.getNombre(2), persona.getTipoPersona()));
-            throw new IllegalArgumentException(I18n.getMessage("colaborador.Colaborador.colaborar_exception"));
-        }
-
-        Contribucion contribucion = creator.crearContribucion(this, fechaContribucion, false , args);
-        contribucion.validarIdentidad();
-        agregarContribucionPendiente(contribucion);
-        log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.colaborar_info", contribucion.getClass().getSimpleName(), persona.getNombre(2)));
-
-        return contribucion;
-    }
-
-    // Este es el método correspondiente a confirmar la ejecución / llevada a cabo de una Contribución
-    public void confirmarContribucion(Contribucion contribucion, LocalDateTime fechaContribucion) {
-        // La fecha de contribución generalmente será LocalDateTime.now(), salvo cuando se cargue una Contribución hecha con anterioridad (lo mismo que pasa en "colaborar()")
-        contribucion.confirmar(fechaContribucion);
-        agregarContribucion(contribucion);
-        eliminarContribucionPendiente(contribucion);
-        log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.confirmarContribucion_info", contribucion.getClass().getSimpleName(), persona.getNombre(2)));
-    }
-
-    public void intentarAdquirirBeneficio(Oferta oferta) {
-        // Primero chequea tener los puntos suficientes
-        oferta.validarPuntos(this);
-        agregarBeneficio(oferta);
-        log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.adquirirBeneficio_info", oferta.getNombre(), persona.getNombre(2)));
-    }
-
-    public void reportarFallaTecnica(HeladeraActiva heladera, String descripcion, String foto) {
-        heladera.producirFallaTecnica(this, descripcion, foto);
     }
 }

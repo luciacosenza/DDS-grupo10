@@ -31,7 +31,6 @@ public class HeladeraActiva extends Heladera {
     
     public HeladeraActiva(String vNombre, Ubicacion vUbicacion, ArrayList<Vianda> vViandas, Integer vCapacidad, LocalDateTime vFechaApertura, Float vTempMin, Float vTempMax) {
         super(vNombre, vUbicacion, vCapacidad, vTempMin, vTempMax, vViandas, 0f, vFechaApertura, true);
-        gestorDeAperturas = new GestorDeAperturas(this);
     }
 
     @Override
@@ -45,136 +44,12 @@ public class HeladeraActiva extends Heladera {
     }
 
     @Override
-    public Boolean estaVacia() {
-        return viandas.isEmpty();
-    }
-
-    @Override
-    public Boolean estaLlena() {
-        return Objects.equals(viandasActuales(), capacidad);
-    }
-
-    @Override
     public Integer viandasActuales() {
         return viandas.size();
     }
 
     @Override
-    public Boolean verificarCapacidad() {
-        return viandasActuales() < capacidad;
-    }
-
-    @Override
-    public void verificarCondiciones() {
-        GestorDeSuscripciones gestorDeSuscripciones = Sistema.getGestorDeSuscripciones();
-        ArrayList<Suscripcion> suscripciones = gestorDeSuscripciones.suscripcionesPorHeladera(this);
-        
-        for (Suscripcion suscripcion : suscripciones) {
-
-            switch(suscripcion) {
-
-                case SuscripcionViandasMin suscripcionViandasMin -> {
-                    // Verifico si se está vaciando
-                    if (viandasActuales() <= suscripcionViandasMin.getViandasDisponiblesMin())
-                        reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.VIANDAS_MIN, suscripcion.getMedioDeContactoElegido());
-                }
-            
-                case SuscripcionViandasMax suscripcionViandasMax -> {
-                    // Verifico si se está llenando
-                    if ((capacidad - viandasActuales()) <= suscripcionViandasMax.getViandasParaLlenarMax())
-                        reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.VIANDAS_MAX, suscripcion.getMedioDeContactoElegido());
-                }
-            
-                case SuscripcionDesperfecto suscripcionDesperfecto -> {
-                    // Verifico si hay un desperfecto
-                    if (!estado)
-                        reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion.DESPERFECTO, suscripcion.getMedioDeContactoElegido());
-                }
-
-                default -> {}
-
-            }
-        }
-    }
-
-    @Override
-    public void agregarVianda(Vianda vianda) {
-        if (!verificarCapacidad()) {
-            log.log(Level.SEVERE, I18n.getMessage("heladera.HeladeraActiva.agregarVianda_err", nombre));
-            throw new IllegalStateException(I18n.getMessage("heladera.HeladeraActiva.agregarVianda_exception"));
-        }
-
-        viandas.add(vianda);
-        verificarCondiciones(); // Verifica condiciones cuando agregamos una Vianda (una de las dos únicas formas en que la cantidad de Viandas en la Heladera puede cambiar)
-        log.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.agregarVianda_info", vianda.getComida(), nombre));
-    }
-
-    @Override
-    public Vianda retirarVianda() {
-        if (estaVacia()) {
-            log.log(Level.SEVERE, I18n.getMessage("heladera.HeladeraActiva.retirarVianda_err", nombre));
-            throw new IllegalStateException(I18n.getMessage("heladera.HeladeraActiva.retirarVianda_exception"));
-        }
-        
-        Vianda viandaRetirada = viandas.removeFirst();
-        verificarCondiciones(); // Verifica condiciones cuando retiramos una Vianda (una de las dos únicas formas en que la cantidad de Viandas en la Heladera puede cambiar)
-        log.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.retirarVianda_info", viandaRetirada.getComida(), nombre));
-
-        return viandaRetirada;
-    }
-
-    @Override
-    public void verificarTempActual() {
-        if (tempActual < tempMin || tempActual > tempMax)
-            producirAlerta(TipoAlerta.TEMPERATURA);
-    }
-
-    @Override
-    public void setTempActual(Float temperatura) {
-        tempActual = temperatura;
-        verificarTempActual();  // Siempre que setea / actualiza su temperatura, debe chequearla posteriormente
-    }
-
-    @Override
     public void marcarComoInactiva() {
         setEstado(false);
-    }
-
-    @Override
-    public void reaccionarAnteIncidente() {
-        marcarComoInactiva();
-        verificarCondiciones();
-    }
-
-    @Override
-    public void reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion condicion, MedioDeContacto medioDeContactoElegido) {   // Usa el Medio de Contacto previamente elegido por el colaborador
-        Sistema.getNotificadorDeEstado().notificarEstado(this, condicion, medioDeContactoElegido);
-    }
-
-    @Override
-    public void reportarIncidente(Incidente incidente) {    
-        Sistema.getNotificadorDeIncidentes().notificarIncidente(incidente);
-    }
-
-    @Override
-    public void producirAlerta(TipoAlerta tipo) {
-        reaccionarAnteIncidente();  // Si una Alerta debe ser reportada, previamente, se marca la Heladera como inactiva y se avisa a los Colaboradores suscriptos
-
-        Alerta alerta = new Alerta(LocalDateTime.now(), this, tipo);
-        alerta.darDeAlta();
-
-        reportarIncidente(alerta);
-        log.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.producirAlerta_info", alerta.getTipo(), nombre));
-    }
-
-    @Override
-    public void producirFallaTecnica(Colaborador colaborador, String descripcion, String foto) {
-        reaccionarAnteIncidente();  // Si una Falla Técnica debe ser reportada, previamente, se marca la Heladera como inactiva y se avisa a los Colaboradores suscriptos
-
-        FallaTecnica fallaTecnica = new FallaTecnica(LocalDateTime.now(), this, colaborador, descripcion, foto);
-        fallaTecnica.darDeAlta();
-
-        reportarIncidente(fallaTecnica);
-        log.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.producirFallaTecnica_info", nombre));
     }
 }

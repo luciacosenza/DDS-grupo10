@@ -67,12 +67,6 @@ public class HeladeraNula extends Heladera {
     }
 
     @Override
-    public GestorDeAperturas getGestorDeAperturas() {
-        log.log(Level.SEVERE, I18n.getMessage("heladera.HeladerNula.getGestorDeAperturas_err"));
-        throw new UnsupportedOperationException(I18n.getMessage("heladera.HeladeraNula.getGestorDeAperturas_exception"));
-    }
-
-    @Override
     public void setNombre(String vNombre) {}
 
     @Override
@@ -83,9 +77,6 @@ public class HeladeraNula extends Heladera {
 
     @Override
     public void setEstado(Boolean vEstado) {}
-
-    @Override
-    public void setGestorDeAperturas(GestorDeAperturas vGestorDeAperturas) {}
     
     @Override
     public void darDeAlta() {}
@@ -94,58 +85,10 @@ public class HeladeraNula extends Heladera {
     public void darDeBaja() {}
 
     @Override
-    public Boolean estaVacia() {
-        return true;
-    }
-
-    @Override
-    public Boolean estaLlena() {
-        return false;
-    }
-
-    @Override
     public Integer viandasActuales() {
         return 0;
     }
 
     @Override
-    public Boolean verificarCapacidad() {
-        return false;
-    }
-
-    @Override
-    public void verificarCondiciones() {}
-
-    @Override
-    public void agregarVianda(Vianda vianda) {}
-
-    @Override
-    public Vianda retirarVianda() {
-        log.log(Level.SEVERE, I18n.getMessage("heladera.HeladerNula.retirarVianda_err"));
-        throw new UnsupportedOperationException(I18n.getMessage("heladera.HeladeraNula.retirarVianda_exception"));
-    }
-
-    @Override
-    public void verificarTempActual() {}
-
-    @Override
-    public void setTempActual(Float temperatura) {}
-
-    @Override
     public void marcarComoInactiva() {}
-
-    @Override
-    public void reaccionarAnteIncidente() {}
-
-    @Override
-    public void reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion condicion, MedioDeContacto medioDeContactoElegido) {}
-
-    @Override
-    public void reportarIncidente(Incidente incidente) {}
-
-    @Override
-    public void producirAlerta(Alerta.TipoAlerta tipo) {}
-
-    @Override
-    public void producirFallaTecnica(Colaborador colaborador, String descripcion, String foto) {}
 }

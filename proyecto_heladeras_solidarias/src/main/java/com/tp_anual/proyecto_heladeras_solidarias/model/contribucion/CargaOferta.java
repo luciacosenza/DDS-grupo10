@@ -40,15 +40,4 @@ public class CargaOferta extends Contribucion {
         super.obtenerDetalles();
         System.out.println(I18n.getMessage("contribucion.CargaOferta.obtenerDetalles_out", oferta.getNombre()));
     }
-
-    @Override
-    public void validarIdentidad() {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
-
-    @Override
-    protected void confirmarSumaPuntos(Double puntosSumados) {} // Esta Contribución no entra entre las que suman puntos
-
-    @Override
-    protected void calcularPuntos() {}  // Esta Contribución no entra entre las que suman puntos
-
-
 }

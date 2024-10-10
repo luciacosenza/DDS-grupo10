@@ -13,11 +13,9 @@ import org.springframework.stereotype.Service;
 public class PermisoAperturaService {
 
     private final PermisoAperturaRepository permisoAperturaRepository;
-    private final HeladeraService heladeraService;
 
-    public PermisoAperturaService(PermisoAperturaRepository vPermisoAperturaRepository, HeladeraService vHeladeraService) {
+    public PermisoAperturaService(PermisoAperturaRepository vPermisoAperturaRepository) {
         permisoAperturaRepository = vPermisoAperturaRepository;
-        heladeraService = vHeladeraService;
     }
 
     public PermisoApertura obtenerPermisoApertura(Long permisoId){
@@ -27,12 +25,4 @@ public class PermisoAperturaService {
     public PermisoApertura guardarPermisoApertura(PermisoApertura permisoApertura) {
         return permisoAperturaRepository.save(permisoApertura);
     }
-
-    public Boolean esHeladeraPermitida(Long permisoAperturaId, Long heladeraId) {
-        PermisoApertura permisoApertura = obtenerPermisoApertura(permisoAperturaId);
-        HeladeraActiva heladera = heladeraService.obtenerHeladera(heladeraId);
-
-        return heladera == permisoApertura.getHeladeraPermitida();
-    }
-
 }

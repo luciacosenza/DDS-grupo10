@@ -37,11 +37,4 @@ public abstract class TarjetaColaborador extends Tarjeta {
     public abstract void agregarPermiso(PermisoApertura permiso);
 
     public abstract void eliminarPermiso(PermisoApertura permiso);
-
-    protected abstract void programarRevocacionPermisos(PermisoApertura permiso);
-
-    public abstract SolicitudAperturaColaborador solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo);
-
-    @Override
-    public abstract AperturaColaborador intentarApertura(HeladeraActiva heladeraAAbrir);
 }

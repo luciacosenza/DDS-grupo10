@@ -1,11 +1,12 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.tecnico;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.model.area.Area;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Tecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Visita;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.tecnico.TecnicoRepository;
-import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
+import com.tp_anual.proyecto_heladeras_solidarias.service.area.AreaService;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
@@ -20,11 +21,13 @@ public class TecnicoService {
 
     private final TecnicoRepository tecnicoRepository;
     private final VisitaService visitaService;
+    private final AreaService areaService;
     private final GestorDeVisitas gestorDeVisitas;
 
-    public TecnicoService(TecnicoRepository vTecnicoRepository, VisitaService vVisitaService, GestorDeVisitas vGestorDeVisitas) {
+    public TecnicoService(TecnicoRepository vTecnicoRepository, VisitaService vVisitaService, AreaService vAreaService,GestorDeVisitas vGestorDeVisitas) {
         tecnicoRepository = vTecnicoRepository;
         visitaService = vVisitaService;
+        areaService = vAreaService;
         gestorDeVisitas = vGestorDeVisitas;
     }
 
@@ -51,6 +54,9 @@ public class TecnicoService {
 
     // Como convención, para aproximar la Ubicación de un Técnico, vamos a usar el punto medio de su área de cobertura
     public Pair<Double,Double> ubicacionAprox(Long tecnicoId) {
-        return obtenerTecnico(tecnicoId).getAreaDeCobertura().puntoMedio();
+        Tecnico tecnico = obtenerTecnico(tecnicoId);
+        Area area = tecnico.getAreaDeCobertura();
+
+        return areaService.puntoMedio(area.getId());
     }
 }

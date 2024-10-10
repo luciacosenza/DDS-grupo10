@@ -47,10 +47,6 @@ public class HacerseCargoDeHeladera extends Contribucion {
     @Transient
     private final TimeUnit unidadPeriodoCalculoPuntos = TimeUnit.DAYS;
 
-    @Transient
-    @Getter(AccessLevel.NONE)
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
     public HacerseCargoDeHeladera(Colaborador vColaborador, LocalDateTime vFechaContribucion, HeladeraActiva vHeladeraObjetivo) {
         super(vColaborador, vFechaContribucion);
         heladeraObjetivo = vHeladeraObjetivo;
@@ -61,31 +57,5 @@ public class HacerseCargoDeHeladera extends Contribucion {
     public void obtenerDetalles() {
         super.obtenerDetalles();
         System.out.println(I18n.getMessage("contribucion.HacerseCargoDeHeladera.obtenerDetalles_out_heladera_objetivo", heladeraObjetivo.getNombre()));
-    }
-
-    @Override
-    public void validarIdentidad() {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
-
-    @Override
-    protected void confirmarSumaPuntos(Double puntosSumados) {
-        log.log(Level.INFO, I18n.getMessage("contribucion.HacerseCargoDeHeladera.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
-    }
-    
-    @Override
-    protected void calcularPuntos() {
-
-        Runnable calculoPuntos = () -> {
-            LocalDateTime ahora = LocalDateTime.now();
-            long mesesPasados = ChronoUnit.MONTHS.between(ultimaActualizacion, ahora);
-            if (mesesPasados >= 1 && heladeraObjetivo.getEstado()) {    // Dado que en el test nos dimos cuenta que puede fallar por milésimas, podríamos pensar en restarle un segundo, por ejemplo, a meses pasados (TODO)
-                Double puntosASumar = multiplicadorPuntos;
-                colaborador.sumarPuntos(puntosASumar);
-                confirmarSumaPuntos(puntosASumar);
-                ultimaActualizacion = ahora;
-            }
-        };
-
-        // Programa la tarea para que se ejecute una vez por día
-        scheduler.scheduleAtFixedRate(calculoPuntos, 0, periodoCalculoPuntos, unidadPeriodoCalculoPuntos);  // Ejecuta una vez por día (puede ser ineficiente)
     }
 }

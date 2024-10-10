@@ -52,15 +52,6 @@ public class Oferta {
         imagen = vImagen;
     }
 
-    public void validarPuntos(Colaborador colaborador) {
-        Double puntosColaborador = colaborador.getPuntos();
-        
-        if (puntosColaborador < costo) {
-            log.log(Level.SEVERE, I18n.getMessage("oferta.Oferta.validarPuntos_err", colaborador.getPersona().getNombre(2), colaborador.getPuntos(), costo, nombre));
-            throw new UnsupportedOperationException(I18n.getMessage("oferta.Oferta.validarPuntos_exception"));
-        }
-    }
-
     public void darDeAlta() {
         Sistema.agregarOferta(this);
     }

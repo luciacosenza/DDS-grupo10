@@ -9,6 +9,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.PermisoApertura;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaboradorActiva;
 
 import com.tp_anual.proyecto_heladeras_solidarias.repository.tarjeta.TarjetaColaboradorRepository;
+import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.AccionHeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.GestorDeAperturas;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
@@ -28,18 +29,22 @@ import java.util.logging.Level;
 public class TarjetaColaboradorService {
 
     private final TarjetaColaboradorRepository tarjetaColaboradorRepository;
+    private final ColaboradorService colaboradorService;
     private final PermisoAperturaService permisoAperturaService;
     private final HeladeraService heladeraService;
     private final GestorDeAperturas gestorDeAperturas;
     private final AccionHeladeraService accionHeladeraService;
+    private final TarjetaColaboradorCreator tarjetaColaboradorCreator;
     private final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
 
-    public TarjetaColaboradorService(PermisoAperturaService vPermisoAperturaService, HeladeraService vHeladeraService, TarjetaColaboradorRepository vTarjetaColaboradorRepository, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas){
+    public TarjetaColaboradorService(TarjetaColaboradorRepository vTarjetaColaboradorRepository, ColaboradorService vColaboradorService, PermisoAperturaService vPermisoAperturaService, HeladeraService vHeladeraService, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas, TarjetaColaboradorCreator vTarjetaColaboradorCreator){
+        tarjetaColaboradorRepository = vTarjetaColaboradorRepository;
+        colaboradorService = vColaboradorService;
         permisoAperturaService = vPermisoAperturaService;
         heladeraService = vHeladeraService;
-        tarjetaColaboradorRepository = vTarjetaColaboradorRepository;
         accionHeladeraService = vAccionHeladeraService;
         gestorDeAperturas = vGestorDeAperturas;
+        tarjetaColaboradorCreator = vTarjetaColaboradorCreator
     }
 
     public TarjetaColaboradorActiva obtenerTarjetaColaborador(String tarjetaId) {
@@ -50,8 +55,10 @@ public class TarjetaColaboradorService {
         return tarjetaColaboradorRepository.save(tarjetaColaboradorActiva);
     }
 
-    public Boolean puedeUsar() {
-        return true; // Se puede definir alguna lógica específica si es necesario
+    public TarjetaColaboradorActiva crearTarjetaColaborador(Long colaboradorId){
+        ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
+
+        return (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta(colaborador);
     }
 
     public void programarRevocacionPermisos(Long permisoAperturaId, String tarjetaId, Long heladeraId) {
@@ -117,5 +124,4 @@ public class TarjetaColaboradorService {
 
         return apertura;
     }
-
 }

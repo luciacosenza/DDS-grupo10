@@ -11,7 +11,9 @@ public class GeneradorCodigo {
     private static final AtomicLong contadorColaboradores = new AtomicLong(1);
     private static final AtomicLong contadorPersonas = new AtomicLong(1);
 
-    public static String generarCodigo(boolean esColaborador) {
+    public GeneradorCodigo() {}
+
+    public String generarCodigo(boolean esColaborador) {
         // Asigno el prefijo del Código, según el tipo de titular
         String prefijo = esColaborador ? "C" : "P";
         

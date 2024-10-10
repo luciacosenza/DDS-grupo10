@@ -135,3 +135,8 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
         - EnvioDeDatosStrategy (*Interface*)
         - EnvioDeDatos (*Abstract Class*)
         - EnvioEMail (*Class*)
+
+- **SINGLETON**
+  - En **RecomendadorHeladeras**
+  - En **Migrador**
+    - Migrador

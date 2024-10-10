@@ -51,10 +51,6 @@ public class DonacionDinero extends Contribucion {
     @Transient
     private final TimeUnit unidadPeriodoCalculoPuntos = TimeUnit.DAYS;
 
-    @Transient
-    @Getter(AccessLevel.NONE)
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
     public enum FrecuenciaDePago {  // Hacemos que Frecuencia de Pago sea una "interfaz común" para las distintas frecuencias, brindando los métodos periodo() unidad() para el uso de polimorfismo
         SEMANAL {
             @Override
@@ -127,36 +123,5 @@ public class DonacionDinero extends Contribucion {
     public void obtenerDetalles() {
         super.obtenerDetalles();
         System.out.println(I18n.getMessage("contribucion.DonacionDinero.obtenerDetalles_out_monto_frecuencia", monto, frecuencia));
-    }
-
-    @Override
-    public void validarIdentidad() {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
-
-    @Override
-    protected void confirmarSumaPuntos(Double puntosSumados) {
-        log.log(Level.INFO, I18n.getMessage("contribucion.DonacionDinero.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
-    }
-
-    @Override
-    protected void calcularPuntos() {    
-        if (frecuencia == FrecuenciaDePago.UNICA_VEZ) {
-            Double puntosASumar = monto * multiplicadorPuntos;
-            colaborador.sumarPuntos(puntosASumar);
-            confirmarSumaPuntos(puntosASumar);
-        }
-
-        Runnable calculoPuntos = () -> {
-            LocalDateTime ahora = LocalDateTime.now();
-            Long periodosPasados = frecuencia.unidad().between(ultimaActualizacion, ahora);
-            if (periodosPasados >= frecuencia.periodo()) {  // TODO: Dado que en el test nos dimos cuenta que puede fallar por milésimas, podríamos pensar en restarle un segundo, por ejemplo, a períodos pasados
-                Double puntosASumarL = monto * multiplicadorPuntos;
-                colaborador.sumarPuntos(puntosASumarL);
-                confirmarSumaPuntos(puntosASumarL);
-                ultimaActualizacion = ahora;
-            }
-        };
-
-        // Programa la tarea para que se ejecute una vez por día
-        scheduler.scheduleAtFixedRate(calculoPuntos, 0, periodoCalculoPuntos, unidadPeriodoCalculoPuntos);  // Ejecuta una vez por día (puede ser ineficiente en casos como mensual, semestral o anual)
     }
 }

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
+import com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta.TarjetaColaboradorCreator;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;

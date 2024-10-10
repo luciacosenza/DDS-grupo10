@@ -1,16 +1,16 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.AperturaPersonaEnSituacionVulnerable;
+import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.UsoTarjeta;
-import com.tp_anual.proyecto_heladeras_solidarias.repository.heladera.HeladeraRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.tarjeta.TarjetaPersonaEnSituacionVulnerableRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.AccionHeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.GestorDeAperturas;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerableService;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
@@ -27,24 +27,33 @@ import java.util.logging.Level;
 public class TarjetaPersonaEnSituacionVulnerableService {
 
     private final TarjetaPersonaEnSituacionVulnerableRepository tarjetaPersonaEnSituacionVulnerableRepository;
+    private final PersonaEnSituacionVulnerableService personaEnSituacionVulnerableService;
     private final HeladeraService heladeraService;
     private final AccionHeladeraService accionHeladeraService;
     private final GestorDeAperturas gestorDeAperturas;
+    private final TarjetaPersonaEnSituacionVulnerableCreator tarjetaPersonaEnSituacionVulnerableCreator;
     protected final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
 
-    public TarjetaPersonaEnSituacionVulnerableService(TarjetaPersonaEnSituacionVulnerableRepository vTarjetaEnSituacionVulnerableRepository, HeladeraService vHeladeraService, AccionHeladeraService vAccionHeladeraService,GestorDeAperturas vGestorDeAperturas){
+    public TarjetaPersonaEnSituacionVulnerableService(TarjetaPersonaEnSituacionVulnerableRepository vTarjetaEnSituacionVulnerableRepository, PersonaEnSituacionVulnerableService vPersonaEnSituacionVulnerableService, HeladeraService vHeladeraService, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas, TarjetaPersonaEnSituacionVulnerableCreator vTarjetaEnSituacionVulnerableCreator){
         tarjetaPersonaEnSituacionVulnerableRepository = vTarjetaEnSituacionVulnerableRepository;
+        personaEnSituacionVulnerableService = vPersonaEnSituacionVulnerableService;
         heladeraService = vHeladeraService;
         accionHeladeraService = vAccionHeladeraService;
         gestorDeAperturas = vGestorDeAperturas;
+        tarjetaPersonaEnSituacionVulnerableCreator = vTarjetaEnSituacionVulnerableCreator;
     }
 
-    public TarjetaPersonaEnSituacionVulnerable obtenerTarjeta(String tarjetaId){
+    public TarjetaPersonaEnSituacionVulnerable obtenerTarjeta(String tarjetaId) {
         return tarjetaPersonaEnSituacionVulnerableRepository.findById(tarjetaId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
     }
 
-    public TarjetaPersonaEnSituacionVulnerable guardarTarjeta(TarjetaPersonaEnSituacionVulnerable tarjeta){
+    public TarjetaPersonaEnSituacionVulnerable guardarTarjeta(TarjetaPersonaEnSituacionVulnerable tarjeta) {
         return tarjetaPersonaEnSituacionVulnerableRepository.save(tarjeta);
+    }
+
+    public TarjetaPersonaEnSituacionVulnerable crearTarjetaPersonaEnSituacionVulnerable(Long personaEnSituacionVulnerableId) {
+        PersonaEnSituacionVulnerable personaEnSituacionVulnerable = personaEnSituacionVulnerableService.obtenerPersonaEnSituacionVulnerable(personaEnSituacionVulnerableId);
+        return (TarjetaPersonaEnSituacionVulnerable) tarjetaPersonaEnSituacionVulnerableCreator.crearTarjeta(personaEnSituacionVulnerable);
     }
 
     public Boolean puedeUsar(String tarjetaId) {

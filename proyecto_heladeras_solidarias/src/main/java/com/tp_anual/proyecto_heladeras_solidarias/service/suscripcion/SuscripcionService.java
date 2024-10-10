@@ -37,5 +37,4 @@ public class SuscripcionService {
     public void eliminarSuscripcion(Suscripcion suscripcion) {
         suscripcionRepository.delete(suscripcion);
     }
-
 }

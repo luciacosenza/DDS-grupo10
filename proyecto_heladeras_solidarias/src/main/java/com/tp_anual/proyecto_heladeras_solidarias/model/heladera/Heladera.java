@@ -69,9 +69,6 @@ public abstract class Heladera implements HeladeraObserver {    // Implementa un
     @Transient
     protected final TimeUnit unidadTiempoPermiso = TimeUnit.HOURS;
 
-    @Transient
-    protected GestorDeAperturas gestorDeAperturas;
-
     protected Heladera(String vNombre, Ubicacion vUbicacion, Integer vCapacidad, Float vTempMin, Float vTempMax, ArrayList<Vianda> vViandas, Float vTempActual, LocalDateTime vFechaApertura, Boolean vEstado) {
         nombre = vNombre;
         ubicacion = vUbicacion;
@@ -88,35 +85,7 @@ public abstract class Heladera implements HeladeraObserver {    // Implementa un
 
     public abstract void darDeBaja();
 
-    public abstract Boolean estaVacia();
-
-    public abstract Boolean estaLlena();
-
     public abstract Integer viandasActuales();
 
-    public abstract Boolean verificarCapacidad();
-    
-    public abstract void verificarCondiciones();
-
-    public abstract void agregarVianda(Vianda vianda);
-
-    public abstract Vianda retirarVianda();
-
-    public abstract void verificarTempActual();
-
-    @Override
-    public abstract void setTempActual(Float temperatura);
-
     public abstract void marcarComoInactiva();
-
-    public abstract void reaccionarAnteIncidente();
-
-    public abstract void reportarEstadoSegunCondicionSuscripcion(CondicionSuscripcion condicion, MedioDeContacto medioDeContactoElegido);
-
-    public abstract void reportarIncidente(Incidente incidente);
-
-    @Override
-    public abstract void producirAlerta(Alerta.TipoAlerta tipo);
-    
-    public abstract void producirFallaTecnica(Colaborador colaborador, String descripcion, String foto);
 }

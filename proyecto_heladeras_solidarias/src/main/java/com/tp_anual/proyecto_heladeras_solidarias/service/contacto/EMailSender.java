@@ -14,22 +14,31 @@ import javax.mail.internet.MimeMessage;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+@Service
 @Log
 public class EMailSender {
-	private static final Properties propiedades = new Properties();
-	private static final Dotenv dotenv = Dotenv.load();
-    private static final String  username = dotenv.get("EMAIL_USERNAME");
-    private static final String password = dotenv.get("EMAIL_PASSWORD");
-	private static Session sesion;
+	private final Properties propiedades;
+	private final Dotenv dotenv;
+	private final String  username;
+    private final String password;
+	private Session sesion;
 
-	static {
-		System.out.println("EMAIL_USER: " + username);
-		System.out.println("EMAIL_PASSWORD: " + password);
+	public EMailSender() {
+		propiedades = new Properties();
+
+		// Carga las variables de entorno usando Dotenv
+		dotenv = Dotenv.load();
+		username = dotenv.get("EMAIL_USERNAME");
+		password = dotenv.get("EMAIL_PASSWORD");
 	}
 
-	private static void init() {
+	@PostConstruct
+	private void init() {
 		propiedades.put("mail.smtp.auth", "true");
 		propiedades.put("mail.smtp.starttls.enable", "true");
 		propiedades.put("mail.smtp.host", "smtp.gmail.com");
@@ -43,9 +52,7 @@ public class EMailSender {
         });
 	}
 
-    public static void enviarEMail(String receptor, String asunto, String cuerpo) {
-        init();
-
+    public void enviarEMail(String receptor, String asunto, String cuerpo) {
         try {
             MimeMessage mensaje = new MimeMessage(sesion);
 			mensaje.setFrom(new InternetAddress(username));

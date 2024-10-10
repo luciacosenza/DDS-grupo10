@@ -14,8 +14,9 @@ public class RecomendadorHeladerasTest {
     @Test
     @DisplayName("Testeo que funcione la Mock-Api")
     public void RecommendadorHeladerasMockApiTest() {
+        RecomendadorHeladeras recomendadorHeladeras = RecomendadorHeladeras.getInstance();
 
-        List<Map<String, String>> resultado = RecomendadorHeladeras.obtenerValoresDesdeAPI();
+        List<Map<String, String>> resultado = recomendadorHeladeras.obtenerValoresDesdeAPI();
 
         String latitudEsperada1 = "-34.61372944931148";
         String latitudEsperada2 = "-34.61257748945765";

@@ -12,13 +12,26 @@ import java.util.logging.Level;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.migrador.Migrador;
 import lombok.extern.java.Log;
 
 @Log
 public class RecomendadorHeladeras {
-    private static final String apiUrl = "https://74d20d86-99bd-452c-8c65-77ce0eac7fef.mock.pstmn.io/recommendation";
 
-    public static List<Map<String, String>> obtenerValoresDesdeAPI() {
+    private static RecomendadorHeladeras instance;
+
+    private final String apiUrl = "https://74d20d86-99bd-452c-8c65-77ce0eac7fef.mock.pstmn.io/recommendation";
+
+    private RecomendadorHeladeras() {}
+
+    public static RecomendadorHeladeras getInstance() {
+        if (instance == null) {
+            instance = new RecomendadorHeladeras();
+        }
+        return instance;
+    }
+
+    public List<Map<String, String>> obtenerValoresDesdeAPI() {
         List<Map<String, String>> valores = new ArrayList<>();
         HttpClient cliente = HttpClient.newHttpClient();
 

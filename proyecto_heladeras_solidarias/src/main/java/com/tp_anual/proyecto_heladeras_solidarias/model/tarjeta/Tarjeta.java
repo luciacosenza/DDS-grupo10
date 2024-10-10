@@ -21,15 +21,9 @@ public abstract class Tarjeta {
     @Setter(AccessLevel.NONE)
     protected String codigo;
 
-    @Transient
-    @Getter(AccessLevel.NONE)
-    protected final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
-
     protected Tarjeta(String vCodigo) {
         codigo = vCodigo;
     }
 
     public abstract Boolean puedeUsar();
-
-    public abstract AccionHeladera intentarApertura(HeladeraActiva heladeraAAbrir);
 }

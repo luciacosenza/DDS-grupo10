@@ -48,19 +48,4 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
 
     @Override
     public void eliminarPermiso(PermisoApertura permiso) {}
-
-    @Override
-    protected void programarRevocacionPermisos(PermisoApertura permiso) {}
-
-    @Override
-    public SolicitudAperturaColaborador solicitarApertura(HeladeraActiva heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo) {
-        log.log(Level.SEVERE, I18n.getMessage("tarjeta.TarjetaColaboradorNula.solicitarApertura_err"));
-        throw new UnsupportedOperationException(I18n.getMessage("tarjeta.TarjetaColaboradorNula.solicitarApertura_exception"));
-    }
-
-    @Override
-    public AperturaColaborador intentarApertura(HeladeraActiva heladeraAAbrir) {
-        log.log(Level.SEVERE, I18n.getMessage("tarjeta.TarjetaColaboradorNula.intentarApertura_err"));
-        throw new UnsupportedOperationException(I18n.getMessage("tarjeta.TarjetaColaboradorNula.intentarApertura_exception"));
-    }
 }

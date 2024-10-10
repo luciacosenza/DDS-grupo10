@@ -68,24 +68,4 @@ public class DistribucionViandas extends Contribucion {
         System.out.println(I18n.getMessage("contribucion.DistribucionViandas.obtenerDetalles_out_candidad_viandas_a_mover", cantidadViandasAMover));
         System.out.println(I18n.getMessage("contribucion.DistribucionViandas.obtenerDetalles_out_motivo", motivo));
     }
-    
-    @Override
-    public void validarIdentidad() {
-        if(colaborador.getDomicilio() == null) {
-            log.log(Level.SEVERE, I18n.getMessage("contribucion.DistribucionViandas.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
-            throw new IllegalArgumentException(I18n.getMessage("contribucion.DistribucionViandas.validarIdentidad_exception"));
-        }
-    }
-
-    @Override
-    protected void confirmarSumaPuntos(Double puntosSumados) {
-        log.log(Level.INFO, I18n.getMessage("contribucion.DistribucionViandas.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
-    }
-
-    @Override
-    protected void calcularPuntos() {
-        Double puntosASumar = Double.valueOf(cantidadViandasAMover) * multiplicadorPuntos;
-        colaborador.sumarPuntos(puntosASumar);
-        confirmarSumaPuntos(puntosASumar);
-    }
 }
