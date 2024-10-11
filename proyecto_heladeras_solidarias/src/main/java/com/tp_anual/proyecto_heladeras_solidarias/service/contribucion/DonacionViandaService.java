@@ -61,7 +61,7 @@ public class DonacionViandaService extends ContribucionService {
     protected void calcularPuntos() {
         ArrayList<DonacionVianda> donacionesVianda = obtenerDonacionesViandaQueSumanPuntos();
 
-        for(DonacionVianda donacionVianda : donacionesVianda) {
+        for (DonacionVianda donacionVianda : donacionesVianda) {
             Colaborador colaborador = donacionVianda.getColaborador();
 
             colaborador.sumarPuntos(multiplicadorPuntos);

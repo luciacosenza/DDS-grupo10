@@ -40,8 +40,4 @@ public class PermisoApertura {
     public void actualizarFechaOtorgamiento(){
         setFechaOtorgamiento(LocalDateTime.now());
     }
-
-    public Boolean esHeladeraPermitida(HeladeraActiva heladera) {
-        return heladera == heladeraPermitida;
-    }
 }

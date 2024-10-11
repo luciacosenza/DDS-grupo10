@@ -13,16 +13,25 @@ import org.springframework.stereotype.Service;
 public class PermisoAperturaService {
 
     private final PermisoAperturaRepository permisoAperturaRepository;
+    private final HeladeraService heladeraService;
 
-    public PermisoAperturaService(PermisoAperturaRepository vPermisoAperturaRepository) {
+    public PermisoAperturaService(PermisoAperturaRepository vPermisoAperturaRepository, HeladeraService vHeladeraService) {
         permisoAperturaRepository = vPermisoAperturaRepository;
+        heladeraService = vHeladeraService;
     }
 
-    public PermisoApertura obtenerPermisoApertura(Long permisoId){
-        return permisoAperturaRepository.findById(permisoId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+    public PermisoApertura obtenerPermisoApertura(Long permisoAperturaId){
+        return permisoAperturaRepository.findById(permisoAperturaId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
     }
 
     public PermisoApertura guardarPermisoApertura(PermisoApertura permisoApertura) {
         return permisoAperturaRepository.save(permisoApertura);
+    }
+
+    public Boolean esHeladeraPermitida(Long permisoAperturaId, Long heladeraId) {
+        PermisoApertura permisoApertura = obtenerPermisoApertura(permisoAperturaId);
+        HeladeraActiva heladera = heladeraService.obtenerHeladera(heladeraId);
+
+        return heladera == permisoApertura.getHeladeraPermitida();
     }
 }

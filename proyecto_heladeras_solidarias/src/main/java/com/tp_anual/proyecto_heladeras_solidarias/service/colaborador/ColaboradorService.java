@@ -78,7 +78,6 @@ public class ColaboradorService {
         }
 
         Contribucion contribucion = creator.crearContribucion(colaborador, fechaContribucion, false , args);
-
         Long contribucionId = contribucionService.guardarContribucion(contribucion).getId();
         contribucionService.validarIdentidad(contribucionId, colaboradorId);
 

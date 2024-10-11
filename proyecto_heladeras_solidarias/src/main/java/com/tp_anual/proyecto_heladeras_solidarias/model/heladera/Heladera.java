@@ -1,6 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -48,7 +49,7 @@ public abstract class Heladera implements HeladeraObserver {    // Implementa un
 
     protected final Integer tiempoPermiso = 3;
 
-    protected final TimeUnit unidadTiempoPermiso = TimeUnit.HOURS;
+    protected final ChronoUnit unidadTiempoPermiso = ChronoUnit.HOURS;
 
     protected Heladera(String vNombre, Ubicacion vUbicacion, Integer vCapacidad, Float vTempMin, Float vTempMax, ArrayList<Vianda> vViandas, Float vTempActual, LocalDateTime vFechaApertura, Boolean vEstado) {
         nombre = vNombre;

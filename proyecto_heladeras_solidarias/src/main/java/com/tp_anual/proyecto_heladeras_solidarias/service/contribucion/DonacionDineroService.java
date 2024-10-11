@@ -55,7 +55,7 @@ public class DonacionDineroService extends ContribucionService {
     public void calcularPuntos() {
         ArrayList<DonacionDinero> donacionesDinero = obtenerDonacionesDineroQueSumanPuntos();
 
-        for(DonacionDinero donacionDinero : donacionesDinero) {
+        for (DonacionDinero donacionDinero : donacionesDinero) {
             Double puntosASumar = donacionDinero.getMonto() * multiplicadorPuntos;
             Colaborador colaborador = donacionDinero.getColaborador();
 

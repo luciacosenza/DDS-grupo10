@@ -1,5 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.heladera;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.logging.Level;
@@ -57,7 +59,6 @@ public class GestorDeAperturas {
     public void revisarPermisoAperturaC(Long heladeraId, Long colaboradorId) {
         ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
         HeladeraActiva heladera = heladeraService.obtenerHeladera(heladeraId);
-
         TarjetaColaborador tarjetaColaborador = colaborador.getTarjeta();
         ArrayList<PermisoApertura> permisos = tarjetaColaborador.getPermisos();
 
@@ -66,7 +67,19 @@ public class GestorDeAperturas {
             .max(Comparator.comparing(PermisoApertura::getFechaOtorgamiento))
             .orElse(null);
 
-        if (permisoARevisar == null || !permisoARevisar.getOtorgado()) {
+        if (permisoARevisar == null) {
+            log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_err", colaborador.getPersona().getNombre(2), heladera.getNombre()));
+            throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_exception"));
+        }
+
+        LocalDateTime ahora = LocalDateTime.now();
+        LocalDateTime fechaOtorgamiento = permisoARevisar.getFechaOtorgamiento();
+        long horasPasadas = heladera.getUnidadTiempoPermiso().between(fechaOtorgamiento, ahora);
+
+        if (horasPasadas >= heladera.getTiempoPermiso()) {
+            permisoARevisar.setOtorgado(false);
+            permisoAperturaService.guardarPermisoApertura(permisoARevisar);
+
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_err", colaborador.getPersona().getNombre(2), heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_exception"));
         }

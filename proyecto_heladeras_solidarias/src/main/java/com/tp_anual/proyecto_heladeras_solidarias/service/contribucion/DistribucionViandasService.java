@@ -43,7 +43,7 @@ public class DistribucionViandasService extends ContribucionService {
     public void validarIdentidad(Long contribucionId, Long colaboradorId) {
         ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
 
-        if(colaborador.getDomicilio() == null) {
+        if (colaborador.getDomicilio() == null) {
             log.log(Level.SEVERE, I18n.getMessage("contribucion.DistribucionViandas.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
             throw new IllegalArgumentException(I18n.getMessage("contribucion.DistribucionViandas.validarIdentidad_exception"));
         }
@@ -60,7 +60,7 @@ public class DistribucionViandasService extends ContribucionService {
     protected void calcularPuntos() {
         ArrayList<DistribucionViandas> distribucionesViandas = obtenerDistribucionesViandasQueSumanPuntos();
 
-        for(DistribucionViandas distribucionViandas : distribucionesViandas) {
+        for (DistribucionViandas distribucionViandas : distribucionesViandas) {
             Double puntosASumar = Double.valueOf(distribucionViandas.getCantidadViandasAMover()) * multiplicadorPuntos;
             ColaboradorHumano colaborador = (ColaboradorHumano) distribucionViandas.getColaborador();
 

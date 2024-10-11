@@ -18,10 +18,8 @@ import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 @Log
@@ -35,7 +33,6 @@ public class TarjetaColaboradorService {
     private final GestorDeAperturas gestorDeAperturas;
     private final AccionHeladeraService accionHeladeraService;
     private final TarjetaColaboradorCreator tarjetaColaboradorCreator;
-    private final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
 
     public TarjetaColaboradorService(TarjetaColaboradorRepository vTarjetaColaboradorRepository, ColaboradorService vColaboradorService, PermisoAperturaService vPermisoAperturaService, HeladeraService vHeladeraService, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas, TarjetaColaboradorCreator vTarjetaColaboradorCreator){
         tarjetaColaboradorRepository = vTarjetaColaboradorRepository;
@@ -61,30 +58,6 @@ public class TarjetaColaboradorService {
         return (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta(colaborador);
     }
 
-    public void programarRevocacionPermisos(Long permisoAperturaId, String tarjetaId, Long heladeraId) {
-        TarjetaColaboradorActiva tarjetaColaborador = obtenerTarjetaColaborador(tarjetaId);
-        PermisoApertura permisoApertura = permisoAperturaService.obtenerPermisoApertura(permisoAperturaId);
-
-        HeladeraActiva heladeraInvolucrada = permisoApertura.getHeladeraPermitida();
-        Integer tiempoPermiso = heladeraInvolucrada.getTiempoPermiso();
-        TimeUnit unidadTiempoPermiso = heladeraInvolucrada.getUnidadTiempoPermiso();
-
-        Runnable revocacionPermisos = () -> {
-            LocalDateTime ahora = LocalDateTime.now();
-            LocalDateTime fechaOtorgamiento = permisoApertura.getFechaOtorgamiento();
-            long horasPasadas = ChronoUnit.HOURS.between(fechaOtorgamiento, ahora);
-            if (horasPasadas >= 3) {
-                permisoApertura.setOtorgado(false);
-                permisoAperturaService.guardarPermisoApertura(permisoApertura);
-            }
-
-            log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaboradorActiva.programarRevocacionPermisos_info", permisoApertura.getHeladeraPermitida().getNombre(), tarjetaColaborador.getTitular().getPersona().getNombre(2)));
-        };
-
-        // Programa la tarea para que se ejecute una vez después de 3 horas
-        timer.schedule(revocacionPermisos, tiempoPermiso, unidadTiempoPermiso);
-    }
-
     public SolicitudAperturaColaborador solicitarApertura(String tarjetaId, Long heladeraId, SolicitudAperturaColaborador.MotivoSolicitud motivo) {
         TarjetaColaboradorActiva tarjetaColaborador = obtenerTarjetaColaborador(tarjetaId);
         HeladeraActiva heladeraInvolucrada = heladeraService.obtenerHeladera(heladeraId);
@@ -101,8 +74,6 @@ public class TarjetaColaboradorService {
         guardarTarjetaColaborador(tarjetaColaborador);
 
         log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaboradorActiva.solicitarApertura_info", heladeraInvolucrada.getNombre(), tarjetaColaborador.getTitular().getPersona().getNombre(2)));
-
-        programarRevocacionPermisos(permisoApertura.getId(), tarjetaId, heladeraId);
 
         return solicitudApertura;
     }

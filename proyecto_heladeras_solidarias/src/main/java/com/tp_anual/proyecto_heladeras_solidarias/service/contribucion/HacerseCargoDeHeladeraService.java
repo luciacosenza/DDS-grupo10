@@ -59,7 +59,7 @@ public class HacerseCargoDeHeladeraService extends ContribucionService {
     protected void calcularPuntos() {
         ArrayList<HacerseCargoDeHeladera> hacerseCargoDeLaHeladeras = obtenerHacerseCargoDeHeladerasQueSumanPuntos();
 
-        for(HacerseCargoDeHeladera hacerseCargoDeHeladera : hacerseCargoDeLaHeladeras ) {
+        for (HacerseCargoDeHeladera hacerseCargoDeHeladera : hacerseCargoDeLaHeladeras ) {
             ColaboradorJuridico colaborador = (ColaboradorJuridico) hacerseCargoDeHeladera.getColaborador();
 
             colaborador.sumarPuntos(multiplicadorPuntos);
