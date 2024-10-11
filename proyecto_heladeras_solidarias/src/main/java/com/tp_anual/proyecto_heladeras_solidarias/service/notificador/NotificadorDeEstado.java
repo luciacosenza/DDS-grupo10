@@ -60,7 +60,7 @@ public class NotificadorDeEstado extends Notificador {
                 medioDeContactoId,
                 I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmx_title",
                 heladera.getNombre()),
-                I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_body",
+                I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmx_body",
                 (heladera.getCapacidad() - heladera.viandasActuales()), heladera.getNombre(), heladeraMenosLlena.getNombre(), heladeraMenosLlena.getUbicacion().getDireccion()));
             }
 
@@ -79,10 +79,10 @@ public class NotificadorDeEstado extends Notificador {
 
     public String obtenerNombresYDireccionesDe(ArrayList<HeladeraActiva> heladeras) {
         HeladeraActiva heladera1 = heladeras.removeFirst();
-        String nombresYDirecciones = I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_d_body", heladera1.getNombre(), heladera1.getUbicacion().getDireccion());
+        String nombresYDirecciones = I18n.getMessage("notificador.NotificadorDeEstado.obtenerNombresYDireccionesDe_value_heladera_1", heladera1.getNombre(), heladera1.getUbicacion().getDireccion());
         
         for (HeladeraActiva heladera : heladeras) {
-            nombresYDirecciones += I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_d_body", heladera.getNombre(), heladera.getUbicacion().getDireccion());
+            nombresYDirecciones += I18n.getMessage("notificador.NotificadorDeEstado.obtenerNombresYDireccionesDe_value_heladera_i", heladera.getNombre(), heladera.getUbicacion().getDireccion());
         }
 
         return nombresYDirecciones;
