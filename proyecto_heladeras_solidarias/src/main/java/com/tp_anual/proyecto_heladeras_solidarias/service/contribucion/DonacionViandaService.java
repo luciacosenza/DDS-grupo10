@@ -20,8 +20,8 @@ import java.util.logging.Level;
 @Log
 public class DonacionViandaService extends ContribucionService {
 
-    private Double multiplicadorPuntos;
     private final DonacionViandaRepository donacionViandaRepository;
+    private final Double multiplicadorPuntos = 1.5;
 
     public DonacionViandaService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService, DonacionViandaRepository vDonacionViandaRepository) {
         super(vContribucionRepository, vColaboradorService);

@@ -35,9 +35,6 @@ public class DonacionVianda extends Contribucion {
     @NotNull
     private final HeladeraActiva heladera;
 
-    @Transient
-    private final Double multiplicadorPuntos = 1.5;
-
     public DonacionVianda(Colaborador vColaborador, LocalDateTime vFechaContribucion, Vianda vVianda, HeladeraActiva vHeladera) {
         super(vColaborador, vFechaContribucion);
         vianda = vVianda;
