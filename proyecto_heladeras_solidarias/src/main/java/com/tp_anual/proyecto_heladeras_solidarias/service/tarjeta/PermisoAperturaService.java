@@ -21,7 +21,7 @@ public class PermisoAperturaService {
     }
 
     public PermisoApertura obtenerPermisoApertura(Long permisoAperturaId){
-        return permisoAperturaRepository.findById(permisoAperturaId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return permisoAperturaRepository.findById(permisoAperturaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public PermisoApertura guardarPermisoApertura(PermisoApertura permisoApertura) {

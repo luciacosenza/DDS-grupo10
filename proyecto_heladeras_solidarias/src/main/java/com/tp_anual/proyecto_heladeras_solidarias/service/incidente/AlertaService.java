@@ -17,7 +17,7 @@ public class AlertaService {
     }
 
     public Alerta obtenerAlerta(Long idAlerta) {
-        return alertaRepository.findById(idAlerta).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return alertaRepository.findById(idAlerta).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public Alerta guardarAlerta(Alerta alerta) {

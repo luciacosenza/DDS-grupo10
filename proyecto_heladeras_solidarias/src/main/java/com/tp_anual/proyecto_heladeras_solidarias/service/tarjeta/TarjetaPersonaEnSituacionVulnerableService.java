@@ -46,7 +46,7 @@ public class TarjetaPersonaEnSituacionVulnerableService {
     }
 
     public TarjetaPersonaEnSituacionVulnerable obtenerTarjetaPersonaEnSituacionvulnerable(String tarjetaId) {
-        return tarjetaPersonaEnSituacionVulnerableRepository.findById(tarjetaId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return tarjetaPersonaEnSituacionVulnerableRepository.findById(tarjetaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public ArrayList<TarjetaPersonaEnSituacionVulnerable> obtenerTarjetasPersonaEnSituacionVulnerable() {

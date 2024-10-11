@@ -33,7 +33,7 @@ public class HacerseCargoDeHeladeraService extends ContribucionService {
     }
 
     public HacerseCargoDeHeladera obtenerHacerseCargoDeHeladera(Long hacerseCargoId) {
-        return hacerseCargoDeHeladeraRepository.findById(hacerseCargoId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return hacerseCargoDeHeladeraRepository.findById(hacerseCargoId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public ArrayList<HacerseCargoDeHeladera> obtenerHacerseCargoDeHeladerasQueSumanPuntos() {

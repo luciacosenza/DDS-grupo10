@@ -32,7 +32,7 @@ public class TecnicoService {
     }
 
     public Tecnico obtenerTecnico(Long tecnicoId) {
-        return tecnicoRepository.findById(tecnicoId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return tecnicoRepository.findById(tecnicoId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public Tecnico guardarTecnico(Tecnico tecnico) {

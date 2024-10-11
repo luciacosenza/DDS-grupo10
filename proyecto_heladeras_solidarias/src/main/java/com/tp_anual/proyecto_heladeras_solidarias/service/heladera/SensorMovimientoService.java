@@ -26,7 +26,7 @@ public class SensorMovimientoService {
     }
 
     public SensorMovimiento obtenerSensorMovimiento(Long sensorMovimientoId) {
-        return sensorMovimientoRepository.findById(sensorMovimientoId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return sensorMovimientoRepository.findById(sensorMovimientoId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public SensorMovimiento guardarSensorMovimiento(SensorMovimiento sensorMovimiento) {

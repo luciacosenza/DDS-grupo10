@@ -28,7 +28,7 @@ public class DistribucionViandasService extends ContribucionService {
     }
 
     public DistribucionViandas obtenerDistribucionViandas(Long distribucionViandasId) {
-        return distribucionViandasRepository.findById(distribucionViandasId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return distribucionViandasRepository.findById(distribucionViandasId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public ArrayList<DistribucionViandas> obtenerDistribucionesViandasQueSumanPuntos() {

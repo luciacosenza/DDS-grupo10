@@ -29,7 +29,7 @@ public class DonacionViandaService extends ContribucionService {
     }
 
     public DonacionVianda obtenerDonacionVianda(Long donacionViandaId) {
-        return donacionViandaRepository.findById(donacionViandaId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return donacionViandaRepository.findById(donacionViandaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public ArrayList<DonacionVianda> obtenerDonacionesViandaQueSumanPuntos() {

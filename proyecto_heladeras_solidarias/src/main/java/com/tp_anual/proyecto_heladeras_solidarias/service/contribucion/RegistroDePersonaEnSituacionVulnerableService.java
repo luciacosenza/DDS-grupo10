@@ -31,7 +31,7 @@ public class RegistroDePersonaEnSituacionVulnerableService extends ContribucionS
     }
 
     public RegistroDePersonaEnSituacionVulnerable obtenerRegistroDePersonaEnSituacionVulnerable(Long registroId) {
-        return registroDePersonaEnSituacionVulnerableRepository.findById(registroId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return registroDePersonaEnSituacionVulnerableRepository.findById(registroId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public ArrayList<RegistroDePersonaEnSituacionVulnerable> obtenerRegistrosDePersonaEnSituacionVulnerableQueSumanPuntos() {

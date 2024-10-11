@@ -29,7 +29,7 @@ public class DonacionDineroService extends ContribucionService {
     }
 
     public DonacionDinero obtenerDonacionDinero(Long donacionDineroId) {
-        return donacionDineroRepository.findById(donacionDineroId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return donacionDineroRepository.findById(donacionDineroId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public ArrayList<DonacionDinero> obtenerDonacionesDineroQueSumanPuntos() {

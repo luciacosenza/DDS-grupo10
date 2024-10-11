@@ -19,7 +19,7 @@ public class FallaTecnicaService {
     }
 
     public FallaTecnica obtenerFallaTecnica(Long idFallaTecnica) {
-        return fallaTecnicaRepository.findById(idFallaTecnica).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return fallaTecnicaRepository.findById(idFallaTecnica).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public FallaTecnica guardarFallaTecnica(FallaTecnica fallaTecnica) {

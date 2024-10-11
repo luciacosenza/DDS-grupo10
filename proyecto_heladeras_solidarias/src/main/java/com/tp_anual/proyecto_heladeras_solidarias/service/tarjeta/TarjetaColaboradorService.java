@@ -45,7 +45,7 @@ public class TarjetaColaboradorService {
     }
 
     public TarjetaColaboradorActiva obtenerTarjetaColaborador(String tarjetaId) {
-        return (TarjetaColaboradorActiva) tarjetaColaboradorRepository.findById(tarjetaId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return (TarjetaColaboradorActiva) tarjetaColaboradorRepository.findById(tarjetaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public TarjetaColaboradorActiva guardarTarjetaColaborador(TarjetaColaboradorActiva tarjetaColaboradorActiva){

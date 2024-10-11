@@ -22,7 +22,7 @@ public class EMailService {
     }
 
     public EMail obtenerEMail(Long eMailId) {
-        return eMailRepository.findById(eMailId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return eMailRepository.findById(eMailId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public void contactar(Long eMailId, String asunto, String cuerpo) {

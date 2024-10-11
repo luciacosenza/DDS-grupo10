@@ -48,7 +48,7 @@ public class ColaboradorService {
     }
 
     public Colaborador obtenerColaborador(Long colaboradorId) {
-        return colaboradorRepository.findById(colaboradorId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return colaboradorRepository.findById(colaboradorId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public ColaboradorHumano obtenerColaboradorHumano(Long colaboradorId) {

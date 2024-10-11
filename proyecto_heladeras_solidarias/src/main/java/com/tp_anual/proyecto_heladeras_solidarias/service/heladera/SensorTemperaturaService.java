@@ -29,7 +29,7 @@ public class SensorTemperaturaService {
     }
 
     public SensorTemperatura obtenerSensorTemperatura(Long sensorTemperaturaId) {
-        return sensorTemperaturaRepository.findById(sensorTemperaturaId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return sensorTemperaturaRepository.findById(sensorTemperaturaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
 
     }
 

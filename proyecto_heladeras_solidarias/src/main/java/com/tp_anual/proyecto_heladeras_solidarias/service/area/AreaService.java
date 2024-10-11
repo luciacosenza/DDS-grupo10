@@ -1,5 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.area;
 
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.area.Area;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.area.AreaRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -15,7 +16,7 @@ public class AreaService {
     }
 
     public Area obtenerArea(Long areaId) {
-        return areaRepository.findById(areaId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return areaRepository.findById(areaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public Area guardarArea(Area area) {
