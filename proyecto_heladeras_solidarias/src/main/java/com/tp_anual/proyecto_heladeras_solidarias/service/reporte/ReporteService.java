@@ -42,6 +42,7 @@ public class ReporteService {
         return new ArrayList<>(reporteViandasPorColaboradorRepository.findAll());
     }
 
+    // Programo la tarea para ejecutarse todos meses, el primer día, a las 00.00 hs
     @Scheduled(cron = "0 0 0 1 * ?")
     public void generarReportesMensuales() {
         jdbcTemplate.execute("REFRESH MATERIALIZED VIEW reporte_incidentes_por_heladera;");

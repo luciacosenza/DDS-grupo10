@@ -19,7 +19,6 @@ public class SensorMovimientoService {
 
     private final SensorMovimientoRepository sensorMovimientoRepository;
     private final HeladeraService heladeraService;
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public SensorMovimientoService(SensorMovimientoRepository vSensorMovimientoRepository, HeladeraService vHeladeraService) {
         sensorMovimientoRepository = vSensorMovimientoRepository;

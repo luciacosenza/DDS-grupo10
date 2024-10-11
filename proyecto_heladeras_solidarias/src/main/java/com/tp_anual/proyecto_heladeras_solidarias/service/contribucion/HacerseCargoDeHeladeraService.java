@@ -26,7 +26,6 @@ public class HacerseCargoDeHeladeraService extends ContribucionService {
 
     private final HacerseCargoDeHeladeraRepository hacerseCargoDeHeladeraRepository;
     private final Double multiplicadorPuntos = 5d;
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1); // TODO: Probablemente no vaya acá el scheduler, porque los Services son Singletons
 
     public HacerseCargoDeHeladeraService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService, HacerseCargoDeHeladeraRepository vHacerseCargoDeHeladeraRepository) {
         super(vContribucionRepository, vColaboradorService);
@@ -54,6 +53,7 @@ public class HacerseCargoDeHeladeraService extends ContribucionService {
         log.log(Level.INFO, I18n.getMessage("contribucion.HacerseCargoDeHeladera.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
+    // Programo la tarea para ejecutarse todos los días a las 00.00 hs
     @Scheduled(cron = "0 0 0 * * ?")
     @Override
     protected void calcularPuntos() {
