@@ -1,17 +1,12 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
 
 import java.time.LocalDateTime;
-import java.util.logging.Level;
 import java.time.temporal.ChronoUnit;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Min;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -29,17 +24,14 @@ public class DonacionDinero extends Contribucion {
     @Setter(AccessLevel.NONE)
     protected Long id;
     
-    @NotNull
     @Min(value = 0)
     private final Double monto;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
     @Min(value = 0)
     private final FrecuenciaDePago frecuencia;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @NotNull
     private LocalDateTime ultimaActualizacion;
 
     public enum FrecuenciaDePago {  // Hacemos que Frecuencia de Pago sea una "interfaz común" para las distintas frecuencias, brindando los métodos periodo() unidad() para el uso de polimorfismo
@@ -48,7 +40,7 @@ public class DonacionDinero extends Contribucion {
             public Integer periodo() {
                 return 1;
             }
-    
+
             @Override
             public ChronoUnit unidad() {
                 return ChronoUnit.WEEKS;

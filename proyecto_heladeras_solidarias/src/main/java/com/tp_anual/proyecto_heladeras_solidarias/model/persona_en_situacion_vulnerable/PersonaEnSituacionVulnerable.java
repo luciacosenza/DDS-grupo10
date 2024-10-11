@@ -13,7 +13,6 @@ import lombok.AccessLevel;
 import lombok.extern.java.Log;
 import lombok.Getter;
 import lombok.Setter;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Min;
 
 @Entity
@@ -29,7 +28,6 @@ public class PersonaEnSituacionVulnerable {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "persona_id")
-    @NotNull
     private final PersonaFisica persona;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -37,10 +35,8 @@ public class PersonaEnSituacionVulnerable {
     private Ubicacion domicilio;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @NotNull
     private final LocalDateTime fechaRegistro;
 
-    @NotNull
     @Min(value = 0)
     private Integer menoresACargo;
 

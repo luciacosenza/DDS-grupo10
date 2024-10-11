@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Min;
 
 @Entity
@@ -18,7 +17,6 @@ import jakarta.validation.constraints.Min;
 @Setter
 public class SuscripcionViandasMax extends Suscripcion {
     
-    @NotNull
     @Min(value = 0)
     private Integer viandasParaLlenarMax;
 

@@ -6,7 +6,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 import jakarta.persistence.*;
 import lombok.Getter;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -19,12 +18,10 @@ public abstract class AccionHeladera {
     protected Long id;
     
     @Temporal(TemporalType.TIMESTAMP)
-    @NotNull
     protected final LocalDateTime fecha;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_id")
-    @NotNull
     protected final Heladera heladera;
 
     protected AccionHeladera(LocalDateTime vFecha, Heladera vHeladera) {

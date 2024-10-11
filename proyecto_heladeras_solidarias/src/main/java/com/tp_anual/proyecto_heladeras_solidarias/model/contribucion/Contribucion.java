@@ -6,7 +6,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,17 +25,13 @@ public abstract class Contribucion {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "colaborador_id")
-    @NotNull
     protected final Colaborador colaborador;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @NotNull
     protected LocalDateTime fechaContribucion;
     
-    @NotNull
     protected Boolean completada;
 
-    @NotNull
     protected Boolean yaSumoPuntos;
 
     protected Contribucion(Colaborador vColaborador, LocalDateTime vFechaContribucion) {

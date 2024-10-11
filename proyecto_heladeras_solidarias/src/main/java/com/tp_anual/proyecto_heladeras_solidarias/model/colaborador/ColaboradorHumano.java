@@ -2,7 +2,6 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.colaborador;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
@@ -10,21 +9,14 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.Distribuc
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionDineroCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionViandaCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.RegistroDePersonaEnSituacionVulnerableCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion;
-import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion.CondicionSuscripcion;
-import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionDesperfecto;
-import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionViandasMax;
-import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionViandasMin;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaboradorNula;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -37,11 +29,9 @@ import lombok.extern.java.Log;
 public class ColaboradorHumano extends Colaborador {    // Implementa una Interfaz "ColaboradorHumanoObserver" a nivel conceptual
 
     @OneToOne(mappedBy = "titular", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @NotNull
     protected TarjetaColaborador tarjeta;
     
     @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @NotNull
     protected final ArrayList<Suscripcion> suscripciones;   // Será una Suscripción por Heladera
 
     public ColaboradorHumano(PersonaFisica vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
