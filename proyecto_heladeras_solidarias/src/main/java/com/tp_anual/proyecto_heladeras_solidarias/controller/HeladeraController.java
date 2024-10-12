@@ -36,10 +36,14 @@ public class HeladeraController {
    }
 
    @GetMapping("/form-reportar-falla-tecnica")
-    public String mostrarFormReportarFalla(Model model) {
+   public String mostrarFormReportarFalla(Model model) {
         ArrayList<Heladera> heladeras = heladeraService.obtenerHeladeras();
         model.addAttribute("heladeras", heladeras);
 
         return "reportar-falla-tecnica";  //
     }
+
+    // TODO: Implementar el @GetMapping para el admin
+
+
 }
