@@ -24,7 +24,7 @@ public class OfertaService {
     }
 
     public Oferta obtenerOferta(Long ofertaId) {
-        return ofertaRepository.findById(ofertaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return ofertaRepository.findById(ofertaId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
     }
 
     public Oferta guardarOferta(Oferta oferta) {

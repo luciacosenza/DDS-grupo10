@@ -18,26 +18,26 @@ function renderSegunColaborador() {
         iconPerfil.style.display = 'block';
         textUser.style.display = 'block';
         if(tipoUsuarioGuardado== 'colHumano') {
-            hrefColab.forEach(link => link.href = esIndex() ? './pages/colaborar_personas_fisicas.html' : './colaborar_personas_fisicas.html');
+            hrefColab.forEach(link => link.href = esIndex() ? './pages/colaborar-personas-fisicas.html' : './colaborar-personas-fisicas.html');
             if(esIndex()) {
                 const hrefTienda = document.querySelector('.href-tienda');
                 const hrefFalla = document.querySelector('.href-falla');
                 const hrefSusHeladera = document.querySelector('.href-suscribirse-heladera');
                 hrefTienda.href = './pages/tienda.html';
-                hrefFalla.href = './pages/reportar_falla_tecnica.html';
+                hrefFalla.href = './pages/reportar-falla-tecnica.html';
                 hrefSusHeladera.href = './pages/suscribirse.html';
             }
         }
         
         if(tipoUsuarioGuardado == 'colJuridico') {
-            hrefColab.forEach(link => link.href = esIndex() ? './pages/colaborar_personas_juridicas.html' : './colaborar_personas_juridicas.html');
+            hrefColab.forEach(link => link.href = esIndex() ? './pages/colaborar-personas-juridicas.html' : './colaborar-personas-juridicas.html');
             if(esIndex()) {
                 const hrefTienda = document.querySelector('.href-tienda');
                 const hrefFalla = document.querySelector('.href-falla');
                 const hrefSusHeladera = document.querySelector('.href-suscribirse-heladera');
                 hrefSusHeladera.style.display = 'none';
                 hrefTienda.href = './pages/tienda.html';
-                hrefFalla.href = './pages/reportar_falla_tecnica.html';
+                hrefFalla.href = './pages/reportar-falla-tecnica.html';
             }
         }
     } else {

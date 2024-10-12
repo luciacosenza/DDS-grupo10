@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donar Dinero</title>
+    <link rel="shortcut icon" href="../assets/logo_blanco.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="vectores-fondo" >
+
+    <div th:replace="fragments/header :: header"></div>
+
+    <main>
+        <div class="container" style="min-height: 50vh">
+            <div class="row justify-content-center">
+                <div class="col-md-10 w-100 text-center">
+                    <h1 class="mb-0 fw-bold">Donar dinero</h1>
+                    <div class="card-donacion-dinero my-4 p-4">
+                        <h4>Frecuencia de pago</h4>
+                        <div class="d-flex justify-content-center flex-wrap">
+                            <div class="option-circle">Única vez</div>
+                            <div class="option-circle">Semanal</div>
+                            <div class="option-circle">Mensual</div>
+                            <div class="option-circle">Semestral</div>
+                            <div class="option-circle">Anual</div>
+                        </div>
+                    </div>
+                    <div id="medioPago" class="my-4 p-4 card-donacion-dinero oculto">
+                        <h4>Medio de pago</h4>
+                        <div class="icon-container">
+                            <div class="option-circle">Crédito</div>
+                            <div class="option-circle">Débito</div>
+                            <div class="option-circle">Efectivo</div>
+                            <div class="option-circle">MercadoPago</div>
+                            <div class="option-circle">Transferencia</div>
+                        </div>
+                    </div>
+                    <div id="monto" class="my-4 p-4 card-donacion-dinero oculto">
+                        <h4>Monto</h4>
+                        <div class="d-flex justify-content-center flex-wrap">
+                            <div class="option-circle">$5.000</div>
+                            <div class="option-circle">$10.000</div>
+                            <div class="option-circle">$15.000</div>
+                            <div class="option-circle">$20.000</div>
+                            <div class="option-circle" id="otroImporte">Otro importe</div>
+                        </div>
+                        <input type="number" min="0" id="montoPersonalizado" class="input-monto form-control" placeholder="Ingrese monto $" />
+                    </div>
+                </div>
+                <button id="btnDonar" class="btn btn-dark col-1 oculto">Donar</button>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="fragments/footer :: footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/donacion-dinero.js"></script>
+    <script src="../js/render_segun_usuario.js"></script>
+    <script src="../js/cerrar_sesion.js"></script>
+</body>
+</html>

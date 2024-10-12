@@ -11,43 +11,9 @@
     <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body class="vectores-fondo" id="colocar-heladera">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light ">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="./index.html">
-                    <img src="../static/assets/logo_negro.png" alt="Logo" height="50">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="./index.html">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./quienes_somos.html">Quiénes somos</a>
-                        </li>
-                        <li class="./como-participar.html">
-                            <a class="nav-link" href="./como_participar.html">Cómo participar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="./colaborar_personas_juridicas.html">Colaborar</a>
-                        </li>
-                    </ul>
-                    <div class="d-flex flex-column ms-lg-3 align-items-center">
-                        <span class="icon-perfil material-symbols-outlined text-dark" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
-                            account_circle
-                        </span>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item cerrar-sesion" href="./index.html">Cerrar Sesión</a></li>
-                        </ul>
-                        <span class="text-user">Usuario</span>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>  
+
+    <div th:replace="fragments/header :: header"></div>
+
     <main>
         <div class="container">
             <div class="row justify-content-center">
@@ -55,14 +21,14 @@
                 <h2 class="text-muted fw-light mt-0 text-center"> una heladera</h2>
                 <div class="d-flex align-items-center justify-content-center text-center">
                     <div class="card my-4" width="500px">
-                        <form action="/">
+                        <form>
                             <div class="mb-3 text-start">
-                                <label for="name" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="name" placeholder="Ej: Heladera Medrano UTN">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" placeholder="Ej: Heladera Medrano UTN">
                             </div>
                             <div class="mb-3 text-start">
-                                <label for="city" class="form-label">Ciudad</label>
-                                <input type="text" class="form-control" id="city" placeholder="Ej: Puerto Madryn">
+                                <label for="ciudad" class="form-label">Ciudad</label>
+                                <input type="text" class="form-control" id="ciudad"placeholder="Ej: Puerto Madryn">
                             </div>
                             <div class="mb-3 text-start d-flex gap-2">
                                 <div class="w-75">
@@ -113,19 +79,9 @@
             </div>
         </div>
     </main>
-    <footer class="mt-5 pt-4 d-flex flex-column">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a href="./index.html" class="nav-link px-2 text-body-secondary">Inicio</a></li>
-            <li class="nav-item"><a href="./quienes_somos.html" class="nav-link px-2 text-body-secondary">Quiénes somos</a></li>
-            <li class="nav-item"><a href="./como_participar.html" class="nav-link px-2 text-body-secondary">Cómo participar</a></li>
-            <li class="nav-item"><a href="./colaborar_personas_juridicas.html" class="nav-link px-2 text-body-secondary href-colab">Colaborar</a></li>
-        </ul>
-        <a href="./index.html" class="d-flex align-items-center justify-content-center mb-3 mb-md-0 link-body-emphasis text-decoration-none p-3">
-            <img src="../static/assets/logo_negro.png" alt="logo heladeras solidarias" width="50">
-        </a>
-        <a href="mailto:proyecto.heladeras.solidarias@gmail.com" class="text-center text-muted text-sm">proyecto.heladeras.solidarias@gmail.com</a>
-        <p class="text-center text-body-secondary">© Desarrollado por Grupo 10</p>
-    </footer>
+
+    <div th:replace="fragments/footer :: footer"></div>
+
     <script src="../static/js/recomendador_heladeras.js"></script>
     <script>
         (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({

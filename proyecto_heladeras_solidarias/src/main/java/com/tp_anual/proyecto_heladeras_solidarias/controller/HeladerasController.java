@@ -1,6 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.controller;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 
 //import org.hibernate.mapping.List;
@@ -18,11 +19,24 @@ public class HeladerasController {
         heladeraService = vHeladeraService;
     }
 
-    @GetMapping("/heladeras")
-    public String mostrarListaHeladeras(Model model) {
-        List<Heladera> heladeras = heladeraService.obtenerTodasLasHeladeras();
+    @GetMapping("/form-distribuir-viandas")
+    public String mostrarFormDistribucionViandas(Model model) {
+        ArrayList<Heladera> heladeras = heladeraService.obtenerHeladeras();
         model.addAttribute("heladeras", heladeras);
-        return "listado_heladeras";  // Vista que muestra la lista de heladeras
+        return "distribuir-viandas";
     }
-    
+
+   @GetMapping("/form-donar-vianda")
+   public String mostrarFormDonacionVianda(Model model) {
+        ArrayList<Heladera> heladeras = heladeraService.obtenerHeladeras();
+        model.addAttribute("heladeras", heladeras);
+        return "donar-vianda";
+   }
+
+   @GetMapping("/form-reportar-falla-tecnica")
+    public String mostrarFormReportarFalla(Model model) {
+        ArrayList<Heladera> heladeras = heladeraService.obtenerHeladeras();
+        model.addAttribute("heladeras", heladeras);
+        return "reportar-falla-tecnica";  //
+    }
 }

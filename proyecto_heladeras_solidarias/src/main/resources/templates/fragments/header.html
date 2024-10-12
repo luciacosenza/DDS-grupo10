@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
-                <img src="../static/assets/logo_negro.png" alt="Logo" height="50">
+                <img src="../../static/assets/logo_negro.png" alt="Logo" height="50">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -26,13 +26,13 @@
 
                     <!-- Si no está logueado -->
                     <li class="nav-item" th:unless="${isLoggedIn}">
-                        <a class="nav-link href-colab" href="/iniciar_sesion">Colaborar</a>
+                        <a class="nav-link href-colab" href="/iniciar-sesion">Colaborar</a>
                     </li>
                 </ul>
 
                 <!-- Mostrar botones de inicio de sesión o perfil según si está logueado -->
                 <div class="d-flex ms-lg-3" th:unless="${isLoggedIn}">
-                    <a class="text-decoration-none" href="/iniciar_sesion">
+                    <a class="text-decoration-none" href="/iniciar-sesion">
                         <button class="btn btn-outline-primary me-2 btn-login" type="button">Iniciar Sesión</button>
                     </a>
                     <a class="text-decoration-none" href="/seleccion_persona">
