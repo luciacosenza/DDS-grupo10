@@ -20,12 +20,6 @@ public class SensorTemperatura extends Sensor {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime ultimaActualizacion;
 
-    private final Integer periodoNotificacionFalla = 5;
-
-    private final TimeUnit unidadPeriodoNotificacionFalla = TimeUnit.MINUTES;
-
-    private final long minutosPasadosMaximos = 5;   // Seteamos el tiempo (arbitrario) máximo que puede pasar sin recibir la temperatura del Sensor físico para mandar una Alerta
-
     public SensorTemperatura(HeladeraActiva vHeladera) {
         super(vHeladera);
         tempActual = 0f;
