@@ -19,13 +19,15 @@ import com.tp_anual.proyecto_heladeras_solidarias.repository.heladera.HeladeraRe
 import com.tp_anual.proyecto_heladeras_solidarias.service.suscripcion.GestorDeSuscripciones;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
+
+//import org.hibernate.mapping.List;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 @Service
 @Log
@@ -56,8 +58,12 @@ public class HeladeraService {
         return (HeladeraActiva) heladeraRepository.findById(heladeraId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
     }
 
-    public ArrayList<String> obtenerNombresDeHeladeras(){
-        return (ArrayList<String>) heladeraRepository.findAllNombres();
+    // public ArrayList<String> obtenerNombresDeHeladeras(){
+    //     return (ArrayList<String>) heladeraRepository.findAllNombres();
+    // }
+
+    public List<Heladera> obtenerTodasLasHeladeras(){
+        return heladeraRepository.findAll();
     }
 
     public HeladeraActiva guardarHeladera(HeladeraActiva heladera) {
