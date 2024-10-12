@@ -13,90 +13,92 @@
 
     <div th:replace="fragments/header :: header"></div>
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6 text-center">
-                <h1 class="mb-0 fw-bold">Registrar persona</h1>
-                <h2 class="fw-light mt-0 text-muted">en situación vulnerable</h2>
-                <div class="card my-4">
-                    <form class="text-start">
-                        <div class="mb-3">
-                            <label for="nombre" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" placeholder="Ej: Juan">
-                        </div>
-                        <div class="mb-3">
-                            <label for="apellido" class="form-label">Apellido</label>
-                            <input type="text" class="form-control" id="apellido" placeholder="Ej: Pérez">
-                        </div>
-                        <div class="mb-3">
-                            <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
-                            <input type="date" class="form-control" id="fechaNacimiento">
-                        </div>
-                        <div class="mb-3">
-                            <span class="span-form">Documento</span>
-                            <label for="tipo-documento" class="form-label w-100 mt-2">Tipo</label>
-                            <div class="d-flex justify-content-center gap-2">
-                                <select class="form-select w-auto" id="tipo-documento">
-                                    <option selected>Tipo</option>
-                                    <option value="1">DNI</option>
-                                    <option value="2">Pasaporte</option>
-                                    <option value="3">Cédula</option>
+    <main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <h1 class="mb-0 fw-bold">Registrar persona</h1>
+                    <h2 class="fw-light mt-0 text-muted">en situación vulnerable</h2>
+                    <div class="card my-4">
+                        <form class="text-start">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" placeholder="Ej: Juan">
+                            </div>
+                            <div class="mb-3">
+                                <label for="apellido" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="apellido" placeholder="Ej: Pérez">
+                            </div>
+                            <div class="mb-3">
+                                <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
+                                <input type="date" class="form-control" id="fechaNacimiento">
+                            </div>
+                            <div class="mb-3">
+                                <span class="span-form">Documento</span>
+                                <label for="tipo-documento" class="form-label w-100 mt-2">Tipo</label>
+                                <div class="d-flex justify-content-center gap-2">
+                                    <select class="form-select w-auto" id="tipo-documento">
+                                        <option selected>Tipo</option>
+                                        <option value="1">DNI</option>
+                                        <option value="2">Pasaporte</option>
+                                        <option value="3">Cédula</option>
+                                    </select>
+                                    <input type="text" class="form-control" id="numero-documento" placeholder="Número">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="situacionVivienda" class="form-label">Situación de vivienda</label>
+                                <select class="form-select" id="situacionVivienda">
+                                    <option selected>Seleccione una opción</option>
+                                    <option value="posee-domicilio">Posee domicilio</option>
+                                    <option value="calle">En situación de calle</option>
                                 </select>
-                                <input type="text" class="form-control" id="numero-documento" placeholder="Número">
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="situacionVivienda" class="form-label">Situación de vivienda</label>
-                            <select class="form-select" id="situacionVivienda">
-                                <option selected>Seleccione una opción</option>
-                                <option value="posee-domicilio">Posee domicilio</option>
-                                <option value="calle">En situación de calle</option>
-                            </select>
-                        </div>
-                        <div class="row">
-                            <div class="mb-3 col-md-8">
-                                <label for="ciudad" class="form-label">Ciudad</label>
-                                <input type="text" class="form-control" id="ciudad" placeholder="Ej: Puerto Madryn">
+                            <div class="row">
+                                <div class="mb-3 col-md-8">
+                                    <label for="ciudad" class="form-label">Ciudad</label>
+                                    <input type="text" class="form-control" id="ciudad" placeholder="Ej: Puerto Madryn">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="codigo-postal" class="form-label">Código postal</label>
+                                    <input type="text" class="form-control" id="codigo-postal" placeholder="Ej: 1407">
+                                </div>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="codigo-postal" class="form-label">Código postal</label>
-                                <input type="text" class="form-control" id="codigo-postal" placeholder="Ej: 1407">
+                            <div class="row">
+                                <div class="col-md-8 mb-3">
+                                    <label for="calle" class="form-label">Calle</label>
+                                    <input type="text" class="form-control" id="calle" placeholder="Ej: San Nicolás">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="numero" class="form-label">Número</label>
+                                    <input type="text" class="form-control" id="numero" placeholder="Ej: 123">
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8 mb-3">
-                                <label for="calle" class="form-label">Calle</label>
-                                <input type="text" class="form-control" id="calle" placeholder="Ej: San Nicolás">
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="menoresACargo">
+                                    <label class="form-check-label" for="menoresACargo">
+                                        Posee menores a cargo
+                                    </label>
+                                </div>
+                                <select class="form-select mt-2" id="cantidadMenores">
+                                    <option selected>Cuántos</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5+">5 o más</option>
+                                </select>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="numero" class="form-label">Número</label>
-                                <input type="text" class="form-control" id="numero" placeholder="Ej: 123">
+                            <div class="w-100 d-flex justify-content-center">
+                                <button type="submit" class="btn btn-dark w-50">Registrar</button>
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="menoresACargo">
-                                <label class="form-check-label" for="menoresACargo">
-                                    Posee menores a cargo
-                                </label>
-                            </div>
-                            <select class="form-select mt-2" id="cantidadMenores">
-                                <option selected>Cuántos</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5+">5 o más</option>
-                            </select>
-                        </div>
-                        <div class="w-100 d-flex justify-content-center">
-                            <button type="submit" class="btn btn-dark w-50">Registrar</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <div th:replace="fragments/footer :: footer"></div>
 

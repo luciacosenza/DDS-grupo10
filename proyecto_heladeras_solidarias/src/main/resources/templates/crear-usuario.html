@@ -14,50 +14,52 @@
 
     <div th:replace="fragments/header :: header"></div>
 
-    <section id="registro">
-        <div class="container-imagen">
-            <img src="../static/assets/mujer-heladera.png" alt="mujer junto a heladera">
-        </div>
-        <div class="register-card">
-            <h2 class="fw-bold">Registrarse</h2>
-            <h4>Crear usuario y contraseña</h4>
-            <hr>
-            <form class="register-form">
-                <div class="mb-3">
-                    <label for="crear-usuario" class="form-label">Crear usuario</label>
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1">@</span>
-                        <input id="crear-usuario" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+    <main>
+        <section id="registro">
+            <div class="container-imagen">
+                <img src="../static/assets/mujer-heladera.png" alt="mujer junto a heladera">
+            </div>
+            <div class="register-card">
+                <h2 class="fw-bold">Registrarse</h2>
+                <h4>Crear usuario y contraseña</h4>
+                <hr>
+                <form class="register-form">
+                    <div class="mb-3">
+                        <label for="crear-usuario" class="form-label">Crear usuario</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">@</span>
+                            <input id="crear-usuario" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
                     </div>
-                </div>
-                <label for="password" class="form-label">Contraseña</label>
-                <div class="input-group mb-3">
-                    <div class="input-group-append">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                        </div>
+                        <input type="password" class="form-control password-field" id="password" placeholder="Contraseña">
+                        <button class="btn toggle-password" type="button">
+                            <span class="material-symbols-outlined toggle-pass-icon">
+                                visibility
+                            </span>
+                        </button>
                     </div>
-                    <input type="password" class="form-control password-field" id="password" placeholder="Contraseña">
-                    <button class="btn toggle-password" type="button">
-                        <span class="material-symbols-outlined toggle-pass-icon">
-                            visibility
-                        </span>
-                    </button>
-                </div>
-                <label for="password" class="form-label">Repetir Contraseña</label>
-                <div class="input-group mb-3">
-                    <div class="input-group-append">
+                    <label for="password" class="form-label">Repetir Contraseña</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                        </div>
+                        <input type="password" class="form-control" id="password-repeat" placeholder="Contraseña">
+                        <button class="btn toggle-password" type="button">
+                            <span class="material-symbols-outlined toggle-pass-icon">
+                                visibility
+                            </span>
+                        </button>
                     </div>
-                    <input type="password" class="form-control" id="password-repeat" placeholder="Contraseña">
-                    <button class="btn toggle-password" type="button">
-                        <span class="material-symbols-outlined toggle-pass-icon">
-                            visibility
-                        </span>
-                    </button>
-                </div>         
-                <a href="./index.html" class="text-decoration-none d-flex align-items-center justify-content-center">
-                    <button type="submit" class="btn btn-dark w-50">Registrarse</button>
-                </a>
-            </form>
-        </div>
-    </section>
+                    <a href="./index.html" class="text-decoration-none d-flex align-items-center justify-content-center">
+                        <button type="submit" class="btn btn-dark w-50">Registrarse</button>
+                    </a>
+                </form>
+            </div>
+        </section>
+    </main>
 
     <div th:replace="fragments/footer :: footer"></div>
 

@@ -13,37 +13,39 @@
 
     <div th:replace="fragments/header :: header"></div>
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6 text-center">
-                <h1 class="mb-0 fw-bold">Donar vianda</h1>
-                <div class="card my-4">
-                <form action="#" th:action="@{/form-donar-viandas}">
-                    <div class="mb-3 text-start">
-                        <label for="nombreComida" class="form-label">¿Qué comida contiene?</label>
-                        <input type="text" class="form-control" id="nombreComida" placeholder="Ej: Carne">
-                    </div>
-                    <div class="mb-3 text-start">
-                        <label for="fechaDeCaducidad" class="form-label">Fecha de caducidad</label>
-                        <input type="date" class="form-control" id="fechaDeCaducidad" >
-                    </div>
+    <main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <h1 class="mb-0 fw-bold">Donar vianda</h1>
+                    <div class="card my-4">
+                    <form th:action="@{/form-donar-viandas}">
+                        <div class="mb-3 text-start">
+                            <label for="nombreComida" class="form-label">¿Qué comida contiene?</label>
+                            <input type="text" class="form-control" id="nombreComida" placeholder="Ej: Carne">
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label for="fechaDeCaducidad" class="form-label">Fecha de caducidad</label>
+                            <input type="date" class="form-control" id="fechaDeCaducidad" >
+                        </div>
 
-                    <div th:replace="fragments :: selectHeladeras(${heladeras}, 'destino', true)"></div>
+                        <div th:replace="fragments :: selectHeladeras(${heladeras}, 'destino', true)"></div>
 
-                    <div class="mb-3 text-start">
-                        <label for="peso" class="form-label">Peso (en kg)</label>
-                        <input type="number" min="0" class="form-control" id="peso" placeholder="Peso">
-                    </div>
-                    <div class="mb-3 text-start">
-                        <label for="calorias" class="form-label">Calorías</label>
-                        <input type="number" min="0" class="form-control" id="calorias" placeholder="Cantidad">
-                    </div>
-                    <button type="submit" class="btn btn-dark w-50 mt-3">Donar</button>
-            </form>
+                        <div class="mb-3 text-start">
+                            <label for="peso" class="form-label">Peso (en kg)</label>
+                            <input type="number" min="0" class="form-control" id="peso" placeholder="Peso">
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label for="calorias" class="form-label">Calorías</label>
+                            <input type="number" min="0" class="form-control" id="calorias" placeholder="Cantidad">
+                        </div>
+                        <button type="submit" class="btn btn-dark w-50 mt-3">Donar</button>
+                </form>
+            </div>
+            </div>
+            </div>
         </div>
-        </div>
-        </div>
-    </div>
+    </main>
 
     <div th:replace="fragments/footer :: footer"></div>
 
