@@ -1,0 +1,17 @@
+<!-- fragments.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+
+  <div th:fragment="selectHeladeras(heladeras, id, required)" class="mb-3 text-start">
+    <label th:for="${id}" class="form-label">Origen</label>
+    <select class="form-select select-heladeras" th:id="${id}" th:required="${required}">
+      <option th:each="heladera : ${heladeras}" th:value="${heladera.id}" th:text="${heladera.nombre}"></option>
+    </select>
+  </div>
+
+  </body>
+</html>

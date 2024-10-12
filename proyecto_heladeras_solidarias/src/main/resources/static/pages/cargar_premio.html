@@ -52,7 +52,7 @@
     <div class="container text-center">
         <h1 class="fw-bold">Cargar premio</h1>
         <div class="card my-4">
-            <form>
+            <form action="/cargar-premio" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="nombrePremio" class="text-start w-100 py-2">Nombre del premio</label>
                     <input type="text" class="form-control" id="nombrePremio" placeholder="Ej: cena para 4 personas">
@@ -84,7 +84,7 @@
                 </div>
             </form>
         </div>
-    </div>  
+    </div>
     </main>
     <footer class="mt-5 pt-4 d-flex flex-column">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">

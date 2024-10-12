@@ -56,11 +56,11 @@ public class HeladeraService {
         return (HeladeraActiva) heladeraRepository.findById(heladeraId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public ArrayList<String> obtenerNombresDeHeladeras(){
-        return (ArrayList<String>) heladeraRepository.findAllNombres();
+    public ArrayList<Heladera> obtenerHeladeras(){
+        return new ArrayList<>(heladeraRepository.findAll());
     }
 
-    public HeladeraActiva guardarHeladera(HeladeraActiva heladera) {
+    public Heladera guardarHeladera(Heladera heladera) {
         return heladeraRepository.save(heladera);
     }
 

@@ -1,0 +1,56 @@
+<header th:fragment="header(userType, isLoggedIn)">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="../../static/assets/logo_negro.png" alt="Logo" height="50">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/quienes-somos">Quiénes somos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/como-participar">Cómo participar</a>
+                    </li>
+
+                    <!-- Si el usuario está logueado como colaborador humano o jurídico -->
+                    <li class="nav-item" th:if="${isLoggedIn}">
+                        <a class="nav-link" th:href="${userType == 'colaborador_humano'} ? '/colaborar_personas_fisicas' : '/colaborar_personas_juridicas'">Colaborar</a>
+                    </li>
+
+                    <!-- Si no está logueado -->
+                    <li class="nav-item" th:unless="${isLoggedIn}">
+                        <a class="nav-link href-colab" href="/iniciar-sesion">Colaborar</a>
+                    </li>
+                </ul>
+
+                <!-- Mostrar botones de inicio de sesión o perfil según si está logueado -->
+                <div class="d-flex ms-lg-3" th:unless="${isLoggedIn}">
+                    <a class="text-decoration-none" href="/iniciar-sesion">
+                        <button class="btn btn-outline-primary me-2 btn-login" type="button">Iniciar Sesión</button>
+                    </a>
+                    <a class="text-decoration-none" href="/seleccion_persona">
+                        <button class="btn btn-primary btn-register" type="button">Registrarse</button>
+                    </a>
+                </div>
+
+                <!-- Mostrar perfil si está logueado -->
+                <div class="d-flex flex-column ms-lg-3 align-items-center user-profile" th:if="${isLoggedIn}">
+                    <span class="icon-perfil material-symbols-outlined text-dark" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                        account_circle
+                    </span>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item cerrar-sesion" href="/cerrar-sesion">Cerrar Sesión</a></li>
+                    </ul>
+                    <span class="text-user">Usuario</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

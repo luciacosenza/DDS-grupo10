@@ -9,6 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 @Service
@@ -24,7 +25,11 @@ public class OfertaService {
     }
 
     public Oferta obtenerOferta(Long ofertaId) {
-        return ofertaRepository.findById(ofertaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return ofertaRepository.findById(ofertaId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+    }
+
+    public ArrayList<Oferta> obtenerOfertas() {
+        return new ArrayList<>(ofertaRepository.findAll());
     }
 
     public Oferta guardarOferta(Oferta oferta) {
