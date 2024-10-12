@@ -27,7 +27,7 @@ public class HeladeraNula extends Heladera {
 
     @Override
     public Ubicacion getUbicacion() {
-        log.log(Level.SEVERE, I18n.getMessage("heladera.HeladerNula.getUbicacion_err"));
+        log.log(Level.SEVERE, I18n.getMessage("heladera.HeladeraNula.getUbicacion_err"));
         throw new UnsupportedOperationException(I18n.getMessage("heladera.HeladeraNula.getUbicacion_exception"));
     }
 
@@ -57,7 +57,7 @@ public class HeladeraNula extends Heladera {
 
     @Override
     public LocalDateTime getFechaApertura() {
-        log.log(Level.SEVERE, I18n.getMessage("heladera.HeladerNula.getFechaApertura_err"));
+        log.log(Level.SEVERE, I18n.getMessage("heladera.HeladeraNula.getFechaApertura_err"));
         throw new UnsupportedOperationException(I18n.getMessage("heladera.HeladeraNula.getFechaApertura_exception"));
     }
 

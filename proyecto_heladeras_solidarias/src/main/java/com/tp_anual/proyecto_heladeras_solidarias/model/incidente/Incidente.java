@@ -9,7 +9,6 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -23,12 +22,10 @@ public abstract class Incidente {
     protected Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @NotNull
     protected LocalDateTime fecha;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_id")
-    @NotNull
     protected HeladeraActiva heladera;
 
     protected Incidente(LocalDateTime vFecha, HeladeraActiva vHeladera) {

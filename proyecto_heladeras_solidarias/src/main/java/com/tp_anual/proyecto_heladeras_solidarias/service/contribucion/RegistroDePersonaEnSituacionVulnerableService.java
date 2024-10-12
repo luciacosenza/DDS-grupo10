@@ -31,7 +31,7 @@ public class RegistroDePersonaEnSituacionVulnerableService extends ContribucionS
     }
 
     public RegistroDePersonaEnSituacionVulnerable obtenerRegistroDePersonaEnSituacionVulnerable(Long registroId) {
-        return registroDePersonaEnSituacionVulnerableRepository.findById(registroId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return registroDePersonaEnSituacionVulnerableRepository.findById(registroId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public ArrayList<RegistroDePersonaEnSituacionVulnerable> obtenerRegistrosDePersonaEnSituacionVulnerableQueSumanPuntos() {
@@ -46,7 +46,7 @@ public class RegistroDePersonaEnSituacionVulnerableService extends ContribucionS
     public void validarIdentidad(Long contribucionId, Long colaboradorId) {
         ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
 
-        if(colaborador.getDomicilio() == null) {
+        if (colaborador.getDomicilio() == null) {
             log.log(Level.SEVERE, I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
             throw new IllegalArgumentException(I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.validarIdentidad_exception"));
         }
@@ -54,22 +54,17 @@ public class RegistroDePersonaEnSituacionVulnerableService extends ContribucionS
 
     @Override
     protected void confirmarSumaPuntos(Long contribucionId, Long colaboradorId, Double puntosSumados) {
-        RegistroDePersonaEnSituacionVulnerable registroDePersonaEnSituacionVulnerable = obtenerRegistroDePersonaEnSituacionVulnerable(contribucionId);
         ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
-
-        TarjetaPersonaEnSituacionVulnerable tarjeta = registroDePersonaEnSituacionVulnerable.getTarjetaAsignada();
-        tarjetaPersonaEnSituacionVulnerableService.programarReseteoUsos(tarjeta.getCodigo());
-        registroDePersonaEnSituacionVulnerableRepository.save(registroDePersonaEnSituacionVulnerable);
-
         log.log(Level.INFO, I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
+    // Programo la tarea para ejecutarse todos los días a las 00.00 hs
     @Scheduled(cron = "0 0 0 * * ?")
     @Override
     protected void calcularPuntos() {
         ArrayList<RegistroDePersonaEnSituacionVulnerable> registrosDePersonaEnSituacionVulnerable = obtenerRegistrosDePersonaEnSituacionVulnerableQueSumanPuntos();
 
-        for(RegistroDePersonaEnSituacionVulnerable registroDePersonaEnSituacionVulnerable : registrosDePersonaEnSituacionVulnerable) {
+        for (RegistroDePersonaEnSituacionVulnerable registroDePersonaEnSituacionVulnerable : registrosDePersonaEnSituacionVulnerable) {
             ColaboradorHumano colaborador = (ColaboradorHumano) registroDePersonaEnSituacionVulnerable.getColaborador();
 
             colaborador.sumarPuntos(multiplicadorPuntos);

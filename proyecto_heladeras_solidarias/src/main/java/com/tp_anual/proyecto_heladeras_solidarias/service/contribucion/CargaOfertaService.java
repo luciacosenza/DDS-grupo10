@@ -1,5 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.CargaOferta;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.CargaOfertaRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.ContribucionRepository;
@@ -8,8 +9,6 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 @Service
 @Log
@@ -23,7 +22,7 @@ public class CargaOfertaService extends ContribucionService {
     }
 
     public CargaOferta obtenerCargaOferta(Long cargaOfertaId) {
-        return cargaOfertaRepository.findById(cargaOfertaId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return cargaOfertaRepository.findById(cargaOfertaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public CargaOferta guardarCargaOferta(CargaOferta cargaOferta) {
@@ -36,6 +35,7 @@ public class CargaOfertaService extends ContribucionService {
     @Override
     protected void confirmarSumaPuntos(Long contribucionId, Long colaboradorId, Double puntosSumados) {} // Esta Contribución no entra entre las que suman puntos
 
+    // Programo la tarea para ejecutarse todos los días a las 00.00 hs
     @Scheduled(cron = "0 0 0 * * ?")
     @Override
     protected void calcularPuntos() {}  // Esta Contribución no entra entre las que suman puntos

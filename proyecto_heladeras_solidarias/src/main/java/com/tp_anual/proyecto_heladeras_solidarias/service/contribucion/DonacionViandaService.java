@@ -20,8 +20,8 @@ import java.util.logging.Level;
 @Log
 public class DonacionViandaService extends ContribucionService {
 
-    private Double multiplicadorPuntos;
     private final DonacionViandaRepository donacionViandaRepository;
+    private final Double multiplicadorPuntos = 1.5;
 
     public DonacionViandaService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService, DonacionViandaRepository vDonacionViandaRepository) {
         super(vContribucionRepository, vColaboradorService);
@@ -29,7 +29,7 @@ public class DonacionViandaService extends ContribucionService {
     }
 
     public DonacionVianda obtenerDonacionVianda(Long donacionViandaId) {
-        return donacionViandaRepository.findById(donacionViandaId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return donacionViandaRepository.findById(donacionViandaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public ArrayList<DonacionVianda> obtenerDonacionesViandaQueSumanPuntos() {
@@ -56,12 +56,13 @@ public class DonacionViandaService extends ContribucionService {
         log.log(Level.INFO, I18n.getMessage("contribucion.DonacionVianda.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
+    // Programo la tarea para ejecutarse todos los días a las 00.00 hs
     @Scheduled(cron = "0 0 0 * * ?")
     @Override
     protected void calcularPuntos() {
         ArrayList<DonacionVianda> donacionesVianda = obtenerDonacionesViandaQueSumanPuntos();
 
-        for(DonacionVianda donacionVianda : donacionesVianda) {
+        for (DonacionVianda donacionVianda : donacionesVianda) {
             Colaborador colaborador = donacionVianda.getColaborador();
 
             colaborador.sumarPuntos(multiplicadorPuntos);

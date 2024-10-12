@@ -12,11 +12,13 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.GestorDeApert
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerableService;
 import lombok.extern.java.Log;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -43,12 +45,16 @@ public class TarjetaPersonaEnSituacionVulnerableService {
         tarjetaPersonaEnSituacionVulnerableCreator = vTarjetaEnSituacionVulnerableCreator;
     }
 
-    public TarjetaPersonaEnSituacionVulnerable obtenerTarjeta(String tarjetaId) {
-        return tarjetaPersonaEnSituacionVulnerableRepository.findById(tarjetaId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+    public TarjetaPersonaEnSituacionVulnerable obtenerTarjetaPersonaEnSituacionvulnerable(String tarjetaId) {
+        return tarjetaPersonaEnSituacionVulnerableRepository.findById(tarjetaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public TarjetaPersonaEnSituacionVulnerable guardarTarjeta(TarjetaPersonaEnSituacionVulnerable tarjeta) {
-        return tarjetaPersonaEnSituacionVulnerableRepository.save(tarjeta);
+    public ArrayList<TarjetaPersonaEnSituacionVulnerable> obtenerTarjetasPersonaEnSituacionVulnerable() {
+        return new ArrayList<>(tarjetaPersonaEnSituacionVulnerableRepository.findAll());
+    }
+
+    public TarjetaPersonaEnSituacionVulnerable guardarTarjeta(TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable) {
+        return tarjetaPersonaEnSituacionVulnerableRepository.save(tarjetaPersonaEnSituacionVulnerable);
     }
 
     public TarjetaPersonaEnSituacionVulnerable crearTarjetaPersonaEnSituacionVulnerable(Long personaEnSituacionVulnerableId) {
@@ -57,31 +63,25 @@ public class TarjetaPersonaEnSituacionVulnerableService {
     }
 
     public Boolean puedeUsar(String tarjetaId) {
-        TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable = obtenerTarjeta(tarjetaId);
+        TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable = obtenerTarjetaPersonaEnSituacionvulnerable(tarjetaId);
 
         return tarjetaPersonaEnSituacionVulnerable.cantidadUsos() < 4 + 2 * tarjetaPersonaEnSituacionVulnerable.getTitular().getMenoresACargo();
     }
 
-    public void programarReseteoUsos(String tarjetaId) {
-        TarjetaPersonaEnSituacionVulnerable tarjeta = obtenerTarjeta(tarjetaId);
+    // Programo la tarea para ejecutarse todos los días a las 00.00 hs
+    @Scheduled(cron = "0 0 0 * * ?")
+    public void resetearUsos() {
+        ArrayList<TarjetaPersonaEnSituacionVulnerable> tarjetasPersonaEnSituacionVulnerable= obtenerTarjetasPersonaEnSituacionVulnerable();
 
-        Integer periodo = 1;
-        TimeUnit unidad = TimeUnit.DAYS;
-
-        Runnable reseteoUsos = () -> {
-            tarjeta.resetUsos();
-            log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.programarRevocacionPermisos_info", tarjeta.getTitular().getPersona().getNombre(2)));
-        };
-
-        guardarTarjeta(tarjeta);
-
-        // Programa la tarea para que se ejecute una vez por día
-        timer.scheduleAtFixedRate(reseteoUsos, 0, periodo, unidad);
+        for (TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable : tarjetasPersonaEnSituacionVulnerable) {
+            tarjetaPersonaEnSituacionVulnerable.resetUsos();
+            log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.programarRevocacionPermisos_info", tarjetaPersonaEnSituacionVulnerable.getTitular().getPersona().getNombre(2)));
+        }
     }
 
     // Este método se ejecuta siempre que una Persona en Situación Vulnerable quiera realizar la Apertura de una Heladera (generalmente para retirar una Vianda
     public AperturaPersonaEnSituacionVulnerable intentarApertura(String tarjetaId, Long heladeraId) {
-        TarjetaPersonaEnSituacionVulnerable tarjeta = obtenerTarjeta(tarjetaId);
+        TarjetaPersonaEnSituacionVulnerable tarjeta = obtenerTarjetaPersonaEnSituacionvulnerable(tarjetaId);
         HeladeraActiva heladeraInvolucrada = heladeraService.obtenerHeladera(heladeraId);
 
         // Primero chequeo internamente que pueda realizar la Apertura

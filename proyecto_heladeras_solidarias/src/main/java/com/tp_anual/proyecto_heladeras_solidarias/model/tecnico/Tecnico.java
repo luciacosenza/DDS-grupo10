@@ -19,8 +19,6 @@ import jakarta.persistence.*;
 import lombok.extern.java.Log;
 import lombok.Getter;
 import lombok.Setter;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
@@ -36,26 +34,21 @@ public class Tecnico {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "persona_fisica_id")
-    @NotNull
     private final PersonaFisica persona;
 
-    @NotBlank
     @Pattern(regexp = "^^\\d{2}\\d{8}\\d{1}$")
     private final String cuil;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "medio_de_contacto_id")
-    @NotNull
     private MedioDeContacto medioDeContacto;    // TODO: Puede ser plural en un futuro
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "area_id")
-    @NotNull
     private Area areaDeCobertura;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
     @JoinColumn(name = "incidente_id")
-    @NotNull
     private final ArrayList<Incidente> pendientes = new ArrayList<>();
 
     public Tecnico(String vNombre, String vApellido, Documento vDocumento, LocalDateTime vFechaNacimiento, String vCuil, MedioDeContacto vMedioDeContacto, Area vAreaDeCobertura) {

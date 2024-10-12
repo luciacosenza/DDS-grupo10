@@ -22,7 +22,6 @@ public class DonacionDineroService extends ContribucionService {
 
     private final DonacionDineroRepository donacionDineroRepository;
     private final Double multiplicadorPuntos = 0.5;
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public DonacionDineroService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService, DonacionDineroRepository vDonacionDineroRepository) {
         super(vContribucionRepository, vColaboradorService);
@@ -30,7 +29,7 @@ public class DonacionDineroService extends ContribucionService {
     }
 
     public DonacionDinero obtenerDonacionDinero(Long donacionDineroId) {
-        return donacionDineroRepository.findById(donacionDineroId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return donacionDineroRepository.findById(donacionDineroId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public ArrayList<DonacionDinero> obtenerDonacionesDineroQueSumanPuntos() {
@@ -50,12 +49,13 @@ public class DonacionDineroService extends ContribucionService {
         log.log(Level.INFO, I18n.getMessage("contribucion.DonacionDinero.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
+    // Programo la tarea para ejecutarse todos los días a las 00.00 hs
     @Scheduled(cron = "0 0 0 * * ?")
     @Override
     public void calcularPuntos() {
         ArrayList<DonacionDinero> donacionesDinero = obtenerDonacionesDineroQueSumanPuntos();
 
-        for(DonacionDinero donacionDinero : donacionesDinero) {
+        for (DonacionDinero donacionDinero : donacionesDinero) {
             Double puntosASumar = donacionDinero.getMonto() * multiplicadorPuntos;
             Colaborador colaborador = donacionDinero.getColaborador();
 

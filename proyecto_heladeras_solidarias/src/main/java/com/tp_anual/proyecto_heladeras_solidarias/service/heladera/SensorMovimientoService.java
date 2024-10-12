@@ -19,7 +19,6 @@ public class SensorMovimientoService {
 
     private final SensorMovimientoRepository sensorMovimientoRepository;
     private final HeladeraService heladeraService;
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public SensorMovimientoService(SensorMovimientoRepository vSensorMovimientoRepository, HeladeraService vHeladeraService) {
         sensorMovimientoRepository = vSensorMovimientoRepository;
@@ -27,7 +26,7 @@ public class SensorMovimientoService {
     }
 
     public SensorMovimiento obtenerSensorMovimiento(Long sensorMovimientoId) {
-        return sensorMovimientoRepository.findById(sensorMovimientoId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return sensorMovimientoRepository.findById(sensorMovimientoId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public SensorMovimiento guardarSensorMovimiento(SensorMovimiento sensorMovimiento) {

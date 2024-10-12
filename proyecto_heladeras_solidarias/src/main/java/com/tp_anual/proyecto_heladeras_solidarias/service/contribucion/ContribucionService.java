@@ -1,5 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.ContribucionRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
@@ -22,7 +23,7 @@ public class ContribucionService {
     }
 
     public Contribucion obtenerContribucion(Long contribucionId) {
-        return contribucionRepository.findById(contribucionId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return contribucionRepository.findById(contribucionId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public Contribucion guardarContribucion(Contribucion contribucion) {

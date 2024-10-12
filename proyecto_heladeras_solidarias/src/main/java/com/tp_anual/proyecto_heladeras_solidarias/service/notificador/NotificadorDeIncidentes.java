@@ -39,6 +39,6 @@ public class NotificadorDeIncidentes extends Notificador {
         
         HeladeraActiva heladera = incidente.getHeladera();
         MedioDeContacto medioDeContacto = tecnicoAAlertar.getMedioDeContacto();
-        enviarNotificacion(medioDeContacto.getId(), I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_body", heladera.getNombre()), I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_body", incidente.getClass().getSimpleName(), heladera.getNombre()));
+        enviarNotificacion(medioDeContacto.getId(), I18n.getMessage("notificador.NotificadorDeIncidentes.notificarEstado_outer_message_title", heladera.getNombre()), I18n.getMessage("notificador.NotificadorDeIncidentes.notificarEstado_outer_message_body", incidente.getClass().getSimpleName(), heladera.getNombre()));
     }
 }

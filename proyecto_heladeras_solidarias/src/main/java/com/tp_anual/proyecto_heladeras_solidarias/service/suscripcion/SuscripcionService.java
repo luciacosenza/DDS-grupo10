@@ -19,7 +19,7 @@ public class SuscripcionService {
     }
 
     public Suscripcion obtenerSuscripcion(Long suscripcionId) {
-        return suscripcionRepository.findById(suscripcionId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return suscripcionRepository.findById(suscripcionId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public ArrayList<Suscripcion> obtenerSuscripciones() {

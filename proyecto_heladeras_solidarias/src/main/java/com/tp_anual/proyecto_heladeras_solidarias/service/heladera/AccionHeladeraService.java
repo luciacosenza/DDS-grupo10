@@ -17,7 +17,7 @@ public class AccionHeladeraService {
     }
 
     public AccionHeladera obtenerAccionHeladera(Long accionHeladeraId) {
-        return accionHeladeraRepository.findById(accionHeladeraId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return accionHeladeraRepository.findById(accionHeladeraId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public AccionHeladera guardarAccionHeladera(AccionHeladera accionHeladera) {

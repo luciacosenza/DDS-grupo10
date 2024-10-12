@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -27,17 +26,14 @@ public abstract class Suscripcion {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "colaborador_id")
-    @NotNull
     private final ColaboradorHumano colaborador;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_id")
-    @NotNull
     private final HeladeraActiva heladera;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
     @JoinColumn(name = "medio_de_contacto_id")
-    @NotNull
     private MedioDeContacto medioDeContactoElegido; // El Colaborador elige por qué Medio de Contacto ser notificado sobre cuestiones de la Suscripción
 
     public enum CondicionSuscripcion {

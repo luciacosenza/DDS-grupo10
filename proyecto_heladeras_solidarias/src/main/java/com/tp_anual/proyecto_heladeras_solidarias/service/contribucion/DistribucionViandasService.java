@@ -28,7 +28,7 @@ public class DistribucionViandasService extends ContribucionService {
     }
 
     public DistribucionViandas obtenerDistribucionViandas(Long distribucionViandasId) {
-        return distribucionViandasRepository.findById(distribucionViandasId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
+        return distribucionViandasRepository.findById(distribucionViandasId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public ArrayList<DistribucionViandas> obtenerDistribucionesViandasQueSumanPuntos() {
@@ -43,7 +43,7 @@ public class DistribucionViandasService extends ContribucionService {
     public void validarIdentidad(Long contribucionId, Long colaboradorId) {
         ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
 
-        if(colaborador.getDomicilio() == null) {
+        if (colaborador.getDomicilio() == null) {
             log.log(Level.SEVERE, I18n.getMessage("contribucion.DistribucionViandas.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
             throw new IllegalArgumentException(I18n.getMessage("contribucion.DistribucionViandas.validarIdentidad_exception"));
         }
@@ -55,12 +55,13 @@ public class DistribucionViandasService extends ContribucionService {
         log.log(Level.INFO, I18n.getMessage("contribucion.DistribucionViandas.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
+    // Programo la tarea para ejecutarse todos los días a las 00.00 hs
     @Scheduled(cron = "0 0 0 * * ?")
     @Override
     protected void calcularPuntos() {
         ArrayList<DistribucionViandas> distribucionesViandas = obtenerDistribucionesViandasQueSumanPuntos();
 
-        for(DistribucionViandas distribucionViandas : distribucionesViandas) {
+        for (DistribucionViandas distribucionViandas : distribucionesViandas) {
             Double puntosASumar = Double.valueOf(distribucionViandas.getCantidadViandasAMover()) * multiplicadorPuntos;
             ColaboradorHumano colaborador = (ColaboradorHumano) distribucionViandas.getColaborador();
 
