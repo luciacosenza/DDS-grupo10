@@ -3,7 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
 import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import jakarta.persistence.*;
@@ -29,9 +29,9 @@ public class DonacionVianda extends Contribucion {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_id")
-    private final HeladeraActiva heladera;
+    private final Heladera heladera;
 
-    public DonacionVianda(Colaborador vColaborador, LocalDateTime vFechaContribucion, Vianda vVianda, HeladeraActiva vHeladera) {
+    public DonacionVianda(Colaborador vColaborador, LocalDateTime vFechaContribucion, Vianda vVianda, Heladera vHeladera) {
         super(vColaborador, vFechaContribucion);
         vianda = vVianda;
         heladera = vHeladera;

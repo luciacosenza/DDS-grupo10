@@ -11,11 +11,10 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.tecnico.TecnicoService
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.tuple.Pair;
 
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Tecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,11 +34,11 @@ public class UbicadorTecnico {
         Incidente incidente = incidenteService.obtenerIncidente(incidenteId);
 
         //Obtengo la Ubicación de la Heladera en cuestión
-        HeladeraActiva heladera = incidente.getHeladera();
+        Heladera heladera = incidente.getHeladera();
         Pair<Double, Double> ubicacionHeladera = Pair.of(heladera.getUbicacion().getLatitud(), heladera.getUbicacion().getLongitud());
         
         // Obtengo la lista de Técnicos que tengan a la Heladera en su área de cobertura
-        ArrayList<Tecnico> tecnicos = Sistema.getTecnicos().stream()
+        ArrayList<Tecnico> tecnicos = tecnicoService.obtenerTecnicos().stream()
             .filter(tecnico -> areaService.estaDentro(tecnico.getAreaDeCobertura().getId(), ubicacionHeladera.getLeft(), ubicacionHeladera.getRight()))
             .collect(Collectors.toCollection(ArrayList::new));
         

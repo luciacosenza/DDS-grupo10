@@ -2,7 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta;
 
 import java.time.LocalDateTime;
 
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,9 +25,9 @@ public class UsoTarjeta {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_id")
-    private final HeladeraActiva heladera;
+    private final Heladera heladera;
 
-    public UsoTarjeta(LocalDateTime vFechaUso, HeladeraActiva vHeladera) {
+    public UsoTarjeta(LocalDateTime vFechaUso, Heladera vHeladera) {
         fechaUso = vFechaUso;
         heladera = vHeladera;
     }

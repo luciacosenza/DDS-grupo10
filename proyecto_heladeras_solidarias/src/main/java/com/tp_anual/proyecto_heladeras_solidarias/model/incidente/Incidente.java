@@ -2,8 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.incidente;
 
 import java.time.LocalDateTime;
 
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
-import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -26,18 +25,10 @@ public abstract class Incidente {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_id")
-    protected HeladeraActiva heladera;
+    protected Heladera heladera;
 
-    protected Incidente(LocalDateTime vFecha, HeladeraActiva vHeladera) {
+    protected Incidente(LocalDateTime vFecha, Heladera vHeladera) {
         fecha = vFecha;
         heladera = vHeladera;
-    }
-
-    public void darDeAlta() {
-        Sistema.agregarIncidente(this);
-    }
-
-    public void darDeBaja() {
-        Sistema.eliminarIncidente(this);
     }
 }

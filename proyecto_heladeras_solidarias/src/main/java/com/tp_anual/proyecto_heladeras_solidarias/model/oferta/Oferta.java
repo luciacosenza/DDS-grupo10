@@ -1,7 +1,5 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.oferta;
 
-import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
-
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.extern.java.Log;
@@ -41,13 +39,5 @@ public class Oferta {
         costo = vCosto;
         categoria = vCategoria;
         imagen = vImagen;
-    }
-
-    public void darDeAlta() {
-        Sistema.agregarOferta(this);
-    }
-
-    public void darDeBaja() {
-        Sistema.eliminarOferta(this);
     }
 }

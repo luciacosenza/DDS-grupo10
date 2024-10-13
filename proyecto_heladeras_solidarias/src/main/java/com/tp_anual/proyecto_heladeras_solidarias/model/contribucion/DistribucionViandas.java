@@ -3,7 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
 import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import jakarta.persistence.*;
@@ -26,11 +26,11 @@ public class DistribucionViandas extends Contribucion {
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_id")
-    private final HeladeraActiva origen;
+    private final Heladera origen;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_id")
-    private final HeladeraActiva destino;
+    private final Heladera destino;
 
     @Min(value = 0)
     private final Integer cantidadViandasAMover;
@@ -43,7 +43,7 @@ public class DistribucionViandas extends Contribucion {
         FALTA_DE_VIANDAS_EN_DESTINO
     }
     
-    public DistribucionViandas(Colaborador vColaborador, LocalDateTime vFechaContribucion, HeladeraActiva vOrigen, HeladeraActiva vDestino, Integer vCantidadViandasAMover, MotivoDistribucion vMotivo) {
+    public DistribucionViandas(Colaborador vColaborador, LocalDateTime vFechaContribucion, Heladera vOrigen, Heladera vDestino, Integer vCantidadViandasAMover, MotivoDistribucion vMotivo) {
         super(vColaborador, vFechaContribucion);
         origen = vOrigen;
         destino = vDestino;

@@ -1,7 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.TimeUnit;
 
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
@@ -20,7 +19,7 @@ public class SensorTemperatura extends Sensor {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime ultimaActualizacion;
 
-    public SensorTemperatura(HeladeraActiva vHeladera) {
+    public SensorTemperatura(Heladera vHeladera) {
         super(vHeladera);
         tempActual = 0f;
         ultimaActualizacion = LocalDateTime.now();

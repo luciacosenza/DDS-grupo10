@@ -5,7 +5,6 @@ import java.util.logging.Level;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.extern.java.Log;
-import org.springframework.stereotype.Service;
 
 @Log
 public abstract class EnvioDeDatos implements EnvioDeDatosStrategy {

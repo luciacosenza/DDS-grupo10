@@ -1,7 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.AperturaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEnSituacionVulnerable;
@@ -16,12 +16,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 @Service
@@ -82,7 +80,7 @@ public class TarjetaPersonaEnSituacionVulnerableService {
     // Este método se ejecuta siempre que una Persona en Situación Vulnerable quiera realizar la Apertura de una Heladera (generalmente para retirar una Vianda
     public AperturaPersonaEnSituacionVulnerable intentarApertura(String tarjetaId, Long heladeraId) {
         TarjetaPersonaEnSituacionVulnerable tarjeta = obtenerTarjetaPersonaEnSituacionvulnerable(tarjetaId);
-        HeladeraActiva heladeraInvolucrada = heladeraService.obtenerHeladera(heladeraId);
+        Heladera heladeraInvolucrada = heladeraService.obtenerHeladera(heladeraId);
 
         // Primero chequeo internamente que pueda realizar la Apertura
         gestorDeAperturas.revisarPermisoAperturaP(heladeraId, tarjeta.getTitular().getId());
@@ -90,7 +88,6 @@ public class TarjetaPersonaEnSituacionVulnerableService {
         LocalDateTime ahora = LocalDateTime.now();   // Guardo el valor en una variable para usar exactamente el mismo en las líneas de código posteriores
 
         AperturaPersonaEnSituacionVulnerable apertura = new AperturaPersonaEnSituacionVulnerable(ahora, heladeraInvolucrada, tarjeta.getTitular());
-        apertura.darDeAlta();
         accionHeladeraService.guardarAccionHeladera(apertura);
 
         // Registro el Uso de la Tarjeta en la Heladera correspondiente

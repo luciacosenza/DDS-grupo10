@@ -3,7 +3,6 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.tecnico;
 import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
-import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 import jakarta.persistence.*;
 import lombok.extern.java.Log;
@@ -42,13 +41,5 @@ public class Visita {
         descripcion = vDescripcion;
         foto = vFoto;
         estado = vExitosa;
-    }
-
-    public void darDeAlta() {
-        Sistema.agregarVisita(this);
-    }
-
-    public void darDeBaja() {
-        Sistema.eliminarVisita(this);
     }
 }

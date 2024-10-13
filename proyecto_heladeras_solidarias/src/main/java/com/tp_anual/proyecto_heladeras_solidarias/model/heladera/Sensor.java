@@ -1,6 +1,5 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
 
-import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 import lombok.AccessLevel;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,17 +20,9 @@ public abstract class Sensor implements SensorSubject {
     
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_id")
-    protected HeladeraActiva heladera;
+    protected Heladera heladera;
     
-    protected Sensor(HeladeraActiva vHeladera) {
+    protected Sensor(Heladera vHeladera) {
         heladera = vHeladera;
-    }
-
-    public void darDeAlta() {
-        Sistema.agregarSensor(this);
-    }
-
-    public void darDeBaja() {
-        Sistema.eliminarSensor(this);
     }
 }

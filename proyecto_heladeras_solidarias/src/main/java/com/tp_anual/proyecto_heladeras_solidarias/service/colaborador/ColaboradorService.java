@@ -8,7 +8,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.ContribucionCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionDesperfecto;
@@ -120,7 +120,7 @@ public class ColaboradorService {
 
     public void reportarFallaTecnica(Long colaboradorId, Long heladeraId, String descripcion, String foto) {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
-        HeladeraActiva heladera = heladeraService.obtenerHeladera(heladeraId);
+        Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
 
         heladeraService.producirFallaTecnica(heladeraId, colaboradorId, descripcion, foto);
         heladeraService.guardarHeladera(heladera);
@@ -128,7 +128,7 @@ public class ColaboradorService {
 
     public Suscripcion suscribirse(Long colaboradorId, Long heladeraId, Long medioDeContactoId, Suscripcion.CondicionSuscripcion condicionSuscripcion, Integer valor) {
         ColaboradorHumano colaborador = obtenerColaboradorHumano(colaboradorId);
-        HeladeraActiva heladera = heladeraService.obtenerHeladera(heladeraId);
+        Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
         MedioDeContacto medioDeContacto = medioDeContactoService.obtenerMedioDeContacto(medioDeContactoId);
 
         Suscripcion suscripcion;
@@ -150,7 +150,6 @@ public class ColaboradorService {
         colaborador.agregarSuscripcion(suscripcion);
         guardarColaborador(colaborador);
 
-        suscripcion.darDeAlta();
         suscripcionService.guardarSuscripcion(suscripcion);
 
         log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.agregarSuscripcion_info", colaborador.getPersona().getNombre(2), suscripcion.getHeladera().getNombre()));
@@ -188,7 +187,6 @@ public class ColaboradorService {
         colaborador.eliminarSuscripcion(suscripcion);
         guardarColaborador(colaborador);
 
-        suscripcion.darDeBaja();
         suscripcionService.eliminarSuscripcion(suscripcion);
 
         log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.cancelarSuscripcion_info", suscripcion.getHeladera().getNombre(), colaborador.getPersona().getNombre(2)));

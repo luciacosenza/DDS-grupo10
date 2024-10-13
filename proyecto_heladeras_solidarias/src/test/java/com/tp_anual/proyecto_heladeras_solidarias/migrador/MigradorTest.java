@@ -9,16 +9,17 @@ import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class MigradorTest {
+    Migrador migrador;
+
     @Test
     @DisplayName("Testeo el correcto funcionamiento del Migrador")
     public void CargaMasivaTest() throws Exception {
         ExtraccionDeDatos protocoloExtraccion = new ExtraccionCSV();
         TransformacionDeDatos transformador = new TransformacionDeDatos();
         EnvioDeDatos protocoloEnvio = new EnvioNulo();
-
-        Migrador migrador = Migrador.getInstance();
 
         migrador.setProtocoloExtraccion(protocoloExtraccion);
         migrador.setTransformador(transformador);

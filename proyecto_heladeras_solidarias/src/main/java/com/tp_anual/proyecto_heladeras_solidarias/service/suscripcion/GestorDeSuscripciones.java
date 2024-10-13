@@ -1,7 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.suscripcion;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion;
 import lombok.extern.java.Log;

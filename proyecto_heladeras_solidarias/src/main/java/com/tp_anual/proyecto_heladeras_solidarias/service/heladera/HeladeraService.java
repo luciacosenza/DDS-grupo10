@@ -4,7 +4,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.FallaTecnica;
@@ -25,7 +25,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 @Service
 @Log
@@ -52,8 +51,8 @@ public class HeladeraService {
         notificadorDeIncidentes = vNotificadorDeIncidentes;
     }
 
-    public HeladeraActiva obtenerHeladera(Long heladeraId) {
-        return (HeladeraActiva) heladeraRepository.findById(heladeraId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+    public Heladera obtenerHeladera(Long heladeraId) {
+        return (Heladera) heladeraRepository.findById(heladeraId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public ArrayList<Heladera> obtenerHeladeras(){
@@ -65,22 +64,22 @@ public class HeladeraService {
     }
 
     public Boolean estaVacia(Long heladeraId) {
-        HeladeraActiva heladera = obtenerHeladera(heladeraId);
+        Heladera heladera = obtenerHeladera(heladeraId);
         return heladera.getViandas().isEmpty();
     }
 
     public Boolean estaLlena(Long heladeraId) {
-        HeladeraActiva heladera = obtenerHeladera(heladeraId);
+        Heladera heladera = obtenerHeladera(heladeraId);
         return Objects.equals(heladera.viandasActuales(), heladera.getCapacidad());
     }
 
     public Boolean verificarCapacidad(Long heladeraId) {
-        HeladeraActiva heladera = obtenerHeladera(heladeraId);
+        Heladera heladera = obtenerHeladera(heladeraId);
         return heladera.viandasActuales() < heladera.getCapacidad();
     }
 
     public void verificarCondiciones(Long heladeraId) {
-        HeladeraActiva heladera = obtenerHeladera(heladeraId);
+        Heladera heladera = obtenerHeladera(heladeraId);
         ArrayList<Suscripcion> suscripciones = gestorDeSuscripciones.suscripcionesPorHeladera(heladeraId);
 
         for (Suscripcion suscripcion : suscripciones) {
@@ -112,12 +111,12 @@ public class HeladeraService {
     }
 
     public void agregarVianda(Long heladeraId, Long viandaId) {
-        HeladeraActiva heladera = obtenerHeladera(heladeraId);
+        Heladera heladera = obtenerHeladera(heladeraId);
         Vianda vianda = viandaService.obtenerVianda(viandaId);
 
         if (!verificarCapacidad(heladeraId)) {
-            log.log(Level.SEVERE, I18n.getMessage("heladera.HeladeraActiva.agregarVianda_err", heladera.getNombre()));
-            throw new IllegalStateException(I18n.getMessage("heladera.HeladeraActiva.agregarVianda_exception"));
+            log.log(Level.SEVERE, I18n.getMessage("heladera.Heladera.agregarVianda_err", heladera.getNombre()));
+            throw new IllegalStateException(I18n.getMessage("heladera.Heladera.agregarVianda_exception"));
         }
 
         heladera.getViandas().add(vianda);
@@ -125,15 +124,15 @@ public class HeladeraService {
 
         verificarCondiciones(heladeraId); // Verifica condiciones cuando agregamos una Vianda (una de las dos únicas formas en que la cantidad de Viandas en la Heladera puede cambiar)
 
-        log.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.agregarVianda_info", vianda.getComida(), heladera.getNombre()));
+        log.log(Level.INFO, I18n.getMessage("heladera.Heladera.agregarVianda_info", vianda.getComida(), heladera.getNombre()));
     }
 
     public Vianda retirarVianda(Long heladeraId) {
-        HeladeraActiva heladera = obtenerHeladera(heladeraId);
+        Heladera heladera = obtenerHeladera(heladeraId);
 
         if (estaVacia(heladeraId)) {
-            log.log(Level.SEVERE, I18n.getMessage("heladera.HeladeraActiva.retirarVianda_err", heladera.getNombre()));
-            throw new IllegalStateException(I18n.getMessage("heladera.HeladeraActiva.retirarVianda_exception"));
+            log.log(Level.SEVERE, I18n.getMessage("heladera.Heladera.retirarVianda_err", heladera.getNombre()));
+            throw new IllegalStateException(I18n.getMessage("heladera.Heladera.retirarVianda_exception"));
         }
 
         Vianda viandaRetirada = heladera.getViandas().removeFirst();
@@ -141,13 +140,13 @@ public class HeladeraService {
 
         verificarCondiciones(heladeraId); // Verifica condiciones cuando retiramos una Vianda (una de las dos únicas formas en que la cantidad de Viandas en la Heladera puede cambiar)
 
-        log.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.retirarVianda_info", viandaRetirada.getComida(), heladera.getNombre()));
+        log.log(Level.INFO, I18n.getMessage("heladera.Heladera.retirarVianda_info", viandaRetirada.getComida(), heladera.getNombre()));
 
         return viandaRetirada;
     }
 
     protected void verificarTempActual(Long heladeraId) {
-        HeladeraActiva heladera = obtenerHeladera(heladeraId);
+        Heladera heladera = obtenerHeladera(heladeraId);
         Float tempActual = heladera.getTempActual();
 
         if (tempActual < heladera.getTempMin() || tempActual > heladera.getTempMax()) {
@@ -157,14 +156,14 @@ public class HeladeraService {
     }
 
     public void setTempActual(Long heladeraId, Float temperatura) {
-        HeladeraActiva heladera = obtenerHeladera(heladeraId);
+        Heladera heladera = obtenerHeladera(heladeraId);
         heladera.setTempActual(temperatura);
         verificarTempActual(heladeraId);  // Siempre que setea / actualiza su temperatura, debe chequearla posteriormente
         guardarHeladera(heladera);
     }
 
     public void reaccionarAnteIncidente(Long heladeraId) {
-        HeladeraActiva heladera = obtenerHeladera(heladeraId);
+        Heladera heladera = obtenerHeladera(heladeraId);
         heladera.marcarComoInactiva();
         guardarHeladera(heladera);
 
@@ -172,7 +171,7 @@ public class HeladeraService {
     }
 
     public void reportarEstadoSegunCondicionSuscripcion(Long heladeraId, Long medioDeContactoId, Suscripcion.CondicionSuscripcion condicion) {   // Usa el Medio de Contacto previamente elegido por el colaborador
-        HeladeraActiva heladera = obtenerHeladera(heladeraId);
+        Heladera heladera = obtenerHeladera(heladeraId);
         MedioDeContacto medioDeContacto = medioDeContactoService.obtenerMedioDeContacto(medioDeContactoId);
 
         notificadorDeEstado.notificarEstado(heladera.getId(), medioDeContacto.getId(), condicion);
@@ -183,31 +182,29 @@ public class HeladeraService {
     }
 
     public void producirAlerta(Long heladeraId, Alerta.TipoAlerta tipo) {
-        HeladeraActiva heladera = obtenerHeladera(heladeraId);
+        Heladera heladera = obtenerHeladera(heladeraId);
         reaccionarAnteIncidente(heladeraId);  // Si una Alerta debe ser reportada, previamente, se marca la Heladera como inactiva y se avisa a los Colaboradores suscriptos
         guardarHeladera(heladera);
 
         Alerta alerta = new Alerta(LocalDateTime.now(), heladera, tipo);
-        alerta.darDeAlta();
         Long alertaId = alertaService.guardarAlerta(alerta).getId();
         reportarIncidente(alertaId);
 
-        log.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.producirAlerta_info", alerta.getTipo(), heladera.getNombre()));
+        log.log(Level.INFO, I18n.getMessage("heladera.Heladera.producirAlerta_info", alerta.getTipo(), heladera.getNombre()));
     }
 
     public void producirFallaTecnica(Long heladeraId, Long colaboradorId, String descripcion, String foto) {
-        HeladeraActiva heladera = obtenerHeladera(heladeraId);
+        Heladera heladera = obtenerHeladera(heladeraId);
         Colaborador colaborador = colaboradorService.obtenerColaborador(colaboradorId);
 
         reaccionarAnteIncidente(heladeraId);  // Si una Falla Técnica debe ser reportada, previamente, se marca la Heladera como inactiva y se avisa a los Colaboradores suscriptos
         guardarHeladera(heladera);
 
         FallaTecnica fallaTecnica = new FallaTecnica(LocalDateTime.now(), heladera, colaborador, descripcion, foto);
-        fallaTecnica.darDeAlta();
         Long fallaTecnicaId = fallaTecnicaService.guardarFallaTecnica(fallaTecnica).getId();
         reportarIncidente(fallaTecnicaId);
 
-        log.log(Level.INFO, I18n.getMessage("heladera.HeladeraActiva.producirFallaTecnica_info", heladera.getNombre()));
+        log.log(Level.INFO, I18n.getMessage("heladera.Heladera.producirFallaTecnica_info", heladera.getNombre()));
     }
 }
 

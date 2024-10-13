@@ -16,7 +16,6 @@ public abstract class Notificador {
     }
 
     public void enviarNotificacion(Long medioDeContactoId, String asunto, String cuerpo) {
-        MedioDeContacto medioDeContacto = medioDeContactoService.obtenerMedioDeContacto(medioDeContactoId);
-        medioDeContacto.contactar(asunto, cuerpo);
+        medioDeContactoService.contactar(medioDeContactoId, asunto, cuerpo);
     }
 }

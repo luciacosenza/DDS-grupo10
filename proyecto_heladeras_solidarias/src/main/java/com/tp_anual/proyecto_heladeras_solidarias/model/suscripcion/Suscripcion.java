@@ -1,9 +1,8 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
-import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -30,7 +29,7 @@ public abstract class Suscripcion {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_id")
-    private final HeladeraActiva heladera;
+    private final Heladera heladera;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
     @JoinColumn(name = "medio_de_contacto_id")
@@ -42,17 +41,9 @@ public abstract class Suscripcion {
         DESPERFECTO
     }
 
-    protected Suscripcion(ColaboradorHumano vColaborador, HeladeraActiva vHeladera, MedioDeContacto vMedioDeContactoElegido) {
+    protected Suscripcion(ColaboradorHumano vColaborador, Heladera vHeladera, MedioDeContacto vMedioDeContactoElegido) {
         colaborador = vColaborador;
         heladera = vHeladera;
         medioDeContactoElegido = vMedioDeContactoElegido;
-    }
-    
-    public void darDeAlta() {
-        Sistema.getGestorDeSuscripciones().agregarSuscripcion(this);
-    }
-
-    public void darDeBaja() {
-        Sistema.getGestorDeSuscripciones().eliminarSuscripcion(this);
     }
 }

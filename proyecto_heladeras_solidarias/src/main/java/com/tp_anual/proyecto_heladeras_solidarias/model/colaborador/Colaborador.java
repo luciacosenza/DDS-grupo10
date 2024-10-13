@@ -1,6 +1,5 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.colaborador;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -13,7 +12,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.Persona;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -108,14 +106,6 @@ public abstract class Colaborador {
 
     public void eliminarContribucionPendiente(Contribucion contribucion) {
         contribucionesPendientes.remove(contribucion);
-    }
-
-    public void darDeAlta() {
-        Sistema.agregarColaborador(this);
-    }
-
-    public void darDeBaja() {
-        Sistema.eliminarColaborador(this);
     }
 
     public void obtenerDetalles() {

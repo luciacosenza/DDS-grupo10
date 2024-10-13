@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
-import org.springframework.stereotype.Service;
 
 public interface ContribucionCreator {
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion);

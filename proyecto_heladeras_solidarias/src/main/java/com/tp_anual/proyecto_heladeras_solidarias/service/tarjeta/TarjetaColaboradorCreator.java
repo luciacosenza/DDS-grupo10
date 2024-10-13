@@ -1,11 +1,13 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.PermisoApertura;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.Tarjeta;
-import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaboradorActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,6 @@ public class TarjetaColaboradorCreator implements TarjetaCreator {
         }
 
         String codigo = generadorCodigo.generarCodigo(true);
-        return new TarjetaColaboradorActiva(codigo, (ColaboradorHumano) titular);
+        return new TarjetaColaborador(codigo, (ColaboradorHumano) titular, new ArrayList<PermisoApertura>());
     }
 }

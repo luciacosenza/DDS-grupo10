@@ -1,13 +1,12 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.heladera;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador.MotivoSolicitud;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
@@ -17,9 +16,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerableService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta.PermisoAperturaService;
-import lombok.Getter;
 import lombok.extern.java.Log;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -38,7 +35,7 @@ public class GestorDeAperturas {
     }
     
     public void revisarMotivoApertura(Long heladeraId, MotivoSolicitud motivo) {
-        HeladeraActiva heladera = heladeraService.obtenerHeladera(heladeraId);
+        Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
 
         if (motivo == MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION &&
             heladeraService.estaVacia(heladeraId)) {
@@ -58,7 +55,7 @@ public class GestorDeAperturas {
     
     public void revisarPermisoAperturaC(Long heladeraId, Long colaboradorId) {
         ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
-        HeladeraActiva heladera = heladeraService.obtenerHeladera(heladeraId);
+        Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
         TarjetaColaborador tarjetaColaborador = colaborador.getTarjeta();
         ArrayList<PermisoApertura> permisos = tarjetaColaborador.getPermisos();
 
@@ -86,7 +83,7 @@ public class GestorDeAperturas {
     }
 
     public void revisarPermisoAperturaP(Long heladeraId, Long personaEnSituacionVulnerableId) {
-        HeladeraActiva heladera = heladeraService.obtenerHeladera(heladeraId);
+        Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
         PersonaEnSituacionVulnerable personaEnSituacionVulnerable = personaEnSituacionVulnerableService.obtenerPersonaEnSituacionVulnerable(personaEnSituacionVulnerableId);
         TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable = personaEnSituacionVulnerable.getTarjeta();
         

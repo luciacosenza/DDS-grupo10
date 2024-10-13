@@ -13,7 +13,7 @@ public class SensorMovimiento extends Sensor {
     
     private Boolean hayMovimiento;
     
-    public SensorMovimiento(HeladeraActiva vHeladera) {
+    public SensorMovimiento(Heladera vHeladera) {
         super(vHeladera);
         hayMovimiento = false;
     }

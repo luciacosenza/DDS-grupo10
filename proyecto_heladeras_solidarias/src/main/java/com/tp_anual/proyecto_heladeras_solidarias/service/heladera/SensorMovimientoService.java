@@ -1,7 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.heladera;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.SensorMovimiento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.heladera.SensorMovimientoRepository;
@@ -9,8 +9,6 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.logging.Level;
 
 @Service
@@ -35,7 +33,7 @@ public class SensorMovimientoService {
 
     public void notificarHeladera(Long sensorMovimientoId) {
         SensorMovimiento sensorMovimiento = obtenerSensorMovimiento(sensorMovimientoId);
-        HeladeraActiva heladera = sensorMovimiento.getHeladera();
+        Heladera heladera = sensorMovimiento.getHeladera();
 
         heladeraService.producirAlerta(heladera.getId(), Alerta.TipoAlerta.FRAUDE);
         heladeraService.guardarHeladera(heladera);

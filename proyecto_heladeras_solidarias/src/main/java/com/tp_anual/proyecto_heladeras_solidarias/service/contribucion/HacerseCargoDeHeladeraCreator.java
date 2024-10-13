@@ -1,12 +1,14 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.HacerseCargoDeHeladera;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.extern.java.Log;
@@ -21,7 +23,7 @@ public class HacerseCargoDeHeladeraCreator implements ContribucionCreator {
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
         HacerseCargoDeHeladera hacerseCargoDeHeladera = new HacerseCargoDeHeladera(colaborador, fechaContribucion,
-                new HeladeraActiva(null, new Ubicacion(null, null, null, null, null, null), null, null, null, null, null));
+                new Heladera(null, new Ubicacion(null, null, null, null, null, null), null, null, null, new ArrayList<Vianda>(), null, null, null));
         hacerseCargoDeHeladera.seCompletoYSumoPuntos();
 
         return hacerseCargoDeHeladera;
@@ -33,12 +35,12 @@ public class HacerseCargoDeHeladeraCreator implements ContribucionCreator {
             return crearContribucionDefault(colaborador, fechaContribucion);
 
         if (args.length != 1 ||
-            !(args[0] instanceof HeladeraActiva)) {
+            !(args[0] instanceof Heladera)) {
             
             log.log(Level.SEVERE, I18n.getMessage("contribucion.HacerseCargoDeHeladeraCreator.crearContribucion_err"));
             throw new IllegalArgumentException(I18n.getMessage("contribucion.HacerseCargoDeHeladeraCreator.crearContribucion_exception"));
         }
         
-        return new HacerseCargoDeHeladera(colaborador, fechaContribucion, (HeladeraActiva) args[0]);
+        return new HacerseCargoDeHeladera(colaborador, fechaContribucion, (Heladera) args[0]);
     }
 }

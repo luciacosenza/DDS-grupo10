@@ -2,7 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta;
 
 import java.time.LocalDateTime;
 
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -24,14 +24,14 @@ public class PermisoApertura {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_id")
-    private HeladeraActiva heladeraPermitida;
+    private Heladera heladeraPermitida;
 
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime fechaOtorgamiento;
 
     private Boolean otorgado;
 
-    public PermisoApertura(HeladeraActiva vHeladeraPermitida, LocalDateTime vFechaOtorgamiento, Boolean vOtorgado) {
+    public PermisoApertura(Heladera vHeladeraPermitida, LocalDateTime vFechaOtorgamiento, Boolean vOtorgado) {
         heladeraPermitida = vHeladeraPermitida;
         fechaOtorgamiento = vFechaOtorgamiento;
         otorgado = vOtorgado;

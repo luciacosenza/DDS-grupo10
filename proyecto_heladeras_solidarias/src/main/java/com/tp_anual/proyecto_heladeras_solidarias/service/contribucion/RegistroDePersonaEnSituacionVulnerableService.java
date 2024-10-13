@@ -3,7 +3,6 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.RegistroDePersonaEnSituacionVulnerable;
-import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.ContribucionRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.RegistroDePersonaEnSituacionVulnerableRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
