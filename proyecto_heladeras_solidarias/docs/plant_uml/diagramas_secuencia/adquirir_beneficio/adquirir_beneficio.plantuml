@@ -1,10 +1,10 @@
 @startuml adquirir_beneficio
 actor Colaborador_Usuario as User
-participant INTERFAZ
-participant CONTROLLER
-participant "Colaborador" as Colaborador
-participant "Oferta" as Oferta
-participant "Sistema" as Sistema
+boundary INTERFAZ
+control CONTROLLER
+entity "Colaborador" as Colaborador
+entity "Oferta" as Oferta
+entity "Sistema" as Sistema
 
 User -> INTERFAZ: Solicitar intentarAdquirirBeneficio(oferta)
 INTERFAZ -> CONTROLLER: Solicitar intentarAdquirirBeneficio(oferta)

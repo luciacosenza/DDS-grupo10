@@ -1,14 +1,14 @@
 @startuml reportar_falla_tecnica
 actor Colaborador_Usuario as User
-participant INTERFAZ
-participant CONTROLLER
-participant "Colaborador" as Colaborador
-participant "HeladeraActiva" as HeladeraActiva
-participant "FallaTecnica" as FallaTecnica
-participant "Sistema" as Sistema
-participant "NotificadorDeIncidentes" as NotificadorDeIncidentes
-participant "UbicadorTecnico" as UbicadorTecnico
-participant "Tecnico" as Tecnico
+boundary INTERFAZ
+control CONTROLLER
+entity "Colaborador" as Colaborador
+entity "HeladeraActiva" as HeladeraActiva
+entity "FallaTecnica" as FallaTecnica
+database "Sistema" as Sistema
+entity "NotificadorDeIncidentes" as NotificadorDeIncidentes
+entity "UbicadorTecnico" as UbicadorTecnico
+entity "Tecnico" as Tecnico
 
 User -> INTERFAZ: Solicitar reportarFallaTecnica(heladera, descripcion, foto)
 INTERFAZ -> CONTROLLER: Solicitar reportarFallaTecnica(heladera, descripcion, foto)

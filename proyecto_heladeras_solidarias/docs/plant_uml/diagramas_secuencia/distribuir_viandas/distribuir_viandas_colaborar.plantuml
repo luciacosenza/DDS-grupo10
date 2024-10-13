@@ -1,9 +1,9 @@
 @startuml distribuir_viandas_colaborar
 actor Colaborador_Usuario as User
-participant INTERFAZ
-participant CONTROLLER
-participant "Colaborador" as Colaborador
-participant "DistribucionViandasCreator" as DistribucionViandasCreator
+boundary INTERFAZ
+control CONTROLLER
+entity "Colaborador" as Colaborador
+entity "DistribucionViandasCreator" as DistribucionViandasCreator
 
 User -> INTERFAZ: Solicitar colaborar (DistribucionViandasCreator, fechaContribucion, origen, destino, cantidadViandasAMover, motivo)
 INTERFAZ -> CONTROLLER: Solicitar colaborar (DistribucionViandasCreator, fechaContribucion, origen, destino, cantidadViandasAMover, motivo)

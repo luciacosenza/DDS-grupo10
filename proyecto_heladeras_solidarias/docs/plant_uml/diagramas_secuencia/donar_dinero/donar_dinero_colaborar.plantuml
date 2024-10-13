@@ -1,9 +1,9 @@
 @startuml donar_dinero_colaborar
 actor Colaborador_Usuario as User
-participant INTERFAZ
-participant CONTROLLER
-participant "Colaborador" as Colaborador
-participant "DonacionDineroCreator" as DonarDineroCreator
+boundary INTERFAZ
+control CONTROLLER
+entity "Colaborador" as Colaborador
+entity "DonacionDineroCreator" as DonarDineroCreator
 
 User -> INTERFAZ: Solicitar colaborar (DonacionDineroCreator, fechaContribucion, monto, frecuencia)
 INTERFAZ -> CONTROLLER: Solicitar colaborar (DonacionDineroCreator, fechaContribucion, monto, frecuencia)

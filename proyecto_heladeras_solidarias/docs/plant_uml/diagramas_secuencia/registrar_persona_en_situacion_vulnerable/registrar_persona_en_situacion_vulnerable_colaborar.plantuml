@@ -1,9 +1,9 @@
 @startuml registrar_persona_en_situacion_vulnerable_colaborar
 actor Colaborador_Usuario as User
-participant INTERFAZ
-participant CONTROLLER
-participant "Colaborador" as Colaborador
-participant "RegistroDePersonaEnSituacionVulnerableCreator" as RegistroPersonaEnSituacionVulnerable
+boundary INTERFAZ
+control CONTROLLER
+entity "Colaborador" as Colaborador
+entity "RegistroDePersonaEnSituacionVulnerableCreator" as RegistroPersonaEnSituacionVulnerable
 
 User -> INTERFAZ: Solicitar colaborar (RegistroDePersonaEnSituacionVulnerableCreator, fechaContribucion tarjetaAsignada)
 INTERFAZ -> CONTROLLER: Solicitar colaborar (RegistroDePersonaEnSituacionVulnerableCreator, fechaContribucion, tarjetaAsignada)

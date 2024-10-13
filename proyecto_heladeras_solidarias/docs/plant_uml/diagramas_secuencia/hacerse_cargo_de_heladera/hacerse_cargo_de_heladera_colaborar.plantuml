@@ -1,9 +1,9 @@
 @startuml hacerse_cargo_de_heladera_colaborar
 actor Colaborador_Usuario as User
-participant INTERFAZ
-participant CONTROLLER
-participant "Colaborador" as Colaborador
-participant "HacerseCargoDeHeladeraCreator" as HacerseCargoDeHeladeraCreator
+boundary INTERFAZ
+control CONTROLLER
+entity "Colaborador" as Colaborador
+entity "HacerseCargoDeHeladeraCreator" as HacerseCargoDeHeladeraCreator
 
 User -> INTERFAZ: Solicitar colaborar (HacerseCargoDeHeladeraCreator, fechaContribucion, heladera)
 INTERFAZ -> CONTROLLER: Solicitar colaborar (HacerseCargoDeHeladeraCreator, fechaContribucion, heladera)
