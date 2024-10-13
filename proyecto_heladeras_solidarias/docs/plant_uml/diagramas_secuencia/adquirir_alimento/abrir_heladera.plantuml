@@ -2,13 +2,13 @@
 
 @startuml abrir_heladera
 actor PersonaEnSituacionVulnerable_Usuario as User
-participant INTERFAZ
-participant CONTROLLER
-participant "PersonaEnSituacionVulnerable" as PersonaEnSituacionVulnerable
-participant "TarjetaPersonaEnSituacionVulnerable" as TarjetaPersonaEnSituacionVulnerable
-participant "GestorDeAperturas" as GestorDeAperturas
-participant "AperturaPersonaEnSituacionVulnerable" as AperturaPersonaEnSituacionVulnerable
-participant "Sistema" as Sistema
+boundary INTERFAZ
+control CONTROLLER
+entity "PersonaEnSituacionVulnerable" as PersonaEnSituacionVulnerable
+entity "TarjetaPersonaEnSituacionVulnerable" as TarjetaPersonaEnSituacionVulnerable
+entity "GestorDeAperturas" as GestorDeAperturas
+entity "AperturaPersonaEnSituacionVulnerable" as AperturaPersonaEnSituacionVulnerable
+database "Sistema" as Sistema
 
 User -> INTERFAZ: Solicitar adquirirAlimento(heladera)
 INTERFAZ -> CONTROLLER: Solicitar adquirirAlimento(heladera)

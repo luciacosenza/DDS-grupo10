@@ -1,9 +1,9 @@
 @startuml distribuir_viandas_confirmar
 actor Colaborador_Usuario as User
-participant INTERFAZ
-participant CONTROLLER
-participant "Colaborador" as Colaborador
-participant "DistribucionViandas" as DistribucionViandas
+boundary INTERFAZ
+control CONTROLLER
+entity "Colaborador" as Colaborador
+entity "DistribucionViandas" as DistribucionViandas
 
 User -> INTERFAZ: Solicitar confirmarContribucion(distribucionViandas, fechaContribucion)
 INTERFAZ -> CONTROLLER: Solicitar confirmarContribucion(distribucionViandas, fechaContribucion)

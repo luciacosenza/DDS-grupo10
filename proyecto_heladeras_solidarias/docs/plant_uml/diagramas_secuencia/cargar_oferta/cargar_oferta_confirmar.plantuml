@@ -1,9 +1,9 @@
 @startuml cargar_oferta_confirmar
 actor Colaborador_Usuario as User
-participant INTERFAZ
-participant CONTROLLER
-participant "Colaborador" as Colaborador
-participant "CargaOferta" as CargaOferta
+boundary INTERFAZ
+control CONTROLLER
+entity "Colaborador" as Colaborador
+entity "CargaOferta" as CargaOferta
 
 User -> INTERFAZ: Solicitar confirmarContribucion(cargaOferta, fechaContribucion)
 INTERFAZ -> CONTROLLER: Solicitar confirmarContribucion(cargaOferta, fechaContribucion)

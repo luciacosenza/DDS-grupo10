@@ -1,9 +1,9 @@
 @startuml donar_vianda_colaborar
 actor Colaborador_Usuario as User
-participant INTERFAZ
-participant CONTROLLER
-participant "Colaborador" as Colaborador
-participant "DonacionViandaCreator" as DonacionViandaCreator
+boundary INTERFAZ
+control CONTROLLER
+entity "Colaborador" as Colaborador
+entity "DonacionViandaCreator" as DonacionViandaCreator
 
 User -> INTERFAZ: Solicitar colaborar (DonacionViandaCreator, fechaContribucion, vianda, heladera)
 INTERFAZ -> CONTROLLER: Solicitar colaborar (DonacionViandaCreator, fechaContribucion, vianda, heladera)

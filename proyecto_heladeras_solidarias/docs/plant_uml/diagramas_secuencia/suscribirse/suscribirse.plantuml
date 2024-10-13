@@ -1,11 +1,11 @@
 @startuml suscribirse
 actor Colaborador_Usuario as User
-participant INTERFAZ
-participant CONTROLLER
-participant "Colaborador" as Colaborador
-participant "Suscripcion" as Suscripcion
-participant "GestorDeSuscripciones" as GestorDeSuscripciones
-participant Sistema
+boundary INTERFAZ
+control CONTROLLER
+entity "Colaborador" as Colaborador
+entity "Suscripcion" as Suscripcion
+entity "GestorDeSuscripciones" as GestorDeSuscripciones
+database Sistema
 
 User -> INTERFAZ: Solicitar suscribirse(heladeraObjetivo, viandasDisponiblesMin, viandasParaLlenarMax, notificarDesperfecto, medioDeContacto)
 INTERFAZ -> CONTROLLER: Solicitar suscribirse(heladeraObjetivo, viandasDisponiblesMin, viandasParaLlenarMax, notificarDesperfecto, medioDeContacto)
