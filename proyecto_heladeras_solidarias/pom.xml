@@ -67,13 +67,19 @@
 		</dependency>
 
 
-		<!-- Dependencia del PostgreSQL Driver -->
+		<!-- Dependencias de bases de datos -->
 
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>2.2.220</version>
+			<scope>runtime</scope>
+		</dependency>
 
 		<!-- Otras Librerías -->
 

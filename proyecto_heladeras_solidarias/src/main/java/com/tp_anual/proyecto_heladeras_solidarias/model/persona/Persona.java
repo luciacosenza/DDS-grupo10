@@ -16,6 +16,8 @@ public abstract class Persona {
     @Setter(AccessLevel.NONE)
     protected Long id;
 
+    public Persona() {}
+
     public abstract String getNombre(Integer n);
 
     public String getTipoPersona() {
