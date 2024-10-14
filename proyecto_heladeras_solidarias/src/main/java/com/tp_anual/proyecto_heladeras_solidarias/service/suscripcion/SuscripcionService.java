@@ -1,6 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.suscripcion;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.suscripcion.SuscripcionRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -27,15 +28,11 @@ public class SuscripcionService {
         return new ArrayList<>(suscripcionRepository.findAll());
     }
 
-    public ArrayList<Suscripcion> obtenerSuscripcionesPorHeladera(Long heladeraId) {
-        return new ArrayList<>(suscripcionRepository.findByHeladeraId(heladeraId));
+    public ArrayList<Suscripcion> obtenerSuscripcionesPorHeladera(Heladera heladera) {
+        return new ArrayList<>(suscripcionRepository.findByHeladeraId(heladera.getId()));
     }
 
     public Suscripcion guardarSuscripcion(Suscripcion suscripcion) {
         return suscripcionRepository.save(suscripcion);
-    }
-
-    public void eliminarSuscripcion(Suscripcion suscripcion) {
-        suscripcionRepository.delete(suscripcion);
     }
 }

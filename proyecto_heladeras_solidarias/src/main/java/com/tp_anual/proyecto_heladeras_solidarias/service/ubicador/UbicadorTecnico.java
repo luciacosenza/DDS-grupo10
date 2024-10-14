@@ -20,20 +20,16 @@ import org.springframework.stereotype.Service;
 @Service
 @Log
 public class UbicadorTecnico {
-    private final IncidenteService incidenteService;
     private final AreaService areaService;
     private final TecnicoService tecnicoService;
 
-    public UbicadorTecnico(IncidenteService vIncidenteService, AreaService vAreaService, TecnicoService vTecnicoService) {
-        incidenteService = vIncidenteService;
+    public UbicadorTecnico(AreaService vAreaService, TecnicoService vTecnicoService) {
         areaService = vAreaService;
         tecnicoService = vTecnicoService;
     }
 
-    public Tecnico obtenerTecnicoCercanoA(Long incidenteId) {
-        Incidente incidente = incidenteService.obtenerIncidente(incidenteId);
-
-        //Obtengo la Ubicación de la Heladera en cuestión
+    public Tecnico obtenerTecnicoCercanoA(Incidente incidente) {
+        // Obtengo la Ubicación de la Heladera en cuestión
         Heladera heladera = incidente.getHeladera();
         Pair<Double, Double> ubicacionHeladera = Pair.of(heladera.getUbicacion().getLatitud(), heladera.getUbicacion().getLongitud());
         
@@ -59,7 +55,7 @@ public class UbicadorTecnico {
             throw new IllegalArgumentException(I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception"));
         }
 
-        // Si la mónada "Optional distanciaMinima" no esté vacía, la desarmo. Sólo puede llegar vacía si no hay Técnicos cuya área de cobertura cubra la Heladera
+        // Si la mónada "Optional distanciaMinima" no está vacía, la desarmo. Sólo puede llegar vacía si no hay Técnicos cuya área de cobertura cubra la Heladera
         Double distancia = distanciaMinima.getAsDouble();
         Integer indexTecnico = distancias.indexOf(distancia);
         

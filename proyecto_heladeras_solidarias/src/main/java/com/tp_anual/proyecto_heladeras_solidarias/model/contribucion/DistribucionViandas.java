@@ -19,11 +19,6 @@ import lombok.Setter;
 @Setter
 public class DistribucionViandas extends Contribucion {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
-    protected Long id; 
-    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_origen")
     private final Heladera origen;

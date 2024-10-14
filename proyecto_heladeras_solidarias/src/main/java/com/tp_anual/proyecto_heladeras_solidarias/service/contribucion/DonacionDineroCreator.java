@@ -19,7 +19,7 @@ public class DonacionDineroCreator implements ContribucionCreator {
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
         DonacionDinero donacionDinero = new DonacionDinero(colaborador, fechaContribucion,null,null);
-        donacionDinero.seCompletoYSumoPuntos();
+        donacionDinero.seCompletoYSumoPuntos(); // Llamo directamente al método de donacionDinero, porque no quiero que se guarde en este momento
 
         return donacionDinero;
     }

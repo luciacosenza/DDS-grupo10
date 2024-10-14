@@ -31,4 +31,10 @@ public class VisitaService {
     public Visita guardarVisita(Visita visita) {
         return visitaRepository.save(visita);
     }
+
+    public void seReviso(Long visitaId) {
+        Visita visita = obtenerVisita(visitaId);
+        visita.seReviso();
+        guardarVisita(visita);
+    }
 }

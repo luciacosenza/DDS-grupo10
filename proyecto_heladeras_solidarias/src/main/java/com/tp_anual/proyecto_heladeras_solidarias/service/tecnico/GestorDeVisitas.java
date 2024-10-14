@@ -29,14 +29,9 @@ public class GestorDeVisitas {
             Visita visita = visitas.removeFirst();
 
             Incidente incidente = visita.getIncidente();
-            notificadorDeIncidentes.notificarIncidente(incidente.getId());
+            notificadorDeIncidentes.notificarIncidente(incidente);
 
-            visita.setRevisada(true);
+            visitaService.seReviso(visita.getId());
         }
-    }
-
-    public void agregarVisita(Visita visita) {
-        visitaService.guardarVisita(visita);
-        gestionarVisita();
     }
 }

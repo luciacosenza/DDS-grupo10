@@ -35,8 +35,4 @@ public class TarjetaColaborador extends Tarjeta {
     public void agregarPermiso(PermisoApertura permiso) {
         permisos.add(permiso);
     }
-
-    public void eliminarPermiso(PermisoApertura permiso) {
-        permisos.remove(permiso);
-    }
 }

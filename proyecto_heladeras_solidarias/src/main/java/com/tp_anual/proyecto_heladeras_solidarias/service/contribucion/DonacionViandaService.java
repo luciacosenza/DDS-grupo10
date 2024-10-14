@@ -2,11 +2,9 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionVianda;
-import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.ContribucionRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.DonacionViandaRepository;
-import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,16 +18,15 @@ import java.util.logging.Level;
 public class DonacionViandaService extends ContribucionService {
 
     private final DonacionViandaRepository donacionViandaRepository;
-    private final ColaboradorService colaboradorService;
     private final Double multiplicadorPuntos = 1.5;
 
-    public DonacionViandaService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService, DonacionViandaRepository vDonacionViandaRepository) {
-        super(vContribucionRepository);
+    public DonacionViandaService(DonacionViandaRepository vDonacionViandaRepository) {
+        super();
         donacionViandaRepository = vDonacionViandaRepository;
-        colaboradorService = vColaboradorService;
     }
 
-    public DonacionVianda obtenerDonacionVianda(Long donacionViandaId) {
+    @Override
+    public DonacionVianda obtenerContribucion(Long donacionViandaId) {
         return donacionViandaRepository.findById(donacionViandaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
@@ -37,14 +34,13 @@ public class DonacionViandaService extends ContribucionService {
         return new ArrayList<>(donacionViandaRepository.findByYaSumoPuntosFalse());
     }
 
-    public DonacionVianda guardarDonacionVianda(DonacionVianda donacionVianda) {
-        return donacionViandaRepository.save(donacionVianda);
+    @Override
+    public DonacionVianda guardarContribucion(Contribucion donacionVianda) {
+        return donacionViandaRepository.save((DonacionVianda) donacionVianda);
     }
 
     @Override
-    public void validarIdentidad(Long contribucionId, Long colaboradorId) {
-        ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
-
+    public void validarIdentidad(Long donacionViandaId, Colaborador colaborador) {
         if (colaborador.getDomicilio() == null) {
             log.log(Level.SEVERE, I18n.getMessage("contribucion.DonacionVianda.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
             throw new IllegalArgumentException(I18n.getMessage("contribucion.DonacionVianda.validarIdentidad_exception"));
@@ -52,8 +48,7 @@ public class DonacionViandaService extends ContribucionService {
     }
 
     @Override
-    protected void confirmarSumaPuntos(Long contribucionId, Long colaboradorId, Double puntosSumados) {
-        ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
+    protected void confirmarSumaPuntos(Long donacionViandaId, Colaborador colaborador, Double puntosSumados) {
         log.log(Level.INFO, I18n.getMessage("contribucion.DonacionVianda.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
@@ -65,13 +60,11 @@ public class DonacionViandaService extends ContribucionService {
 
         for (DonacionVianda donacionVianda : donacionesVianda) {
             Colaborador colaborador = donacionVianda.getColaborador();
-
             colaborador.sumarPuntos(multiplicadorPuntos);
-            colaboradorService.guardarColaborador(colaborador);
-            
-            donacionVianda.setYaSumoPuntos(true);
-            guardarDonacionVianda(donacionVianda);
-            confirmarSumaPuntos(donacionVianda.getId(), colaborador.getId(), multiplicadorPuntos);
+
+            donacionVianda.sumoPuntos();
+            guardarContribucion(donacionVianda);    // Al guardar la contribución, se guarda el colaborador por cascada
+            confirmarSumaPuntos(donacionVianda.getId(), colaborador, multiplicadorPuntos);
         }
     }
 }

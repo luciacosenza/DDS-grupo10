@@ -36,8 +36,9 @@ public class FallaTecnicaService {
 
     public void producirFallaTecnica(LocalDateTime fecha, Heladera heladera, Colaborador colaborador, String descripcion, String foto) {
         FallaTecnica fallaTecnica = new FallaTecnica(fecha, heladera, colaborador, descripcion, foto);
-        Long fallaTecnicaId = guardarFallaTecnica(fallaTecnica).getId();
-        notificadorDeIncidentes.notificarIncidente(fallaTecnicaId);
+        guardarFallaTecnica(fallaTecnica);
+
+        notificadorDeIncidentes.notificarIncidente(fallaTecnica);
 
         log.log(Level.INFO, I18n.getMessage("incidente.FallaTecnica.producirFallaTecnica_info", heladera.getNombre()));
     }

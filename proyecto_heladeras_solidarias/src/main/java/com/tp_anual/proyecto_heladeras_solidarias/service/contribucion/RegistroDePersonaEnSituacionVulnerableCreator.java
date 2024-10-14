@@ -20,7 +20,7 @@ public class RegistroDePersonaEnSituacionVulnerableCreator implements Contribuci
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
         RegistroDePersonaEnSituacionVulnerable registroDePersonaEnSituacionVulnerable = new com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.RegistroDePersonaEnSituacionVulnerable(colaborador, fechaContribucion, new TarjetaPersonaEnSituacionVulnerable("", null));
-        registroDePersonaEnSituacionVulnerable.seCompletoYSumoPuntos();
+        registroDePersonaEnSituacionVulnerable.seCompletoYSumoPuntos(); // Llamo directamente al método de registroDePersonaEnSituacionVulnerable, porque no quiero que se guarde en este momento
 
         return registroDePersonaEnSituacionVulnerable;
     }

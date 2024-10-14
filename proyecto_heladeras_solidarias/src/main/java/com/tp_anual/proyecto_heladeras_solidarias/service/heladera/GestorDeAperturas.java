@@ -13,8 +13,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborad
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.PermisoApertura;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
-import com.tp_anual.proyecto_heladeras_solidarias.service.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerableService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta.PermisoAperturaService;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
@@ -23,22 +21,16 @@ import org.springframework.stereotype.Service;
 @Log
 public class GestorDeAperturas {
     private final HeladeraService heladeraService;
-    private final ColaboradorService colaboradorService;
     private final PermisoAperturaService permisoAperturaService;
-    private final PersonaEnSituacionVulnerableService personaEnSituacionVulnerableService;
 
-    public GestorDeAperturas(HeladeraService vHeladeraService, ColaboradorService vColaboradorService, PermisoAperturaService vPermisoAperturaService, PersonaEnSituacionVulnerableService vPersonaEnSituacionVulnerableService) {
+    public GestorDeAperturas(HeladeraService vHeladeraService, PermisoAperturaService vPermisoAperturaService) {
         heladeraService = vHeladeraService;
-        colaboradorService = vColaboradorService;
         permisoAperturaService = vPermisoAperturaService;
-        personaEnSituacionVulnerableService = vPersonaEnSituacionVulnerableService;
     }
     
-    public void revisarMotivoApertura(Long heladeraId, MotivoSolicitud motivo) {
-        Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
-
+    public void revisarMotivoApertura(Heladera heladera, MotivoSolicitud motivo) {
         if (motivo == MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION &&
-            heladeraService.estaVacia(heladeraId)) {
+            heladeraService.estaVacia(heladera.getId())) {
             
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_err_heladera_vacia", heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_exception_heladera_vacia"));
@@ -46,21 +38,19 @@ public class GestorDeAperturas {
 
         if ((motivo == MotivoSolicitud.INGRESAR_DONACION ||
             motivo == MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION) &&
-            heladeraService.estaLlena(heladeraId)) {
+            heladeraService.estaLlena(heladera.getId())) {
 
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_err_heladera_llena", heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_exception_heladera_llena"));
         }
     }
     
-    public void revisarPermisoAperturaC(Long heladeraId, Long colaboradorId) {
-        ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
-        Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
+    public void revisarPermisoAperturaC(Heladera heladera, ColaboradorHumano colaborador) {
         TarjetaColaborador tarjetaColaborador = colaborador.getTarjeta();
         ArrayList<PermisoApertura> permisos = tarjetaColaborador.getPermisos();
 
         PermisoApertura permisoARevisar = permisos.stream()
-            .filter(permiso -> permisoAperturaService.esHeladeraPermitida(permiso.getId(), heladeraId))
+            .filter(permiso -> permisoAperturaService.esHeladeraPermitida(permiso.getId(), heladera))
             .max(Comparator.comparing(PermisoApertura::getFechaOtorgamiento))
             .orElse(null);
 
@@ -84,9 +74,7 @@ public class GestorDeAperturas {
         }
     }
 
-    public void revisarPermisoAperturaP(Long heladeraId, Long personaEnSituacionVulnerableId) {
-        Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
-        PersonaEnSituacionVulnerable personaEnSituacionVulnerable = personaEnSituacionVulnerableService.obtenerPersonaEnSituacionVulnerable(personaEnSituacionVulnerableId);
+    public void revisarPermisoAperturaP(Heladera heladera, PersonaEnSituacionVulnerable personaEnSituacionVulnerable) {
         TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable = personaEnSituacionVulnerable.getTarjeta();
         
         if (!tarjetaPersonaEnSituacionVulnerable.puedeUsar()) {
@@ -94,7 +82,7 @@ public class GestorDeAperturas {
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_exception_usos_agotados"));
         }
 
-        if(heladeraService.estaVacia(heladeraId)) {
+        if(heladeraService.estaVacia(heladera.getId())) {
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.resvisarPermisoAperturaP_err_heladera_vacia", heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_exception_heladera_vacia"));
         }

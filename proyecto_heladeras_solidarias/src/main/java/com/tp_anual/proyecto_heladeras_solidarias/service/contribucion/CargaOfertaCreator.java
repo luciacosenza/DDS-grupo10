@@ -21,7 +21,7 @@ public class CargaOfertaCreator implements ContribucionCreator {
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
         CargaOferta cargaOferta = new CargaOferta(colaborador, fechaContribucion, new Oferta(null, null, null, null));
-        cargaOferta.seCompletoYSumoPuntos();
+        cargaOferta.seCompletoYSumoPuntos();    // Llamo directamente al método de cargaOferta, porque no quiero que se guarde en este momento
 
         return cargaOferta;
     }

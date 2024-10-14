@@ -41,16 +41,20 @@ public class TecnicoService {
     public Tecnico guardarTecnico(Tecnico tecnico) {
          return tecnicoRepository.save(tecnico);
     }
-    
+
+    public void agregarAPendientes(Long tecnicoId, Incidente incidente) {
+        Tecnico tecnico = obtenerTecnico(tecnicoId);
+        tecnico.agregarAPendientes(incidente);
+        guardarTecnico(tecnico);
+    }
+
     public void registrarVisita(Long tecnicoId, LocalDateTime fecha, String descripcion, String foto, Boolean estadoConsulta) {
         Tecnico tecnico = obtenerTecnico(tecnicoId);
 
         Incidente ultimoIncidenteTratado = tecnico.getPendientes().removeFirst();    // Suponemos que el Técnico atiende los Incidentes por FIFO
         guardarTecnico(tecnico);
 
-        Boolean revisada = estadoConsulta;
-
-        Visita visita = new Visita(tecnico, ultimoIncidenteTratado, fecha, descripcion, foto, estadoConsulta, revisada);
+        Visita visita = new Visita(tecnico, ultimoIncidenteTratado, fecha, descripcion, foto, estadoConsulta, estadoConsulta);
         visitaService.guardarVisita(visita);
 
         log.log(Level.INFO, I18n.getMessage("tecnico.Tecnico.registrarVisita_info", ultimoIncidenteTratado.getHeladera().getNombre(), ultimoIncidenteTratado.getClass().getSimpleName(), tecnico.getPersona().getNombre(2)));

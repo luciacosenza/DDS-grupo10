@@ -1,10 +1,8 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.oferta;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.oferta.OfertaRepository;
-import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;

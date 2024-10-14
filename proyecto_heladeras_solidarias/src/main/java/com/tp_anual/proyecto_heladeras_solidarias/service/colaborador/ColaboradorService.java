@@ -7,7 +7,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJ
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoService;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.ContribucionCreator;
+import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion;
@@ -15,17 +15,14 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionD
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionViandasMax;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionViandasMin;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.colaborador.ColaboradorRepository;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.ContribucionService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.oferta.OfertaService;
-import com.tp_anual.proyecto_heladeras_solidarias.service.suscripcion.SuscripcionService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.logging.Level;
 
 @Service
@@ -33,19 +30,31 @@ import java.util.logging.Level;
 public class ColaboradorService {
 
     private final ColaboradorRepository colaboradorRepository;
-    private final ContribucionService contribucionService;
+    private final ContribucionServiceSelector contribucionServiceSelector;
     private final OfertaService ofertaService;
     private final HeladeraService heladeraService;
-    private final MedioDeContactoService medioDeContactoService;
-    private final SuscripcionService suscripcionService;
 
-    public ColaboradorService(ColaboradorRepository vColaboradorRepository, @Qualifier("contribucionService") ContribucionService vContribucionService, OfertaService vOfertaService, HeladeraService vHeladeraService, @Qualifier("medioDeContactoService") MedioDeContactoService vMedioDeContactoService, SuscripcionService vSuscripcionService) {
+    private final Map<Class<? extends Colaborador>, Set<Class<? extends ContribucionCreator>>> contribucionesPermitidas = new HashMap<>();
+
+    public ColaboradorService(ColaboradorRepository vColaboradorRepository, ContribucionServiceSelector vContribucionServiceSelector, OfertaService vOfertaService, HeladeraService vHeladeraService) {
         colaboradorRepository = vColaboradorRepository;
-        suscripcionService = vSuscripcionService;
-        contribucionService = vContribucionService;
+        contribucionServiceSelector = vContribucionServiceSelector;
         ofertaService = vOfertaService;
         heladeraService = vHeladeraService;
-        medioDeContactoService = vMedioDeContactoService;
+
+        Set<Class<? extends ContribucionCreator>> contribucionesPermitidasHumano = new HashSet<>();
+        contribucionesPermitidasHumano.add(DistribucionViandasCreator.class);
+        contribucionesPermitidasHumano.add(DonacionDineroCreator.class);
+        contribucionesPermitidasHumano.add(DonacionViandaCreator.class);
+        contribucionesPermitidasHumano.add(RegistroDePersonaEnSituacionVulnerableCreator.class);
+
+        Set<Class<? extends ContribucionCreator>> contribucionesPermitidasJuridico = new HashSet<>();
+        contribucionesPermitidasJuridico.add(CargaOfertaCreator.class);
+        contribucionesPermitidasJuridico.add(DonacionDineroCreator.class);
+        contribucionesPermitidasJuridico.add(HacerseCargoDeHeladeraCreator.class);
+
+        contribucionesPermitidas.put(ColaboradorHumano.class, contribucionesPermitidasHumano);
+        contribucionesPermitidas.put(ColaboradorJuridico.class, contribucionesPermitidasJuridico);
     }
 
     public Colaborador obtenerColaborador(Long colaboradorId) {
@@ -68,26 +77,50 @@ public class ColaboradorService {
         return colaboradorRepository.save(colaborador);
     }
 
-    public Boolean esCreatorPermitido(Long colaboradorId, Class<? extends ContribucionCreator> creatorClass) {
+    public void sumarPuntos(Long colaboradorId, Double puntosASumar) {
+        Colaborador colaborador = obtenerColaborador(colaboradorId);
+        colaborador.sumarPuntos(puntosASumar);
+        guardarColaborador(colaborador);
+    }
+
+    public void agregarContacto(Long colaboradorId, MedioDeContacto medioDeContacto) {
+        Colaborador colaborador = obtenerColaborador(colaboradorId);
+        colaborador.agregarMedioDeContacto(medioDeContacto);
+        guardarColaborador(colaborador);    // Al guardar el colaborador, se guarda el medio de contacto por cascada
+    }
+
+    public void agregarContribucion(Long colaboradorId, Contribucion contribucion) {
+        Colaborador colaborador = obtenerColaborador(colaboradorId);
+        colaborador.agregarContribucion(contribucion);
+        guardarColaborador(colaborador);    // Al guardar el colaborador, se guarda la contribución por cascada
+    }
+
+    public void agregarBeneficio(Long colaboradorId, Oferta oferta) {
+        Colaborador colaborador = obtenerColaborador(colaboradorId);
+        colaborador.agregarBeneficio(oferta);
+        guardarColaborador(colaborador);
+    }
+
+    public Boolean esContribucionPermitida(Long colaboradorId, Class<? extends ContribucionCreator> creatorClass) {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
 
-        return colaborador.getCreatorsPermitidos().contains(creatorClass);
+        return contribucionesPermitidas.get(colaborador.getClass()).contains(creatorClass);
     }
 
     public Contribucion colaborar(Long colaboradorId, ContribucionCreator creator, LocalDateTime fechaContribucion /* Generalmente LocalDateTime.now() */, Object... args) {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
 
-        if (!esCreatorPermitido(colaboradorId, creator.getClass())) {
+        if (!esContribucionPermitida(colaboradorId, creator.getClass())) {
             log.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.colaborar_err", creator.getClass().getSimpleName(), colaborador.getPersona().getNombre(2), colaborador.getPersona().getTipoPersona()));
             throw new IllegalArgumentException(I18n.getMessage("colaborador.Colaborador.colaborar_exception"));
         }
 
         Contribucion contribucion = creator.crearContribucion(colaborador, fechaContribucion, false, args);
-        Long contribucionId = contribucionService.guardarContribucion(contribucion).getId();
-        contribucionService.validarIdentidad(contribucionId, colaboradorId);
+        ContribucionService contribucionService = contribucionServiceSelector.obtenerContribucionService(contribucion.getClass());
+        Long contribucionId = contribucionService.guardarContribucion(contribucion).getId();    // Guardo la contribución para obtener el id
+        contribucionService.validarIdentidad(contribucionId, colaborador);
 
-        colaborador.agregarContribucionPendiente(contribucion);
-        guardarColaborador(colaborador);
+        agregarContribucion(colaboradorId, contribucion);
 
         log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.colaborar_info", contribucion.getClass().getSimpleName(), colaborador.getPersona().getNombre(2)));
 
@@ -95,46 +128,49 @@ public class ColaboradorService {
     }
 
     // Este es el método correspondiente a confirmar la ejecución / llevada a cabo de una Contribución
-    public void confirmarContribucion(Long colaboradorId, Long contribucionId, LocalDateTime fechaContribucion /* generalmente LocalDateTime.now() */) {
+    public void confirmarContribucion(Long colaboradorId, Contribucion contribucion, LocalDateTime fechaContribucion /* generalmente LocalDateTime.now() */) {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
 
-        Contribucion contribucion = contribucionService.obtenerContribucion(contribucionId);
+        ContribucionService contribucionService = contribucionServiceSelector.obtenerContribucionService(contribucion.getClass());
+        contribucionService.confirmar(contribucion.getId(), fechaContribucion);
+        contribucionService.guardarContribucion(contribucion);  // Guardo la contribución como "double check", porque al guardar el colaborador esta se guardará por cascada
 
-        contribucionService.confirmar(contribucionId, colaboradorId, fechaContribucion);
-        contribucionService.guardarContribucion(contribucion);
-
-        colaborador.agregarContribucion(contribucion);
-        colaborador.eliminarContribucionPendiente(contribucion);
         guardarColaborador(colaborador);
 
         log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.confirmarContribucion_info", contribucion.getClass().getSimpleName(), colaborador.getPersona().getNombre(2)));
     }
 
-    public void intentarAdquirirBeneficio(Long colaboradorId, Long ofertaId) {
+    public void intentarAdquirirBeneficio(Long colaboradorId, Oferta oferta) {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
-        Oferta oferta = ofertaService.obtenerOferta(ofertaId);
 
         // Primero chequea tener los puntos suficientes
-        ofertaService.validarPuntos(ofertaId, colaborador.getPuntos());
+        ofertaService.validarPuntos(oferta.getId(), colaborador.getPuntos());
 
-        colaborador.agregarBeneficio(oferta);
-        guardarColaborador(colaborador);
+        agregarBeneficio(colaboradorId, oferta);
 
         log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.adquirirBeneficio_info", oferta.getNombre(), colaborador.getPersona().getNombre(2)));
     }
 
-    public void reportarFallaTecnica(Long colaboradorId, Long heladeraId, String descripcion, String foto) {
+    public void reportarFallaTecnica(Long colaboradorId, Heladera heladera, String descripcion, String foto) {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
-        Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
 
-        heladeraService.producirFallaTecnica(heladeraId, colaborador, descripcion, foto);
-        heladeraService.guardarHeladera(heladera);
+        heladeraService.producirFallaTecnica(heladera.getId(), colaborador, descripcion, foto);
     }
 
-    public Suscripcion suscribirse(Long colaboradorId, Long heladeraId, Long medioDeContactoId, Suscripcion.CondicionSuscripcion condicionSuscripcion, Integer valor) {
+    public void agregarSuscripcion(Long colaboradorId, Suscripcion suscripcion) {
         ColaboradorHumano colaborador = obtenerColaboradorHumano(colaboradorId);
-        Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
-        MedioDeContacto medioDeContacto = medioDeContactoService.obtenerMedioDeContacto(medioDeContactoId);
+        colaborador.agregarSuscripcion(suscripcion);
+        guardarColaborador(colaborador);    // Al guardar el colaborador, se guarda/actualiza la suscripción por cascada
+    }
+
+    public void eliminarSuscripcion(Long colaboradorId, Suscripcion suscripcion) {
+        ColaboradorHumano colaborador = obtenerColaboradorHumano(colaboradorId);
+        colaborador.eliminarSuscripcion(suscripcion);
+        guardarColaborador(colaborador);    // Al guardar el colaborador, se elimina la suscripción por orphanRemoval
+    }
+
+    public Suscripcion suscribirse(Long colaboradorId, Heladera heladera, MedioDeContacto medioDeContacto, Suscripcion.CondicionSuscripcion condicionSuscripcion, Integer valor) {
+        ColaboradorHumano colaborador = obtenerColaboradorHumano(colaboradorId);
 
         Suscripcion suscripcion;
         switch(condicionSuscripcion) {
@@ -152,47 +188,44 @@ public class ColaboradorService {
 
         }
 
-        colaborador.agregarSuscripcion(suscripcion);
-        guardarColaborador(colaborador);
-
-        suscripcionService.guardarSuscripcion(suscripcion);
+        agregarSuscripcion(colaboradorId, suscripcion);
 
         log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.agregarSuscripcion_info", colaborador.getPersona().getNombre(2), suscripcion.getHeladera().getNombre()));
 
         return suscripcion;
     }
 
-    public void modificarSuscripcion(Long colaboradorId, Long suscripcionId, Integer nuevoValor) {
+    public void modificarSuscripcion(Long colaboradorId, Suscripcion suscripcion, Integer nuevoValor) {
         ColaboradorHumano colaborador = obtenerColaboradorHumano(colaboradorId);
-        Suscripcion suscripcion = suscripcionService.obtenerSuscripcion(suscripcionId);
+
+        if (!colaborador.getSuscripciones().contains(suscripcion)) {
+            log.log(Level.SEVERE, I18n.getMessage("colaborador.ColaboradorHumano.modificarSuscripcion_err", colaborador.getPersona().getNombre(2)));
+            throw new IllegalArgumentException(I18n.getMessage("colaborador.ColaboradorHumano.modificarSuscripcion_exception"));
+        }
 
         switch(suscripcion) {
 
             case SuscripcionViandasMin suscripcionViandasMin -> {
                 suscripcionViandasMin.setViandasDisponiblesMin(nuevoValor);
-                suscripcionService.guardarSuscripcion(suscripcionViandasMin);
             }
 
             case SuscripcionViandasMax suscripcionViandasMax -> {
                 suscripcionViandasMax.setViandasParaLlenarMax(nuevoValor);
-                suscripcionService.guardarSuscripcion(suscripcionViandasMax);
             }
 
             default -> {}
 
         }
 
+        guardarColaborador(colaborador);    // Al guardar el colaborador, se actualiza la suscripción por cascada
+
         log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.modificarSuscripcion_info", suscripcion.getHeladera().getNombre(), colaborador.getPersona().getNombre(2)));
     }
 
-    public void cancelarSuscripcion(Long colaboradorId, Long suscripcionId) {
+    public void cancelarSuscripcion(Long colaboradorId, Suscripcion suscripcion) {
         ColaboradorHumano colaborador = obtenerColaboradorHumano(colaboradorId);
-        Suscripcion suscripcion = suscripcionService.obtenerSuscripcion(suscripcionId);
 
-        colaborador.eliminarSuscripcion(suscripcion);
-        guardarColaborador(colaborador);
-
-        suscripcionService.eliminarSuscripcion(suscripcion);
+        eliminarSuscripcion(colaboradorId, suscripcion);
 
         log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.cancelarSuscripcion_info", suscripcion.getHeladera().getNombre(), colaborador.getPersona().getNombre(2)));
     }

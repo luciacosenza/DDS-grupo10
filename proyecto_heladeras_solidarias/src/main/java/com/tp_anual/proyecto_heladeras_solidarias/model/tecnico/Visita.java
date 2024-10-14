@@ -49,4 +49,8 @@ public class Visita {
         estado = vEstado;
         revisada = vRevisada;
     }
+
+    public void seReviso() {
+        revisada = true;
+    }
 }

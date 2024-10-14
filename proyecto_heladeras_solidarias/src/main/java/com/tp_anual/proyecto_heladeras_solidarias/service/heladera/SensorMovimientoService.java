@@ -36,7 +36,6 @@ public class SensorMovimientoService {
         Heladera heladera = sensorMovimiento.getHeladera();
 
         heladeraService.producirAlerta(heladera.getId(), Alerta.TipoAlerta.FRAUDE);
-        heladeraService.guardarHeladera(heladera);
 
         log.log(Level.INFO, I18n.getMessage("heladera.SensorMovimiento.notificarHeladera_info", heladera.getNombre()));
     }

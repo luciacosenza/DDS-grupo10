@@ -18,11 +18,6 @@ import lombok.extern.java.Log;
 @Getter
 @Setter
 public class CargaOferta extends Contribucion {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
-    private Long id;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "oferta")

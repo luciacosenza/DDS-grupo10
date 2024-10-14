@@ -1,10 +1,10 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.CargaOferta;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.CargaOfertaRepository;
-import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.ContribucionRepository;
-import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,27 +15,27 @@ import org.springframework.stereotype.Service;
 public class CargaOfertaService extends ContribucionService {
 
     private final CargaOfertaRepository cargaOfertaRepository;
-    private final ColaboradorService colaboradorService;
 
-    public CargaOfertaService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService, CargaOfertaRepository vCargaOfertaRepository) {
-        super(vContribucionRepository);
-        colaboradorService = vColaboradorService;
+    public CargaOfertaService(CargaOfertaRepository vCargaOfertaRepository) {
+        super();
         cargaOfertaRepository = vCargaOfertaRepository;
     }
 
-    public CargaOferta obtenerCargaOferta(Long cargaOfertaId) {
+    @Override
+    public CargaOferta obtenerContribucion(Long cargaOfertaId) {
         return cargaOfertaRepository.findById(cargaOfertaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public CargaOferta guardarCargaOferta(CargaOferta cargaOferta) {
-        return cargaOfertaRepository.save(cargaOferta);
+    @Override
+    public CargaOferta guardarContribucion(Contribucion cargaOferta) {
+        return cargaOfertaRepository.save((CargaOferta) cargaOferta);
     }
 
     @Override
-    public void validarIdentidad(Long contribucionId, Long colaboradorId) {}   // Esta Contribución tiene ningún requisito en cuanto a los datos o identidad del colaborador
+    public void validarIdentidad(Long cargaOfertaId, Colaborador colaborador) {}   // Esta Contribución tiene ningún requisito en cuanto a los datos o identidad del colaborador
 
     @Override
-    protected void confirmarSumaPuntos(Long contribucionId, Long colaboradorId, Double puntosSumados) {} // Esta Contribución no entra entre las que suman puntos
+    protected void confirmarSumaPuntos(Long cargaOfertaId, Colaborador colaborador, Double puntosSumados) {} // Esta Contribución no entra entre las que suman puntos
 
     // Programo la tarea para ejecutarse todos los días a las 00.00 hs
     @Scheduled(cron = "0 0 0 * * ?")

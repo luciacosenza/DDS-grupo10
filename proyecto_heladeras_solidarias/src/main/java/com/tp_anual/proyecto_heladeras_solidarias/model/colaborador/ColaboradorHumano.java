@@ -1,14 +1,9 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.colaborador;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DistribucionViandasCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionDineroCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionViandaCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.RegistroDePersonaEnSituacionVulnerableCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion;
@@ -36,13 +31,6 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
 
     public ColaboradorHumano(PersonaFisica vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
         super(vPersona, vDomicilio, vMediosDeContacto, vContribuciones, vBeneficiosAdquiridos, vPuntos);
-        
-        creatorsPermitidos = new HashSet<>();
-        creatorsPermitidos.add(DistribucionViandasCreator.class);
-        creatorsPermitidos.add(DonacionDineroCreator.class);
-        creatorsPermitidos.add(DonacionViandaCreator.class);
-        creatorsPermitidos.add(RegistroDePersonaEnSituacionVulnerableCreator.class);
-
         tarjeta = new TarjetaColaboradorNula();
         suscripciones = new ArrayList<>();
     }

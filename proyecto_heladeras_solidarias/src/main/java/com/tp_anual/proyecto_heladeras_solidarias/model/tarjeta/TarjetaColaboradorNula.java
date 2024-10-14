@@ -42,7 +42,4 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
 
     @Override
     public void agregarPermiso(PermisoApertura permiso) {}
-
-    @Override
-    public void eliminarPermiso(PermisoApertura permiso) {}
 }

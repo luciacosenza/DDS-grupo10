@@ -48,12 +48,18 @@ public class SensorTemperaturaService {
         return sensorTemperaturaRepository.save(sensorTemperatura);
     }
 
+    public void actualizarUltimaActualizacion(Long sensorTemperaturaId) {
+        SensorTemperatura sensorTemperatura = obtenerSensorTemperatura(sensorTemperaturaId);
+        sensorTemperatura.actualizarUltimaActualizacion();
+        guardarSensorTemperatura(sensorTemperatura);
+    }
+
     public void setTempActual(Long sensorTemperaturaId, Float vTempActual) {
         SensorTemperatura sensorTemperatura = obtenerSensorTemperatura(sensorTemperaturaId);
 
         sensorTemperatura.setTempActual(vTempActual);
-        sensorTemperatura.actualizarUltimaActualizacion();
-        guardarSensorTemperatura(sensorTemperatura);
+        actualizarUltimaActualizacion(sensorTemperaturaId);
+        guardarSensorTemperatura(sensorTemperatura);    // Guardo el sensorTemperatura porque el setter no está implementado en el service, por lo que no la guarda y hay que hacerlo manualmente
     }
 
     public Boolean funcionaSensorFisico(Long sensorTemperaturaId) {

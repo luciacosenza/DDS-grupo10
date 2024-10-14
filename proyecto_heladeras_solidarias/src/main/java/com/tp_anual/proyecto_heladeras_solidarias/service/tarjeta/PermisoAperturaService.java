@@ -9,16 +9,16 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @Log
 public class PermisoAperturaService {
 
     private final PermisoAperturaRepository permisoAperturaRepository;
-    private final HeladeraService heladeraService;
 
-    public PermisoAperturaService(PermisoAperturaRepository vPermisoAperturaRepository, HeladeraService vHeladeraService) {
+    public PermisoAperturaService(PermisoAperturaRepository vPermisoAperturaRepository) {
         permisoAperturaRepository = vPermisoAperturaRepository;
-        heladeraService = vHeladeraService;
     }
 
     public PermisoApertura obtenerPermisoApertura(Long permisoAperturaId){
@@ -29,10 +29,17 @@ public class PermisoAperturaService {
         return permisoAperturaRepository.save(permisoApertura);
     }
 
-    public Boolean esHeladeraPermitida(Long permisoAperturaId, Long heladeraId) {
+    public void actualizarFechaOtorgamiento(Long permisoAperturaId){
         PermisoApertura permisoApertura = obtenerPermisoApertura(permisoAperturaId);
-        Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
+        permisoApertura.actualizarFechaOtorgamiento();
+        guardarPermisoApertura(permisoApertura);
+    }
 
+    public Boolean esHeladeraPermitida(Long permisoAperturaId, Heladera heladera) {
+        PermisoApertura permisoApertura = obtenerPermisoApertura(permisoAperturaId);
         return heladera == permisoApertura.getHeladeraPermitida();
     }
+
+
+
 }

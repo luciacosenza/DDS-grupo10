@@ -12,13 +12,11 @@ import com.tp_anual.proyecto_heladeras_solidarias.repository.tarjeta.TarjetaCola
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.AccionHeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.GestorDeAperturas;
-import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.logging.Level;
 
 @Log
@@ -27,24 +25,20 @@ public class TarjetaColaboradorService {
 
     private final TarjetaColaboradorRepository tarjetaColaboradorRepository;
     private final ColaboradorService colaboradorService;
-    private final PermisoAperturaService permisoAperturaService;
-    private final HeladeraService heladeraService;
     private final GestorDeAperturas gestorDeAperturas;
     private final AccionHeladeraService accionHeladeraService;
     private final TarjetaColaboradorCreator tarjetaColaboradorCreator;
 
-    public TarjetaColaboradorService(TarjetaColaboradorRepository vTarjetaColaboradorRepository, ColaboradorService vColaboradorService, PermisoAperturaService vPermisoAperturaService, HeladeraService vHeladeraService, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas, TarjetaColaboradorCreator vTarjetaColaboradorCreator) {
+    public TarjetaColaboradorService(TarjetaColaboradorRepository vTarjetaColaboradorRepository, ColaboradorService vColaboradorService, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas, TarjetaColaboradorCreator vTarjetaColaboradorCreator) {
         tarjetaColaboradorRepository = vTarjetaColaboradorRepository;
         colaboradorService = vColaboradorService;
-        permisoAperturaService = vPermisoAperturaService;
-        heladeraService = vHeladeraService;
         accionHeladeraService = vAccionHeladeraService;
         gestorDeAperturas = vGestorDeAperturas;
         tarjetaColaboradorCreator = vTarjetaColaboradorCreator;
     }
 
-    public TarjetaColaborador obtenerTarjetaColaborador(String tarjetaId) {
-        return tarjetaColaboradorRepository.findById(tarjetaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+    public TarjetaColaborador obtenerTarjetaColaborador(String tarjetaColaboradorId) {
+        return tarjetaColaboradorRepository.findById(tarjetaColaboradorId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public TarjetaColaborador guardarTarjetaColaborador(TarjetaColaborador TarjetaColaborador){
@@ -57,32 +51,35 @@ public class TarjetaColaboradorService {
         return (TarjetaColaborador) tarjetaColaboradorCreator.crearTarjeta(colaborador);
     }
 
-    public SolicitudAperturaColaborador solicitarApertura(String tarjetaId, Long heladeraId, SolicitudAperturaColaborador.MotivoSolicitud motivo) {
-        TarjetaColaborador tarjetaColaborador = obtenerTarjetaColaborador(tarjetaId);
-        Heladera heladeraInvolucrada = heladeraService.obtenerHeladera(heladeraId);
+    public void agregarPermiso(String tarjetaColaboradorId, PermisoApertura permiso) {
+        TarjetaColaborador tarjetaColaborador = obtenerTarjetaColaborador(tarjetaColaboradorId);
+        tarjetaColaborador.agregarPermiso(permiso);
+        guardarTarjetaColaborador(tarjetaColaborador);
+    }
 
-        gestorDeAperturas.revisarMotivoApertura(heladeraId, motivo);
+    public SolicitudAperturaColaborador solicitarApertura(String tarjetaColaboradorId, Heladera heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo) {
+        TarjetaColaborador tarjetaColaborador = obtenerTarjetaColaborador(tarjetaColaboradorId);
+
+        gestorDeAperturas.revisarMotivoApertura(heladeraInvolucrada, motivo);
 
         SolicitudAperturaColaborador solicitudApertura = new SolicitudAperturaColaborador(LocalDateTime.now(), heladeraInvolucrada, tarjetaColaborador.getTitular(), motivo);
         accionHeladeraService.guardarAccionHeladera(solicitudApertura);
 
         // Agrego el permiso correspondiente para abrir la Heladera involucrada
         PermisoApertura permisoApertura = new PermisoApertura(heladeraInvolucrada, LocalDateTime.now(), true);
-        tarjetaColaborador.agregarPermiso(permisoApertura);
-        guardarTarjetaColaborador(tarjetaColaborador);
+        agregarPermiso(tarjetaColaboradorId, permisoApertura);  // Al guardar la tarjeta, se guarda el permiso por cascada
 
         log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaborador.solicitarApertura_info", heladeraInvolucrada.getNombre(), tarjetaColaborador.getTitular().getPersona().getNombre(2)));
 
         return solicitudApertura;
     }
 
-    public AperturaColaborador intentarApertura(String tarjetaId, Long heladeraId) {
+    public AperturaColaborador intentarApertura(String tarjetaColaboradorId, Heladera heladera) {
         // Primero chequeo internamente que pueda realizar la Apertura
-        TarjetaColaborador tarjetaColaborador = obtenerTarjetaColaborador(tarjetaId);
-        Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
+        TarjetaColaborador tarjetaColaborador = obtenerTarjetaColaborador(tarjetaColaboradorId);
         ColaboradorHumano titular = tarjetaColaborador.getTitular();
 
-        gestorDeAperturas.revisarPermisoAperturaC(heladera.getId(), titular.getId());
+        gestorDeAperturas.revisarPermisoAperturaC(heladera, titular);
 
         AperturaColaborador apertura = new AperturaColaborador(LocalDateTime.now(), heladera, titular);
         accionHeladeraService.guardarAccionHeladera(apertura);

@@ -30,4 +30,9 @@ public class PersonaEnSituacionVulnerableService {
     public PersonaEnSituacionVulnerable guardarPersonaEnSituacionVulnerable(PersonaEnSituacionVulnerable personaEnSituacionVulnerable) {
         return personaEnSituacionVulnerableRepository.save(personaEnSituacionVulnerable);
     }
+
+    public Boolean poseeMenoresACargo(Long personaEnSituacionVulnerableId) {
+        PersonaEnSituacionVulnerable personaEnSituacionVulnerable = obtenerPersonaEnSituacionVulnerable(personaEnSituacionVulnerableId);
+        return personaEnSituacionVulnerable.getMenoresACargo() > 0;
+    }
 }

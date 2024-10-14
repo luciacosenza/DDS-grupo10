@@ -1,46 +1,48 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
-import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.ContribucionRepository;
-import jakarta.persistence.EntityNotFoundException;
-import lombok.extern.java.Log;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
-@Service
-@Log
-public class ContribucionService {
+public abstract class ContribucionService {
 
-    private final ContribucionRepository contribucionRepository;
+    public ContribucionService() {}
 
-    protected ContribucionService(ContribucionRepository vContribucionRepository) {
-        contribucionRepository = vContribucionRepository;
+    public abstract Contribucion obtenerContribucion(Long contribucionId);
+
+    public abstract Contribucion guardarContribucion(Contribucion contribucion);
+
+    public void marcarComoCompletada(Long contribucionId) {
+        Contribucion contribucion = obtenerContribucion(contribucionId);
+        contribucion.setCompletada(true);
+        guardarContribucion(contribucion);
     }
 
-    public Contribucion obtenerContribucion(Long contribucionId) {
-        return contribucionRepository.findById(contribucionId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+    public void sumoPuntos(Long contribucionId) {
+        Contribucion contribucion = obtenerContribucion(contribucionId);
+        contribucion.setYaSumoPuntos(true);
+        guardarContribucion(contribucion);
     }
 
-    public Contribucion guardarContribucion(Contribucion contribucion) {
-        return contribucionRepository.save(contribucion);
+    public void seCompletoYSumoPuntos(Long contribucionId) {
+        marcarComoCompletada(contribucionId);
+        sumoPuntos(contribucionId);
     }
 
-    // Para los tres métodos siguientes, los pusimos vacíos porque, si poníamos la clase como abstracta, había problemas para hacer el Autowired, y si no la poníamos abstracta (para que sea concreta y pueda usarse con @Qualifier) los métodos no podían ser abstractos
+    public abstract void validarIdentidad(Long contribucionId, Colaborador colaborador);
 
-    public void validarIdentidad(Long contribucionId, Long colaboradorId) {}
+    protected abstract void confirmarSumaPuntos(Long contribucionId, Colaborador colaborador, Double puntosSumados);
 
-    protected void confirmarSumaPuntos(Long contribucionId, Long colaboradorId, Double puntosSumados) {}
+    protected abstract void calcularPuntos();
 
-    protected void calcularPuntos() {}
-
-    public void confirmar(Long contribucionId, Long colaboradorId, LocalDateTime vFechaContribucion) {
+    public void confirmar(Long contribucionId, LocalDateTime vFechaContribucion) {
         Contribucion contribucion = obtenerContribucion(contribucionId);
 
         // Podemos agregar lógica para confirmar que la Contribución fue efectivamente realizada
 
-        contribucion.marcarComoCompletada();
+        marcarComoCompletada(contribucionId);
         contribucion.setFechaContribucion(vFechaContribucion);   // Actualizo la fecha de contribución al momento que se confirma la realización de la Contribución
+        guardarContribucion(contribucion);  // Guardo la contribución porque el setter no está implementado en el service, por lo que no la guarda y hay que hacerlo manualmente
     }
 }

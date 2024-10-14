@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 import java.util.Comparator;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
-import com.tp_anual.proyecto_heladeras_solidarias.repository.heladera.HeladeraRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.area.AreaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import lombok.extern.java.Log;
@@ -17,10 +16,10 @@ import org.springframework.stereotype.Service;
 @Log
 public class UbicadorHeladera {
 
-    private final HeladeraRepository heladeraRepository;
+    private final HeladeraService heladeraService;
 
-    public UbicadorHeladera(HeladeraRepository vHeladeraRepository) {
-        heladeraRepository = vHeladeraRepository;
+    public UbicadorHeladera(HeladeraService vHeladeraService) {
+        heladeraService = vHeladeraService;
     }
 
     public ArrayList<Heladera> obtenerHeladerasCercanasA(Heladera heladeraObjetivo, Integer cantidadHeladeras) {
@@ -28,7 +27,7 @@ public class UbicadorHeladera {
         Pair<Double, Double> ubicacionHeladera = Pair.of(heladeraObjetivo.getUbicacion().getLatitud(), heladeraObjetivo.getUbicacion().getLongitud());
         
         // Obtengo la lista de Heladeras 
-        ArrayList<Heladera> heladeras = new ArrayList<>(heladeraRepository.findAll());
+        ArrayList<Heladera> heladeras = heladeraService.obtenerHeladeras();
         
         // Ordeno Heladeras por distancia
         return heladeras.stream()

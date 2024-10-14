@@ -81,7 +81,7 @@ public class TransformacionDeDatos {
         // Agrega contribuciones a colaborador
         for (Integer i = 0; i < cantColabs; i++) {
             Contribucion contribucion = registrarContribucion(formaContribucionStr, colaborador, fechaContribucion);
-            colaborador.agregarContribucion(contribucion);
+            colaborador.agregarContribucion(contribucion);  // Llamo directamente al método del colaborador, porque se va a guardar en el Migrador
         }
 
         return colaborador;

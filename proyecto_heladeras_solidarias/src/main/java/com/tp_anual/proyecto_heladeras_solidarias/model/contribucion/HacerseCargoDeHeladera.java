@@ -18,11 +18,6 @@ import lombok.extern.java.Log;
 @Setter
 public class HacerseCargoDeHeladera extends Contribucion {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
-    protected Long id; 
-
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "heladera")
     private final Heladera heladeraObjetivo;

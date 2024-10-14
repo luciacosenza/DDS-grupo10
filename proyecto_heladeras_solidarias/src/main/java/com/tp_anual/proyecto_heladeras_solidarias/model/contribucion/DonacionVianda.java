@@ -17,11 +17,6 @@ import lombok.extern.java.Log;
 @Getter
 @Setter
 public class DonacionVianda extends Contribucion {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
-    protected Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "vianda")

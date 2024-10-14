@@ -24,7 +24,7 @@ public class HacerseCargoDeHeladeraCreator implements ContribucionCreator {
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
         HacerseCargoDeHeladera hacerseCargoDeHeladera = new HacerseCargoDeHeladera(colaborador, fechaContribucion,
                 new Heladera(null, new Ubicacion(null, null, null, null, null, null), null, null, null, new ArrayList<Vianda>(), null, null, null));
-        hacerseCargoDeHeladera.seCompletoYSumoPuntos();
+        hacerseCargoDeHeladera.seCompletoYSumoPuntos(); // Llamo directamente al método de hacerseCargoDeHeladera, porque no quiero que se guarde en este momento
 
         return hacerseCargoDeHeladera;
     }

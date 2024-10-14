@@ -2,10 +2,9 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionDinero;
-import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.ContribucionRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.DonacionDineroRepository;
-import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,16 +18,15 @@ import java.util.logging.Level;
 public class DonacionDineroService extends ContribucionService {
 
     private final DonacionDineroRepository donacionDineroRepository;
-    private final ColaboradorService colaboradorService;
     private final Double multiplicadorPuntos = 0.5;
 
-    public DonacionDineroService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService, DonacionDineroRepository vDonacionDineroRepository) {
-        super(vContribucionRepository);
+    public DonacionDineroService(DonacionDineroRepository vDonacionDineroRepository) {
+        super();
         donacionDineroRepository = vDonacionDineroRepository;
-        colaboradorService = vColaboradorService;
     }
 
-    public DonacionDinero obtenerDonacionDinero(Long donacionDineroId) {
+    @Override
+    public DonacionDinero obtenerContribucion(Long donacionDineroId) {
         return donacionDineroRepository.findById(donacionDineroId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
@@ -36,16 +34,16 @@ public class DonacionDineroService extends ContribucionService {
         return new ArrayList<>(donacionDineroRepository.findDonacionesDineroParaCalcular());
     }
 
-    public DonacionDinero guardarDonacionDinero(DonacionDinero donacionDinero) {
-        return donacionDineroRepository.save(donacionDinero);
+    @Override
+    public DonacionDinero guardarContribucion(Contribucion donacionDinero) {
+        return donacionDineroRepository.save((DonacionDinero) donacionDinero);
     }
 
     @Override
-    public void validarIdentidad(Long contribucionId, Long colaboradorId) {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
+    public void validarIdentidad(Long donacionDineroId, Colaborador colaborador) {}   // No tiene ningún requisito en cuanto a los datos o identidad del colaborador
 
     @Override
-    public void confirmarSumaPuntos(Long contribucionId, Long colaboradorId, Double puntosSumados) {
-        Colaborador colaborador = colaboradorService.obtenerColaborador(colaboradorId);
+    public void confirmarSumaPuntos(Long contribucionId, Colaborador colaborador, Double puntosSumados) {
         log.log(Level.INFO, I18n.getMessage("contribucion.DonacionDinero.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
@@ -58,13 +56,11 @@ public class DonacionDineroService extends ContribucionService {
         for (DonacionDinero donacionDinero : donacionesDinero) {
             Double puntosASumar = donacionDinero.getMonto() * multiplicadorPuntos;
             Colaborador colaborador = donacionDinero.getColaborador();
-
             colaborador.sumarPuntos(puntosASumar);
-            colaboradorService.guardarColaborador(colaborador);
 
-            donacionDinero.setYaSumoPuntos(true);
-            guardarDonacionDinero(donacionDinero);
-            confirmarSumaPuntos(donacionDinero.getId(), colaborador.getId(), puntosASumar);
+            donacionDinero.sumoPuntos();
+            guardarContribucion(donacionDinero);    // Al guardar la contribución, se guarda el colaborador por cascada
+            confirmarSumaPuntos(donacionDinero.getId(), colaborador, puntosASumar);
         }
     }
 }

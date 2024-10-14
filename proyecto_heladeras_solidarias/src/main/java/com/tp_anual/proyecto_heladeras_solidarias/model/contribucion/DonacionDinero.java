@@ -19,11 +19,6 @@ import lombok.extern.java.Log;
 @Setter
 public class DonacionDinero extends Contribucion {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
-    protected Long id;
-    
     @Min(value = 0)
     private final Double monto;
 

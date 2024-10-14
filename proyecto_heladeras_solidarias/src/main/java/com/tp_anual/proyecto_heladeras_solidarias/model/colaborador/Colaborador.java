@@ -2,12 +2,10 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.colaborador;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
-import java.util.Set;
 import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.ContribucionCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.Persona;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
@@ -48,16 +46,9 @@ public abstract class Colaborador {
     @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     protected final ArrayList<Contribucion> contribuciones;
     
-    @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    protected final ArrayList<Contribucion> contribucionesPendientes;
-    
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "colaborador")
     protected final ArrayList<Oferta> beneficiosAdquiridos;
-    
-    @Setter(AccessLevel.NONE)
-    @Transient // TODO: Cambiar esto
-    protected Set<Class<? extends ContribucionCreator>> creatorsPermitidos;
     
     @Min(value = 0)
     protected Double puntos;
@@ -67,7 +58,6 @@ public abstract class Colaborador {
         domicilio = vDomicilio;
         mediosDeContacto = vMediosDeContacto;
         contribuciones = vContribuciones;
-        contribucionesPendientes = new ArrayList<>();
         beneficiosAdquiridos = vBeneficiosAdquiridos;
         puntos = vPuntos;
     }
@@ -89,24 +79,16 @@ public abstract class Colaborador {
         puntos += puntosASumar;
     }
 
-    public void agregarContacto(MedioDeContacto contacto) {
-        mediosDeContacto.add(contacto);
+    public void agregarMedioDeContacto(MedioDeContacto medioDeContacto) {
+        mediosDeContacto.add(medioDeContacto);
     }
 
     public void agregarContribucion(Contribucion contribucion) {
         contribuciones.add(contribucion);
     }
 
-    public void agregarContribucionPendiente(Contribucion contribucionPendiente) {
-        contribucionesPendientes.add(contribucionPendiente);
-    }
-
     public void agregarBeneficio(Oferta oferta) {
         beneficiosAdquiridos.add(oferta);
-    }
-
-    public void eliminarContribucionPendiente(Contribucion contribucion) {
-        contribucionesPendientes.remove(contribucion);
     }
 
     public void obtenerDetalles() {

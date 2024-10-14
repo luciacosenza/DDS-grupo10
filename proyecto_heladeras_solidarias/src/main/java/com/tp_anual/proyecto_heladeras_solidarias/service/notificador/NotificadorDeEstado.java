@@ -2,16 +2,15 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.notificador;
 
 import java.util.ArrayList;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion.CondicionSuscripcion;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoService;
-import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoServiceSelector;
 import com.tp_anual.proyecto_heladeras_solidarias.service.ubicador.UbicadorHeladera;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,13 +23,13 @@ public class NotificadorDeEstado extends Notificador {
     @Setter
     private Integer cantidadHeladeras;
     
-    public NotificadorDeEstado(@Qualifier("medioDeContactoService") MedioDeContactoService vMedioDeContactoService, UbicadorHeladera vUbicadorHeladera) {
-        super(vMedioDeContactoService);
+    public NotificadorDeEstado(MedioDeContactoServiceSelector vMedioDeContactoServiceSelector, UbicadorHeladera vUbicadorHeladera) {
+        super(vMedioDeContactoServiceSelector);
         ubicadorHeladera = vUbicadorHeladera;
         cantidadHeladeras = 10; // Esta cantidad es arbitraria, pero puede ser modificada
     }
 
-    public void notificarEstado(Heladera heladera, Long medioDeContactoId, CondicionSuscripcion condicion) {    // Usa el Medio de Contacto previamente elegido por el colaborador
+    public void notificarEstado(Heladera heladera, MedioDeContacto medioDeContacto, CondicionSuscripcion condicion) {    // Usa el Medio de Contacto previamente elegido por el colaborador
         ArrayList<Heladera> heladerasCercanas = ubicadorHeladera.obtenerHeladerasCercanasA(heladera, cantidadHeladeras);
         
         switch(condicion) {
@@ -40,7 +39,7 @@ public class NotificadorDeEstado extends Notificador {
                 Heladera heladeraMasLlena = ubicadorHeladera.obtenerHeladeraMasLlena(heladerasCercanas);
 
                 enviarNotificacion(
-                medioDeContactoId,
+                medioDeContacto,
                 I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_title",
                 heladera.getNombre()),
                 I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_body",
@@ -52,7 +51,7 @@ public class NotificadorDeEstado extends Notificador {
                 Heladera heladeraMenosLlena = ubicadorHeladera.obtenerHeladeraMenosLlena(heladerasCercanas);
 
                 enviarNotificacion(
-                medioDeContactoId,
+                medioDeContacto,
                 I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmx_title",
                 heladera.getNombre()),
                 I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmx_body",
@@ -61,7 +60,7 @@ public class NotificadorDeEstado extends Notificador {
 
             case DESPERFECTO -> {
                 enviarNotificacion(
-                medioDeContactoId,
+                medioDeContacto,
                 I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_d_title",
                 heladera.getNombre()),
                 I18n.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_d_body",

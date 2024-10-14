@@ -48,8 +48,4 @@ public class PersonaEnSituacionVulnerable {
         fechaRegistro = vFechaRegistro;
         menoresACargo = vMenoresACargo;
     }
-
-    public Boolean poseeMenoresACargo() {
-        return menoresACargo > 0;
-    }
 }

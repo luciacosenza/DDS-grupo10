@@ -14,7 +14,7 @@ public class GeneradorCodigo {
 
     public GeneradorCodigo() {}
 
-    public String generarCodigo(boolean esColaborador) {
+    public String generarCodigo(Boolean esColaborador) {
         // Asigno el prefijo del Código, según el tipo de titular
         String prefijo = esColaborador ? "C" : "P";
         

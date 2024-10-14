@@ -2,20 +2,20 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.notificador;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoServiceSelector;
 import lombok.extern.java.Log;
-import org.springframework.stereotype.Service;
 
-@Service
 @Log
 public abstract class Notificador {
 
-    private final MedioDeContactoService medioDeContactoService;
+    private final MedioDeContactoServiceSelector medioDeContactoServiceSelector;
 
-    public Notificador(MedioDeContactoService vMedioDeContactoService) {
-        medioDeContactoService = vMedioDeContactoService;
+    public Notificador(MedioDeContactoServiceSelector vMedioDeContactoServiceSelector) {
+        medioDeContactoServiceSelector = vMedioDeContactoServiceSelector;
     }
 
-    public void enviarNotificacion(Long medioDeContactoId, String asunto, String cuerpo) {
-        medioDeContactoService.contactar(medioDeContactoId, asunto, cuerpo);
+    public void enviarNotificacion(MedioDeContacto medioDeContacto, String asunto, String cuerpo) {
+        MedioDeContactoService medioDeContactoService = medioDeContactoServiceSelector.obtenerMedioDeContactoService(medioDeContacto.getClass());
+        medioDeContactoService.contactar(medioDeContacto.getId(), asunto, cuerpo);
     }
 }

@@ -39,8 +39,9 @@ public class AlertaService {
 
     public void producirAlerta(LocalDateTime fecha, Heladera heladera, Alerta.TipoAlerta tipo) {
         Alerta alerta = new Alerta(LocalDateTime.now(), heladera, tipo);
-        Long alertaId = guardarAlerta(alerta).getId();
-        notificadorDeIncidentes.notificarIncidente(alertaId);
+        guardarAlerta(alerta);
+
+        notificadorDeIncidentes.notificarIncidente(alerta);
 
         log.log(Level.INFO, I18n.getMessage("incidente.Alerta.producirAlerta_info", alerta.getTipo(), heladera.getNombre()));
     }
