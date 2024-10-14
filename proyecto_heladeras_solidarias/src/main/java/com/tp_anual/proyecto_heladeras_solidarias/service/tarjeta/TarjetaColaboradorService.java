@@ -2,11 +2,11 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.AperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.PermisoApertura;
-import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaboradorActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
 
 import com.tp_anual.proyecto_heladeras_solidarias.repository.tarjeta.TarjetaColaboradorRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
@@ -18,8 +18,6 @@ import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.logging.Level;
 
 @Log
@@ -44,28 +42,27 @@ public class TarjetaColaboradorService {
         tarjetaColaboradorCreator = vTarjetaColaboradorCreator;
     }
 
-    public TarjetaColaboradorActiva obtenerTarjetaColaborador(String tarjetaId) {
-        return (TarjetaColaboradorActiva) tarjetaColaboradorRepository.findById(tarjetaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+    public TarjetaColaborador obtenerTarjetaColaborador(String tarjetaId) {
+        return (TarjetaColaborador) tarjetaColaboradorRepository.findById(tarjetaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public TarjetaColaboradorActiva guardarTarjetaColaborador(TarjetaColaboradorActiva tarjetaColaboradorActiva){
-        return tarjetaColaboradorRepository.save(tarjetaColaboradorActiva);
+    public TarjetaColaborador guardarTarjetaColaborador(TarjetaColaborador TarjetaColaborador){
+        return tarjetaColaboradorRepository.save(TarjetaColaborador);
     }
 
-    public TarjetaColaboradorActiva crearTarjetaColaborador(Long colaboradorId){
+    public TarjetaColaborador crearTarjetaColaborador(Long colaboradorId){
         ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
 
-        return (TarjetaColaboradorActiva) tarjetaColaboradorCreator.crearTarjeta(colaborador);
+        return (TarjetaColaborador) tarjetaColaboradorCreator.crearTarjeta(colaborador);
     }
 
     public SolicitudAperturaColaborador solicitarApertura(String tarjetaId, Long heladeraId, SolicitudAperturaColaborador.MotivoSolicitud motivo) {
-        TarjetaColaboradorActiva tarjetaColaborador = obtenerTarjetaColaborador(tarjetaId);
-        HeladeraActiva heladeraInvolucrada = heladeraService.obtenerHeladera(heladeraId);
+        TarjetaColaborador tarjetaColaborador = obtenerTarjetaColaborador(tarjetaId);
+        Heladera heladeraInvolucrada = heladeraService.obtenerHeladera(heladeraId);
 
         gestorDeAperturas.revisarMotivoApertura(heladeraId, motivo);
 
         SolicitudAperturaColaborador solicitudApertura = new SolicitudAperturaColaborador(LocalDateTime.now(), heladeraInvolucrada, tarjetaColaborador.getTitular(), motivo);
-        solicitudApertura.darDeAlta();
         accionHeladeraService.guardarAccionHeladera(solicitudApertura);
 
         // Agrego el permiso correspondiente para abrir la Heladera involucrada
@@ -73,25 +70,23 @@ public class TarjetaColaboradorService {
         tarjetaColaborador.agregarPermiso(permisoApertura);
         guardarTarjetaColaborador(tarjetaColaborador);
 
-        log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaboradorActiva.solicitarApertura_info", heladeraInvolucrada.getNombre(), tarjetaColaborador.getTitular().getPersona().getNombre(2)));
+        log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaborador.solicitarApertura_info", heladeraInvolucrada.getNombre(), tarjetaColaborador.getTitular().getPersona().getNombre(2)));
 
         return solicitudApertura;
     }
 
     public AperturaColaborador intentarApertura(String tarjetaId, Long heladeraId) {
         // Primero chequeo internamente que pueda realizar la Apertura
-        TarjetaColaboradorActiva tarjetaColaborador = obtenerTarjetaColaborador(tarjetaId);
-        HeladeraActiva heladera = heladeraService.obtenerHeladera(heladeraId);
+        TarjetaColaborador tarjetaColaborador = obtenerTarjetaColaborador(tarjetaId);
+        Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
         ColaboradorHumano titular = tarjetaColaborador.getTitular();
 
         gestorDeAperturas.revisarPermisoAperturaC(heladera.getId(), titular.getId());
 
-        // Registramos la Apertura en el Sistema
         AperturaColaborador apertura = new AperturaColaborador(LocalDateTime.now(), heladera, titular);
-        apertura.darDeAlta();
         accionHeladeraService.guardarAccionHeladera(apertura);
 
-        log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaboradorActiva.intentarApertura_info", heladera.getNombre(), titular.getPersona().getNombre(2)));
+        log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaborador.intentarApertura_info", heladera.getNombre(), titular.getPersona().getNombre(2)));
 
         return apertura;
     }

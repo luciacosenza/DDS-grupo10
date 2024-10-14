@@ -1,9 +1,9 @@
 @startuml donar_dinero_confirmar
 actor Colaborador_Usuario as User
-participant INTERFAZ
-participant CONTROLLER
-participant "Colaborador" as Colaborador
-participant "DonacionDinero" as DonacionDinero
+boundary INTERFAZ
+control CONTROLLER
+entity "Colaborador" as Colaborador
+entity "DonacionDinero" as DonacionDinero
 
 User -> INTERFAZ: Solicitar confirmarContribucion(donacionDinero, fechaContribucion)
 INTERFAZ -> CONTROLLER: Solicitar confirmarContribucion(donacionDinero, fechaContribucion)

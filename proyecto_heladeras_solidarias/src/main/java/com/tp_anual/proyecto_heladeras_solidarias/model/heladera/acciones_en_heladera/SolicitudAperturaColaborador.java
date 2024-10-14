@@ -3,7 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_he
 import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -21,7 +21,7 @@ public class SolicitudAperturaColaborador extends AccionColaborador {
         RETIRAR_LOTE_DE_DISTRIBUCION
     }
 
-    public SolicitudAperturaColaborador(LocalDateTime vFecha, HeladeraActiva vHeladera, ColaboradorHumano vResponsable, MotivoSolicitud vMotivo) {
+    public SolicitudAperturaColaborador(LocalDateTime vFecha, Heladera vHeladera, ColaboradorHumano vResponsable, MotivoSolicitud vMotivo) {
         super(vFecha, vHeladera, vResponsable);
         motivo = vMotivo;
     }

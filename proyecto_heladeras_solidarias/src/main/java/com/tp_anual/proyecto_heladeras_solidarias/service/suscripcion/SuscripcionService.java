@@ -1,5 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.suscripcion;
 
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.suscripcion.SuscripcionRepository;
 import jakarta.persistence.EntityNotFoundException;

@@ -7,29 +7,22 @@ import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-@Getter
-@Setter
+@Service
 @Log
 public class Migrador {
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    private static Migrador instance;
+    private final ExtraccionDeDatos protocoloExtraccion;
+    private final TransformacionDeDatos transformador;
+    private final EnvioDeDatos protocoloEnvio;
+    private final ColaboradorService colaboradorService;
 
-    private ExtraccionDeDatos protocoloExtraccion;
-    private TransformacionDeDatos transformador;
-    private EnvioDeDatos protocoloEnvio;
-
-    @Getter(AccessLevel.NONE)
     private final String ASUNTO = "Gracias por tu apoyo! Aquí están tus credenciales de acceso al nuevo Sistema";
 
-    @Getter(AccessLevel.NONE)
     private final String CUERPO =
             """
             Estimado/a %s,
@@ -64,13 +57,11 @@ public class Migrador {
             [Datos de Contacto de la ONG]
             """;
 
-    private Migrador() {}
-
-    public static Migrador getInstance() {
-        if (instance == null) {
-            instance = new Migrador();
-        }
-        return instance;
+    public Migrador(@Qualifier("extraccionCSV") ExtraccionDeDatos vProtocoloExtraccion, TransformacionDeDatos vTransformador, @Qualifier("envioEMail") EnvioDeDatos vProtocoloEnvio, ColaboradorService vColaboradorService) {
+        protocoloExtraccion = vProtocoloExtraccion;
+        transformador = vTransformador;
+        protocoloEnvio = vProtocoloEnvio;
+        colaboradorService = vColaboradorService;
     }
 
     public void confirmarLoading() {
@@ -82,7 +73,7 @@ public class Migrador {
         ArrayList<ColaboradorHumano> colaboradoresAMigrar = transformador.transform(dataColaboradores);
 
         for (ColaboradorHumano colaborador : colaboradoresAMigrar) {
-            colaborador.darDeAlta();
+            colaboradorService.guardarColaborador(colaborador);
             protocoloEnvio.send(colaborador, ASUNTO, CUERPO);
         }
 

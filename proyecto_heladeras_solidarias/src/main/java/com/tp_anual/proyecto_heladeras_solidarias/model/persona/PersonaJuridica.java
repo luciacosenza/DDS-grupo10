@@ -26,6 +26,7 @@ public class PersonaJuridica extends Persona {
     }
 
     public PersonaJuridica(String vRazonSocial, TipoPersonaJuridica vTipo, String vRubro) {
+        super();
         razonSocial = vRazonSocial;
         tipo = vTipo;
         rubro = vRubro;

@@ -1,6 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta;
 
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.PermisoApertura;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.tarjeta.PermisoAperturaRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
@@ -30,7 +31,7 @@ public class PermisoAperturaService {
 
     public Boolean esHeladeraPermitida(Long permisoAperturaId, Long heladeraId) {
         PermisoApertura permisoApertura = obtenerPermisoApertura(permisoAperturaId);
-        HeladeraActiva heladera = heladeraService.obtenerHeladera(heladeraId);
+        Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
 
         return heladera == permisoApertura.getHeladeraPermitida();
     }

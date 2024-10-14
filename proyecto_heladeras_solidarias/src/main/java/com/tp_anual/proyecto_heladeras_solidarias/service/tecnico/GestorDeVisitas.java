@@ -30,8 +30,7 @@ public class GestorDeVisitas {
             notificadorDeIncidentes.notificarIncidente(incidente.getId());
         }
 
-        // Tanto si fue exitosa o no, se da de alta en el Sistema
-        visita.darDeAlta();
+        // Tanto si fue exitosa o no, se guarda
         visitaService.guardarVisita(visita);
     }
 

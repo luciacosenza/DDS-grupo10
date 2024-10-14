@@ -26,6 +26,7 @@ public class PersonaFisica extends Persona {
     private final LocalDateTime fechaNacimiento;
 
     public PersonaFisica(String vNombre, String vApellido, Documento vDocumento, LocalDateTime vFechaDeNacimiento) {
+        super();
         nombre = vNombre;
         apellido = vApellido;
         documento = vDocumento;

@@ -1,19 +1,11 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.oferta;
 
-import java.util.logging.Level;
-
-import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
-
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.extern.java.Log;
 import lombok.Getter;
 import lombok.Setter;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Log
@@ -26,15 +18,12 @@ public class Oferta {
     @Setter(AccessLevel.NONE)
     protected Long id;
 
-    @NotBlank
     private String nombre;
 
-    @NotNull
     @Min(value = 0)
     private Double costo;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
     private Categoria categoria;
 
     private String imagen;
@@ -50,13 +39,5 @@ public class Oferta {
         costo = vCosto;
         categoria = vCategoria;
         imagen = vImagen;
-    }
-
-    public void darDeAlta() {
-        Sistema.agregarOferta(this);
-    }
-
-    public void darDeBaja() {
-        Sistema.eliminarOferta(this);
     }
 }

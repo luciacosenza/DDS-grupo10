@@ -3,7 +3,6 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
-import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionDinero;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionVianda;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.ContribucionRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.DonacionViandaRepository;

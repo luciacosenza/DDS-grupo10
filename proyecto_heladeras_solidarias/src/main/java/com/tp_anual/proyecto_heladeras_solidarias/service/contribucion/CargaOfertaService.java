@@ -30,7 +30,7 @@ public class CargaOfertaService extends ContribucionService {
     }
 
     @Override
-    public void validarIdentidad(Long contribucionId, Long colaboradorId) {}   // Estra Contribución tiene ningún requisito en cuanto a los datos o identidad del colaborador
+    public void validarIdentidad(Long contribucionId, Long colaboradorId) {}   // Esta Contribución tiene ningún requisito en cuanto a los datos o identidad del colaborador
 
     @Override
     protected void confirmarSumaPuntos(Long contribucionId, Long colaboradorId, Double puntosSumados) {} // Esta Contribución no entra entre las que suman puntos

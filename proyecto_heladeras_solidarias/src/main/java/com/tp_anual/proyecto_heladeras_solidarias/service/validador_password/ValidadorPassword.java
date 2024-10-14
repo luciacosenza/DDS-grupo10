@@ -1,7 +1,10 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.validador_password;
 
+import lombok.extern.java.Log;
+
 import java.util.ArrayList;
 
+@Log
 public class ValidadorPassword {
     private final ArrayList<CriterioValidacion> criterios;
 

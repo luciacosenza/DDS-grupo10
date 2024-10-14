@@ -3,7 +3,6 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_he
 import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
-import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -27,13 +26,5 @@ public abstract class AccionHeladera {
     protected AccionHeladera(LocalDateTime vFecha, Heladera vHeladera) {
         fecha = vFecha;
         heladera = vHeladera;
-    }
-
-    public void darDeAlta() {
-        Sistema.agregarAccionHeladera(this);
-    }
-
-    public void darDeBaja() {
-        Sistema.eliminarAccionHeladera(this);
     }
 }

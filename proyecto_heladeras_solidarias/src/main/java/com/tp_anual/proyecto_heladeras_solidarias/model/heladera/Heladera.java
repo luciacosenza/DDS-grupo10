@@ -3,7 +3,6 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 
@@ -17,7 +16,7 @@ import jakarta.validation.constraints.Min;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 @Setter
-public abstract class Heladera implements HeladeraObserver {    // Implementa una Interfaz "HeladeraSubject" a nivel conceptual
+public class Heladera implements HeladeraObserver {    // Implementa una Interfaz "HeladeraSubject" a nivel conceptual
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +50,7 @@ public abstract class Heladera implements HeladeraObserver {    // Implementa un
 
     protected final ChronoUnit unidadTiempoPermiso = ChronoUnit.HOURS;
 
-    protected Heladera(String vNombre, Ubicacion vUbicacion, Integer vCapacidad, Float vTempMin, Float vTempMax, ArrayList<Vianda> vViandas, Float vTempActual, LocalDateTime vFechaApertura, Boolean vEstado) {
+    public Heladera(String vNombre, Ubicacion vUbicacion, Integer vCapacidad, Float vTempMin, Float vTempMax, ArrayList<Vianda> vViandas, Float vTempActual, LocalDateTime vFechaApertura, Boolean vEstado) {
         nombre = vNombre;
         ubicacion = vUbicacion;
         capacidad = vCapacidad;
@@ -63,11 +62,7 @@ public abstract class Heladera implements HeladeraObserver {    // Implementa un
         estado = vEstado;
     }
 
-    public abstract void darDeAlta() ;
+    public Integer viandasActuales() {return viandas.size();}
 
-    public abstract void darDeBaja();
-
-    public abstract Integer viandasActuales();
-
-    public abstract void marcarComoInactiva();
+    public void marcarComoInactiva() {setEstado(false);}
 }

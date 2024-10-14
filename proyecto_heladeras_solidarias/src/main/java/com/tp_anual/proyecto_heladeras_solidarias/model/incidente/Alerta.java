@@ -2,7 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.incidente;
 
 import java.time.LocalDateTime;
 
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -22,7 +22,7 @@ public class Alerta extends Incidente {
         FALLA_CONEXION
     }
 
-    public Alerta(LocalDateTime vFecha, HeladeraActiva vHeladera, TipoAlerta vTipo) {
+    public Alerta(LocalDateTime vFecha, Heladera vHeladera, TipoAlerta vTipo) {
         super(vFecha, vHeladera);
         tipo = vTipo;
     }

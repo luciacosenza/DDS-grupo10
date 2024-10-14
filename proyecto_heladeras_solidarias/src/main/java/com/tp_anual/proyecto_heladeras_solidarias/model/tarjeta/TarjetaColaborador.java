@@ -1,6 +1,5 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta;
 
-
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 
 import jakarta.persistence.*;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 @Entity
 @Getter
 @Setter
-public abstract class TarjetaColaborador extends Tarjeta {
+public class TarjetaColaborador extends Tarjeta {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "colaborador_id")
@@ -22,13 +21,22 @@ public abstract class TarjetaColaborador extends Tarjeta {
     @JoinColumn(name = "permiso_apertura_id")
     protected ArrayList<PermisoApertura> permisos;
 
-    protected TarjetaColaborador(String vCodigo, ColaboradorHumano vTitular, ArrayList<PermisoApertura> vPermisos) {
+    public TarjetaColaborador(String vCodigo, ColaboradorHumano vTitular, ArrayList<PermisoApertura> vPermisos) {
         super(vCodigo);
         titular = vTitular;
         permisos = vPermisos;
     }
 
-    public abstract void agregarPermiso(PermisoApertura permiso);
+    @Override
+    public Boolean puedeUsar() {
+        return true; // Se puede definir alguna lógica específica si es necesario
+    }
 
-    public abstract void eliminarPermiso(PermisoApertura permiso);
+    public void agregarPermiso(PermisoApertura permiso) {
+        permisos.add(permiso);
+    }
+
+    public void eliminarPermiso(PermisoApertura permiso) {
+        permisos.remove(permiso);
+    }
 }

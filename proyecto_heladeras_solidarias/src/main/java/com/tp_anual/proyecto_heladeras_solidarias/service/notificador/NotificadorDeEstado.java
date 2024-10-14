@@ -2,14 +2,12 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.notificador;
 
 import java.util.ArrayList;
 
-import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.ubicador.UbicadorHeladera;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -34,15 +32,15 @@ public class NotificadorDeEstado extends Notificador {
     }
 
     public void notificarEstado(Long heladeraId, Long medioDeContactoId, CondicionSuscripcion condicion) {    // Usa el Medio de Contacto previamente elegido por el colaborador
-        HeladeraActiva heladera = heladeraService.obtenerHeladera(heladeraId);
+        Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
 
-        ArrayList<HeladeraActiva> heladerasCercanas = ubicadorHeladera.obtenerHeladerasCercanasA(heladeraId, cantidadHeladeras);
+        ArrayList<Heladera> heladerasCercanas = ubicadorHeladera.obtenerHeladerasCercanasA(heladeraId, cantidadHeladeras);
         
         switch(condicion) {
 
             case VIANDAS_MIN -> {
                 // Obtengo la Heladera más llena
-                HeladeraActiva heladeraMasLlena = ubicadorHeladera.obtenerHeladeraMasLlena(heladerasCercanas);
+                Heladera heladeraMasLlena = ubicadorHeladera.obtenerHeladeraMasLlena(heladerasCercanas);
 
                 enviarNotificacion(
                 medioDeContactoId,
@@ -54,7 +52,7 @@ public class NotificadorDeEstado extends Notificador {
 
             case VIANDAS_MAX -> {
                 // Obtengo la Heladera menos llena
-                HeladeraActiva heladeraMenosLlena = ubicadorHeladera.obtenerHeladeraMenosLlena(heladerasCercanas);
+                Heladera heladeraMenosLlena = ubicadorHeladera.obtenerHeladeraMenosLlena(heladerasCercanas);
 
                 enviarNotificacion(
                 medioDeContactoId,
@@ -77,11 +75,11 @@ public class NotificadorDeEstado extends Notificador {
         }
     }
 
-    public String obtenerNombresYDireccionesDe(ArrayList<HeladeraActiva> heladeras) {
-        HeladeraActiva heladera1 = heladeras.removeFirst();
+    public String obtenerNombresYDireccionesDe(ArrayList<Heladera> heladeras) {
+        Heladera heladera1 = heladeras.removeFirst();
         String nombresYDirecciones = I18n.getMessage("notificador.NotificadorDeEstado.obtenerNombresYDireccionesDe_value_heladera_1", heladera1.getNombre(), heladera1.getUbicacion().getDireccion());
         
-        for (HeladeraActiva heladera : heladeras) {
+        for (Heladera heladera : heladeras) {
             nombresYDirecciones += I18n.getMessage("notificador.NotificadorDeEstado.obtenerNombresYDireccionesDe_value_heladera_i", heladera.getNombre(), heladera.getUbicacion().getDireccion());
         }
 

@@ -1,9 +1,9 @@
 @startuml cargar_oferta_colaborar
 actor Colaborador_Usuario as User
-participant INTERFAZ
-participant CONTROLLER
-participant "Colaborador" as Colaborador
-participant "CargaOfertaCreator" as CargaOfertaCreator
+boundary INTERFAZ
+control CONTROLLER
+entity "Colaborador" as Colaborador
+entity "CargaOfertaCreator" as CargaOfertaCreator
 
 User -> INTERFAZ: Solicitar colaborar (CargaOfertaCreator, fechaContribucion, oferta)
 INTERFAZ -> CONTROLLER: Solicitar colaborar (CargaOfertaCreator, fechaContribucion, oferta)

@@ -1,13 +1,13 @@
 @startuml registrar_visita
 actor Tecnico_Usuario as User
-participant INTERFAZ
-participant CONTROLLER
-participant "Tecnico" as Tecnico
-participant "GestorDeVisitas" as GestorDeVisitas
-participant "Incidente" as Incidente
-participant "NotificadorDeIncidentes" as NotificadorDeIncidentes
-participant "Visita" as Visita
-participant "Sistema" as Sistema
+boundary INTERFAZ
+control CONTROLLER
+entity "Tecnico" as Tecnico
+entity "GestorDeVisitas" as GestorDeVisitas
+entity "Incidente" as Incidente
+entity "NotificadorDeIncidentes" as NotificadorDeIncidentes
+entity "Visita" as Visita
+database "Sistema" as Sistema
 
 User -> INTERFAZ: Solicitar registrarVisita(fecha, descripcion, foto, estadoConsulta)
 INTERFAZ -> CONTROLLER: Solicitar registrarVisita(fecha, descripcion, foto, estadoConsulta)

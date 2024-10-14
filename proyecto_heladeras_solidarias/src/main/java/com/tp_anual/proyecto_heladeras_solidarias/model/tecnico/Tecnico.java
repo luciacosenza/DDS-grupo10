@@ -2,18 +2,14 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.tecnico;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.logging.Level;
 
 import lombok.AccessLevel;
-import org.apache.commons.lang3.tuple.Pair;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.area.Area;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 import jakarta.persistence.*;
 import lombok.extern.java.Log;
@@ -56,14 +52,6 @@ public class Tecnico {
         cuil = vCuil;
         medioDeContacto = vMedioDeContacto;
         areaDeCobertura = vAreaDeCobertura;
-    }
-
-    public void darDeAlta() {
-        Sistema.agregarTecnico(this);
-    }
-
-    public void darDeBaja() {
-        Sistema.eliminarTecnico(this);
     }
 
     public void agregarAPendientes(Incidente incidente) {

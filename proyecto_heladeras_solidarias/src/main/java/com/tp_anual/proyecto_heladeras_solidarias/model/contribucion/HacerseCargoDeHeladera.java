@@ -3,7 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
 import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import jakarta.persistence.*;
@@ -26,12 +26,12 @@ public class HacerseCargoDeHeladera extends Contribucion {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "heladera_id")
-    private final HeladeraActiva heladeraObjetivo;
+    private final Heladera heladeraObjetivo;
 
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime ultimaActualizacion;
 
-    public HacerseCargoDeHeladera(Colaborador vColaborador, LocalDateTime vFechaContribucion, HeladeraActiva vHeladeraObjetivo) {
+    public HacerseCargoDeHeladera(Colaborador vColaborador, LocalDateTime vFechaContribucion, Heladera vHeladeraObjetivo) {
         super(vColaborador, vFechaContribucion);
         heladeraObjetivo = vHeladeraObjetivo;
         ultimaActualizacion = LocalDateTime.now();

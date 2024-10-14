@@ -20,4 +20,6 @@ public class MedioDeContactoService {
     public MedioDeContacto obtenerMedioDeContacto(Long medioDeContactoId) {
         return medioDeContactoRepository.findById(medioDeContactoId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
+
+    public void contactar(Long medioDeContactoId, String asunto, String cuerpo) {}
 }

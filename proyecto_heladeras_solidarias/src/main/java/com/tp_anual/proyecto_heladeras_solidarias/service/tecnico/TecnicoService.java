@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 @Service
@@ -33,6 +34,10 @@ public class TecnicoService {
 
     public Tecnico obtenerTecnico(Long tecnicoId) {
         return tecnicoRepository.findById(tecnicoId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+    }
+
+    public ArrayList<Tecnico> obtenerTecnicos() {
+        return new ArrayList<>(tecnicoRepository.findAll());
     }
 
     public Tecnico guardarTecnico(Tecnico tecnico) {

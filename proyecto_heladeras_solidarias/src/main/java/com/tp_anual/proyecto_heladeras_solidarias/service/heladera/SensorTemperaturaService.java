@@ -1,7 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.heladera;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.SensorTemperatura;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.heladera.SensorTemperaturaRepository;
@@ -15,8 +15,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.logging.Level;
 
 @Service
@@ -69,7 +67,7 @@ public class SensorTemperaturaService {
 
     public void notificarHeladera(Long sensorTemperaturaId) {
         SensorTemperatura sensorTemperatura = obtenerSensorTemperatura(sensorTemperaturaId);
-        HeladeraActiva heladera = sensorTemperatura.getHeladera();
+        Heladera heladera = sensorTemperatura.getHeladera();
 
         heladera.setTempActual(sensorTemperatura.getTempActual());
         heladeraService.guardarHeladera(heladera);
@@ -79,7 +77,7 @@ public class SensorTemperaturaService {
 
     public void notificarFalla(Long sensorTemperaturaId) {
         SensorTemperatura sensorTemperatura = obtenerSensorTemperatura(sensorTemperaturaId);
-        HeladeraActiva heladera = sensorTemperatura.getHeladera();
+        Heladera heladera = sensorTemperatura.getHeladera();
 
         heladeraService.producirAlerta(heladera.getId(), Alerta.TipoAlerta.FALLA_CONEXION);
         heladeraService.guardarHeladera(heladera);

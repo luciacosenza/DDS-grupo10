@@ -1,7 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 
 import lombok.Getter;
@@ -20,7 +20,7 @@ public class SuscripcionViandasMax extends Suscripcion {
     @Min(value = 0)
     private Integer viandasParaLlenarMax;
 
-    public SuscripcionViandasMax(ColaboradorHumano vColaborador, HeladeraActiva vHeladera, MedioDeContacto vMedioDeContactoElegido, Integer vViandasParaLlenarMax) {
+    public SuscripcionViandasMax(ColaboradorHumano vColaborador, Heladera vHeladera, MedioDeContacto vMedioDeContactoElegido, Integer vViandasParaLlenarMax) {
         super(vColaborador, vHeladera, vMedioDeContactoElegido);
         viandasParaLlenarMax = vViandasParaLlenarMax;
     }

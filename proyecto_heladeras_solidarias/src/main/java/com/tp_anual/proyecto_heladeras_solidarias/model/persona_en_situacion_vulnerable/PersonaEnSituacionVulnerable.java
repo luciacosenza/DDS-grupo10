@@ -6,7 +6,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -52,13 +51,5 @@ public class PersonaEnSituacionVulnerable {
 
     public Boolean poseeMenoresACargo() {
         return menoresACargo > 0;
-    }
-
-    public void darDeAlta() {
-        Sistema.agregarPersonaEnSituacionVulnerable(this);
-    }
-
-    public void darDeBaja() {
-        Sistema.eliminarPersonaEnSituacionVulnerable(this);
     }
 }

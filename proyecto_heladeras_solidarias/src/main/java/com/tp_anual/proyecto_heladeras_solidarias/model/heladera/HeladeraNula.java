@@ -4,18 +4,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
-import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta;
-import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
-import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion.CondicionSuscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.GestorDeAperturas;
 import lombok.extern.java.Log;
 
 @Log
 public class HeladeraNula extends Heladera {
+
     public HeladeraNula() {
         super("N/A", null, 0, 0f, 0f, new ArrayList<>(), 0f, null, false);
     }
@@ -77,12 +72,6 @@ public class HeladeraNula extends Heladera {
 
     @Override
     public void setEstado(Boolean vEstado) {}
-    
-    @Override
-    public void darDeAlta() {}
-
-    @Override
-    public void darDeBaja() {}
 
     @Override
     public Integer viandasActuales() {

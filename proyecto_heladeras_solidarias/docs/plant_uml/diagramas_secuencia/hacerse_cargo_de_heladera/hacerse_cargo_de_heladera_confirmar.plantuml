@@ -1,9 +1,9 @@
 @startuml hacerse_cargo_de_heladera_confirmar
 actor Colaborador_Usuario as User
-participant INTERFAZ
-participant CONTROLLER
-participant "Colaborador" as Colaborador
-participant "HacerseCargoDeHeladera" as HacerseCargoDeHeladera
+boundary INTERFAZ
+control CONTROLLER
+entity "Colaborador" as Colaborador
+entity "HacerseCargoDeHeladera" as HacerseCargoDeHeladera
 
 User -> INTERFAZ: Solicitar confirmarContribucion(hacerseCargoDeHeladera, fechaContribucion)
 INTERFAZ -> CONTROLLER: Solicitar confirmarContribucion(hacerseCargoDeHeladera, fechaContribucion)
