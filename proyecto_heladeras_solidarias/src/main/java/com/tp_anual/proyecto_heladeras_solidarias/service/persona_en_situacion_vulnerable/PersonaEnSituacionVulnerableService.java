@@ -7,6 +7,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 @Log
 public class PersonaEnSituacionVulnerableService {
@@ -19,6 +21,10 @@ public class PersonaEnSituacionVulnerableService {
 
     public PersonaEnSituacionVulnerable obtenerPersonaEnSituacionVulnerable(Long personaEnSituacionVulnerableId) {
         return personaEnSituacionVulnerableRepository.findById(personaEnSituacionVulnerableId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+    }
+
+    public ArrayList<PersonaEnSituacionVulnerable> obtenerPersonasEnSituacionVulnerable() {
+        return new ArrayList<>(personaEnSituacionVulnerableRepository.findAll());
     }
 
     public PersonaEnSituacionVulnerable guardarPersonaEnSituacionVulnerable(PersonaEnSituacionVulnerable personaEnSituacionVulnerable) {

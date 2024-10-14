@@ -20,12 +20,14 @@ import java.util.logging.Level;
 public class RegistroDePersonaEnSituacionVulnerableService extends ContribucionService {
 
     private final RegistroDePersonaEnSituacionVulnerableRepository registroDePersonaEnSituacionVulnerableRepository;
+    private final ColaboradorService colaboradorService;
     private final TarjetaPersonaEnSituacionVulnerableService tarjetaPersonaEnSituacionVulnerableService;
     private final Double multiplicadorPuntos = 2d;
 
     public RegistroDePersonaEnSituacionVulnerableService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService, RegistroDePersonaEnSituacionVulnerableRepository vRegistroDePersonaEnSituacionVulnerableRepository, TarjetaPersonaEnSituacionVulnerableService vTarjetaPersonaEnSituacionVulnerableService) {
-        super(vContribucionRepository, vColaboradorService);
+        super(vContribucionRepository);
         registroDePersonaEnSituacionVulnerableRepository = vRegistroDePersonaEnSituacionVulnerableRepository;
+        colaboradorService = vColaboradorService;
         tarjetaPersonaEnSituacionVulnerableService = vTarjetaPersonaEnSituacionVulnerableService;
     }
 

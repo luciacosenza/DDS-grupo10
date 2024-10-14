@@ -5,16 +5,20 @@ import java.time.LocalDateTime;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Setter;
 import lombok.extern.java.Log;
 import lombok.Getter;
 
 @Entity
 @Log
 @Getter
+@Setter
 public class Visita {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.REFRESH })
@@ -34,12 +38,15 @@ public class Visita {
     
     private final Boolean estado;
 
-    public Visita(Tecnico vTecnico, Incidente vIncidente, LocalDateTime vFecha, String vDescripcion, String vFoto, Boolean vExitosa) {
+    private Boolean revisada;
+
+    public Visita(Tecnico vTecnico, Incidente vIncidente, LocalDateTime vFecha, String vDescripcion, String vFoto, Boolean vEstado, Boolean vRevisada) {
         tecnico = vTecnico;
         incidente = vIncidente;
         fecha = vFecha;
         descripcion = vDescripcion;
         foto = vFoto;
-        estado = vExitosa;
+        estado = vEstado;
+        revisada = vRevisada;
     }
 }

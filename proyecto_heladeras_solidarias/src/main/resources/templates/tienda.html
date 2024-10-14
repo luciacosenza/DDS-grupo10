@@ -11,51 +11,62 @@
 </head>
 <body class="vectores-fondo">
 
-    <div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/header :: header"></div>
 
-    <main>
-        <div class="container h-100">
-            <div class="row justify-content-center">
-                <div class="col-md-10 w-100 text-center">
-                    <h1 class="mb-0 fw-bold">Tienda de premios</h1>
-                    <h4 class="w-light mt-4 text-muted text-start">Categorías</h4>
-                    <div class="container categorias-tienda-container">
-                        <div class="col-12 d-flex gap-3 justify-content-between">
-                            <div class="card category col-md-3 col-sm-12 d-flex align-items-center justify-content-center" id="GASTRONOMIA">
-                                GASTRONOMÍA
-                            </div>
-                            <div class="card category col-md-3 col-sm-12 d-flex align-items-center justify-content-center" id="ELECTRONICA">
-                                ELECTRÓNICA
-                            </div>
-                            <div class="card category col-md-3 col-sm-12 d-flex align-items-center justify-content-center" id="ARTICULOS_PARA_EL_HOGAR">
-                                ARTICULOS PARA EL HOGAR
-                            </div>
-                            <div class="card category col-md-3 col-sm-12 d-flex align-items-center justify-content-center" id="TODOS">
-                                TODOS
-                            </div>
+<main>
+    <div class="container h-100">
+        <div class="row justify-content-center">
+            <div class="col-md-10 w-100 text-center">
+                <h1 class="mb-0 fw-bold">Tienda de premios</h1>
+                <h4 class="w-light mt-4 text-muted text-start">Categorías</h4>
+                <div class="container categorias-tienda-container">
+                    <div class="col-12 d-flex gap-3 justify-content-between">
+                        <div class="card category col-md-3 col-sm-12 d-flex align-items-center justify-content-center" id="GASTRONOMIA">
+                            GASTRONOMÍA
+                        </div>
+                        <div class="card category col-md-3 col-sm-12 d-flex align-items-center justify-content-center" id="ELECTRONICA">
+                            ELECTRÓNICA
+                        </div>
+                        <div class="card category col-md-3 col-sm-12 d-flex align-items-center justify-content-center" id="ARTICULOS_PARA_EL_HOGAR">
+                            ARTICULOS PARA EL HOGAR
+                        </div>
+                        <div class="card category col-md-3 col-sm-12 d-flex align-items-center justify-content-center" id="TODOS">
+                            TODOS
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-    
-    <div class="container">
-        <div class="d-flex justify-content-between">
-            <h4 class="w-light text-muted text-start">Beneficios</h4>
-            <h4 class="w-light text-muted text-start puntos"></h4>
-        </div>
-        <div class="align-items-center justify-content-center d-flex flex-wrap gap-5" id="items-container">
-            <!-- ARTICULOS -->
-        </div>
+    </div>
+</main>
+
+<div class="container">
+    <div class="d-flex justify-content-between">
+        <h4 class="w-light text-muted text-start">Beneficios</h4>
+        <h4 class="w-light text-muted text-start puntos"></h4>
     </div>
 
-    <div th:replace="fragments/footer :: footer"></div>
+    <!-- Articulos -->
+    <div class="align-items-center justify-content-center d-flex flex-wrap gap-5" id="items-container">
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../static/js/tienda.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../static/js/render_segun_usuario.js"></script>
-    <script src="../static/js/cerrar_sesion.js"></script>
+        <div th:each="oferta : ${ofertas}" class="card mx-0 my-5" style="width: 18rem;">
+            <img th:src="@{${oferta.imagen}}" class="card-img-top img-fluid h-100" alt="${articulo.articulo}">
+            <div class="card-body h-100">
+                <h5 class="card-title" th:text="${oferta.nombre}">Nombre del artículo</h5>
+                <p class="card-text"><span class="precio" th:text="${oferta.categoria}">Precio</span> puntos</p>
+                <button class="btn btn-primary btn-adquirir" onclick="adquirir(${articulo.precio})">Adquirir</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="../static/js/tienda.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../static/js/render_segun_usuario.js"></script>
+<script src="../static/js/cerrar_sesion.js"></script>
 </body>
 </html>

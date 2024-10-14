@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 @Service
@@ -38,7 +39,7 @@ public class ColaboradorService {
     private final MedioDeContactoService medioDeContactoService;
     private final SuscripcionService suscripcionService;
 
-    public ColaboradorService(ColaboradorRepository vColaboradorRepository, @Qualifier("contribucionService") ContribucionService vContribucionService, OfertaService vOfertaService, HeladeraService vHeladeraService, MedioDeContactoService vMedioDeContactoService, SuscripcionService vSuscripcionService) {
+    public ColaboradorService(ColaboradorRepository vColaboradorRepository, @Qualifier("contribucionService") ContribucionService vContribucionService, OfertaService vOfertaService, HeladeraService vHeladeraService, @Qualifier("medioDeContactoService") MedioDeContactoService vMedioDeContactoService, SuscripcionService vSuscripcionService) {
         colaboradorRepository = vColaboradorRepository;
         suscripcionService = vSuscripcionService;
         contribucionService = vContribucionService;
@@ -59,6 +60,10 @@ public class ColaboradorService {
         return (ColaboradorJuridico) obtenerColaborador(colaboradorId);
     }
 
+    public ArrayList<Colaborador> obtenerColaboradores() {
+        return new ArrayList<>(colaboradorRepository.findAll());
+    }
+
     public Colaborador guardarColaborador(Colaborador colaborador) {
         return colaboradorRepository.save(colaborador);
     }
@@ -69,7 +74,7 @@ public class ColaboradorService {
         return colaborador.getCreatorsPermitidos().contains(creatorClass);
     }
 
-    public Contribucion colaborar(Long colaboradorId, ContribucionCreator creator, LocalDateTime fechaContribucion /* generalmente LocalDateTime.now() */, Object... args) {
+    public Contribucion colaborar(Long colaboradorId, ContribucionCreator creator, LocalDateTime fechaContribucion /* Generalmente LocalDateTime.now() */, Object... args) {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
 
         if (!esCreatorPermitido(colaboradorId, creator.getClass())) {
@@ -77,7 +82,7 @@ public class ColaboradorService {
             throw new IllegalArgumentException(I18n.getMessage("colaborador.Colaborador.colaborar_exception"));
         }
 
-        Contribucion contribucion = creator.crearContribucion(colaborador, fechaContribucion, false , args);
+        Contribucion contribucion = creator.crearContribucion(colaborador, fechaContribucion, false, args);
         Long contribucionId = contribucionService.guardarContribucion(contribucion).getId();
         contribucionService.validarIdentidad(contribucionId, colaboradorId);
 
@@ -110,7 +115,7 @@ public class ColaboradorService {
         Oferta oferta = ofertaService.obtenerOferta(ofertaId);
 
         // Primero chequea tener los puntos suficientes
-        ofertaService.validarPuntos(ofertaId, colaboradorId);
+        ofertaService.validarPuntos(ofertaId, colaborador.getPuntos());
 
         colaborador.agregarBeneficio(oferta);
         guardarColaborador(colaborador);
@@ -122,7 +127,7 @@ public class ColaboradorService {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
         Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
 
-        heladeraService.producirFallaTecnica(heladeraId, colaboradorId, descripcion, foto);
+        heladeraService.producirFallaTecnica(heladeraId, colaborador, descripcion, foto);
         heladeraService.guardarHeladera(heladera);
     }
 

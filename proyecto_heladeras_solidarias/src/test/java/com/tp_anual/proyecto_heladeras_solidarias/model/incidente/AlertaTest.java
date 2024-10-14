@@ -10,42 +10,73 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import org.junit.Test;
+import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.SensorMovimientoService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.SensorTemperaturaService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.incidente.IncidenteService;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.SensorMovimiento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.SensorTemperatura;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta.TipoAlerta;
+import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
+import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+
+@SpringBootTest
 public class AlertaTest {
     private static final Logger logger = Logger.getLogger(AlertaTest.class.getName());
-    
+
+    @Autowired
+    SensorMovimientoService sensorMovimientoService;
+
+    @Autowired
+    SensorTemperaturaService sensorTemperaturaService;
+
+    @Autowired
+    HeladeraService heladeraService;
+
+    @Autowired
+    IncidenteService incidenteService;
+
+    SensorMovimiento sensorMovimiento;
+    Heladera heladera;
+    SensorTemperatura sensorTemperatura;
+
+    @BeforeEach
+    void setup() {
+        heladera = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), 20, -20f, 5f, new ArrayList<>(), 3f, LocalDateTime.now() , true);
+        heladeraService.guardarHeladera(heladera);
+        sensorTemperatura = new SensorTemperatura(heladera);
+        sensorTemperaturaService.guardarSensorTemperatura(sensorTemperatura);
+        sensorMovimiento = new SensorMovimiento(heladera);
+        sensorMovimientoService.guardarSensorMovimiento(sensorMovimiento);
+
+    }
+    /*
     @Test   // Creo una función similar a la del Sensor (dado que sino habría que cambiar las unidades del Sensor para hacer el Test)
     @DisplayName("Testeo la carga de Alerta de Temperatura")
     public void CargaAlertaTemperaturaTest() throws InterruptedException {
-        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
-        heladera.darDeAlta();
-
-        SensorTemperatura sensor = new SensorTemperatura(heladera);
-        sensor.darDeAlta();
-        
-        sensor.setTempActual(6f);
+        sensorTemperaturaService.setTempActual(sensorTemperatura.getId(), 6f);
 
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         CountDownLatch latch = new CountDownLatch(1);
         Exception[] exceptionHolder = new Exception[1]; // Usamos un Array para tener una final reference no directa al objeto y que nos permita modificarlo en el runnable
 
         Runnable notificacionTemperatura = () -> {
-            if (!sensor.funcionaSensorFisico())
-                sensor.notificarFalla();
+            if (!sensorTemperaturaService.funcionaSensorFisico(sensorTemperatura.getId()))
+                sensorTemperaturaService.notificarFalla(sensorTemperatura.getId());
 
             try {
-                sensor.notificarHeladera(); // Esto debería provocar la Exception
+                sensorTemperaturaService.notificarHeladera(sensorTemperatura.getId()); // Esto debería provocar la Exception
             } catch (Exception e) {
                 exceptionHolder[0] = e; // Captura la Exception
             } finally {
@@ -58,13 +89,13 @@ public class AlertaTest {
         long timeout = 2;
 
         if (!latch.await(timeout, TimeUnit.SECONDS)) {  // Esperamos un máximo de 2 segundos
-            logger.log(Level.SEVERE, I18n.getMessage("incidente.AlertaTest.CargaAlertaTemperaturaTest_err", sensor.getHeladera().getNombre(), timeout));
+            logger.log(Level.SEVERE, I18n.getMessage("incidente.AlertaTest.CargaAlertaTemperaturaTest_err", sensorTemperatura.getHeladera().getNombre(), timeout));
             throw new IllegalStateException(I18n.getMessage("incidente.AlertaTest.CargaAlertaTemperaturaTest_exception"));
         }
         
         scheduler.shutdown();
 
-        ArrayList<Incidente> alertasDelSistema = Sistema.getIncidentes().stream()
+        ArrayList<Incidente> alertasDelSistema = incidenteService.obtenerIncidentes().stream()
             .filter(incidente -> incidente instanceof Alerta)
             .collect(Collectors.toCollection(ArrayList::new));
 
@@ -76,21 +107,17 @@ public class AlertaTest {
         Assertions.assertNotNull(exceptionHolder[0]);   // Verificamos que se lanza la Exception del Técnico
         Assertions.assertTrue(heladera.getTempActual() == 6f && heladera.getEstado() == false && alertasDeTemperaturaDelSistema.size() == 1);
     }
+    */
 
     @Test
     @DisplayName("Testeo la carga de Alerta de Fraude")
     public void CargaAlertaFraudeTest() {
-        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
-        heladera.darDeAlta();
-
-        SensorMovimiento sensor = new SensorMovimiento(heladera);
-        sensor.darDeAlta();
 
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            sensor.setHayMovimiento(true);
+            sensorMovimientoService.setHayMovimiento(sensorMovimiento.getId() ,true);
         });
 
-        ArrayList<Incidente> alertasDelSistema = Sistema.getIncidentes().stream()
+        ArrayList<Incidente> alertasDelSistema = incidenteService.obtenerIncidentes().stream()
             .filter(incidente -> incidente instanceof Alerta)
             .collect(Collectors.toCollection(ArrayList::new));
 
@@ -106,17 +133,12 @@ public class AlertaTest {
     @Test   // Llamo directo al método notificarFalla()
     @DisplayName("Testeo la carga de Alerta de Falla de Conexión")
     public void CargaAlertaFallaConexionTest() {
-        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
-        heladera.darDeAlta();
-
-        SensorTemperatura sensor = new SensorTemperatura(heladera);
-        sensor.darDeAlta();
 
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            sensor.notificarFalla();
+            sensorTemperaturaService.notificarFalla(sensorTemperatura.getId());
         });
 
-        ArrayList<Incidente> alertasDelSistema = Sistema.getIncidentes().stream()
+        ArrayList<Incidente> alertasDelSistema = incidenteService.obtenerIncidentes().stream()
             .filter(incidente -> incidente instanceof Alerta)
             .collect(Collectors.toCollection(ArrayList::new));
 

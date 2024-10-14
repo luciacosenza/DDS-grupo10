@@ -8,11 +8,6 @@ import java.util.List;
 
 public interface DonacionDineroRepository extends JpaRepository<DonacionDinero, Long> {
 
-    @Query("SELECT d FROM DonacionDinero d " +
-            "WHERE NOT d.yaSumoPuntos = false AND d.frecuencia = 'UNICA_VEZ') " +
-            "OR (CURRENT_DATE - FUNCTION('DATE', d.ultimaActualizacion) >= 7 AND d.frecuencia = 'SEMANAL') " +
-            "OR (CURRENT_DATE - FUNCTION('DATE', d.ultimaActualizacion) >= 30 AND d.frecuencia = 'MENSUAL') " +
-            "OR (CURRENT_DATE - FUNCTION('DATE', d.ultimaActualizacion) >= 180 AND d.frecuencia = 'SEMESTRAL') " +
-            "OR (CURRENT_DATE - FUNCTION('DATE', d.ultimaActualizacion) >= 365 AND d.frecuencia = 'ANUAL')")
+    @Query("SELECT d FROM DonacionDinero d ")   // // TODO: Arreglar la Query
     List<DonacionDinero> findDonacionesDineroParaCalcular();
 }

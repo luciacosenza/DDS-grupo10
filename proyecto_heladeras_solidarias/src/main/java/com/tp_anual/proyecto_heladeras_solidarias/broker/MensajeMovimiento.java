@@ -17,4 +17,5 @@ public class MensajeMovimiento implements Mensaje {
     public void procesar() {
         sensor.setHayMovimiento(movimiento);
     }
+    // TODO: Arreglar esto (conectar con Service)
 }

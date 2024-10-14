@@ -9,8 +9,7 @@ import java.util.List;
 
 public interface HacerseCargoDeHeladeraRepository extends JpaRepository<HacerseCargoDeHeladera, Long> {
 
-    @Query("SELECT h FROM HacerseCargoDeHeladera h " +
-            "WHERE (CURRENT_DATE - FUNCTION('DATE', h.ultimaActualizacion) >= 30)")
+    @Query( "SELECT h FROM HacerseCargoDeHeladera h ")  // TODO: Arreglar la Query
     List<HacerseCargoDeHeladera> findHacerseCargoDeHeladeras();
 }
 

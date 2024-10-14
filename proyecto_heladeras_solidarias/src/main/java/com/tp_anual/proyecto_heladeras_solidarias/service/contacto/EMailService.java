@@ -27,6 +27,10 @@ public class EMailService extends MedioDeContactoService {
         return eMailRepository.findById(eMailId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
+    public EMail guardarEMail(EMail eMail) {
+        return eMailRepository.save(eMail);
+    }
+
     public void contactar(Long medioDeContactoId, String asunto, String cuerpo) {
         EMail eMail = obtenerEMail(medioDeContactoId);
 

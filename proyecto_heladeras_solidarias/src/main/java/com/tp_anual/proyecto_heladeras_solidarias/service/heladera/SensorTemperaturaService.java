@@ -69,7 +69,7 @@ public class SensorTemperaturaService {
         SensorTemperatura sensorTemperatura = obtenerSensorTemperatura(sensorTemperaturaId);
         Heladera heladera = sensorTemperatura.getHeladera();
 
-        heladera.setTempActual(sensorTemperatura.getTempActual());
+        heladeraService.setTempActual(heladera.getId(), sensorTemperatura.getTempActual());
         heladeraService.guardarHeladera(heladera);
 
         log.log(Level.INFO, I18n.getMessage("heladera.SensorTemperatura.notificarHeladera_info", heladera.getNombre()));
@@ -83,6 +83,7 @@ public class SensorTemperaturaService {
         heladeraService.guardarHeladera(heladera);
     }
 
+    // Programa la tarea para que se ejecute según el intervalo de notificación
     @Scheduled(fixedRateString = "#{@sensorTemperaturaService.getIntervaloNotificacion()}")
     public void notificar() {
         ArrayList<SensorTemperatura> sensoresTemperatura = obtenerSensoresTemperatura();

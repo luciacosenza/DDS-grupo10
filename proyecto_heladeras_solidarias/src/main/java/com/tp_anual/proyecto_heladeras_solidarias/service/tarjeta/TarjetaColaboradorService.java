@@ -18,6 +18,7 @@ import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 @Log
@@ -32,7 +33,7 @@ public class TarjetaColaboradorService {
     private final AccionHeladeraService accionHeladeraService;
     private final TarjetaColaboradorCreator tarjetaColaboradorCreator;
 
-    public TarjetaColaboradorService(TarjetaColaboradorRepository vTarjetaColaboradorRepository, ColaboradorService vColaboradorService, PermisoAperturaService vPermisoAperturaService, HeladeraService vHeladeraService, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas, TarjetaColaboradorCreator vTarjetaColaboradorCreator){
+    public TarjetaColaboradorService(TarjetaColaboradorRepository vTarjetaColaboradorRepository, ColaboradorService vColaboradorService, PermisoAperturaService vPermisoAperturaService, HeladeraService vHeladeraService, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas, TarjetaColaboradorCreator vTarjetaColaboradorCreator) {
         tarjetaColaboradorRepository = vTarjetaColaboradorRepository;
         colaboradorService = vColaboradorService;
         permisoAperturaService = vPermisoAperturaService;
@@ -43,7 +44,7 @@ public class TarjetaColaboradorService {
     }
 
     public TarjetaColaborador obtenerTarjetaColaborador(String tarjetaId) {
-        return (TarjetaColaborador) tarjetaColaboradorRepository.findById(tarjetaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return tarjetaColaboradorRepository.findById(tarjetaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public TarjetaColaborador guardarTarjetaColaborador(TarjetaColaborador TarjetaColaborador){

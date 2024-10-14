@@ -17,7 +17,6 @@ public class OfertaController {
         ofertaService = vOfertaService;
     }
 
-    // TODO: Falta integrarlo en tienda.html
     @GetMapping("/tienda")
     public String mostrarTienda(Model model) {
         ArrayList<Oferta> ofertas = ofertaService.obtenerOfertas();

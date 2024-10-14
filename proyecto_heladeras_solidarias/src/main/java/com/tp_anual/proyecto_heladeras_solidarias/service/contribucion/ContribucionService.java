@@ -3,7 +3,6 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.ContribucionRepository;
-import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
@@ -15,11 +14,9 @@ import java.time.LocalDateTime;
 public class ContribucionService {
 
     private final ContribucionRepository contribucionRepository;
-    protected final ColaboradorService colaboradorService;
 
-    protected ContribucionService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService) {
+    protected ContribucionService(ContribucionRepository vContribucionRepository) {
         contribucionRepository = vContribucionRepository;
-        colaboradorService = vColaboradorService;
     }
 
     public Contribucion obtenerContribucion(Long contribucionId) {

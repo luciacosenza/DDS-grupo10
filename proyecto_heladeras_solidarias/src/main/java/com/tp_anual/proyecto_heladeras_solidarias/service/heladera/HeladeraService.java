@@ -19,6 +19,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.repository.heladera.HeladeraRe
 import com.tp_anual.proyecto_heladeras_solidarias.service.suscripcion.GestorDeSuscripciones;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -29,21 +30,20 @@ import java.util.logging.Level;
 @Service
 @Log
 public class HeladeraService {
+
     private final HeladeraRepository heladeraRepository;
     private final ViandaService viandaService;
     private final MedioDeContactoService medioDeContactoService;
-    private final ColaboradorService colaboradorService;
     private final AlertaService alertaService;
     private final FallaTecnicaService fallaTecnicaService;
     private final GestorDeSuscripciones gestorDeSuscripciones;
     private final NotificadorDeEstado notificadorDeEstado;
     private final NotificadorDeIncidentes notificadorDeIncidentes;
 
-    public HeladeraService(HeladeraRepository vHeladeraRepository, ViandaService vViandaService, MedioDeContactoService vMedioDeContactoService, ColaboradorService vColaboradorService, AlertaService vAlertaService, FallaTecnicaService vFallaTecnicaService, GestorDeSuscripciones vGestorDeSuscripciones, NotificadorDeEstado vNotificadorDeEstado, NotificadorDeIncidentes vNotificadorDeIncidentes) {
+    public HeladeraService(HeladeraRepository vHeladeraRepository, ViandaService vViandaService, @Qualifier("medioDeContactoService") MedioDeContactoService vMedioDeContactoService, AlertaService vAlertaService, FallaTecnicaService vFallaTecnicaService, GestorDeSuscripciones vGestorDeSuscripciones, NotificadorDeEstado vNotificadorDeEstado, NotificadorDeIncidentes vNotificadorDeIncidentes) {
         heladeraRepository = vHeladeraRepository;
         viandaService = vViandaService;
         medioDeContactoService = vMedioDeContactoService;
-        colaboradorService = vColaboradorService;
         alertaService = vAlertaService;
         fallaTecnicaService = vFallaTecnicaService;
         gestorDeSuscripciones = vGestorDeSuscripciones;
@@ -52,7 +52,7 @@ public class HeladeraService {
     }
 
     public Heladera obtenerHeladera(Long heladeraId) {
-        return (Heladera) heladeraRepository.findById(heladeraId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return heladeraRepository.findById(heladeraId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
     public ArrayList<Heladera> obtenerHeladeras(){
@@ -174,7 +174,7 @@ public class HeladeraService {
         Heladera heladera = obtenerHeladera(heladeraId);
         MedioDeContacto medioDeContacto = medioDeContactoService.obtenerMedioDeContacto(medioDeContactoId);
 
-        notificadorDeEstado.notificarEstado(heladera.getId(), medioDeContacto.getId(), condicion);
+        notificadorDeEstado.notificarEstado(heladera, medioDeContacto.getId(), condicion);
     }
 
     public void reportarIncidente(Long incidenteId) {
@@ -186,25 +186,15 @@ public class HeladeraService {
         reaccionarAnteIncidente(heladeraId);  // Si una Alerta debe ser reportada, previamente, se marca la Heladera como inactiva y se avisa a los Colaboradores suscriptos
         guardarHeladera(heladera);
 
-        Alerta alerta = new Alerta(LocalDateTime.now(), heladera, tipo);
-        Long alertaId = alertaService.guardarAlerta(alerta).getId();
-        reportarIncidente(alertaId);
-
-        log.log(Level.INFO, I18n.getMessage("heladera.Heladera.producirAlerta_info", alerta.getTipo(), heladera.getNombre()));
+        alertaService.producirAlerta(LocalDateTime.now(), heladera, tipo);
     }
 
-    public void producirFallaTecnica(Long heladeraId, Long colaboradorId, String descripcion, String foto) {
+    public void producirFallaTecnica(Long heladeraId, Colaborador colaborador, String descripcion, String foto) {
         Heladera heladera = obtenerHeladera(heladeraId);
-        Colaborador colaborador = colaboradorService.obtenerColaborador(colaboradorId);
-
         reaccionarAnteIncidente(heladeraId);  // Si una Falla Técnica debe ser reportada, previamente, se marca la Heladera como inactiva y se avisa a los Colaboradores suscriptos
         guardarHeladera(heladera);
 
-        FallaTecnica fallaTecnica = new FallaTecnica(LocalDateTime.now(), heladera, colaborador, descripcion, foto);
-        Long fallaTecnicaId = fallaTecnicaService.guardarFallaTecnica(fallaTecnica).getId();
-        reportarIncidente(fallaTecnicaId);
-
-        log.log(Level.INFO, I18n.getMessage("heladera.Heladera.producirFallaTecnica_info", heladera.getNombre()));
+        fallaTecnicaService.producirFallaTecnica(LocalDateTime.now(), heladera, colaborador, descripcion, foto);
     }
 }
 

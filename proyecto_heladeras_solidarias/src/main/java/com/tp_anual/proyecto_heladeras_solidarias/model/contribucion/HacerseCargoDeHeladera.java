@@ -18,7 +18,6 @@ import lombok.extern.java.Log;
 @Setter
 public class HacerseCargoDeHeladera extends Contribucion {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)

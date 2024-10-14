@@ -19,11 +19,13 @@ import java.util.logging.Level;
 public class HacerseCargoDeHeladeraService extends ContribucionService {
 
     private final HacerseCargoDeHeladeraRepository hacerseCargoDeHeladeraRepository;
+    private final ColaboradorService colaboradorService;
     private final Double multiplicadorPuntos = 5d;
 
     public HacerseCargoDeHeladeraService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService, HacerseCargoDeHeladeraRepository vHacerseCargoDeHeladeraRepository) {
-        super(vContribucionRepository, vColaboradorService);
+        super(vContribucionRepository);
         hacerseCargoDeHeladeraRepository = vHacerseCargoDeHeladeraRepository;
+        colaboradorService = vColaboradorService;
     }
 
     public HacerseCargoDeHeladera obtenerHacerseCargoDeHeladera(Long hacerseCargoId) {

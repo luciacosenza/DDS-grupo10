@@ -102,6 +102,7 @@ public class DonacionDinero extends Contribucion {
         ultimaActualizacion = LocalDateTime.now();
     }
 
+
     @Override
     public void obtenerDetalles() {
         super.obtenerDetalles();

@@ -17,11 +17,9 @@ import java.util.logging.Level;
 public class OfertaService {
 
     private final OfertaRepository ofertaRepository;
-    private final ColaboradorService colaboradorService;
 
-    public OfertaService(OfertaRepository vOfertaRepository, ColaboradorService vColaboradorService) {
+    public OfertaService(OfertaRepository vOfertaRepository) {
         ofertaRepository = vOfertaRepository;
-        colaboradorService = vColaboradorService;
     }
 
     public Oferta obtenerOferta(Long ofertaId) {
@@ -36,13 +34,11 @@ public class OfertaService {
         return ofertaRepository.save(oferta);
     }
 
-    public void validarPuntos(Long ofertaId, Long colaboradorId) {
+    public void validarPuntos(Long ofertaId, Double puntos) {
         Oferta oferta = obtenerOferta(ofertaId);
-        Colaborador colaborador = colaboradorService.obtenerColaborador(colaboradorId);
 
-        Double puntosColaborador = colaborador.getPuntos();
-        if (puntosColaborador < oferta.getCosto()) {
-            log.log(Level.SEVERE, I18n.getMessage("oferta.Oferta.validarPuntos_err", colaborador.getPersona().getNombre(2), colaborador.getPuntos(), oferta.getCosto(), oferta.getNombre()));
+        if (puntos < oferta.getCosto()) {
+            log.log(Level.SEVERE, I18n.getMessage("oferta.Oferta.validarPuntos_err", puntos, oferta.getNombre(), oferta.getCosto()));
             throw new UnsupportedOperationException(I18n.getMessage("oferta.Oferta.validarPuntos_exception"));
         }
     }

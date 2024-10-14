@@ -23,13 +23,11 @@ public class TecnicoService {
     private final TecnicoRepository tecnicoRepository;
     private final VisitaService visitaService;
     private final AreaService areaService;
-    private final GestorDeVisitas gestorDeVisitas;
 
-    public TecnicoService(TecnicoRepository vTecnicoRepository, VisitaService vVisitaService, AreaService vAreaService,GestorDeVisitas vGestorDeVisitas) {
+    public TecnicoService(TecnicoRepository vTecnicoRepository, VisitaService vVisitaService, AreaService vAreaService) {
         tecnicoRepository = vTecnicoRepository;
         visitaService = vVisitaService;
         areaService = vAreaService;
-        gestorDeVisitas = vGestorDeVisitas;
     }
 
     public Tecnico obtenerTecnico(Long tecnicoId) {
@@ -50,8 +48,9 @@ public class TecnicoService {
         Incidente ultimoIncidenteTratado = tecnico.getPendientes().removeFirst();    // Suponemos que el Técnico atiende los Incidentes por FIFO
         guardarTecnico(tecnico);
 
-        Visita visita = new Visita(tecnico, ultimoIncidenteTratado, fecha, descripcion, foto, estadoConsulta);
-        gestorDeVisitas.agregarVisita(visita);
+        Boolean revisada = estadoConsulta;
+
+        Visita visita = new Visita(tecnico, ultimoIncidenteTratado, fecha, descripcion, foto, estadoConsulta, revisada);
         visitaService.guardarVisita(visita);
 
         log.log(Level.INFO, I18n.getMessage("tecnico.Tecnico.registrarVisita_info", ultimoIncidenteTratado.getHeladera().getNombre(), ultimoIncidenteTratado.getClass().getSimpleName(), tecnico.getPersona().getNombre(2)));

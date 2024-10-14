@@ -20,11 +20,13 @@ import java.util.logging.Level;
 public class DonacionViandaService extends ContribucionService {
 
     private final DonacionViandaRepository donacionViandaRepository;
+    private final ColaboradorService colaboradorService;
     private final Double multiplicadorPuntos = 1.5;
 
     public DonacionViandaService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService, DonacionViandaRepository vDonacionViandaRepository) {
-        super(vContribucionRepository, vColaboradorService);
+        super(vContribucionRepository);
         donacionViandaRepository = vDonacionViandaRepository;
+        colaboradorService = vColaboradorService;
     }
 
     public DonacionVianda obtenerDonacionVianda(Long donacionViandaId) {

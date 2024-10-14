@@ -77,6 +77,8 @@ public class GestorDeAperturas {
             permisoARevisar.setOtorgado(false);
             permisoAperturaService.guardarPermisoApertura(permisoARevisar);
 
+            log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaborador.programarRevocacionPermisos_info", heladera.getNombre(), colaborador.getPersona().getNombre(2)));
+
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_err", colaborador.getPersona().getNombre(2), heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_exception"));
         }

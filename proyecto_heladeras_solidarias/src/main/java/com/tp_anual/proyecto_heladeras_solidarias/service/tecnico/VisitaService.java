@@ -26,6 +26,8 @@ public class VisitaService {
         return new ArrayList<>(visitaRepository.findAll());
     }
 
+    public ArrayList<Visita> obtenerVisitasNoExitosas() {return new ArrayList<>(visitaRepository.findByEstadoFalseAndRevisadaFalse());}
+
     public Visita guardarVisita(Visita visita) {
         return visitaRepository.save(visita);
     }

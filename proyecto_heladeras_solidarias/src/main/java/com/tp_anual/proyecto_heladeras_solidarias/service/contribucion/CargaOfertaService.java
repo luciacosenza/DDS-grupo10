@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
 public class CargaOfertaService extends ContribucionService {
 
     private final CargaOfertaRepository cargaOfertaRepository;
+    private final ColaboradorService colaboradorService;
 
     public CargaOfertaService(ContribucionRepository vContribucionRepository, ColaboradorService vColaboradorService, CargaOfertaRepository vCargaOfertaRepository) {
-        super(vContribucionRepository, vColaboradorService);
+        super(vContribucionRepository);
+        colaboradorService = vColaboradorService;
         cargaOfertaRepository = vCargaOfertaRepository;
     }
 

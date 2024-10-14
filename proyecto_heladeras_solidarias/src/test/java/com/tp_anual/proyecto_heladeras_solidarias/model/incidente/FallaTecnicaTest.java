@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
-import org.junit.Test;
+import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.incidente.IncidenteService;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
@@ -13,27 +16,40 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorH
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento.Sexo;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento.TipoDocumento;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraActiva;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import com.tp_anual.proyecto_heladeras_solidarias.sistema.Sistema;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+
+@SpringBootTest
 public class FallaTecnicaTest {
+
+    @Autowired
+    HeladeraService heladeraService;
+
+    @Autowired
+    ColaboradorService colaboradorService;
+
+    @Autowired
+    IncidenteService incidenteService;
+
     @Test
     @DisplayName("Testeo la carga de Falla Técnica")
     public void CargaFallaTecnicaTest() {
-        HeladeraActiva heladera = new HeladeraActiva("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), 20, LocalDateTime.parse("2024-01-01T00:00:00"), -20f, 5f);
-        heladera.darDeAlta();
+        Heladera heladera = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), 20, -20f, 5f, new ArrayList<>(), 3f, LocalDateTime.now() , true);
+        heladeraService.guardarHeladera(heladera);
 
-        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
-        colaboradorHumano.darDeAlta();
+        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(Documento.TipoDocumento.DNI, "40123456", Documento.Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico
+        colaboradorService.guardarColaborador(colaboradorHumano);
         
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            colaboradorHumano.reportarFallaTecnica(heladera, "La Heladera hace un ruido raro y muy fuerte", "FotoPrueba");
+            colaboradorService.reportarFallaTecnica(colaboradorHumano.getId(),heladera.getId(), "La Heladera hace un ruido raro y muy fuerte", "FotoPrueba");
         });
         
 
-        ArrayList<Incidente> fallasTecnicasDelSistema = Sistema.getIncidentes().stream()
+        ArrayList<Incidente> fallasTecnicasDelSistema = incidenteService.obtenerIncidentes().stream()
             .filter(incidente -> incidente instanceof FallaTecnica)
             .map(fallaTecnica -> (FallaTecnica) fallaTecnica)
             .collect(Collectors.toCollection(ArrayList::new));

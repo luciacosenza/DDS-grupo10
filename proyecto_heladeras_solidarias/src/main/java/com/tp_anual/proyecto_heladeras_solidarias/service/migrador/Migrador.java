@@ -68,13 +68,15 @@ public class Migrador {
         log.log(Level.INFO, I18n.getMessage("migrador.Migrador.confirmarLoading_info"));
     }
 
-    public void migrar(String csv) throws IOException, URISyntaxException {
+    public void migrar(String csv, Boolean contactar) throws IOException, URISyntaxException {
         ArrayList<String[]> dataColaboradores = protocoloExtraccion.extract(csv);
         ArrayList<ColaboradorHumano> colaboradoresAMigrar = transformador.transform(dataColaboradores);
 
         for (ColaboradorHumano colaborador : colaboradoresAMigrar) {
             colaboradorService.guardarColaborador(colaborador);
-            protocoloEnvio.send(colaborador, ASUNTO, CUERPO);
+
+            if (contactar)
+                protocoloEnvio.send(colaborador, ASUNTO, CUERPO);
         }
 
         confirmarLoading();

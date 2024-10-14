@@ -25,52 +25,81 @@ INSERT INTO ubicacion (latitud, longitud, direccion, codigo_postal, ciudad, pais
     (-38.9513, -68.0593, 'Calle 25 707', 'Q8370', 'Mendoza', 'Argentina');
 
 -- Insertar personas físicas
-INSERT INTO persona_fisica (nombre, apellido, documento_id, fecha_nacimiento) VALUES
-    ('Juan', 'Pérez', (SELECT id FROM documento WHERE numero = '12345678'), '1990-01-01 00:00:00'),
-    ('Ana', 'Gómez', (SELECT id FROM documento WHERE numero = '23456789'), '1992-02-02 00:00:00'),
-    ('Carlos', 'Fernández', (SELECT id FROM documento WHERE numero = '34567890'), '1988-03-03 00:00:00'),
-    ('María', 'López', (SELECT id FROM documento WHERE numero = '45678901'), '1985-04-04 00:00:00'),
-    ('Pedro', 'Martínez', (SELECT id FROM documento WHERE numero = '56789012'), '1995-05-05 00:00:00'),
-    ('Lucía', 'Ramírez', (SELECT id FROM documento WHERE numero = '67890123'), '1998-06-06 00:00:00'),
-    ('Javier', 'Torres', (SELECT id FROM documento WHERE numero = '78901234'), '1991-07-07 00:00:00'),
-    ('Sofía', 'Cruz', (SELECT id FROM documento WHERE numero = '89012345'), '1989-08-08 00:00:00'),
-    ('Diego', 'Reyes', (SELECT id FROM documento WHERE numero = '90123456'), '1993-09-09 00:00:00'),
-    ('Valentina', 'Mendoza', (SELECT id FROM documento WHERE numero = '01234567'), '1994-10-10 00:00:00');
+INSERT INTO persona_fisica (id, nombre, apellido, documento_id, fecha_nacimiento) VALUES
+    (0, 'Juan', 'Pérez', (SELECT id FROM documento WHERE numero = '12345678'), '1990-01-01 00:00:00'),
+    (1, 'Ana', 'Gómez', (SELECT id FROM documento WHERE numero = '23456789'), '1992-02-02 00:00:00'),
+    (2, 'Carlos', 'Fernández', (SELECT id FROM documento WHERE numero = '34567890'), '1988-03-03 00:00:00'),
+    (3, 'María', 'López', (SELECT id FROM documento WHERE numero = '45678901'), '1985-04-04 00:00:00'),
+    (4,'Pedro', 'Martínez', (SELECT id FROM documento WHERE numero = '56789012'), '1995-05-05 00:00:00'),
+    (5,'Lucía', 'Ramírez', (SELECT id FROM documento WHERE numero = '67890123'), '1998-06-06 00:00:00'),
+    (6,'Javier', 'Torres', (SELECT id FROM documento WHERE numero = '78901234'), '1991-07-07 00:00:00'),
+    (7,'Sofía', 'Cruz', (SELECT id FROM documento WHERE numero = '89012345'), '1989-08-08 00:00:00'),
+    (8,'Diego', 'Reyes', (SELECT id FROM documento WHERE numero = '90123456'), '1993-09-09 00:00:00'),
+    (9,'Valentina', 'Mendoza', (SELECT id FROM documento WHERE numero = '01234567'), '1994-10-10 00:00:00');
 
 -- Insertar colaboradores
-INSERT INTO colaborador (persona_id, domicilio_id, puntos) VALUES
-    ((SELECT id FROM persona_fisica WHERE nombre = 'Juan' AND apellido = 'Pérez'), (SELECT id FROM ubicacion WHERE direccion = 'Av. de Mayo 123'), 0.0),
-    ((SELECT id FROM persona_fisica WHERE nombre = 'Ana' AND apellido = 'Gómez'), (SELECT id FROM ubicacion WHERE direccion = 'Av. Colón 456'), 0.0),
-    ((SELECT id FROM persona_fisica WHERE nombre = 'Carlos' AND apellido = 'Fernández'), (SELECT id FROM ubicacion WHERE direccion = 'Av. San Martín 789'), 0.0),
-    ((SELECT id FROM persona_fisica WHERE nombre = 'María' AND apellido = 'López'), (SELECT id FROM ubicacion WHERE direccion = 'Calle 10 101'), 0.0),
-    ((SELECT id FROM persona_fisica WHERE nombre = 'Pedro' AND apellido = 'Martínez'), (SELECT id FROM ubicacion WHERE direccion = 'Calle 5 202'), 0.0),
-    ((SELECT id FROM persona_fisica WHERE nombre = 'Lucía' AND apellido = 'Ramírez'), (SELECT id FROM ubicacion WHERE direccion = 'Av. Rivadavia 303'), 0.0),
-    ((SELECT id FROM persona_fisica WHERE nombre = 'Javier' AND apellido = 'Torres'), (SELECT id FROM ubicacion WHERE direccion = 'Av. Luro 404'), 0.0),
-    ((SELECT id FROM persona_fisica WHERE nombre = 'Sofía' AND apellido = 'Cruz'), (SELECT id FROM ubicacion WHERE direccion = 'Calle 15 505'), 0.0),
-    ((SELECT id FROM persona_fisica WHERE nombre = 'Diego' AND apellido = 'Reyes'), (SELECT id FROM ubicacion WHERE direccion = 'Calle 20 606'), 0.0),
-    ((SELECT id FROM persona_fisica WHERE nombre = 'Valentina' AND apellido = 'Mendoza'), (SELECT id FROM ubicacion WHERE direccion = 'Calle 25 707'), 0.0);
+INSERT INTO colaborador (persona_id, domicilio, puntos, tipo_colaborador) VALUES
+    ((SELECT id FROM persona_fisica WHERE nombre = 'Juan' AND apellido = 'Pérez'), (SELECT id FROM ubicacion WHERE direccion = 'Av. de Mayo 123'), 0.0, 'Humano'),
+    ((SELECT id FROM persona_fisica WHERE nombre = 'Ana' AND apellido = 'Gómez'), (SELECT id FROM ubicacion WHERE direccion = 'Av. Colón 456'), 0.0, 'Humano'),
+    ((SELECT id FROM persona_fisica WHERE nombre = 'Carlos' AND apellido = 'Fernández'), (SELECT id FROM ubicacion WHERE direccion = 'Av. San Martín 789'), 0.0, 'Humano'),
+    ((SELECT id FROM persona_fisica WHERE nombre = 'María' AND apellido = 'López'), (SELECT id FROM ubicacion WHERE direccion = 'Calle 10 101'), 0.0, 'Humano'),
+    ((SELECT id FROM persona_fisica WHERE nombre = 'Pedro' AND apellido = 'Martínez'), (SELECT id FROM ubicacion WHERE direccion = 'Calle 5 202'), 0.0, 'Humano'),
+    ((SELECT id FROM persona_fisica WHERE nombre = 'Lucía' AND apellido = 'Ramírez'), (SELECT id FROM ubicacion WHERE direccion = 'Av. Rivadavia 303'), 0.0, 'Humano'),
+    ((SELECT id FROM persona_fisica WHERE nombre = 'Javier' AND apellido = 'Torres'), (SELECT id FROM ubicacion WHERE direccion = 'Av. Luro 404'), 0.0, 'Humano'),
+    ((SELECT id FROM persona_fisica WHERE nombre = 'Sofía' AND apellido = 'Cruz'), (SELECT id FROM ubicacion WHERE direccion = 'Calle 15 505'), 0.0, 'Humano'),
+    ((SELECT id FROM persona_fisica WHERE nombre = 'Diego' AND apellido = 'Reyes'), (SELECT id FROM ubicacion WHERE direccion = 'Calle 20 606'), 0.0, 'Humano'),
+    ((SELECT id FROM persona_fisica WHERE nombre = 'Valentina' AND apellido = 'Mendoza'), (SELECT id FROM ubicacion WHERE direccion = 'Calle 25 707'), 0.0, 'Humano');
 
 -- Insertar medios de contacto
-INSERT INTO email (direccion_correo) VALUES
-    ('juan.perez@gmail.com'),
-    ('ana.gomez@gmail.com'),
-    ('carlos.fernandez@gmail.com'),
-    ('maria.lopez@gmail.com'),
-    ('pedro.martinez@gmail.com'),
-    ('lucia.ramirez@gmail.com'),
-    ('javier.torres@gmail.com'),
-    ('sofia.cruz@gmail.com'),
-    ('diego.reyes@gmail.com'),
-    ('valentina.mendoza@gmail.com');
+INSERT INTO email (id, direccion_correo) VALUES
+    (0, 'juan.perez@gmail.com'),
+    (1, 'ana.gomez@gmail.com'),
+    (2, 'carlos.fernandez@gmail.com'),
+    (3, 'maria.lopez@gmail.com'),
+    (4, 'pedro.martinez@gmail.com'),
+    (5, 'lucia.ramirez@gmail.com'),
+    (6, 'javier.torres@gmail.com'),
+    (7, 'sofia.cruz@gmail.com'),
+    (8, 'diego.reyes@gmail.com'),
+    (9, 'valentina.mendoza@gmail.com');
 
 -- Asociar medios de contacto a colaboradores
-UPDATE colaborador SET medio_de_contacto_id = (SELECT id FROM email WHERE direccion_correo = 'juan.perez@gmail.com') WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Juan' AND apellido = 'Pérez');
-UPDATE colaborador SET medio_de_contacto_id = (SELECT id FROM email WHERE direccion_correo = 'ana.gomez@gmail.com') WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Ana' AND apellido = 'Gómez');
-UPDATE colaborador SET medio_de_contacto_id = (SELECT id FROM email WHERE direccion_correo = 'carlos.fernandez@gmail.com') WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Carlos' AND apellido = 'Fernández');
-UPDATE colaborador SET medio_de_contacto_id = (SELECT id FROM email WHERE direccion_correo = 'maria.lopez@gmail.com') WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'María' AND apellido = 'López');
-UPDATE colaborador SET medio_de_contacto_id = (SELECT id FROM email WHERE direccion_correo = 'pedro.martinez@gmail.com') WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Pedro' AND apellido = 'Martínez');
-UPDATE colaborador SET medio_de_contacto_id = (SELECT id FROM email WHERE direccion_correo = 'lucia.ramirez@gmail.com') WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Lucía' AND apellido = 'Ramírez');
-UPDATE colaborador SET medio_de_contacto_id = (SELECT id FROM email WHERE direccion_correo = 'javier.torres@gmail.com') WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Javier' AND apellido = 'Torres');
-UPDATE colaborador SET medio_de_contacto_id = (SELECT id FROM email WHERE direccion_correo = 'sofia.cruz@gmail.com') WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Sofía' AND apellido = 'Cruz');
-UPDATE colaborador SET medio_de_contacto_id = (SELECT id FROM email WHERE direccion_correo = 'diego.reyes@gmail.com') WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Diego' AND apellido = 'Reyes');
-UPDATE colaborador SET medio_de_contacto_id = (SELECT id FROM email WHERE direccion_correo = 'valentina.mendoza@gmail.com') WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Valentina' AND apellido = 'Mendoza');
+UPDATE email
+SET colaborador = (SELECT id FROM colaborador WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Juan' AND apellido = 'Pérez'))
+WHERE direccion_correo = 'juan.perez@gmail.com';
+
+UPDATE email
+SET colaborador = (SELECT id FROM colaborador WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Ana' AND apellido = 'Gómez'))
+WHERE direccion_correo = 'ana.gomez@gmail.com';
+
+UPDATE email
+SET colaborador = (SELECT id FROM colaborador WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Carlos' AND apellido = 'Fernández'))
+WHERE direccion_correo = 'carlos.fernandez@gmail.com';
+
+UPDATE email
+SET colaborador = (SELECT id FROM colaborador WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'María' AND apellido = 'López'))
+WHERE direccion_correo = 'maria.lopez@gmail.com';
+
+UPDATE email
+SET colaborador = (SELECT id FROM colaborador WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Pedro' AND apellido = 'Martínez'))
+WHERE direccion_correo = 'pedro.martinez@gmail.com';
+
+UPDATE email
+SET colaborador = (SELECT id FROM colaborador WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Lucía' AND apellido = 'Ramírez'))
+WHERE direccion_correo = 'lucia.ramirez@gmail.com';
+
+UPDATE email
+SET colaborador = (SELECT id FROM colaborador WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Javier' AND apellido = 'Torres'))
+WHERE direccion_correo = 'javier.torres@gmail.com';
+
+UPDATE email
+SET colaborador = (SELECT id FROM colaborador WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Sofía' AND apellido = 'Cruz'))
+WHERE direccion_correo = 'sofia.cruz@gmail.com';
+
+UPDATE email
+SET colaborador = (SELECT id FROM colaborador WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Diego' AND apellido = 'Reyes'))
+WHERE direccion_correo = 'diego.reyes@gmail.com';
+
+UPDATE email
+SET colaborador = (SELECT id FROM colaborador WHERE persona_id = (SELECT id FROM persona_fisica WHERE nombre = 'Valentina' AND apellido = 'Mendoza'))
+WHERE direccion_correo = 'valentina.mendoza@gmail.com';

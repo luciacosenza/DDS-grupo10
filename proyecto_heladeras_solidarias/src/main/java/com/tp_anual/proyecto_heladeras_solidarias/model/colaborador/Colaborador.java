@@ -38,11 +38,11 @@ public abstract class Colaborador {
     protected final Persona persona;
     
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "ubicacion_id")
+    @JoinColumn(name = "domicilio")
     protected Ubicacion domicilio;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "medio_de_contacto_id")
+    @JoinColumn(name = "colaborador")
     protected final ArrayList<MedioDeContacto> mediosDeContacto;
     
     @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -56,6 +56,7 @@ public abstract class Colaborador {
     protected final ArrayList<Oferta> beneficiosAdquiridos;
     
     @Setter(AccessLevel.NONE)
+    @Transient // TODO: Cambiar esto
     protected Set<Class<? extends ContribucionCreator>> creatorsPermitidos;
     
     @Min(value = 0)

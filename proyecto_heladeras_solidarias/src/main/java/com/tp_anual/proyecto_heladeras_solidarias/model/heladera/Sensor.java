@@ -14,7 +14,7 @@ import lombok.extern.java.Log;
 public abstract class Sensor implements SensorSubject {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.NONE)
     protected Long id;
     

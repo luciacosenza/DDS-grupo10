@@ -17,4 +17,5 @@ public class MensajeTemperatura implements Mensaje {
     public void procesar() {
         sensor.setTempActual(temperatura);
     }
+    // TODO: Arreglar esto (conectar con Service)
 }

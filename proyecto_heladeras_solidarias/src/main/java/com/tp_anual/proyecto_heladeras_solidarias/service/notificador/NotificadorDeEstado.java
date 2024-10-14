@@ -11,6 +11,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,23 +19,19 @@ import org.springframework.stereotype.Service;
 public class NotificadorDeEstado extends Notificador {
 
     private final UbicadorHeladera ubicadorHeladera;
-    private final HeladeraService heladeraService;
 
     @Getter
     @Setter
     private Integer cantidadHeladeras;
     
-    public NotificadorDeEstado(MedioDeContactoService vMedioDeContactoService, UbicadorHeladera vUbicadorHeladera, HeladeraService vHeladeraService) {
+    public NotificadorDeEstado(@Qualifier("medioDeContactoService") MedioDeContactoService vMedioDeContactoService, UbicadorHeladera vUbicadorHeladera) {
         super(vMedioDeContactoService);
         ubicadorHeladera = vUbicadorHeladera;
         cantidadHeladeras = 10; // Esta cantidad es arbitraria, pero puede ser modificada
-        heladeraService = vHeladeraService;
     }
 
-    public void notificarEstado(Long heladeraId, Long medioDeContactoId, CondicionSuscripcion condicion) {    // Usa el Medio de Contacto previamente elegido por el colaborador
-        Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
-
-        ArrayList<Heladera> heladerasCercanas = ubicadorHeladera.obtenerHeladerasCercanasA(heladeraId, cantidadHeladeras);
+    public void notificarEstado(Heladera heladera, Long medioDeContactoId, CondicionSuscripcion condicion) {    // Usa el Medio de Contacto previamente elegido por el colaborador
+        ArrayList<Heladera> heladerasCercanas = ubicadorHeladera.obtenerHeladerasCercanasA(heladera, cantidadHeladeras);
         
         switch(condicion) {
 

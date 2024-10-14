@@ -5,6 +5,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Visita;
 import com.tp_anual.proyecto_heladeras_solidarias.service.notificador.NotificadorDeIncidentes;
 import lombok.extern.java.Log;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,19 +20,19 @@ public class GestorDeVisitas {
         notificadorDeIncidentes = vNotificadorDeIncidentes;
     }
 
+    // Programo la tarea para ejecutarse todos los días a las 00.00 hs
+    @Scheduled(cron = "0 0 0 * * ?")
     public void gestionarVisita() {
-        // Obtengo la primer Visita registrada
-        ArrayList<Visita> visitas = visitaService.obtenerVisitas();
-        Visita visita = visitas.removeFirst();
-        
-        // Chequeo si fue exitosa. Si no lo fue, vuelvo a llamar a un Tecnico para que vaya a ocuparse
-        if (!visita.getEstado()) {
+        ArrayList<Visita> visitas = visitaService.obtenerVisitasNoExitosas();
+
+        while(!visitas.isEmpty()) {
+            Visita visita = visitas.removeFirst();
+
             Incidente incidente = visita.getIncidente();
             notificadorDeIncidentes.notificarIncidente(incidente.getId());
-        }
 
-        // Tanto si fue exitosa o no, se guarda
-        visitaService.guardarVisita(visita);
+            visita.setRevisada(true);
+        }
     }
 
     public void agregarVisita(Visita visita) {

@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service
 @Log
 public class GeneradorCodigo {
+
     private static final AtomicLong contadorColaboradores = new AtomicLong(1);
     private static final AtomicLong contadorPersonas = new AtomicLong(1);
 

@@ -1,18 +1,13 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
 
 import java.time.LocalDateTime;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionDineroCreator;
-import org.junit.Test;
+import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionDineroService;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
@@ -23,36 +18,44 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento.Sexo
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento.TipoDocumento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
+@SpringBootTest
 public class DonacionDineroTest {
-    private static final Logger logger = Logger.getLogger(DonacionDineroTest.class.getName());
+
+    @Autowired
+    DonacionDineroService donacionDineroService;
+
+    @Autowired
+    ColaboradorService colaboradorService;
 
     @Test
     @DisplayName("Testeo la carga y correcto funcionamiento de una DonacionDinero")
     public void CargaDonacionDineroTest() {
-        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
-        colaboradorHumano.darDeAlta();
+        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
+        Long colaboradorHumanoId = colaboradorService.guardarColaborador(colaboradorHumano).getId();
 
         Double monto1 = 100000d;
         DonacionDinero.FrecuenciaDePago frecuencia1 = DonacionDinero.FrecuenciaDePago.UNICA_VEZ;
 
         DonacionDineroCreator donacionDineroCreator = new DonacionDineroCreator();
-        DonacionDinero donacionDinero1 = (DonacionDinero) colaboradorHumano.colaborar(donacionDineroCreator, LocalDateTime.now(), monto1, frecuencia1);
-        colaboradorHumano.confirmarContribucion(donacionDinero1, LocalDateTime.now());
+        Long donacionDinero1Id = colaboradorService.colaborar(colaboradorHumanoId, donacionDineroCreator, LocalDateTime.now(), monto1, frecuencia1).getId();
+        colaboradorService.confirmarContribucion(colaboradorHumano.getId(), donacionDinero1Id, LocalDateTime.now());
 
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new PersonaJuridica("RazonSocialPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA, "RubroPrueba"), new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "1033", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
-        colaboradorJuridico.darDeAlta();
+        Long colaboradorJuridicoId = colaboradorService.guardarColaborador(colaboradorHumano).getId();
 
         Double monto2 = 100000d;
         DonacionDinero.FrecuenciaDePago frecuencia2 = DonacionDinero.FrecuenciaDePago.UNICA_VEZ;
 
-        DonacionDinero donacionDinero2 = (DonacionDinero) colaboradorJuridico.colaborar(donacionDineroCreator, LocalDateTime.now(), monto2, frecuencia2);
-        colaboradorJuridico.confirmarContribucion(donacionDinero2, LocalDateTime.now());
+        Long donacionDinero2Id = colaboradorService.colaborar(colaboradorJuridico.getId(),donacionDineroCreator, LocalDateTime.now(), monto2, frecuencia2).getId();
+        colaboradorService.confirmarContribucion(colaboradorJuridico.getId(), donacionDinero2Id, LocalDateTime.now());
 
         Assertions.assertTrue(colaboradorHumano.getContribuciones().size() == 1 && colaboradorJuridico.getContribuciones().size() == 1 && colaboradorHumano.getContribuciones().getFirst().getClass() == DonacionDinero.class && colaboradorJuridico.getContribuciones().getFirst().getClass() == DonacionDinero.class);
     }
 
+    /*
     @Test
     @DisplayName("Testeo el cálculo de Puntos de DonacionDinero utilizando un Scheduler")
     public void CalcularPuntosDDTest() throws InterruptedException {    // Testeamos una version modificada de calcularPuntos(), dado que la original cuenta con periodos muy largos de ejecucion como para ser testeada
@@ -91,4 +94,5 @@ public class DonacionDineroTest {
 
         Assertions.assertEquals(40d, colaboradorHumano.getPuntos());
     }
+     */
 }

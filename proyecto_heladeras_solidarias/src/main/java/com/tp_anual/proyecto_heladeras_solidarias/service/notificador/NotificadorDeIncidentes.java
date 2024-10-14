@@ -10,6 +10,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.tecnico.TecnicoService
 import com.tp_anual.proyecto_heladeras_solidarias.service.ubicador.UbicadorTecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +21,7 @@ public class NotificadorDeIncidentes extends Notificador {
     private final IncidenteService incidenteService;
     private final TecnicoService tecnicoService;
 
-    public NotificadorDeIncidentes(MedioDeContactoService vMedioDeContactoService, UbicadorTecnico vUbicadorTecnico, IncidenteService vIncidenteService, TecnicoService vTecnicoService) {
+    public NotificadorDeIncidentes(@Qualifier("medioDeContactoService") MedioDeContactoService vMedioDeContactoService, UbicadorTecnico vUbicadorTecnico, IncidenteService vIncidenteService, TecnicoService vTecnicoService) {
         super(vMedioDeContactoService);
         ubicadorTecnico = vUbicadorTecnico;
         incidenteService = vIncidenteService;

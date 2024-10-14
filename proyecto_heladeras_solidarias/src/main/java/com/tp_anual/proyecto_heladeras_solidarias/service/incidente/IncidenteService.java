@@ -7,6 +7,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 @Log
 public class IncidenteService {
@@ -19,6 +21,10 @@ public class IncidenteService {
 
     public Incidente obtenerIncidente(Long incidenteId) {
         return incidenteRepository.findById(incidenteId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+    }
+
+    public ArrayList<Incidente> obtenerIncidentes() {
+        return new ArrayList<>(incidenteRepository.findAll());
     }
 
     public Incidente guardarIncidente(Incidente incidente) {
