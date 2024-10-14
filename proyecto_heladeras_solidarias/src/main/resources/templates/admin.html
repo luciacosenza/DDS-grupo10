@@ -57,19 +57,27 @@
             </nav>
 
             <main class="col-md-9 col-lg-10 admin-content">
+                
+                <!-- Mostrar mensaje de éxito o error -->
+                <div th:if="${message}" class="alert alert-dismissible fade show" th:classappend="'alert-' + ${messageType}" role="alert">
+                    <span th:text="${message}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <!-- Cargar Archivo -->
                 <section id="cargar-archivo">
                     <h2 class="mb-4">Migrar Archivo</h2>
                     <div class="card p-4">
-                        <form>
+                        <form th:action="@{/migrar-archivo}" method="post" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="formFile" class="form-label">Seleccionar archivo</label>
-                                <input class="form-control" type="file" id="formFile" required>
+                                <input class="form-control" type="file" id="formFile" name="file" accept=".csv" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Cargar</button>
+                            <button type="submit" class="btn btn-primary">Cargar</button> 
                         </form>
+                        <!-- Mensaje de resultado -->
                     </div>
                 </section>
+
 
                 <!-- Ver Alertas -->
                 <section id="ver-alertas" class="mt-5">
@@ -79,51 +87,26 @@
                             <div class="row">
                                 <div class="w-100">
                                     <div class="my-4 w-100 d-flex flex-column align-items-center gap-4 alertas-container">
-                                        <div class="alerta">
-                                            <span class="material-symbols-outlined">
-                                                warning
-                                            </span>
+                                        <!-- Iterar sobre las ofertas -->
+                                        <div th:each="alerta : ${alertas}" class="alerta">
+                                            <span class="material-symbols-outlined">warning</span>
                                             <div class="text-start w-100 ms-4">
-                                                <p><span class="badge rounded-pill bg-danger">Temperatura</span></p>
-                                                <p><span class="fw-bold">Nombre:</span> Heladera Prueba</p>
-                                                <p><span class="fw-bold">Colaborador a cargo:</span> María José González</p>
-                                                <p><span class="fw-bold">Ubicación:</span> Santa Fe 3681 </p>
-                                                <p><span class="fw-bold">Descripción: </span>Breve descripción de la falla</p>
-                                                <p><span class="fw-bold">Imagen: </span><img src="" alt=""></p>
+                                                <p><span class="badge rounded-pill bg-danger" th:text="${alerta.tipo}"></span></p>
+                                                <p><span class="fw-bold">Nombre:</span> <span th:text="${alerta.nombre}"></span></p>
+                                                <p><span class="fw-bold">Colaborador a cargo:</span> <span th:text="${alerta.colaborador}"></span></p>
+                                                <p><span class="fw-bold">Ubicación:</span> <span th:text="${alerta.ubicacion}"></span></p>
+                                                <p><span class="fw-bold">Descripción:</span> <span th:text="${alerta.descripcion}"></span></p>
+                                                <p><span class="fw-bold">Imagen:</span> <img th:src="${alerta.imagenUrl}" alt="Imagen de la alerta" /></p>
                                             </div>
                                         </div>
-                                        <div class="alerta">
-                                            <span class="material-symbols-outlined">
-                                                warning
-                                            </span>
-                                            <div class="text-start w-100 ms-4">
-                                                <p><span class="badge rounded-pill bg-danger">Fraude</span></p>
-                                                <p><span class="fw-bold">Nombre:</span> Heladera prueba 2</p>
-                                                <p><span class="fw-bold">Colaborador a cargo:</span> Juan Perez</p>
-                                                <p><span class="fw-bold">Ubicación: </span>Avenida Cabildo 1800</p>
-                                                <p><span class="fw-bold">Descripción: </span>Breve descripción de la falla</p>
-                                                <p><span class="fw-bold">Imagen: </span><img src="" alt=""></p>
-                                            </div>
-                                        </div>
-                                        <div class="alerta">
-                                            <span class="material-symbols-outlined">
-                                                warning
-                                            </span>
-                                            <div class="text-start w-100 ms-4 flex-row">
-                                                <p><span class="badge rounded-pill bg-danger">Falla de conexión</span></p>
-                                                <p><span class="fw-bold"> Nombre:</span> Heladera prueba 3</p>
-                                                <p><span class="fw-bold"> Colaborador a cargo:</span> María Giménez</p>
-                                                <p><span class="fw-bold"> Ubicación:</span> Avenida Rivadavia 10000</p>
-                                                <p><span class="fw-bold">Descripción: </span>Breve descripción de la falla</p>
-                                                <p><span class="fw-bold">Imagen: </span><img src="" alt=""></p>
-                                            </div>
-                                        </div>
+                                        <!-- Fin de iteración -->
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
+                
 
                 <!-- Ver Reportes -->
                 <section id="ver-reportes" class="mt-5">
