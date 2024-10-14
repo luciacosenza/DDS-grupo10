@@ -19,7 +19,7 @@ public abstract class Sensor implements SensorSubject {
     protected Long id;
     
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "heladera_id")
+    @JoinColumn(name = "heladera")
     protected Heladera heladera;
     
     protected Sensor(Heladera vHeladera) {

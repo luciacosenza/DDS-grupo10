@@ -29,22 +29,22 @@ public class Tecnico {
     protected long id;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "persona_fisica_id")
+    @JoinColumn(name = "persona_fisica")
     private final PersonaFisica persona;
 
     @Pattern(regexp = "^^\\d{2}\\d{8}\\d{1}$")
     private final String cuil;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "medio_de_contacto_id")
+    @JoinColumn(name = "medio_de_contacto")
     private MedioDeContacto medioDeContacto;    // TODO: Puede ser plural en un futuro
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "area_id")
+    @JoinColumn(name = "area_de_cobertura")
     private Area areaDeCobertura;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
-    @JoinColumn(name = "incidente_id")
+    @JoinColumn(name = "tecnico")
     private final ArrayList<Incidente> pendientes = new ArrayList<>();
 
     public Tecnico(String vNombre, String vApellido, Documento vDocumento, LocalDateTime vFechaNacimiento, String vCuil, MedioDeContacto vMedioDeContacto, Area vAreaDeCobertura) {

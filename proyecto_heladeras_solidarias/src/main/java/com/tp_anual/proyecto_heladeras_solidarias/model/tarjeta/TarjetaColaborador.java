@@ -14,11 +14,11 @@ import java.util.ArrayList;
 public class TarjetaColaborador extends Tarjeta {
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "colaborador_id")
+    @JoinColumn(name = "colaborador")
     protected ColaboradorHumano titular;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "permiso_apertura_id")
+    @JoinColumn(name = "tarjeta")
     protected ArrayList<PermisoApertura> permisos;
 
     public TarjetaColaborador(String vCodigo, ColaboradorHumano vTitular, ArrayList<PermisoApertura> vPermisos) {

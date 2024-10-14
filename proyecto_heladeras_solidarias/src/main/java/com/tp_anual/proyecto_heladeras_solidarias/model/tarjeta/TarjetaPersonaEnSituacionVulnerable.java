@@ -13,13 +13,13 @@ import jakarta.persistence.*;
 @Getter
 @Setter
 public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
-    
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "persona_en_situacion_vulnerable_id")
     private PersonaEnSituacionVulnerable titular;
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "uso_tarjeta_id")
+    @JoinColumn(name = "tarjeta")
     protected final ArrayList<UsoTarjeta> usos;
 
     public TarjetaPersonaEnSituacionVulnerable(String vCodigo, PersonaEnSituacionVulnerable vTitular) {

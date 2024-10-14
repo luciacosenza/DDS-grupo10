@@ -50,7 +50,7 @@ public class AdminController {
         if (!file.isEmpty() && file.getOriginalFilename().endsWith(".csv")) {
             try {
                 String fileContent = new String(file.getBytes(), StandardCharsets.UTF_8);
-                migrador.migrar(fileContent);
+                migrador.migrar(fileContent, true);
                 model.addAttribute("message", "Archivo migrado exitosamente.");
             } catch (Exception e) {
                 model.addAttribute("message", "Error al migrar archivo: " + e.getMessage());

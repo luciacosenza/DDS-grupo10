@@ -23,7 +23,7 @@ public class PermisoApertura {
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "heladera_id")
+    @JoinColumn(name = "heladera")
     private Heladera heladeraPermitida;
 
     @Temporal(TemporalType.TIMESTAMP)

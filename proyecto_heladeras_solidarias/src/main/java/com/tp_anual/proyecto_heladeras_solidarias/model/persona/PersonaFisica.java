@@ -19,7 +19,7 @@ public class PersonaFisica extends Persona {
     private String apellido;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "documento_id")
+    @JoinColumn(name = "documento")
     private final Documento documento;
 
     @Temporal(TemporalType.TIMESTAMP)

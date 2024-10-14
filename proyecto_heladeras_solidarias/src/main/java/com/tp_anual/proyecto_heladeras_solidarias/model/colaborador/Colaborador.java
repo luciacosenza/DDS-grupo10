@@ -34,7 +34,7 @@ public abstract class Colaborador {
     protected Long id;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "persona_id")
+    @JoinColumn(name = "persona")
     protected final Persona persona;
     
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -52,7 +52,7 @@ public abstract class Colaborador {
     protected final ArrayList<Contribucion> contribucionesPendientes;
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "oferta_id")
+    @JoinColumn(name = "colaborador")
     protected final ArrayList<Oferta> beneficiosAdquiridos;
     
     @Setter(AccessLevel.NONE)

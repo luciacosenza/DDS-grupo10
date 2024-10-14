@@ -22,11 +22,11 @@ public class Visita {
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.REFRESH })
-    @JoinColumn(name = "tecnico_id")
+    @JoinColumn(name = "tecnico")
     private final Tecnico tecnico;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
-    @JoinColumn(name = "incidente_id")
+    @JoinColumn(name = "incidente")
     private final Incidente incidente;
 
     @Temporal(TemporalType.TIMESTAMP)

@@ -24,7 +24,7 @@ public class UsoTarjeta {
     private final LocalDateTime fechaUso;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "heladera_id")
+    @JoinColumn(name = "heladera")
     private final Heladera heladera;
 
     public UsoTarjeta(LocalDateTime vFechaUso, Heladera vHeladera) {

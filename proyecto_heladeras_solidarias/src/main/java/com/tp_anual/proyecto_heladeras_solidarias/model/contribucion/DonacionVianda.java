@@ -24,11 +24,11 @@ public class DonacionVianda extends Contribucion {
     protected Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "vianda_id")
+    @JoinColumn(name = "vianda")
     private final Vianda vianda;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "heladera_id")
+    @JoinColumn(name = "heladera")
     private final Heladera heladera;
 
     public DonacionVianda(Colaborador vColaborador, LocalDateTime vFechaContribucion, Vianda vVianda, Heladera vHeladera) {

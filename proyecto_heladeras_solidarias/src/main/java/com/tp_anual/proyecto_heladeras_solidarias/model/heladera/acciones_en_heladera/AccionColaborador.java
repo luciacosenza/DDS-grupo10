@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public abstract class AccionColaborador extends AccionHeladera {
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "colaborador_id")
+    @JoinColumn(name = "colaborador")
     protected ColaboradorHumano responsable;
 
     protected AccionColaborador(LocalDateTime vFecha, Heladera vHeladera, ColaboradorHumano vResponsable) {

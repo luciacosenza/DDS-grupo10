@@ -13,7 +13,7 @@ import lombok.Getter;
 public class AperturaPersonaEnSituacionVulnerable extends AccionHeladera {
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "persona_en_situacion_vulnerable_id")
+    @JoinColumn(name = "persona_en_situacion_vulnerable")
     private final PersonaEnSituacionVulnerable responsable;
 
     public AperturaPersonaEnSituacionVulnerable(LocalDateTime vFecha, Heladera vHeladera, PersonaEnSituacionVulnerable vResponsable) {

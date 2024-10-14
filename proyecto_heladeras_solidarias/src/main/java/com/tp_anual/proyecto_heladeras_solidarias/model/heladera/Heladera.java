@@ -26,7 +26,7 @@ public class Heladera implements HeladeraObserver {    // Implementa una Interfa
     protected String nombre;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "ubicacion_id")
+    @JoinColumn(name = "ubicacion")
     protected Ubicacion ubicacion;
     
     @Min(value = 0)

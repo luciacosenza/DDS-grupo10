@@ -24,15 +24,15 @@ public abstract class Suscripcion {
     protected long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "colaborador_id")
+    @JoinColumn(name = "colaborador")
     private final ColaboradorHumano colaborador;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "heladera_id")
+    @JoinColumn(name = "heladera")
     private final Heladera heladera;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
-    @JoinColumn(name = "medio_de_contacto_id")
+    @JoinColumn(name = "medio_de_contacto")
     private MedioDeContacto medioDeContactoElegido; // El Colaborador elige por qué Medio de Contacto ser notificado sobre cuestiones de la Suscripción
 
     public enum CondicionSuscripcion {

@@ -24,7 +24,7 @@ public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
     protected Long id;
     
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "tarjeta_persona_en_situacion_vulnerable_id")
+    @JoinColumn(name = "tarjeta_asignada")
     private final TarjetaPersonaEnSituacionVulnerable tarjetaAsignada;
     
     public RegistroDePersonaEnSituacionVulnerable(Colaborador vColaborador, LocalDateTime vFechaContribucion, TarjetaPersonaEnSituacionVulnerable vTarjetaAsignada) {

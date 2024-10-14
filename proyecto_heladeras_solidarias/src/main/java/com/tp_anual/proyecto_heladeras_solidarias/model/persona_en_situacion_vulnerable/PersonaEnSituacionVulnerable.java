@@ -26,11 +26,11 @@ public class PersonaEnSituacionVulnerable {
     protected Long id;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "persona_id")
+    @JoinColumn(name = "persona")
     private final PersonaFisica persona;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "ubicacion_id")
+    @JoinColumn(name = "domicilio")
     private Ubicacion domicilio;
 
     @Temporal(TemporalType.TIMESTAMP)

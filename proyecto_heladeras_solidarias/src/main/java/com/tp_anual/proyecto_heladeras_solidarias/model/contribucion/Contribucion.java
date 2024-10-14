@@ -24,7 +24,7 @@ public abstract class Contribucion {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "colaborador_id")
+    @JoinColumn(name = "colaborador")
     protected final Colaborador colaborador;
 
     @Temporal(TemporalType.TIMESTAMP)

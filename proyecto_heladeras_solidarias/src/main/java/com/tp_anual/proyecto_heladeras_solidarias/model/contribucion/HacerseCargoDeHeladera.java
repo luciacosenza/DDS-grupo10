@@ -24,7 +24,7 @@ public class HacerseCargoDeHeladera extends Contribucion {
     protected Long id; 
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "heladera_id")
+    @JoinColumn(name = "heladera")
     private final Heladera heladeraObjetivo;
 
     @Temporal(TemporalType.TIMESTAMP)

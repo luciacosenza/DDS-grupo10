@@ -15,7 +15,7 @@ import lombok.Setter;
 public class FallaTecnica extends Incidente {
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "colaborador_id")
+    @JoinColumn(name = "colaborador")
     private final Colaborador colaborador;
 
     private final String descripcion;

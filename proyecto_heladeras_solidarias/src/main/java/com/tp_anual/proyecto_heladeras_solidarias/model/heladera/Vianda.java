@@ -21,11 +21,11 @@ public class Vianda {
     private String comida;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "heladera_id")
+    @JoinColumn(name = "heladera")
     private Heladera heladera;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "colaborador_id")
+    @JoinColumn(name = "colaborador")
     private ColaboradorHumano colaborador;
 
     @Temporal(TemporalType.TIMESTAMP)

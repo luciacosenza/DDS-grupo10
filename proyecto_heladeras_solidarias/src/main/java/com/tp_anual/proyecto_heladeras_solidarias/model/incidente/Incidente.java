@@ -24,7 +24,7 @@ public abstract class Incidente {
     protected LocalDateTime fecha;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "heladera_id")
+    @JoinColumn(name = "heladera")
     protected Heladera heladera;
 
     protected Incidente(LocalDateTime vFecha, Heladera vHeladera) {

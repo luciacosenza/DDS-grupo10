@@ -25,11 +25,11 @@ public class DistribucionViandas extends Contribucion {
     protected Long id; 
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "heladera_origen_id")
+    @JoinColumn(name = "heladera_origen")
     private final Heladera origen;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "heladera_destino_id")
+    @JoinColumn(name = "heladera_destino")
     private final Heladera destino;
 
     @Min(value = 0)

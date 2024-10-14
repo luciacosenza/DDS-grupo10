@@ -20,7 +20,7 @@ public abstract class AccionHeladera {
     protected final LocalDateTime fecha;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "heladera_id")
+    @JoinColumn(name = "heladera")
     protected final Heladera heladera;
 
     protected AccionHeladera(LocalDateTime vFecha, Heladera vHeladera) {

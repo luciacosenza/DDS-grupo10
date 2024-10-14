@@ -25,7 +25,7 @@ public class CargaOferta extends Contribucion {
     private Long id;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "oferta_id")
+    @JoinColumn(name = "oferta")
     private final Oferta oferta;
 
     public CargaOferta(Colaborador vColaborador, LocalDateTime vFechaContribucion, Oferta vOferta) {
