@@ -27,11 +27,6 @@ public class TarjetaColaborador extends Tarjeta {
         permisos = vPermisos;
     }
 
-    @Override
-    public Boolean puedeUsar() {
-        return true; // Se puede definir alguna lógica específica si es necesario
-    }
-
     public void agregarPermiso(PermisoApertura permiso) {
         permisos.add(permiso);
     }

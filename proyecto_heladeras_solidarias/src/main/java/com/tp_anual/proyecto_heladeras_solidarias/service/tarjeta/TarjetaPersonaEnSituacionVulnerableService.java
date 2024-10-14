@@ -22,19 +22,18 @@ import java.util.logging.Level;
 
 @Service
 @Log
-public class TarjetaPersonaEnSituacionVulnerableService {
+public class TarjetaPersonaEnSituacionVulnerableService extends TarjetaService {
 
     private final TarjetaPersonaEnSituacionVulnerableRepository tarjetaPersonaEnSituacionVulnerableRepository;
     private final PersonaEnSituacionVulnerableService personaEnSituacionVulnerableService;
-    private final HeladeraService heladeraService;
     private final AccionHeladeraService accionHeladeraService;
     private final GestorDeAperturas gestorDeAperturas;
     private final TarjetaPersonaEnSituacionVulnerableCreator tarjetaPersonaEnSituacionVulnerableCreator;
 
-    public TarjetaPersonaEnSituacionVulnerableService(TarjetaPersonaEnSituacionVulnerableRepository vTarjetaEnSituacionVulnerableRepository, PersonaEnSituacionVulnerableService vPersonaEnSituacionVulnerableService, HeladeraService vHeladeraService, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas, TarjetaPersonaEnSituacionVulnerableCreator vTarjetaEnSituacionVulnerableCreator){
+    public TarjetaPersonaEnSituacionVulnerableService(TarjetaPersonaEnSituacionVulnerableRepository vTarjetaEnSituacionVulnerableRepository, PersonaEnSituacionVulnerableService vPersonaEnSituacionVulnerableService, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas, TarjetaPersonaEnSituacionVulnerableCreator vTarjetaEnSituacionVulnerableCreator){
+        super();
         tarjetaPersonaEnSituacionVulnerableRepository = vTarjetaEnSituacionVulnerableRepository;
         personaEnSituacionVulnerableService = vPersonaEnSituacionVulnerableService;
-        heladeraService = vHeladeraService;
         accionHeladeraService = vAccionHeladeraService;
         gestorDeAperturas = vGestorDeAperturas;
         tarjetaPersonaEnSituacionVulnerableCreator = vTarjetaEnSituacionVulnerableCreator;
@@ -67,6 +66,7 @@ public class TarjetaPersonaEnSituacionVulnerableService {
         return (TarjetaPersonaEnSituacionVulnerable) tarjetaPersonaEnSituacionVulnerableCreator.crearTarjeta(personaEnSituacionVulnerable);
     }
 
+    @Override
     public Boolean puedeUsar(String tarjetaPersonaEnSituacionVulnerableId) {
         TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable = obtenerTarjetaPersonaEnSituacionvulnerable(tarjetaPersonaEnSituacionVulnerableId);
 

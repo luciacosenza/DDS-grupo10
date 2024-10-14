@@ -14,6 +14,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEn
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.PermisoApertura;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta.PermisoAperturaService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta.TarjetaPersonaEnSituacionVulnerableService;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +23,12 @@ import org.springframework.stereotype.Service;
 public class GestorDeAperturas {
     private final HeladeraService heladeraService;
     private final PermisoAperturaService permisoAperturaService;
+    private final TarjetaPersonaEnSituacionVulnerableService tarjetaPersonaEnSituacionVulnerableService;
 
-    public GestorDeAperturas(HeladeraService vHeladeraService, PermisoAperturaService vPermisoAperturaService) {
+    public GestorDeAperturas(HeladeraService vHeladeraService, PermisoAperturaService vPermisoAperturaService, TarjetaPersonaEnSituacionVulnerableService vTarjetaPersonaEnSituacionVulnerableService) {
         heladeraService = vHeladeraService;
         permisoAperturaService = vPermisoAperturaService;
+        tarjetaPersonaEnSituacionVulnerableService = vTarjetaPersonaEnSituacionVulnerableService;
     }
     
     public void revisarMotivoApertura(Heladera heladera, MotivoSolicitud motivo) {
@@ -77,7 +80,7 @@ public class GestorDeAperturas {
     public void revisarPermisoAperturaP(Heladera heladera, PersonaEnSituacionVulnerable personaEnSituacionVulnerable) {
         TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable = personaEnSituacionVulnerable.getTarjeta();
         
-        if (!tarjetaPersonaEnSituacionVulnerable.puedeUsar()) {
+        if (!tarjetaPersonaEnSituacionVulnerableService.puedeUsar(tarjetaPersonaEnSituacionVulnerable.getCodigo())) {
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_err_usos_agotados", personaEnSituacionVulnerable.getPersona().getNombre(2)));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_exception_usos_agotados"));
         }

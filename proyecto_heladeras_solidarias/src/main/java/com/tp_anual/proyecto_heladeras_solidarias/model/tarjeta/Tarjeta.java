@@ -18,6 +18,4 @@ public abstract class Tarjeta {
     protected Tarjeta(String vCodigo) {
         codigo = vCodigo;
     }
-
-    public abstract Boolean puedeUsar();
 }

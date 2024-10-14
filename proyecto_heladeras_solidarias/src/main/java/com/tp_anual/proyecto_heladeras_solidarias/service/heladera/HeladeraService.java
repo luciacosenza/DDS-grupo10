@@ -9,7 +9,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta;
 import com.tp_anual.proyecto_heladeras_solidarias.service.incidente.AlertaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.incidente.FallaTecnicaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.notificador.NotificadorDeEstado;
-import com.tp_anual.proyecto_heladeras_solidarias.service.notificador.NotificadorDeIncidentes;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.heladera.HeladeraRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.suscripcion.GestorDeSuscripciones;

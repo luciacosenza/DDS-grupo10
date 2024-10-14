@@ -21,7 +21,7 @@ import java.util.logging.Level;
 
 @Log
 @Service
-public class TarjetaColaboradorService {
+public class TarjetaColaboradorService extends TarjetaService {
 
     private final TarjetaColaboradorRepository tarjetaColaboradorRepository;
     private final ColaboradorService colaboradorService;
@@ -30,6 +30,7 @@ public class TarjetaColaboradorService {
     private final TarjetaColaboradorCreator tarjetaColaboradorCreator;
 
     public TarjetaColaboradorService(TarjetaColaboradorRepository vTarjetaColaboradorRepository, ColaboradorService vColaboradorService, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas, TarjetaColaboradorCreator vTarjetaColaboradorCreator) {
+        super();
         tarjetaColaboradorRepository = vTarjetaColaboradorRepository;
         colaboradorService = vColaboradorService;
         accionHeladeraService = vAccionHeladeraService;
@@ -49,6 +50,11 @@ public class TarjetaColaboradorService {
         ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
 
         return (TarjetaColaborador) tarjetaColaboradorCreator.crearTarjeta(colaborador);
+    }
+
+    @Override
+    public Boolean puedeUsar(String tarjetaColaboradorId) {
+        return true;
     }
 
     public void agregarPermiso(String tarjetaColaboradorId, PermisoApertura permiso) {

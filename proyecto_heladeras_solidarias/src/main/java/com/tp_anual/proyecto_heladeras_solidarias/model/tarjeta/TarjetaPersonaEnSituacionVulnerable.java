@@ -39,9 +39,4 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
     public Integer cantidadUsos() {
         return usos.size();
     }
-
-    @Override
-    public Boolean puedeUsar() {
-        return cantidadUsos() < 4 + 2 * titular.getMenoresACargo();
-    }
 }

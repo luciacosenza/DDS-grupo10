@@ -36,10 +36,5 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
     public void setPermisos(ArrayList<PermisoApertura> vPermisosApertura) {}
 
     @Override
-    public Boolean puedeUsar() {
-        return false;
-    }
-
-    @Override
     public void agregarPermiso(PermisoApertura permiso) {}
 }
