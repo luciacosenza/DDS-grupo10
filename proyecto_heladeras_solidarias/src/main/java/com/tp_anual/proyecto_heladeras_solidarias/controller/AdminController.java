@@ -3,6 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.controller;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+import org.hibernate.mapping.Array;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,9 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.incidente.AlertaServic
 import com.tp_anual.proyecto_heladeras_solidarias.service.migrador.Migrador;
 import com.tp_anual.proyecto_heladeras_solidarias.service.reporte.ReporteService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta;
+import com.tp_anual.proyecto_heladeras_solidarias.model.reporte.IncidentesPorHeladera;
+import com.tp_anual.proyecto_heladeras_solidarias.model.reporte.MovimientosViandaPorHeladera;
+import com.tp_anual.proyecto_heladeras_solidarias.model.reporte.ViandasPorColaborador;
 
 import org.springframework.ui.Model;
 
@@ -32,17 +36,22 @@ public class AdminController {
     @GetMapping("/admin")
     public String mostrarAdmin(Model model) {
         // Obtener ofertas desde el servicio
-        ArrayList<Alerta> alertas = alertaService.obtenerAlertas(); // Asegúrate de que este método exista
-        model.addAttribute("alertas", alertas); // Añade las ofertas al modelo
-        return "admin"; // Retorna a la vista 'admin.html'
+        ArrayList<Alerta> alertas = alertaService.obtenerAlertas(); 
+        model.addAttribute("alertas", alertas); 
+        return "admin"; 
     }
 
     @GetMapping("/admin/reportes")
     public String mostrarReportes(Model model) {
         // Obtener reportes desde el servicio
-        //ArrayList<Reporte> reportes = reporteService.obtenerReportes(); // Asegúrate de que este método exista
-        //model.addAttribute("reportes", reportes); // Añade los reportes al modelo
-        return "admin"; // Retorna a la vista 'admin.html'
+        ArrayList<IncidentesPorHeladera> incidentesPorHeladera = reporteService.obtenerReporteIncidentesPorHeladera(); 
+        ArrayList<MovimientosViandaPorHeladera> movimientosViandaPorHeladera = reporteService.obtenerReporteMovimientosViandaPorHeladera();
+        ArrayList<ViandasPorColaborador> viandasPorColaborador = reporteService.obtenerReporteViandasPorColaborador();
+        
+        model.addAttribute("reporte-incidentes-por-heladera", incidentesPorHeladera); 
+        model.addAttribute("reporte-movimientos-vianda-por-heladera", movimientosViandaPorHeladera);
+        model.addAttribute("reporte-viandas-por-colaborador", viandasPorColaborador);
+        return "admin"; 
     }
 
     @PostMapping("/migrar-archivo")
