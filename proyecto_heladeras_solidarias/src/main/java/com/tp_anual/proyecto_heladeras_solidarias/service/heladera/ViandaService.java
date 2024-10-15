@@ -1,6 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.heladera;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraNula;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.heladera.ViandaRepository;
@@ -26,24 +27,24 @@ public class ViandaService {
         return viandaRepository.save(vianda);
     }
 
+    // Este método debe ser llamado cuando se depositó una Vianda como parte de lote de una Distribución de Viandas
+    public void agregarAHeladera(Long viandaId, Heladera heladera) {
+        Vianda vianda = obtenerVianda(viandaId);
+        vianda.agregarAHeladera(heladera);
+        guardarVianda(vianda);
+    }
+
+    // Este método debe ser llamado cuando se entregó una Vianda de Donación
+    public void agregarAHeladeraPrimeraVez(Long viandaId, Heladera heladera) {
+        Vianda vianda = obtenerVianda(viandaId);
+        vianda.agregarAHeladeraPrimeraVez(heladera);
+        guardarVianda(vianda);
+    }
+
     // Este método debe ser llamado cuando una Vianda es retirada de una Heladera (se queda "sin Heladera", momentáneamente)
     public void quitarDeHeladera(Long viandaId) {
         Vianda vianda = obtenerVianda(viandaId);
         vianda.quitarDeHeladera();
-        guardarVianda(vianda);
-    }
-
-    // Este método debe ser llamado tanto cuando se entregó una Vianda de Donación o cuando se depositó una Vianda como parte de lote de una Distribución de Viandas
-    public void marcarEntrega(Long viandaId) {
-        Vianda vianda = obtenerVianda(viandaId);
-        vianda.marcarEntrega();
-        guardarVianda(vianda);
-    }
-
-    // Este método, al igual que "quitarDeHeladera()", debe ser llamado cuando una Vianda es retirada de una Heladera (está "sin entregar", momentáneamente)
-    public void desmarcarEntrega(Long viandaId) {
-        Vianda vianda = obtenerVianda(viandaId);
-        vianda.desmarcarEntrega();
         guardarVianda(vianda);
     }
 }

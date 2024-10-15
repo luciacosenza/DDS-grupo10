@@ -72,47 +72,32 @@ public class Colaborador2Test {
 
         DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
         DonacionVianda donacionVianda = (DonacionVianda) colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), vianda, heladera1);
-        Long donacionViandaID = donacionViandaService.guardarDonacionVianda(donacionVianda).getId();
 
         TarjetaColaborador tarjeta = tarjetaColaboradorService.crearTarjetaColaborador(colaboradorHumanoId);
         colaboradorHumano.setTarjeta(tarjeta);
         String codigoTarjeta = tarjetaColaboradorService.guardarTarjetaColaborador(tarjeta).getCodigo();
 
-        tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1Id, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);
-        tarjetaColaboradorService.intentarApertura(codigoTarjeta, heladera1Id);
+        tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);
+        tarjetaColaboradorService.intentarApertura(codigoTarjeta, heladera1);
+        heladeraService.agregarVianda(heladera1Id, vianda);
+        viandaService.agregarAHeladeraPrimeraVez(viandaId, heladera1);
 
-        heladeraService.agregarVianda(heladera1Id, viandaId);
-
-        vianda.setHeladera(heladera1);
-        vianda.marcarEntrega();
-        vianda.setFechaDonacion(LocalDateTime.now());
-        viandaService.guardarVianda(vianda);
-
-        colaboradorService.confirmarContribucion(colaboradorHumanoId, donacionViandaID, LocalDateTime.now());
+        colaboradorService.confirmarContribucion(colaboradorHumanoId, donacionVianda, LocalDateTime.now());
 
         DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
         DistribucionViandas distribucionViandas = (DistribucionViandas) colaboradorService.colaborar(colaboradorHumanoId, distribucionViandasCreator, LocalDateTime.now(), heladera1, heladera2, 1, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
-        Long distribucionViandasID = distribucionViandasService.guardarDistribucionViandas(distribucionViandas).getId();
 
-        tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1Id, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION);
-        tarjetaColaboradorService.intentarApertura(codigoTarjeta, heladera1Id);
-
+        tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION);
+        tarjetaColaboradorService.intentarApertura(codigoTarjeta, heladera1);
         heladeraService.retirarVianda(heladera1Id);
+        viandaService.quitarDeHeladera(viandaId);
 
-        vianda.quitarDeHeladera();
-        vianda.desmarcarEntrega();
-        viandaService.guardarVianda(vianda);
+        tarjetaColaboradorService.solicitarApertura(codigoTarjeta ,heladera2, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION);
+        tarjetaColaboradorService.intentarApertura(codigoTarjeta, heladera2);
+        heladeraService.agregarVianda(heladera2Id, vianda);
+        viandaService.agregarAHeladera(viandaId, heladera2);
 
-        tarjetaColaboradorService.solicitarApertura(codigoTarjeta ,heladera2Id, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION);
-        tarjetaColaboradorService.intentarApertura(codigoTarjeta, heladera2Id);
-
-        heladeraService.agregarVianda(heladera2Id, viandaId);
-
-        vianda.setHeladera(heladera2);
-        vianda.marcarEntrega();
-        viandaService.guardarVianda(vianda);
-
-        colaboradorService.confirmarContribucion(colaboradorHumanoId, distribucionViandasID, LocalDateTime.now());
+        colaboradorService.confirmarContribucion(colaboradorHumanoId, distribucionViandas, LocalDateTime.now());
 
         ArrayList<Contribucion> contribuciones = new ArrayList<>();
         contribuciones.add(donacionVianda);

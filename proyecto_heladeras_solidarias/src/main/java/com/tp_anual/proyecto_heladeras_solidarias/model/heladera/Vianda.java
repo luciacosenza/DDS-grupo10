@@ -51,15 +51,32 @@ public class Vianda {
         entregada = vEntregada;
     }
 
-    public void quitarDeHeladera() {
-        setHeladera(new HeladeraNula());
-    }
-
-    public void marcarEntrega() {
+    private void marcarEntrega() {
         setEntregada(true);
     }
 
-    public void desmarcarEntrega() {
+    private void desmarcarEntrega() {
         setEntregada(false);
     }
+
+    public void establecerFechaDeDonacionActual() {
+        setFechaDonacion(LocalDateTime.now());
+    }
+
+    public void agregarAHeladera(Heladera heladera) {
+        setHeladera(heladera);
+        marcarEntrega();
+    };
+
+    public void agregarAHeladeraPrimeraVez(Heladera heladera) {
+        agregarAHeladera(heladera);
+        establecerFechaDeDonacionActual();
+    }
+
+    public void quitarDeHeladera() {
+        setHeladera(new HeladeraNula());
+        desmarcarEntrega();
+    }
+
+
 }

@@ -51,6 +51,6 @@ public class Visita {
     }
 
     public void seReviso() {
-        revisada = true;
+        setRevisada(true);
     }
 }

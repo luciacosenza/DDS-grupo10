@@ -83,7 +83,7 @@ public class ColaboradorService {
         guardarColaborador(colaborador);
     }
 
-    public void agregarContacto(Long colaboradorId, MedioDeContacto medioDeContacto) {
+    public void agregarMedioDeContacto(Long colaboradorId, MedioDeContacto medioDeContacto) {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
         colaborador.agregarMedioDeContacto(medioDeContacto);
         guardarColaborador(colaborador);    // Al guardar el colaborador, se guarda el medio de contacto por cascada

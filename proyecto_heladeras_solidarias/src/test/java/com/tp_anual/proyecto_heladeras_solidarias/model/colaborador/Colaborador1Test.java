@@ -56,11 +56,11 @@ public class Colaborador1Test {
         colaboradorHumano = new ColaboradorHumano(new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         colaboradorJuridico = new ColaboradorJuridico(new PersonaJuridica("RazonSocialPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA, "RubroPrueba"), new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "1033", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
 
-        eMail = new EMail("correoprueba@gmail.com");
-        colaboradorHumano.agregarMedioDeContacto(eMail);
-
         colaboradorHumanoId = colaboradorService.guardarColaborador(colaboradorHumano).getId();
         colaboradorJuridicoId = colaboradorService.guardarColaborador(colaboradorJuridico).getId();
+
+        eMail = new EMail("correoprueba@gmail.com");
+        colaboradorService.agregarMedioDeContacto(colaboradorHumanoId, eMail);
     }
 
     @Test
