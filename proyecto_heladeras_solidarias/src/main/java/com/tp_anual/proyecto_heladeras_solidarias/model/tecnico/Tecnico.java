@@ -1,13 +1,12 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.tecnico;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
 import lombok.AccessLevel;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.area.Area;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
-import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 
@@ -29,7 +28,11 @@ public class Tecnico {
     protected long id;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "persona_fisica")
+    @JoinColumn(name = "usuario")
+    protected final User usuario;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "persona")
     private final PersonaFisica persona;
 
     @Pattern(regexp = "^^\\d{2}\\d{8}\\d{1}$")
@@ -47,8 +50,9 @@ public class Tecnico {
     @JoinColumn(name = "tecnico")
     private final ArrayList<Incidente> pendientes = new ArrayList<>();
 
-    public Tecnico(String vNombre, String vApellido, Documento vDocumento, LocalDateTime vFechaNacimiento, String vCuil, MedioDeContacto vMedioDeContacto, Area vAreaDeCobertura) {
-        persona = new PersonaFisica(vNombre, vApellido, vDocumento, vFechaNacimiento);
+    public Tecnico(User vUsuario, PersonaFisica vPersona, String vCuil, MedioDeContacto vMedioDeContacto, Area vAreaDeCobertura) {
+        usuario = vUsuario;
+        persona = vPersona;
         cuil = vCuil;
         medioDeContacto = vMedioDeContacto;
         areaDeCobertura = vAreaDeCobertura;

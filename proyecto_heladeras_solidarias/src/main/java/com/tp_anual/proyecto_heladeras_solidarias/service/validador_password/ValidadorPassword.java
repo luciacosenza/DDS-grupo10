@@ -1,15 +1,18 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.validador_password;
 
 import lombok.extern.java.Log;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+@Service
 @Log
 public class ValidadorPassword {
-    private final ArrayList<CriterioValidacion> criterios;
+    private final ArrayList<CriterioValidacion> criterios = new ArrayList<>();
 
-    public ValidadorPassword(ArrayList<CriterioValidacion> vCriterios) {
-        criterios = vCriterios;
+    public ValidadorPassword() {
+        criterios.add(new CriterioLargo(8, 32)); // Estas cantidades son arbitrarias, pueden cambiar después
+        criterios.add(new CriterioTop10000MasComun());
     }
 
     // Este método valida que la contraseña cumpla, para cada Criterio pedido
