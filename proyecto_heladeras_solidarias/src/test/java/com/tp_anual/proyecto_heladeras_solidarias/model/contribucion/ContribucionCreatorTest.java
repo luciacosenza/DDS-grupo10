@@ -27,7 +27,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
 @SpringBootTest
 public class ContribucionCreatorTest {
 
@@ -58,9 +57,7 @@ public class ContribucionCreatorTest {
 
         CargaOfertaCreator cargaOfertaCreator = new CargaOfertaCreator();
 
-        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            colaboradorService.colaborar(colaboradorJuridicoId, cargaOfertaCreator, LocalDateTime.now(), heladera);
-        });
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> colaboradorService.colaborar(colaboradorJuridicoId, cargaOfertaCreator, LocalDateTime.now(), heladera));
 
         Assertions.assertEquals(I18n.getMessage("contribucion.CargaOfertaCreator.crearContribucion_exception"), exception.getMessage());
     }
@@ -73,9 +70,7 @@ public class ContribucionCreatorTest {
 
         DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
 
-        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            colaboradorService.colaborar(colaboradorHumanoId, distribucionViandasCreator, LocalDateTime.now(), vianda, heladera);
-        });
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> colaboradorService.colaborar(colaboradorHumanoId, distribucionViandasCreator, LocalDateTime.now(), vianda, heladera));
 
         Assertions.assertEquals(I18n.getMessage("contribucion.DistribucionViandasCreator.crearContribucion_exception"), exception.getMessage());
     }
@@ -87,9 +82,7 @@ public class ContribucionCreatorTest {
 
         DonacionDineroCreator donacionDineroCreator = new DonacionDineroCreator();
 
-        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            colaboradorService.colaborar(colaboradorHumanoId, donacionDineroCreator, LocalDateTime.now(), tarjeta);
-        });
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> colaboradorService.colaborar(colaboradorHumanoId, donacionDineroCreator, LocalDateTime.now(), tarjeta));
 
         Assertions.assertEquals(I18n.getMessage("contribucion.DonacionDineroCreator.crearContribucion_exception"), exception.getMessage());
     }
@@ -102,9 +95,7 @@ public class ContribucionCreatorTest {
 
         DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
 
-        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), heladera1, heladera2, 5, DistribucionViandas.MotivoDistribucion.DESPERFECTO_EN_LA_HELADERA);
-        });
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), heladera1, heladera2, 5, DistribucionViandas.MotivoDistribucion.DESPERFECTO_EN_LA_HELADERA));
 
         Assertions.assertEquals(I18n.getMessage("contribucion.DonacionViandaCreator.crearContribucion_exception"), exception.getMessage());
     }
@@ -116,9 +107,7 @@ public class ContribucionCreatorTest {
 
         HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
 
-        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            colaboradorService.colaborar(colaboradorJuridicoId, hacerseCargoDeHeladeraCreator, LocalDateTime.now(), oferta);
-        });
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> colaboradorService.colaborar(colaboradorJuridicoId, hacerseCargoDeHeladeraCreator, LocalDateTime.now(), oferta));
 
         Assertions.assertEquals(I18n.getMessage("contribucion.HacerseCargoDeHeladeraCreator.crearContribucion_exception"), exception.getMessage());
     }
@@ -131,9 +120,7 @@ public class ContribucionCreatorTest {
         
         RegistroDePersonaEnSituacionVulnerableCreator registroDePersonaEnSituacionVulnerableCreator = new RegistroDePersonaEnSituacionVulnerableCreator();
 
-        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            colaboradorService.colaborar(colaboradorHumanoId, registroDePersonaEnSituacionVulnerableCreator, LocalDateTime.now(), monto, frecuencia);
-        });
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> colaboradorService.colaborar(colaboradorHumanoId, registroDePersonaEnSituacionVulnerableCreator, LocalDateTime.now(), monto, frecuencia));
 
         Assertions.assertEquals(I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerableCreator.crearContribucion_exception"), exception.getMessage());
     }

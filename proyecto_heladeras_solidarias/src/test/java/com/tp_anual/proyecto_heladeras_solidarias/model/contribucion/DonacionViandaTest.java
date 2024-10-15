@@ -7,7 +7,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionViandaCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionViandaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.AccionHeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.ViandaService;
@@ -36,16 +35,13 @@ public class DonacionViandaTest {
     ColaboradorService colaboradorService;
 
     @Autowired
-    DonacionViandaService donacionViandaService;
-
-    @Autowired
-    TarjetaColaboradorService tarjetaColaboradorService;
-
-    @Autowired
     HeladeraService heladeraService;
 
     @Autowired
     ViandaService viandaService;
+
+    @Autowired
+    TarjetaColaboradorService tarjetaColaboradorService;
 
     @Autowired
     AccionHeladeraService accionHeladeraService;
@@ -98,9 +94,7 @@ public class DonacionViandaTest {
 
         DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
 
-        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), vianda, heladera);
-        });
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), vianda, heladera));
 
         Assertions.assertEquals(I18n.getMessage("contribucion.DonacionVianda.validarIdentidad_exception"), exception.getMessage());
     }

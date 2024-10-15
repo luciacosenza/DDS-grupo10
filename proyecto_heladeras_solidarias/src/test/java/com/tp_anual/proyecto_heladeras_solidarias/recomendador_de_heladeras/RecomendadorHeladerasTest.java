@@ -8,14 +8,18 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.recomendador_de_helade
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 public class RecomendadorHeladerasTest {
     
+    @Autowired
+    RecomendadorHeladeras recomendadorHeladeras;
+
     @Test
     @DisplayName("Testeo que funcione la Mock-Api")
     public void RecommendadorHeladerasMockApiTest() {
-        RecomendadorHeladeras recomendadorHeladeras = RecomendadorHeladeras.getInstance();
-
         List<Map<String, String>> resultado = recomendadorHeladeras.obtenerValoresDesdeAPI();
 
         String latitudEsperada1 = "-34.61372944931148";

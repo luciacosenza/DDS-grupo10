@@ -3,7 +3,9 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.oferta;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.CargaOferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
+import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorPuntosService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionDineroService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.oferta.OfertaService;
@@ -14,10 +16,7 @@ import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJuridico;
-import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.CargaOferta;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.CargaOfertaCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionDinero;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionDineroCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
@@ -32,19 +31,19 @@ public class OfertaTest {
     ColaboradorService colaboradorService;
 
     @Autowired
-    DonacionDineroService donacionDineroService;
+    OfertaService ofertaService;
 
     @Autowired
-    OfertaService ofertaService;
+    DonacionDineroService donacionDineroService;
 
     ColaboradorHumano colaboradorHumano;
     ColaboradorJuridico colaboradorJuridico;
     Oferta oferta;
-    LocalDateTime fechaDonacion;
-    LocalDateTime fechaCarga;
     Long colaboradorHumanoId;
     Long colaboradorJuridicoId;
-    Long ofertaId;
+
+    @Autowired
+    private ColaboradorPuntosService colaboradorPuntosService;
 
     @BeforeEach
     void setup() {
@@ -52,22 +51,24 @@ public class OfertaTest {
         colaboradorJuridico = new ColaboradorJuridico(new PersonaJuridica("RazonSocialPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA, "RubroPrueba"), new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "1033", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         oferta = new Oferta("PlayStation 5", 20d, Oferta.Categoria.ELECTRONICA, "ImagenPrueba");
 
-        fechaDonacion = LocalDateTime.parse("2024-07-10T00:00:00");
-        fechaCarga = LocalDateTime.parse("2024-07-15T00:00:00");
+        LocalDateTime fechaCarga = LocalDateTime.parse("2024-07-15T00:00:00");
 
         colaboradorHumanoId = colaboradorService.guardarColaborador(colaboradorHumano).getId();
         colaboradorJuridicoId = colaboradorService.guardarColaborador(colaboradorJuridico).getId();
 
         CargaOfertaCreator cargaOfertaCreator = new CargaOfertaCreator();
-        Long cargaOfertaId = colaboradorService.colaborar(colaboradorJuridicoId, cargaOfertaCreator, fechaCarga, oferta).getId();
-        ofertaId = ofertaService.guardarOferta(oferta).getId();
-        colaboradorService.confirmarContribucion(colaboradorJuridicoId, cargaOfertaId, fechaCarga);
+        CargaOferta cargaOferta = (CargaOferta) colaboradorService.colaborar(colaboradorJuridicoId, cargaOfertaCreator, fechaCarga, oferta);
+
+        ofertaService.guardarOferta(oferta);
+
+        colaboradorService.confirmarContribucion(colaboradorJuridicoId, cargaOferta, fechaCarga);
     }
     @Test
-    @DisplayName("Testeo el correcto funcionamiento de carga de Oferta e adquisicion de la misma")
+    @DisplayName("Testeo el correcto funcionamiento de carga de Oferta y adquisicion de la misma")
     public void IntentarAdquirirBeneficioTest() {
-        colaboradorHumano.setPuntos(60d);
-        colaboradorService.intentarAdquirirBeneficio(colaboradorHumanoId, ofertaId);
+        colaboradorPuntosService.sumarPuntos(colaboradorHumanoId, 60d);
+
+        colaboradorService.intentarAdquirirBeneficio(colaboradorHumanoId, oferta);
 
         Assertions.assertEquals(1, colaboradorHumano.getBeneficiosAdquiridos().size());
     }
@@ -75,11 +76,9 @@ public class OfertaTest {
     @Test
     @DisplayName("Testeo la UnsupportedOperationException al querer adquirir un beneficio por parte de un Colaborador que no tiene los puntos suficientes")
     public void UnsupportedOperationIntentarAdquirirBeneficioTest() {
-        colaboradorHumano.setPuntos(15d);
+        colaboradorPuntosService.sumarPuntos(colaboradorHumanoId, 15d);
 
-        UnsupportedOperationException exception = Assertions.assertThrows(UnsupportedOperationException.class, () -> {
-            colaboradorService.intentarAdquirirBeneficio(colaboradorHumanoId, ofertaId);
-        });
+        UnsupportedOperationException exception = Assertions.assertThrows(UnsupportedOperationException.class, () -> colaboradorService.intentarAdquirirBeneficio(colaboradorHumanoId, oferta));
 
         Assertions.assertEquals(I18n.getMessage("oferta.Oferta.validarPuntos_exception"), exception.getMessage());
     }

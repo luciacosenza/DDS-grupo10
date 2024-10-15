@@ -7,7 +7,6 @@ import java.util.NoSuchElementException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
-import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerableService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta.TarjetaPersonaEnSituacionVulnerableService;
 import org.junit.jupiter.api.Assertions;
@@ -35,9 +34,6 @@ public class Colaborador1Test {
 
     @Autowired
     ColaboradorService colaboradorService;
-
-    @Autowired
-    HeladeraService heladeraService;
 
     @Autowired
     TarjetaPersonaEnSituacionVulnerableService tarjetaPersonaEnSituacionVulnerableService;
@@ -72,9 +68,7 @@ public class Colaborador1Test {
     @Test
     @DisplayName("Testeo la NoSuchElementException al pasar un MedioDeContacto que no posee el Colaborador")
     public void NoSuchElementGetContactoTest() {
-        NoSuchElementException exception = Assertions.assertThrows(NoSuchElementException.class, () -> {
-            colaboradorHumano.getMedioDeContacto(WhatsApp.class);
-        });
+        NoSuchElementException exception = Assertions.assertThrows(NoSuchElementException.class, () -> colaboradorHumano.getMedioDeContacto(WhatsApp.class));
     
         Assertions.assertEquals(I18n.getMessage("colaborador.Colaborador.getContacto_exception"), exception.getMessage());
     }
@@ -85,9 +79,7 @@ public class Colaborador1Test {
         Heladera heladera = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), 20, -20f, 5f, new ArrayList<>(), 3f, LocalDateTime.now() , true);
         HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
 
-        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            colaboradorService.colaborar(colaboradorHumanoId, hacerseCargoDeHeladeraCreator, LocalDateTime.now(), heladera);
-        });
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> colaboradorService.colaborar(colaboradorHumanoId, hacerseCargoDeHeladeraCreator, LocalDateTime.now(), heladera));
 
         Assertions.assertEquals(I18n.getMessage("colaborador.Colaborador.colaborar_exception"), exception.getMessage());
     }
@@ -100,9 +92,7 @@ public class Colaborador1Test {
         TarjetaPersonaEnSituacionVulnerable tarjeta = tarjetaPersonaEnSituacionVulnerableService.crearTarjetaPersonaEnSituacionVulnerable(personaEnSituacionVulnerableID);
         RegistroDePersonaEnSituacionVulnerableCreator registroDePersonaEnSituacionVulnerableCreator = new RegistroDePersonaEnSituacionVulnerableCreator();
 
-        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            colaboradorService.colaborar(colaboradorJuridicoId, registroDePersonaEnSituacionVulnerableCreator, LocalDateTime.now(), tarjeta);
-        });
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> colaboradorService.colaborar(colaboradorJuridicoId, registroDePersonaEnSituacionVulnerableCreator, LocalDateTime.now(), tarjeta));
 
         Assertions.assertEquals(I18n.getMessage("colaborador.Colaborador.colaborar_exception"), exception.getMessage());
     }

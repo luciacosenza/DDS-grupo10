@@ -33,6 +33,18 @@ public class AlertaService {
         return new ArrayList<>(alertaRepository.findAll());
     }
 
+    public ArrayList<Alerta> obtenerAlertasTemperatura() {
+        return new ArrayList<>(alertaRepository.findByTipoTemperatura());
+    }
+
+    public ArrayList<Alerta> obtenerAlertasFraude() {
+        return new ArrayList<>(alertaRepository.findByTipoFraude());
+    }
+
+    public ArrayList<Alerta> obtenerAlertasFallaConexion() {
+        return new ArrayList<>(alertaRepository.findByTipoFallaConexion());
+    }
+
     public Alerta guardarAlerta(Alerta alerta) {
         return alertaRepository.save(alerta);
     }

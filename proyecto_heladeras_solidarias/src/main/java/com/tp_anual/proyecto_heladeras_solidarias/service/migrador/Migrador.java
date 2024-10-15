@@ -68,7 +68,7 @@ public class Migrador {
         log.log(Level.INFO, I18n.getMessage("migrador.Migrador.confirmarLoading_info"));
     }
 
-    public void migrar(String csv, Boolean contactar) throws IOException, URISyntaxException {
+    public ArrayList<ColaboradorHumano> migrar(String csv, Boolean contactar) throws IOException, URISyntaxException {
         ArrayList<String[]> dataColaboradores = protocoloExtraccion.extract(csv);
         ArrayList<ColaboradorHumano> colaboradoresAMigrar = transformador.transform(dataColaboradores);
 
@@ -80,5 +80,7 @@ public class Migrador {
         }
 
         confirmarLoading();
+
+        return colaboradoresAMigrar;
     }
 }

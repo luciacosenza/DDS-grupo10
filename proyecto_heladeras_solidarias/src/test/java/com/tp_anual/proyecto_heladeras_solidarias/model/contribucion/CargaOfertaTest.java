@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.CargaOfertaCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.CargaOfertaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.oferta.OfertaService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
@@ -20,9 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @SpringBootTest
 public class CargaOfertaTest {
-
-    @Autowired
-    CargaOfertaService cargaOfertaService;
 
     @Autowired
     ColaboradorService colaboradorService;

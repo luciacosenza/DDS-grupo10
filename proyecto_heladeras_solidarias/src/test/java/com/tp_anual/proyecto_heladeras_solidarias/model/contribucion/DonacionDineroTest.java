@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionDineroCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionDineroService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -23,9 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @SpringBootTest
 public class DonacionDineroTest {
-
-    @Autowired
-    DonacionDineroService donacionDineroService;
 
     @Autowired
     ColaboradorService colaboradorService;

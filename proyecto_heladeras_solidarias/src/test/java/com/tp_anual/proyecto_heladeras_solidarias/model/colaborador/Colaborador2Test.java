@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DistribucionViandasService;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionViandaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.ViandaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta.TarjetaColaboradorService;
@@ -37,23 +35,17 @@ public class Colaborador2Test {
     ColaboradorService colaboradorService;
 
     @Autowired
-    ViandaService viandaService;
+    HeladeraService heladeraService;
 
     @Autowired
-    HeladeraService heladeraService;
+    ViandaService viandaService;
 
     @Autowired
     TarjetaColaboradorService tarjetaColaboradorService;
 
-    @Autowired
-    DonacionViandaService donacionViandaService;
-
-    @Autowired
-    DistribucionViandasService distribucionViandasService;
-
     @Test
     @DisplayName("Testeo la correcta creación de Contribuciones y que se agreguen a las contribuciones del Colaborador")
-    public void ColaborarTest() throws InterruptedException {
+    public void ColaborarTest() {
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
         Long colaboradorHumanoId = colaboradorService.guardarColaborador(colaboradorHumano).getId();
 

@@ -5,13 +5,13 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.FallaTecnica;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.incidente.FallaTecnicaRepository;
-import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.notificador.NotificadorDeIncidentes;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 @Service
@@ -28,6 +28,10 @@ public class FallaTecnicaService {
 
     public FallaTecnica obtenerFallaTecnica(Long idFallaTecnica) {
         return fallaTecnicaRepository.findById(idFallaTecnica).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+    }
+
+    public ArrayList<FallaTecnica> obtenerFallasTecnicas() {
+        return new ArrayList<>(fallaTecnicaRepository.findAll());
     }
 
     public FallaTecnica guardarFallaTecnica(FallaTecnica fallaTecnica) {

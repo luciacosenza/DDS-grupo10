@@ -2,6 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.migrador;
 
 import java.util.ArrayList;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.migrador.*;
 import org.junit.jupiter.api.Test;
@@ -26,9 +27,7 @@ public class MigradorTest {
     public void CargaMasivaTest() throws Exception {
 
         String rutaCSV = "registro_migracion.csv";
-        migrador.migrar(rutaCSV, false);
-
-        ArrayList<Colaborador> colaboradores = colaboradorService.obtenerColaboradores();
+        ArrayList<ColaboradorHumano> colaboradores = migrador.migrar(rutaCSV, false);
 
         System.out.println("\n COLABORADORES MIGRADOS \n");
         for (Colaborador colaborador : colaboradores) {
@@ -36,6 +35,6 @@ public class MigradorTest {
             System.out.println("\n");
         }
 
-        assertEquals(20, colaboradores.size());
+        assertEquals(20, colaboradores.size()); // TODO: Hacerlo que compare con los que están en el Sistema
     }
 }

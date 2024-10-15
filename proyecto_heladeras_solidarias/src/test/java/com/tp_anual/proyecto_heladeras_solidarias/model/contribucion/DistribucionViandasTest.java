@@ -7,9 +7,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DistribucionViandasCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DistribucionViandasService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionViandaCreator;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.DonacionViandaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.AccionHeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.ViandaService;
@@ -38,19 +36,13 @@ public class DistribucionViandasTest {
     ColaboradorService colaboradorService;
 
     @Autowired
-    TarjetaColaboradorService tarjetaColaboradorService;
-
-    @Autowired
     HeladeraService heladeraService;
 
     @Autowired
     ViandaService viandaService;
 
     @Autowired
-    DonacionViandaService donacionViandaService;
-
-    @Autowired
-    DistribucionViandasService distribucionViandasService;
+    TarjetaColaboradorService tarjetaColaboradorService;
 
     @Autowired
     AccionHeladeraService accionHeladeraService;
@@ -137,9 +129,7 @@ public class DistribucionViandasTest {
 
         DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
 
-        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            colaboradorService.colaborar(colaboradorHumanoNDId, distribucionViandasCreator, LocalDateTime.now(), heladera1, heladera2, 1, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
-        });
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> colaboradorService.colaborar(colaboradorHumanoNDId, distribucionViandasCreator, LocalDateTime.now(), heladera1, heladera2, 1, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO));
 
         Assertions.assertEquals(I18n.getMessage("contribucion.DistribucionViandas.validarIdentidad_exception"), exception.getMessage());
     }

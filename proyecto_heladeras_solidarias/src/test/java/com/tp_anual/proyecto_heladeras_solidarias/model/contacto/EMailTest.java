@@ -21,10 +21,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class EMailTest {
 
     @Autowired
-    EMailService eMailService;
+    ColaboradorService colaboradorService;
 
     @Autowired
-    ColaboradorService colaboradorService;
+    EMailService eMailService;
 
     @Test
     @DisplayName("Testeo el método contactar() de EMail")
