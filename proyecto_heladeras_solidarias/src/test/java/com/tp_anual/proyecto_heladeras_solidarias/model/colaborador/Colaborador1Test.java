@@ -57,7 +57,7 @@ public class Colaborador1Test {
         colaboradorJuridico = new ColaboradorJuridico(new PersonaJuridica("RazonSocialPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA, "RubroPrueba"), new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "1033", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
 
         eMail = new EMail("correoprueba@gmail.com");
-        colaboradorHumano.agregarContacto(eMail);
+        colaboradorHumano.agregarMedioDeContacto(eMail);
 
         colaboradorHumanoId = colaboradorService.guardarColaborador(colaboradorHumano).getId();
         colaboradorJuridicoId = colaboradorService.guardarColaborador(colaboradorJuridico).getId();

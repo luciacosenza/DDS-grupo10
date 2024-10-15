@@ -88,6 +88,11 @@ public class TarjetaPersonaEnSituacionVulnerableService extends TarjetaService {
     public AperturaPersonaEnSituacionVulnerable intentarApertura(String tarjetaPersonaEnSituacionVulnerableId, Heladera heladeraInvolucrada) {
         TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable = obtenerTarjetaPersonaEnSituacionvulnerable(tarjetaPersonaEnSituacionVulnerableId);
 
+        if (!puedeUsar(tarjetaPersonaEnSituacionVulnerableId)) {
+            log.log(Level.SEVERE, I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.puedeUsar_err", tarjetaPersonaEnSituacionVulnerable.getTitular().getPersona().getNombre(2)));
+            throw new UnsupportedOperationException(I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.puedeUsar_exception"));
+        }
+
         // Primero chequeo internamente que pueda realizar la Apertura
         gestorDeAperturas.revisarPermisoAperturaP(heladeraInvolucrada, tarjetaPersonaEnSituacionVulnerable.getTitular());
 

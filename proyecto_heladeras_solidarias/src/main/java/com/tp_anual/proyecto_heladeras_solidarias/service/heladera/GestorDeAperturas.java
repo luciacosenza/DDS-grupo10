@@ -23,12 +23,10 @@ import org.springframework.stereotype.Service;
 public class GestorDeAperturas {
     private final HeladeraService heladeraService;
     private final PermisoAperturaService permisoAperturaService;
-    private final TarjetaPersonaEnSituacionVulnerableService tarjetaPersonaEnSituacionVulnerableService;
 
-    public GestorDeAperturas(HeladeraService vHeladeraService, PermisoAperturaService vPermisoAperturaService, TarjetaPersonaEnSituacionVulnerableService vTarjetaPersonaEnSituacionVulnerableService) {
+    public GestorDeAperturas(HeladeraService vHeladeraService, PermisoAperturaService vPermisoAperturaService) {
         heladeraService = vHeladeraService;
         permisoAperturaService = vPermisoAperturaService;
-        tarjetaPersonaEnSituacionVulnerableService = vTarjetaPersonaEnSituacionVulnerableService;
     }
     
     public void revisarMotivoApertura(Heladera heladera, MotivoSolicitud motivo) {
@@ -80,10 +78,7 @@ public class GestorDeAperturas {
     public void revisarPermisoAperturaP(Heladera heladera, PersonaEnSituacionVulnerable personaEnSituacionVulnerable) {
         TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable = personaEnSituacionVulnerable.getTarjeta();
         
-        if (!tarjetaPersonaEnSituacionVulnerableService.puedeUsar(tarjetaPersonaEnSituacionVulnerable.getCodigo())) {
-            log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_err_usos_agotados", personaEnSituacionVulnerable.getPersona().getNombre(2)));
-            throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_exception_usos_agotados"));
-        }
+
 
         if(heladeraService.estaVacia(heladera.getId())) {
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.resvisarPermisoAperturaP_err_heladera_vacia", heladera.getNombre()));
