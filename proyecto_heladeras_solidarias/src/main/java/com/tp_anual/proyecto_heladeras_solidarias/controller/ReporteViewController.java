@@ -4,11 +4,11 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.reporte.ReporteService
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class ReporteController {
+public class ReporteViewController {
 
     private final ReporteService reporteService;
 
-    public ReporteController(ReporteService vReporteService) {
+    public ReporteViewController(ReporteService vReporteService) {
         reporteService = vReporteService;
     }
 

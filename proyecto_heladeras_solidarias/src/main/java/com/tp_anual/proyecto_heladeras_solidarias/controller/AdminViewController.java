@@ -3,7 +3,6 @@ package com.tp_anual.proyecto_heladeras_solidarias.controller;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-import org.hibernate.mapping.Array;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,13 +20,13 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.reporte.ViandasPorColabo
 import org.springframework.ui.Model;
 
 @Controller
-public class AdminController {
+public class AdminViewController {
 
     private Migrador migrador;
     private AlertaService alertaService;
     private ReporteService reporteService;
 
-    public AdminController(Migrador vMigrador, AlertaService vAlertaService, ReporteService vReporteService){
+    public AdminViewController(Migrador vMigrador, AlertaService vAlertaService, ReporteService vReporteService){
         migrador = vMigrador;
         alertaService = vAlertaService;
         reporteService = vReporteService;

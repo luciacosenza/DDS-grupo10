@@ -34,15 +34,15 @@ public class AlertaService {
     }
 
     public ArrayList<Alerta> obtenerAlertasTemperatura() {
-        return new ArrayList<>(alertaRepository.findByTipoTemperatura());
+        return new ArrayList<>(alertaRepository.findByTipo(Alerta.TipoAlerta.TEMPERATURA));
     }
 
     public ArrayList<Alerta> obtenerAlertasFraude() {
-        return new ArrayList<>(alertaRepository.findByTipoFraude());
+        return new ArrayList<>(alertaRepository.findByTipo(Alerta.TipoAlerta.FRAUDE));
     }
 
     public ArrayList<Alerta> obtenerAlertasFallaConexion() {
-        return new ArrayList<>(alertaRepository.findByTipoFallaConexion());
+        return new ArrayList<>(alertaRepository.findByTipo(Alerta.TipoAlerta.FALLA_CONEXION));
     }
 
     public Alerta guardarAlerta(Alerta alerta) {

@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class IndexController {
+public class IndexViewController {
+
     
-    @GetMapping("/index-sesion")
+    @GetMapping("/index")
     public String mostrarIndex(Model model, HttpSession session) {
         String userType = (String) session.getAttribute("userType");
         Boolean isLoggedIn = session.getAttribute("userType") != null;

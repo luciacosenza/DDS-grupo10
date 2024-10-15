@@ -7,9 +7,5 @@ import java.util.List;
 
 public interface AlertaRepository extends JpaRepository<Alerta, Long> {
 
-    List<Alerta> findByTipoTemperatura();
-
-    List<Alerta> findByTipoFraude();
-
-    List<Alerta> findByTipoFallaConexion();
+    List<Alerta> findByTipo(Alerta.TipoAlerta tipoAlerta);
 }

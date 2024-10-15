@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.ArrayList;
 
 @Controller
-public class HeladeraController {
+public class HeladeraViewController {
 
     private final HeladeraService heladeraService;
 
-    public HeladeraController(HeladeraService vHeladeraService) {
+    public HeladeraViewController(HeladeraService vHeladeraService) {
         heladeraService = vHeladeraService;
     }
 

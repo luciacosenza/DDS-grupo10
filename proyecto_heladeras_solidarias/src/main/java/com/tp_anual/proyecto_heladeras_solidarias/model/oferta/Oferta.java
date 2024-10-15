@@ -34,6 +34,8 @@ public class Oferta {
         ARTICULOS_PARA_EL_HOGAR
     }
 
+    public Oferta() {}
+
     public Oferta(String vNombre, Double vCosto, Categoria vCategoria, String vImagen) {
         nombre = vNombre;
         costo = vCosto;

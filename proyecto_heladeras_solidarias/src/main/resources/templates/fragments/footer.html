@@ -1,14 +1,14 @@
-<footer th:fragment="footer(userType)" class="mt-5 pt-4 d-flex flex-column">
+<footer th:fragment="footer(userType, isLoggedIn)" class="mt-5 pt-4 d-flex flex-column">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">Inicio</a></li>
-        <li class="nav-item"><a href="/quienes_somos.html" class="nav-link px-2 text-body-secondary">Quiénes somos</a></li>
-        <li class="nav-item"><a href="/como_participar.html" class="nav-link px-2 text-body-secondary">Cómo participar</a></li>
+        <li class="nav-item"><a th:href="@{/}" class="nav-link px-2 text-body-secondary">Inicio</a></li>
+        <li class="nav-item"><a th:href="@{/quienes-somos.html}" class="nav-link px-2 text-body-secondary">Quiénes somos</a></li>
+        <li class="nav-item"><a th:href="@{/como-participar.html}" class="nav-link px-2 text-body-secondary">Cómo participar</a></li>
         <li th:if="${isLoggedIn}" class="nav-item">
             <a th:href="${userType == 'colaborador_humano'} ? '/colaborar_personas_fisicas' : 'colaborar_personas_juridicas'" class="nav-link px-2 text-body-secondary href-colab">Colaborar</a>
         </li>
     </ul>
-    <a href="/" class="d-flex align-items-center justify-content-center mb-3 mb-md-0 link-body-emphasis text-decoration-none p-3">
-        <img src="../static/assets/logo_negro.png" alt="logo heladeras solidarias" width="50">
+    <a th:href="@{/index}" class="d-flex align-items-center justify-content-center mb-3 mb-md-0 link-body-emphasis text-decoration-none p-3">
+        <img th:src="@{/assets/logo_negro.png}" alt="logo heladeras solidarias" width="50">
     </a>
     <a href="mailto:proyecto.heladeras.solidarias@gmail.com" class="text-center text-muted text-sm">proyecto.heladeras.solidarias@gmail.com</a>
     <p class="text-center text-body-secondary">© Desarrollado por Grupo 10</p>
