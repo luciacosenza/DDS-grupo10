@@ -64,7 +64,7 @@ public class DonacionViandaTest {
         DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
         DonacionVianda donacionVianda = (DonacionVianda) colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), vianda, heladera);
 
-        TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjetaColaborador(colaboradorHumanoId);
+        TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorHumanoId);
         String codigoTarjeta = colaboradorService.agregarTarjeta(colaboradorHumanoId, tarjetaColaborador).getCodigo();
 
         tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);

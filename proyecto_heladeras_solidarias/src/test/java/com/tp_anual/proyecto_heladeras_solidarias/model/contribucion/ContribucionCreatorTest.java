@@ -78,7 +78,7 @@ public class ContribucionCreatorTest {
     @Test
     @DisplayName("Testeo la IllegalArgumentException al querer crear una DonacionDinero con los argumentos inadecuados")
     public void IllegalArgumentCrearDonacionDineroTest() {
-        TarjetaPersonaEnSituacionVulnerable tarjeta = tarjetaPersonaEnSituacionVulnerableService.crearTarjetaPersonaEnSituacionVulnerable(colaboradorHumanoId);
+        TarjetaPersonaEnSituacionVulnerable tarjeta = tarjetaPersonaEnSituacionVulnerableService.crearTarjeta(colaboradorHumanoId);
 
         DonacionDineroCreator donacionDineroCreator = new DonacionDineroCreator();
 

@@ -3,7 +3,6 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.contacto;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.Telefono;
-import com.tp_anual.proyecto_heladeras_solidarias.repository.contacto.MedioDeContactoRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contacto.TelefonoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;

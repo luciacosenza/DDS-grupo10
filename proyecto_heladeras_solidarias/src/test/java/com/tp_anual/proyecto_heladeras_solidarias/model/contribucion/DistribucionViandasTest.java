@@ -80,7 +80,7 @@ public class DistribucionViandasTest {
         DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
         DonacionVianda donacionVianda = (DonacionVianda) colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), vianda, heladera1);
 
-        TarjetaColaborador tarjeta = tarjetaColaboradorService.crearTarjetaColaborador(colaboradorHumanoId);
+        TarjetaColaborador tarjeta = tarjetaColaboradorService.crearTarjeta(colaboradorHumanoId);
         String codigoTarjeta = colaboradorService.agregarTarjeta(colaboradorHumanoId, tarjeta).getCodigo();
 
         tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);
@@ -113,8 +113,8 @@ public class DistribucionViandasTest {
         DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
         DonacionVianda donacionVianda = (DonacionVianda) colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), vianda, heladera1);
 
-        TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjetaColaborador(colaboradorHumanoId);
-        String codigoTarjeta = tarjetaColaboradorService.guardarTarjetaColaborador(tarjetaColaborador).getCodigo();
+        TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorHumanoId);
+        String codigoTarjeta = tarjetaColaboradorService.guardarTarjeta(tarjetaColaborador).getCodigo();
         colaboradorService.agregarTarjeta(colaboradorHumanoId, tarjetaColaborador);
 
         tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);

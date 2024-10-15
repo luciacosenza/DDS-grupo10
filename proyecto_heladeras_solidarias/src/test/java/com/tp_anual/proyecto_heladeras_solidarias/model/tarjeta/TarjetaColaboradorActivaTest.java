@@ -88,7 +88,7 @@ public class TarjetaColaboradorActivaTest {
         donacionViandaCreator = new DonacionViandaCreator();
         donacionVianda1 = (DonacionVianda) colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), vianda1, heladera1);
 
-        tarjetaColaborador = tarjetaColaboradorService.crearTarjetaColaborador(colaboradorHumanoId);
+        tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorHumanoId);
         codigoTarjeta = colaboradorService.agregarTarjeta(colaboradorHumanoId, tarjetaColaborador).getCodigo();
     }
 

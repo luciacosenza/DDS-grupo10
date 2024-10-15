@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import com.tp_anual.proyecto_heladeras_solidarias.service.area.AreaService;
-import com.tp_anual.proyecto_heladeras_solidarias.service.incidente.IncidenteService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tecnico.TecnicoService;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.tuple.Pair;

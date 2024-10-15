@@ -7,7 +7,6 @@ import java.util.Comparator;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.heladera.HeladeraRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.area.AreaService;
-import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.tuple.Pair;
 

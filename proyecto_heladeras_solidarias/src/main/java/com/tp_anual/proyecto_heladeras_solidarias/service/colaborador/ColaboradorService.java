@@ -7,7 +7,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJ
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
@@ -163,7 +162,7 @@ public class ColaboradorService {
     public TarjetaColaborador agregarTarjeta(Long colaboradorId, TarjetaColaborador tarjetaColaborador) {
         ColaboradorHumano colaborador = obtenerColaboradorHumano(colaboradorId);
         colaborador.agregarTarjeta(tarjetaColaborador);
-        
+
         return guardarColaboradorHumano(colaborador).getTarjeta();
     }
 

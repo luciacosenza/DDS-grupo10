@@ -6,6 +6,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.AperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.PermisoApertura;
+import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.Tarjeta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
 
 import com.tp_anual.proyecto_heladeras_solidarias.repository.tarjeta.TarjetaColaboradorRepository;
@@ -38,15 +39,18 @@ public class TarjetaColaboradorService extends TarjetaService {
         tarjetaColaboradorCreator = vTarjetaColaboradorCreator;
     }
 
-    public TarjetaColaborador obtenerTarjetaColaborador(String tarjetaColaboradorId) {
+    @Override
+    public TarjetaColaborador obtenerTarjeta(String tarjetaColaboradorId) {
         return tarjetaColaboradorRepository.findById(tarjetaColaboradorId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public TarjetaColaborador guardarTarjetaColaborador(TarjetaColaborador TarjetaColaborador){
-        return tarjetaColaboradorRepository.save(TarjetaColaborador);
+    @Override
+    public TarjetaColaborador guardarTarjeta(Tarjeta tarjetaColaborador){
+        return tarjetaColaboradorRepository.save((TarjetaColaborador) tarjetaColaborador);
     }
 
-    public TarjetaColaborador crearTarjetaColaborador(Long colaboradorId){
+    @Override
+    public TarjetaColaborador crearTarjeta(Long colaboradorId){
         ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
 
         return (TarjetaColaborador) tarjetaColaboradorCreator.crearTarjeta(colaborador);
@@ -58,13 +62,13 @@ public class TarjetaColaboradorService extends TarjetaService {
     }
 
     public void agregarPermiso(String tarjetaColaboradorId, PermisoApertura permiso) {
-        TarjetaColaborador tarjetaColaborador = obtenerTarjetaColaborador(tarjetaColaboradorId);
+        TarjetaColaborador tarjetaColaborador = obtenerTarjeta(tarjetaColaboradorId);
         tarjetaColaborador.agregarPermiso(permiso);
-        guardarTarjetaColaborador(tarjetaColaborador);
+        guardarTarjeta(tarjetaColaborador);
     }
 
     public SolicitudAperturaColaborador solicitarApertura(String tarjetaColaboradorId, Heladera heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo) {
-        TarjetaColaborador tarjetaColaborador = obtenerTarjetaColaborador(tarjetaColaboradorId);
+        TarjetaColaborador tarjetaColaborador = obtenerTarjeta(tarjetaColaboradorId);
 
         gestorDeAperturas.revisarMotivoApertura(heladeraInvolucrada, motivo);
 
@@ -82,7 +86,7 @@ public class TarjetaColaboradorService extends TarjetaService {
 
     public AperturaColaborador intentarApertura(String tarjetaColaboradorId, Heladera heladera) {
         // Primero chequeo internamente que pueda realizar la Apertura
-        TarjetaColaborador tarjetaColaborador = obtenerTarjetaColaborador(tarjetaColaboradorId);
+        TarjetaColaborador tarjetaColaborador = obtenerTarjeta(tarjetaColaboradorId);
         ColaboradorHumano titular = tarjetaColaborador.getTitular();
 
         gestorDeAperturas.revisarPermisoAperturaC(heladera, titular);

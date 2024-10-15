@@ -4,14 +4,11 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Tecnico;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoServiceSelector;
-import com.tp_anual.proyecto_heladeras_solidarias.service.incidente.IncidenteService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tecnico.TecnicoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.ubicador.UbicadorTecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.extern.java.Log;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
