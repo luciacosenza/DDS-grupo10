@@ -40,8 +40,8 @@ public class DonacionDineroTest {
         DonacionDinero.FrecuenciaDePago frecuencia1 = DonacionDinero.FrecuenciaDePago.UNICA_VEZ;
 
         DonacionDineroCreator donacionDineroCreator = new DonacionDineroCreator();
-        Long donacionDinero1Id = colaboradorService.colaborar(colaboradorHumanoId, donacionDineroCreator, LocalDateTime.now(), monto1, frecuencia1).getId();
-        colaboradorService.confirmarContribucion(colaboradorHumano.getId(), donacionDinero1Id, LocalDateTime.now());
+        DonacionDinero donacionDinero1 = (DonacionDinero) colaboradorService.colaborar(colaboradorHumanoId, donacionDineroCreator, LocalDateTime.now(), monto1, frecuencia1);
+        colaboradorService.confirmarContribucion(colaboradorHumanoId, donacionDinero1, LocalDateTime.now());
 
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new PersonaJuridica("RazonSocialPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA, "RubroPrueba"), new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "1033", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         Long colaboradorJuridicoId = colaboradorService.guardarColaborador(colaboradorHumano).getId();
@@ -49,8 +49,8 @@ public class DonacionDineroTest {
         Double monto2 = 100000d;
         DonacionDinero.FrecuenciaDePago frecuencia2 = DonacionDinero.FrecuenciaDePago.UNICA_VEZ;
 
-        Long donacionDinero2Id = colaboradorService.colaborar(colaboradorJuridico.getId(),donacionDineroCreator, LocalDateTime.now(), monto2, frecuencia2).getId();
-        colaboradorService.confirmarContribucion(colaboradorJuridico.getId(), donacionDinero2Id, LocalDateTime.now());
+        DonacionDinero donacionDinero2 = (DonacionDinero) colaboradorService.colaborar(colaboradorJuridicoId,donacionDineroCreator, LocalDateTime.now(), monto2, frecuencia2);
+        colaboradorService.confirmarContribucion(colaboradorJuridicoId, donacionDinero2, LocalDateTime.now());
 
         Assertions.assertTrue(colaboradorHumano.getContribuciones().size() == 1 && colaboradorJuridico.getContribuciones().size() == 1 && colaboradorHumano.getContribuciones().getFirst().getClass() == DonacionDinero.class && colaboradorJuridico.getContribuciones().getFirst().getClass() == DonacionDinero.class);
     }

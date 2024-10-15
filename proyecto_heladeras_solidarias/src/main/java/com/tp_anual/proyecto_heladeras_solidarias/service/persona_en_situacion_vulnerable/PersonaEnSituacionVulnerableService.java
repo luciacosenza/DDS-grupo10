@@ -2,6 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.persona_en_situacion_
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
+import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerableRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
@@ -29,6 +30,13 @@ public class PersonaEnSituacionVulnerableService {
 
     public PersonaEnSituacionVulnerable guardarPersonaEnSituacionVulnerable(PersonaEnSituacionVulnerable personaEnSituacionVulnerable) {
         return personaEnSituacionVulnerableRepository.save(personaEnSituacionVulnerable);
+    }
+
+    public TarjetaPersonaEnSituacionVulnerable agregarTarjeta(Long personaEnSituacionVulnerableId, TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable) {
+        PersonaEnSituacionVulnerable personaEnSituacionVulnerable = obtenerPersonaEnSituacionVulnerable(personaEnSituacionVulnerableId);
+        personaEnSituacionVulnerable.agregarTarjeta(tarjetaPersonaEnSituacionVulnerable);
+
+        return guardarPersonaEnSituacionVulnerable(personaEnSituacionVulnerable).getTarjeta();
     }
 
     public Boolean poseeMenoresACargo(Long personaEnSituacionVulnerableId) {

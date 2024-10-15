@@ -6,6 +6,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorH
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.RegistroDePersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.RegistroDePersonaEnSituacionVulnerableRepository;
+import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorPuntosService;
 import lombok.extern.java.Log;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,13 @@ import java.util.logging.Level;
 public class RegistroDePersonaEnSituacionVulnerableService extends ContribucionService {
 
     private final RegistroDePersonaEnSituacionVulnerableRepository registroDePersonaEnSituacionVulnerableRepository;
+    private final ColaboradorPuntosService colaboradorPuntosService;
     private final Double multiplicadorPuntos = 2d;
 
-    public RegistroDePersonaEnSituacionVulnerableService(RegistroDePersonaEnSituacionVulnerableRepository vRegistroDePersonaEnSituacionVulnerableRepository) {
+    public RegistroDePersonaEnSituacionVulnerableService(RegistroDePersonaEnSituacionVulnerableRepository vRegistroDePersonaEnSituacionVulnerableRepository, ColaboradorPuntosService vColaboradorPuntosService) {
         super();
         registroDePersonaEnSituacionVulnerableRepository = vRegistroDePersonaEnSituacionVulnerableRepository;
+        colaboradorPuntosService = vColaboradorPuntosService;
     }
 
     @Override
@@ -61,10 +64,10 @@ public class RegistroDePersonaEnSituacionVulnerableService extends ContribucionS
 
         for (RegistroDePersonaEnSituacionVulnerable registroDePersonaEnSituacionVulnerable : registrosDePersonaEnSituacionVulnerable) {
             ColaboradorHumano colaborador = (ColaboradorHumano) registroDePersonaEnSituacionVulnerable.getColaborador();
-            colaborador.sumarPuntos(multiplicadorPuntos);
+            colaboradorPuntosService.sumarPuntos(colaborador.getId(), multiplicadorPuntos);
 
             registroDePersonaEnSituacionVulnerable.sumoPuntos();
-            guardarContribucion(registroDePersonaEnSituacionVulnerable);    // Al guardar la contribución, se guarda el colaborador por cascada
+            guardarContribucion(registroDePersonaEnSituacionVulnerable);    // Al guardar la contribución, se guarda el colaborador por cascada (aunque ya había sido guardado)
             confirmarSumaPuntos(registroDePersonaEnSituacionVulnerable.getId(), colaborador, multiplicadorPuntos);
         }
     }

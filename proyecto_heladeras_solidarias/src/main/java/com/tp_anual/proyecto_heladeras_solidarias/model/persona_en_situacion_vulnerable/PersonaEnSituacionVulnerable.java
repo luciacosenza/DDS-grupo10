@@ -48,4 +48,8 @@ public class PersonaEnSituacionVulnerable {
         fechaRegistro = vFechaRegistro;
         menoresACargo = vMenoresACargo;
     }
+
+    public void agregarTarjeta(TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable) {
+        setTarjeta(tarjetaPersonaEnSituacionVulnerable);
+    }
 }

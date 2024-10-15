@@ -6,6 +6,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorH
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJuridico;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
+import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
@@ -77,10 +78,12 @@ public class ColaboradorService {
         return colaboradorRepository.save(colaborador);
     }
 
-    public void sumarPuntos(Long colaboradorId, Double puntosASumar) {
-        Colaborador colaborador = obtenerColaborador(colaboradorId);
-        colaborador.sumarPuntos(puntosASumar);
-        guardarColaborador(colaborador);
+    public ColaboradorHumano guardarColaboradorHumano(ColaboradorHumano colaborador) {
+        return (ColaboradorHumano) guardarColaborador(colaborador);
+    }
+
+    public ColaboradorJuridico guardarColaboradorJuridico(ColaboradorJuridico colaborador) {
+        return (ColaboradorJuridico) guardarColaborador(colaborador);
     }
 
     public void agregarMedioDeContacto(Long colaboradorId, MedioDeContacto medioDeContacto) {
@@ -155,6 +158,13 @@ public class ColaboradorService {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
 
         heladeraService.producirFallaTecnica(heladera.getId(), colaborador, descripcion, foto);
+    }
+
+    public TarjetaColaborador agregarTarjeta(Long colaboradorId, TarjetaColaborador tarjetaColaborador) {
+        ColaboradorHumano colaborador = obtenerColaboradorHumano(colaboradorId);
+        colaborador.agregarTarjeta(tarjetaColaborador);
+        
+        return guardarColaboradorHumano(colaborador).getTarjeta();
     }
 
     public void agregarSuscripcion(Long colaboradorId, Suscripcion suscripcion) {

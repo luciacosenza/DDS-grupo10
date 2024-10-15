@@ -1,14 +1,8 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
 
 import java.time.LocalDateTime;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.HacerseCargoDeHeladeraCreator;
@@ -22,7 +16,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJ
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -36,25 +29,23 @@ public class HacerseCargoDeHeladeraTest {
     @Autowired
     ColaboradorService colaboradorService;
 
-
     @Autowired
     HeladeraService heladeraService;
-
-
 
     @Test
     @DisplayName("Testeo la carga y correcto funcionamiento de una HacerseCargoDeHeladera")
     public void CargaHacerseCargoDeHeladeraTest() {
-        ColaboradorJuridico colaboradorJuridico = (ColaboradorJuridico) colaboradorService.guardarColaborador(new ColaboradorJuridico(new PersonaJuridica("RazonSocialPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA, "RubroPrueba"), new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "1033", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d));
-
+        ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(new PersonaJuridica("RazonSocialPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA, "RubroPrueba"), new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "1033", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
+        Long colaboradorJuridicoId = colaboradorService.guardarColaborador(colaboradorJuridico).getId();
 
         LocalDateTime fechaAperturaH   = LocalDateTime.parse("2024-01-01T00:00:00");
 
-        Long heladera1Id = heladeraService.guardarHeladera(new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"),20, -20f, 5f, new ArrayList<>(), 2f, fechaAperturaH, true)).getId();
-        HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
-        HacerseCargoDeHeladera hacerseCargoDeHeladera = (HacerseCargoDeHeladera) colaboradorService.colaborar(colaboradorJuridico.getId(), hacerseCargoDeHeladeraCreator, fechaAperturaH, heladera1Id);
+        Heladera heladera = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"),20, -20f, 5f, new ArrayList<>(), 2f, fechaAperturaH, true);
+        Long heladeraId = heladeraService.guardarHeladera(heladera).getId();
 
-        colaboradorService.confirmarContribucion(colaboradorJuridico.getId(), hacerseCargoDeHeladera.getId(), fechaAperturaH);
+        HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
+        HacerseCargoDeHeladera hacerseCargoDeHeladera = (HacerseCargoDeHeladera) colaboradorService.colaborar(colaboradorJuridico.getId(), hacerseCargoDeHeladeraCreator, fechaAperturaH, heladeraId);
+        colaboradorService.confirmarContribucion(colaboradorJuridicoId, hacerseCargoDeHeladera, fechaAperturaH);
 
         Assertions.assertTrue(heladeraService.obtenerHeladeras().size() == 1 && colaboradorJuridico.getContribuciones().size() == 1 && colaboradorJuridico.getContribuciones().getFirst().getClass() == HacerseCargoDeHeladera.class);
     }

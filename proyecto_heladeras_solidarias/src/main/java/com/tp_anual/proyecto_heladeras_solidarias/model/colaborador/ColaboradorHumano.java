@@ -40,6 +40,10 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
         return (PersonaFisica) persona;
     }
 
+    public void agregarTarjeta(TarjetaColaborador tarjetaColaborador) {
+        setTarjeta(tarjetaColaborador);
+    }
+
     public void agregarSuscripcion(Suscripcion suscripcion) {
         suscripciones.add(suscripcion);
     }

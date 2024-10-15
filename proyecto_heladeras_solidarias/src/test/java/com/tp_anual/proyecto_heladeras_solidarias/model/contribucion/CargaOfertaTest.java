@@ -39,9 +39,8 @@ public class CargaOfertaTest {
         Oferta oferta = new Oferta("PlayStation 5", 20d, Oferta.Categoria.ELECTRONICA, "ImagenPrueba");
 
         CargaOfertaCreator cargaOfertaCreator = new CargaOfertaCreator();
-
-        Long cargaOfertaId = colaboradorService.colaborar(colaboradorJuridico.getId(), cargaOfertaCreator, LocalDateTime.now(), oferta).getId();
-        colaboradorService.confirmarContribucion(colaboradorJuridicoId, cargaOfertaId, LocalDateTime.now());
+        CargaOferta cargaOferta = (CargaOferta) colaboradorService.colaborar(colaboradorJuridico.getId(), cargaOfertaCreator, LocalDateTime.now(), oferta);
+        colaboradorService.confirmarContribucion(colaboradorJuridicoId, cargaOferta, LocalDateTime.now());
 
         Assertions.assertTrue(ofertaService.obtenerOfertas().size() == 1 && colaboradorJuridico.getContribuciones().size() == 1 && colaboradorJuridico.getContribuciones().getFirst().getClass() == CargaOferta.class);
     }

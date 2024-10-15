@@ -5,6 +5,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionVianda;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.DonacionViandaRepository;
+import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorPuntosService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,11 +19,13 @@ import java.util.logging.Level;
 public class DonacionViandaService extends ContribucionService {
 
     private final DonacionViandaRepository donacionViandaRepository;
+    private final ColaboradorPuntosService colaboradorPuntosService;
     private final Double multiplicadorPuntos = 1.5;
 
-    public DonacionViandaService(DonacionViandaRepository vDonacionViandaRepository) {
+    public DonacionViandaService(DonacionViandaRepository vDonacionViandaRepository, ColaboradorPuntosService vColaboradorPuntosService) {
         super();
         donacionViandaRepository = vDonacionViandaRepository;
+        colaboradorPuntosService = vColaboradorPuntosService;
     }
 
     @Override
@@ -60,10 +63,10 @@ public class DonacionViandaService extends ContribucionService {
 
         for (DonacionVianda donacionVianda : donacionesVianda) {
             Colaborador colaborador = donacionVianda.getColaborador();
-            colaborador.sumarPuntos(multiplicadorPuntos);
+            colaboradorPuntosService.sumarPuntos(colaborador.getId(), multiplicadorPuntos);
 
             donacionVianda.sumoPuntos();
-            guardarContribucion(donacionVianda);    // Al guardar la contribución, se guarda el colaborador por cascada
+            guardarContribucion(donacionVianda);    // Al guardar la contribución, se guarda el colaborador por cascada (aunque ya había sido guardado)
             confirmarSumaPuntos(donacionVianda.getId(), colaborador, multiplicadorPuntos);
         }
     }
