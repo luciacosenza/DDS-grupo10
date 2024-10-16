@@ -13,13 +13,13 @@ public class Documento {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private final TipoDocumento tipo;
+    private TipoDocumento tipo; // final
 
     @Pattern(regexp = "^\\d+$")
-    private final String numero;
+    private String numero;  // final
 
     @Enumerated(EnumType.STRING)
-    private final Sexo sexo;
+    private Sexo sexo;  // final
     
     public enum TipoDocumento {
         DNI,
@@ -34,7 +34,9 @@ public class Documento {
         FEMENINO,
         OTRO
     }
-        
+
+    public Documento() {}
+
     public Documento(TipoDocumento vTipo, String vNumero, Sexo vSexo) {
         tipo = vTipo;
         numero = vNumero;

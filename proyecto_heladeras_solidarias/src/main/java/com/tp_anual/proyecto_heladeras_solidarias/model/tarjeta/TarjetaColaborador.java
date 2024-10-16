@@ -10,16 +10,20 @@ import java.util.ArrayList;
 
 @Entity
 @Getter
-@Setter
 public class TarjetaColaborador extends Tarjeta {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "colaborador")
+    @Setter
     protected ColaboradorHumano titular;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "tarjeta")
-    protected ArrayList<PermisoApertura> permisos;
+    protected ArrayList<PermisoApertura> permisos;  // final
+
+    public TarjetaColaborador() {
+        super();
+    }
 
     public TarjetaColaborador(String vCodigo, ColaboradorHumano vTitular, ArrayList<PermisoApertura> vPermisos) {
         super(vCodigo);

@@ -61,20 +61,7 @@ public class ViewController {
         return "registrar-persona-vulnerable";
     }
 
-    @GetMapping("/registro-persona-humana")
-    public String mostrarRegistroPersonaHumana() {
-        return "registro-persona-humana";
-    }
 
-    @GetMapping("/registro-persona-juridica")
-    public String mostrarRegistroPersonaJuridica() {
-        return "registro-persona-juridica";
-    }
-
-    @GetMapping("/seleccion-persona")
-    public String mostrarSeleccionPersona() {
-        return "seleccion-persona";
-    }
 
     @GetMapping("/suscribirse")
     public String mostrarSuscribirse() {

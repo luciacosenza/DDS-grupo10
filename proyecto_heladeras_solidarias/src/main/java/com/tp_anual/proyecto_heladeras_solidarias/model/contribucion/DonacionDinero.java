@@ -8,7 +8,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -16,17 +15,17 @@ import lombok.extern.java.Log;
 @Entity
 @Log
 @Getter
-@Setter
 public class DonacionDinero extends Contribucion {
     
     @Min(value = 0)
-    private final Double monto;
+    private Double monto;   // final
 
     @Enumerated(EnumType.STRING)
     @Min(value = 0)
-    private final FrecuenciaDePago frecuencia;
+    private FrecuenciaDePago frecuencia;    // final
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Setter
     private LocalDateTime ultimaActualizacion;
 
     public enum FrecuenciaDePago {  // Hacemos que Frecuencia de Pago sea una "interfaz común" para las distintas frecuencias, brindando los métodos periodo() unidad() para el uso de polimorfismo
@@ -88,6 +87,10 @@ public class DonacionDinero extends Contribucion {
     
         public abstract Integer periodo();
         public abstract ChronoUnit unidad();
+    }
+
+    public DonacionDinero() {
+        super();
     }
 
     public DonacionDinero(Colaborador vColaborador, LocalDateTime vFechaContribucion, Double vMonto, FrecuenciaDePago vFrecuencia) {

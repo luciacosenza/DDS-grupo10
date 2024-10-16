@@ -17,11 +17,13 @@ public abstract class AccionHeladera {
     protected Long id;
     
     @Temporal(TemporalType.TIMESTAMP)
-    protected final LocalDateTime fecha;
+    protected LocalDateTime fecha;  // final
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera")
-    protected final Heladera heladera;
+    protected Heladera heladera;    // final
+
+    protected AccionHeladera() {}
 
     protected AccionHeladera(LocalDateTime vFecha, Heladera vHeladera) {
         fecha = vFecha;

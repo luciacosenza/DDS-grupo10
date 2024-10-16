@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import lombok.Getter;
@@ -13,32 +12,33 @@ import lombok.Getter;
 @Entity
 @Log
 @Getter
-@Setter
 public class Visita {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.REFRESH })
     @JoinColumn(name = "tecnico")
-    private final Tecnico tecnico;
+    private Tecnico tecnico;    // final
 
     @OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
     @JoinColumn(name = "incidente")
-    private final Incidente incidente;
+    private Incidente incidente;    // final
 
     @Temporal(TemporalType.TIMESTAMP)
-    private final LocalDateTime fecha;
+    private LocalDateTime fecha;    // final
 
-    private final String descripcion;
+    private String descripcion; // final
 
-    private final String foto;
+    private String foto;    // final
     
-    private final Boolean estado;
+    private Boolean estado; // final
 
+    @Setter
     private Boolean revisada;
+
+    public Visita() {}
 
     public Visita(Tecnico vTecnico, Incidente vIncidente, LocalDateTime vFecha, String vDescripcion, String vFoto, Boolean vEstado, Boolean vRevisada) {
         tecnico = vTecnico;

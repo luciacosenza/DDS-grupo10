@@ -11,7 +11,11 @@ import lombok.extern.java.Log;
 public class EMail extends MedioDeContacto {
     
     @Email
-    private final String direccionCorreo;
+    private String direccionCorreo; // final
+
+    public EMail() {
+        super();
+    }
 
     public EMail(String vDireccionCorreo) {
         direccionCorreo = vDireccionCorreo;

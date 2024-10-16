@@ -14,7 +14,11 @@ public class AperturaPersonaEnSituacionVulnerable extends AccionHeladera {
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "persona_en_situacion_vulnerable")
-    private final PersonaEnSituacionVulnerable responsable;
+    private PersonaEnSituacionVulnerable responsable;   // final
+
+    public AperturaPersonaEnSituacionVulnerable() {
+        super();
+    }
 
     public AperturaPersonaEnSituacionVulnerable(LocalDateTime vFecha, Heladera vHeladera, PersonaEnSituacionVulnerable vResponsable) {
         super(vFecha, vHeladera);

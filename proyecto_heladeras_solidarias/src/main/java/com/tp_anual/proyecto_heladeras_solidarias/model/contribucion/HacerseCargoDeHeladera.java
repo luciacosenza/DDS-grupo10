@@ -15,15 +15,19 @@ import lombok.extern.java.Log;
 @Entity
 @Log
 @Getter
-@Setter
 public class HacerseCargoDeHeladera extends Contribucion {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "heladera")
-    private final Heladera heladeraObjetivo;
+    private Heladera heladeraObjetivo;  // final
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Setter
     private LocalDateTime ultimaActualizacion;
+
+    public HacerseCargoDeHeladera() {
+        super();
+    }
 
     public HacerseCargoDeHeladera(Colaborador vColaborador, LocalDateTime vFechaContribucion, Heladera vHeladeraObjetivo) {
         super(vColaborador, vFechaContribucion);

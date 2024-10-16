@@ -1,7 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.oferta;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.extern.java.Log;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,22 +9,24 @@ import jakarta.validation.constraints.Min;
 @Entity
 @Log
 @Getter
-@Setter
 public class Oferta {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
     protected Long id;
 
+    @Setter
     private String nombre;
 
     @Min(value = 0)
+    @Setter
     private Double costo;
 
     @Enumerated(EnumType.STRING)
+    @Setter
     private Categoria categoria;
 
+    @Setter
     private String imagen;
 
     public enum Categoria {

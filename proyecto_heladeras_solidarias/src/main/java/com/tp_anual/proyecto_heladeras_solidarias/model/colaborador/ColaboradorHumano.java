@@ -11,6 +11,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborad
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaboradorNula;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,17 +21,22 @@ import lombok.extern.java.Log;
 @DiscriminatorValue("Humano")
 @Log
 @Getter
-@Setter
 public class ColaboradorHumano extends Colaborador {    // Implementa una Interfaz "ColaboradorHumanoObserver" a nivel conceptual
 
     @OneToOne(mappedBy = "titular", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Setter
     protected TarjetaColaborador tarjeta;
-    
-    @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    protected final ArrayList<Suscripcion> suscripciones;   // Será una Suscripción por Heladera
 
-    public ColaboradorHumano(PersonaFisica vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
-        super(vPersona, vDomicilio, vMediosDeContacto, vContribuciones, vBeneficiosAdquiridos, vPuntos);
+    @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Setter
+    protected ArrayList<Suscripcion> suscripciones;   // Será una Suscripción por Heladera
+
+    public ColaboradorHumano() {
+        super();
+    }
+
+    public ColaboradorHumano(User vUsuario, PersonaFisica vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
+        super(vUsuario, vPersona, vDomicilio, vMediosDeContacto, vContribuciones, vBeneficiosAdquiridos, vPuntos);
         tarjeta = new TarjetaColaboradorNula();
         suscripciones = new ArrayList<>();
     }

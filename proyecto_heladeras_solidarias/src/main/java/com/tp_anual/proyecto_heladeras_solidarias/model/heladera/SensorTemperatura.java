@@ -11,13 +11,18 @@ import lombok.extern.java.Log;
 @Entity
 @Log
 @Getter
-@Setter
 public class SensorTemperatura extends Sensor {
 
+    @Setter
     private Float tempActual;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Setter
     private LocalDateTime ultimaActualizacion;
+
+    public SensorTemperatura() {
+        super();
+    }
 
     public SensorTemperatura(Heladera vHeladera) {
         super(vHeladera);

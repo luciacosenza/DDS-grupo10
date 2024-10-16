@@ -8,6 +8,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,11 +18,14 @@ import lombok.extern.java.Log;
 @DiscriminatorValue("Juridico")
 @Log
 @Getter
-@Setter
 public class ColaboradorJuridico extends Colaborador {
 
-    public ColaboradorJuridico(PersonaJuridica vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
-        super(vPersona, vDomicilio, vMediosDeContacto, vContribuciones, vBeneficiosAdquiridos, vPuntos);
+    public ColaboradorJuridico() {
+        super();
+    }
+
+    public ColaboradorJuridico(User vUsuario, PersonaJuridica vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
+        super(vUsuario, vPersona, vDomicilio, vMediosDeContacto, vContribuciones, vBeneficiosAdquiridos, vPuntos);
         puntos = vPuntos;
     }
 

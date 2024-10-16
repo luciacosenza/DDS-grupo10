@@ -6,7 +6,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -15,24 +14,29 @@ import lombok.extern.java.Log;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Log
 @Getter
-@Setter
 public abstract class Contribucion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "colaborador")
-    protected final Colaborador colaborador;
+    protected Colaborador colaborador;  // final
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Setter
     protected LocalDateTime fechaContribucion;
-    
+
+    @Setter
     protected Boolean completada;
 
+    @Setter
     protected Boolean yaSumoPuntos;
+
+    protected Contribucion() {
+        super();
+    }
 
     protected Contribucion(Colaborador vColaborador, LocalDateTime vFechaContribucion) {
         colaborador = vColaborador;

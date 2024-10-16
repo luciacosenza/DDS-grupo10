@@ -9,6 +9,7 @@ import lombok.extern.java.Log;
 
 @Log
 public class TarjetaColaboradorNula extends TarjetaColaborador {
+
     public TarjetaColaboradorNula() {
         super("N/A", null, new ArrayList<>());
     }
@@ -31,9 +32,6 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
 
     @Override
     public void setTitular(ColaboradorHumano vTitular) {}
-
-    @Override
-    public void setPermisos(ArrayList<PermisoApertura> vPermisosApertura) {}
 
     @Override
     public void agregarPermiso(PermisoApertura permiso) {}

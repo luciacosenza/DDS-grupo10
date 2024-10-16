@@ -12,20 +12,18 @@ import jakarta.persistence.*;
 @Entity
 @Log
 @Getter
-@Setter
 public class UsoTarjeta {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
     protected Long id;
     
     @Temporal(TemporalType.TIMESTAMP)
-    private final LocalDateTime fechaUso;
+    private LocalDateTime fechaUso; // final
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera")
-    private final Heladera heladera;
+    private Heladera heladera;  // final
 
     public UsoTarjeta(LocalDateTime vFechaUso, Heladera vHeladera) {
         fechaUso = vFechaUso;

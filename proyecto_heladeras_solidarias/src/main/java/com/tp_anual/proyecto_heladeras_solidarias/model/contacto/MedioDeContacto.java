@@ -11,4 +11,6 @@ public abstract class MedioDeContacto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
+
+    public MedioDeContacto() {}
 }

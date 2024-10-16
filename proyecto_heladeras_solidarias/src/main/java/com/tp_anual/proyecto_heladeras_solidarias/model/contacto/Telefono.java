@@ -11,14 +11,16 @@ import lombok.extern.java.Log;
 public class Telefono extends MedioDeContacto {
     
     @Pattern(regexp = "^[1-9][0-9]{0,2}$")
-    private final String codPais;
+    private String codPais; // final
 
     @Pattern(regexp = "^[1-9][0-9]{0,2}$")
-    private final String codArea;
+    private String codArea; // final
     
     @Pattern(regexp = "^\\d{7,10}$")
-    private final String numero;
-    
+    private String numero;  // final
+
+    public Telefono() {}
+
     public Telefono(String vCodPais, String vCodArea, String vNumero) {
         codPais = vCodPais;
         codArea = vCodArea;

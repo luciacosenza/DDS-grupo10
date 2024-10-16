@@ -4,41 +4,48 @@ import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 public class Vianda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
     protected Long id;
 
+    @Setter
     private String comida;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera")
+    @Setter
     private Heladera heladera;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "colaborador")
+    @Setter
     private ColaboradorHumano colaborador;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Setter
     private LocalDateTime fechaCaducidad;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Setter
     private LocalDateTime fechaDonacion;
 
+    @Setter
     private Integer calorias;
 
+    @Setter
     private Integer peso;
-    
+
+    @Setter
     private Boolean entregada;
+
+    public Vianda() {}
 
     public Vianda(String vComida, ColaboradorHumano vColaborador, LocalDateTime vFechaCaducidad, LocalDateTime vFechaDonacion, Integer vCalorias, Integer vPeso, Boolean vEntregada) {
         comida = vComida;

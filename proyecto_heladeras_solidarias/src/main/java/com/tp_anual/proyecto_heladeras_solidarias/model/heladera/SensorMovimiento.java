@@ -8,11 +8,15 @@ import lombok.extern.java.Log;
 @Entity
 @Log
 @Getter
-@Setter
 public class SensorMovimiento extends Sensor {
-    
+
+    @Setter
     private Boolean hayMovimiento;
-    
+
+    public SensorMovimiento() {
+        super();
+    }
+
     public SensorMovimiento(Heladera vHeladera) {
         super(vHeladera);
         hayMovimiento = false;

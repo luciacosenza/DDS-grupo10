@@ -13,18 +13,20 @@ public class Ubicacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private final Double latitud;
+    private Double latitud; // final
 
-    private final Double longitud;
+    private Double longitud;    // final
 
-    private final String direccion;
+    private String direccion;   // final
 
     // TODO: A chequear el Pattern
-    private final String codigoPostal;
+    private String codigoPostal;    // final
 
-    private final String ciudad;
+    private String ciudad;  // final
     
-    private final String pais;
+    private String pais;    // final
+
+    public Ubicacion() {}
 
     public Ubicacion(Double vLatitud, Double vLongitud, String vDireccion, String vCodigoPostal, String vCiudad, String vPais) {
         latitud = vLatitud;

@@ -8,34 +8,35 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import lombok.AccessLevel;
 import lombok.extern.java.Log;
 import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Log
 @Getter
-@Setter
 public class DistribucionViandas extends Contribucion {
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_origen")
-    private final Heladera origen;
+    private Heladera origen;    // final
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_destino")
-    private final Heladera destino;
+    private Heladera destino; // final
 
     @Min(value = 0)
-    private final Integer cantidadViandasAMover;
+    private Integer cantidadViandasAMover;  // final
 
     @Enumerated(EnumType.STRING)
-    private final MotivoDistribucion motivo;
+    private  MotivoDistribucion motivo; // final
 
     public enum MotivoDistribucion {
         DESPERFECTO_EN_LA_HELADERA,
         FALTA_DE_VIANDAS_EN_DESTINO
+    }
+
+    public DistribucionViandas() {
+        super();
     }
     
     public DistribucionViandas(Colaborador vColaborador, LocalDateTime vFechaContribucion, Heladera vOrigen, Heladera vDestino, Integer vCantidadViandasAMover, MotivoDistribucion vMotivo) {

@@ -7,7 +7,6 @@ import lombok.extern.java.Log;
 
 @Entity
 @Getter
-@Setter
 @Log
 public class User {
 
@@ -15,11 +14,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     private String username;
 
+    @Setter
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Setter
     private TipoUser tipo;
 
     public enum TipoUser {
@@ -28,6 +30,8 @@ public class User {
         TECNICO,
         ADMIN
     }
+
+    public User() {}
 
     public User(String vUsername, String vPassword, TipoUser vTipo) {
         username = username;

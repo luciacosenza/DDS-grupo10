@@ -9,21 +9,26 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity 
+@Entity
 @Getter
-@Setter
 public class PersonaFisica extends Persona {
-    
+
+    @Setter
     private String nombre;
 
+    @Setter
     private String apellido;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "documento")
-    private final Documento documento;
+    private Documento documento;    // final
 
     @Temporal(TemporalType.TIMESTAMP)
-    private final LocalDateTime fechaNacimiento;
+    private LocalDateTime fechaNacimiento;  // final
+
+    public PersonaFisica() {
+        super();
+    }
 
     public PersonaFisica(String vNombre, String vApellido, Documento vDocumento, LocalDateTime vFechaDeNacimiento) {
         super();
@@ -32,7 +37,7 @@ public class PersonaFisica extends Persona {
         documento = vDocumento;
         fechaNacimiento = vFechaDeNacimiento;
     }
-    
+
     // Método para obtener los detalles "importantes" que identifican de forma sencilla a una Persona, implementado en ambos tipos de Persona
     @Override
     public String getNombre(Integer n) {

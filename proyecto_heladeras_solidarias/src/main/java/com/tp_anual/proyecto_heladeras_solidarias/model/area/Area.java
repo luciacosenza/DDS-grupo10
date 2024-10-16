@@ -14,13 +14,15 @@ public class Area {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    private final Double x1;
+    private Double x1;  // final
 
-    private final Double y1;
+    private Double y1;  // final
 
-    private final Double x2;
+    private Double x2;  // final
     
-    private final Double y2;
+    private Double y2;  // final
+
+    public Area() {}
 
     public Area(Double vX1, Double vY1, Double vX2, Double vY2) {
         x1 = vX1;

@@ -12,7 +12,11 @@ import lombok.Getter;
 @DiscriminatorValue("Apertura Colaborador")
 @Getter
 public class AperturaColaborador extends AccionColaborador {
-    
+
+    public AperturaColaborador() {
+        super();
+    }
+
     public AperturaColaborador(LocalDateTime vFecha, Heladera vHeladera, ColaboradorHumano vResponsable) {
         super(vFecha, vHeladera, vResponsable);
     }

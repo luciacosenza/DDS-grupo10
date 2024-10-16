@@ -14,11 +14,15 @@ import jakarta.validation.constraints.Min;
 @DiscriminatorValue("Viandas Minimas")
 @Log
 @Getter
-@Setter
 public class SuscripcionViandasMin extends Suscripcion {
     
     @Min(value = 0)
+    @Setter
     private Integer viandasDisponiblesMin;
+
+    public SuscripcionViandasMin() {
+        super();
+    }
 
     public SuscripcionViandasMin(ColaboradorHumano vColaborador, Heladera vHeladera, MedioDeContacto vMedioDeContactoElegido, Integer vViandasDisponiblesMin) {
         super(vColaborador, vHeladera, vMedioDeContactoElegido);

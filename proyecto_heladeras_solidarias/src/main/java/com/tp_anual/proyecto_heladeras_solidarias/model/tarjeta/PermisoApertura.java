@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -12,24 +11,27 @@ import jakarta.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Getter
-@Setter
 @Log
+@Getter
 public class PermisoApertura {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera")
+    @Setter
     private Heladera heladeraPermitida;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Setter
     private LocalDateTime fechaOtorgamiento;
 
+    @Setter
     private Boolean otorgado;
+
+    public PermisoApertura() {}
 
     public PermisoApertura(Heladera vHeladeraPermitida, LocalDateTime vFechaOtorgamiento, Boolean vOtorgado) {
         heladeraPermitida = vHeladeraPermitida;

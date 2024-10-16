@@ -13,12 +13,16 @@ import lombok.Getter;
 public class SolicitudAperturaColaborador extends AccionColaborador {
     
     @Enumerated(EnumType.STRING)
-    private final MotivoSolicitud motivo;
+    private MotivoSolicitud motivo; // final
 
     public enum MotivoSolicitud {
         INGRESAR_DONACION,
         INGRESAR_LOTE_DE_DISTRIBUCION,
         RETIRAR_LOTE_DE_DISTRIBUCION
+    }
+
+    public SolicitudAperturaColaborador() {
+        super();
     }
 
     public SolicitudAperturaColaborador(LocalDateTime vFecha, Heladera vHeladera, ColaboradorHumano vResponsable, MotivoSolicitud vMotivo) {

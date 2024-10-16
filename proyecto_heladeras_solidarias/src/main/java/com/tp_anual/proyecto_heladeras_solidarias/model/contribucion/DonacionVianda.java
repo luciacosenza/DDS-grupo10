@@ -7,24 +7,25 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.java.Log;
 
 @Entity
 @Log
 @Getter
-@Setter
 public class DonacionVianda extends Contribucion {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "vianda")
-    private final Vianda vianda;
+    private Vianda vianda;  // final
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera")
-    private final Heladera heladera;
+    private Heladera heladera;    // final
+
+    public DonacionVianda() {
+        super();
+    }
 
     public DonacionVianda(Colaborador vColaborador, LocalDateTime vFechaContribucion, Vianda vVianda, Heladera vHeladera) {
         super(vColaborador, vFechaContribucion);

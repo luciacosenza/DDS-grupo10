@@ -8,14 +8,16 @@ import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 public class PersonaJuridica extends Persona {
-    
+
+    @Setter
     private String razonSocial;
 
     @Enumerated(EnumType.STRING)
+    @Setter
     private TipoPersonaJuridica tipo;
 
+    @Setter
     private String rubro;
 
     public enum TipoPersonaJuridica {
@@ -23,6 +25,10 @@ public class PersonaJuridica extends Persona {
         ONG,
         EMPRESA,
         INSTITUCION
+    }
+
+    public PersonaJuridica() {
+        super();
     }
 
     public PersonaJuridica(String vRazonSocial, TipoPersonaJuridica vTipo, String vRubro) {

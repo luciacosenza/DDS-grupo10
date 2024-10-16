@@ -14,11 +14,15 @@ import jakarta.validation.constraints.Min;
 @DiscriminatorValue("Viandas Maximas")
 @Log
 @Getter
-@Setter
 public class SuscripcionViandasMax extends Suscripcion {
     
     @Min(value = 0)
+    @Setter
     private Integer viandasParaLlenarMax;
+
+    public SuscripcionViandasMax() {
+        super();
+    }
 
     public SuscripcionViandasMax(ColaboradorHumano vColaborador, Heladera vHeladera, MedioDeContacto vMedioDeContactoElegido, Integer vViandasParaLlenarMax) {
         super(vColaborador, vHeladera, vMedioDeContactoElegido);

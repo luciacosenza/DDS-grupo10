@@ -7,7 +7,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.validador_password.Val
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
 import java.util.logging.Level;
@@ -19,7 +19,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserCreator userCreator;
     private final ValidadorPassword validadorPassword;
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    // private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public UserService(UserRepository vUserRepository, UserCreator vUserCreator, ValidadorPassword vValidadorPassword) {
         userRepository = vUserRepository;
@@ -42,7 +42,7 @@ public class UserService {
     public void registrarUser(String username, String password, User.TipoUser tipo) {
         validarUser(username, password);
 
-        String hashedPassword = passwordEncoder.encode(password);
+        // String hashedPassword = passwordEncoder.encode(password);
         User user = userCreator.crearUser(username, password, tipo);
         guardarUser(user);
     }

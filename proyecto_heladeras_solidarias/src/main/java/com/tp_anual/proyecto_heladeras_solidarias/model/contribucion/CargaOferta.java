@@ -7,21 +7,20 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.java.Log;
 
 
 @Entity
 @Log
 @Getter
-@Setter
 public class CargaOferta extends Contribucion {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "oferta")
-    private final Oferta oferta;
+    private Oferta oferta;  // final
+
+    public CargaOferta() {}
 
     public CargaOferta(Colaborador vColaborador, LocalDateTime vFechaContribucion, Oferta vOferta) {
         super(vColaborador, vFechaContribucion);

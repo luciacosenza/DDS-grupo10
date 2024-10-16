@@ -16,6 +16,10 @@ public abstract class AccionColaborador extends AccionHeladera {
     @JoinColumn(name = "colaborador")
     protected ColaboradorHumano responsable;
 
+    protected AccionColaborador() {
+        super();
+    }
+
     protected AccionColaborador(LocalDateTime vFecha, Heladera vHeladera, ColaboradorHumano vResponsable) {
         super(vFecha, vHeladera);
         responsable = vResponsable;

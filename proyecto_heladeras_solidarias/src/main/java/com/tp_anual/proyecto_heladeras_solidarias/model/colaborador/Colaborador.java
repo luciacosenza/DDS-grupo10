@@ -14,7 +14,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -24,39 +23,41 @@ import lombok.extern.java.Log;
 @DiscriminatorColumn(name = "tipo_colaborador")
 @Log
 @Getter
-@Setter
 public abstract class Colaborador {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
     protected Long id;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "usuario")
-    protected final User usuario;
+    protected User usuario; // final
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "persona")
-    protected final Persona persona;
+    protected Persona persona;  // final
     
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "domicilio")
+    @Setter
     protected Ubicacion domicilio;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "colaborador")
-    protected final ArrayList<MedioDeContacto> mediosDeContacto;
+    protected ArrayList<MedioDeContacto> mediosDeContacto;  // final
     
     @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    protected final ArrayList<Contribucion> contribuciones;
+    protected ArrayList<Contribucion> contribuciones; // final
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "colaborador")
-    protected final ArrayList<Oferta> beneficiosAdquiridos;
+    protected ArrayList<Oferta> beneficiosAdquiridos;   // final
     
     @Min(value = 0)
+    @Setter
     protected Double puntos;
+
+    protected Colaborador() {}
 
     protected Colaborador(User vUsuario, Persona vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
         usuario = vUsuario;
@@ -67,8 +68,6 @@ public abstract class Colaborador {
         beneficiosAdquiridos = vBeneficiosAdquiridos;
         puntos = vPuntos;
     }
-
-    public abstract Persona getPersona();
 
     // Obtenemos el Medio de Contacto correspondiente a la Clase que pasemos como argumento. Con este método, suponemos que el Colaborador no puede tener más de un Medio de Contacto del mismo tipo
     public <T extends MedioDeContacto> T getMedioDeContacto(Class<T> tipoMedioDeContacto) {

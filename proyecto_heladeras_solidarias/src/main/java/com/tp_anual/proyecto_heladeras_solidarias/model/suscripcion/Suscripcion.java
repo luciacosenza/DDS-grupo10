@@ -4,7 +4,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorH
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -15,24 +14,23 @@ import jakarta.persistence.*;
 @DiscriminatorColumn(name = "tipo_suscripcion")
 @Log
 @Getter
-@Setter
 public abstract class Suscripcion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
     protected long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "colaborador")
-    private final ColaboradorHumano colaborador;
+    private ColaboradorHumano colaborador;    // final
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera")
-    private final Heladera heladera;
+    private Heladera heladera;  // final
 
     @OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
     @JoinColumn(name = "medio_de_contacto")
+    @Setter
     private MedioDeContacto medioDeContactoElegido; // El Colaborador elige por qué Medio de Contacto ser notificado sobre cuestiones de la Suscripción
 
     public enum CondicionSuscripcion {
@@ -40,6 +38,8 @@ public abstract class Suscripcion {
         VIANDAS_MAX,
         DESPERFECTO
     }
+
+    protected Suscripcion() {}
 
     protected Suscripcion(ColaboradorHumano vColaborador, Heladera vHeladera, MedioDeContacto vMedioDeContactoElegido) {
         colaborador = vColaborador;

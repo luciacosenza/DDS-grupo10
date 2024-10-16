@@ -11,16 +11,20 @@ import jakarta.persistence.*;
 @Entity
 @Log
 @Getter
-@Setter
 public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "persona_en_situacion_vulnerable_id")
+    @JoinColumn(name = "persona_en_situacion_vulnerable")
+    @Setter
     private PersonaEnSituacionVulnerable titular;
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "tarjeta")
-    protected final ArrayList<UsoTarjeta> usos;
+    protected ArrayList<UsoTarjeta> usos;   // final
+
+    public TarjetaPersonaEnSituacionVulnerable() {
+        super();
+    }
 
     public TarjetaPersonaEnSituacionVulnerable(String vCodigo, PersonaEnSituacionVulnerable vTitular) {
         super(vCodigo);

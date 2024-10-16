@@ -7,20 +7,22 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 
 @Entity 
 @Getter
-@Setter
 public class FallaTecnica extends Incidente {
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "colaborador")
-    private final Colaborador colaborador;
+    private Colaborador colaborador;    // final
 
-    private final String descripcion;
+    private String descripcion; // final
     
-    private final String foto;
+    private String foto;    // final
+
+    public FallaTecnica() {
+        super();
+    }
 
     public FallaTecnica(LocalDateTime vFecha, Heladera vHeladera, Colaborador vColaborador, String vDescripcion, String vFoto) {
         super(vFecha, vHeladera);
