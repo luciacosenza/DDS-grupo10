@@ -58,6 +58,10 @@ public class Vianda {
         entregada = vEntregada;
     }
 
+    public Heladera getHeladera() {
+        return heladera != null ? heladera : new HeladeraNula();    // Sin importar si estamos en el ciclo normal de vida del objeto, o si hicimos una recuperación desde la base de datos, si la Vianda no se encuentra en una Heladera, el getter retornará una HeladeraNula
+    }
+
     private void marcarEntrega() {
         setEntregada(true);
     }

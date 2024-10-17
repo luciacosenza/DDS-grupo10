@@ -11,6 +11,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.persona.Persona;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.NoUser;
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -31,7 +32,8 @@ public abstract class Colaborador {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "usuario")
-    protected User usuario; // final
+    @Setter
+    protected User usuario; // Tiene setter porque, generalmente empieza con usuario en null y para asignárselo se necesita un setter, pero sería final
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "persona")
@@ -60,13 +62,17 @@ public abstract class Colaborador {
     protected Colaborador() {}
 
     protected Colaborador(User vUsuario, Persona vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
-        usuario = vUsuario;
+        usuario = vUsuario != null ? vUsuario : new NoUser();
         persona = vPersona;
         domicilio = vDomicilio;
         mediosDeContacto = vMediosDeContacto;
         contribuciones = vContribuciones;
         beneficiosAdquiridos = vBeneficiosAdquiridos;
         puntos = vPuntos;
+    }
+
+    public User getUsuario() {
+        return usuario != null ? usuario : new NoUser();
     }
 
     // Obtenemos el Medio de Contacto correspondiente a la Clase que pasemos como argumento. Con este método, suponemos que el Colaborador no puede tener más de un Medio de Contacto del mismo tipo

@@ -5,8 +5,10 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.area.Area;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Tecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Visita;
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.tecnico.TecnicoRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.area.AreaService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.UserService;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
@@ -21,11 +23,13 @@ import java.util.logging.Level;
 public class TecnicoService {
 
     private final TecnicoRepository tecnicoRepository;
+    private final UserService userService;
     private final VisitaService visitaService;
     private final AreaService areaService;
 
-    public TecnicoService(TecnicoRepository vTecnicoRepository, VisitaService vVisitaService, AreaService vAreaService) {
+    public TecnicoService(TecnicoRepository vTecnicoRepository, UserService vUserService, VisitaService vVisitaService, AreaService vAreaService) {
         tecnicoRepository = vTecnicoRepository;
+        userService = vUserService;
         visitaService = vVisitaService;
         areaService = vAreaService;
     }
@@ -40,6 +44,13 @@ public class TecnicoService {
 
     public Tecnico guardarTecnico(Tecnico tecnico) {
          return tecnicoRepository.save(tecnico);
+    }
+
+    public Tecnico asignarUsuario(Long tecnicoId, User usuario) {
+        Tecnico tecnico = obtenerTecnico(tecnicoId);
+        tecnico.setUsuario(usuario);
+
+        return guardarTecnico(tecnico);
     }
 
     public void agregarAPendientes(Long tecnicoId, Incidente incidente) {

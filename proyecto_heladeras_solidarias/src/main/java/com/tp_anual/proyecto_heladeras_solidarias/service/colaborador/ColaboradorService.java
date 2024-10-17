@@ -7,6 +7,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJ
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
@@ -17,6 +18,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionV
 import com.tp_anual.proyecto_heladeras_solidarias.repository.colaborador.ColaboradorRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.oferta.OfertaService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
@@ -31,14 +33,16 @@ public class ColaboradorService {
 
     private final ColaboradorRepository colaboradorRepository;
     private final ContribucionServiceSelector contribucionServiceSelector;
+    private final UserService userService;
     private final OfertaService ofertaService;
     private final HeladeraService heladeraService;
 
     private final Map<Class<? extends Colaborador>, Set<Class<? extends ContribucionCreator>>> contribucionesPermitidas = new HashMap<>();
 
-    public ColaboradorService(ColaboradorRepository vColaboradorRepository, ContribucionServiceSelector vContribucionServiceSelector, OfertaService vOfertaService, HeladeraService vHeladeraService) {
+    public ColaboradorService(ColaboradorRepository vColaboradorRepository, ContribucionServiceSelector vContribucionServiceSelector, UserService vUserService, OfertaService vOfertaService, HeladeraService vHeladeraService) {
         colaboradorRepository = vColaboradorRepository;
         contribucionServiceSelector = vContribucionServiceSelector;
+        userService = vUserService;
         ofertaService = vOfertaService;
         heladeraService = vHeladeraService;
 
@@ -83,6 +87,13 @@ public class ColaboradorService {
 
     public ColaboradorJuridico guardarColaboradorJuridico(ColaboradorJuridico colaborador) {
         return (ColaboradorJuridico) guardarColaborador(colaborador);
+    }
+
+    public Colaborador asignarUsuario(Long colaboradorId, User usuario) {
+        Colaborador colaborador = obtenerColaborador(colaboradorId);
+        colaborador.setUsuario(usuario);
+
+        return guardarColaborador(colaborador);
     }
 
     public void agregarMedioDeContacto(Long colaboradorId, MedioDeContacto medioDeContacto) {

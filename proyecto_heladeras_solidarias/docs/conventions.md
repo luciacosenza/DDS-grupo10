@@ -85,6 +85,9 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
   - En **TarjetaColaborador**
     - **Null Object**
       - TarjetaColaboradorNula (*Class*)
+  - En **User**
+    - **Null Object**
+      - NoUser (*Class*)
 
 - **OBSERVER**
   - En **Heladera**

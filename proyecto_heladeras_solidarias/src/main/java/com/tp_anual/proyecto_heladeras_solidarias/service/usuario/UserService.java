@@ -39,12 +39,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void registrarUser(String username, String password, User.TipoUser tipo) {
+    public User registrarUser(String username, String password, User.TipoUser tipo) {
         validarUser(username, password);
 
         // String hashedPassword = passwordEncoder.encode(password);
         User user = userCreator.crearUser(username, password, tipo);
-        guardarUser(user);
+        return guardarUser(user);
     }
 
     public Boolean esPasswordValida(String password) {

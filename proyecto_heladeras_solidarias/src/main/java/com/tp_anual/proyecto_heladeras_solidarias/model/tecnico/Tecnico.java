@@ -2,6 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.tecnico;
 
 import java.util.ArrayList;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.NoUser;
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.area.Area;
@@ -26,7 +27,8 @@ public class Tecnico {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "usuario")
-    protected User usuario; // final
+    @Setter
+    protected User usuario; // Tiene setter porque, generalmente empieza con usuario en null y para asignárselo se necesita un setter, pero sería final
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "persona")
@@ -52,11 +54,15 @@ public class Tecnico {
     public Tecnico() {}
 
     public Tecnico(User vUsuario, PersonaFisica vPersona, String vCuil, MedioDeContacto vMedioDeContacto, Area vAreaDeCobertura) {
-        usuario = vUsuario;
+        usuario = vUsuario != null ? vUsuario : new NoUser();
         persona = vPersona;
         cuil = vCuil;
         medioDeContacto = vMedioDeContacto;
         areaDeCobertura = vAreaDeCobertura;
+    }
+
+    public User getUsuario() {
+        return usuario != null ? usuario : new NoUser();
     }
 
     public void agregarAPendientes(Incidente incidente) {

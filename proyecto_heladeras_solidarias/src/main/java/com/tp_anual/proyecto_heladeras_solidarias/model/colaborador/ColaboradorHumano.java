@@ -46,6 +46,10 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
         return (PersonaFisica) persona;
     }
 
+    public TarjetaColaborador getTarjeta() {
+        return tarjeta != null ? tarjeta : new TarjetaColaboradorNula();    // Sin importar si estamos en el ciclo normal de vida del objeto, o si hicimos una recuperación desde la base de datos, si el Colaborador no cuenta con una TarjetaColaborador, el getter retornará una TarjetaColaboradorNula
+    }
+
     public void agregarTarjeta(TarjetaColaborador tarjetaColaborador) {
         setTarjeta(tarjetaColaborador);
     }

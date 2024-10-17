@@ -76,8 +76,9 @@ public class TransformacionDeDatos {
         fechaContribucion = LocalDateTime.parse(fechaContribucionStr, dateFormat);
         
         // Transforma a colaborador
-        ColaboradorHumano colaborador = new ColaboradorHumano(new PersonaFisica(nombre, apellido, documento, null), new Ubicacion(null, null, null, null, null, null), contactos, new ArrayList<>(), new ArrayList<>(), null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
-        
+        ColaboradorHumano colaborador = new ColaboradorHumano(null, new PersonaFisica(nombre, apellido, documento, null), new Ubicacion(null, null, null, null, null, null), contactos, new ArrayList<>(), new ArrayList<>(), null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
+        // TODO: Arreglar esto (se debería asignar un usuario al nuevo colaborador)
+
         // Agrega contribuciones a colaborador
         for (Integer i = 0; i < cantColabs; i++) {
             Contribucion contribucion = registrarContribucion(formaContribucionStr, colaborador, fechaContribucion);
@@ -96,9 +97,6 @@ public class TransformacionDeDatos {
 
         for (String[] dataColaborador : data) {
             ColaboradorHumano colaborador = procesarColaborador(dataColaborador);
-
-            if (colaborador == null)
-                continue;
             
             String clave = colaborador.getPersona().getDocumento().getTipo().name()
                 + "-" + colaborador.getPersona().getDocumento().getNumero();
