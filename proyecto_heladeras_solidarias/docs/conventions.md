@@ -77,6 +77,11 @@ Las Interfaces y Clases necesarias para utilizar algún Patron de Diseño, cuand
       - Tarjeta (*Abstract Class*)
       - TarjetaColaborador (*Class*)
       - TarjetaPersonaEnSituacionVulnerable (*Class*)
+  - En **User**:
+    - **Creator**
+      - UserCreator (*Class*)
+    - **Product**
+      - User (*Class*)
 
 - **NULL OBJECT**
   - En **Heladera**

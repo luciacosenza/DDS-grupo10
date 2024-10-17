@@ -39,11 +39,16 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User crearUser(String username, String password, User.TipoUser tipo) {
+        return userCreator.crearUser(username, password, tipo);
+    }
+
     public User registrarUser(String username, String password, User.TipoUser tipo) {
         validarUser(username, password);
 
         // String hashedPassword = passwordEncoder.encode(password);
-        User user = userCreator.crearUser(username, password, tipo);
+        User user = crearUser(username, password, tipo);
+
         return guardarUser(user);
     }
 
@@ -67,4 +72,15 @@ public class UserService {
         }
     }
 
+    public String generarUsername(String nombre, String apellido) {
+        String baseUsername = (nombre.charAt(0) + apellido).toLowerCase();
+        String username = baseUsername;
+        Integer suffix = 1;
+
+        while (existeUser(username)) {
+            username = baseUsername + suffix++;
+        }
+
+        return username;
+    }
 }

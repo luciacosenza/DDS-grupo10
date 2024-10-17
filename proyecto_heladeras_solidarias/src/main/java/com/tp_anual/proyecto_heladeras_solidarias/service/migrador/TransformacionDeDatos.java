@@ -14,12 +14,14 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorH
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.EMail;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.ContribucionCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
+import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.UserService;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,11 @@ import org.springframework.stereotype.Service;
 @Log
 public class TransformacionDeDatos {
 
-    public TransformacionDeDatos() {}
+    private final UserService userService;
+
+    public TransformacionDeDatos(UserService vUserService) {
+        userService = vUserService;
+    }
 
     private String quitarEspacios(String string) {
         return string.replaceAll("\\s+", "");
@@ -74,10 +80,13 @@ public class TransformacionDeDatos {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime fechaContribucion;
         fechaContribucion = LocalDateTime.parse(fechaContribucionStr, dateFormat);
-        
+
+        // Genera un usuario
+        String username = userService.generarUsername(nombre, apellido);
+        User user = userService.crearUser(username, username, User.TipoUser.COLABORADOR_HUMANO);
+
         // Transforma a colaborador
-        ColaboradorHumano colaborador = new ColaboradorHumano(null, new PersonaFisica(nombre, apellido, documento, null), new Ubicacion(null, null, null, null, null, null), contactos, new ArrayList<>(), new ArrayList<>(), null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
-        // TODO: Arreglar esto (se debería asignar un usuario al nuevo colaborador)
+        ColaboradorHumano colaborador = new ColaboradorHumano(user, new PersonaFisica(nombre, apellido, documento, null), new Ubicacion(null, null, null, null, null, null), contactos, new ArrayList<>(), new ArrayList<>(), null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
 
         // Agrega contribuciones a colaborador
         for (Integer i = 0; i < cantColabs; i++) {
