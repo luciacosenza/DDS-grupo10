@@ -1,4 +1,6 @@
--- Insertar documentos
+/*
+
+- Insertar documentos
 INSERT INTO documento (tipo, numero, sexo) VALUES
     ('DNI', '12345678', 'MASCULINO'),
     ('DNI', '23456789', 'FEMENINO'),
@@ -26,16 +28,16 @@ INSERT INTO ubicacion (latitud, longitud, direccion, codigo_postal, ciudad, pais
 
 -- Insertar personas físicas
 INSERT INTO persona_fisica (id, nombre, apellido, documento, fecha_nacimiento) VALUES
-    (0, 'Juan', 'Pérez', (SELECT id FROM documento WHERE numero = '12345678'), '1990-01-01 00:00:00'),
-    (1, 'Ana', 'Gómez', (SELECT id FROM documento WHERE numero = '23456789'), '1992-02-02 00:00:00'),
-    (2, 'Carlos', 'Fernández', (SELECT id FROM documento WHERE numero = '34567890'), '1988-03-03 00:00:00'),
-    (3, 'María', 'López', (SELECT id FROM documento WHERE numero = '45678901'), '1985-04-04 00:00:00'),
-    (4,'Pedro', 'Martínez', (SELECT id FROM documento WHERE numero = '56789012'), '1995-05-05 00:00:00'),
-    (5,'Lucía', 'Ramírez', (SELECT id FROM documento WHERE numero = '67890123'), '1998-06-06 00:00:00'),
-    (6,'Javier', 'Torres', (SELECT id FROM documento WHERE numero = '78901234'), '1991-07-07 00:00:00'),
-    (7,'Sofía', 'Cruz', (SELECT id FROM documento WHERE numero = '89012345'), '1989-08-08 00:00:00'),
-    (8,'Diego', 'Reyes', (SELECT id FROM documento WHERE numero = '90123456'), '1993-09-09 00:00:00'),
-    (9,'Valentina', 'Mendoza', (SELECT id FROM documento WHERE numero = '01234567'), '1994-10-10 00:00:00');
+    (0, 'Juan', 'Pérez', (SELECT id FROM documento WHERE numero = '12345678'), '1990-01-01'),
+    (1, 'Ana', 'Gómez', (SELECT id FROM documento WHERE numero = '23456789'), '1992-02-02'),
+    (2, 'Carlos', 'Fernández', (SELECT id FROM documento WHERE numero = '34567890'), '1988-03-03'),
+    (3, 'María', 'López', (SELECT id FROM documento WHERE numero = '45678901'), '1985-04-04'),
+    (4,'Pedro', 'Martínez', (SELECT id FROM documento WHERE numero = '56789012'), '1995-05-05'),
+    (5,'Lucía', 'Ramírez', (SELECT id FROM documento WHERE numero = '67890123'), '1998-06-06'),
+    (6,'Javier', 'Torres', (SELECT id FROM documento WHERE numero = '78901234'), '1991-07-07'),
+    (7,'Sofía', 'Cruz', (SELECT id FROM documento WHERE numero = '89012345'), '1989-08-08'),
+    (8,'Diego', 'Reyes', (SELECT id FROM documento WHERE numero = '90123456'), '1993-09-09'),
+    (9,'Valentina', 'Mendoza', (SELECT id FROM documento WHERE numero = '01234567'), '1994-10-10');
 
 -- Insertar colaboradores
 INSERT INTO colaborador (persona, domicilio, puntos, tipo_colaborador) VALUES
@@ -103,3 +105,5 @@ WHERE direccion_correo = 'diego.reyes@gmail.com';
 UPDATE email
 SET colaborador = (SELECT id FROM colaborador WHERE persona = (SELECT id FROM persona_fisica WHERE nombre = 'Valentina' AND apellido = 'Mendoza'))
 WHERE direccion_correo = 'valentina.mendoza@gmail.com';
+
+*/

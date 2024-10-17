@@ -1,9 +1,11 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.colaborador;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
+import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion;
@@ -41,9 +43,31 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
         suscripciones = new ArrayList<>();
     }
 
-    @Override
-    public PersonaFisica getPersona() {
+    // Todos los getters de atributos de persona fueron creados por lo que suponía referirse directo a la persona
+
+    public PersonaFisica getPersonaFisica() {
         return (PersonaFisica) persona;
+    }
+
+    public String getNombre() {
+        return getPersonaFisica().getNombre();
+    }
+
+    public String getApellido() {
+        return getPersonaFisica().getApellido();
+    }
+
+    public Documento getDocumento() {
+        return getPersonaFisica().getDocumento();
+    }
+
+    public LocalDate getFechaNacimiento() {
+        return getPersonaFisica().getFechaNacimiento();
+    }
+
+    @Override
+    public String getNombre(Integer n) {
+        return persona.getNombre(n);
     }
 
     public TarjetaColaborador getTarjeta() {

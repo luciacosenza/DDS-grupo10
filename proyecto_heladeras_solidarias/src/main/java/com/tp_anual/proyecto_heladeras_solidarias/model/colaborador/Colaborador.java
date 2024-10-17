@@ -30,7 +30,7 @@ public abstract class Colaborador {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "usuario")
     @Setter
     protected User usuario; // Tiene setter porque, generalmente empieza con usuario en null y para asignárselo se necesita un setter, pero sería final
@@ -46,6 +46,7 @@ public abstract class Colaborador {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "colaborador")
+    @Setter
     protected ArrayList<MedioDeContacto> mediosDeContacto;  // final
     
     @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -74,6 +75,8 @@ public abstract class Colaborador {
     public User getUsuario() {
         return usuario != null ? usuario : new NoUser();
     }
+
+    public abstract String getNombre(Integer n);
 
     // Obtenemos el Medio de Contacto correspondiente a la Clase que pasemos como argumento. Con este método, suponemos que el Colaborador no puede tener más de un Medio de Contacto del mismo tipo
     public <T extends MedioDeContacto> T getMedioDeContacto(Class<T> tipoMedioDeContacto) {

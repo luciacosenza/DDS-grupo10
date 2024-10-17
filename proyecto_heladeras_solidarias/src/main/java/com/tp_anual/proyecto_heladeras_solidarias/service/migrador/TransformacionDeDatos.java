@@ -107,8 +107,8 @@ public class TransformacionDeDatos {
         for (String[] dataColaborador : data) {
             ColaboradorHumano colaborador = procesarColaborador(dataColaborador);
             
-            String clave = colaborador.getPersona().getDocumento().getTipo().name()
-                + "-" + colaborador.getPersona().getDocumento().getNumero();
+            String clave = colaborador.getDocumento().getTipo().name()
+                + "-" + colaborador.getDocumento().getNumero();
 
             // Junta los repetidos
             if (colaboradoresProcesados.containsKey(clave)) {

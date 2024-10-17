@@ -78,7 +78,8 @@ public class UserService {
         Integer suffix = 1;
 
         while (existeUser(username)) {
-            username = baseUsername + suffix++;
+            username = baseUsername + suffix;
+            suffix++;
         }
 
         return username;

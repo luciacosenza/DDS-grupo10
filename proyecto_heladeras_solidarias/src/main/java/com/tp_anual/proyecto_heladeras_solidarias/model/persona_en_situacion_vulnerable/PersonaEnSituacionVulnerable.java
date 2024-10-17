@@ -1,5 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
@@ -44,7 +45,7 @@ public class PersonaEnSituacionVulnerable {
 
     public PersonaEnSituacionVulnerable() {}
 
-    public PersonaEnSituacionVulnerable(String vNombre, String vApellido, Documento vDocumento, LocalDateTime vFechaNacimiento, Ubicacion vDomicilio, LocalDateTime vFechaRegistro, Integer vMenoresACargo) {
+    public PersonaEnSituacionVulnerable(String vNombre, String vApellido, Documento vDocumento, LocalDate vFechaNacimiento, Ubicacion vDomicilio, LocalDateTime vFechaRegistro, Integer vMenoresACargo) {
         persona = new PersonaFisica(vNombre, vApellido, vDocumento, vFechaNacimiento);
         domicilio = vDomicilio;
         fechaRegistro = vFechaRegistro;

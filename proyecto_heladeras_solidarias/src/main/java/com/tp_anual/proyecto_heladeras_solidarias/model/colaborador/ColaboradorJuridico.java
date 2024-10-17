@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
+import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 
@@ -29,8 +30,26 @@ public class ColaboradorJuridico extends Colaborador {
         puntos = vPuntos;
     }
 
-    @Override
-    public PersonaJuridica getPersona() {
+    // Todos los getters de atributos de persona fueron creados por lo que suponía referirse directo a la persona
+
+    public PersonaJuridica getPersonaJuridica() {
         return (PersonaJuridica) persona;
+    }
+
+    public String getRazonSocial() {
+        return getPersonaJuridica().getRazonSocial();
+    }
+
+    public PersonaJuridica.TipoPersonaJuridica getTipoPersonaJuridica() {
+        return getPersonaJuridica().getTipo();
+    }
+
+    public String getRubro() {
+        return getPersonaJuridica().getRubro();
+    }
+
+    @Override
+    public String getNombre(Integer n) {
+        return persona.getNombre(n);
     }
 }

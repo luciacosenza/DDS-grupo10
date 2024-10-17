@@ -19,7 +19,7 @@ public class EnvioEMail extends EnvioDeDatos {
     @Override
     public void send(ColaboradorHumano colaborador, String asunto, String cuerpo) {
         EMail eMail = colaborador.getMedioDeContacto(EMail.class);
-        eMailService.contactar(eMail.getId(), asunto, cuerpo.formatted(colaborador.getPersona().getNombre(), eMail));
+        eMailService.contactar(eMail.getId(), asunto, cuerpo.formatted(colaborador.getNombre(), eMail));
 
         confirmarSending();
     }

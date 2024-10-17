@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.persona;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
@@ -8,6 +8,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Getter
@@ -23,14 +24,16 @@ public class PersonaFisica extends Persona {
     @JoinColumn(name = "documento")
     private Documento documento;    // final
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime fechaNacimiento;  // final
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fechaNacimiento;  // final
 
     public PersonaFisica() {
         super();
+        documento = new Documento();
     }
 
-    public PersonaFisica(String vNombre, String vApellido, Documento vDocumento, LocalDateTime vFechaDeNacimiento) {
+    public PersonaFisica(String vNombre, String vApellido, Documento vDocumento, LocalDate vFechaDeNacimiento) {
         super();
         nombre = vNombre;
         apellido = vApellido;
