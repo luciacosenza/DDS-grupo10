@@ -35,7 +35,7 @@ public class Heladera implements HeladeraObserver {    // Implementa una Interfa
 
     protected Float tempMax;    // final
 
-    @OneToMany(mappedBy = "heladera", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+    @OneToMany(mappedBy = "heladera", fetch = FetchType.EAGER)  // Quiero que los cambios en Vianda se hagan manualmente, y no que se propaguen
     protected List<Vianda> viandas;    // final
 
     @Setter

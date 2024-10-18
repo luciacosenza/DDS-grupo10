@@ -1,11 +1,13 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Getter
@@ -28,9 +30,10 @@ public class Vianda {
     @Setter
     private ColaboradorHumano colaborador;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Setter
-    private LocalDateTime fechaCaducidad;
+    private LocalDate fechaCaducidad;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Setter
@@ -47,7 +50,7 @@ public class Vianda {
 
     public Vianda() {}
 
-    public Vianda(String vComida, ColaboradorHumano vColaborador, LocalDateTime vFechaCaducidad, LocalDateTime vFechaDonacion, Integer vCalorias, Integer vPeso, Boolean vEntregada) {
+    public Vianda(String vComida, ColaboradorHumano vColaborador, LocalDate vFechaCaducidad, LocalDateTime vFechaDonacion, Integer vCalorias, Integer vPeso, Boolean vEntregada) {
         comida = vComida;
         heladera = new HeladeraNula();
         colaborador = vColaborador;

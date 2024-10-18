@@ -54,7 +54,7 @@ public class HeladeraService {
 
     public void marcarComoInactiva(Long heladeraId) {
         Heladera heladera = obtenerHeladera(heladeraId);
-        heladera.setEstado(false);
+        heladera.marcarComoInactiva();
         guardarHeladera(heladera);
     }
 
@@ -152,7 +152,7 @@ public class HeladeraService {
     public void setTempActual(Long heladeraId, Float temperatura) {
         Heladera heladera = obtenerHeladera(heladeraId);
         heladera.setTempActual(temperatura);
-        verificarTempActual(heladeraId);  // Siempre que setea / actualiza su temperatura, debe chequearla posteriormente
+        verificarTempActual(heladeraId);  // Siempre que setea/actualiza su temperatura, debe chequearla posteriormente
         guardarHeladera(heladera);
     }
 

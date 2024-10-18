@@ -13,7 +13,7 @@ public class Ubicacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    // Latitud y longitud serán nulas para todos los objetos menos para las heladeras (ya que para estas nos interesa saber su ubicación exacta)
+    // Latitud y longitud serán nulas para todos los objetos menos para las heladeras (ya que sólo para estas nos interesa saber su ubicación exacta)
 
     private Double latitud; // final
 
