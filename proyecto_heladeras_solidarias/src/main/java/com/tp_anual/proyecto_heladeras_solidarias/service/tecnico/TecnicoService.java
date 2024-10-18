@@ -5,7 +5,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.area.Area;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Tecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Visita;
-import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.tecnico.TecnicoRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.area.AreaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.UserService;
@@ -16,6 +16,7 @@ import jakarta.persistence.EntityNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 @Service
@@ -38,7 +39,7 @@ public class TecnicoService {
         return tecnicoRepository.findById(tecnicoId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public ArrayList<Tecnico> obtenerTecnicos() {
+    public List<Tecnico> obtenerTecnicos() {
         return new ArrayList<>(tecnicoRepository.findAll());
     }
 
@@ -46,7 +47,7 @@ public class TecnicoService {
          return tecnicoRepository.save(tecnico);
     }
 
-    public Tecnico asignarUsuario(Long tecnicoId, User usuario) {
+    public Tecnico asignarUsuario(Long tecnicoId, Usuario usuario) {
         Tecnico tecnico = obtenerTecnico(tecnicoId);
         tecnico.setUsuario(usuario);
 

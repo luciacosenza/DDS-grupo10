@@ -1,7 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.usuario;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.usuario.UserRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.validador_password.ValidadorPassword;
 import jakarta.persistence.EntityNotFoundException;
@@ -27,29 +27,29 @@ public class UserService {
         validadorPassword = vValidadorPassword;
     }
 
-    public User obtenerUser(Long userId) {
+    public Usuario obtenerUser(Long userId) {
         return userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public Optional<User> obtenerUserPorUsername(String username) {
+    public Optional<Usuario> obtenerUserPorUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    public User guardarUser(User user) {
-        return userRepository.save(user);
+    public Usuario guardarUser(Usuario usuario) {
+        return userRepository.save(usuario);
     }
 
-    public User crearUser(String username, String password, User.TipoUser tipo) {
+    public Usuario crearUser(String username, String password, Usuario.TipoUser tipo) {
         return userCreator.crearUser(username, password, tipo);
     }
 
-    public User registrarUser(String username, String password, User.TipoUser tipo) {
+    public Usuario registrarUser(String username, String password, Usuario.TipoUser tipo) {
         validarUser(username, password);
 
         // String hashedPassword = passwordEncoder.encode(password);
-        User user = crearUser(username, password, tipo);
+        Usuario usuario = crearUser(username, password, tipo);
 
-        return guardarUser(user);
+        return guardarUser(usuario);
     }
 
     public Boolean esPasswordValida(String password) {

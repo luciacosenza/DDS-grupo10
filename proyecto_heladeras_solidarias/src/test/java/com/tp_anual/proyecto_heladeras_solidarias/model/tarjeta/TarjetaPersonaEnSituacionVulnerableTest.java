@@ -1,7 +1,9 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
@@ -65,13 +67,14 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
 
     @BeforeEach
     void setup() {
-        colaboradorHumano = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(Documento.TipoDocumento.DNI, "40123456", Documento.Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
+        colaboradorHumano = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(Documento.TipoDocumento.DNI, "40123456", Documento.Sexo.MASCULINO), LocalDate.parse("2003-01-01T00:00:00")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         colaboradorHumanoId = colaboradorService.guardarColaborador(colaboradorHumano).getId();
 
         heladera = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), 20, -20f, 5f, new ArrayList<>(), 3f, LocalDateTime.now() , true);
         heladeraId = heladeraService.guardarHeladera(heladera).getId();
 
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
+
         vianda1 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         viandaService.guardarVianda(vianda1);
         vianda2 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
@@ -93,7 +96,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         vianda10 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         viandaService.guardarVianda(vianda10);
 
-        ArrayList<Vianda> viandasAAgregar = new ArrayList<>();
+        List<Vianda> viandasAAgregar = new ArrayList<>();
         viandasAAgregar.add(vianda1);
         viandasAAgregar.add(vianda2);
         viandasAAgregar.add(vianda3);
@@ -113,7 +116,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
             viandaService.agregarAHeladera(viandaAux.getId(), heladera);
         }
 
-        PersonaEnSituacionVulnerable personaEnSituacionVulnerable = new PersonaEnSituacionVulnerable("NombrePruebaPESV", "ApellidoPruebaPESV", new Documento(TipoDocumento.DNI, "40123450", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00"), new Ubicacion(-34.63927052902741, -58.50938609197106, "Avenida Rivadavia 10357", "1048", "Ciudad Autónoma de Buenos Aires", "Argentina"), LocalDateTime.now(), 2);
+        PersonaEnSituacionVulnerable personaEnSituacionVulnerable = new PersonaEnSituacionVulnerable("NombrePruebaPESV", "ApellidoPruebaPESV", new Documento(TipoDocumento.DNI, "40123450", Sexo.MASCULINO), LocalDate.parse("2003-01-01"), new Ubicacion(-34.63927052902741, -58.50938609197106, "Avenida Rivadavia 10357", "1048", "Ciudad Autónoma de Buenos Aires", "Argentina"), LocalDateTime.now(), 2);
         Long personaEnSituacionVulnerableId = personaEnSituacionVulnerableService.guardarPersonaEnSituacionVulnerable(personaEnSituacionVulnerable).getId();
 
         tarjetaPersonaEnSituacionVulnerable = tarjetaPersonaEnSituacionVulnerableService.crearTarjeta(personaEnSituacionVulnerableId);
@@ -203,7 +206,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         Vianda vianda10C5 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         viandaService.guardarVianda(vianda10C5);
 
-        ArrayList<Vianda> viandasAAgregar = new ArrayList<>();
+        List<Vianda> viandasAAgregar = new ArrayList<>();
         viandasAAgregar.add(vianda1C5);
         viandasAAgregar.add(vianda2C5);
         viandasAAgregar.add(vianda3C5);

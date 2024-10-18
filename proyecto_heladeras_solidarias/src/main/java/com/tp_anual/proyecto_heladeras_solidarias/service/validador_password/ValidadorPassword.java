@@ -4,11 +4,12 @@ import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Log
 public class ValidadorPassword {
-    private final ArrayList<CriterioValidacion> criterios = new ArrayList<>();
+    private final List<CriterioValidacion> criterios = new ArrayList<>();
 
     public ValidadorPassword() {
         criterios.add(new CriterioLargo(8, 32)); // Estas cantidades son arbitrarias, pueden cambiar después

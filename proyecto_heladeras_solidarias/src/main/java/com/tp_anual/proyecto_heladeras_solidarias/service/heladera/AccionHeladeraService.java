@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Log
@@ -23,7 +24,7 @@ public class AccionHeladeraService {
         return accionHeladeraRepository.findById(accionHeladeraId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public ArrayList<AccionHeladera> obtenerAccionesHeladera() {
+    public List<AccionHeladera> obtenerAccionesHeladera() {
         return new ArrayList<>(accionHeladeraRepository.findAll());
     }
 

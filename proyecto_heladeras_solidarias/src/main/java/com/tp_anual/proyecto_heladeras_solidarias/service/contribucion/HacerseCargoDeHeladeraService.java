@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 @Service
@@ -34,7 +35,7 @@ public class HacerseCargoDeHeladeraService extends ContribucionService {
         return hacerseCargoDeHeladeraRepository.findById(hacerseCargoDeHeladeraId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public ArrayList<HacerseCargoDeHeladera> obtenerHacerseCargoDeHeladerasQueSumanPuntos() {
+    public List<HacerseCargoDeHeladera> obtenerHacerseCargoDeHeladerasQueSumanPuntos() {
         return new ArrayList<>(hacerseCargoDeHeladeraRepository.findHacerseCargoDeHeladeras());
     }
 
@@ -55,7 +56,7 @@ public class HacerseCargoDeHeladeraService extends ContribucionService {
     @Scheduled(cron = "0 0 0 * * ?")
     @Override
     protected void calcularPuntos() {
-        ArrayList<HacerseCargoDeHeladera> hacerseCargoDeLaHeladeras = obtenerHacerseCargoDeHeladerasQueSumanPuntos();
+        List<HacerseCargoDeHeladera> hacerseCargoDeLaHeladeras = obtenerHacerseCargoDeHeladerasQueSumanPuntos();
 
         for (HacerseCargoDeHeladera hacerseCargoDeHeladera : hacerseCargoDeLaHeladeras ) {
             ColaboradorJuridico colaborador = (ColaboradorJuridico) hacerseCargoDeHeladera.getColaborador();

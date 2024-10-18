@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,13 +19,13 @@ public class TarjetaColaborador extends Tarjeta {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "tarjeta")
-    protected ArrayList<PermisoApertura> permisos;  // final
+    protected List<PermisoApertura> permisos;  // final
 
     public TarjetaColaborador() {
         super();
     }
 
-    public TarjetaColaborador(String vCodigo, ColaboradorHumano vTitular, ArrayList<PermisoApertura> vPermisos) {
+    public TarjetaColaborador(String vCodigo, ColaboradorHumano vTitular, List<PermisoApertura> vPermisos) {
         super(vCodigo);
         titular = vTitular;
         permisos = vPermisos;

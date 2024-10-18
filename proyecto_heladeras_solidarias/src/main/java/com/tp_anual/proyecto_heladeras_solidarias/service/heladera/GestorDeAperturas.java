@@ -1,7 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.heladera;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Comparator;
 import java.util.logging.Level;
 
@@ -45,7 +45,7 @@ public class GestorDeAperturas {
     
     public void revisarPermisoAperturaC(Heladera heladera, ColaboradorHumano colaborador) {
         TarjetaColaborador tarjetaColaborador = colaborador.getTarjeta();
-        ArrayList<PermisoApertura> permisos = tarjetaColaborador.getPermisos();
+        List<PermisoApertura> permisos = tarjetaColaborador.getPermisos();
 
         PermisoApertura permisoARevisar = permisos.stream()
             .filter(permiso -> permisoAperturaService.esHeladeraPermitida(permiso.getId(), heladera))

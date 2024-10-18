@@ -2,6 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
@@ -41,7 +42,7 @@ public class HeladeraNula extends Heladera {
     }
 
     @Override
-    public ArrayList<Vianda> getViandas() {
+    public List<Vianda> getViandas() {
         return viandas;
     }
 

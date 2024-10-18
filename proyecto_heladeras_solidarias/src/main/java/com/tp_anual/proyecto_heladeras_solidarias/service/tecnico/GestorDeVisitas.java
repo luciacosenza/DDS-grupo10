@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.tecnico;
 
-import java.util.ArrayList;
+import java.util.List;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Visita;
 import com.tp_anual.proyecto_heladeras_solidarias.service.notificador.NotificadorDeIncidentes;
@@ -23,7 +23,7 @@ public class GestorDeVisitas {
     // Programo la tarea para ejecutarse todos los días a las 00.00 hs
     @Scheduled(cron = "0 0 0 * * ?")
     public void gestionarVisita() {
-        ArrayList<Visita> visitas = visitaService.obtenerVisitasNoExitosas();
+        List<Visita> visitas = visitaService.obtenerVisitasNoExitosas();
 
         while(!visitas.isEmpty()) {
             Visita visita = visitas.removeFirst();

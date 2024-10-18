@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 @Service
@@ -34,7 +35,7 @@ public class RegistroDePersonaEnSituacionVulnerableService extends ContribucionS
         return registroDePersonaEnSituacionVulnerableRepository.findById(registroDePersonaEnSituacionVulnerableId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public ArrayList<RegistroDePersonaEnSituacionVulnerable> obtenerRegistrosDePersonaEnSituacionVulnerableQueSumanPuntos() {
+    public List<RegistroDePersonaEnSituacionVulnerable> obtenerRegistrosDePersonaEnSituacionVulnerableQueSumanPuntos() {
         return new ArrayList<>(registroDePersonaEnSituacionVulnerableRepository.findByYaSumoPuntosFalse());
     }
 
@@ -60,7 +61,7 @@ public class RegistroDePersonaEnSituacionVulnerableService extends ContribucionS
     @Scheduled(cron = "0 0 0 * * ?")
     @Override
     protected void calcularPuntos() {
-        ArrayList<RegistroDePersonaEnSituacionVulnerable> registrosDePersonaEnSituacionVulnerable = obtenerRegistrosDePersonaEnSituacionVulnerableQueSumanPuntos();
+        List<RegistroDePersonaEnSituacionVulnerable> registrosDePersonaEnSituacionVulnerable = obtenerRegistrosDePersonaEnSituacionVulnerableQueSumanPuntos();
 
         for (RegistroDePersonaEnSituacionVulnerable registroDePersonaEnSituacionVulnerable : registrosDePersonaEnSituacionVulnerable) {
             ColaboradorHumano colaborador = (ColaboradorHumano) registroDePersonaEnSituacionVulnerable.getColaborador();

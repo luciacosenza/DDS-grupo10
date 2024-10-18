@@ -2,6 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.colaborador;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
@@ -13,7 +14,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborad
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaboradorNula;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 
-import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,13 +32,13 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
 
     @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @Setter
-    protected ArrayList<Suscripcion> suscripciones;   // Será una Suscripción por Heladera
+    protected List<Suscripcion> suscripciones;   // Será una Suscripción por Heladera
 
     public ColaboradorHumano() {
         super();
     }
 
-    public ColaboradorHumano(User vUsuario, PersonaFisica vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
+    public ColaboradorHumano(Usuario vUsuario, PersonaFisica vPersona, Ubicacion vDomicilio, List<MedioDeContacto> vMediosDeContacto, List<Contribucion> vContribuciones, List<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
         super(vUsuario, vPersona, vDomicilio, vMediosDeContacto, vContribuciones, vBeneficiosAdquiridos, vPuntos);
         tarjeta = new TarjetaColaboradorNula();
         suscripciones = new ArrayList<>();

@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Log
@@ -30,15 +31,15 @@ public class ReporteService {
     }
 
 
-    public ArrayList<IncidentesPorHeladera> obtenerReporteIncidentesPorHeladera() {
+    public List<IncidentesPorHeladera> obtenerReporteIncidentesPorHeladera() {
         return new ArrayList<>(reporteIncidentesPorHeladeraRepository.findAll());
     }
 
-    public ArrayList<MovimientosViandaPorHeladera> obtenerReporteMovimientosViandaPorHeladera() {
+    public List<MovimientosViandaPorHeladera> obtenerReporteMovimientosViandaPorHeladera() {
         return new ArrayList<>(reporteMovimientosViandaPorHeladeraRepository.findAll());
     }
 
-    public ArrayList<ViandasPorColaborador> obtenerReporteViandasPorColaborador() {
+    public List<ViandasPorColaborador> obtenerReporteViandasPorColaborador() {
         return new ArrayList<>(reporteViandasPorColaboradorRepository.findAll());
     }
 

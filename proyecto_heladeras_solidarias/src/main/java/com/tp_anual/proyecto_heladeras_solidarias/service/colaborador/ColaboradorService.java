@@ -7,7 +7,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJ
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
@@ -73,7 +73,7 @@ public class ColaboradorService {
         return (ColaboradorJuridico) obtenerColaborador(colaboradorId);
     }
 
-    public ArrayList<Colaborador> obtenerColaboradores() {
+    public List<Colaborador> obtenerColaboradores() {
         return new ArrayList<>(colaboradorRepository.findAll());
     }
 
@@ -89,7 +89,7 @@ public class ColaboradorService {
         return (ColaboradorJuridico) guardarColaborador(colaborador);
     }
 
-    public Colaborador asignarUsuario(Long colaboradorId, User usuario) {
+    public Colaborador asignarUsuario(Long colaboradorId, Usuario usuario) {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
         colaborador.setUsuario(usuario);
 

@@ -6,7 +6,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.Telefono;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.NoUser;
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.NoUsuario;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,7 +46,7 @@ public class RegistroViewController {
     public String guardarPersonaHumana(
         @RequestParam("nombre") String nombre,
         @RequestParam("apellido") String apellido,
-        //@RequestParam("fecha-nacimiento") LocalDate fechaNacimiento,
+        @RequestParam("fecha-nacimiento") LocalDate fechaNacimiento,
         @RequestParam("tipo-documento") Documento.TipoDocumento tipoDocumento,
         @RequestParam("numero-documento") String numeroDocumento,
         @RequestParam("sexo-documento") Documento.Sexo sexoDocumento,
@@ -61,9 +61,9 @@ public class RegistroViewController {
         @RequestParam("correo") String correo)
     {
         Documento documento = new Documento(tipoDocumento, numeroDocumento, sexoDocumento);
-        PersonaFisica personaFisica = new PersonaFisica(nombre, apellido, documento, LocalDate.now());
+        PersonaFisica personaFisica = new PersonaFisica(nombre, apellido, documento, fechaNacimiento);
         Ubicacion domicilio = new Ubicacion(null, null, (calle + " " + altura), codigoPostal, ciudad, pais);
-        ColaboradorHumano colaborador = new ColaboradorHumano(null, personaFisica, domicilio, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
+        ColaboradorHumano colaborador = new ColaboradorHumano(new NoUsuario(), personaFisica, domicilio, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         Telefono telefono = new Telefono(prefijo, codigoArea, numeroTelefono);
         EMail eMail = new EMail(correo);
 

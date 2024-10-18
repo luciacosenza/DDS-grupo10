@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -43,7 +44,7 @@ public class HeladeraService {
         return heladeraRepository.findById(heladeraId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public ArrayList<Heladera> obtenerHeladeras(){
+    public List<Heladera> obtenerHeladeras(){
         return new ArrayList<>(heladeraRepository.findAll());
     }
 
@@ -74,7 +75,7 @@ public class HeladeraService {
 
     public void verificarCondiciones(Long heladeraId) {
         Heladera heladera = obtenerHeladera(heladeraId);
-        ArrayList<Suscripcion> suscripciones = gestorDeSuscripciones.suscripcionesPorHeladera(heladera);
+        List<Suscripcion> suscripciones = gestorDeSuscripciones.suscripcionesPorHeladera(heladera);
 
         for (Suscripcion suscripcion : suscripciones) {
 

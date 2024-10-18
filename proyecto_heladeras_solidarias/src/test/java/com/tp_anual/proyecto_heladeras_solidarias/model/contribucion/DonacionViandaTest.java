@@ -1,7 +1,9 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
@@ -49,7 +51,7 @@ public class DonacionViandaTest {
     @Test
     @DisplayName("Testeo la carga y correcto funcionamiento de una DonacionVianda")
     public void CargaDonacionViandaTest() {
-        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
+        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDate.parse("2003-01-01")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
         Long colaboradorHumanoId = colaboradorService.guardarColaborador(colaboradorHumano).getId();
 
         LocalDateTime fechaAperturaH1   = LocalDateTime.parse("2024-01-01T00:00:00");
@@ -80,7 +82,7 @@ public class DonacionViandaTest {
     @Test
     @DisplayName("Testeo la IllegalArgumentException al querer hacer una DonacionVianda sin tener domicilio registrado")
     public void IllegalArgumentValidarIdentidadDDonacionViandaTest() {
-        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")), null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
+        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDate.parse("2003-01-01")), null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         Long colaboradorHumanoId = colaboradorService.guardarColaborador(colaboradorHumano).getId();
 
         LocalDateTime fechaAperturaH   = LocalDateTime.parse("2024-01-01T00:00:00");

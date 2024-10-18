@@ -1,8 +1,8 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.usuario;
 
-public class NoUser extends User {
+public class NoUsuario extends Usuario {
 
-    public NoUser() {
+    public NoUsuario() {
         super(null, null, null);
     }
 }

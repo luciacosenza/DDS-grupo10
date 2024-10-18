@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.suscripcion;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion;
@@ -17,7 +17,7 @@ public class GestorDeSuscripciones {
         suscripcionService = vSuscripcionService;
     }
 
-    public ArrayList<Suscripcion> suscripcionesPorHeladera(Heladera heladera) {
+    public List<Suscripcion> suscripcionesPorHeladera(Heladera heladera) {
         return suscripcionService.obtenerSuscripcionesPorHeladera(heladera);
     }
 }

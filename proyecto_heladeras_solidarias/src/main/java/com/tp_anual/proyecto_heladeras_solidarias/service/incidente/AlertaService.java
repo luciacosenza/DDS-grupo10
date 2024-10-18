@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 @Service
@@ -29,19 +30,19 @@ public class AlertaService {
         return alertaRepository.findById(idAlerta).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public ArrayList<Alerta> obtenerAlertas() {
+    public List<Alerta> obtenerAlertas() {
         return new ArrayList<>(alertaRepository.findAll());
     }
 
-    public ArrayList<Alerta> obtenerAlertasTemperatura() {
+    public List<Alerta> obtenerAlertasTemperatura() {
         return new ArrayList<>(alertaRepository.findByTipo(Alerta.TipoAlerta.TEMPERATURA));
     }
 
-    public ArrayList<Alerta> obtenerAlertasFraude() {
+    public List<Alerta> obtenerAlertasFraude() {
         return new ArrayList<>(alertaRepository.findByTipo(Alerta.TipoAlerta.FRAUDE));
     }
 
-    public ArrayList<Alerta> obtenerAlertasFallaConexion() {
+    public List<Alerta> obtenerAlertasFallaConexion() {
         return new ArrayList<>(alertaRepository.findByTipo(Alerta.TipoAlerta.FALLA_CONEXION));
     }
 

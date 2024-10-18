@@ -2,7 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.migrador;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
@@ -68,9 +68,9 @@ public class Migrador {
         log.log(Level.INFO, I18n.getMessage("migrador.Migrador.confirmarLoading_info"));
     }
 
-    public ArrayList<ColaboradorHumano> migrar(String csv, Boolean contactar) throws IOException, URISyntaxException {
-        ArrayList<String[]> dataColaboradores = protocoloExtraccion.extract(csv);
-        ArrayList<ColaboradorHumano> colaboradoresAMigrar = transformador.transform(dataColaboradores);
+    public List<ColaboradorHumano> migrar(String csv, Boolean contactar) throws IOException, URISyntaxException {
+        List<String[]> dataColaboradores = protocoloExtraccion.extract(csv);
+        List<ColaboradorHumano> colaboradoresAMigrar = transformador.transform(dataColaboradores);
 
         for (ColaboradorHumano colaborador : colaboradoresAMigrar) {
             colaboradorService.guardarColaborador(colaborador);

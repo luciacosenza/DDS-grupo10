@@ -1,18 +1,16 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.colaborador;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
-import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 
-import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.java.Log;
 
 @Entity
@@ -25,7 +23,7 @@ public class ColaboradorJuridico extends Colaborador {
         super();
     }
 
-    public ColaboradorJuridico(User vUsuario, PersonaJuridica vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
+    public ColaboradorJuridico(Usuario vUsuario, PersonaJuridica vPersona, Ubicacion vDomicilio, List<MedioDeContacto> vMediosDeContacto, List<Contribucion> vContribuciones, List<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
         super(vUsuario, vPersona, vDomicilio, vMediosDeContacto, vContribuciones, vBeneficiosAdquiridos, vPuntos);
         puntos = vPuntos;
     }

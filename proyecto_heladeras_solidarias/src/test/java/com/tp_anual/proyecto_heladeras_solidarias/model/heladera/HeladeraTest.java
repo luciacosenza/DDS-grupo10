@@ -1,7 +1,9 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -74,7 +76,7 @@ public class HeladeraTest {
 
         colaboradorService.confirmarContribucion(colaboradorJuridicoId, hacerseCargoDeHeladera2, fechaAperturaH2);
 
-        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
+        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDate.parse("2003-01-01")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
         Long colaboradorHumanoId = colaboradorService.guardarColaborador(colaboradorHumano).getId();
 
         LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
@@ -138,7 +140,7 @@ public class HeladeraTest {
         tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION);
         tarjetaColaboradorService.intentarApertura(codigoTarjeta, heladera1);
         
-        ArrayList<Vianda> viandasAux = new ArrayList<>();
+        List<Vianda> viandasAux = new ArrayList<>();
 
         for (Integer i = 1; i <= cantidadADistribuir; i++) {
             Vianda viandaAux = heladeraService.retirarVianda(heladera1Id);
@@ -157,8 +159,8 @@ public class HeladeraTest {
 
         colaboradorService.confirmarContribucion(colaboradorHumanoId, distribucionViandas, LocalDateTime.now());
 
-        ArrayList<Vianda> viandasEsperadasHeladera1 = new ArrayList<>();
-        ArrayList<Vianda> viandasEsperadasHeladera2 = new ArrayList<>();
+        List<Vianda> viandasEsperadasHeladera1 = new ArrayList<>();
+        List<Vianda> viandasEsperadasHeladera2 = new ArrayList<>();
 
         viandasEsperadasHeladera1.add(vianda3);
         viandasEsperadasHeladera2.add(vianda4);
@@ -198,7 +200,7 @@ public class HeladeraTest {
         Vianda vianda3 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         viandaService.guardarVianda(vianda3);
 
-        ArrayList<Vianda> viandasAAgregar = new ArrayList<>();
+        List<Vianda> viandasAAgregar = new ArrayList<>();
         viandasAAgregar.add(vianda1);
         viandasAAgregar.add(vianda2);
         viandasAAgregar.add(vianda3);
@@ -231,7 +233,7 @@ public class HeladeraTest {
         Vianda vianda2 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         viandaService.guardarVianda(vianda2);
 
-        ArrayList<Vianda> viandasAAgregar = new ArrayList<>();
+        List<Vianda> viandasAAgregar = new ArrayList<>();
         viandasAAgregar.add(vianda1);
         viandasAAgregar.add(vianda2);
 
@@ -243,7 +245,7 @@ public class HeladeraTest {
             viandaService.agregarAHeladeraPrimeraVez(viandaAux.getId(), heladera);
         }
 
-        ArrayList<Vianda> viandasARetirar = new ArrayList<>();
+        List<Vianda> viandasARetirar = new ArrayList<>();
         Integer cantidadARetirar = 3;
 
         IllegalStateException exception = Assertions.assertThrows(IllegalStateException.class, () -> {

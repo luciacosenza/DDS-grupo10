@@ -8,6 +8,7 @@ import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Log
@@ -22,11 +23,11 @@ public class VisitaService {
         return visitaRepository.findById(visitaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public ArrayList<Visita> obtenerVisitas() {
+    public List<Visita> obtenerVisitas() {
         return new ArrayList<>(visitaRepository.findAll());
     }
 
-    public ArrayList<Visita> obtenerVisitasNoExitosas() {return new ArrayList<>(visitaRepository.findByEstadoFalseAndRevisadaFalse());}
+    public List<Visita> obtenerVisitasNoExitosas() {return new ArrayList<>(visitaRepository.findByEstadoFalseAndRevisadaFalse());}
 
     public Visita guardarVisita(Visita visita) {
         return visitaRepository.save(visita);

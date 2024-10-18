@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.notificador;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
@@ -30,7 +30,7 @@ public class NotificadorDeEstado extends Notificador {
     }
 
     public void notificarEstado(Heladera heladera, MedioDeContacto medioDeContacto, CondicionSuscripcion condicion) {    // Usa el Medio de Contacto previamente elegido por el colaborador
-        ArrayList<Heladera> heladerasCercanas = ubicadorHeladera.obtenerHeladerasCercanasA(heladera, cantidadHeladeras);
+        List<Heladera> heladerasCercanas = ubicadorHeladera.obtenerHeladerasCercanasA(heladera, cantidadHeladeras);
         
         switch(condicion) {
 
@@ -71,7 +71,7 @@ public class NotificadorDeEstado extends Notificador {
         }
     }
 
-    public String obtenerNombresYDireccionesDe(ArrayList<Heladera> heladeras) {
+    public String obtenerNombresYDireccionesDe(List<Heladera> heladeras) {
         Heladera heladera1 = heladeras.removeFirst();
         String nombresYDirecciones = I18n.getMessage("notificador.NotificadorDeEstado.obtenerNombresYDireccionesDe_value_heladera_1", heladera1.getNombre(), heladera1.getUbicacion().getDireccion());
         

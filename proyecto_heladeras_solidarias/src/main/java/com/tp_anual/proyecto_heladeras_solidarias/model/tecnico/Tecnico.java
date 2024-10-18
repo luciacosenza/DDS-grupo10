@@ -1,9 +1,10 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.tecnico;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.NoUser;
-import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.NoUsuario;
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.area.Area;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
@@ -28,7 +29,7 @@ public class Tecnico {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "usuario")
     @Setter
-    protected User usuario; // Tiene setter porque, generalmente empieza con usuario en null y para asignárselo se necesita un setter, pero sería final
+    protected Usuario usuario; // Tiene setter porque, generalmente empieza con usuario en null y para asignárselo se necesita un setter, pero sería final
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "persona")
@@ -49,20 +50,20 @@ public class Tecnico {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
     @JoinColumn(name = "tecnico")
-    private ArrayList<Incidente> pendientes = new ArrayList<>();    // final
+    private List<Incidente> pendientes = new ArrayList<>();    // final
 
     public Tecnico() {}
 
-    public Tecnico(User vUsuario, PersonaFisica vPersona, String vCuil, MedioDeContacto vMedioDeContacto, Area vAreaDeCobertura) {
-        usuario = vUsuario != null ? vUsuario : new NoUser();
+    public Tecnico(Usuario vUsuario, PersonaFisica vPersona, String vCuil, MedioDeContacto vMedioDeContacto, Area vAreaDeCobertura) {
+        usuario = vUsuario != null ? vUsuario : new NoUsuario();
         persona = vPersona;
         cuil = vCuil;
         medioDeContacto = vMedioDeContacto;
         areaDeCobertura = vAreaDeCobertura;
     }
 
-    public User getUsuario() {
-        return usuario != null ? usuario : new NoUser();
+    public Usuario getUsuario() {
+        return usuario != null ? usuario : new NoUsuario();
     }
 
     public void agregarAPendientes(Incidente incidente) {

@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.migrador;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
@@ -27,7 +27,7 @@ public class MigradorTest {
     public void CargaMasivaTest() throws Exception {
 
         String rutaCSV = "registro_migracion.csv";
-        ArrayList<ColaboradorHumano> colaboradores = migrador.migrar(rutaCSV, false);
+        List<ColaboradorHumano> colaboradores = migrador.migrar(rutaCSV, false);
 
         System.out.println("\n COLABORADORES MIGRADOS \n");
         for (Colaborador colaborador : colaboradores) {

@@ -1,6 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import lombok.Getter;
@@ -20,7 +21,7 @@ public class TarjetaPersonaEnSituacionVulnerable extends Tarjeta {
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "tarjeta")
-    protected ArrayList<UsoTarjeta> usos;   // final
+    protected List<UsoTarjeta> usos;   // final
 
     public TarjetaPersonaEnSituacionVulnerable() {
         super();

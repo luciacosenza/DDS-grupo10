@@ -1,7 +1,9 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
@@ -61,7 +63,7 @@ public class DistribucionViandasTest {
 
     @BeforeEach
     void setUp() {
-        colaboradorHumano = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
+        colaboradorHumano = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDate.parse("2003-01-01")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         fechaAperturaH1 = LocalDateTime.parse("2024-01-01T00:00:00");
         fechaAperturaH2 = LocalDateTime.parse("2024-02-01T00:00:00");
         fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
@@ -124,7 +126,7 @@ public class DistribucionViandasTest {
 
         colaboradorService.confirmarContribucion(colaboradorHumanoId, donacionVianda, LocalDateTime.now());
 
-        ColaboradorHumano colaboradorHumanoND = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123460", Sexo.MASCULINO), LocalDateTime.parse("2003-02-01T00:00:00")), null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
+        ColaboradorHumano colaboradorHumanoND = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123460", Sexo.MASCULINO), LocalDate.parse("2003-02-01")), null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         Long colaboradorHumanoNDId = colaboradorService.guardarColaborador(colaboradorHumanoND).getId();
 
         DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();

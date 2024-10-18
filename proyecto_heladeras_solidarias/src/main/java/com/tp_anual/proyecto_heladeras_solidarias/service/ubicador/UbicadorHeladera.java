@@ -1,6 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.ubicador;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Comparator;
 
@@ -22,12 +23,12 @@ public class UbicadorHeladera {
         heladeraRepository = vHeladeraRepository;
     }
 
-    public ArrayList<Heladera> obtenerHeladerasCercanasA(Heladera heladeraObjetivo, Integer cantidadHeladeras) {
+    public List<Heladera> obtenerHeladerasCercanasA(Heladera heladeraObjetivo, Integer cantidadHeladeras) {
         // Obtengo la Ubicación de la Heladera en cuestión
         Pair<Double, Double> ubicacionHeladera = Pair.of(heladeraObjetivo.getUbicacion().getLatitud(), heladeraObjetivo.getUbicacion().getLongitud());
         
         // Obtengo la lista de Heladeras 
-        ArrayList<Heladera> heladeras = new ArrayList<>(heladeraRepository.findAll());  // TODO: Buscar la forma de filtrar las heladeras directo en la base de datos
+        List<Heladera> heladeras = new ArrayList<>(heladeraRepository.findAll());  // TODO: Buscar la forma de filtrar las heladeras directo en la base de datos
         
         // Ordeno Heladeras por distancia
         return heladeras.stream()
@@ -37,7 +38,7 @@ public class UbicadorHeladera {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public Heladera obtenerHeladeraMasLlena(ArrayList <Heladera> heladeras) {
+    public Heladera obtenerHeladeraMasLlena(List <Heladera> heladeras) {
         Heladera heladeraMasLlena = null;
         Integer menorDiferencia = Integer.MAX_VALUE;
         
@@ -52,7 +53,7 @@ public class UbicadorHeladera {
         return heladeraMasLlena;
     }
 
-    public Heladera obtenerHeladeraMenosLlena(ArrayList <Heladera> heladeras) {
+    public Heladera obtenerHeladeraMenosLlena(List <Heladera> heladeras) {
         Heladera heladeraMenosLlena = null;
         Integer menorDiferencia = 0;
         

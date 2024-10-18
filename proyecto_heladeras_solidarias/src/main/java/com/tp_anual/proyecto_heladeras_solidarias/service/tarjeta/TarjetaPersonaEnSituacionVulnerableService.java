@@ -18,6 +18,7 @@ import jakarta.persistence.EntityNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 @Service
@@ -44,7 +45,7 @@ public class TarjetaPersonaEnSituacionVulnerableService extends TarjetaService {
         return tarjetaPersonaEnSituacionVulnerableRepository.findById(tarjetaPersonaEnSituacionVulnerableId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public ArrayList<TarjetaPersonaEnSituacionVulnerable> obtenerTarjetas() {
+    public List<TarjetaPersonaEnSituacionVulnerable> obtenerTarjetas() {
         return new ArrayList<>(tarjetaPersonaEnSituacionVulnerableRepository.findAll());
     }
 
@@ -79,7 +80,7 @@ public class TarjetaPersonaEnSituacionVulnerableService extends TarjetaService {
     // Programo la tarea para ejecutarse todos los días a las 00.00 hs
     @Scheduled(cron = "0 0 0 * * ?")
     public void resetearUsos() {
-        ArrayList<TarjetaPersonaEnSituacionVulnerable> tarjetasPersonaEnSituacionVulnerable= obtenerTarjetas();
+        List<TarjetaPersonaEnSituacionVulnerable> tarjetasPersonaEnSituacionVulnerable= obtenerTarjetas();
 
         for (TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable : tarjetasPersonaEnSituacionVulnerable) {
             resetUsos(tarjetaPersonaEnSituacionVulnerable.getCodigo());

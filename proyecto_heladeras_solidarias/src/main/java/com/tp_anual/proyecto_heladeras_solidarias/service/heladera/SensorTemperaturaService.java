@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 @Service
@@ -40,7 +41,7 @@ public class SensorTemperaturaService {
         return sensorTemperaturaRepository.findById(sensorTemperaturaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public ArrayList<SensorTemperatura> obtenerSensoresTemperatura() {
+    public List<SensorTemperatura> obtenerSensoresTemperatura() {
         return new ArrayList<>(sensorTemperaturaRepository.findAll());
     }
 
@@ -92,7 +93,7 @@ public class SensorTemperaturaService {
     // Programa la tarea para que se ejecute según el intervalo de notificación
     @Scheduled(fixedRateString = "#{@sensorTemperaturaService.getIntervaloNotificacion()}")
     public void notificar() {
-        ArrayList<SensorTemperatura> sensoresTemperatura = obtenerSensoresTemperatura();
+        List<SensorTemperatura> sensoresTemperatura = obtenerSensoresTemperatura();
 
         for (SensorTemperatura sensorTemperatura : sensoresTemperatura) {
             if (!funcionaSensorFisico(sensorTemperatura.getId()))

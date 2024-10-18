@@ -1,6 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.ubicador;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.OptionalDouble;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
@@ -33,17 +34,17 @@ public class UbicadorTecnico {
         Pair<Double, Double> ubicacionHeladera = Pair.of(heladera.getUbicacion().getLatitud(), heladera.getUbicacion().getLongitud());
         
         // Obtengo la lista de Técnicos que tengan a la Heladera en su área de cobertura
-        ArrayList<Tecnico> tecnicos = tecnicoService.obtenerTecnicos().stream()
+        List<Tecnico> tecnicos = tecnicoService.obtenerTecnicos().stream()
             .filter(tecnico -> areaService.estaDentro(tecnico.getAreaDeCobertura().getId(), ubicacionHeladera.getLeft(), ubicacionHeladera.getRight()))
             .collect(Collectors.toCollection(ArrayList::new));
         
         // Obtengo las Ubicaciones de los Técnicos
-        ArrayList<Pair<Double, Double>> puntosMedios = tecnicos.stream()
+        List<Pair<Double, Double>> puntosMedios = tecnicos.stream()
             .map(tecnico -> tecnicoService.ubicacionAprox(tecnico.getId()))
             .collect(Collectors.toCollection(ArrayList::new));
         
         // Obtengo la distancia minima entre la Heladera y un Técnico
-        ArrayList<Double> distancias = puntosMedios.stream()
+        List<Double> distancias = puntosMedios.stream()
             .map(puntoMedio -> AreaService.distanciaEntre2Puntos(puntoMedio, ubicacionHeladera))
             .collect(Collectors.toCollection(ArrayList::new));
         

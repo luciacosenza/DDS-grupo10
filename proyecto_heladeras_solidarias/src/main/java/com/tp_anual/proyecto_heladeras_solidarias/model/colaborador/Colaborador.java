@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.colaborador;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.logging.Level;
 
@@ -11,8 +11,8 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.persona.Persona;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
-import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.NoUser;
-import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.NoUsuario;
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
@@ -30,10 +30,10 @@ public abstract class Colaborador {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "usuario")
     @Setter
-    protected User usuario; // Tiene setter porque, generalmente empieza con usuario en null y para asignárselo se necesita un setter, pero sería final
+    protected Usuario usuario; // Tiene setter porque, generalmente empieza con usuario en null y para asignárselo se necesita un setter, pero sería final
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "persona")
@@ -47,14 +47,14 @@ public abstract class Colaborador {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "colaborador")
     @Setter
-    protected ArrayList<MedioDeContacto> mediosDeContacto;  // final
+    protected List<MedioDeContacto> mediosDeContacto;  // final
     
     @OneToMany(mappedBy = "colaborador", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    protected ArrayList<Contribucion> contribuciones; // final
+    protected List<Contribucion> contribuciones; // final
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "colaborador")
-    protected ArrayList<Oferta> beneficiosAdquiridos;   // final
+    protected List<Oferta> beneficiosAdquiridos;   // final
     
     @Min(value = 0)
     @Setter
@@ -62,8 +62,8 @@ public abstract class Colaborador {
 
     protected Colaborador() {}
 
-    protected Colaborador(User vUsuario, Persona vPersona, Ubicacion vDomicilio, ArrayList<MedioDeContacto> vMediosDeContacto, ArrayList<Contribucion> vContribuciones, ArrayList<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
-        usuario = vUsuario != null ? vUsuario : new NoUser();
+    protected Colaborador(Usuario vUsuario, Persona vPersona, Ubicacion vDomicilio, List<MedioDeContacto> vMediosDeContacto, List<Contribucion> vContribuciones, List<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
+        usuario = vUsuario != null ? vUsuario : new NoUsuario();
         persona = vPersona;
         domicilio = vDomicilio;
         mediosDeContacto = vMediosDeContacto;
@@ -72,8 +72,8 @@ public abstract class Colaborador {
         puntos = vPuntos;
     }
 
-    public User getUsuario() {
-        return usuario != null ? usuario : new NoUser();
+    public Usuario getUsuario() {
+        return usuario != null ? usuario : new NoUsuario();
     }
 
     public abstract String getNombre(Integer n);

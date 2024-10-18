@@ -8,7 +8,7 @@ import lombok.extern.java.Log;
 @Entity
 @Getter
 @Log
-public class User {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,9 +31,9 @@ public class User {
         ADMIN
     }
 
-    public User() {}
+    public Usuario() {}
 
-    public User(String vUsername, String vPassword, TipoUser vTipo) {
+    public Usuario(String vUsername, String vPassword, TipoUser vTipo) {
         username = username;
         password = password;
         tipo = vTipo;

@@ -2,7 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
+import java.util.List;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 
@@ -36,7 +36,7 @@ public class Heladera implements HeladeraObserver {    // Implementa una Interfa
     protected Float tempMax;    // final
 
     @OneToMany(mappedBy = "heladera", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
-    protected ArrayList<Vianda> viandas;    // final
+    protected List<Vianda> viandas;    // final
 
     @Setter
     protected Float tempActual;
@@ -54,7 +54,7 @@ public class Heladera implements HeladeraObserver {    // Implementa una Interfa
 
     public Heladera() {}
 
-    public Heladera(String vNombre, Ubicacion vUbicacion, Integer vCapacidad, Float vTempMin, Float vTempMax, ArrayList<Vianda> vViandas, Float vTempActual, LocalDateTime vFechaApertura, Boolean vEstado) {
+    public Heladera(String vNombre, Ubicacion vUbicacion, Integer vCapacidad, Float vTempMin, Float vTempMax, List<Vianda> vViandas, Float vTempActual, LocalDateTime vFechaApertura, Boolean vEstado) {
         nombre = vNombre;
         ubicacion = vUbicacion;
         capacidad = vCapacidad;

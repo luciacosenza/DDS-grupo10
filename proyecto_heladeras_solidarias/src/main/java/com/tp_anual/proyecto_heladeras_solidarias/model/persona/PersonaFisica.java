@@ -20,7 +20,7 @@ public class PersonaFisica extends Persona {
     @Setter
     private String apellido;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "documento")
     private Documento documento;    // final
 

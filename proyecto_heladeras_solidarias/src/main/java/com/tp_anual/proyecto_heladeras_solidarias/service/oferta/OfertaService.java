@@ -8,6 +8,7 @@ import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 @Service
@@ -24,7 +25,7 @@ public class OfertaService {
         return ofertaRepository.findById(ofertaId).orElseThrow(() -> new EntityNotFoundException("Entidad no encontrada"));
     }
 
-    public ArrayList<Oferta> obtenerOfertas() {
+    public List<Oferta> obtenerOfertas() {
         return new ArrayList<>(ofertaRepository.findAll());
     }
 

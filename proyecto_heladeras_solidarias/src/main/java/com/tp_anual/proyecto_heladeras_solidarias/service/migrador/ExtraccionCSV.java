@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import com.opencsv.CSVReader;
@@ -19,8 +20,8 @@ public class ExtraccionCSV extends ExtraccionDeDatos {
     public ExtraccionCSV() {}
 
     @Override
-    public ArrayList<String[]> extract(String csv) {
-        ArrayList<String[]> dataColaboradores = new ArrayList<>();
+    public List<String[]> extract(String csv) {
+        List<String[]> dataColaboradores = new ArrayList<>();
 
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(csv);
             InputStreamReader isr = new InputStreamReader(inputStream);

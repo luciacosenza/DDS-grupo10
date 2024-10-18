@@ -9,6 +9,7 @@ import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Log
@@ -24,11 +25,11 @@ public class SuscripcionService {
         return suscripcionRepository.findById(suscripcionId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public ArrayList<Suscripcion> obtenerSuscripciones() {
+    public List<Suscripcion> obtenerSuscripciones() {
         return new ArrayList<>(suscripcionRepository.findAll());
     }
 
-    public ArrayList<Suscripcion> obtenerSuscripcionesPorHeladera(Heladera heladera) {
+    public List<Suscripcion> obtenerSuscripcionesPorHeladera(Heladera heladera) {
         return new ArrayList<>(suscripcionRepository.findByHeladeraId(heladera.getId()));
     }
 

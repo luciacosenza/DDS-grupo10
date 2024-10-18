@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class HeladeraViewController {
@@ -20,7 +20,7 @@ public class HeladeraViewController {
 
     @GetMapping("/form-distribuir-viandas")
     public String mostrarFormDistribucionViandas(Model model) {
-        ArrayList<Heladera> heladeras = heladeraService.obtenerHeladeras();
+        List<Heladera> heladeras = heladeraService.obtenerHeladeras();
         model.addAttribute("heladeras", heladeras);
 
         return "distribuir-viandas";
@@ -28,7 +28,7 @@ public class HeladeraViewController {
 
    @GetMapping("/form-donar-vianda")
    public String mostrarFormDonacionVianda(Model model) {
-        ArrayList<Heladera> heladeras = heladeraService.obtenerHeladeras();
+        List<Heladera> heladeras = heladeraService.obtenerHeladeras();
         model.addAttribute("heladeras", heladeras);
 
         return "donar-vianda";
@@ -36,7 +36,7 @@ public class HeladeraViewController {
 
    @GetMapping("/form-reportar-falla-tecnica")
    public String mostrarFormReportarFalla(Model model) {
-        ArrayList<Heladera> heladeras = heladeraService.obtenerHeladeras();
+        List<Heladera> heladeras = heladeraService.obtenerHeladeras();
         model.addAttribute("heladeras", heladeras);
 
         return "reportar-falla-tecnica";  //

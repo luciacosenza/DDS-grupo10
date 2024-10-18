@@ -2,10 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.migrador;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.converter.ConversorFormaContribucion;
@@ -14,7 +11,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorH
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.EMail;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
-import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.User;
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.ContribucionCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
@@ -73,7 +70,7 @@ public class TransformacionDeDatos {
         
         // Transforma a eMail
         EMail mail = new EMail(direcMail);
-        ArrayList<MedioDeContacto> contactos = new ArrayList<>();
+        List<MedioDeContacto> contactos = new ArrayList<>();
         contactos.add(mail);
 
         // Transforma a fechaContribucion
@@ -83,10 +80,10 @@ public class TransformacionDeDatos {
 
         // Genera un usuario
         String username = userService.generarUsername(nombre, apellido);
-        User user = userService.crearUser(username, username, User.TipoUser.COLABORADOR_HUMANO);
+        Usuario usuario = userService.crearUser(username, username, Usuario.TipoUser.COLABORADOR_HUMANO);
 
         // Transforma a colaborador
-        ColaboradorHumano colaborador = new ColaboradorHumano(user, new PersonaFisica(nombre, apellido, documento, null), new Ubicacion(null, null, null, null, null, null), contactos, new ArrayList<>(), new ArrayList<>(), null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
+        ColaboradorHumano colaborador = new ColaboradorHumano(usuario, new PersonaFisica(nombre, apellido, documento, null), new Ubicacion(null, null, null, null, null, null), contactos, new ArrayList<>(), new ArrayList<>(), null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
 
         // Agrega contribuciones a colaborador
         for (Integer i = 0; i < cantColabs; i++) {
@@ -101,7 +98,7 @@ public class TransformacionDeDatos {
         log.log(Level.INFO, I18n.getMessage("migrador.TransformacionDeDatos.confirmarTransformation_info"));
     }
 
-    public ArrayList<ColaboradorHumano> transform(ArrayList<String[]> data) {
+    public List<ColaboradorHumano> transform(List<String[]> data) {
         Map<String, ColaboradorHumano> colaboradoresProcesados = new HashMap<>();
 
         for (String[] dataColaborador : data) {

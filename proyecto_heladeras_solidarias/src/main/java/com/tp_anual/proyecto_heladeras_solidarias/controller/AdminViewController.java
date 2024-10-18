@@ -1,7 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.controller;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +35,7 @@ public class AdminViewController {
     @GetMapping("/admin")
     public String mostrarAdmin(Model model) {
         // Obtener ofertas desde el servicio
-        ArrayList<Alerta> alertas = alertaService.obtenerAlertas(); 
+        List<Alerta> alertas = alertaService.obtenerAlertas();
         model.addAttribute("alertas", alertas); 
         return "admin"; 
     }
@@ -43,9 +43,9 @@ public class AdminViewController {
     @GetMapping("/admin/reportes")
     public String mostrarReportes(Model model) {
         // Obtener reportes desde el servicio
-        ArrayList<IncidentesPorHeladera> incidentesPorHeladera = reporteService.obtenerReporteIncidentesPorHeladera(); 
-        ArrayList<MovimientosViandaPorHeladera> movimientosViandaPorHeladera = reporteService.obtenerReporteMovimientosViandaPorHeladera();
-        ArrayList<ViandasPorColaborador> viandasPorColaborador = reporteService.obtenerReporteViandasPorColaborador();
+        List<IncidentesPorHeladera> incidentesPorHeladera = reporteService.obtenerReporteIncidentesPorHeladera();
+        List<MovimientosViandaPorHeladera> movimientosViandaPorHeladera = reporteService.obtenerReporteMovimientosViandaPorHeladera();
+        List<ViandasPorColaborador> viandasPorColaborador = reporteService.obtenerReporteViandasPorColaborador();
         
         model.addAttribute("reporte-incidentes-por-heladera", incidentesPorHeladera); 
         model.addAttribute("reporte-movimientos-vianda-por-heladera", movimientosViandaPorHeladera);

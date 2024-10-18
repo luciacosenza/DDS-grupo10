@@ -1,6 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
@@ -26,7 +27,7 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
     }
 
     @Override
-    public ArrayList<PermisoApertura> getPermisos() {
+    public List<PermisoApertura> getPermisos() {
         return permisos;
     }
 

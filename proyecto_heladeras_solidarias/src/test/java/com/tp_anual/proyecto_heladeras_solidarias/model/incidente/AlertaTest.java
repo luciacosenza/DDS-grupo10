@@ -2,6 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.incidente;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.SensorMovimientoService;
@@ -90,14 +91,14 @@ public class AlertaTest {
         
         scheduler.shutdown();
 
-        ArrayList<Incidente> alertasDelSistema = incidenteService.obtenerIncidentes().stream()
+        List<Incidente> alertasDelSistema = incidenteService.obtenerIncidentes().stream()
             .filter(incidente -> incidente instanceof Alerta)
-            .collect(Collectors.toCollection(ArrayList::new));
+            .collect(Collectors.toCollection(List::new));
 
-        ArrayList<Alerta> alertasDeTemperaturaDelSistema = alertasDelSistema.stream()
+        List<Alerta> alertasDeTemperaturaDelSistema = alertasDelSistema.stream()
             .map(alerta -> (Alerta) alerta)
             .filter(alerta -> alerta.getTipo() == TipoAlerta.TEMPERATURA)
-            .collect(Collectors.toCollection(ArrayList::new));
+            .collect(Collectors.toCollection(List::new));
 
         Assertions.assertNotNull(exceptionHolder[0]);   // Verificamos que se lanza la Exception del Técnico
         Assertions.assertTrue(heladera.getTempActual() == 6f && heladera.getEstado() == false && alertasDeTemperaturaDelSistema.size() == 1);
@@ -110,7 +111,7 @@ public class AlertaTest {
 
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> sensorMovimientoService.setHayMovimiento(sensorMovimiento.getId() ,true));
 
-        ArrayList<Alerta> alertasFraude = alertaService.obtenerAlertasFraude();
+        List<Alerta> alertasFraude = alertaService.obtenerAlertasFraude();
 
         Assertions.assertEquals(I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception"), exception.getMessage());  // Verificamos que se lanza la Exception del Técnico (porque no implementamos que haya uno que la atienda)
         Assertions.assertTrue(!heladera.getEstado() && alertasFraude.size() == 1);
@@ -122,7 +123,7 @@ public class AlertaTest {
 
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> sensorTemperaturaService.notificarFalla(sensorTemperatura.getId()));
 
-        ArrayList<Alerta> alertasFallaConexion = alertaService.obtenerAlertasFallaConexion();
+        List<Alerta> alertasFallaConexion = alertaService.obtenerAlertasFallaConexion();
 
         Assertions.assertEquals(I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception"), exception.getMessage());  // Verificamos que se lanza la Exception del Técnico (porque no implementamos que haya uno que la atienda)
         Assertions.assertTrue(!heladera.getEstado() && alertasFallaConexion.size() == 1);

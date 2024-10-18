@@ -2,6 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
@@ -154,7 +155,7 @@ public class TarjetaColaboradorActivaTest {
         SolicitudAperturaColaborador solicitud5 = tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION);
         AperturaColaborador apertura5 = tarjetaColaboradorService.intentarApertura(codigoTarjeta, heladera1);
         
-        ArrayList<Vianda> viandasAux = new ArrayList<>();
+        List<Vianda> viandasAux = new ArrayList<>();
         for (Integer i = 1; i <= cantidadADistribuir; i++) {
             Vianda viandaAux = heladeraService.retirarVianda(heladera1Id);
             viandaService.quitarDeHeladera(viandaAux.getId());
@@ -172,7 +173,7 @@ public class TarjetaColaboradorActivaTest {
 
         colaboradorService.confirmarContribucion(colaboradorHumanoId, distribucionViandas, LocalDateTime.now());
 
-        ArrayList<AccionColaborador> accionesColaborador = new ArrayList<>();
+        List<AccionColaborador> accionesColaborador = new ArrayList<>();
         accionesColaborador.add(solicitud1);
         accionesColaborador.add(apertura1);
         accionesColaborador.add(solicitud2);

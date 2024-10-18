@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class OfertaViewController {
@@ -21,7 +21,7 @@ public class OfertaViewController {
 
     @GetMapping("/tienda")
     public String mostrarTienda(Model model) {
-        ArrayList<Oferta> ofertas = ofertaService.obtenerOfertas();
+        List<Oferta> ofertas = ofertaService.obtenerOfertas();
         model.addAttribute("ofertas", ofertas);
 
         return "tienda";

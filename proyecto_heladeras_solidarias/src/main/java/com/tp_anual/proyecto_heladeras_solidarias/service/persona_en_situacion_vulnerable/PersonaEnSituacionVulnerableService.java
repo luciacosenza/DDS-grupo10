@@ -9,6 +9,7 @@ import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Log
@@ -24,7 +25,7 @@ public class PersonaEnSituacionVulnerableService {
         return personaEnSituacionVulnerableRepository.findById(personaEnSituacionVulnerableId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public ArrayList<PersonaEnSituacionVulnerable> obtenerPersonasEnSituacionVulnerable() {
+    public List<PersonaEnSituacionVulnerable> obtenerPersonasEnSituacionVulnerable() {
         return new ArrayList<>(personaEnSituacionVulnerableRepository.findAll());
     }
 

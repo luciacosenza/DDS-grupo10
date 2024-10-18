@@ -1,7 +1,9 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.contacto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
@@ -29,7 +31,7 @@ public class EMailTest {
     @Test
     @DisplayName("Testeo el método contactar() de EMail")
     public void EMailContactarTest() {
-        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(null, new PersonaFisica("Santiago", "Ale", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDateTime.parse("2003-01-01T00:00:00")), new Ubicacion(-34.638991720104336, -58.51001658862685, "Avenida Rivadavia 10391", "1408", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
+        ColaboradorHumano colaboradorHumano = new ColaboradorHumano(null, new PersonaFisica("Santiago", "Ale", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDate.parse("2003-01-01")), new Ubicacion(-34.638991720104336, -58.51001658862685, "Avenida Rivadavia 10391", "1408", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         Long colaboradorHumanoId = colaboradorService.guardarColaborador(colaboradorHumano).getId();
 
         EMail eMail = new EMail("salemarino@frba.utn.edu.ar");

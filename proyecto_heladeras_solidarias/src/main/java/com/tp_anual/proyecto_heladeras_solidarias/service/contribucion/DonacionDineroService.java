@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 @Service
@@ -33,7 +34,7 @@ public class DonacionDineroService extends ContribucionService {
         return donacionDineroRepository.findById(donacionDineroId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public ArrayList<DonacionDinero> obtenerDonacionesDineroQueSumanPuntos() {
+    public List<DonacionDinero> obtenerDonacionesDineroQueSumanPuntos() {
         return new ArrayList<>(donacionDineroRepository.findDonacionesDineroParaCalcular());
     }
 
@@ -54,7 +55,7 @@ public class DonacionDineroService extends ContribucionService {
     @Scheduled(cron = "0 0 0 * * ?")
     @Override
     public void calcularPuntos() {
-        ArrayList<DonacionDinero> donacionesDinero = obtenerDonacionesDineroQueSumanPuntos();
+        List<DonacionDinero> donacionesDinero = obtenerDonacionesDineroQueSumanPuntos();
 
         for (DonacionDinero donacionDinero : donacionesDinero) {
             Double puntosASumar = donacionDinero.getMonto() * multiplicadorPuntos;

@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 @Service
@@ -34,7 +35,7 @@ public class DistribucionViandasService extends ContribucionService {
         return distribucionViandasRepository.findById(distribucionViandasId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
     }
 
-    public ArrayList<DistribucionViandas> obtenerDistribucionesViandasQueSumanPuntos() {
+    public List<DistribucionViandas> obtenerDistribucionesViandasQueSumanPuntos() {
         return new ArrayList<>(distribucionViandasRepository.findByYaSumoPuntosFalse());
     }
     @Override
@@ -59,7 +60,7 @@ public class DistribucionViandasService extends ContribucionService {
     @Scheduled(cron = "0 0 0 * * ?")
     @Override
     protected void calcularPuntos() {
-        ArrayList<DistribucionViandas> distribucionesViandas = obtenerDistribucionesViandasQueSumanPuntos();
+        List<DistribucionViandas> distribucionesViandas = obtenerDistribucionesViandasQueSumanPuntos();
 
         for (DistribucionViandas distribucionViandas : distribucionesViandas) {
             Double puntosASumar = Double.valueOf(distribucionViandas.getCantidadViandasAMover()) * multiplicadorPuntos;
