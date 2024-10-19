@@ -55,7 +55,7 @@ public class DonacionViandaTest {
         Long colaboradorHumanoId = colaboradorService.guardarColaborador(colaboradorHumano).getId();
 
         LocalDateTime fechaAperturaH1   = LocalDateTime.parse("2024-01-01T00:00:00");
-        LocalDateTime fechaCaducidadV   = LocalDateTime.parse("2025-01-01T00:00:00");
+        LocalDate fechaCaducidadV   = LocalDate.parse("2025-01-01");
 
         Heladera heladera = new Heladera("HeladeraPrueba1", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), 20, -20f, 5f,  new ArrayList<>(), 2f, fechaAperturaH1, true);
         Long heladeraId = heladeraService.guardarHeladera(heladera).getId();
@@ -86,7 +86,7 @@ public class DonacionViandaTest {
         Long colaboradorHumanoId = colaboradorService.guardarColaborador(colaboradorHumano).getId();
 
         LocalDateTime fechaAperturaH   = LocalDateTime.parse("2024-01-01T00:00:00");
-        LocalDateTime fechaCaducidadV   = LocalDateTime.parse("2025-01-01T00:00:00");
+        LocalDate fechaCaducidadV   = LocalDate.parse("2025-01-01");
         
         Heladera heladera = new Heladera("HeladeraPrueba1", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), 20, -20f, 5f,  new ArrayList<>(), 2f, fechaAperturaH, true);
         heladeraService.guardarHeladera(heladera);

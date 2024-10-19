@@ -68,7 +68,7 @@ public class ContribucionCreatorTest {
     @DisplayName("Testeo la IllegalArgumentException al querer crear una DistribucionViandas con los argumentos inadecuados")
     public void IllegalArgumentCrearDistribucionViandasTest() {
         Heladera heladera = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), 20, -20f, 5f, new ArrayList<>(), 3f, LocalDateTime.parse("2024-01-01T00:00:00"), true);
-        Vianda vianda = new Vianda("ComidaPrueba", colaboradorHumano, LocalDateTime.parse("2024-07-15T00:00:00"), LocalDateTime.now(), 0, 0, false);
+        Vianda vianda = new Vianda("ComidaPrueba", colaboradorHumano, LocalDate.parse("2024-07-15"), LocalDateTime.now(), 0, 0, false);
 
         DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
 

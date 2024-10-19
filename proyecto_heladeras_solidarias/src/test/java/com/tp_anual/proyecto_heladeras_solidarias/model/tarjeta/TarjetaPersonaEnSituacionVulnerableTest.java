@@ -73,7 +73,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         heladera = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), 20, -20f, 5f, new ArrayList<>(), 3f, LocalDateTime.now() , true);
         heladeraId = heladeraService.guardarHeladera(heladera).getId();
 
-        LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
+        LocalDate fechaCaducidadV = LocalDate.parse("2025-01-01");
 
         vianda1 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         viandaService.guardarVianda(vianda1);
@@ -184,7 +184,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
         Heladera heladeraC5 = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), 5, -20f, 5f, new ArrayList<>(), 3f, LocalDateTime.now() , true);
         Long heladeraC5Id = heladeraService.guardarHeladera(heladeraC5).getId();
 
-        LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
+        LocalDate fechaCaducidadV = LocalDate.parse("2025-01-01");
         Vianda vianda1C5 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         viandaService.guardarVianda(vianda1C5);
         Vianda vianda2C5 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);

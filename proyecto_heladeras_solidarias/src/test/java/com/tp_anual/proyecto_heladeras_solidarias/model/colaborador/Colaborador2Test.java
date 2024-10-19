@@ -53,7 +53,7 @@ public class Colaborador2Test {
 
         LocalDateTime fechaAperturaH1 = LocalDateTime.parse("2024-01-01T00:00:00");
         LocalDateTime fechaAperturaH2 = LocalDateTime.parse("2024-02-01T00:00:00");
-        LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
+        LocalDate fechaCaducidadV = LocalDate.parse("2025-01-01");
 
         Heladera heladera1 = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), 20, -20f, 5f, new ArrayList<>(), 3f, fechaAperturaH1 , true);
         Heladera heladera2 = new Heladera("HeladeraPrueba2", new Ubicacion(-34.6092, -58.3842, "Avenida de Mayo 1370", "1086", "Ciudad Autónoma de Buenos Aires", "Argentina"), 20, -20f, 5f, new ArrayList<>(), 5f, fechaAperturaH2, true);

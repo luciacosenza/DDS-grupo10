@@ -52,7 +52,7 @@ public class DistribucionViandasTest {
     ColaboradorHumano colaboradorHumano;
     LocalDateTime fechaAperturaH1;
     LocalDateTime fechaAperturaH2;
-    LocalDateTime fechaCaducidadV;
+    LocalDate fechaCaducidadV;
     Heladera heladera1;
     Heladera heladera2;
     Vianda vianda;
@@ -66,7 +66,7 @@ public class DistribucionViandasTest {
         colaboradorHumano = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDate.parse("2003-01-01")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         fechaAperturaH1 = LocalDateTime.parse("2024-01-01T00:00:00");
         fechaAperturaH2 = LocalDateTime.parse("2024-02-01T00:00:00");
-        fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
+        fechaCaducidadV = LocalDate.parse("2025-01-01");
         heladera1 = new Heladera("HeladeraPrueba1", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), 20, -20f, 5f, new ArrayList<>(), 2f, fechaAperturaH1, true);
         heladera2 = new Heladera("HeladeraPrueba2", new Ubicacion(-34.6092, -58.3842, "Avenida de Mayo 1370", "1086", "Ciudad Autónoma de Buenos Aires", "Argentina"), 20, -20f, 5f, new ArrayList<>(), 2f,  fechaAperturaH2, true);
         vianda = new Vianda("ComidaPrueba" , colaboradorHumano, fechaCaducidadV, null, 0, 0, false);

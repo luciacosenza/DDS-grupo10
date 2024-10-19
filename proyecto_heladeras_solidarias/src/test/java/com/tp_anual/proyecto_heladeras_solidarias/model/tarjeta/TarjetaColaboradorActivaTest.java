@@ -1,5 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,7 @@ public class TarjetaColaboradorActivaTest {
     ColaboradorHumano colaboradorHumano;
     Heladera heladera1;
     HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator;
-    LocalDateTime fechaCaducidadV;
+    LocalDate fechaCaducidadV;
     Vianda vianda1;
     DonacionViandaCreator donacionViandaCreator;
     DonacionVianda donacionVianda1;
@@ -82,7 +83,7 @@ public class TarjetaColaboradorActivaTest {
 
         colaboradorService.confirmarContribucion(colaboradorJuridicoId, hacerseCargoDeHeladera1, fechaAperturaH1);
 
-        fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
+        fechaCaducidadV = LocalDate.parse("2025-01-01");
         Vianda vianda1 = new Vianda("ComidaPrueba", colaboradorHumano, fechaCaducidadV, null, 0, 0, false);
         vianda1Id = viandaService.guardarVianda(vianda1).getId();
 

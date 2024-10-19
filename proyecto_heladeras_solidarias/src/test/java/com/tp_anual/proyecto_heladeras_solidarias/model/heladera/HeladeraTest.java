@@ -79,7 +79,7 @@ public class HeladeraTest {
         ColaboradorHumano colaboradorHumano = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123456", Sexo.MASCULINO), LocalDate.parse("2003-01-01")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d); // Uso ColaboradorHumano porque Colaborador es abstract y el metodo es igual para ambos (Humano y Juridico)
         Long colaboradorHumanoId = colaboradorService.guardarColaborador(colaboradorHumano).getId();
 
-        LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
+        LocalDate fechaCaducidadV = LocalDate.parse("2025-01-01");
         Vianda vianda1 = new Vianda("ComidaPrueba", colaboradorHumano, fechaCaducidadV, null, 0, 0, false);
         Long vianda1Id = viandaService.guardarVianda(vianda1).getId();
 
@@ -189,7 +189,7 @@ public class HeladeraTest {
         Heladera heladera = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), 2, -20f, 5f, new ArrayList<>(), 2f, fechaApertura, true);
         Long heladeraId = heladeraService.guardarHeladera(heladera).getId();
 
-        LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
+        LocalDate fechaCaducidadV = LocalDate.parse("2025-01-01");
 
         Vianda vianda1 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         viandaService.guardarVianda(vianda1);
@@ -225,7 +225,7 @@ public class HeladeraTest {
         Heladera heladera = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), 2, -20f, 5f, new ArrayList<>(), 2f, fechaApertura, true);
         Long heladeraId = heladeraService.guardarHeladera(heladera).getId();
 
-        LocalDateTime fechaCaducidadV = LocalDateTime.parse("2025-01-01T00:00:00");
+        LocalDate fechaCaducidadV = LocalDate.parse("2025-01-01");
 
         Vianda vianda1 = new Vianda("ComidaPrueba", null, fechaCaducidadV, null, 0, 0, false);
         viandaService.guardarVianda(vianda1);
