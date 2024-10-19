@@ -8,7 +8,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Visita;
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.tecnico.TecnicoRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.area.AreaService;
-import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.UserService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.UsuarioService;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
@@ -24,13 +24,13 @@ import java.util.logging.Level;
 public class TecnicoService {
 
     private final TecnicoRepository tecnicoRepository;
-    private final UserService userService;
+    private final UsuarioService usuarioService;
     private final VisitaService visitaService;
     private final AreaService areaService;
 
-    public TecnicoService(TecnicoRepository vTecnicoRepository, UserService vUserService, VisitaService vVisitaService, AreaService vAreaService) {
+    public TecnicoService(TecnicoRepository vTecnicoRepository, UsuarioService vUsuarioService, VisitaService vVisitaService, AreaService vAreaService) {
         tecnicoRepository = vTecnicoRepository;
-        userService = vUserService;
+        usuarioService = vUsuarioService;
         visitaService = vVisitaService;
         areaService = vAreaService;
     }

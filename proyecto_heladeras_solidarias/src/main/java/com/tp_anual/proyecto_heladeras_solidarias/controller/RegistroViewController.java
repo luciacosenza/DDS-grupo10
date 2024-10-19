@@ -1,5 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.controller;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJuridico;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.EMail;
@@ -9,10 +10,14 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.NoUsuario;
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -23,14 +28,20 @@ import java.util.ArrayList;
 public class RegistroViewController {
 
     ColaboradorService colaboradorService;
+    UsuarioService usuarioService;
 
-    public RegistroViewController(ColaboradorService vColaboradorService) {
+    public RegistroViewController(ColaboradorService vColaboradorService, UsuarioService vUsuarioService) {
         colaboradorService = vColaboradorService;
+        usuarioService = vUsuarioService;
+    }
+
+    @GetMapping("/seleccion-persona")
+    public String mostrarSeleccionPersona() {
+        return "seleccion-persona";
     }
 
     @GetMapping("/registro-persona-humana")
-    public String mostrarRegistroPersonaHumana(Model model) {
-        model.addAttribute("colaboradorHumano", new ColaboradorHumano());
+    public String mostrarRegistroPersonaHumana() {
         return "registro-persona-humana";
     }
 
@@ -39,9 +50,13 @@ public class RegistroViewController {
         return "registro-persona-juridica";
     }
 
-    @GetMapping("/seleccion-persona")
-    public String mostrarSeleccionPersona() {
-        return "seleccion-persona";
+    @GetMapping("/crear-usuario")
+    public String mostrarCrearUsuario(@RequestParam("colaboradorId") Long colaboradorId, Model model) {
+        Colaborador colaborador = colaboradorService.obtenerColaborador(colaboradorId);
+        model.addAttribute("usuario", new Usuario());
+        model.addAttribute("colaborador", colaborador);
+
+        return "crear-usuario";
     }
 
     @PostMapping("/registro-persona-humana/guardar")
@@ -72,9 +87,9 @@ public class RegistroViewController {
         colaborador.agregarMedioDeContacto(telefono);
         colaborador.agregarMedioDeContacto(eMail);
 
-        colaboradorService.guardarColaborador(colaborador);
+        Long colaboradorId = colaboradorService.guardarColaborador(colaborador).getId();
 
-        return "redirect:/crear-usuario";
+        return "redirect:/crear-usuario?colaboradorId=" + colaboradorId;
     }
 
     @PostMapping("/registro-persona-juridica/guardar")
@@ -103,6 +118,23 @@ public class RegistroViewController {
 
         colaboradorService.guardarColaborador(colaborador);
 
-        return "redirect:/crear-usuario";
+        Long colaboradorId = colaboradorService.guardarColaborador(colaborador).getId();
+
+        return "redirect:/crear-usuario?colaboradorId=" + colaboradorId;
     }
+
+    @PostMapping("/crear-usuario/guardar")
+    public String guardarUsuario(@RequestParam("colaboradorId") Long colaboradorId, @ModelAttribute Usuario usuario, BindingResult result) {
+        try {
+            usuarioService.registrarUsuario(usuario);
+            colaboradorService.asignarUsuario(colaboradorId, usuario);
+        } catch (IllegalArgumentException e) {
+            result.rejectValue("username", "error.username", e.getMessage());
+            return "redirect:/crear-usuario?colaboradorId=" + colaboradorId;
+        }
+
+        return "redirect:/index";
+    }
+
+
 }

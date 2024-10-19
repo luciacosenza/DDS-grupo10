@@ -52,7 +52,7 @@ public class Vianda {
 
     public Vianda(String vComida, ColaboradorHumano vColaborador, LocalDate vFechaCaducidad, LocalDateTime vFechaDonacion, Integer vCalorias, Integer vPeso, Boolean vEntregada) {
         comida = vComida;
-        heladera = new HeladeraNula();
+        heladera = null;
         colaborador = vColaborador;
         fechaCaducidad = vFechaCaducidad;
         fechaDonacion = vFechaDonacion;

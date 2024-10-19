@@ -22,9 +22,9 @@ public class Usuario {
 
     @Enumerated(EnumType.STRING)
     @Setter
-    private TipoUser tipo;
+    private TipoUsuario tipo;
 
-    public enum TipoUser {
+    public enum TipoUsuario {
         COLABORADOR_HUMANO,
         COLABORADOR_JURIDICO,
         TECNICO,
@@ -33,7 +33,7 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Usuario(String vUsername, String vPassword, TipoUser vTipo) {
+    public Usuario(String vUsername, String vPassword, TipoUsuario vTipo) {
         username = username;
         password = password;
         tipo = vTipo;

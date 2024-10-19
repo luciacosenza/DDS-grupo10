@@ -12,7 +12,7 @@ import lombok.extern.java.Log;
 public class TarjetaColaboradorNula extends TarjetaColaborador {
 
     public TarjetaColaboradorNula() {
-        super("N/A", null, new ArrayList<>());
+        super(null, null, new ArrayList<>());
     }
 
     @Override

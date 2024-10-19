@@ -9,23 +9,25 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class CargaPremioViewController {
+public class CargarPremioViewController {
 
     OfertaService ofertaService;
 
-    public CargaPremioViewController(OfertaService vOfertaService) {
+    public CargarPremioViewController(OfertaService vOfertaService) {
         ofertaService = vOfertaService;
     }
 
     @GetMapping("/cargar-premio")
     public String mostrarCargarPremio(Model model) {
         model.addAttribute("oferta", new Oferta());
+
         return "cargar-premio";
     }
 
     @PostMapping("/cargar-premio/guardar")
     public String guardarPremio(@ModelAttribute Oferta oferta) {
         ofertaService.guardarOferta(oferta);
+
         return "redirect:/cargar-premio";
     }
 }

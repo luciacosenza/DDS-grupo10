@@ -6,11 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ViewController {
 
-//    @GetMapping("/cargar-premio")
-//    public String mostrarCargarPremio() {
-//        return "cargar-premio";
-//    }
-
     @GetMapping("/colaborar-personas-fisicas")
     public String mostrarColaborarPersonasFisicas() {
         return "colaborar-personas-fisicas";
@@ -29,11 +24,6 @@ public class ViewController {
     @GetMapping("/como-participar")
     public String mostrarComoParticipar() {
         return "como-participar";
-    }
-
-    @GetMapping("/crear-usuario")
-    public String mostrarCrearUsuario() {
-        return "crear-usuario";
     }
 
     @GetMapping("/donar-dinero")
@@ -60,8 +50,6 @@ public class ViewController {
     public String mostrarRegistrarPersonaVulnerable() {
         return "registrar-persona-vulnerable";
     }
-
-
 
     @GetMapping("/suscribirse")
     public String mostrarSuscribirse() {

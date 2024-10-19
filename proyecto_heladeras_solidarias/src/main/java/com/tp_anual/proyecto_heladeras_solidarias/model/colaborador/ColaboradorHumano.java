@@ -40,7 +40,7 @@ public class ColaboradorHumano extends Colaborador {    // Implementa una Interf
 
     public ColaboradorHumano(Usuario vUsuario, PersonaFisica vPersona, Ubicacion vDomicilio, List<MedioDeContacto> vMediosDeContacto, List<Contribucion> vContribuciones, List<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
         super(vUsuario, vPersona, vDomicilio, vMediosDeContacto, vContribuciones, vBeneficiosAdquiridos, vPuntos);
-        tarjeta = new TarjetaColaboradorNula();
+        tarjeta = null;
         suscripciones = new ArrayList<>();
     }
 

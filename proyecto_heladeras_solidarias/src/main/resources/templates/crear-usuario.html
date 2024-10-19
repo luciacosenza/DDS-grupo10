@@ -23,19 +23,23 @@
                 <h2 class="fw-bold">Registrarse</h2>
                 <h4>Crear usuario y contraseña</h4>
                 <hr>
-                <form class="register-form">
+                <form th:action="@{/crear-usuario/guardar}" th:object="${usuario}" class="register-form" method="post" >
+                    <input type="hidden" name="colaboradorId" th:value="${colaborador.id}">
                     <div class="mb-3">
                         <label for="crear-usuario" class="form-label">Crear usuario</label>
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1">@</span>
-                            <input id="crear-usuario" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                            <input id="crear-usuario" type="text" class="form-control" th:field="*{username}" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                        <div th:if="${#fields.hasErrors('username')}" class="text-danger">
+                            <p th:errors="*{username}">Este nombre de usuario ya existe, elija otro</p>
                         </div>
                     </div>
                     <label for="password" class="form-label">Contraseña</label>
                     <div class="input-group mb-3">
                         <div class="input-group-append">
                         </div>
-                        <input type="password" class="form-control password-field" id="password" placeholder="Contraseña">
+                        <input id="password" type="password" class="form-control password-field" th:field="*{password}" placeholder="Contraseña">
                         <button class="btn toggle-password" type="button">
                             <span class="material-symbols-outlined toggle-pass-icon">
                                 visibility
@@ -46,14 +50,14 @@
                     <div class="input-group mb-3">
                         <div class="input-group-append">
                         </div>
-                        <input type="password" class="form-control" id="password-repeat" placeholder="Contraseña">
+                        <input id="password-repeat" type="password" class="form-control" placeholder="Contraseña">
                         <button class="btn toggle-password" type="button">
                             <span class="material-symbols-outlined toggle-pass-icon">
                                 visibility
                             </span>
                         </button>
                     </div>
-                    <a th:href="@{/index.html}" class="text-decoration-none d-flex align-items-center justify-content-center">
+                    <a class="text-decoration-none d-flex align-items-center justify-content-center">
                         <button type="submit" class="btn btn-dark w-50">Registrarse</button>
                     </a>
                 </form>

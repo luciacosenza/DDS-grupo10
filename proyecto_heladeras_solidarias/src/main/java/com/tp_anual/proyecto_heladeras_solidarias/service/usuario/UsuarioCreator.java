@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Log
-public class UserCreator {
-    public Usuario crearUser(String username, String password, Usuario.TipoUser tipo) {
+public class UsuarioCreator {
+    public Usuario crearUsuario(String username, String password, Usuario.TipoUsuario tipo) {
         return new Usuario(username, password, tipo);
     }
 }

@@ -18,7 +18,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
-import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.UserService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.UsuarioService;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +26,10 @@ import org.springframework.stereotype.Service;
 @Log
 public class TransformacionDeDatos {
 
-    private final UserService userService;
+    private final UsuarioService usuarioService;
 
-    public TransformacionDeDatos(UserService vUserService) {
-        userService = vUserService;
+    public TransformacionDeDatos(UsuarioService vUsuarioService) {
+        usuarioService = vUsuarioService;
     }
 
     private String quitarEspacios(String string) {
@@ -79,8 +79,8 @@ public class TransformacionDeDatos {
         fechaContribucion = LocalDateTime.parse(fechaContribucionStr, dateFormat);
 
         // Genera un usuario
-        String username = userService.generarUsername(nombre, apellido);
-        Usuario usuario = userService.crearUser(username, username, Usuario.TipoUser.COLABORADOR_HUMANO);
+        String username = usuarioService.generarUsername(nombre, apellido);
+        Usuario usuario = usuarioService.crearUser(username, username, Usuario.TipoUsuario.COLABORADOR_HUMANO);
 
         // Transforma a colaborador
         ColaboradorHumano colaborador = new ColaboradorHumano(usuario, new PersonaFisica(nombre, apellido, documento, null), new Ubicacion(null, null, null, null, null, null), contactos, new ArrayList<>(), new ArrayList<>(), null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)

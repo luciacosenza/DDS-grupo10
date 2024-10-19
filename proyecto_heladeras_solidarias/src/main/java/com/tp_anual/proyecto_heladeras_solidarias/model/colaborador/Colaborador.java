@@ -63,7 +63,7 @@ public abstract class Colaborador {
     protected Colaborador() {}
 
     protected Colaborador(Usuario vUsuario, Persona vPersona, Ubicacion vDomicilio, List<MedioDeContacto> vMediosDeContacto, List<Contribucion> vContribuciones, List<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
-        usuario = vUsuario != null ? vUsuario : new NoUsuario();
+        usuario = vUsuario;
         persona = vPersona;
         domicilio = vDomicilio;
         mediosDeContacto = vMediosDeContacto;
