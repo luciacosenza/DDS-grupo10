@@ -21,71 +21,73 @@
             <h2 class="fw-bold">Registrarse</h2>
             <h4>Persona Jurídica</h4>
             <hr>
-            <form class="register-form needs-validation" novalidate>
+            <form th:action="@{/registro-persona-juridica/guardar}" class="register-form needs-validation" method="post" novalidate>
                 <div class="mb-3">
                     <label for="razon-social" class="form-label">Razón social</label>
-                    <input type="text" class="form-control" id="razon-social" placeholder="Ej: Arcor" required>
+                    <input name="razon-social" type="text" class="form-control" id="razon-social" placeholder="Ej: Arcor" required>
 
                 </div>
                 <div class="mb-3">
                     <label for="tipo-persona-juridica" class="form-label">Tipo de persona jurídica</label>
-                    <select class="form-select" id="tipo-persona-juridica" required>
+                    <select name="tipo-persona-juridica" class="form-select" id="tipo-persona-juridica" required>
                         <option value="" disabled selected>Tipo</option>
-                        <option value="1">Gubernamental</option>
-                        <option value="2">ONG</option>
-                        <option value="3">Empresa</option>
-                        <option value="4">Institución</option>
+                        <option value="GUBERNAMENTAL">Gubernamental</option>
+                        <option value="ONG">ONG</option>
+                        <option value="EMPRESA">Empresa</option>
+                        <option value="INSTITUCION">Institución</option>
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="rubro" class="form-label">Rubro</label>
-                    <input type="text" class="form-control" id="rubro" placeholder="Ej: productos alimenticios" required>
+                    <input name="rubro" type="text" class="form-control" id="rubro" placeholder="Ej: Productos alimenticios" required>
                 </div>
                 <span class="span-form">Dirección</span>
                 <div class="mb-3">
                     <label for="pais" class="form-label">País</label>
-                    <select class="form-select" id="pais" required>
-                        <option selected>Argentina</option>
+                    <select name="pais" class="form-select" id="pais" required>
+                        <option value="Argentina" selected>Argentina</option>
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="ciudad" class="form-label">Ciudad</label>
-                    <input type="text" class="form-control" id="ciudad" placeholder="Ej: Puerto Madryn" required>
+                    <input name="ciudad" type="text" class="form-control" id="ciudad" placeholder="Ej: Puerto Madryn" required>
                 </div>
                 <div class="mb-3 d-flex gap-2">
                     <div class="w-75">
                         <label for="calle" class="form-label">Calle</label>
-                        <input type="text" class="form-control" id="calle" placeholder="Ej: San Nicolás" required>
+                        <input name="calle" type="text" class="form-control" id="calle" placeholder="Ej: San Nicolás" required>
                     </div>
                     <div>
-                        <label for="altura" class="form-label">Altura</label>
-                        <input type="text" class="form-control" id="altura" placeholder="Ej: 123" required>
+                        <label for="altura" class="form-label">Número</label>
+                        <input name="altura" type="text" class="form-control" id="altura" placeholder="Ej: 123" required>
                     </div>
-                </div>    
-                <div class="mb-3">
+                    <div>
+                        <label for="codigo-postal" class="form-label">Código postal</label>
+                        <input name="codigo-postal" type="text" class="form-control" id="codigo-postal" placeholder="Ej: 1407" required>
+                    </div>
+                </div>
+                <div class="mb-3 row">
                     <span class="span-form">Teléfono</span>
                     <div class="d-flex w-100 flex-wrap">
                         <div class="d-flex flex-column me-2">
                             <label for="prefijo" class="form-label">Prefijo</label>
-                            <input type="text" class="form-control" id="prefijo" placeholder="Ej: +54" style="max-width: 80px;" required>
+                            <input name="prefijo" type="text" class="form-control" id="prefijo" placeholder="Ej: +54" style="max-width: 80px;" required>
                         </div>
                         <div class="d-flex flex-column me-2">
                             <label for="codigo-area" class="form-label">Cód. área</label>
-                            <input type="text" class="form-control" id="codigo-area" placeholder="Ej: 9" style="max-width: 80px;" required>
+                            <input name="codigo-area" type="text" class="form-control" id="codigo-area" placeholder="Ej: 9" style="max-width: 80px;" required>
                         </div>
                         <div class="d-flex flex-column flex-grow-1">
                             <label for="numero-telefono" class="form-label">Número</label>
-                            <input type="text" class="form-control" id="numero-telefono" placeholder="Ej: 12345678" required>
+                            <input name="numero-telefono" type="text" class="form-control" id="numero-telefono" placeholder="Ej: 12345678" required>
                         </div>
                     </div>
-                </div>                
+                </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Ej: juanperez@gmail.com" required>
+                    <label for="correo" class="form-label">Email</label>
+                    <input name="correo" type="email" class="form-control" id="correo" placeholder="Ej: juanperez@gmail.com" required>
                 </div>
-                <div id="resultado">
-                </div>
-                <button type="submit" class="btn btn-dark w-100 submit-registro">Continuar</button>
+                <button type="submit" class="btn btn-dark w-100">Continuar</button>
             </form>
         </div>
     </main>
