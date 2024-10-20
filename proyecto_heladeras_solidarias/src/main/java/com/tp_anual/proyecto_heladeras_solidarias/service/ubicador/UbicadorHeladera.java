@@ -82,8 +82,9 @@ public class UbicadorHeladera {
 
         return heladeraMenosLlena;
     }
+
     // LO CREAMOS ACA PARA NO IMPORTAR HELADERA_SERVICE
-    private boolean estaLlena(java.lang.Object heladera) {
-        return Objects.equals(heladera.viandasActuales(), heladera.getCapacidad());
+    private boolean estaLlena(Heladera heladera) {
+        return heladera.viandasActuales() == heladera.getCapacidad();
     }
 }
