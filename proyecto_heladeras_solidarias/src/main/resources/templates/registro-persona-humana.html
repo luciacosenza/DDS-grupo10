@@ -21,9 +21,8 @@
             <h2 class="fw-bold">Registrarse</h2>
             <h4>Persona Humana</h4>
             <hr>
-            <form th:action="@{/registro-persona-humana/guardar}" class="register-form needs-validation" method="post" novalidate>
+            <form th:action="@{/registro-persona-humana/guardar}" class="register-form needs-validation" th:object="${usuario}" method="post" novalidate>
                 <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
                     <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Ej: Juan" required>
                 </div>
                 <div class="mb-3">
@@ -105,6 +104,21 @@
                     <label for="correo" class="form-label">Email</label>
                     <input name="correo" type="email" class="form-control" id="correo" placeholder="Ej: juanperez@gmail.com" required>
                 </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <div class="input-group">
+                        <div class="input-group-append"></div>
+                            <input name="password" type="password" class="form-control" id="password" required>
+                            <button class="btn toggle-password" type="button">
+                                <span class="material-symbols-outlined toggle-pass-icon">
+                                    visibility
+                                </span>
+                            </button>
+                    </div>
+                    <div th:if="${#fields.hasErrors(password)}" class="text-danger">
+                        <span th:errors="*{password}">Error de contraseña</span>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-dark w-100">Continuar</button>
             </form>
         </div>
@@ -116,5 +130,6 @@
     <script th:src="@{/js/validacion_registro.js}"></script>
     <script th:src="@{/js/render_segun_usuario.js}"></script>
     <script th:src="@{/js/cerrar_sesion.js}"></script>
+    <script th:src="@{js/togglepass.js}"></script>
 </body>
 </html>

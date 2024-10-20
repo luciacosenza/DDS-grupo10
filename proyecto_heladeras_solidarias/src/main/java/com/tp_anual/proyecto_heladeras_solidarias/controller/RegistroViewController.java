@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.controller;
 
-import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.PasswordNoValidaException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJuridico;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.EMail;
@@ -13,6 +13,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.NoUsuario;
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,6 +43,7 @@ public class RegistroViewController {
 
     @GetMapping("/registro-persona-humana")
     public String mostrarRegistroPersonaHumana() {
+
         return "registro-persona-humana";
     }
 
@@ -50,46 +52,52 @@ public class RegistroViewController {
         return "registro-persona-juridica";
     }
 
-    @GetMapping("/crear-usuario")
-    public String mostrarCrearUsuario(@RequestParam("colaboradorId") Long colaboradorId, Model model) {
-        Colaborador colaborador = colaboradorService.obtenerColaborador(colaboradorId);
-        model.addAttribute("usuario", new Usuario());
-        model.addAttribute("colaborador", colaborador);
-
-        return "crear-usuario";
-    }
-
     @PostMapping("/registro-persona-humana/guardar")
     public String guardarPersonaHumana(
-        @RequestParam("nombre") String nombre,
-        @RequestParam("apellido") String apellido,
-        @RequestParam("fecha-nacimiento") LocalDate fechaNacimiento,
-        @RequestParam("tipo-documento") Documento.TipoDocumento tipoDocumento,
-        @RequestParam("numero-documento") String numeroDocumento,
-        @RequestParam("sexo-documento") Documento.Sexo sexoDocumento,
-        @RequestParam("pais") String pais,
-        @RequestParam("ciudad") String ciudad,
-        @RequestParam("calle") String calle,
-        @RequestParam("altura") String altura,
-        @RequestParam("codigo-postal") String codigoPostal,
-        @RequestParam("prefijo") String prefijo,
-        @RequestParam("codigo-area") String codigoArea,
-        @RequestParam("numero-telefono") String numeroTelefono,
-        @RequestParam("correo") String correo)
+            @RequestParam("nombre") String nombre,
+            @RequestParam("apellido") String apellido,
+            @RequestParam("fecha-nacimiento") LocalDate fechaNacimiento,
+            @RequestParam("tipo-documento") Documento.TipoDocumento tipoDocumento,
+            @RequestParam("numero-documento") String numeroDocumento,
+            @RequestParam("sexo-documento") Documento.Sexo sexoDocumento,
+            @RequestParam("pais") String pais,
+            @RequestParam("ciudad") String ciudad,
+            @RequestParam("calle") String calle,
+            @RequestParam("altura") String altura,
+            @RequestParam("codigo-postal") String codigoPostal,
+            @RequestParam("prefijo") String prefijo,
+            @RequestParam("codigo-area") String codigoArea,
+            @RequestParam("numero-telefono") String numeroTelefono,
+            @RequestParam("correo") String correo,
+            @RequestParam("password") String password,
+            BindingResult result,
+            Model model)
     {
+        String username = usuarioService.generarUsername(nombre, apellido);
+        try {
+            usuarioService.validarUsuario(username, password);
+        } catch (PasswordNoValidaException e) {
+            result.rejectValue("password", "error.password", e.getMessage());
+            return "/registro-persona-humana";
+        }
+
         Documento documento = new Documento(tipoDocumento, numeroDocumento, sexoDocumento);
         PersonaFisica personaFisica = new PersonaFisica(nombre, apellido, documento, fechaNacimiento);
         Ubicacion domicilio = new Ubicacion(null, null, (calle + " " + altura), codigoPostal, ciudad, pais);
         ColaboradorHumano colaborador = new ColaboradorHumano(new NoUsuario(), personaFisica, domicilio, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         Telefono telefono = new Telefono(prefijo, codigoArea, numeroTelefono);
         EMail eMail = new EMail(correo);
+        Usuario usuario = usuarioService.crearUsuario(username, password, Usuario.TipoUsuario.COLABORADOR_HUMANO);
 
         colaborador.agregarMedioDeContacto(telefono);
         colaborador.agregarMedioDeContacto(eMail);
 
         Long colaboradorId = colaboradorService.guardarColaborador(colaborador).getId();
 
-        return "redirect:/crear-usuario?colaboradorId=" + colaboradorId;
+        colaboradorService.asignarUsuario(colaboradorId, usuario);
+        colaboradorService.contactar(colaboradorId, eMail, "Hola puto", "Tu usuario es: " + username);
+
+        return "redirect:/index";
     }
 
     @PostMapping("/registro-persona-juridica/guardar")
@@ -105,36 +113,35 @@ public class RegistroViewController {
             @RequestParam("prefijo") String prefijo,
             @RequestParam("codigo-area") String codigoArea,
             @RequestParam("numero-telefono") String numeroTelefono,
-            @RequestParam("correo") String correo)
+            @RequestParam("correo") String correo,
+            @RequestParam("password") String password,
+            BindingResult result)
     {
+        String username = usuarioService.generarUsername(rubro, razonSocial);
+        try {
+            usuarioService.validarUsuario(username, password);
+        } catch (PasswordNoValidaException e) {
+            result.rejectValue("password", "error.password", e.getMessage());
+
+            return "/registro-persona-juridica";
+        }
+
         PersonaJuridica personaJuridica = new PersonaJuridica(razonSocial, tipoPersonaJuridica, rubro);
         Ubicacion domicilio = new Ubicacion(null, null, (calle + " " + altura), codigoPostal, ciudad, pais);
         ColaboradorJuridico colaborador = new ColaboradorJuridico(new NoUsuario(), personaJuridica, domicilio, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         Telefono telefono = new Telefono(prefijo, codigoArea, numeroTelefono);
         EMail eMail = new EMail(correo);
+        Usuario usuario = usuarioService.crearUsuario(username, password, Usuario.TipoUsuario.COLABORADOR_JURIDICO);
+
 
         colaborador.agregarMedioDeContacto(telefono);
         colaborador.agregarMedioDeContacto(eMail);
 
-        colaboradorService.guardarColaborador(colaborador);
-
         Long colaboradorId = colaboradorService.guardarColaborador(colaborador).getId();
 
-        return "redirect:/crear-usuario?colaboradorId=" + colaboradorId;
-    }
-
-    @PostMapping("/crear-usuario/guardar")
-    public String guardarUsuario(@RequestParam("colaboradorId") Long colaboradorId, @ModelAttribute Usuario usuario, BindingResult result) {
-        try {
-            usuarioService.registrarUsuario(usuario);
-            colaboradorService.asignarUsuario(colaboradorId, usuario);
-        } catch (IllegalArgumentException e) {
-            result.rejectValue("username", "error.username", e.getMessage());
-            return "redirect:/crear-usuario?colaboradorId=" + colaboradorId;
-        }
+        colaboradorService.asignarUsuario(colaboradorId, usuario);
+        colaboradorService.contactar(colaboradorId, eMail, "Nuevo usuario", "Tu usuario es: " + username);
 
         return "redirect:/index";
     }
-
-
 }

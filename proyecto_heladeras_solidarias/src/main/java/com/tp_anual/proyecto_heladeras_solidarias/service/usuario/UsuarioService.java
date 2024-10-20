@@ -1,5 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.usuario;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.PasswordNoValidaException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.UsuarioRepetidoException;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.usuario.UsuarioRepository;
@@ -39,7 +41,7 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario crearUser(String username, String password, Usuario.TipoUsuario tipo) {
+    public Usuario crearUsuario(String username, String password, Usuario.TipoUsuario tipo) {
         return usuarioCreator.crearUsuario(username, password, tipo);
     }
 
@@ -51,19 +53,50 @@ public class UsuarioService {
         return obtenerUsuarioPorUsername(username).isPresent();
     }
 
-    public void validarUsuario(String username, String password) {
+    public void validarUsuario(String username, String password) throws PasswordNoValidaException {
         if (!esPasswordValida(password)) {
             log.log(Level.SEVERE, I18n.getMessage("usuario.Usuario.validarUsuario.esPasswordValida_err", username, password));
-            throw new IllegalArgumentException(I18n.getMessage("usuario.Usuario.validarUsuario.esPasswordValida_exception"));
+            throw new PasswordNoValidaException();
         }
 
+        /*
         if (existeUsuario(username)) {
             log.log(Level.SEVERE, I18n.getMessage("usuario.Usuario.validarUsuario.existeUsuario_err", username));
-            throw new IllegalArgumentException(I18n.getMessage("usuario.Usuario.validarUsuario.existeUsuario_exception"));
+            throw new UsuarioRepetidoException();
         }
+        */
     }
 
-    public Usuario registrarUsuario(Usuario usuario) {
+    public String generarUsername(String param1, String param2) {
+        String baseUsername = (param1.charAt(0) + param2).toLowerCase();
+        String fullUsername = (param1 + param2).toLowerCase();
+        String username = baseUsername;
+
+        if (existeUsuario(fullUsername)) {
+            username = fullUsername;
+            int suffix = 1;
+
+            while (existeUsuario(username)) {
+                username = fullUsername + suffix;
+                suffix++;
+            }
+        } else {
+            int letraIndex = 1;
+
+            while (existeUsuario(username)) {
+                if (letraIndex < param1.length()) {
+                    username = baseUsername + param1.charAt(letraIndex);
+                    letraIndex++;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        return username;
+    }
+
+    public Usuario registrarUsuario(Usuario usuario) throws PasswordNoValidaException, UsuarioRepetidoException {
         String username = usuario.getUsername();
         String password = usuario.getPassword();
         Usuario.TipoUsuario tipo = usuario.getTipo();
@@ -73,18 +106,5 @@ public class UsuarioService {
         // String hashedPassword = passwordEncoder.encode(password);
 
         return guardarUsuario(usuario);
-    }
-
-    public String generarUsername(String nombre, String apellido) {
-        String baseUsername = (nombre.charAt(0) + apellido).toLowerCase();
-        String username = baseUsername;
-        Integer suffix = 1;
-
-        while (existeUsuario(username)) {
-            username = baseUsername + suffix;
-            suffix++;
-        }
-
-        return username;
     }
 }

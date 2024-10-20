@@ -80,7 +80,7 @@ public class TransformacionDeDatos {
 
         // Genera un usuario
         String username = usuarioService.generarUsername(nombre, apellido);
-        Usuario usuario = usuarioService.crearUser(username, username, Usuario.TipoUsuario.COLABORADOR_HUMANO);
+        Usuario usuario = usuarioService.crearUsuario(username, username, Usuario.TipoUsuario.COLABORADOR_HUMANO);
 
         // Transforma a colaborador
         ColaboradorHumano colaborador = new ColaboradorHumano(usuario, new PersonaFisica(nombre, apellido, documento, null), new Ubicacion(null, null, null, null, null, null), contactos, new ArrayList<>(), new ArrayList<>(), null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)

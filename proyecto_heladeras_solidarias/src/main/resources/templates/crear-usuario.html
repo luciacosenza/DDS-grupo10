@@ -32,7 +32,7 @@
                             <input id="crear-usuario" type="text" class="form-control" th:field="*{username}" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                         <div th:if="${#fields.hasErrors('username')}" class="text-danger">
-                            <p th:errors="*{username}">Este nombre de usuario ya existe, elija otro</p>
+                            <p class="text-danger" th:errors="*{username}"></p>
                         </div>
                     </div>
                     <label for="password" class="form-label">Contraseña</label>
@@ -45,6 +45,9 @@
                                 visibility
                             </span>
                         </button>
+                        <div th:if="${#fields.hasErrors('password')}" class="text-danger">
+                            <p class="text-danger" th:errors="*{password}">Contraseña inválida, la misma debe tener entre 8 y 32 caracteres.</p>
+                        </div>
                     </div>
                     <label for="password" class="form-label">Repetir Contraseña</label>
                     <div class="input-group mb-3">
