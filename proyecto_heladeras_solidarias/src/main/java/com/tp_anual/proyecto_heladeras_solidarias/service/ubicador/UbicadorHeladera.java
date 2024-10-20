@@ -38,6 +38,21 @@ public class UbicadorHeladera {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    public List<Heladera> obtenerHeladerasCercanasAUbicacion(Double latitud, Double longitud) {
+        // Obtengo la Ubicación de la solicitud
+        Pair<Double, Double> ubicacionOrigen = Pair.of(latitud, longitud);
+
+        // Obtengo la lista de Heladeras
+        List<Heladera> heladeras = new ArrayList<>(heladeraRepository.findAll());
+
+        // Ordeno Heladeras por distancia
+        return heladeras.stream()
+                .filter(heladera -> heladera.getEstado() /* Evito incluir Heladeras inactivas */ && !estaLlena(heladera) )
+                .sorted(Comparator.comparingDouble(heladera -> AreaService.distanciaEntre2Puntos(ubicacionOrigen, Pair.of(heladera.getUbicacion().getLatitud(), heladera.getUbicacion().getLongitud()))))
+                .limit(5) // Elegimos el limite a 5 heladeras cercanas
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
     public Heladera obtenerHeladeraMasLlena(List <Heladera> heladeras) {
         Heladera heladeraMasLlena = null;
         Integer menorDiferencia = Integer.MAX_VALUE;
@@ -66,5 +81,9 @@ public class UbicadorHeladera {
         }
 
         return heladeraMenosLlena;
+    }
+    // LO CREAMOS ACA PARA NO IMPORTAR HELADERA_SERVICE
+    private boolean estaLlena(java.lang.Object heladera) {
+        return Objects.equals(heladera.viandasActuales(), heladera.getCapacidad());
     }
 }
