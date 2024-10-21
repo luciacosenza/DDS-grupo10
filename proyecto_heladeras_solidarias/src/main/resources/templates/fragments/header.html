@@ -10,13 +10,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" th:href="@{/}">Inicio</a>
+                        <a th:classappend="${paginaActual == '/index' ? 'active' : ''}" class="nav-link"  th:href="@{/}">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/quienes-somos}">Quiénes somos</a>
+                        <a th:classappend="${paginaActual == '/quienes-somos' ? 'active' : ''}" class="nav-link" th:href="@{/quienes-somos}">Quiénes somos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/como-participar}">Cómo participar</a>
+                        <a th:classappend="${paginaActual == '/como-participar' ? 'active' : ''}" class="nav-link" th:href="@{/como-participar}">Cómo participar</a>
                     </li>
 
                     <!-- Si el usuario está logueado como colaborador humano o jurídico -->

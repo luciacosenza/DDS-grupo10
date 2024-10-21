@@ -9,13 +9,14 @@ import jakarta.servlet.http.HttpSession;
 public class IndexViewController {
 
     
-    @GetMapping("/index")
+    @GetMapping("/")
     public String mostrarIndex(Model model, HttpSession session) {
         String userType = (String) session.getAttribute("userType");
         Boolean isLoggedIn = session.getAttribute("userType") != null;
 
         model.addAttribute("userType", userType);
         model.addAttribute("isLoggedIn", isLoggedIn);
+        model.addAttribute("paginaActual", "/index");
 
         return "index";
     }

@@ -1,58 +1,76 @@
 package com.tp_anual.proyecto_heladeras_solidarias.controller;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.context.request.WebRequest;
+
 
 @Controller
 public class ViewController {
 
     @GetMapping("/colaborar-personas-fisicas")
-    public String mostrarColaborarPersonasFisicas() {
+    public String mostrarColaborarPersonasFisicas(Model model) {
+        setPaginaActual("/colaborar-personas-fisicas", model);
         return "colaborar-personas-fisicas";
     }
 
     @GetMapping("/colaborar-personas-juridicas")
-    public String mostrarColaborarPersonasJuridicas() {
+    public String mostrarColaborarPersonasJuridicas(Model model) {
+        setPaginaActual("/colaborar-personas-juridicas", model);
         return "colaborar-personas-juridicas";
     }
 
     @GetMapping("/colocar-heladera")
-    public String mostrarColocarHeladera() {
+    public String mostrarColocarHeladera(Model model) {
+        setPaginaActual("/colocar-heladera", model);
         return "colocar-heladera";
     }
 
     @GetMapping("/como-participar")
-    public String mostrarComoParticipar() {
+    public String mostrarComoParticipar(Model model) {
+        setPaginaActual("/como-participar", model);
         return "como-participar";
     }
 
     @GetMapping("/donar-dinero")
-    public String mostrarDonarDinero() {
+    public String mostrarDonarDinero(Model model) {
+        setPaginaActual("/donar-dinero", model);
         return "donar-dinero";
     }
 
     @GetMapping("/iniciar-sesion")
-    public String mostrarIniciarSesion() {
+    public String mostrarIniciarSesion(Model model) {
+        setPaginaActual("/iniciar-sesion", model);
         return "iniciar-sesion";
     }
 
     @GetMapping("/mapa-heladeras")
-    public String mostrarMapaHeladeras() {
+    public String mostrarMapaHeladeras(Model model) {
+        setPaginaActual("/mapa-heladeras", model);
         return "mapa-heladeras";
     }
 
     @GetMapping("/quienes-somos")
-    public String mostrarQuienesSomos() {
+    public String mostrarQuienesSomos(Model model) {
+        setPaginaActual("/quienes-somos", model);
         return "quienes-somos";
     }
 
     @GetMapping("/registrar-persona-vulnerable")
-    public String mostrarRegistrarPersonaVulnerable() {
+    public String mostrarRegistrarPersonaVulnerable(Model model) {
+        setPaginaActual("/registrar-persona-vulnerable", model);
         return "registrar-persona-vulnerable";
     }
 
     @GetMapping("/suscribirse")
-    public String mostrarSuscribirse() {
+    public String mostrarSuscribirse(Model model) {
+        setPaginaActual("/suscribirse", model);
         return "suscribirse";
+    }
+
+    void setPaginaActual(String pagina, Model model) {;
+        model.addAttribute("paginaActual", pagina);
     }
 }

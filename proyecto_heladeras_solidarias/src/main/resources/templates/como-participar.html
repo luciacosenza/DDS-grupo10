@@ -12,7 +12,7 @@
 </head>
 <body id="como-participar" class="vectores-fondo">
 
-    <div th:replace="fragments/header :: header(${userType}, ${isLoggedIn})"></div>
+    <div th:replace="~{fragments/header :: header(${userType}, ${isLoggedIn})}"></div>
 
     <main>
         <div class="container text-center">
@@ -22,7 +22,7 @@
                     <img th:src="@{/assets/comoParticipar.png}" alt="Manos unidas" class="img-fluid rounded">
                 </div>
                 <div class="col-md-6 text-start">
-                    <p>Para convertirte en colaborador de Heladeras Solidarias,sólo necesitas registrarte o iniciar sesión y elegir una forma de colaborar (podes realizar más de una a lo largo del tiempo).</p>
+                    <p>Para convertirte en colaborador de Heladeras Solidarias, sólo necesitas registrarte o iniciar sesión y elegir una forma de colaborar (podes realizar más de una a lo largo del tiempo).</p>
                     <p>Existen diferentes formas de colaborar según si sos una persona particular o una persona jurídica. Tenelo en cuenta!</p>
                     <p>Tu contribución es lo que nos impulsa a crecer cada día. Elegí la forma de colaborar que más te guste y comencemos este camino juntos.</p>
                 </div>
@@ -30,10 +30,9 @@
         </div>
     </main>
 
-    <div th:replace="fragments/footer :: footer(${userType}, ${isLoggedIn})"></div>
+    <div th:replace="~{fragments/footer :: footer(${userType}, ${isLoggedIn})}"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script th:src="@{/js/render_segun_usuario.js}"></script>
-    <script th:src="@{/js/cerrar_sesion.js}"></script>
+
 </body>
 </html>
