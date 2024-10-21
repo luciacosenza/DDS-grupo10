@@ -42,8 +42,8 @@ public class RegistroViewController {
     }
 
     @GetMapping("/registro-persona-humana")
-    public String mostrarRegistroPersonaHumana() {
-
+    public String mostrarRegistroPersonaHumana(Model model) {
+        model.addAttribute("usuario", new Usuario());
         return "registro-persona-humana";
     }
 
@@ -70,15 +70,21 @@ public class RegistroViewController {
             @RequestParam("numero-telefono") String numeroTelefono,
             @RequestParam("correo") String correo,
             @RequestParam("password") String password,
+            @ModelAttribute("usuario") Usuario usuario,
             BindingResult result,
             Model model)
     {
         String username = usuarioService.generarUsername(nombre, apellido);
+
         try {
             usuarioService.validarUsuario(username, password);
         } catch (PasswordNoValidaException e) {
-            result.rejectValue("password", "error.password", e.getMessage());
+            result.rejectValue("password", "error.password", e.getMessage()); //TODO: en el mensaje de error el usuario y la contraseña estan invertidos
             return "/registro-persona-humana";
+        }
+
+        if (result.hasErrors()) {
+            return "registro-persona-humana";
         }
 
         Documento documento = new Documento(tipoDocumento, numeroDocumento, sexoDocumento);
@@ -87,15 +93,15 @@ public class RegistroViewController {
         ColaboradorHumano colaborador = new ColaboradorHumano(new NoUsuario(), personaFisica, domicilio, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         Telefono telefono = new Telefono(prefijo, codigoArea, numeroTelefono);
         EMail eMail = new EMail(correo);
-        Usuario usuario = usuarioService.crearUsuario(username, password, Usuario.TipoUsuario.COLABORADOR_HUMANO);
+        usuario = usuarioService.crearUsuario(username, password, Usuario.TipoUsuario.COLABORADOR_HUMANO);
 
         colaborador.agregarMedioDeContacto(telefono);
         colaborador.agregarMedioDeContacto(eMail);
 
         Long colaboradorId = colaboradorService.guardarColaborador(colaborador).getId();
 
-        colaboradorService.asignarUsuario(colaboradorId, usuario);
-        colaboradorService.contactar(colaboradorId, eMail, "Hola puto", "Tu usuario es: " + username);
+        colaboradorService.asignarUsuario(colaboradorId, usuario); // TODO: por algun motivo el ususario y la contraseña se guardan como null
+        //colaboradorService.contactar(colaboradorId, eMail, "Hola puto", "Tu usuario es: " + username);
 
         return "redirect:/index";
     }

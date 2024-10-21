@@ -23,6 +23,7 @@
             <hr>
             <form th:action="@{/registro-persona-humana/guardar}" class="register-form needs-validation" th:object="${usuario}" method="post" novalidate>
                 <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
                     <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Ej: Juan" required>
                 </div>
                 <div class="mb-3">
@@ -34,18 +35,18 @@
                     <input name="fecha-nacimiento" type="date" class="form-control" id="fecha-nacimiento" min="1900-01-01" max="2024-12-31" required>
                 </div>
                 <span class="span-form">Documento</span>
-                <div class="mb-3 d-flex gap-2 flex-md-wrap flex-lg-nowrap">
-                    <div>
-                        <label for="tipo-documento" class="form-label w-100">Tipo</label>
-                        <select name="tipo-documento" class="form-select w-auto" id="tipo-documento" required>
+                <div class="mb-3 d-flex justify-content-between gap-2">
+                    <div class="flex-grow-1">
+                        <label for="tipo-documento" class="form-label">Tipo</label>
+                        <select name="tipo-documento" class="form-select" id="tipo-documento" required>
                             <option value="" disabled selected>Tipo</option>
                             <option value="DNI">DNI</option>
                             <option value="PASAPORTE">Pasaporte</option>
                             <option value="LICENCIA_CONDUCIR">Licencia de Conducir</option>
                         </select>
                     </div>
-                    <div class="w-75">
-                        <label for="numero-documento"  class="form-label w-100">Numero de documento</label>
+                    <div>
+                        <label for="numero-documento"  class="form-label">Numero de documento</label>
                         <input name="numero-documento" type="text" class="form-control" id="numero-documento" placeholder="Número" required>
                     </div>
                     <div>
@@ -115,8 +116,8 @@
                                 </span>
                             </button>
                     </div>
-                    <div th:if="${#fields.hasErrors(password)}" class="text-danger">
-                        <span th:errors="*{password}">Error de contraseña</span>
+                    <div th:if="${#fields.hasErrors('password')}" class="text-danger">
+                        <span >Error de contraseña</span>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-dark w-100">Continuar</button>
