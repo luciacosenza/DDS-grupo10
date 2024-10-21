@@ -51,7 +51,7 @@ public class TarjetaPersonaEnSituacionVulnerableService extends TarjetaService {
 
     @Override
     public TarjetaPersonaEnSituacionVulnerable guardarTarjeta(Tarjeta tarjetaPersonaEnSituacionVulnerable) {
-        return tarjetaPersonaEnSituacionVulnerableRepository.save((TarjetaPersonaEnSituacionVulnerable) tarjetaPersonaEnSituacionVulnerable);
+        return tarjetaPersonaEnSituacionVulnerableRepository.saveAndFlush((TarjetaPersonaEnSituacionVulnerable) tarjetaPersonaEnSituacionVulnerable);
     }
 
     @Override

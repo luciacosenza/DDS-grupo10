@@ -34,8 +34,8 @@ public class Usuario {
     public Usuario() {}
 
     public Usuario(String vUsername, String vPassword, TipoUsuario vTipo) {
-        username = username;
-        password = password;
+        username = vUsername;
+        password = vPassword;
         tipo = vTipo;
     }
 }

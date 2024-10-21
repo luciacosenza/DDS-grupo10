@@ -41,7 +41,7 @@ public class HacerseCargoDeHeladeraService extends ContribucionService {
 
     @Override
     public HacerseCargoDeHeladera guardarContribucion(Contribucion hacerseCargoDeHeladera) {
-        return hacerseCargoDeHeladeraRepository.save((HacerseCargoDeHeladera) hacerseCargoDeHeladera);
+        return hacerseCargoDeHeladeraRepository.saveAndFlush((HacerseCargoDeHeladera) hacerseCargoDeHeladera);
     }
 
     @Override

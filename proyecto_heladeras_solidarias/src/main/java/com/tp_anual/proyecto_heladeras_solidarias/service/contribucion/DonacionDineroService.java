@@ -40,7 +40,7 @@ public class DonacionDineroService extends ContribucionService {
 
     @Override
     public DonacionDinero guardarContribucion(Contribucion donacionDinero) {
-        return donacionDineroRepository.save((DonacionDinero) donacionDinero);
+        return donacionDineroRepository.saveAndFlush((DonacionDinero) donacionDinero);
     }
 
     @Override

@@ -46,7 +46,7 @@ public class TarjetaColaboradorService extends TarjetaService {
 
     @Override
     public TarjetaColaborador guardarTarjeta(Tarjeta tarjetaColaborador){
-        return tarjetaColaboradorRepository.save((TarjetaColaborador) tarjetaColaborador);
+        return tarjetaColaboradorRepository.saveAndFlush((TarjetaColaborador) tarjetaColaborador);
     }
 
     @Override

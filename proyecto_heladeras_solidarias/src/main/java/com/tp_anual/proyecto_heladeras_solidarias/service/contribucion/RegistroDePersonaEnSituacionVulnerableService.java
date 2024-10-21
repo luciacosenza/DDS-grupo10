@@ -41,7 +41,7 @@ public class RegistroDePersonaEnSituacionVulnerableService extends ContribucionS
 
     @Override
     public RegistroDePersonaEnSituacionVulnerable guardarContribucion(Contribucion registroDePersonaEnSituacionVulnerable) {
-        return registroDePersonaEnSituacionVulnerableRepository.save((RegistroDePersonaEnSituacionVulnerable) registroDePersonaEnSituacionVulnerable);
+        return registroDePersonaEnSituacionVulnerableRepository.saveAndFlush((RegistroDePersonaEnSituacionVulnerable) registroDePersonaEnSituacionVulnerable);
     }
 
     @Override
