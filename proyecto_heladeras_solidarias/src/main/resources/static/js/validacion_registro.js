@@ -5,22 +5,21 @@ function initializeFormValidation(formSelector) {
 
     form.addEventListener('submit', event => {
         const passwordInput = form.querySelector("#password");
-        const feedbackElementMin = form.querySelector("#password-min-feedback");
-        const feedbackElementMax = form.querySelector("#password-max-feedback");
+        const feedbackElement = passwordInput.nextElementSibling;
 
-        feedbackElementMin.style.display = 'none';
-        feedbackElementMax.style.display = 'none';
+        feedbackElement.style.display = "none";
 
         if (!validatePasswordMin(passwordInput.value)) {
             passwordInput.setCustomValidity("Invalid field.");
-            feedbackElementMin.style.display = 'block';
+            feedbackElement.textContent = 'La contraseña debe tener como mínimo 8 caracteres';
+            feedbackElement.style.display = 'block';
         } else if (!validatePasswordMax(passwordInput.value)) {
             passwordInput.setCustomValidity("Invalid field.");
-            feedbackElementMax.style.display = 'block';
+            feedbackElement.textContent = 'La contraseña debe tener 32 caracteres como máximo ';
+            feedbackElement.style.display = 'block';
         } else {
             passwordInput.setCustomValidity("");
-            feedbackElementMin.style.display = 'none';
-            feedbackElementMax.style.display = 'none';
+            feedbackElement.style.display = 'none';
         }
 
         if (!validatePassword(passwordInput.value) || !form.checkValidity()) {
