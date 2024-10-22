@@ -21,7 +21,7 @@
             <h2 class="fw-bold">Registrarse</h2>
             <h4>Persona Jurídica</h4>
             <hr>
-            <form th:action="@{/registro-persona-juridica/guardar}" class="register-form needs-validation" th:object="${usuario}" method="post" novalidate>
+            <form th:action="@{/registro-persona-juridica/guardar}" class="register-form needs-validation" method="post" novalidate>
                 <div class="mb-3">
                     <label for="razon-social" class="form-label">Razón social</label>
                     <input name="razon-social" type="text" class="form-control" id="razon-social" placeholder="Ej: Arcor" required>
