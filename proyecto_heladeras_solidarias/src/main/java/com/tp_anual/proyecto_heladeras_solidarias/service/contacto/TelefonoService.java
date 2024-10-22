@@ -6,6 +6,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.Telefono;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contacto.TelefonoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,5 +31,6 @@ public class TelefonoService extends MedioDeContactoService {
     }
 
     @Override
+    @Async
     public void contactar(Long telefonoId, String asunto, String cuerpo) {} // TODO: Se implementará posteriormente, por ahora sólo lo creamos para los Tests
 }
