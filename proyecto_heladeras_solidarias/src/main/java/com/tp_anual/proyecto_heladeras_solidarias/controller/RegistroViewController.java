@@ -53,7 +53,8 @@ public class RegistroViewController {
     }
 
     @GetMapping("/registro-persona-juridica")
-    public String mostrarRegistroPersonaJuridica() {
+    public String mostrarRegistroPersonaJuridica(Model model) {
+        model.addAttribute("usuario", new Usuario());
         return "registro-persona-juridica";
     }
 
@@ -76,8 +77,8 @@ public class RegistroViewController {
             @RequestParam("correo") String correo,
             @RequestParam("password") String password,
             @ModelAttribute("usuario") Usuario usuario,
-            BindingResult result,
-            Model model)
+            BindingResult result
+    )
     {
         String username = usuarioService.generarUsername(nombre, apellido);
 
@@ -129,8 +130,8 @@ public class RegistroViewController {
             @RequestParam("correo") String correo,
             @RequestParam("password") String password,
             @ModelAttribute("usuario") Usuario usuario,
-            BindingResult result,
-            Model model)
+            BindingResult result
+    )
     {
         String username = usuarioService.generarUsername(rubro, razonSocial);
         try {
@@ -160,6 +161,6 @@ public class RegistroViewController {
         MedioDeContactoService medioDeContactoService = medioDeContactoServiceSelector.obtenerMedioDeContactoService(medioDeContacto.getClass());
         medioDeContactoService.contactar(medioDeContacto.getId(), "Nuevo usuario", "Tu usuario es: " + username);   // TODO: Internacionalizar mensaje
 
-        return "redirect:/index";
+        return "redirect:/";
     }
 }
