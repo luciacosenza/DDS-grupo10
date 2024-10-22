@@ -110,8 +110,11 @@
                     <div class="input-group">
                         <div class="input-group-append"></div>
                             <input name="password" type="password" class="form-control" id="password" required>
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback" id="password-min-feedback">
                                 La contraseña debe tener al menos 8 caracteres.
+                            </div>
+                            <div class="invalid-feedback" id="password-max-feedback">
+                                La contraseña no debe tener más de 32 caracteres.
                             </div>
                             <button class="btn toggle-password" type="button">
                                 <span class="material-symbols-outlined toggle-pass-icon">

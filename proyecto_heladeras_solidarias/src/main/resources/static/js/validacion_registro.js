@@ -5,21 +5,25 @@ function initializeFormValidation(formSelector) {
 
     form.addEventListener('submit', event => {
         const passwordInput = form.querySelector("#password");
-        const feedbackElement = passwordInput.nextElementSibling;
+        const feedbackElementMin = form.querySelector("#password-min-feedback");
+        const feedbackElementMax = form.querySelector("#password-max-feedback");
 
-        feedbackElement.style.display = 'none';
+        feedbackElementMin.style.display = 'none';
+        feedbackElementMax.style.display = 'none';
 
-        const isValidPassword = validatePassword(passwordInput.value);
-
-        if (!isValidPassword) {
+        if (!validatePasswordMin(passwordInput.value)) {
             passwordInput.setCustomValidity("Invalid field.");
-            feedbackElement.style.display = 'block';
+            feedbackElementMin.style.display = 'block';
+        } else if (!validatePasswordMax(passwordInput.value)) {
+            passwordInput.setCustomValidity("Invalid field.");
+            feedbackElementMax.style.display = 'block';
         } else {
             passwordInput.setCustomValidity("");
-            feedbackElement.style.display = 'none';
+            feedbackElementMin.style.display = 'none';
+            feedbackElementMax.style.display = 'none';
         }
 
-        if (!isValidPassword || !form.checkValidity()) {
+        if (!validatePassword(passwordInput.value) || !form.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
         }
@@ -28,9 +32,18 @@ function initializeFormValidation(formSelector) {
     }, false);
 }
 
-function validatePassword(password) {
+function validatePasswordMin(password) {
     const minLength = 8;
     return password.length >= minLength;
+}
+
+function validatePasswordMax(password) {
+    const maxLength = 32;
+    return password.length <= maxLength;
+}
+
+function validatePassword(password) {
+    return validatePasswordMin(password) && validatePasswordMax(password);
 }
 
 function inicializarFormRegistroPersona() {
