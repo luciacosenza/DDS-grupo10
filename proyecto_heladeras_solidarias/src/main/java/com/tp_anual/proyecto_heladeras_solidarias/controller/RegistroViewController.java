@@ -53,7 +53,8 @@ public class RegistroViewController {
     }
 
     @GetMapping("/registro-persona-juridica")
-    public String mostrarRegistroPersonaJuridica() {
+    public String mostrarRegistroPersonaJuridica(Model model) {
+        model.addAttribute("usuario", new Usuario());
 
         return "registro-persona-juridica";
     }
