@@ -6,6 +6,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.WhatsApp;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contacto.WhatsAppRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,5 +31,6 @@ public class WhatsAppService extends MedioDeContactoService {
     }
 
     @Override
+    @Async
     public void contactar(Long whatsAppId, String asunto, String cuerpo) {} // TODO: Se implementará posteriormente, por ahora sólo lo creamos para los Tests
 }

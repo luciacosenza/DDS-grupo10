@@ -6,6 +6,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contacto.EMailRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Level;
@@ -33,6 +34,7 @@ public class EMailService extends MedioDeContactoService {
     }
 
     @Override
+    @Async
     public void contactar(Long eMailId, String asunto, String cuerpo) {
         EMail eMail = obtenerMedioDeContacto(eMailId);
 
