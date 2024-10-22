@@ -30,7 +30,7 @@ public class PersonaEnSituacionVulnerableService {
     }
 
     public PersonaEnSituacionVulnerable guardarPersonaEnSituacionVulnerable(PersonaEnSituacionVulnerable personaEnSituacionVulnerable) {
-        return personaEnSituacionVulnerableRepository.save(personaEnSituacionVulnerable);
+        return personaEnSituacionVulnerableRepository.saveAndFlush(personaEnSituacionVulnerable);
     }
 
     public TarjetaPersonaEnSituacionVulnerable agregarTarjeta(Long personaEnSituacionVulnerableId, TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable) {

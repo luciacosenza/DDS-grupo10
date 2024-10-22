@@ -44,7 +44,7 @@ public class TecnicoService {
     }
 
     public Tecnico guardarTecnico(Tecnico tecnico) {
-         return tecnicoRepository.save(tecnico);
+         return tecnicoRepository.saveAndFlush(tecnico);
     }
 
     public Tecnico asignarUsuario(Long tecnicoId, Usuario usuario) {

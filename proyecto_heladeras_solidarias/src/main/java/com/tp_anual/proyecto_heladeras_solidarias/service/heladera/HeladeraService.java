@@ -49,7 +49,7 @@ public class HeladeraService {
     }
 
     public Heladera guardarHeladera(Heladera heladera) {
-        return heladeraRepository.save(heladera);
+        return heladeraRepository.saveAndFlush(heladera);
     }
 
     public void marcarComoInactiva(Long heladeraId) {

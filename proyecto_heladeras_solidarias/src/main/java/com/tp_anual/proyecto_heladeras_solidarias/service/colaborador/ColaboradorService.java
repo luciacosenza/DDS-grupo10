@@ -8,8 +8,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoService;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoServiceSelector;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
@@ -34,16 +32,14 @@ public class ColaboradorService {
 
     private final ColaboradorRepository colaboradorRepository;
     private final ContribucionServiceSelector contribucionServiceSelector;
-    private final MedioDeContactoServiceSelector medioDeContactoServiceSelector;
     private final OfertaService ofertaService;
     private final HeladeraService heladeraService;
 
     private final Map<Class<? extends Colaborador>, Set<Class<? extends ContribucionCreator>>> contribucionesPermitidas = new HashMap<>();
 
-    public ColaboradorService(ColaboradorRepository vColaboradorRepository, ContribucionServiceSelector vContribucionServiceSelector, MedioDeContactoServiceSelector vMedioDeContactoServiceSelector, OfertaService vOfertaService, HeladeraService vHeladeraService) {
+    public ColaboradorService(ColaboradorRepository vColaboradorRepository, ContribucionServiceSelector vContribucionServiceSelector, OfertaService vOfertaService, HeladeraService vHeladeraService) {
         colaboradorRepository = vColaboradorRepository;
         contribucionServiceSelector = vContribucionServiceSelector;
-        medioDeContactoServiceSelector = vMedioDeContactoServiceSelector;
         ofertaService = vOfertaService;
         heladeraService = vHeladeraService;
 
@@ -79,7 +75,7 @@ public class ColaboradorService {
     }
 
     public Colaborador guardarColaborador(Colaborador colaborador) {
-        return colaboradorRepository.save(colaborador);
+        return colaboradorRepository.saveAndFlush(colaborador);
     }
 
     public ColaboradorHumano guardarColaboradorHumano(ColaboradorHumano colaborador) {
@@ -113,12 +109,6 @@ public class ColaboradorService {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
         colaborador.agregarBeneficio(oferta);
         guardarColaborador(colaborador);
-    }
-
-    public void contactar(Long colaboradorId, MedioDeContacto medioDeContacto, String asunto, String cuerpo) {
-        Colaborador colaborador = obtenerColaborador(colaboradorId);
-        MedioDeContactoService medioDeContactoService = medioDeContactoServiceSelector.obtenerMedioDeContactoService(medioDeContacto.getClass());
-        medioDeContactoService.contactar(medioDeContacto.getId(), asunto, cuerpo);
     }
 
     public Boolean esContribucionPermitida(Long colaboradorId, Class<? extends ContribucionCreator> creatorClass) {

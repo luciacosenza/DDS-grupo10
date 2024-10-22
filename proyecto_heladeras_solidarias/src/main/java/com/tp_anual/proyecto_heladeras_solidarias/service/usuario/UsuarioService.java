@@ -55,7 +55,7 @@ public class UsuarioService {
 
     public void validarUsuario(String username, String password) throws PasswordNoValidaException {
         if (!esPasswordValida(password)) {
-            log.log(Level.SEVERE, I18n.getMessage("usuario.Usuario.validarUsuario.esPasswordValida_err", username, password));
+            log.log(Level.SEVERE, I18n.getMessage("usuario.Usuario.validarUsuario.esPasswordValida_err", password, username));
             throw new PasswordNoValidaException();
         }
 

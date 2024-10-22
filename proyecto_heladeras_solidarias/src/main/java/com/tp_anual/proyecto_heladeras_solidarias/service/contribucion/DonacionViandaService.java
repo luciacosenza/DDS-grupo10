@@ -40,7 +40,7 @@ public class DonacionViandaService extends ContribucionService {
 
     @Override
     public DonacionVianda guardarContribucion(Contribucion donacionVianda) {
-        return donacionViandaRepository.save((DonacionVianda) donacionVianda);
+        return donacionViandaRepository.saveAndFlush((DonacionVianda) donacionVianda);
     }
 
     @Override

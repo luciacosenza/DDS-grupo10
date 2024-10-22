@@ -28,7 +28,7 @@ public class CargaOfertaService extends ContribucionService {
 
     @Override
     public CargaOferta guardarContribucion(Contribucion cargaOferta) {
-        return cargaOfertaRepository.save((CargaOferta) cargaOferta);
+        return cargaOfertaRepository.saveAndFlush((CargaOferta) cargaOferta);
     }
 
     @Override

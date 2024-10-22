@@ -40,7 +40,7 @@ public class DistribucionViandasService extends ContribucionService {
     }
     @Override
     public DistribucionViandas guardarContribucion(Contribucion distribucionViandas) {
-        return distribucionViandasRepository.save((DistribucionViandas) distribucionViandas);
+        return distribucionViandasRepository.saveAndFlush((DistribucionViandas) distribucionViandas);
     }
 
     @Override
