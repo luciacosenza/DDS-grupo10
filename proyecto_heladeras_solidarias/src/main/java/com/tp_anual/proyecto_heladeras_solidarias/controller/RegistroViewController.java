@@ -1,7 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.controller;
 
 import com.tp_anual.proyecto_heladeras_solidarias.exception.PasswordNoValidaException;
-import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJuridico;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.EMail;
@@ -49,11 +48,14 @@ public class RegistroViewController {
     @GetMapping("/registro-persona-humana")
     public String mostrarRegistroPersonaHumana(Model model) {
         model.addAttribute("usuario", new Usuario());
+
         return "registro-persona-humana";
     }
 
     @GetMapping("/registro-persona-juridica")
-    public String mostrarRegistroPersonaJuridica() {
+    public String mostrarRegistroPersonaJuridica(Model model) {
+        model.addAttribute("usuario", new Usuario());
+
         return "registro-persona-juridica";
     }
 
@@ -110,7 +112,7 @@ public class RegistroViewController {
         MedioDeContactoService medioDeContactoService = medioDeContactoServiceSelector.obtenerMedioDeContactoService(medioDeContacto.getClass());
         medioDeContactoService.contactar(medioDeContacto.getId(), "Nuevo usuario", "Tu usuario es: " + username);   // TODO: Internacionalizar mensaje
 
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     @PostMapping("/registro-persona-juridica/guardar")
@@ -160,6 +162,6 @@ public class RegistroViewController {
         MedioDeContactoService medioDeContactoService = medioDeContactoServiceSelector.obtenerMedioDeContactoService(medioDeContacto.getClass());
         medioDeContactoService.contactar(medioDeContacto.getId(), "Nuevo usuario", "Tu usuario es: " + username);   // TODO: Internacionalizar mensaje
 
-        return "redirect:/index";
+        return "redirect:/";
     }
 }

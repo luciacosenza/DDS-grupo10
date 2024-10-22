@@ -68,29 +68,34 @@ public class UsuarioService {
     }
 
     public String generarUsername(String param1, String param2) {
-        String baseUsername = (param1.charAt(0) + param2).toLowerCase();
-        String fullUsername = (param1 + param2).toLowerCase();
-        String username = baseUsername;
+        String usernameBase = param2.toLowerCase();
+        String usernamePrefix = param1.toLowerCase();
 
+        String fullUsername = usernamePrefix + usernameBase;
+        String username;
+
+        // Si ya sé (de entrada) que el username más largo que se puede generar con los dos params ya existe, paso al método b
         if (existeUsuario(fullUsername)) {
             username = fullUsername;
-            int suffix = 1;
+            Integer suffix = 0;
 
+            // Genero un username único con un sufijo numérico, incrementándolo en cada iteración
             while (existeUsuario(username)) {
-                username = fullUsername + suffix;
-                suffix++;
+                username = fullUsername + suffix++;
             }
+
         } else {
-            int letraIndex = 1;
 
-            while (existeUsuario(username)) {
-                if (letraIndex < param1.length()) {
-                    username = baseUsername + param1.charAt(letraIndex);
-                    letraIndex++;
-                } else {
-                    break;
-                }
+            // Genero un nombre de usuario único, basado en el primer caracter de param1 más el param2
+            Integer letraIndex = 0;
+            StringBuilder usernameBuilder  = new StringBuilder().append(usernamePrefix.charAt(0)).append(usernameBase);
+
+            while (letraIndex < usernamePrefix.length() && existeUsuario(usernameBuilder.toString())) {
+                usernameBuilder.insert(letraIndex + 1, param1.charAt(letraIndex + 1));
+                letraIndex++;
             }
+
+            username = usernameBuilder.toString();
         }
 
         return username;
