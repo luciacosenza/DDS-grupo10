@@ -11,7 +11,7 @@
 </head>
 <body class="vectores-fondo">
 
-    <div th:replace="fragments/header :: header(${userType}, ${isLoggedIn})"></div>
+    <div th:replace="~{fragments/header :: header(${userType}, ${isLoggedIn})}"></div>
 
 <main>
     <div class="container h-100">
@@ -61,7 +61,7 @@
     </div>
 </div>
 
-    <div th:replace="fragments/footer :: footer(${userType}, ${isLoggedIn})"></div>
+    <div th:replace="~{fragments/footer :: footer(${userType}, ${isLoggedIn})}"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!--<script th:src="@{/js/tienda.js}"></script>-->
