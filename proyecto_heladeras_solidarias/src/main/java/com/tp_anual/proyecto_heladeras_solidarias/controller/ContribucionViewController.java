@@ -19,16 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class ColaboracionesViewController {
+public class ContribucionViewController {
 
     private final HeladeraService heladeraService;
     private final DistribucionViandasService distribucionViandasService;
-    OfertaService ofertaService;
+    private final OfertaService ofertaService;
 
-    public ColaboracionesViewController(OfertaService vOfertaService, HeladeraService heladeraService, DistribucionViandasService distribucionViandasService) {
+    public ContribucionViewController(OfertaService vOfertaService, HeladeraService vHeladeraService, DistribucionViandasService vDistribucionViandasService) {
         ofertaService = vOfertaService;
-        this.heladeraService = heladeraService;
-        this.distribucionViandasService = distribucionViandasService;
+        heladeraService = vHeladeraService;
+        distribucionViandasService = vDistribucionViandasService;
     }
 
     @GetMapping("/cargar-premio")

@@ -1,6 +1,5 @@
 package com.tp_anual.proyecto_heladeras_solidarias.controller;
 
-import com.tp_anual.proyecto_heladeras_solidarias.exception.PasswordNoValidaException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJuridico;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.EMail;
@@ -17,8 +16,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContac
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoServiceSelector;
 import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.UsuarioService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;

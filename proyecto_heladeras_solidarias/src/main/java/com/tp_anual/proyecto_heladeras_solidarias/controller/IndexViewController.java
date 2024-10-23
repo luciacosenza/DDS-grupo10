@@ -8,7 +8,8 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class IndexViewController {
 
-    
+    public IndexViewController() {}
+
     @GetMapping("/")
     public String mostrarIndex(Model model, HttpSession session) {
         String userType = (String) session.getAttribute("userType");

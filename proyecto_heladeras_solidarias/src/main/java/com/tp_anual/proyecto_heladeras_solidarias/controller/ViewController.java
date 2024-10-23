@@ -10,6 +10,8 @@ import org.springframework.web.context.request.WebRequest;
 @Controller
 public class ViewController {
 
+    public ViewController() {}
+
     @GetMapping("/colaborar-personas-fisicas")
     public String mostrarColaborarPersonasFisicas(Model model) {
         setPaginaActual("/colaborar-personas-fisicas", model);
