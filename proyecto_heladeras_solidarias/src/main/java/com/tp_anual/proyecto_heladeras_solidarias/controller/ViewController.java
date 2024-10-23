@@ -15,12 +15,14 @@ public class ViewController {
     @GetMapping("/colaborar-personas-fisicas")
     public String mostrarColaborarPersonasFisicas(Model model) {
         setPaginaActual("/colaborar-personas-fisicas", model);
+
         return "colaborar-personas-fisicas";
     }
 
     @GetMapping("/colaborar-personas-juridicas")
     public String mostrarColaborarPersonasJuridicas(Model model) {
         setPaginaActual("/colaborar", model);
+
         return "colaborar-personas-juridicas";
     }
 
@@ -28,36 +30,42 @@ public class ViewController {
     @GetMapping("/como-participar")
     public String mostrarComoParticipar(Model model) {
         setPaginaActual("/como-participar", model);
+
         return "como-participar";
     }
 
     @GetMapping("/donar-dinero")
     public String mostrarDonarDinero(Model model) {
         setPaginaActual("/colaborar", model);
+
         return "donar-dinero";
     }
 
     @GetMapping("/mapa-heladeras")
     public String mostrarMapaHeladeras(Model model) {
         setPaginaActual("/mapa-heladeras", model);
+
         return "mapa-heladeras";
     }
 
     @GetMapping("/quienes-somos")
     public String mostrarQuienesSomos(Model model) {
         setPaginaActual("/quienes-somos", model);
+
         return "quienes-somos";
     }
 
     @GetMapping("/registrar-persona-vulnerable")
     public String mostrarRegistrarPersonaVulnerable(Model model) {
         setPaginaActual("/colaborar", model);
+
         return "registrar-persona-vulnerable";
     }
 
     @GetMapping("/suscribirse")
     public String mostrarSuscribirse(Model model) {
         setPaginaActual("/suscribirse", model);
+
         return "suscribirse";
     }
 

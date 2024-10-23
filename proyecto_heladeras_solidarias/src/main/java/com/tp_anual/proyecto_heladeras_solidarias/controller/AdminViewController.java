@@ -22,9 +22,9 @@ import org.springframework.ui.Model;
 @Controller
 public class AdminViewController {
 
-    private Migrador migrador;
-    private AlertaService alertaService;
-    private ReporteService reporteService;
+    private final Migrador migrador;
+    private final AlertaService alertaService;
+    private final ReporteService reporteService;
 
     public AdminViewController(Migrador vMigrador, AlertaService vAlertaService, ReporteService vReporteService){
         migrador = vMigrador;

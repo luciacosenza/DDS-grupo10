@@ -12,6 +12,7 @@ public class LoginViewController {
     @GetMapping("/iniciar-sesion")
     public String login(Model model) {
         model.addAttribute("paginaActual", "/iniciar-sesion");
+
         return "/iniciar-sesion";
     }
 }

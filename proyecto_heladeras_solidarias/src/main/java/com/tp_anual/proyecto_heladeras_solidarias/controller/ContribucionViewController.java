@@ -33,8 +33,9 @@ public class ContribucionViewController {
 
     @GetMapping("/cargar-premio")
     public String mostrarCargarPremio(Model model) {
-        model.addAttribute("oferta", new Oferta());
         setPaginaActual("/colaborar", model);
+        model.addAttribute("oferta", new Oferta());
+
         return "cargar-premio";
     }
 
@@ -48,11 +49,12 @@ public class ContribucionViewController {
     @GetMapping("/colocar-heladera")
     public String mostrarColocarHeladera(Model model) {
         setPaginaActual("/colaborar", model);
+
         return "colocar-heladera";
     }
 
     @PostMapping("/colocar-heladera/guardar")
-    public String guardarHeladera(
+    public String guardarHeladera(  // Uso RequestParams porque los atributos de la Ubicación no deberían ser modificables, y sin RequestParams habría que obtener aparte la calle y altura y luego setear ese atributo de la Ubicación, lo cual no sería coherente con nuestra solución
             @RequestParam String nombre,
             @RequestParam("calle") String calle,
             @RequestParam("altura") String altura,
@@ -60,14 +62,10 @@ public class ContribucionViewController {
             @RequestParam("cod-postal") String codigoPostal,
             @RequestParam("temp-minima") Float tempMinima,
             @RequestParam("temp-maxima") Float tempMaxima,
-            @RequestParam("capacidad") Integer capacidad
-             )
+            @RequestParam("capacidad") Integer capacidad)
     {
-
         Ubicacion ubicacion = new Ubicacion(null, null, (calle + " " + altura), codigoPostal, ciudad, "Argentina");
-        Heladera heladera = new Heladera(nombre, ubicacion, capacidad, tempMinima, tempMaxima, new ArrayList<>(), null, LocalDateTime.now(), false ); //TODO: la seteo en false para que despues se active ???
-        heladera.setUbicacion(ubicacion);
-        heladera.setFechaApertura(LocalDateTime.now());
+        Heladera heladera = new Heladera(nombre, ubicacion, capacidad, tempMinima, tempMaxima, new ArrayList<>(), null, null, false ); //TODO: la seteo en false para que despues se active ???
         heladeraService.guardarHeladera(heladera);
 
         return "redirect:/colocar-heladera";
@@ -75,8 +73,8 @@ public class ContribucionViewController {
 
     @GetMapping("/distribuir-viandas")
     public String mostrarDistribucionViandas(Model model) {
+        setPaginaActual("/colaborar", model);
         List<Heladera> heladeras = heladeraService.obtenerHeladeras();
-        model.addAttribute("paginaActual", "/colaborar");
         model.addAttribute("heladeras", heladeras);
 
         return "distribuir-viandas";
@@ -87,23 +85,17 @@ public class ContribucionViewController {
             @RequestParam("heladera-origen") Long heladeraOrigenId,
             @RequestParam("heladera-destino") Long heladeraDestinoId,
             @RequestParam("cantidad") Integer cantidadAMover,
-            @RequestParam("motivo") DistribucionViandas.MotivoDistribucion motivo
-    ) {
+            @RequestParam("motivo") DistribucionViandas.MotivoDistribucion motivo)
+    {
         Heladera heladeraOrigen = heladeraService.obtenerHeladera(heladeraOrigenId);
         Heladera heladeraDestino = heladeraService.obtenerHeladera(heladeraDestinoId);
-        DistribucionViandas distribucionViandas = new DistribucionViandas(null, LocalDateTime.now(),heladeraOrigen, heladeraDestino, cantidadAMover, motivo);
+        DistribucionViandas distribucionViandas = new DistribucionViandas(null, LocalDateTime.now(),heladeraOrigen, heladeraDestino, cantidadAMover, motivo);   // TODO: Esto es temporal, cuando se puedan guardar colaboradores va a cambiar
         distribucionViandasService.guardarContribucion(distribucionViandas);
 
         //TODO : ver como guardamos los colaboradores
 
         return "redirect:/distribuir-viandas";
     }
-
-
-
-
-
-
 
     public void setPaginaActual(String pagina, Model model) {
         model.addAttribute("paginaActual", pagina);
