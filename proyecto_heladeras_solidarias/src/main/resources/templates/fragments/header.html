@@ -21,7 +21,7 @@
 
                     <!-- Si el usuario está logueado como colaborador humano o jurídico -->
                     <li class="nav-item" th:if="${isLoggedIn}">
-                        <a class="nav-link" th:href="${userType == 'colaborador_humano'} ? '/colaborar_personas_fisicas' : '/colaborar_personas_juridicas'">Colaborar</a>
+                        <a class="nav-link" th:classappend="${paginaActual == '/colaborar' ? active : ''}" th:href="${userType == 'colaborador_humano'} ? '/colaborar_personas_fisicas' : '/colaborar_personas_juridicas'">Colaborar</a>
                     </li>
 
                     <!-- Si no está logueado -->
