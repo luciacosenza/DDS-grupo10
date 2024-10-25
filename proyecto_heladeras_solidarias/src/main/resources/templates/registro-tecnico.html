@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Técnico</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    <link rel="stylesheet" th:href="@{/css/components.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="vectores-fondo">
+
+<div th:replace="~{fragments/header :: header(${userType}, ${isLoggedIn})}"></div>
+
+<main>
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-md-6">
+                <h1 class="mb-0 fw-bold">Registrar técnico</h1>
+                <div class="card my-4">
+                    <form class="text-start" th:action="@{/registro-tecnico/guardar}" method="POST">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Ej: Juan" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            <input name="apellido" type="text" class="form-control" id="apellido" placeholder="Ej: Pérez" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fecha-nacimiento" class="form-label">Fecha de nacimiento</label>
+                            <input name="fecha-nacimiento" type="date" class="form-control" id="fecha-nacimiento" min="1900-01-01" max="2024-12-31" required>
+                        </div>
+                        <div class="mb-3">
+                            <span class="span-form">Documento</span>
+                            <div class="mb-3 d-flex justify-content-between gap-2">
+                                <div class="flex-grow-1">
+                                    <label for="tipo-documento" class="form-label">Tipo</label>
+                                    <select name="tipo-documento" class="form-select" id="tipo-documento" required>
+                                        <option value="" disabled selected>Tipo</option>
+                                        <option value="DNI">DNI</option>
+                                        <option value="PASAPORTE">Pasaporte</option>
+                                        <option value="LICENCIA_CONDUCIR">Licencia de Conducir</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="numero-documento"  class="form-label">Nro. de documento</label>
+                                    <input name="numero-documento" type="text" class="form-control" id="numero-documento" placeholder="Número" required>
+                                </div>
+                                <div>
+                                    <label for="sexo-documento" class="form-label w-100">Sexo</label>
+                                    <select name="sexo-documento" class="form-select w-auto" id="sexo-documento" required>
+                                        <option value="" disabled selected>Tipo</option>
+                                        <option value="MASCULINO">Masculino</option>
+                                        <option value="FEMENINO">Femenino</option>
+                                        <option value="OTRO">Otro</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cuil" class="form-label">cuil</label>
+                            <input name="cuil" type="text" class="form-control" id="cuil" required>
+                        </div>
+                        <div class="mb-3 row">
+                            <span class="span-form">Teléfono</span>
+                            <div class="d-flex w-100 flex-wrap">
+                                <div class="d-flex flex-column me-2">
+                                    <label for="prefijo" class="form-label">Prefijo</label>
+                                    <input name="prefijo" type="text" class="form-control" id="prefijo" placeholder="Ej: +54" style="max-width: 80px;" required>
+                                </div>
+                                <div class="d-flex flex-column me-2">
+                                    <label for="codigo-area" class="form-label">Cód. área</label>
+                                    <input name="codigo-area" type="text" class="form-control" id="codigo-area" placeholder="Ej: 9" style="max-width: 80px;" required>
+                                </div>
+                                <div class="d-flex flex-column flex-grow-1">
+                                    <label for="numero-telefono" class="form-label">Número</label>
+                                    <input name="numero-telefono" type="text" class="form-control" id="numero-telefono" placeholder="Ej: 12345678" required>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="mb-3">
+                                <span class="span-form">Área de Cobertura</span>
+                                <div class="mb-3 d-flex justify-content-between gap-2">
+                                    <label for="latitud-1" class="form-label">Latitud 1</label>
+                                    <input name="latitud-1" type="text" class="form-control" id="latitud-1" required>
+
+                                    <label for="latitud-2" class="form-label">Latitud 2</label>
+                                    <input name="latitud-2" type="text" class="form-control" id="latitud-2" required>
+
+                                    <label for="longitud-1" class="form-label">Longitud 1</label>
+                                    <input name="longitud-1" type="text" class="form-control" id="longitud-1" required>
+
+                                    <label for="longitud-2" class="form-label">Longitud 2</label>
+                                    <input name="longitud-2" type="text" class="form-control" id="longitud-2" required>
+                                </div>
+                            </div>
+                        <div class="w-100 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-dark w-50">Registrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer(${userType}, ${isLoggedIn})}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/cerrar_sesion.js}"></script>
+</body>
+
+</html>

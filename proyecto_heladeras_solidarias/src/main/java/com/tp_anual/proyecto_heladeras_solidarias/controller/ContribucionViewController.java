@@ -25,6 +25,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ContribucionViewController {
@@ -180,16 +181,18 @@ public class ContribucionViewController {
         @RequestParam("tipo-documento") Documento.TipoDocumento tipoDocumento,
         @RequestParam("numero-documento") String numeroDocumento,
         @RequestParam("sexo-documento") Documento.Sexo sexoDocumento,
-        @RequestParam("posee-domicilio") Boolean poseeDomicilio,
+        @RequestParam(value = "posee-domicilio", defaultValue = "false") Boolean poseeDomicilio,
         @RequestParam("calle") String calle,
         @RequestParam("altura") String altura,
         @RequestParam("ciudad") String ciudad,
         @RequestParam("codigo-postal") String codigoPostal,
-        @RequestParam("menores-a-cargo") Integer menoresACargo)
+        @RequestParam(value = "menores-a-cargo", defaultValue = "0") Integer menoresACargo)
     {
+
         Documento documento = new Documento(tipoDocumento, numeroDocumento, sexoDocumento);
         PersonaFisica personaFisica = new PersonaFisica(nombre, apellido, documento, fechaNacimiento);
-        Ubicacion domicilio = new Ubicacion(null, null, (calle + " " + altura), codigoPostal, ciudad, "Argentina");
+
+        Ubicacion domicilio = poseeDomicilio ? new Ubicacion(null, null, (calle + " " + altura), codigoPostal, ciudad, "Argentina") : null; // TODO: Hay que arreglar esto (cuando seleccionamos y deseleccionamos el checkbox de posee domicilio, se buguea)
 
         PersonaEnSituacionVulnerable personaEnSituacionVulnerable = new PersonaEnSituacionVulnerable(personaFisica, domicilio, null, menoresACargo, poseeDomicilio);
         Long personaEnSituacionVulnerableId = personaEnSituacionVulnerableService.guardarPersonaEnSituacionVulnerable(personaEnSituacionVulnerable).getId();

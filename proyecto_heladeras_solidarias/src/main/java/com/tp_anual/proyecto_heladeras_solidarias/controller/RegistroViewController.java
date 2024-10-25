@@ -1,5 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.controller;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.area.Area;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJuridico;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.EMail;
@@ -8,14 +9,17 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.Telefono;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaJuridica;
+import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Tecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.NoUsuario;
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoServiceSelector;
+import com.tp_anual.proyecto_heladeras_solidarias.service.tecnico.TecnicoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.UsuarioService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,11 +34,13 @@ public class RegistroViewController {
     private final ColaboradorService colaboradorService;
     private final UsuarioService usuarioService;
     private final MedioDeContactoServiceSelector medioDeContactoServiceSelector;
+    private final TecnicoService tecnicoService;
 
-    public RegistroViewController(ColaboradorService vColaboradorService, UsuarioService vUsuarioService, MedioDeContactoServiceSelector vMedioDeContactoServiceSelector) {
+    public RegistroViewController(ColaboradorService vColaboradorService, UsuarioService vUsuarioService, MedioDeContactoServiceSelector vMedioDeContactoServiceSelector, TecnicoService vTecnicoService) {
         medioDeContactoServiceSelector = vMedioDeContactoServiceSelector;
         colaboradorService = vColaboradorService;
         usuarioService = vUsuarioService;
+        tecnicoService = vTecnicoService;
     }
 
     @GetMapping("/seleccion-persona")
@@ -50,6 +56,11 @@ public class RegistroViewController {
     @GetMapping("/registro-persona-juridica")
     public String mostrarRegistroPersonaJuridica() {
         return "registro-persona-juridica";
+    }
+
+    @GetMapping("/registro-tecnico")
+    public String mostrarRegistrarTecnico() {
+        return "registro-tecnico";
     }
 
     @PostMapping("/registro-persona-humana/guardar")
@@ -133,6 +144,42 @@ public class RegistroViewController {
         MedioDeContacto medioDeContacto = colaborador.getMedioDeContacto(EMail.class);
         MedioDeContactoService medioDeContactoService = medioDeContactoServiceSelector.obtenerMedioDeContactoService(medioDeContacto.getClass());
         medioDeContactoService.contactar(medioDeContacto.getId(), "Nuevo usuario", "Tu usuario es: " + username);   // TODO: Internacionalizar mensaje
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/registro-tecnico/guardar")
+    public String guardarRegistroTecnico(
+            @RequestParam("nombre") String nombre,
+            @RequestParam("apellido") String apellido,
+            @RequestParam("fecha-nacimiento") LocalDate fechaNacimiento,
+            @RequestParam("tipo-documento") Documento.TipoDocumento tipoDocumento,
+            @RequestParam("numero-documento") String numeroDocumento,
+            @RequestParam("sexo-documento") Documento.Sexo sexoDocumento,
+            @RequestParam("cuil") String cuil,
+            @RequestParam("prefijo") String prefijo,
+            @RequestParam("codigo-area") String codigoArea,
+            @RequestParam("numero-telefono") String numeroTelefono,
+            @RequestParam("latitud-1") Double latitud1,
+            @RequestParam("latitud-2") Double latitud2,
+            @RequestParam("longitud-1") Double longitud1,
+            @RequestParam("longitud-2") Double longitud2,
+            @RequestParam("password") String password,
+            @ModelAttribute("usuario") Usuario usuario)
+
+    {
+        Documento documento = new Documento(tipoDocumento, numeroDocumento, sexoDocumento);
+        PersonaFisica personaFisica = new PersonaFisica(nombre, apellido, documento, fechaNacimiento);
+        Area area = new Area(latitud1, longitud1, latitud2, longitud2);
+        MedioDeContacto medioDeContacto = new Telefono(prefijo, codigoArea, numeroTelefono);
+
+        String username = usuarioService.generarUsername(nombre, apellido);
+        Usuario usuarioACrear = usuarioService.crearUsuario(username, password, Usuario.TipoUsuario.TECNICO);
+
+        Tecnico tecnico = new Tecnico(usuarioACrear, personaFisica, cuil, medioDeContacto, area);
+        Long tecnicoId = tecnicoService.guardarTecnico(tecnico).getId();
+
+        tecnicoService.asignarUsuario(tecnicoId, usuarioACrear);
 
         return "redirect:/";
     }

@@ -60,50 +60,43 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="posee-domicilio" class="form-label">Situación de vivienda</label>
-                                <select name="posee-domicilio" class="form-select" id="posee-domicilio">
-                                    <option selected>Seleccione una opción</option>
-                                    <option value="true">Posee domicilio</option>
-                                    <option value="false">En situación de calle</option>
-                                </select>
+                            <div class="mb-3 form-check form-switch">
+                                <label for="posee-domicilio" class="form-check-label">Posee domicilio</label>
+                                <input type="checkbox" name="posee-domicilio" class="form-check-input" id="posee-domicilio">
                             </div>
-                            <div class="row">
-                                <div class="mb-3 col-md-8">
-                                    <label for="ciudad" class="form-label">Ciudad</label>
-                                    <input name="ciudad" type="text" class="form-control" id="ciudad" placeholder="Ej: Puerto Madryn" required>
+                            <div class="domicilio">
+                                <div class="row">
+                                    <div class="mb-3 col-md-8">
+                                        <label for="ciudad" class="form-label">Ciudad</label>
+                                        <input name="ciudad" type="text" class="form-control" id="ciudad" placeholder="Ej: Puerto Madryn">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="codigo-postal" class="form-label">Código postal</label>
+                                        <input name="codigo-postal" type="text" class="form-control" id="codigo-postal" placeholder="Ej: 1407">
+                                    </div>
                                 </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="codigo-postal" class="form-label">Código postal</label>
-                                    <input name="codigo-postal" type="text" class="form-control" id="codigo-postal" placeholder="Ej: 1407" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8 mb-3">
-                                    <label for="calle" class="form-label">Calle</label>
-                                    <input name="calle" type="text" class="form-control" id="calle" placeholder="Ej: San Nicolás" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="altura" class="form-label">Número</label>
-                                    <input name="altura" type="text" class="form-control" id="altura" placeholder="Ej: 123" required>
+                                <div class="row">
+                                    <div class="col-md-8 mb-3">
+                                        <label for="calle" class="form-label">Calle</label>
+                                        <input name="calle" type="text" class="form-control" id="calle" placeholder="Ej: San Nicolás">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="altura" class="form-label">Número</label>
+                                        <input name="altura" type="text" class="form-control" id="altura" placeholder="Ej: 123">
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <div class="form-check">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="posee-menores-a-cargo">
                                     <label class="form-check-label" for="posee-menores-a-cargo">
                                         Posee menores a cargo
                                     </label>
-                                    <input class="form-check-input" type="checkbox" id="posee-menores-a-cargo">
                                 </div>
-                                <label for="menores-a-cargo">Cantidad de menores a cargo</label>
-                                <select class="form-select mt-2" name="menores-a-cargo" id="menores-a-cargo" required>
-                                    <option selected>Cuántos</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5 o más</option>
-                                </select>
+                                <div class="cantidad-menores-a-cargo mt-2">
+                                    <label for="menores-a-cargo">Cantidad de menores a cargo</label>
+                                    <input type="number" min="1" class="form-control mt-2" name="menores-a-cargo" id="menores-a-cargo">
+                                </div>
                             </div>
                             <div class="w-100 d-flex justify-content-center">
                                 <button type="submit" class="btn btn-dark w-50">Registrar</button>
@@ -122,20 +115,55 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const poseeMenoresCheckbox = document.getElementById("posee-menores-a-cargo");
-            const cantidadMenoresSelect = document.getElementById("menores-a-cargo");
-            cantidadMenoresSelect.style.display = 'none'
-            // Inicialmente, desactiva el campo de cantidad de menores
-            cantidadMenoresSelect.disabled = !poseeMenoresCheckbox.checked;
+            const poseeMenoresCheckbox = document.querySelector('#posee-menores-a-cargo');
+            const cantidadMenoresSelect = document.querySelector('.cantidad-menores-a-cargo');
 
-            // Escucha el cambio en el checkbox para habilitar o deshabilitar el select
+            const situacionViviendaCheckbox = document.querySelector("#posee-domicilio")
+            const ciudad = document.querySelector('#ciudad');
+            const codPostal = document.querySelector('#codigo-postal');
+            const calle = document.querySelector('#calle');
+            const altura = document.querySelector('#altura');
+            const domicilioDiv = document.querySelector(".domicilio");
+
+            // Ocultar inicialmente los campos dependientes
+            cantidadMenoresSelect.style.display = 'none';
+            cantidadMenoresSelect.disabled = true;
+            cantidadMenoresSelect.required = false;
+
+            domicilioDiv.style.display = 'none';
+            ciudad.disabled = true;
+            codPostal.disabled = true;
+            calle.disabled = true;
+            altura.disabled = true;
+            ciudad.required = false;
+            codPostal.required = false;
+            calle.required = false;
+            altura.required = false;
+
+            // Event listener para el checkbox de "posee menores a cargo"
             poseeMenoresCheckbox.addEventListener("change", function() {
                 cantidadMenoresSelect.disabled = !this.checked;
-                if (poseeMenoresCheckbox.checked) {
-                    cantidadMenoresSelect.style.display = 'block'
-                } else cantidadMenoresSelect.style.display = 'none'
+                cantidadMenoresSelect.required = this.checked;
+                cantidadMenoresSelect.style.display = this.checked ? 'block' : 'none';
+            });
+
+            // Event listener para el checkbox de "posee domicilio"
+            situacionViviendaCheckbox.addEventListener("change", function() {
+                const isChecked = this.checked;
+
+                ciudad.disabled = !isChecked;
+                codPostal.disabled = !isChecked;
+                calle.disabled = !isChecked;
+                altura.disabled = !isChecked;
+                ciudad.required = isChecked;
+                codPostal.required = isChecked;
+                calle.required = isChecked;
+                altura.required = isChecked;
+
+                domicilioDiv.style.display = isChecked ? 'block' : 'none';
             });
         });
+
     </script>
 </body>
 
