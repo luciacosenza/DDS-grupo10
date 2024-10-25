@@ -1,9 +1,11 @@
 package com.tp_anual.proyecto_heladeras_solidarias.controller;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.*;
+import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
+import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
@@ -151,7 +153,7 @@ public class ContribucionViewController {
         @RequestParam("calle") String calle,
         @RequestParam("altura") String altura,
         @RequestParam("ciudad") String ciudad,
-        @RequestParam("cod-postal") String codigoPostal)
+        @RequestParam("codigo-postal") String codigoPostal)
     {
         Ubicacion ubicacion = new Ubicacion(null, null, (calle + " " + altura), codigoPostal, ciudad, "Argentina");
         heladera.setUbicacion(ubicacion);
@@ -166,23 +168,34 @@ public class ContribucionViewController {
     @GetMapping("/registrar-persona-vulnerable")
     public String mostrarRegistrarPersonaVulnerable(Model model) {
         setPaginaActual("/colaborar", model);
-        model.addAttribute("personaEnSituacionVulnerable", new PersonaEnSituacionVulnerable());
 
         return "registrar-persona-vulnerable";
     }
 
     @PostMapping("/registrar-persona-vulnerable/guardar")
-    public String guardarHeladera(
-        @ModelAttribute PersonaEnSituacionVulnerable personaEnSituacionVulnerable,
+    public String guardarRegistroDePersonaEnSituacionvulnerable(
+        @RequestParam("nombre") String nombre,
+        @RequestParam("apellido") String apellido,
+        @RequestParam("fecha-nacimiento") LocalDate fechaNacimiento,
+        @RequestParam("tipo-documento") Documento.TipoDocumento tipoDocumento,
+        @RequestParam("numero-documento") String numeroDocumento,
+        @RequestParam("sexo-documento") Documento.Sexo sexoDocumento,
+        @RequestParam("posee-domicilio") Boolean poseeDomicilio,
         @RequestParam("calle") String calle,
         @RequestParam("altura") String altura,
         @RequestParam("ciudad") String ciudad,
-        @RequestParam("cod-postal") String codigoPostal)
+        @RequestParam("codigo-postal") String codigoPostal,
+        @RequestParam("menores-a-cargo") Integer menoresACargo)
     {
-        Ubicacion ubicacion = new Ubicacion(null, null, (calle + " " + altura), codigoPostal, ciudad, "Argentina");
-        personaEnSituacionVulnerable.setDomicilio(ubicacion);
+        Documento documento = new Documento(tipoDocumento, numeroDocumento, sexoDocumento);
+        PersonaFisica personaFisica = new PersonaFisica(nombre, apellido, documento, fechaNacimiento);
+        Ubicacion domicilio = new Ubicacion(null, null, (calle + " " + altura), codigoPostal, ciudad, "Argentina");
+
+        PersonaEnSituacionVulnerable personaEnSituacionVulnerable = new PersonaEnSituacionVulnerable(personaFisica, domicilio, null, menoresACargo, poseeDomicilio);
         Long personaEnSituacionVulnerableId = personaEnSituacionVulnerableService.guardarPersonaEnSituacionVulnerable(personaEnSituacionVulnerable).getId();
+
         TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable = tarjetaPersonaEnSituacionVulnerableService.crearTarjeta(personaEnSituacionVulnerableId);
+
         RegistroDePersonaEnSituacionVulnerable registroDePersonaEnSituacionVulnerable = new RegistroDePersonaEnSituacionVulnerable(null, null, tarjetaPersonaEnSituacionVulnerable);
         registroDePersonaEnSituacionVulnerableService.guardarContribucion(registroDePersonaEnSituacionVulnerable);
 

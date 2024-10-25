@@ -47,8 +47,8 @@ public class PersonaEnSituacionVulnerable {
 
     public PersonaEnSituacionVulnerable() {}
 
-    public PersonaEnSituacionVulnerable(String vNombre, String vApellido, Documento vDocumento, LocalDate vFechaNacimiento, Ubicacion vDomicilio, LocalDateTime vFechaRegistro, Integer vMenoresACargo, Boolean vPoseeDomicilio) {
-        persona = new PersonaFisica(vNombre, vApellido, vDocumento, vFechaNacimiento);
+    public PersonaEnSituacionVulnerable(PersonaFisica vPersona, Ubicacion vDomicilio, LocalDateTime vFechaRegistro, Integer vMenoresACargo, Boolean vPoseeDomicilio) {
+        persona = vPersona;
         domicilio = vDomicilio;
         fechaRegistro = vFechaRegistro;
         menoresACargo = vMenoresACargo;
