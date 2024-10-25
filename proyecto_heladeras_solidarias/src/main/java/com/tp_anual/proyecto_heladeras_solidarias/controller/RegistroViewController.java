@@ -32,15 +32,15 @@ import java.util.ArrayList;
 public class RegistroViewController {
 
     private final ColaboradorService colaboradorService;
+    private final TecnicoService tecnicoService;
     private final UsuarioService usuarioService;
     private final MedioDeContactoServiceSelector medioDeContactoServiceSelector;
-    private final TecnicoService tecnicoService;
 
-    public RegistroViewController(ColaboradorService vColaboradorService, UsuarioService vUsuarioService, MedioDeContactoServiceSelector vMedioDeContactoServiceSelector, TecnicoService vTecnicoService) {
-        medioDeContactoServiceSelector = vMedioDeContactoServiceSelector;
+    public RegistroViewController(ColaboradorService vColaboradorService, UsuarioService vUsuarioService, TecnicoService vTecnicoService, MedioDeContactoServiceSelector vMedioDeContactoServiceSelector) {
         colaboradorService = vColaboradorService;
-        usuarioService = vUsuarioService;
         tecnicoService = vTecnicoService;
+        usuarioService = vUsuarioService;
+        medioDeContactoServiceSelector = vMedioDeContactoServiceSelector;
     }
 
     @GetMapping("/seleccion-persona")
@@ -51,16 +51,6 @@ public class RegistroViewController {
     @GetMapping("/registro-persona-humana")
     public String mostrarRegistroPersonaHumana() {
         return "registro-persona-humana";
-    }
-
-    @GetMapping("/registro-persona-juridica")
-    public String mostrarRegistroPersonaJuridica() {
-        return "registro-persona-juridica";
-    }
-
-    @GetMapping("/registro-tecnico")
-    public String mostrarRegistrarTecnico() {
-        return "registro-tecnico";
     }
 
     @PostMapping("/registro-persona-humana/guardar")
@@ -108,6 +98,11 @@ public class RegistroViewController {
         return "redirect:/";
     }
 
+    @GetMapping("/registro-persona-juridica")
+    public String mostrarRegistroPersonaJuridica() {
+        return "registro-persona-juridica";
+    }
+
     @PostMapping("/registro-persona-juridica/guardar")
     public String guardarPersonaJuridica(
             @RequestParam("razon-social") String razonSocial,
@@ -148,6 +143,11 @@ public class RegistroViewController {
         return "redirect:/";
     }
 
+    @GetMapping("/registro-tecnico")
+    public String mostrarRegistrarTecnico() {
+        return "registro-tecnico";
+    }
+
     @PostMapping("/registro-tecnico/guardar")
     public String guardarRegistroTecnico(
             @RequestParam("nombre") String nombre,
@@ -166,7 +166,6 @@ public class RegistroViewController {
             @RequestParam("longitud-2") Double longitud2,
             @RequestParam("password") String password,
             @ModelAttribute("usuario") Usuario usuario)
-
     {
         Documento documento = new Documento(tipoDocumento, numeroDocumento, sexoDocumento);
         PersonaFisica personaFisica = new PersonaFisica(nombre, apellido, documento, fechaNacimiento);

@@ -18,17 +18,13 @@ public class HeladeraViewController {
         heladeraService = vHeladeraService;
     }
 
+        @GetMapping("/form-reportar-falla-tecnica")
+        public String mostrarFormReportarFalla(Model model) {
+            List<Heladera> heladeras = heladeraService.obtenerHeladeras();
+            model.addAttribute("heladeras", heladeras);
 
+            return "reportar-falla-tecnica";  //
+        }
 
-   @GetMapping("/form-reportar-falla-tecnica")
-   public String mostrarFormReportarFalla(Model model) {
-        List<Heladera> heladeras = heladeraService.obtenerHeladeras();
-        model.addAttribute("heladeras", heladeras);
-
-        return "reportar-falla-tecnica";  //
-    }
-
-    // TODO: Implementar el @GetMapping para el admin
-
-
+        // TODO: Implementar el @GetMapping para el admin
 }
