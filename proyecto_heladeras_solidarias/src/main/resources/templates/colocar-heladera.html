@@ -21,10 +21,10 @@
                 <h2 class="text-muted fw-light mt-0 text-center"> una heladera</h2>
                 <div class="d-flex align-items-center justify-content-center text-center">
                     <div class="card my-4" width="500px">
-                        <form th:action="@{/colocar-heladera/guardar}" method="post">
+                        <form th:action="@{/colocar-heladera/guardar}" th:object="${heladera}" method="post">
                             <div class="mb-3 text-start">
                                 <label for="nombre" class="form-label">Nombre</label>
-                                <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Ej: Heladera Medrano UTN" required>
+                                <input name="nombre" type="text" class="form-control" id="nombre" th:field="*{nombre}" placeholder="Ej: Heladera Medrano UTN" required>
                             </div>
                             <div class="mb-3 text-start">
                                 <label for="ciudad" class="form-label">Ciudad</label>
@@ -55,15 +55,15 @@
                             <div class="mb-3 text-start d-flex gap-2">
                                 <div class="mb-3 text-start">
                                     <label for="capacidad" class="form-label">Capacidad</label>
-                                    <input name="capacidad" type="text" class="form-control" id="capacidad" placeholder="Cantidad de viandas"  required>
+                                    <input name="capacidad" type="text" class="form-control" id="capacidad" th:field="*{capacidad}" placeholder="Cantidad de viandas"  required>
                                 </div>
                                 <div class="mb-3 text-start">
                                     <label for="temp-minima" class="form-label">Temperatura mínima (ºC)</label>
-                                    <input name="temp-minima" type="number" class="form-control" id="temp-minima" placeholder="sólo el número" required>
+                                    <input name="temp-minima" type="number" class="form-control" id="temp-minima" th:field="*{tempMin}" placeholder="sólo el número" required>
                                 </div>
                                 <div class="mb-3 text-start">
                                     <label for="temp-maxima" class="form-label">Temperatura máxima (ºC)</label>
-                                    <input name="temp-maxima" type="number" class="form-control" id="temp-maxima" placeholder="sólo el número" required>
+                                    <input name="temp-maxima" type="number" class="form-control" id="temp-maxima" th:field="*{tempMax}" placeholder="sólo el número" required>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-dark w-50 mt-3">Confirmar</button>

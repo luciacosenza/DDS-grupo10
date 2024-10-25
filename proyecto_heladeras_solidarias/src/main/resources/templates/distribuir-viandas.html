@@ -26,14 +26,16 @@
                                 <input name="cantidad" type="number" min="0" class="form-control" id="cantidad" placeholder="Ingrese un número"  required>
                             </div>
                             <div class="mb-3 text-start">
-                                <label class="form-label">Origen</label>
-                                <select name="heladera-origen" class="form-select select-heladeras" th:required="${required}">
+                                <label for="heladera-origen" class="form-label">Origen</label>
+                                <select id="heladera-origen" name="heladera-origen" class="form-select select-heladeras" required>
+                                    <option selected disabled value="">Seleccione una heladera</option>
                                     <option th:each="heladera : ${heladeras}" th:value="${heladera.id}" th:text="${heladera.nombre}"></option>
                                 </select>
                             </div>
                             <div class="mb-3 text-start">
-                                <label class="form-label">Destino</label>
-                                <select name="heladera-destino" class="form-select select-heladeras" th:required="${required}">
+                                <label for="heladera-destino" class="form-label">Destino</label>
+                                <select id="heladera-destino" name="heladera-destino" class="form-select select-heladeras" required>
+                                    <option selected disabled value="">Seleccione una heladera</option>
                                     <option th:each="heladera : ${heladeras}" th:value="${heladera.id}" th:text="${heladera.nombre}"></option>
                                 </select>
                             </div>

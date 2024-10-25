@@ -18,13 +18,7 @@ public class HeladeraViewController {
         heladeraService = vHeladeraService;
     }
 
-   @GetMapping("/form-donar-vianda")
-   public String mostrarFormDonacionVianda(Model model) {
-        List<Heladera> heladeras = heladeraService.obtenerHeladeras();
-        model.addAttribute("heladeras", heladeras);
 
-        return "donar-vianda";
-   }
 
    @GetMapping("/form-reportar-falla-tecnica")
    public String mostrarFormReportarFalla(Model model) {

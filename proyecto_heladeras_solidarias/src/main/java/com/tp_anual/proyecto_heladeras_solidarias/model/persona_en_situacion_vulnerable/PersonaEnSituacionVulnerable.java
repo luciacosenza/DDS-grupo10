@@ -39,17 +39,20 @@ public class PersonaEnSituacionVulnerable {
     @Setter
     private Integer menoresACargo;
 
+    private Boolean poseeDomicilio;
+
     @OneToOne(mappedBy = "titular", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @Setter
     private TarjetaPersonaEnSituacionVulnerable tarjeta;
 
     public PersonaEnSituacionVulnerable() {}
 
-    public PersonaEnSituacionVulnerable(String vNombre, String vApellido, Documento vDocumento, LocalDate vFechaNacimiento, Ubicacion vDomicilio, LocalDateTime vFechaRegistro, Integer vMenoresACargo) {
+    public PersonaEnSituacionVulnerable(String vNombre, String vApellido, Documento vDocumento, LocalDate vFechaNacimiento, Ubicacion vDomicilio, LocalDateTime vFechaRegistro, Integer vMenoresACargo, Boolean vPoseeDomicilio) {
         persona = new PersonaFisica(vNombre, vApellido, vDocumento, vFechaNacimiento);
         domicilio = vDomicilio;
         fechaRegistro = vFechaRegistro;
         menoresACargo = vMenoresACargo;
+        poseeDomicilio = vPoseeDomicilio;
     }
 
     public void agregarTarjeta(TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable) {

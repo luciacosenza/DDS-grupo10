@@ -20,74 +20,76 @@
                     <h1 class="mb-0 fw-bold">Registrar persona</h1>
                     <h2 class="fw-light mt-0 text-muted">en situación vulnerable</h2>
                     <div class="card my-4">
-                        <form class="text-start">
+                        <form th:action="@{/registrar-persona-vulnerable/guardar}" th:object="${personaEnSituacionVulnerable}" method="POST">
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" placeholder="Ej: Juan">
+                                <input name="nombre" type="text" class="form-control" id="nombre" th:field="*{persona.nombre}" placeholder="Ej: Juan" required>
                             </div>
                             <div class="mb-3">
                                 <label for="apellido" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" id="apellido" placeholder="Ej: Pérez">
+                                <input name="apellido" type="text" class="form-control" id="apellido" th:field="*{persona.apellido}" placeholder="Ej: Pérez" required>
                             </div>
                             <div class="mb-3">
-                                <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
-                                <input type="date" class="form-control" id="fechaNacimiento">
+                                <label for="fecha-nacimiento" class="form-label">Fecha de nacimiento</label>
+                                <input name="fecha-nacimiento" type="date" class="form-control" id="fecha-nacimiento" th:field="*{persona.fechaNacimiento}" required>
                             </div>
                             <div class="mb-3">
                                 <span class="span-form">Documento</span>
                                 <label for="tipo-documento" class="form-label w-100 mt-2">Tipo</label>
                                 <div class="d-flex justify-content-center gap-2">
-                                    <select class="form-select w-auto" id="tipo-documento">
+                                    <select class="form-select w-auto" id="tipo-documento" th:field="*{persona.documento.tipo}" required>
                                         <option selected>Tipo</option>
-                                        <option value="1">DNI</option>
-                                        <option value="2">Pasaporte</option>
-                                        <option value="3">Cédula</option>
+                                        <option value="DNI">DNI</option>
+                                        <option value="PASAPORTE">Pasaporte</option>
+                                        <option value="LICENCIA_CONDUCIR">Cédula</option>
                                     </select>
-                                    <input type="text" class="form-control" id="numero-documento" placeholder="Número">
+                                    <label for="numero-documento" class="form-label w-100 mt-2">Número</label>
+                                    <input type="text" class="form-control" id="numero-documento" th:field="*{persona.documento.numero}" placeholder="Número" required>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="situacionVivienda" class="form-label">Situación de vivienda</label>
-                                <select class="form-select" id="situacionVivienda">
+                                <label for="situacion-vivienda" class="form-label">Situación de vivienda</label>
+                                <select class="form-select" id="situacion-vivienda" th:field="*{poseeDomicilio}">
                                     <option selected>Seleccione una opción</option>
-                                    <option value="posee-domicilio">Posee domicilio</option>
-                                    <option value="calle">En situación de calle</option>
+                                    <option value="true">Posee domicilio</option>
+                                    <option value="false">En situación de calle</option>
                                 </select>
                             </div>
                             <div class="row">
                                 <div class="mb-3 col-md-8">
                                     <label for="ciudad" class="form-label">Ciudad</label>
-                                    <input type="text" class="form-control" id="ciudad" placeholder="Ej: Puerto Madryn">
+                                    <input name="ciudad" type="text" class="form-control" id="ciudad" placeholder="Ej: Puerto Madryn" required>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="codigo-postal" class="form-label">Código postal</label>
-                                    <input type="text" class="form-control" id="codigo-postal" placeholder="Ej: 1407">
+                                    <input name="codigo-postal" type="text" class="form-control" id="codigo-postal" placeholder="Ej: 1407" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-8 mb-3">
                                     <label for="calle" class="form-label">Calle</label>
-                                    <input type="text" class="form-control" id="calle" placeholder="Ej: San Nicolás">
+                                    <input name="calle" type="text" class="form-control" id="calle" placeholder="Ej: San Nicolás" required>
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label for="numero" class="form-label">Número</label>
-                                    <input type="text" class="form-control" id="numero" placeholder="Ej: 123">
+                                    <label for="altura" class="form-label">Número</label>
+                                    <input name="altura" type="text" class="form-control" id="altura" placeholder="Ej: 123" required>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="menoresACargo">
                                     <label class="form-check-label" for="menoresACargo">
                                         Posee menores a cargo
                                     </label>
+                                    <input class="form-check-input" type="checkbox" id="menoresACargo">
                                 </div>
-                                <select class="form-select mt-2" id="cantidadMenores">
+                                <label for="cantidad-menores">Cantidad de menores a cargo</label>
+                                <select class="form-select mt-2" id="cantidad-menores" th:field="*{menoresACargo}" required>
                                     <option selected>Cuántos</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
-                                    <option value="5+">5 o más</option>
+                                    <option value="5">5 o más</option>
                                 </select>
                             </div>
                             <div class="w-100 d-flex justify-content-center">

@@ -34,12 +34,6 @@ public class ViewController {
         return "como-participar";
     }
 
-    @GetMapping("/donar-dinero")
-    public String mostrarDonarDinero(Model model) {
-        setPaginaActual("/colaborar", model);
-
-        return "donar-dinero";
-    }
 
     @GetMapping("/mapa-heladeras")
     public String mostrarMapaHeladeras(Model model) {
@@ -55,12 +49,6 @@ public class ViewController {
         return "quienes-somos";
     }
 
-    @GetMapping("/registrar-persona-vulnerable")
-    public String mostrarRegistrarPersonaVulnerable(Model model) {
-        setPaginaActual("/colaborar", model);
-
-        return "registrar-persona-vulnerable";
-    }
 
     @GetMapping("/suscribirse")
     public String mostrarSuscribirse(Model model) {
