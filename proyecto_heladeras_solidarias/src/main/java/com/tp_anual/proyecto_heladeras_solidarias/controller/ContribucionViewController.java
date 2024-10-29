@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -147,20 +148,22 @@ public class ContribucionViewController {
     }
 
     @PostMapping("/colocar-heladera/guardar")
-    public String guardarHacerseCargoDeHeladera(    // Uso RequestParams porque los atributos de la Ubicación no deberían ser modificables, y sin RequestParams habría que obtener aparte la calle y altura y luego setear ese atributo de la Ubicación, lo cual no sería coherente con nuestra solución
-        @ModelAttribute Heladera heladera,
-        @RequestParam("calle") String calle,
-        @RequestParam("altura") String altura,
-        @RequestParam("ciudad") String ciudad,
-        @RequestParam("codigo-postal") String codigoPostal)
+    public String guardarHeladera(
+            @RequestParam String nombre,
+            @RequestParam("calle") String calle,
+            @RequestParam("altura") String altura,
+            @RequestParam("ciudad") String ciudad,
+            @RequestParam("codigo-postal") String codigoPostal,
+            @RequestParam("temp-minima") Float tempMinima,
+            @RequestParam("temp-maxima") Float tempMaxima,
+            @RequestParam("capacidad") Integer capacidad
+    )
     {
         Ubicacion ubicacion = new Ubicacion(null, null, (calle + " " + altura), codigoPostal, ciudad, "Argentina");
+        Heladera heladera = new Heladera(nombre, ubicacion, capacidad, tempMinima, tempMaxima, new ArrayList<>(), null, LocalDateTime.now(), false ); //TODO: la seteo en false para que despues se active ???
         heladera.setUbicacion(ubicacion);
+        heladera.setFechaApertura(LocalDateTime.now());
         heladeraService.guardarHeladera(heladera);
-
-        HacerseCargoDeHeladera hacerseCargoDeHeladera = new HacerseCargoDeHeladera(null, null, heladera);
-        hacerseCargoDeHeladeraService.guardarContribucion(hacerseCargoDeHeladera);  // TODO: Hay que cambiar esto (la contribución se carga con el método colaborar del colaborador)
-
         return "redirect:/colocar-heladera";
     }
 
