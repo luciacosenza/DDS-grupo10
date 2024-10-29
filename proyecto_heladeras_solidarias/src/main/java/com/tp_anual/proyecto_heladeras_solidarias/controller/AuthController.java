@@ -48,13 +48,6 @@ public class AuthController {
         return "redirect:/";
     }
 
-    @GetMapping("/iniciar-sesion")
-    public String login(Model model) {
-        model.addAttribute("paginaActual", "/iniciar-sesion");
-
-        return "/iniciar-sesion";
-    }
-
     @GetMapping("/seleccion-persona")
     public String mostrarSeleccionPersona() {
         return "seleccion-persona";
@@ -193,5 +186,12 @@ public class AuthController {
         tecnicoService.asignarUsuario(tecnicoId, usuarioACrear);
 
         return "redirect:/";
+    }
+
+    @GetMapping("/iniciar-sesion")
+    public String login(Model model) {
+        model.addAttribute("paginaActual", "/iniciar-sesion");
+
+        return "/iniciar-sesion";
     }
 }
