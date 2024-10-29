@@ -20,22 +20,14 @@ public class Usuario {
     @Setter
     private String password;
 
-    @Enumerated(EnumType.STRING)
     @Setter
-    private TipoUsuario tipo;
-
-    public enum TipoUsuario {
-        COLABORADOR_HUMANO,
-        COLABORADOR_JURIDICO,
-        TECNICO,
-        ADMIN
-    }
+    private String role;
 
     public Usuario() {}
 
-    public Usuario(String vUsername, String vPassword, TipoUsuario vTipo) {
+    public Usuario(String vUsername, String vPassword, String vRole) {
         username = vUsername;
         password = vPassword;
-        tipo = vTipo;
+        role = vRole;
     }
 }

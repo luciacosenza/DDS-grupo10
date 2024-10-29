@@ -10,7 +10,7 @@ public class IndexViewController {
 
     public IndexViewController() {}
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     public String mostrarIndex(Model model, HttpSession session) {
         String userType = (String) session.getAttribute("userType");
         Boolean isLoggedIn = session.getAttribute("userType") != null;
@@ -20,5 +20,5 @@ public class IndexViewController {
         model.addAttribute("paginaActual", "/index");
 
         return "index";
-    }
+    }*/
 }

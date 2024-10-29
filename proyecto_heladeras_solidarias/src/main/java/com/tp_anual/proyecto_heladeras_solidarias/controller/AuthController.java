@@ -17,7 +17,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.Colaborado
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoServiceSelector;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tecnico.TecnicoService;
-import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.UsuarioService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.CustomUserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,18 +29,30 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Controller
-public class RegistroViewController {
+public class AuthController {
 
     private final ColaboradorService colaboradorService;
     private final TecnicoService tecnicoService;
-    private final UsuarioService usuarioService;
+    private final CustomUserDetailsService customUserDetailsService;
     private final MedioDeContactoServiceSelector medioDeContactoServiceSelector;
 
-    public RegistroViewController(ColaboradorService vColaboradorService, UsuarioService vUsuarioService, TecnicoService vTecnicoService, MedioDeContactoServiceSelector vMedioDeContactoServiceSelector) {
+    public AuthController(ColaboradorService vColaboradorService, CustomUserDetailsService vUsuarioService, TecnicoService vTecnicoService, MedioDeContactoServiceSelector vMedioDeContactoServiceSelector) {
         colaboradorService = vColaboradorService;
         tecnicoService = vTecnicoService;
-        usuarioService = vUsuarioService;
+        customUserDetailsService = vUsuarioService;
         medioDeContactoServiceSelector = vMedioDeContactoServiceSelector;
+    }
+
+    @GetMapping("/")
+    public String redireccionarPaginaPrincipal() {
+        return "redirect:/";
+    }
+
+    @GetMapping("/iniciar-sesion")
+    public String login(Model model) {
+        model.addAttribute("paginaActual", "/iniciar-sesion");
+
+        return "/iniciar-sesion";
     }
 
     @GetMapping("/seleccion-persona")
@@ -79,8 +91,8 @@ public class RegistroViewController {
         Telefono telefono = new Telefono(prefijo, codigoArea, numeroTelefono);
         EMail eMail = new EMail(correo);
 
-        String username = usuarioService.generarUsername(nombre, apellido);
-        Usuario usuarioACrear = usuarioService.crearUsuario(username, password, Usuario.TipoUsuario.COLABORADOR_HUMANO);
+        String username = customUserDetailsService.generarUsername(nombre, apellido);
+        Usuario usuarioACrear = new Usuario(username, password, "ROL_CH");
 
         ColaboradorHumano colaborador = new ColaboradorHumano(usuarioACrear, personaFisica, domicilio, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
 
@@ -126,8 +138,8 @@ public class RegistroViewController {
         Telefono telefono = new Telefono(prefijo, codigoArea, numeroTelefono);
         EMail eMail = new EMail(correo);
 
-        String username = usuarioService.generarUsername(rubro, razonSocial);
-        Usuario usuarioACrear = usuarioService.crearUsuario(username, password, Usuario.TipoUsuario.COLABORADOR_JURIDICO);
+        String username = customUserDetailsService.generarUsername(rubro, razonSocial);
+        Usuario usuarioACrear = new Usuario(username, password, "ROL_CJ");
 
         colaborador.agregarMedioDeContacto(telefono);
         colaborador.agregarMedioDeContacto(eMail);
@@ -172,8 +184,8 @@ public class RegistroViewController {
         Area area = new Area(latitud1, longitud1, latitud2, longitud2);
         MedioDeContacto medioDeContacto = new Telefono(prefijo, codigoArea, numeroTelefono);
 
-        String username = usuarioService.generarUsername(nombre, apellido);
-        Usuario usuarioACrear = usuarioService.crearUsuario(username, password, Usuario.TipoUsuario.TECNICO);
+        String username = customUserDetailsService.generarUsername(nombre, apellido);
+        Usuario usuarioACrear = new Usuario(username, password, "ROL_T");
 
         Tecnico tecnico = new Tecnico(usuarioACrear, personaFisica, cuil, medioDeContacto, area);
         Long tecnicoId = tecnicoService.guardarTecnico(tecnico).getId();

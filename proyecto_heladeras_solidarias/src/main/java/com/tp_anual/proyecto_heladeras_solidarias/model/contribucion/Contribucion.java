@@ -34,9 +34,7 @@ public abstract class Contribucion {
     @Setter
     protected Boolean yaSumoPuntos;
 
-    protected Contribucion() {
-        super();
-    }
+    protected Contribucion() {}
 
     protected Contribucion(Colaborador vColaborador, LocalDateTime vFechaContribucion) {
         colaborador = vColaborador;
