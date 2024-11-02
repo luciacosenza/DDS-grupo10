@@ -29,7 +29,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**", "/assets/**") // Permitir recursos estáticos
                         .permitAll()
-                        .requestMatchers("/", "/seleccion-persona", "/registro-persona-humana", "/registro-persona-humana/guardar",
+                        .requestMatchers("/", "/seleccion-persona", "/quienes-somos", "/como-participar",
+                                "/registro-persona-humana", "/registro-persona-humana/guardar",
                                 "/registro-persona-juridica", "/registro-persona-juridica/guardar",
                                 "/registro-tecnico", "/registro-tecnico/guardar").permitAll()
                         .requestMatchers(toH2Console()).permitAll()
@@ -37,10 +38,11 @@ public class SecurityConfiguration {
                 )
                 .formLogin(httpSecurityFormLoginConfigurer ->  httpSecurityFormLoginConfigurer
                         .loginPage("/iniciar-sesion").permitAll()
-                        .defaultSuccessUrl("/iniciar-sesion?error"))
+                        .defaultSuccessUrl("/")
+                        .failureUrl("/iniciar-sesion?error"))
                 .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.permitAll()
                         .logoutRequestMatcher(new AntPathRequestMatcher("/cerrar-sesion"))
-                        .logoutSuccessUrl("/iniciar-sesion"))
+                        .logoutSuccessUrl("/"))
                 .headers(header -> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
         return http.build();

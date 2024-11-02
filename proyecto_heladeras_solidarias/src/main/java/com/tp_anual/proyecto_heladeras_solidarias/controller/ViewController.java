@@ -10,20 +10,6 @@ public class ViewController {
 
     public ViewController() {}
 
-    @GetMapping("/colaborar-personas-fisicas")
-    public String mostrarColaborarPersonasFisicas(Model model) {
-        setPaginaActual("/colaborar-personas-fisicas", model);
-
-        return "colaborar-personas-fisicas";
-    }
-
-    @GetMapping("/colaborar-personas-juridicas")
-    public String mostrarColaborarPersonasJuridicas(Model model) {
-        setPaginaActual("/colaborar", model);
-
-        return "colaborar-personas-juridicas";
-    }
-
     @GetMapping("/como-participar")
     public String mostrarComoParticipar(Model model) {
         setPaginaActual("/como-participar", model);

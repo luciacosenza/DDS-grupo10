@@ -1,4 +1,14 @@
-<header th:fragment="header(userType, isLoggedIn)">
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Heladeras Solidarias</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<header th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/}">
@@ -20,18 +30,21 @@
                     </li>
 
                     <!-- Si el usuario está logueado como colaborador humano o jurídico -->
-                    <li class="nav-item" th:if="${isLoggedIn}">
-                        <a class="nav-link" th:classappend="${paginaActual == '/colaborar' ? active : ''}" th:href="${userType == 'colaborador_humano'} ? '/colaborar_personas_fisicas' : '/colaborar_personas_juridicas'">Colaborar</a>
+                    <li class="nav-item" sec:authorize="isAuthenticated() and hasAuthority('ROL_CH')">
+                        <a class="nav-link" th:classappend="${paginaActual == '/colaborar' ? active : ''}" th:href="/colaborar_personas_fisicas">Colaborar</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated() and hasAuthority('ROL_CJ')">
+                        <a class="nav-link" th:classappend="${paginaActual == '/colaborar' ? active : ''}" th:href="/colaborar_personas_juridicas">Colaborar</a>
                     </li>
 
                     <!-- Si no está logueado -->
-                    <li class="nav-item" th:unless="${isLoggedIn}">
+                    <li class="nav-item" sec:authorize="isAnonymous()">
                         <a class="nav-link href-colab" th:href="@{/iniciar-sesion}">Colaborar</a>
                     </li>
                 </ul>
 
                 <!-- Mostrar botones de inicio de sesión o perfil según si está logueado -->
-                <div class="d-flex ms-lg-3" th:unless="${isLoggedIn}">
+                <div class="d-flex ms-lg-3" sec:authorize="isAnonymous()">
                     <a class="text-decoration-none" th:href="@{/iniciar-sesion}">
                         <button class="btn btn-outline-primary me-2 btn-login" type="button">Iniciar Sesión</button>
                     </a>
@@ -41,7 +54,7 @@
                 </div>
 
                 <!-- Mostrar perfil si está logueado -->
-                <div class="d-flex flex-column ms-lg-3 align-items-center usuario-profile" th:if="${isLoggedIn}">
+                <div class="d-flex flex-column ms-lg-3 align-items-center usuario-profile" sec:authorize="isAuthenticated()">
                     <span class="icon-perfil material-symbols-outlined text-dark" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
                         account_circle
                     </span>
@@ -54,3 +67,5 @@
         </div>
     </nav>
 </header>
+</body>
+</html>

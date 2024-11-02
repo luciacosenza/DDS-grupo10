@@ -52,6 +52,20 @@ public class ContribucionViewController {
         registroDePersonaEnSituacionVulnerableService = vRegistroDePersonaEnSituacionVulnerableService;
     }
 
+    @GetMapping("/colaborar-personas-fisicas")
+    public String mostrarColaborarPersonasFisicas(Model model) {
+        setPaginaActual("/colaborar-personas-fisicas", model);
+
+        return "colaborar-personas-fisicas";
+    }
+
+    @GetMapping("/colaborar-personas-juridicas")
+    public String mostrarColaborarPersonasJuridicas(Model model) {
+        setPaginaActual("/colaborar", model);
+
+        return "colaborar-personas-juridicas";
+    }
+
     @GetMapping("/cargar-premio")
     public String mostrarFormCargarPremio(Model model) {
         setPaginaActual("/colaborar", model);

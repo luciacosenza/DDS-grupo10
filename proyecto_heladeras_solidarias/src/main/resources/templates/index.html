@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,7 @@
 </head>
 <body id="index">
 
-    <div th:replace="~{fragments/header :: header(${userType}, ${isLoggedIn})}"></div>
+    <div th:replace="~{fragments/header :: header}"></div>
 
     <main>
         <section id="hero">

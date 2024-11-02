@@ -45,7 +45,7 @@ public class AuthController {
 
     @GetMapping("/")
     public String redireccionarPaginaPrincipal() {
-        return "redirect:/";
+        return "/index";
     }
 
     @GetMapping("/seleccion-persona")
@@ -192,6 +192,6 @@ public class AuthController {
     public String login(Model model) {
         model.addAttribute("paginaActual", "/iniciar-sesion");
 
-        return "/iniciar-sesion";
+        return "iniciar-sesion";
     }
 }
