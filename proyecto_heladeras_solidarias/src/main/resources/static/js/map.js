@@ -93,11 +93,11 @@ async function obtenerHeladeras() {
                 position: { lat: heladera.ubicacion.latitud, lng: heladera.ubicacion.longitud},
                 map: mapa,
                 title: heladera.nombre,
-                // icon: {
-                //     url: '/assets/iconUbicacionHeladeras.png',
-                //     scaledSize: new google.maps.Size(25, 35),
-                //     origin: new google.maps.Point(0, 0)
-                // } TODO: ver como cambiar el iconito
+                icon: {
+                    url: 'https://raw.githubusercontent.com/luciacosenza/DDS-grupo10/main/proyecto_heladeras_solidarias/src/main/resources/static/assets/iconUbicacionHeladeras.png',
+                    scaledSize: new google.maps.Size(25, 35),
+                    origin: new google.maps.Point(0, 0)
+                } /// TODO: ver como cambiar el iconito
             });
 
             const infoWindow = new google.maps.InfoWindow( {
