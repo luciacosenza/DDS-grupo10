@@ -32,7 +32,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/", "/seleccion-persona", "/quienes-somos", "/como-participar",
                                 "/registro-persona-humana", "/registro-persona-humana/guardar",
                                 "/registro-persona-juridica", "/registro-persona-juridica/guardar",
-                                "/registro-tecnico", "/registro-tecnico/guardar").permitAll()
+                                "/registro-tecnico", "/registro-tecnico/guardar",
+                                "/ubicador-api", "/ubicador-api/{latitud}/{longitud}").permitAll()
                         .requestMatchers(toH2Console()).permitAll()
                         .anyRequest().authenticated()
                 )

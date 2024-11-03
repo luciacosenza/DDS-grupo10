@@ -2,6 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.ubicador;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.Comparator;
 
@@ -83,8 +84,7 @@ public class UbicadorHeladera {
         return heladeraMenosLlena;
     }
 
-    // LO CREAMOS ACA PARA NO IMPORTAR HELADERA_SERVICE
-    private boolean estaLlena(Heladera heladera) {
-        return heladera.viandasActuales() == heladera.getCapacidad();
-    }
+    private Boolean estaLlena(Heladera heladera) {
+        return Objects.equals(heladera.viandasActuales(), heladera.getCapacidad());
+        }
 }
