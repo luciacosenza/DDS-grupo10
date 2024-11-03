@@ -188,10 +188,10 @@ public class AuthController {
         return "redirect:/";
     }
 
-    @GetMapping("/iniciar-sesion")
+    @GetMapping("/login")
     public String login(Model model) {
-        model.addAttribute("paginaActual", "/iniciar-sesion");
+        model.addAttribute("paginaActual", "/login");
 
-        return "iniciar-sesion";
+        return "login";
     }
 }

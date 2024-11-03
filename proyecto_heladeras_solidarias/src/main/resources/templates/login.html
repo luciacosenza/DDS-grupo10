@@ -10,7 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/components.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body id="iniciar-sesion">
+<body id="login">
 
     <div th:replace="~{fragments/header :: header}"></div>
 
@@ -21,18 +21,18 @@
         <div class="register-card">
             <h2 class="fw-bold">Iniciar sesión</h2>
             <hr>
-            <form th:action="@{/iniciar-sesion}" method="post" class="register-form needs-validation mb-3" novalidate>
+            <form th:action="@{/login}" method="post" class="register-form needs-validation mb-3">
                 <div class="mb-3">
                     <label for="username" class="form-label">Usuario</label>
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1">@</span>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Ej: juanperez" required autocomplete="username">
+                        <input type="text" class="form-control" id="username" name="username" autofocus="autofocus" placeholder="Ej: juanperez" required>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" required autocomplete="current-password">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" required>
                         <button class="btn toggle-password" type="button">
                             <span class="material-symbols-outlined toggle-pass-icon">visibility</span>
                         </button>

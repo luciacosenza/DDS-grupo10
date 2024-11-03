@@ -39,13 +39,13 @@
 
                     <!-- Si no está logueado -->
                     <li class="nav-item" sec:authorize="isAnonymous()">
-                        <a class="nav-link href-colab" th:href="@{/iniciar-sesion}">Colaborar</a>
+                        <a class="nav-link href-colab" th:href="@{/login}">Colaborar</a>
                     </li>
                 </ul>
 
                 <!-- Mostrar botones de inicio de sesión o perfil según si está logueado -->
                 <div class="d-flex ms-lg-3" sec:authorize="isAnonymous()">
-                    <a class="text-decoration-none" th:href="@{/iniciar-sesion}">
+                    <a class="text-decoration-none" th:href="@{/login}">
                         <button class="btn btn-outline-primary me-2 btn-login" type="button">Iniciar Sesión</button>
                     </a>
                     <a class="text-decoration-none" th:href="@{/seleccion-persona}">

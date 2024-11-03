@@ -37,9 +37,9 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated()
                 )
                 .formLogin(httpSecurityFormLoginConfigurer ->  httpSecurityFormLoginConfigurer
-                        .loginPage("/iniciar-sesion").permitAll()
+                        .loginPage("/login").permitAll()
                         .defaultSuccessUrl("/")
-                        .failureUrl("/iniciar-sesion?error"))
+                        .failureUrl("/login?error"))
                 .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.permitAll()
                         .logoutRequestMatcher(new AntPathRequestMatcher("/cerrar-sesion"))
                         .logoutSuccessUrl("/"))
