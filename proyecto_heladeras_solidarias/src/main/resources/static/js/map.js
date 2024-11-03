@@ -1,7 +1,7 @@
 let mapa;
-let marker;  
-let infoWindowActual;  
-let heladeras = []; 
+let marker;
+let infoWindowActual;
+let heladeras = [];
 
 async function iniciarMapa() {
     const posicion = { lat: -34.5990697, lng: -58.4241739 };
@@ -20,10 +20,10 @@ async function iniciarMapa() {
     marker = new Marker( {
         map: mapa,
         title: "Posición de búsqueda",
-        visible: false  
+        visible: false
     });
 
-    heladeras = await obtenerHeladeras(); 
+    heladeras = await obtenerHeladeras();
 
     let autocomplete = document.querySelector('#autocomplete');
     const search = new Autocomplete(autocomplete);
@@ -46,14 +46,14 @@ async function iniciarMapa() {
         mapa.setZoom(14);
 
         const heladeraMasCerca = encontrarHeladeraMasCercana(place.geometry.location, heladeras, spherical);
-        
+
         if (heladeraMasCerca) {
             const infoWindow = new google.maps.InfoWindow( {
                 content: `<h4>Heladera más cercana</h4><p>${heladeraMasCerca.marker.getTitle()}</p>`
             });
 
             infoWindow.open(mapa, heladeraMasCerca.marker);
-            infoWindowActual = infoWindow;  
+            infoWindowActual = infoWindow;
         }
     });
 }
@@ -65,7 +65,7 @@ function encontrarHeladeraMasCercana(userPosition, heladeras, spherical) {
     heladeras.forEach(heladera => {
         // Calcular la distancia entre la posición del usuario y cada heladera
         const distancia = spherical.computeDistanceBetween(
-            userPosition, 
+            userPosition,
             new google.maps.LatLng(heladera.position)
         );
 
@@ -79,28 +79,29 @@ function encontrarHeladeraMasCercana(userPosition, heladeras, spherical) {
 }
 
 async function obtenerHeladeras() {
-    const url = "https://ebabbd6d-dfd4-4f3d-bea8-c85e634b2a74.mock.pstmn.io/heladeras";
     try {
-        const response = await fetch(url);
-        const data = await response.json();
+        const response = await fetch('http://localhost:8081/heladeras-solidarias/api/heladeras');
+        const heladeras = await response.json();
+
+        console.log(heladeras);
 
         const { Marker } = await google.maps.importLibrary("marker");
-        let heladeras = []; 
+        //let heladeras = [];
 
-        data.heladeras.forEach(heladera => {
+        heladeras.forEach(heladera => {
             const marker = new Marker({
-                position: heladera.position,
+                position: { lat: heladera.ubicacion.latitud, lng: heladera.ubicacion.longitud},
                 map: mapa,
-                title: heladera.title,
+                title: heladera.nombre,
                 icon: {
-                    url: '../assets/iconUbicacionHeladeras.png',
+                    url: 'https://raw.githubusercontent.com/luciacosenza/DDS-grupo10/main/proyecto_heladeras_solidarias/src/main/resources/static/assets/iconUbicacionHeladeras.png',
                     scaledSize: new google.maps.Size(25, 35),
                     origin: new google.maps.Point(0, 0)
-                }
+                } /// TODO: ver como cambiar el iconito
             });
 
             const infoWindow = new google.maps.InfoWindow( {
-                content: `<h4>${heladera.title}</h4><p>${heladera.direccion}</p>`
+                content: `<h4>${heladera.nombre}</h4><p>${heladera.ubicacion.direccion}</p>`
             });
 
             marker.addListener('click', () => {
@@ -110,7 +111,7 @@ async function obtenerHeladeras() {
             heladeras.push({ marker: marker, position: heladera.position });
         });
 
-        return heladeras; 
+        return heladeras;
     } catch (error) {
         console.error('Error fetching heladeras data:', error);
     }
