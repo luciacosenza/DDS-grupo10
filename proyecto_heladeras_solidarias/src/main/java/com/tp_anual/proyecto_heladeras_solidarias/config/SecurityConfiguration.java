@@ -29,7 +29,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**", "/assets/**") // Permitir recursos estáticos
                         .permitAll()
-                        .requestMatchers("/", "/seleccion-persona", "/quienes-somos", "/como-participar",
+                        .requestMatchers("/", "/quienes-somos", "/como-participar", "/mapa-heladeras",
+                                "/seleccion-persona",
                                 "/registro-persona-humana", "/registro-persona-humana/guardar",
                                 "/registro-persona-juridica", "/registro-persona-juridica/guardar",
                                 "/registro-tecnico", "/registro-tecnico/guardar",

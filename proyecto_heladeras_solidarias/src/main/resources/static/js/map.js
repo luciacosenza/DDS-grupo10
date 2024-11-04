@@ -80,7 +80,7 @@ function encontrarHeladeraMasCercana(userPosition, heladeras, spherical) {
 
 async function obtenerHeladeras() {
     try {
-        const response = await fetch('http://localhost:8081/heladeras-solidarias/api/heladeras');
+        const response = await fetch('http://localhost:8080/heladeras-solidarias/api/heladeras');
         const heladeras = await response.json();
 
         console.log(heladeras);

@@ -25,6 +25,8 @@ public class UsoTarjeta {
     @JoinColumn(name = "heladera")
     private Heladera heladera;  // final
 
+    public UsoTarjeta() {}
+
     public UsoTarjeta(LocalDateTime vFechaUso, Heladera vHeladera) {
         fechaUso = vFechaUso;
         heladera = vHeladera;
