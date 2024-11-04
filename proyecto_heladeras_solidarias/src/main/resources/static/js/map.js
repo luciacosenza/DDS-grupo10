@@ -97,7 +97,7 @@ async function obtenerHeladeras() {
                     url: 'https://raw.githubusercontent.com/luciacosenza/DDS-grupo10/main/proyecto_heladeras_solidarias/src/main/resources/static/assets/iconUbicacionHeladeras.png',
                     scaledSize: new google.maps.Size(25, 35),
                     origin: new google.maps.Point(0, 0)
-                } /// TODO: ver como cambiar el iconito
+                }   // TODO: ver como cambiar el iconito
             });
 
             const infoWindow = new google.maps.InfoWindow( {

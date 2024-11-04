@@ -34,8 +34,10 @@ public class SecurityConfiguration {
                                 "/registro-persona-humana", "/registro-persona-humana/guardar",
                                 "/registro-persona-juridica", "/registro-persona-juridica/guardar",
                                 "/registro-tecnico", "/registro-tecnico/guardar",
-                                "/ubicador-api", "/ubicador-api/{latitud}/{longitud}").permitAll()
+                                "/ubicador-api", "/ubicador-api/{latitud}/{longitud}",
+                                "/api/heladeras").permitAll()
                         .requestMatchers(toH2Console()).permitAll()
+                        .requestMatchers("/api/heladeras").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(httpSecurityFormLoginConfigurer ->  httpSecurityFormLoginConfigurer
