@@ -31,10 +31,10 @@
 
                     <!-- Si el usuario está logueado como colaborador humano o jurídico -->
                     <li class="nav-item" sec:authorize="isAuthenticated() and hasAuthority('ROL_CH')">
-                        <a class="nav-link" th:classappend="${paginaActual == '/colaborar' ? active : ''}" th:href="/colaborar_personas_fisicas">Colaborar</a>
+                        <a class="nav-link" th:classappend="${paginaActual == '/colaborar' ? 'active' : ''}" th:href="@{/colaborar-personas-fisicas}">Colaborar</a>
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated() and hasAuthority('ROL_CJ')">
-                        <a class="nav-link" th:classappend="${paginaActual == '/colaborar' ? active : ''}" th:href="/colaborar_personas_juridicas">Colaborar</a>
+                        <a class="nav-link" th:classappend="${paginaActual == '/colaborar' ? 'active' : ''}" th:href="@{/colaborar-personas-juridicas}">Colaborar</a>
                     </li>
 
                     <!-- Si no está logueado -->
@@ -59,7 +59,7 @@
                         account_circle
                     </span>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item cerrar-sesion" th:href="@{/cerrar-sesion}">Cerrar Sesión</a></li>
+                        <li><a class="dropdown-item cerrar-sesion" th:href="@{/logout}">Cerrar Sesión</a></li>
                     </ul>
                     <span class="text-usuario">Usuario</span>
                 </div>

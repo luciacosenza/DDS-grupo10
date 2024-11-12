@@ -44,8 +44,9 @@ public class AuthController {
     }
 
     @GetMapping("/")
-    public String redireccionarPaginaPrincipal() {
-        return "/index";
+    public String redireccionarPaginaPrincipal(Model model) {
+        setPaginaActual("/index", model);
+        return "index";
     }
 
     @GetMapping("/seleccion-persona")
@@ -87,6 +88,8 @@ public class AuthController {
         String username = customUserDetailsService.generarUsername(nombre, apellido);
         Usuario usuarioACrear = new Usuario(username, password, "ROL_CH");
 
+        customUserDetailsService.guardarUsuario(usuarioACrear);
+
         ColaboradorHumano colaborador = new ColaboradorHumano(usuarioACrear, personaFisica, domicilio, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
 
         colaborador.agregarMedioDeContacto(telefono);
@@ -127,12 +130,15 @@ public class AuthController {
     {
         PersonaJuridica personaJuridica = new PersonaJuridica(razonSocial, tipoPersonaJuridica, rubro);
         Ubicacion domicilio = new Ubicacion(null, null, (calle + " " + altura), codigoPostal, ciudad, pais);
-        ColaboradorJuridico colaborador = new ColaboradorJuridico(new NoUsuario(), personaJuridica, domicilio, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         Telefono telefono = new Telefono(prefijo, codigoArea, numeroTelefono);
         EMail eMail = new EMail(correo);
 
-        String username = customUserDetailsService.generarUsername(rubro, razonSocial);
+        String username = customUserDetailsService.generarUsername("", razonSocial);
         Usuario usuarioACrear = new Usuario(username, password, "ROL_CJ");
+
+        customUserDetailsService.guardarUsuario(usuarioACrear);
+
+        ColaboradorJuridico colaborador = new ColaboradorJuridico(new NoUsuario(), personaJuridica, domicilio, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
 
         colaborador.agregarMedioDeContacto(telefono);
         colaborador.agregarMedioDeContacto(eMail);
@@ -193,5 +199,9 @@ public class AuthController {
         model.addAttribute("paginaActual", "/login");
 
         return "login";
+    }
+
+    public void setPaginaActual(String pagina, Model model) {
+        model.addAttribute("paginaActual", pagina);
     }
 }

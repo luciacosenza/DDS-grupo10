@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -83,11 +84,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     public String generarUsername(String param1, String param2) {
-        String usernameBase = param2.toLowerCase();
-        String usernamePrefix = param1.toLowerCase();
+        String usernameBase = param2.toLowerCase().trim().replaceAll("\\s+", "");
+        String usernamePrefix = param1.toLowerCase().trim().replaceAll("\\s+", "");
 
         String fullUsername = usernamePrefix + usernameBase;
         String username;
+
+        if (usernamePrefix.isEmpty())
+            return usernameBase;
 
         // Si ya sé (de entrada) que el username más largo que se puede generar con los dos params ya existe, paso al método b
         if (existeUsuario(fullUsername)) {
@@ -103,7 +107,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
             // Genero un nombre de usuario único, basado en el primer caracter de param1 más el param2
             Integer letraIndex = 0;
-            StringBuilder usernameBuilder  = new StringBuilder().append(usernamePrefix.charAt(0)).append(usernameBase);
+            StringBuilder usernameBuilder = new StringBuilder().append(usernamePrefix.charAt(0)).append(usernameBase);
 
             while (letraIndex < usernamePrefix.length() && existeUsuario(usernameBuilder.toString())) {
                 usernameBuilder.insert(letraIndex + 1, param1.charAt(letraIndex + 1));

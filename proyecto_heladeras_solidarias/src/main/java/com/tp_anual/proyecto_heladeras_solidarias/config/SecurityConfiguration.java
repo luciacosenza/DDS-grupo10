@@ -45,7 +45,7 @@ public class SecurityConfiguration {
                         .defaultSuccessUrl("/")
                         .failureUrl("/login?error"))
                 .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.permitAll()
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/cerrar-sesion"))
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/"))
                 .headers(header -> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 

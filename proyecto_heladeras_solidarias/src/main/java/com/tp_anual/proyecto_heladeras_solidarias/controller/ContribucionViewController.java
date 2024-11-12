@@ -55,7 +55,7 @@ public class ContribucionViewController {
 
     @GetMapping("/colaborar-personas-fisicas")
     public String mostrarColaborarPersonasFisicas(Model model) {
-        setPaginaActual("/colaborar-personas-fisicas", model);
+        setPaginaActual("/colaborar", model);
 
         return "colaborar-personas-fisicas";
     }
