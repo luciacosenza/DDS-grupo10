@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,11 +22,28 @@
                         <p class="lead mb-0">Una puerta abierta a la solidaridad.</p>
                         <p class="lead mt-0">Colaborá con nosotros, colaborá con los demás!</p>
                         <hr>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start" sec:authorize="isAuthenticated() and hasAuthority('ROL_CH')">
+                            <a class="href-colab" th:href="@{/colaborar-personas-fisicas}">
+                                <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">
+                                    Colaborar
+                                </button>
+                            </a>
+                            <a class="href-suscribirse-heladera" th:href="@{/suscribirse}">
+                                <button type="button" class="btn btn-light btn-lg px-4">Suscribirse a heladera</button>
+                            </a>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start" sec:authorize="isAuthenticated() and hasAuthority('ROL_CJ')">
+                            <a class="href-colab" th:href="@{/colaborar-personas-juridicas}">
+                                <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">
+                                    Colaborar
+                                </button>
+                            </a>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start" sec:authorize="isAnonymous()">
                             <a class="href-colab" th:href="@{/login}">
                                 <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">
                                     Colaborar
-                                </button> 
+                                </button>
                             </a>
                             <a class="href-suscribirse-heladera" th:href="@{/login}">
                                 <button type="button" class="btn btn-light btn-lg px-4">Suscribirse a heladera</button>
@@ -49,7 +66,17 @@
                             </button>
                         </a>
                     </div>
-                    <div class="opciones-main col d-flex flex-column align-items-center justify-content-center">
+                    <div class="opciones-main col d-flex flex-column align-items-center justify-content-center" sec:authorize="isAuthenticated() and (hasAuthority('ROL_CH') or hasAuthority('ROL_CJ'))">
+                        <a class="href-tienda" th:href="@{/tienda}">
+                            <div class="card-vector d-flex flex-column align-items-center justify-content-center">
+                                <img th:src="@{/assets/trofeo.png}" alt="trofeo">
+                            </div>
+                            <button class="btn m-3">
+                                Ver tienda de premios
+                            </button>
+                        </a>
+                    </div>
+                    <div class="opciones-main col d-flex flex-column align-items-center justify-content-center" sec:authorize="isAnonymous()">
                         <a class="href-tienda" th:href="@{/login}">
                             <div class="card-vector d-flex flex-column align-items-center justify-content-center">
                                 <img th:src="@{/assets/trofeo.png}" alt="trofeo">
@@ -59,7 +86,17 @@
                             </button>
                         </a>
                     </div>
-                    <div class="opciones-main col d-flex flex-column align-items-center justify-content-center">
+                    <div class="opciones-main col d-flex flex-column align-items-center justify-content-center" sec:authorize="isAuthenticated() and (hasAuthority('ROL_CH') or hasAuthority('ROL_CJ'))">
+                        <a class="href-falla" th:href="@{/reportar-falla-tecnica}">
+                            <div class="card-vector d-flex flex-column align-items-center justify-content-center">
+                                <img th:src="@{/assets/fallas.png}" alt="gente solucionando una falla">
+                            </div>
+                            <button class="btn m-3">
+                                Reportar una falla
+                            </button>
+                        </a>
+                    </div>
+                    <div class="opciones-main col d-flex flex-column align-items-center justify-content-center" sec:authorize="isAnonymous()">
                         <a class="href-falla" th:href="@{/login}">
                             <div class="card-vector d-flex flex-column align-items-center justify-content-center">
                                 <img th:src="@{/assets/fallas.png}" alt="gente solucionando una falla">

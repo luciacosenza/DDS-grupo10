@@ -1,4 +1,4 @@
-package com.tp_anual.proyecto_heladeras_solidarias.controller;
+package com.tp_anual.proyecto_heladeras_solidarias.controller.rest;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
@@ -13,7 +13,6 @@ import java.util.List;
 public class HeladerasController {
 
     private final HeladeraService heladeraService;
-
 
     public HeladerasController(HeladeraService heladeraService) {
         this.heladeraService = heladeraService;

@@ -1,4 +1,4 @@
-package com.tp_anual.proyecto_heladeras_solidarias.controller;
+package com.tp_anual.proyecto_heladeras_solidarias.controller.view;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.area.Area;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
@@ -41,12 +41,6 @@ public class AuthController {
         tecnicoService = vTecnicoService;
         customUserDetailsService = vUsuarioService;
         medioDeContactoServiceSelector = vMedioDeContactoServiceSelector;
-    }
-
-    @GetMapping("/")
-    public String redireccionarPaginaPrincipal(Model model) {
-        setPaginaActual("/index", model);
-        return "index";
     }
 
     @GetMapping("/seleccion-persona")

@@ -12,4 +12,3 @@ public interface HacerseCargoDeHeladeraRepository extends JpaRepository<HacerseC
     @Query( "SELECT h FROM HacerseCargoDeHeladera h ")  // TODO: Arreglar la Query
     List<HacerseCargoDeHeladera> findHacerseCargoDeHeladeras();
 }
-

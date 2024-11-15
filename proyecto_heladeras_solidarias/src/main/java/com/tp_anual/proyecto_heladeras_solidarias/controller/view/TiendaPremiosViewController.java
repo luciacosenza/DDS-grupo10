@@ -1,4 +1,4 @@
-package com.tp_anual.proyecto_heladeras_solidarias.controller;
+package com.tp_anual.proyecto_heladeras_solidarias.controller.view;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.service.oferta.OfertaService;
@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @Controller
-public class OfertaViewController {
+public class TiendaPremiosViewController {
 
     private final OfertaService ofertaService;
 
-    public OfertaViewController(OfertaService vOfertaService) {
+    public TiendaPremiosViewController(OfertaService vOfertaService) {
         ofertaService = vOfertaService;
     }
 
@@ -24,11 +24,4 @@ public class OfertaViewController {
 
         return "tienda";
     }
-
-//    @PostMapping("/guardar")
-//    public String guardarTienda(@ModelAttribute Oferta oferta) {
-//        ofertaService.guardarOferta(oferta);
-//        return "redirect:/cargar-premio";
-//    }
-
 }

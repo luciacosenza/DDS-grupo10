@@ -1,4 +1,4 @@
-package com.tp_anual.proyecto_heladeras_solidarias.controller;
+package com.tp_anual.proyecto_heladeras_solidarias.controller.view;
 
 import com.tp_anual.proyecto_heladeras_solidarias.service.reporte.ReporteService;
 import org.springframework.stereotype.Controller;

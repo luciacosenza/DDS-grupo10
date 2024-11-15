@@ -1,4 +1,4 @@
-package com.tp_anual.proyecto_heladeras_solidarias.controller;
+package com.tp_anual.proyecto_heladeras_solidarias.controller.view;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @Controller
-public class HeladeraViewController {
+public class FallaTecnicaViewController {
 
     private final HeladeraService heladeraService;
 
-    public HeladeraViewController(HeladeraService vHeladeraService) {
+    public FallaTecnicaViewController(HeladeraService vHeladeraService) {
         heladeraService = vHeladeraService;
     }
 
-        @GetMapping("/form-reportar-falla-tecnica")
-        public String mostrarFormReportarFalla(Model model) {
+        @GetMapping("/reportar-falla-tecnica")
+        public String mostrarFormReportarFallaTecnica(Model model) {
             List<Heladera> heladeras = heladeraService.obtenerHeladeras();
             model.addAttribute("heladeras", heladeras);
 
-            return "reportar-falla-tecnica";  //
+            return "reportar-falla-tecnica";
         }
 
         // TODO: Implementar el @GetMapping para el admin

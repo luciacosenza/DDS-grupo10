@@ -1,4 +1,4 @@
-package com.tp_anual.proyecto_heladeras_solidarias.controller;
+package com.tp_anual.proyecto_heladeras_solidarias.controller.view;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ViewController {
 
     public ViewController() {}
+
+    @GetMapping("/quienes-somos")
+    public String mostrarQuienesSomos(Model model) {
+        setPaginaActual("/quienes-somos", model);
+
+        return "quienes-somos";
+    }
 
     @GetMapping("/como-participar")
     public String mostrarComoParticipar(Model model) {
@@ -22,13 +29,6 @@ public class ViewController {
         setPaginaActual("/mapa-heladeras", model);
 
         return "mapa-heladeras";
-    }
-
-    @GetMapping("/quienes-somos")
-    public String mostrarQuienesSomos(Model model) {
-        setPaginaActual("/quienes-somos", model);
-
-        return "quienes-somos";
     }
 
     @GetMapping("/suscribirse")

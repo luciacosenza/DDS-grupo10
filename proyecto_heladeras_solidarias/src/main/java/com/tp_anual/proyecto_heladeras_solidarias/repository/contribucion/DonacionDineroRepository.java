@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface DonacionDineroRepository extends JpaRepository<DonacionDinero, Long> {
 
-    @Query("SELECT d FROM DonacionDinero d ")   // // TODO: Arreglar la Query
+    @Query("SELECT d FROM DonacionDinero d ")   // TODO: Arreglar la Query
     List<DonacionDinero> findDonacionesDineroParaCalcular();
 }

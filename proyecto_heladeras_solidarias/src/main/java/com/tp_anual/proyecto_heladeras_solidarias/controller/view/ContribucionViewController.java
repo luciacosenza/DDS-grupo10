@@ -1,4 +1,4 @@
-package com.tp_anual.proyecto_heladeras_solidarias.controller;
+package com.tp_anual.proyecto_heladeras_solidarias.controller.view;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
@@ -68,7 +68,7 @@ public class ContribucionViewController {
     }
 
     @GetMapping("/cargar-premio")
-    public String mostrarFormCargarPremio(Model model) {
+    public String mostrarFormCargaOferta(Model model) {
         setPaginaActual("/colaborar", model);
         model.addAttribute("oferta", new Oferta());
 
@@ -86,7 +86,7 @@ public class ContribucionViewController {
     }
 
     @GetMapping("/distribuir-viandas")
-    public String mostrarFormDistribuirViandas(Model model) {
+    public String mostrarFormDistribucionViandas(Model model) {
         setPaginaActual("/colaborar", model);
         List<Heladera> heladeras = heladeraService.obtenerHeladeras();
         model.addAttribute("heladeras", heladeras);
@@ -95,7 +95,7 @@ public class ContribucionViewController {
     }
 
     @PostMapping("/distribuir-viandas/guardar")
-    public String guardarDistribucionVianda(
+    public String guardarDistribucionViandas(
         @RequestParam("heladera-origen") Long heladeraOrigenId,
         @RequestParam("heladera-destino") Long heladeraDestinoId,
         @RequestParam("cantidad") Integer cantidadAMover,
@@ -111,7 +111,7 @@ public class ContribucionViewController {
     }
 
     @GetMapping("/donar-dinero")
-    public String mostrarFormDonarDinero(Model model) {
+    public String mostrarFormDonacionDinero(Model model) {
         setPaginaActual("/colaborar", model);
 
         return "donar-dinero";
@@ -129,7 +129,7 @@ public class ContribucionViewController {
     }
 
     @GetMapping("/donar-vianda")
-    public String mostrarFormDonarVianda(Model model) {
+    public String mostrarFormDonacionVianda(Model model) {
         List<Heladera> heladeras = heladeraService.obtenerHeladeras();
         model.addAttribute("heladeras", heladeras);
         setPaginaActual("/colaborar", model);
@@ -154,7 +154,7 @@ public class ContribucionViewController {
     }
 
     @GetMapping("/colocar-heladera")
-    public String mostrarFormColocarHeladera(Model model) {
+    public String mostrarFormHacerseCargoDeHeladera(Model model) {
         setPaginaActual("/colaborar", model);
         model.addAttribute("heladera", new Heladera());
 
@@ -162,7 +162,7 @@ public class ContribucionViewController {
     }
 
     @PostMapping("/colocar-heladera/guardar")
-    public String guardarHeladera(
+    public String guardarHacerseCargoDeHeladera(
             @RequestParam String nombre,
             @RequestParam("calle") String calle,
             @RequestParam("altura") String altura,
@@ -182,14 +182,14 @@ public class ContribucionViewController {
     }
 
     @GetMapping("/registrar-persona-vulnerable")
-    public String mostrarRegistrarPersonaVulnerable(Model model) {
+    public String mostrarFormRegistroDePersonaEnSituacionVulnerable(Model model) {
         setPaginaActual("/colaborar", model);
 
         return "registrar-persona-vulnerable";
     }
 
     @PostMapping("/registrar-persona-vulnerable/guardar")
-    public String guardarRegistroDePersonaEnSituacionvulnerable(
+    public String guardarRegistroDePersonaEnSituacionVulnerable(
         @RequestParam("nombre") String nombre,
         @RequestParam("apellido") String apellido,
         @RequestParam("fecha-nacimiento") LocalDate fechaNacimiento,
