@@ -20,15 +20,12 @@
                     <h2 class="text-muted">a una heladera</h2>
                     <div class="d-flex align-items-center justify-content-center text-center">
                         <div class="card my-4" style="max-width: 500px;">
-                            <form th:action="@{/suscribirse/guardar}" method="post">
+                            <form th:action="@{/suscribirse/guardar}" method="POST">
                                 <div class="mb-3 text-start">
-                                    <label for="heladeraASuscribirse" class="form-label">Heladera a suscribirse</label>
-                                    <select class="form-select select-heladeras" id="heladeraASuscribirse" name="heladeraId">
-                                        <option selected>Seleccione heladera a suscribirse</option>
-
-                                        <!-- <option value="1">Heladera 1</option>
-                                        <option value="2">Heladera 2</option>
-                                        <option value="3">Heladera 3</option> -->
+                                    <label for="heladera" class="form-label">Heladera a suscribirse</label>
+                                    <select id="heladera" name="heladera" class="form-select select-heladeras">
+                                        <option selected disabled value="">Seleccione una heladera</option>
+                                        <option th:each="heladera : ${heladeras}" th:value="${heladera.id}" th:text="${heladera.nombre}"></option>
                                     </select>
                                 </div>
                                 <div class="mb-3 text-start d-flex gap-2">

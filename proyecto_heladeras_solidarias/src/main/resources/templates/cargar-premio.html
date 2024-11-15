@@ -18,7 +18,7 @@
         <div class="container text-center">
             <h1 class="fw-bold">Cargar premio</h1>
             <div class="card my-4">
-                <form th:action="@{/cargar-premio/guardar}" th:object="${oferta}" method="post" enctype="multipart/form-data">
+                <form th:action="@{/cargar-premio/guardar}" th:object="${oferta}" method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="nombre-premio" class="text-start w-100 py-2">Nombre del premio</label>
                         <input name="nombre-premio" type="text" class="form-control" id="nombre-premio" th:field="*{nombre}" placeholder="Ej: cena para 4 personas" required>

@@ -67,7 +67,7 @@
                 <section id="cargar-archivo">
                     <h2 class="mb-4">Migrar Archivo</h2>
                     <div class="card p-4">
-                        <form th:action="@{/migrar-archivo}" method="post" enctype="multipart/form-data">
+                        <form th:action="@{/migrar-archivo}" method="POST" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="formFile" class="form-label">Seleccionar archivo</label>
                                 <input class="form-control" type="file" id="formFile" name="file" accept=".csv" required>

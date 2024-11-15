@@ -31,13 +31,6 @@ public class ViewController {
         return "mapa-heladeras";
     }
 
-    @GetMapping("/suscribirse")
-    public String mostrarSuscribirse(Model model) {
-        setPaginaActual("/suscribirse", model);
-
-        return "suscribirse";
-    }
-
     void setPaginaActual(String pagina, Model model) {;
         model.addAttribute("paginaActual", pagina);
     }

@@ -19,7 +19,7 @@
                 <div class="col-md-6 text-center">
                     <h1 class="mb-0 fw-bold">Donar vianda</h1>
                     <div class="card my-4">
-                    <form th:action="@{/donar-vianda/guardar}" method="post">
+                    <form th:action="@{/donar-vianda/guardar}" method="POST">
                         <div class="mb-3 text-start">
                             <label for="comida" class="form-label">¿Qué comida contiene?</label>
                             <input name="comida" type="text" class="form-control" id="comida" placeholder="Ej: Carne">
@@ -29,7 +29,7 @@
                             <input name="fecha-caducidad" type="date" class="form-control" id="fecha-caducidad" >
                         </div>
                         <div class="mb-3 text-start">
-                            <label for="heladera" class="form-label">Origen</label>
+                            <label for="heladera" class="form-label">Heladera</label>
                             <select id="heladera" name="heladera" class="form-select select-heladeras" required>
                                 <option selected disabled value="">Seleccione una heladera</option>
                                 <option th:each="heladera : ${heladeras}" th:value="${heladera.id}" th:text="${heladera.nombre}"></option>

@@ -20,10 +20,15 @@
                     <h1 class="mb-0 fw-bold">Reportar una falla técnica</h1>
                     <div class="card my-4" style="max-width: 500px;">
 
-                        <form th:action="@{/form-reportar-falla-tecnica}">
+                        <form th:action="@{/reportar-falla-tecnica}">
 
-                            <div th:replace="fragments :: selectHeladeras(${heladeras}, 'heladeraFalla', true)"></div>
-
+                            <div class="mb-3 text-start">
+                                <label for="heladera" class="form-label">Heladera</label>
+                                <select id="heladera" name="heladera" class="form-select select-heladeras" required>
+                                    <option selected disabled value="">Seleccione una heladera</option>
+                                    <option th:each="heladera : ${heladeras}" th:value="${heladera.id}" th:text="${heladera.nombre}"></option>
+                                </select>
+                            </div>
                             <div class="mb-3">
                                 <label for="descripcionFalla" class="form-label">Descripción</label>
                                 <textarea class="form-control" id="descripcionFalla" placeholder="Descripción de la falla"></textarea>
