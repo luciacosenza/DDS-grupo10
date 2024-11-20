@@ -34,15 +34,13 @@ public class AdminViewController {
 
     @GetMapping("/admin")
     public String mostrarAdmin(Model model) {
-        // Obtener ofertas desde el servicio
         List<Alerta> alertas = alertaService.obtenerAlertas();
         model.addAttribute("alertas", alertas); 
-        return "admin"; 
+        return "admin";
     }
 
     @GetMapping("/admin/reportes")
     public String mostrarReportes(Model model) {
-        // Obtener reportes desde el servicio
         List<IncidentesPorHeladera> incidentesPorHeladera = reporteService.obtenerReporteIncidentesPorHeladera();
         List<MovimientosViandaPorHeladera> movimientosViandaPorHeladera = reporteService.obtenerReporteMovimientosViandaPorHeladera();
         List<ViandasPorColaborador> viandasPorColaborador = reporteService.obtenerReporteViandasPorColaborador();
@@ -66,6 +64,6 @@ public class AdminViewController {
         } else {
             model.addAttribute("message", "Por favor seleccione un archivo CSV.");
         }
-        return "redirect: admin";  // Vista que muestra el resultado de la migración
+        return "redirect: admin";
     }
 }

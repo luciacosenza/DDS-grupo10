@@ -189,8 +189,15 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String login(
+            @RequestParam(value = "error", required = false) String error,
+            Model model) {
+
         model.addAttribute("paginaActual", "/login");
+        if (error != null) {
+            model.addAttribute("loginError", "Usuario o contraseña incorrectos");
+        }
+
 
         return "login";
     }

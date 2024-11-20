@@ -544,3 +544,9 @@ input::-webkit-file-upload-button {
     height: 50vh;
     padding: 5% 8%;
 }
+.error{
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+
+}

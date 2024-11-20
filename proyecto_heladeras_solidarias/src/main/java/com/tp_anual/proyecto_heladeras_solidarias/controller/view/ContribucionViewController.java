@@ -1,5 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.controller.view;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJuridico;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
@@ -9,11 +11,16 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.oferta.OfertaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerableService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta.TarjetaPersonaEnSituacionVulnerableService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.CustomUserDetailsService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,25 +39,27 @@ public class ContribucionViewController {
     private final HeladeraService heladeraService;
     private final OfertaService ofertaService;
     private final TarjetaPersonaEnSituacionVulnerableService tarjetaPersonaEnSituacionVulnerableService;
-    private final CargaOfertaService cargaOfertaService;
-    private final DistribucionViandasService distribucionViandasService;
-    private final DonacionDineroService donacionDineroService;
-    private final DonacionViandaService donacionViandaService;
-    private final HacerseCargoDeHeladeraService hacerseCargoDeHeladeraService;
-    private final RegistroDePersonaEnSituacionVulnerableService registroDePersonaEnSituacionVulnerableService;
     private final PersonaEnSituacionVulnerableService personaEnSituacionVulnerableService;
+    private final ColaboradorService colaboradorService;
+    private final CargaOfertaCreator cargaOfertaCreator;
+    private final DistribucionViandasCreator distribucionViandasCreator;
+    private final DonacionDineroCreator donacionDineroCreator;
+    private final DonacionViandaCreator donacionViandaCreator;
+    private final HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator;
+    private final RegistroDePersonaEnSituacionVulnerableCreator registroDePersonaEnSituacionVulnerableCreator;
 
-    public ContribucionViewController(OfertaService vOfertaService, HeladeraService vHeladeraService, PersonaEnSituacionVulnerableService vPersonaEnSituacionVulnerableService, TarjetaPersonaEnSituacionVulnerableService vTarjetaPersonaEnSituacionVulnerableService, CargaOfertaService vCargaOfertaService, DistribucionViandasService vDistribucionViandasService, DonacionDineroService vDonacionDineroService, DonacionViandaService vDonacionViandaService, HacerseCargoDeHeladeraService vHacerseCargoDeHeladeraService, RegistroDePersonaEnSituacionVulnerableService vRegistroDePersonaEnSituacionVulnerableService) {
+    public ContribucionViewController(OfertaService vOfertaService, HeladeraService vHeladeraService, PersonaEnSituacionVulnerableService vPersonaEnSituacionVulnerableService, TarjetaPersonaEnSituacionVulnerableService vTarjetaPersonaEnSituacionVulnerableService, ColaboradorService vColaboradorService, CargaOfertaCreator vCargaOfertaCreator, DistribucionViandasCreator vDistribucionViandasCreator, DonacionDineroCreator vDonacionDineroCreator, DonacionViandaCreator vDonacionViandaCreator, HacerseCargoDeHeladeraCreator vHacerseCargoDeHeladeraCreator, RegistroDePersonaEnSituacionVulnerableCreator vRegistroDePersonaEnSituacionVulnerableCreator) {
         ofertaService = vOfertaService;
         heladeraService = vHeladeraService;
         personaEnSituacionVulnerableService = vPersonaEnSituacionVulnerableService;
         tarjetaPersonaEnSituacionVulnerableService = vTarjetaPersonaEnSituacionVulnerableService;
-        cargaOfertaService = vCargaOfertaService;
-        distribucionViandasService = vDistribucionViandasService;
-        donacionDineroService = vDonacionDineroService;
-        donacionViandaService = vDonacionViandaService;
-        hacerseCargoDeHeladeraService = vHacerseCargoDeHeladeraService;
-        registroDePersonaEnSituacionVulnerableService = vRegistroDePersonaEnSituacionVulnerableService;
+        colaboradorService = vColaboradorService;
+        cargaOfertaCreator = vCargaOfertaCreator;
+        distribucionViandasCreator = vDistribucionViandasCreator;
+        donacionDineroCreator = vDonacionDineroCreator;
+        donacionViandaCreator = vDonacionViandaCreator;
+        hacerseCargoDeHeladeraCreator = vHacerseCargoDeHeladeraCreator;
+        registroDePersonaEnSituacionVulnerableCreator = vRegistroDePersonaEnSituacionVulnerableCreator;
     }
 
     @GetMapping("/colaborar-personas-fisicas")
@@ -79,8 +88,12 @@ public class ContribucionViewController {
     public String guardarCargaOferta(@ModelAttribute Oferta oferta) {
         ofertaService.guardarOferta(oferta);
 
-        CargaOferta cargaOferta = new CargaOferta(null, null, oferta);
-        cargaOfertaService.guardarContribucion(cargaOferta);    // TODO: Hay que cambiar esto (la contribución se carga con el método colaborar del colaborador)
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        Colaborador colaborador = colaboradorService.obtenerColaboradorPorUsername(username);
+        colaboradorService.colaborar(colaborador.getId(), cargaOfertaCreator, LocalDateTime.now(), oferta);
 
         return "redirect:/cargar-premio";
     }
@@ -101,11 +114,16 @@ public class ContribucionViewController {
         @RequestParam("cantidad") Integer cantidadAMover,
         @RequestParam("motivo") DistribucionViandas.MotivoDistribucion motivo)
     {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
         Heladera heladeraOrigen = heladeraService.obtenerHeladera(heladeraOrigenId);
         Heladera heladeraDestino = heladeraService.obtenerHeladera(heladeraDestinoId);
 
-        DistribucionViandas distribucionViandas = new DistribucionViandas(null, null, heladeraOrigen, heladeraDestino, cantidadAMover, motivo);
-        distribucionViandasService.guardarContribucion(distribucionViandas);    // TODO: Hay que cambiar esto (la contribución se carga con el método colaborar del colaborador)
+        Colaborador colaborador = colaboradorService.obtenerColaboradorPorUsername(username);
+        colaboradorService.colaborar(colaborador.getId(), distribucionViandasCreator, LocalDateTime.now(), heladeraOrigen, heladeraDestino, cantidadAMover, motivo);
 
         return "redirect:/distribuir-viandas";
     }
@@ -122,8 +140,13 @@ public class ContribucionViewController {
         @RequestParam("monto") Double monto,
         @RequestParam("frecuencia") DonacionDinero.FrecuenciaDePago frecuencia)
     {
-        DonacionDinero donacionDinero = new DonacionDinero(null, null, monto, frecuencia);
-        donacionDineroService.guardarContribucion(donacionDinero);  // TODO: Hay que cambiar esto (la contribución se carga con el método colaborar del colaborador)
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        Colaborador colaborador = colaboradorService.obtenerColaboradorPorUsername(username);
+        colaboradorService.colaborar(colaborador.getId(), donacionDineroCreator, LocalDateTime.now(), monto, frecuencia);
 
         return "redirect:/donar-dinero";
     }
@@ -147,8 +170,13 @@ public class ContribucionViewController {
     {
         Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
         Vianda vianda = new Vianda(comida, null, fechaCaducidad, LocalDateTime.now(), calorias, peso, false);
-        DonacionVianda donacionVianda = new DonacionVianda(null, null, vianda, heladera);
-        donacionViandaService.guardarContribucion(donacionVianda);  // TODO: Hay que cambiar esto (la contribución se carga con el método colaborar del colaborador)
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        Colaborador colaborador = colaboradorService.obtenerColaboradorPorUsername(username);
+        colaboradorService.colaborar(colaborador.getId(), donacionViandaCreator, LocalDateTime.now(), vianda, heladera);
 
         return "redirect:/donar-vianda";
     }
@@ -177,7 +205,14 @@ public class ContribucionViewController {
         Heladera heladera = new Heladera(nombre, ubicacion, capacidad, tempMinima, tempMaxima, new ArrayList<>(), null, LocalDateTime.now(), false ); //TODO: la seteo en false para que despues se active ???
         heladera.setUbicacion(ubicacion);
         heladera.setFechaApertura(LocalDateTime.now());
-        heladeraService.guardarHeladera(heladera);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        Colaborador colaborador = colaboradorService.obtenerColaboradorPorUsername(username);
+        colaboradorService.colaborar(colaborador.getId(), hacerseCargoDeHeladeraCreator, LocalDateTime.now(), heladera);
+
         return "redirect:/colocar-heladera";
     }
 
@@ -197,25 +232,30 @@ public class ContribucionViewController {
         @RequestParam("numero-documento") String numeroDocumento,
         @RequestParam("sexo-documento") Documento.Sexo sexoDocumento,
         @RequestParam(value = "posee-domicilio", defaultValue = "false") Boolean poseeDomicilio,
-        @RequestParam("calle") String calle,
-        @RequestParam("altura") String altura,
-        @RequestParam("ciudad") String ciudad,
-        @RequestParam("codigo-postal") String codigoPostal,
+        @RequestParam(value = "calle", defaultValue = "sin calle") String calle,
+        @RequestParam(value = "altura", defaultValue = "sin altura") String altura,
+        @RequestParam(value = "ciudad", defaultValue = "sin ciudad") String ciudad,
+        @RequestParam(value = "codigo-postal", defaultValue = "sin código postal") String codigoPostal,
         @RequestParam(value = "menores-a-cargo", defaultValue = "0") Integer menoresACargo)
     {
-
         Documento documento = new Documento(tipoDocumento, numeroDocumento, sexoDocumento);
         PersonaFisica personaFisica = new PersonaFisica(nombre, apellido, documento, fechaNacimiento);
 
-        Ubicacion domicilio = poseeDomicilio ? new Ubicacion(null, null, (calle + " " + altura), codigoPostal, ciudad, "Argentina") : null; // TODO: Hay que arreglar esto (cuando seleccionamos y deseleccionamos el checkbox de posee domicilio, se buguea)
+        Ubicacion domicilio = poseeDomicilio ? new Ubicacion(null, null, (calle + " " + altura), codigoPostal, ciudad, "Argentina") : null; // TODO: Hay que arreglar esto, porque cuando ponemos que no tiene domicilio tira error
 
-        PersonaEnSituacionVulnerable personaEnSituacionVulnerable = new PersonaEnSituacionVulnerable(personaFisica, domicilio, null, menoresACargo, poseeDomicilio);
+        LocalDateTime ahora = LocalDateTime.now();
+
+        PersonaEnSituacionVulnerable personaEnSituacionVulnerable = new PersonaEnSituacionVulnerable(personaFisica, domicilio, ahora, menoresACargo, poseeDomicilio);
         Long personaEnSituacionVulnerableId = personaEnSituacionVulnerableService.guardarPersonaEnSituacionVulnerable(personaEnSituacionVulnerable).getId();
 
         TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable = tarjetaPersonaEnSituacionVulnerableService.crearTarjeta(personaEnSituacionVulnerableId);
 
-        RegistroDePersonaEnSituacionVulnerable registroDePersonaEnSituacionVulnerable = new RegistroDePersonaEnSituacionVulnerable(null, null, tarjetaPersonaEnSituacionVulnerable);
-        registroDePersonaEnSituacionVulnerableService.guardarContribucion(registroDePersonaEnSituacionVulnerable);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        Colaborador colaborador = colaboradorService.obtenerColaboradorPorUsername(username);
+        colaboradorService.colaborar(colaborador.getId(), registroDePersonaEnSituacionVulnerableCreator, ahora, tarjetaPersonaEnSituacionVulnerable);
 
         return "redirect:/registrar-persona-vulnerable";
     }

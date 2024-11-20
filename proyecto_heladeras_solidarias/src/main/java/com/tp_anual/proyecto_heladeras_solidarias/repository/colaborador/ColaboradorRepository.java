@@ -6,4 +6,5 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJ
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ColaboradorRepository extends JpaRepository<Colaborador, Long> {
+    Colaborador findByUsuario_Username(String username);
 }

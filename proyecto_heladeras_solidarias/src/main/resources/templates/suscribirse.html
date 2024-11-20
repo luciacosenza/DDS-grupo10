@@ -28,6 +28,24 @@
                                         <option th:each="heladera : ${heladeras}" th:value="${heladera.id}" th:text="${heladera.nombre}"></option>
                                     </select>
                                 </div>
+                                <div class="mb-3 text-start">
+                                    <label for="motivo-suscripcion" class="form-label">Motivo de suscripción</label>
+                                    <select id="motivo-suscripcion" name="motivo-suscripcion" class="form-select">
+                                        <option selected disabled value="">Seleccione un motivo de suscripción</option>
+                                        <option th:value="VIANDAS_MIN">Heladera vaciándose</option>
+                                        <option th:value="VIANDAS_MAX">Heladera llenándose</option>
+                                        <option th:value="DESPERFECTO">Heladera funcionando mal</option>
+                                    </select>
+                                </div>
+                                <div id="min-container" class="mb-3 text-start d-none">
+                                    <label for="min-value" class="form-label">Mínimo de viandas</label>
+                                    <input type="number" id="min-value" name="min-value" class="form-control" placeholder="Ingrese el mínimo">
+                                </div>
+                                <div id="max-container" class="mb-3 text-start d-none">
+                                    <label for="max-value" class="form-label">Máximo de viandas</label>
+                                    <input type="number" id="max-value" name="max-value" class="form-control" placeholder="Ingrese el máximo">
+                                </div>
+
                                 <div class="mb-3 text-start d-flex gap-2">
                                     <button id="btn-abrir-mapa" class="bg-white border-0 my-2 fw-bold text-start text-dark">
                                         <span class="material-symbols-outlined" style="font-size: 16px;">
@@ -60,5 +78,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script th:src="@{/js/cerrar_sesion.js}"></script>
     <script th:src="@{/js/recomendador_heladeras.js}"></script>
+    <script>
+        document.getElementById("motivo-suscripcion").addEventListener("change", function() {
+            const motivo = this.value;
+            const minContainer = document.getElementById("min-container");
+            const maxContainer = document.getElementById("max-container");
+
+            // Reinicia los contenedores
+            minContainer.classList.add("d-none");
+            maxContainer.classList.add("d-none");
+
+            // Muestra el campo según el motivo seleccionado
+            if (motivo === "VIANDAS_MIN") {
+                minContainer.classList.remove("d-none");
+            } else if (motivo === "VIANDAS_MAX") {
+                maxContainer.classList.remove("d-none");
+            }
+        });
+    </script>
 </body>
 </html>

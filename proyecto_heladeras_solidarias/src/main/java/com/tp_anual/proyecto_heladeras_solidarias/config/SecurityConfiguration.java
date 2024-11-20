@@ -42,11 +42,11 @@ public class SecurityConfiguration {
                 )
                 .formLogin(httpSecurityFormLoginConfigurer ->  httpSecurityFormLoginConfigurer
                         .loginPage("/login").permitAll()
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/?loginSuccess=true", true)
                         .failureUrl("/login?error"))
                 .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.permitAll()
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/"))
+                        .logoutSuccessUrl("/?logoutSuccess=true"))
                 .headers(header -> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
         return http.build();

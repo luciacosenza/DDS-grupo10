@@ -70,6 +70,10 @@ public class ColaboradorService {
         return (ColaboradorJuridico) obtenerColaborador(colaboradorId);
     }
 
+    public Colaborador obtenerColaboradorPorUsername(String username) {
+        return colaboradorRepository.findByUsuario_Username(username);
+    }
+
     public List<Colaborador> obtenerColaboradores() {
         return new ArrayList<>(colaboradorRepository.findAll());
     }

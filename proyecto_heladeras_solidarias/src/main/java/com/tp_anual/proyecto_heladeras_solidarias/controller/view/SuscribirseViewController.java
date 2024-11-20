@@ -27,8 +27,12 @@ public class SuscribirseViewController {
         return "suscribirse";
     }
 
-    /* TODO: @PostMapping("/suscribirse/guardar")
-    public String guardarSuscripcion(Model model, Heladera heladera) {}*/
+    @PostMapping("/suscribirse/guardar")
+    public String guardarSuscripcion(Model model, Heladera heladera) {
+
+
+        return "suscribirse";
+    }
 
     void setPaginaActual(String pagina, Model model) {;
         model.addAttribute("paginaActual", pagina);
