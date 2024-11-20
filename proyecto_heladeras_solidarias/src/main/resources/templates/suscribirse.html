@@ -29,12 +29,12 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 text-start">
-                                    <label for="motivo-suscripcion" class="form-label">Motivo de suscripción</label>
-                                    <select id="motivo-suscripcion" name="motivo-suscripcion" class="form-select">
+                                    <label for="condicion" class="form-label">Motivo de suscripción</label>
+                                    <select id="condicion" name="condicion" class="form-select">
                                         <option selected disabled value="">Seleccione un motivo de suscripción</option>
-                                        <option th:value="VIANDAS_MIN">Heladera vaciándose</option>
-                                        <option th:value="VIANDAS_MAX">Heladera llenándose</option>
-                                        <option th:value="DESPERFECTO">Heladera funcionando mal</option>
+                                        <option value="VIANDAS_MIN">Heladera vaciándose</option>
+                                        <option value="VIANDAS_MAX">Heladera llenándose</option>
+                                        <option value="DESPERFECTO">Heladera funcionando mal</option>
                                     </select>
                                 </div>
                                 <div id="min-container" class="mb-3 text-start d-none">

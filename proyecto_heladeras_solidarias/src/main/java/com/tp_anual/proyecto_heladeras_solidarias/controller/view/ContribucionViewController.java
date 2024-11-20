@@ -37,7 +37,6 @@ import java.util.List;
 public class ContribucionViewController {
 
     private final HeladeraService heladeraService;
-    private final OfertaService ofertaService;
     private final TarjetaPersonaEnSituacionVulnerableService tarjetaPersonaEnSituacionVulnerableService;
     private final PersonaEnSituacionVulnerableService personaEnSituacionVulnerableService;
     private final ColaboradorService colaboradorService;
@@ -48,8 +47,7 @@ public class ContribucionViewController {
     private final HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator;
     private final RegistroDePersonaEnSituacionVulnerableCreator registroDePersonaEnSituacionVulnerableCreator;
 
-    public ContribucionViewController(OfertaService vOfertaService, HeladeraService vHeladeraService, PersonaEnSituacionVulnerableService vPersonaEnSituacionVulnerableService, TarjetaPersonaEnSituacionVulnerableService vTarjetaPersonaEnSituacionVulnerableService, ColaboradorService vColaboradorService, CargaOfertaCreator vCargaOfertaCreator, DistribucionViandasCreator vDistribucionViandasCreator, DonacionDineroCreator vDonacionDineroCreator, DonacionViandaCreator vDonacionViandaCreator, HacerseCargoDeHeladeraCreator vHacerseCargoDeHeladeraCreator, RegistroDePersonaEnSituacionVulnerableCreator vRegistroDePersonaEnSituacionVulnerableCreator) {
-        ofertaService = vOfertaService;
+    public ContribucionViewController(HeladeraService vHeladeraService, PersonaEnSituacionVulnerableService vPersonaEnSituacionVulnerableService, TarjetaPersonaEnSituacionVulnerableService vTarjetaPersonaEnSituacionVulnerableService, ColaboradorService vColaboradorService, CargaOfertaCreator vCargaOfertaCreator, DistribucionViandasCreator vDistribucionViandasCreator, DonacionDineroCreator vDonacionDineroCreator, DonacionViandaCreator vDonacionViandaCreator, HacerseCargoDeHeladeraCreator vHacerseCargoDeHeladeraCreator, RegistroDePersonaEnSituacionVulnerableCreator vRegistroDePersonaEnSituacionVulnerableCreator) {
         heladeraService = vHeladeraService;
         personaEnSituacionVulnerableService = vPersonaEnSituacionVulnerableService;
         tarjetaPersonaEnSituacionVulnerableService = vTarjetaPersonaEnSituacionVulnerableService;
@@ -86,8 +84,6 @@ public class ContribucionViewController {
 
     @PostMapping("/cargar-premio/guardar")
     public String guardarCargaOferta(@ModelAttribute Oferta oferta) {
-        ofertaService.guardarOferta(oferta);
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
@@ -114,13 +110,12 @@ public class ContribucionViewController {
         @RequestParam("cantidad") Integer cantidadAMover,
         @RequestParam("motivo") DistribucionViandas.MotivoDistribucion motivo)
     {
+        Heladera heladeraOrigen = heladeraService.obtenerHeladera(heladeraOrigenId);
+        Heladera heladeraDestino = heladeraService.obtenerHeladera(heladeraDestinoId);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
-
-        Heladera heladeraOrigen = heladeraService.obtenerHeladera(heladeraOrigenId);
-        Heladera heladeraDestino = heladeraService.obtenerHeladera(heladeraDestinoId);
 
         Colaborador colaborador = colaboradorService.obtenerColaboradorPorUsername(username);
         colaboradorService.colaborar(colaborador.getId(), distribucionViandasCreator, LocalDateTime.now(), heladeraOrigen, heladeraDestino, cantidadAMover, motivo);
@@ -140,7 +135,6 @@ public class ContribucionViewController {
         @RequestParam("monto") Double monto,
         @RequestParam("frecuencia") DonacionDinero.FrecuenciaDePago frecuencia)
     {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();

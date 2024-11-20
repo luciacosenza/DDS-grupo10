@@ -20,7 +20,7 @@
                     <h1 class="mb-0 fw-bold">Reportar una falla técnica</h1>
                     <div class="card my-4" style="max-width: 500px;">
 
-                        <form th:action="@{/reportar-falla-tecnica}">
+                        <form th:action="@{/reportar-falla-tecnica/guardar}" method="POST">
 
                             <div class="mb-3 text-start">
                                 <label for="heladera" class="form-label">Heladera</label>
@@ -30,17 +30,12 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="descripcionFalla" class="form-label">Descripción</label>
-                                <textarea class="form-control" id="descripcionFalla" placeholder="Descripción de la falla"></textarea>
+                                <label for="descripcion" class="form-label">Descripción</label>
+                                <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción de la falla"></textarea>
                             </div>
                             <div class="mb-3">
-                                <label for="adjuntarImagenFalla" class="text-start w-100 py-2">Adjuntar imagen</label>
-                                <label class="custom-file-upload">
-                                    <input type="file" id="adjuntarImagenFalla" class="ms-xxl-5 w-100" accept="image/*">
-                                    <span class="material-symbols-outlined">
-                                        upload_file
-                                    </span>
-                                </label>
+                                <label for="foto" class="text-start w-100 py-2">Adjuntar foto</label>
+                                    <input id="foto" name="foto" type="text" class="ms-xxl-5 w-100" accept="image/*">
                             </div>
                             <div class="d-flex justify-content-center">
                                 <button type="submit" class="btn btn-dark w-50 mt-3">Reportar</button>

@@ -74,6 +74,14 @@ public class ColaboradorService {
         return colaboradorRepository.findByUsuario_Username(username);
     }
 
+    public ColaboradorHumano obtenerColaboradorHumanoPorUsername(String username) {
+        return (ColaboradorHumano) obtenerColaboradorPorUsername(username);
+    }
+
+    public ColaboradorJuridico obtenerColaboradorJuridicoPorUsername(String username) {
+        return (ColaboradorJuridico) obtenerColaboradorPorUsername(username);
+    }
+
     public List<Colaborador> obtenerColaboradores() {
         return new ArrayList<>(colaboradorRepository.findAll());
     }
