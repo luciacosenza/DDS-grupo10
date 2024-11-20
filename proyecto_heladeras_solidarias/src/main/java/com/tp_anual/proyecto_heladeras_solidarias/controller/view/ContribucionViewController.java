@@ -262,8 +262,7 @@ public class ContribucionViewController {
         String username = userDetails.getUsername();
         Colaborador colaborador = colaboradorService.obtenerColaboradorPorUsername(username);
 
-        List<Contribucion> contribuciones = colaborador.getContribuciones();
-        model.addAttribute("contribuciones", contribuciones);
+        model.addAttribute("colaborador", colaborador);
 
         return "contribuciones";
     }
