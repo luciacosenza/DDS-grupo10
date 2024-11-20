@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 public abstract class MedioDeContacto {
     
@@ -13,4 +13,16 @@ public abstract class MedioDeContacto {
     protected Long id;
 
     public MedioDeContacto() {}
+
+    public String getNombre() {
+        String nombre = getClass().getSimpleName();
+
+        return switch (nombre) {
+            case "EMail" -> "Correo Electrónico";
+            case "Telefono" -> "Télefono";
+            case "Telegram" -> "Telegram";
+            case "WhatsApp" -> "WhatsApp";
+            default -> "";
+        };
+    }
 }

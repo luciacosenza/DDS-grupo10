@@ -23,9 +23,9 @@
                             <form th:action="@{/suscribirse/guardar}" method="POST">
                                 <div class="mb-3 text-start">
                                     <label for="heladera" class="form-label">Heladera a suscribirse</label>
-                                    <select id="heladera" name="heladera" class="form-select select-heladeras">
+                                    <select id="heladera" name="heladera" class="form-select select-heladeras" onchange="actualizarMaximo()">
                                         <option selected disabled value="">Seleccione una heladera</option>
-                                        <option th:each="heladera : ${heladeras}" th:value="${heladera.id}" th:text="${heladera.nombre}"></option>
+                                        <option th:each="heladera : ${heladeras}" th:value="${heladera.id}" th:data-max="${heladera.capacidad}" th:text="${heladera.nombre}"></option>
                                     </select>
                                 </div>
                                 <div class="mb-3 text-start">
@@ -37,13 +37,20 @@
                                         <option value="DESPERFECTO">Heladera funcionando mal</option>
                                     </select>
                                 </div>
+                                <div class="mb-3 text-start">
+                                    <label for="medio-de-contacto" class="form-label">Medio de contacto</label>
+                                    <select id="medio-de-contacto" name="medio-de-contacto" class="form-select">
+                                        <option selected disabled value="">Seleccione un motivo de suscripción</option>
+                                        <option th:each="medioDeContacto : ${colaborador.mediosDeContacto}" th:value="${medioDeContacto.id}" th:text="${medioDeContacto.getNombre()}"></option>
+                                    </select>
+                                </div>
                                 <div id="min-container" class="mb-3 text-start d-none">
-                                    <label for="min-value" class="form-label">Mínimo de viandas</label>
-                                    <input type="number" id="min-value" name="min-value" class="form-control" placeholder="Ingrese el mínimo">
+                                    <label for="limite-inferior" class="form-label">Mínimo de viandas</label>
+                                    <input type="number" th:min="0" id="limite-inferior" name="limite-inferior" class="form-control" placeholder="Ingrese el mínimo">
                                 </div>
                                 <div id="max-container" class="mb-3 text-start d-none">
-                                    <label for="max-value" class="form-label">Máximo de viandas</label>
-                                    <input type="number" id="max-value" name="max-value" class="form-control" placeholder="Ingrese el máximo">
+                                    <label for="limite-superior" class="form-label">Máximo de viandas</label>
+                                    <input type="number" th:min="1" id="limite-superior" name="limite-superior" class="form-control" placeholder="Ingrese el máximo">
                                 </div>
 
                                 <div class="mb-3 text-start d-flex gap-2">
@@ -79,7 +86,7 @@
     <script th:src="@{/js/cerrar_sesion.js}"></script>
     <script th:src="@{/js/recomendador_heladeras.js}"></script>
     <script>
-        document.getElementById("motivo-suscripcion").addEventListener("change", function() {
+        document.querySelector("#condicion").addEventListener("change", function() {
             const motivo = this.value;
             const minContainer = document.getElementById("min-container");
             const maxContainer = document.getElementById("max-container");
@@ -95,6 +102,28 @@
                 maxContainer.classList.remove("d-none");
             }
         });
+        function actualizarMaximo() {
+            // Obtener el select y el input
+            const selectHeladera = document.getElementById("heladera");
+            const inputCantidadMin = document.getElementById("limite-inferior");
+            const inputCantidadMax = document.getElementById("limite-superior");
+
+            // Obtener la opción seleccionada
+            const opcionSeleccionada = selectHeladera.options[selectHeladera.selectedIndex];
+
+            // Leer el atributo data-min de la opción seleccionada
+            const maximo = opcionSeleccionada.getAttribute("data-max");
+
+            // Actualizar el atributo min del input
+            if (maximo) {
+                inputCantidadMin.setAttribute("max", maximo);
+                inputCantidadMin.value = ""; // Limpiar el valor si el mínimo cambia
+                inputCantidadMin.placeholder = `Ingrese hasta ${maximo} unidades`;
+                inputCantidadMax.setAttribute("max", maximo);
+                inputCantidadMax.value = ""; // Limpiar el valor si el mínimo cambia
+                inputCantidadMax.placeholder = `Ingrese hasta ${maximo} unidades`;
+            }
+        }
     </script>
 </body>
 </html>
