@@ -1,6 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
@@ -41,6 +42,29 @@ public abstract class Contribucion {
         fechaContribucion = vFechaContribucion;
         completada = false;
         yaSumoPuntos = false;
+    }
+
+    public String getNombre() {
+        String nombre = getClass().getSimpleName();
+
+        return switch (nombre) {
+            case "CargaOferta" -> "Cargar Oferta";
+            case "DistribucionViandas" -> "Distribuir Vianda/s";
+            case "DonacionDinero" -> "Donar Dinero";
+            case "DonacionVianda" -> "Donar Vianda";
+            case "HacerseCargoDeHeladera" -> "Hacerse Cargo de Heladera";
+            case "RegistroDePersonaEnSituacionVulnerable" -> "Registrar Persona en Situación Vulnerable";
+            default -> "";
+        };
+    }
+
+    public String getFechaContribucionFormateada() {
+        if (fechaContribucion != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            return fechaContribucion.format(formatter);
+        }
+
+        return "";
     }
 
     public void marcarComoCompletada() {

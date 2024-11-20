@@ -6,7 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ContribucionRepository extends JpaRepository<Contribucion, Long> {
-
-    List<Contribucion> findByColaboradorAndCompletadaFalse(Colaborador colaborador);
-}
+public interface ContribucionRepository extends JpaRepository<Contribucion, Long> {}

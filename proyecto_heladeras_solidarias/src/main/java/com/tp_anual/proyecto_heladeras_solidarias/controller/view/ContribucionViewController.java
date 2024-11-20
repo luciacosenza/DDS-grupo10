@@ -23,10 +23,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -46,8 +43,9 @@ public class ContribucionViewController {
     private final DonacionViandaCreator donacionViandaCreator;
     private final HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator;
     private final RegistroDePersonaEnSituacionVulnerableCreator registroDePersonaEnSituacionVulnerableCreator;
+    private final ContribucionFinder contribucionFinder;
 
-    public ContribucionViewController(HeladeraService vHeladeraService, PersonaEnSituacionVulnerableService vPersonaEnSituacionVulnerableService, TarjetaPersonaEnSituacionVulnerableService vTarjetaPersonaEnSituacionVulnerableService, ColaboradorService vColaboradorService, CargaOfertaCreator vCargaOfertaCreator, DistribucionViandasCreator vDistribucionViandasCreator, DonacionDineroCreator vDonacionDineroCreator, DonacionViandaCreator vDonacionViandaCreator, HacerseCargoDeHeladeraCreator vHacerseCargoDeHeladeraCreator, RegistroDePersonaEnSituacionVulnerableCreator vRegistroDePersonaEnSituacionVulnerableCreator) {
+    public ContribucionViewController(HeladeraService vHeladeraService, PersonaEnSituacionVulnerableService vPersonaEnSituacionVulnerableService, TarjetaPersonaEnSituacionVulnerableService vTarjetaPersonaEnSituacionVulnerableService, ColaboradorService vColaboradorService, CargaOfertaCreator vCargaOfertaCreator, DistribucionViandasCreator vDistribucionViandasCreator, DonacionDineroCreator vDonacionDineroCreator, DonacionViandaCreator vDonacionViandaCreator, HacerseCargoDeHeladeraCreator vHacerseCargoDeHeladeraCreator, RegistroDePersonaEnSituacionVulnerableCreator vRegistroDePersonaEnSituacionVulnerableCreator, ContribucionFinder vContribucionFinder) {
         heladeraService = vHeladeraService;
         personaEnSituacionVulnerableService = vPersonaEnSituacionVulnerableService;
         tarjetaPersonaEnSituacionVulnerableService = vTarjetaPersonaEnSituacionVulnerableService;
@@ -58,6 +56,7 @@ public class ContribucionViewController {
         donacionViandaCreator = vDonacionViandaCreator;
         hacerseCargoDeHeladeraCreator = vHacerseCargoDeHeladeraCreator;
         registroDePersonaEnSituacionVulnerableCreator = vRegistroDePersonaEnSituacionVulnerableCreator;
+        contribucionFinder = vContribucionFinder;
     }
 
     @GetMapping("/colaborar-personas-fisicas")
@@ -252,6 +251,35 @@ public class ContribucionViewController {
         colaboradorService.colaborar(colaborador.getId(), registroDePersonaEnSituacionVulnerableCreator, ahora, tarjetaPersonaEnSituacionVulnerable);
 
         return "redirect:/registrar-persona-vulnerable";
+    }
+
+    @GetMapping("/contribuciones")
+    public String mostrarContribuciones(Model model) {
+        setPaginaActual("/contribuciones", model);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+        Colaborador colaborador = colaboradorService.obtenerColaboradorPorUsername(username);
+
+        List<Contribucion> contribuciones = colaborador.getContribuciones();
+        model.addAttribute("contribuciones", contribuciones);
+
+        return "contribuciones";
+    }
+
+    @GetMapping("/confirmar-contribucion/{id}")
+    public String confirmarContribucion(@PathVariable Long id) {
+        Contribucion contribucion = contribucionFinder.obtenerContribucion(id);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        Colaborador colaborador = colaboradorService.obtenerColaboradorPorUsername(username);
+        colaboradorService.confirmarContribucion(colaborador.getId(), contribucion, LocalDateTime.now());
+
+        return "redirect:/contribuciones";
     }
 
     public void setPaginaActual(String pagina, Model model) {
