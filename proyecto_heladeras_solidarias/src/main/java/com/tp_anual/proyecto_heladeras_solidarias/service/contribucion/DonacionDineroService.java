@@ -35,7 +35,7 @@ public class DonacionDineroService extends ContribucionService {
     }
 
     public List<DonacionDinero> obtenerDonacionesDineroQueSumanPuntos() {
-        return new ArrayList<>(donacionDineroRepository.findDonacionesDineroParaCalcular());
+        return new ArrayList<>(donacionDineroRepository.findDonacionesDineroParaPuntos());
     }
 
     @Override

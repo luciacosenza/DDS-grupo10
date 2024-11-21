@@ -13,6 +13,11 @@ import lombok.Setter;
 import lombok.extern.java.Log;
 
 @Entity
+@NamedNativeQuery(
+    name = "HacerseCargoDeHeladera.findHacerseCargoDeHeladeraParaPuntos",
+    query = "SELECT * FROM hacerse_cargo_de_heladera AS h " +
+            "WHERE CURRENT_DATE - h.ultimaActualizacion >= 30)"
+)
 @Log
 @Getter
 public class HacerseCargoDeHeladera extends Contribucion {

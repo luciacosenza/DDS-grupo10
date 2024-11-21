@@ -13,6 +13,15 @@ import lombok.Setter;
 import lombok.extern.java.Log;
 
 @Entity
+@NamedNativeQuery(
+    name = "DonacionDinero.findDonacionDineroParaPuntos",
+    query = "SELECT * FROM donacion_dinero AS d " +
+            "WHERE (d.ya_sumo_puntos = false AND d.frecuencia = 'UNICA_VEZ') " +
+            "OR (d.frecuencia = 'SEMANAL' AND CURRENT_DATE - d.ultima_actualizacion >= 7) " +
+            "OR (d.frecuencia = 'MENSUAL' AND CURRENT_DATE - d.ultima_actualizacion >= 30) " +
+            "OR (d.frecuencia = 'SEMESTRAL' AND CURRENT_DATE - d.ultima_actualizacion >= 180) " +
+            "OR (d.frecuencia = 'ANUAL' AND CURRENT_DATE - d.ultima_actualizacion >= 365)"
+)
 @Log
 @Getter
 public class DonacionDinero extends Contribucion {

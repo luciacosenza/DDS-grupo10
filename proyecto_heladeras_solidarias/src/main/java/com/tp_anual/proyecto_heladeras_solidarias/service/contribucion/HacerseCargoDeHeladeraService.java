@@ -36,7 +36,7 @@ public class HacerseCargoDeHeladeraService extends ContribucionService {
     }
 
     public List<HacerseCargoDeHeladera> obtenerHacerseCargoDeHeladerasQueSumanPuntos() {
-        return new ArrayList<>(hacerseCargoDeHeladeraRepository.findHacerseCargoDeHeladeras());
+        return new ArrayList<>(hacerseCargoDeHeladeraRepository.findHacerseCargoDeHeladeraParaPuntos());
     }
 
     @Override
