@@ -30,4 +30,10 @@ public class ColaboradorPuntosService { // Esta clase existe para evitar el cicl
         colaborador.sumarPuntos(puntosASumar);
         guardarColaborador(colaborador);
     }
+
+    public void restarPuntos(Long colaboradorId, Double puntosARestar) {
+        Colaborador colaborador = obtenerColaborador(colaboradorId);
+        colaborador.restarPuntos(puntosARestar);
+        guardarColaborador(colaborador);
+    }
 }

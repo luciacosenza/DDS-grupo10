@@ -1,9 +1,9 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.reporte;
 
-import com.tp_anual.proyecto_heladeras_solidarias.model.reporte.IncidentesPorHeladera;
+import com.tp_anual.proyecto_heladeras_solidarias.model.reporte.FallasPorHeladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.reporte.MovimientosViandaPorHeladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.reporte.ViandasPorColaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.repository.reporte.ReporteIncidentesPorHeladeraRepository;
+import com.tp_anual.proyecto_heladeras_solidarias.repository.reporte.ReporteFallasPorHeladeraRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.reporte.ReporteMovimientosViandaPorHeladeraRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.reporte.ReporteViandasPorColaboradorRepository;
 import lombok.extern.java.Log;
@@ -18,21 +18,21 @@ import java.util.List;
 @Log
 public class ReporteService {
 
-    private final ReporteIncidentesPorHeladeraRepository reporteIncidentesPorHeladeraRepository;
+    private final ReporteFallasPorHeladeraRepository reporteFallasPorHeladeraRepository;
     private final ReporteMovimientosViandaPorHeladeraRepository reporteMovimientosViandaPorHeladeraRepository;
     private final ReporteViandasPorColaboradorRepository reporteViandasPorColaboradorRepository;
     private final JdbcTemplate jdbcTemplate;
 
-    public ReporteService(ReporteIncidentesPorHeladeraRepository vReporteIncidentesPorHeladeraRepository, ReporteMovimientosViandaPorHeladeraRepository vReporteMovimientosViandaPorHeladeraRepository, ReporteViandasPorColaboradorRepository vReporteViandasPorColaboradorRepository, JdbcTemplate vJdbcTemplate) {
-        reporteIncidentesPorHeladeraRepository = vReporteIncidentesPorHeladeraRepository;
+    public ReporteService(ReporteFallasPorHeladeraRepository vReporteFallasPorHeladeraRepository, ReporteMovimientosViandaPorHeladeraRepository vReporteMovimientosViandaPorHeladeraRepository, ReporteViandasPorColaboradorRepository vReporteViandasPorColaboradorRepository, JdbcTemplate vJdbcTemplate) {
+        reporteFallasPorHeladeraRepository = vReporteFallasPorHeladeraRepository;
         reporteMovimientosViandaPorHeladeraRepository = vReporteMovimientosViandaPorHeladeraRepository;
         reporteViandasPorColaboradorRepository = vReporteViandasPorColaboradorRepository;
         jdbcTemplate = vJdbcTemplate;
     }
 
 
-    public List<IncidentesPorHeladera> obtenerReporteIncidentesPorHeladera() {
-        return new ArrayList<>(reporteIncidentesPorHeladeraRepository.findAll());
+    public List<FallasPorHeladera> obtenerReporteFallasPorHeladera() {
+        return new ArrayList<>(reporteFallasPorHeladeraRepository.findAll());
     }
 
     public List<MovimientosViandaPorHeladera> obtenerReporteMovimientosViandaPorHeladera() {

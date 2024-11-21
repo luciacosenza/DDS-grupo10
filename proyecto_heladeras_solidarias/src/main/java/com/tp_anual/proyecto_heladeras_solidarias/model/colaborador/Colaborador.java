@@ -93,6 +93,10 @@ public abstract class Colaborador {
         puntos += puntosASumar;
     }
 
+    public void restarPuntos(Double puntosARestar) {
+        puntos -= puntosARestar;
+    }
+
     public void agregarMedioDeContacto(MedioDeContacto medioDeContacto) {
         mediosDeContacto.add(medioDeContacto);
     }

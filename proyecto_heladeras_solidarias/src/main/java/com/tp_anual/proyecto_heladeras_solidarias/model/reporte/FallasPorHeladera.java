@@ -17,7 +17,7 @@ import org.hibernate.annotations.Subselect;
 )
 @Immutable
 @Getter
-public class IncidentesPorHeladera {
+public class FallasPorHeladera {
 
     @Id
     private Long heladeraId;

@@ -28,7 +28,7 @@ public class MovimientosViandaPorHeladera {
 
     private String heladeraNombre;
 
-    private Integer total_ingresos;
+    private Integer totalIngresos;
 
-    private Integer total_egresos;
+    private Integer totalEgresos;
 }

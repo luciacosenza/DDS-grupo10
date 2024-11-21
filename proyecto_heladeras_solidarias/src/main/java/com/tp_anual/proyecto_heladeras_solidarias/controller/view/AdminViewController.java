@@ -13,7 +13,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.incidente.AlertaServic
 import com.tp_anual.proyecto_heladeras_solidarias.service.migrador.Migrador;
 import com.tp_anual.proyecto_heladeras_solidarias.service.reporte.ReporteService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta;
-import com.tp_anual.proyecto_heladeras_solidarias.model.reporte.IncidentesPorHeladera;
+import com.tp_anual.proyecto_heladeras_solidarias.model.reporte.FallasPorHeladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.reporte.MovimientosViandaPorHeladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.reporte.ViandasPorColaborador;
 
@@ -35,20 +35,17 @@ public class AdminViewController {
     @GetMapping("/admin")
     public String mostrarAdmin(Model model) {
         List<Alerta> alertas = alertaService.obtenerAlertas();
-        model.addAttribute("alertas", alertas); 
-        return "admin";
-    }
+        model.addAttribute("alertas", alertas);
 
-    @GetMapping("/admin/reportes")
-    public String mostrarReportes(Model model) {
-        List<IncidentesPorHeladera> incidentesPorHeladera = reporteService.obtenerReporteIncidentesPorHeladera();
+        List<FallasPorHeladera> fallasPorHeladera = reporteService.obtenerReporteFallasPorHeladera();
         List<MovimientosViandaPorHeladera> movimientosViandaPorHeladera = reporteService.obtenerReporteMovimientosViandaPorHeladera();
         List<ViandasPorColaborador> viandasPorColaborador = reporteService.obtenerReporteViandasPorColaborador();
-        
-        model.addAttribute("reporte-incidentes-por-heladera", incidentesPorHeladera); 
-        model.addAttribute("reporte-movimientos-vianda-por-heladera", movimientosViandaPorHeladera);
-        model.addAttribute("reporte-viandas-por-colaborador", viandasPorColaborador);
-        return "admin"; 
+
+        model.addAttribute("reporteFallasPorHeladera", fallasPorHeladera);
+        model.addAttribute("reporteMovimientosViandaPorHeladera", movimientosViandaPorHeladera);
+        model.addAttribute("reporteViandasPorColaborador", viandasPorColaborador);
+
+        return "admin";
     }
 
     @PostMapping("/migrar-archivo")

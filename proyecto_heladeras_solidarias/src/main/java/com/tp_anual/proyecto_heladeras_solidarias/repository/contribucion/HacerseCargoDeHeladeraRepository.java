@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface HacerseCargoDeHeladeraRepository extends JpaRepository<HacerseCargoDeHeladera, Long> {
-    
+
     @Query(nativeQuery = true, name = "HacerseCargoDeHeladera.findHacerseCargoDeHeladeraParaPuntos")
     List<HacerseCargoDeHeladera> findHacerseCargoDeHeladeraParaPuntos();
 }

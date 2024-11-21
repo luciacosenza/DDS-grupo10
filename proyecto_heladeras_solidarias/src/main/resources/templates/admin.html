@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +21,7 @@
         <div class="user-profile">
             <span class="material-symbols-outlined text-dark" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">admin_panel_settings</span>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item cerrar-sesion" th:href="@{/}">Cerrar Sesión</a></li>
+                <li><a class="dropdown-item cerrar-sesion" th:href="@{/logout}">Cerrar Sesión</a></li>
             </ul>
             <span class="text-dark fw-light">Administrador</span>
         </div>
@@ -36,21 +37,27 @@
                 <hr>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="sidebar-link" th:href="@{/admin/cargar-archivo}">
+                        <a class="sidebar-link" href="#cargar-archivo">
                             <span class="material-symbols-outlined">upload_file</span> 
                             Cargar Archivo
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="sidebar-link" th:href="@{/admin/ver-alertas}">
+                        <a class="sidebar-link" href="#ver-alertas">
                             <span class="material-symbols-outlined">warning</span> 
                             Ver Alertas
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="sidebar-link" th:href="@{/admin/ver-reportes}">
+                        <a class="sidebar-link" href="#ver-reportes">
                             <span class="material-symbols-outlined">assessment</span> 
                             Ver Reportes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="sidebar-link" th:href="@{/registro-tecnico}">
+                            <span class="material-symbols-outlined">manage_accounts</span>
+                            Registrar a un técnico
                         </a>
                     </li>
                 </ul>
@@ -87,26 +94,20 @@
                             <div class="row">
                                 <div class="w-100">
                                     <div class="my-4 w-100 d-flex flex-column align-items-center gap-4 alertas-container">
-                                        <!-- Iterar sobre las ofertas -->
                                         <div th:each="alerta : ${alertas}" class="alerta">
                                             <span class="material-symbols-outlined">warning</span>
                                             <div class="text-start w-100 ms-4">
-                                                <p><span class="badge rounded-pill bg-danger" th:text="${alerta.tipo}"></span></p>
-                                                <p><span class="fw-bold">Nombre:</span> <span th:text="${alerta.nombre}"></span></p>
-                                                <p><span class="fw-bold">Colaborador a cargo:</span> <span th:text="${alerta.colaborador}"></span></p>
-                                                <p><span class="fw-bold">Ubicación:</span> <span th:text="${alerta.ubicacion}"></span></p>
-                                                <p><span class="fw-bold">Descripción:</span> <span th:text="${alerta.descripcion}"></span></p>
-                                                <p><span class="fw-bold">Imagen:</span> <img th:src="${alerta.imagenUrl}" alt="Imagen de la alerta" /></p>
+                                                <p><span class="fw-bold">Heladera:</span> <span th:text="${alerta.heladera}"></span></p>
+                                                <p><span class="fw-bold">Tipo:</span> <span th:text="${alerta.tipo}"></span></p>
+                                                <p><span class="fw-bold">Fecha:</span> <span th:text="${alerta.fecha}"></span></p>
                                             </div>
                                         </div>
-                                        <!-- Fin de iteración -->
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-                
 
                 <!-- Ver Reportes -->
                 <section id="ver-reportes" class="mt-5">
@@ -116,37 +117,100 @@
                             <div class="row">
                                 <div class="w-100">
                                     <div class="my-4 reportes">
+
+                                        <!-- Reporte: Incidentes por heladera -->
                                         <div class="report-card">
                                             <div class="report-header">
                                                 <h3>Cantidad de fallas por heladera</h3>
-                                                <div class="report-actions">
-                                                    <button class="btn btn-primary">Ver detalles</button>
-                                                    <button class="btn btn-outline-secondary">Exportar</button>
-                                                </div>
+
+                                                <table class="table table-bordered">
+
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Heladera</th>
+                                                        <th>Cantidad de fallas</th>
+                                                        <th style="width: 100px">Acciones</th>
+                                                    </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                    <tr th:each="linea : ${reporteFallasPorHeladera}">
+                                                        <td class="text-nowrap" th:text="${linea.heladeraNombre}"></td>
+                                                        <td class="text-nowrap" th:text="${linea.cantidadFallas}"></td>
+
+                                                        <td class="text-center">
+                                                            <a class="btn btn-primary">Exportar</a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+
+                                                </table>
+
                                             </div>
                                             <p>Visualiza y gestiona las fallas registradas en cada heladera. Analiza las heladeras con más fallas.</p>
                                         </div>
                                 
-                                        <!-- Reporte: Cantidad de viandas retiradas/colocadas -->
+                                        <!-- Reporte: Movimientos por heladera -->
                                         <div class="report-card">
                                             <div class="report-header">
                                                 <h3>Cantidad de viandas retiradas/colocadas</h3>
-                                                <div class="report-actions">
-                                                    <button class="btn btn-primary">Ver detalles</button>
-                                                    <button class="btn btn-outline-secondary">Exportar</button>
-                                                </div>
+
+                                                <table class="table table-bordered">
+
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Heladera</th>
+                                                        <th>Total ingresos</th>
+                                                        <th>Total egresos</th>
+                                                        <th style="width: 100px">Acciones</th>
+                                                    </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                    <tr th:each="linea : ${reporteMovimientosViandaPorHeladera}">
+                                                        <td class="text-nowrap" th:text="${linea.heladeraNombre}"></td>
+                                                        <td class="text-nowrap" th:text="${linea.totalIngresos}"></td>
+                                                        <td class="text-nowrap" th:text="${linea.totalEgresos}"></td>
+                                                        <td class="text-center">
+                                                            <a class="btn btn-primary">Exportar</a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+
+                                                </table>
+
                                             </div>
                                             <p>Monitorea la cantidad de viandas retiradas o colocadas en las heladeras a lo largo del tiempo.</p>
                                         </div>
                                 
-                                        <!-- Reporte: Cantidad de viandas por colaborador -->
+                                        <!-- Reporte: Viandas por colaborador -->
                                         <div class="report-card">
                                             <div class="report-header">
                                                 <h3>Cantidad de viandas por colaborador</h3>
-                                                <div class="report-actions">
-                                                    <button class="btn btn-primary">Ver detalles</button>
-                                                    <button class="btn btn-outline-secondary">Exportar</button>
-                                                </div>
+
+                                                <table class="table table-bordered">
+
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Colaborador</th>
+                                                        <th>Cantidad de viandas</th>
+                                                        <th style="width: 100px">Acciones</th>
+                                                    </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                    <tr th:each="linea : ${reporteViandasPorColaborador}">
+                                                        <td class="text-nowrap" th:text="${linea.colaboradorNombre}"></td>
+                                                        <td class="text-nowrap" th:text="${linea.cantidadViandas}"></td>
+
+                                                        <td class="text-center">
+                                                            <a class="btn btn-primary">Exportar</a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+
+                                                </table>
+
                                             </div>
                                             <p>Analiza cuántas viandas ha contribuido cada colaborador al sistema.</p>
                                         </div>

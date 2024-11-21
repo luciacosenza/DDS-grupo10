@@ -9,12 +9,13 @@ import org.hibernate.annotations.Subselect;
 
 @Entity
 @Subselect(
-        "SELECT c.id, trim(pf.nombre) + ' ' + trim(pf.apellido), COUNT(v.id) " +
+        "SELECT c.id AS colaborador_id, TRIM(pf.nombre) || ' ' || TRIM(pf.apellido) AS colaborador_nombre, COUNT(v.id) AS cantidad_viandas " +
         "FROM colaborador c " +
         "LEFT JOIN vianda v " +
         "ON v.colaborador = c.id " +
         "LEFT JOIN persona_fisica pf " +
         "ON c.persona = pf.id " +
+        "WHERE c.tipo_colaborador = 'Humano' " +
         "GROUP BY c.id, pf.nombre, pf.apellido " +
         "ORDER BY 3 DESC"
 )

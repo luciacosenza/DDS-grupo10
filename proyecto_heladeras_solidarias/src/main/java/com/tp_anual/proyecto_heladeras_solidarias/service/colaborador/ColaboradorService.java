@@ -36,12 +36,15 @@ public class ColaboradorService {
     private final HeladeraService heladeraService;
 
     private final Map<Class<? extends Colaborador>, Set<Class<? extends ContribucionCreator>>> contribucionesPermitidas = new HashMap<>();
+    private final ColaboradorPuntosService colaboradorPuntosService;
 
-    public ColaboradorService(ColaboradorRepository vColaboradorRepository, ContribucionServiceSelector vContribucionServiceSelector, OfertaService vOfertaService, HeladeraService vHeladeraService) {
+    public ColaboradorService(ColaboradorRepository vColaboradorRepository, ContribucionServiceSelector vContribucionServiceSelector, OfertaService vOfertaService, HeladeraService vHeladeraService, ColaboradorPuntosService vColaboradorPuntosService) {
         colaboradorRepository = vColaboradorRepository;
         contribucionServiceSelector = vContribucionServiceSelector;
         ofertaService = vOfertaService;
         heladeraService = vHeladeraService;
+        colaboradorPuntosService = vColaboradorPuntosService;
+
 
         Set<Class<? extends ContribucionCreator>> contribucionesPermitidasHumano = new HashSet<>();
         contribucionesPermitidasHumano.add(DistribucionViandasCreator.class);
@@ -169,6 +172,7 @@ public class ColaboradorService {
         ofertaService.validarPuntos(oferta.getId(), colaborador.getPuntos());
 
         agregarBeneficio(colaboradorId, oferta);
+        colaboradorPuntosService.restarPuntos(colaborador.getId(), oferta.getCosto());
 
         log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.adquirirBeneficio_info", oferta.getNombre(), colaborador.getPersona().getNombre(2)));
     }

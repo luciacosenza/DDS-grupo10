@@ -460,12 +460,14 @@ input::-webkit-file-upload-button {
 
 .admin-sidebar {
     height: auto;
-    background-color: #f8f9fa;
+    background-color: #faf8f9;
     padding: 1rem;
 }
 
 .admin-content {
     padding: 2rem;
+    height: 100vh;
+    overflow-y: scroll;
 }
 
 .sidebar-link {

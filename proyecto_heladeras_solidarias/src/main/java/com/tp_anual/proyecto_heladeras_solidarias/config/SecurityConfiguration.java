@@ -27,8 +27,9 @@ public class SecurityConfiguration {
         http.csrf(crsf -> crsf.ignoringRequestMatchers(toH2Console()))      // Habilito Consola H2
                 .userDetailsService(userDetailsService)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/js/**", "/assets/**") // Permitir recursos estáticos
-                        .permitAll()
+                        // Permito recursos estáticos
+                        .requestMatchers("/css/**", "/js/**", "/assets/**").permitAll()
+                        // Endpoints "públicos"
                         .requestMatchers("/", "/quienes-somos", "/como-participar", "/mapa-heladeras",
                                 "/seleccion-persona",
                                 "/registro-persona-humana", "/registro-persona-humana/guardar",
@@ -36,8 +37,22 @@ public class SecurityConfiguration {
                                 "/registro-tecnico", "/registro-tecnico/guardar",
                                 "/ubicador-api", "/ubicador-api/{latitud}/{longitud}",
                                 "/api/heladeras").permitAll()
+                        // Permito H2 y la api para cualquier usuario
                         .requestMatchers(toH2Console()).permitAll()
                         .requestMatchers("/api/heladeras").authenticated()
+                        // Endpoints exclusivos de 'ROL_CJ' (Colaborador Jurídico)
+                        .requestMatchers("/cargar-premio", "/colaborar-personas-juridicas", "/colocar-heladera")
+                        .hasRole("ROL_CJ")
+                        // Endpoints exclusivos de 'ROL_CH' (Colaborador Humano)
+                        .requestMatchers("/colaborar-personas-fisicas", "/distribuir-viandas", "/donar-vianda",
+                                "/registrar-persona-vulnerable", "/suscribirse")
+                        .hasRole("ROL_CH")
+                        // Endpoints accesibles por 'ROL_CJ' y 'ROL_CH' (ambos colaboradores)
+                        .requestMatchers("/contribuciones", "/donar-dinero", "/reportar-falla-tecnica", "/tienda")
+                        .hasAnyRole("ROL_CH", "ROL_CJ")
+                        // Endpoints exclusivos de 'ROL_ADMIN' (admin)
+                        .requestMatchers("/admin").hasRole("ROL_ADMIN")
+                        .requestMatchers("/registro-tecnico").hasRole("ROL_ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(httpSecurityFormLoginConfigurer ->  httpSecurityFormLoginConfigurer
