@@ -125,21 +125,23 @@ public class ContribucionViewController {
     @GetMapping("/donar-dinero")
     public String mostrarFormDonacionDinero(Model model) {
         setPaginaActual("/colaborar", model);
-
         return "donar-dinero";
     }
 
     @PostMapping("/donar-dinero/guardar")
     public String guardarDonacionDinero(
-        @RequestParam("monto") Double monto,
+        @RequestParam(value = "monto", defaultValue = "0") Double monto,
+        @RequestParam(value = "monto-personalizado", defaultValue = "0") Double montoPersonalizado,
         @RequestParam("frecuencia") DonacionDinero.FrecuenciaDePago frecuencia)
     {
+        Double montoFinal = Math.max(monto, montoPersonalizado);
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
 
         Colaborador colaborador = colaboradorService.obtenerColaboradorPorUsername(username);
-        colaboradorService.colaborar(colaborador.getId(), donacionDineroCreator, LocalDateTime.now(), monto, frecuencia);
+        colaboradorService.colaborar(colaborador.getId(), donacionDineroCreator, LocalDateTime.now(), montoFinal, frecuencia);
 
         return "redirect:/donar-dinero";
     }

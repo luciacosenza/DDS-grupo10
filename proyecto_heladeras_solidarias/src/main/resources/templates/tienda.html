@@ -54,7 +54,7 @@
             <div class="card-body h-100">
                 <h5 class="card-title" th:text="${oferta.nombre}">Nombre del artículo</h5>
                 <p class="card-text"><span class="precio" th:text="${oferta.costo.intValue()}">Precio</span> puntos</p>
-                <button class="btn btn-primary btn-adquirir" onclick="adquirir(${articulo.precio})">Adquirir</button>
+                <a th:href="@{/tienda/obtener-oferta/{id}(id=${oferta.id})}" class="btn btn-primary btn-adquirir">Adquirir</a>
             </div>
         </div>
 

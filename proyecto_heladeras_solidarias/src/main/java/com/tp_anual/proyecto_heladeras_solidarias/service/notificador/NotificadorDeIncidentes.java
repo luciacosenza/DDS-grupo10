@@ -11,6 +11,8 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
+import java.util.logging.Level;
+
 @Service
 @Log
 public class NotificadorDeIncidentes extends Notificador {
@@ -25,12 +27,18 @@ public class NotificadorDeIncidentes extends Notificador {
     }
 
     public void notificarIncidente(Incidente incidente) {
-        Tecnico tecnicoAAlertar = ubicadorTecnico.obtenerTecnicoCercanoA(incidente);
-        tecnicoService.agregarAPendientes(tecnicoAAlertar.getId(), incidente);
-        tecnicoService.guardarTecnico(tecnicoAAlertar);
-        
-        Heladera heladera = incidente.getHeladera();
-        MedioDeContacto medioDeContacto = tecnicoAAlertar.getMedioDeContacto();
-        enviarNotificacion(medioDeContacto, I18n.getMessage("notificador.NotificadorDeIncidentes.notificarEstado_outer_message_title", heladera.getNombre()), I18n.getMessage("notificador.NotificadorDeIncidentes.notificarEstado_outer_message_body", incidente.getClass().getSimpleName(), heladera.getNombre()));
+        try {
+            Tecnico tecnicoAAlertar = ubicadorTecnico.obtenerTecnicoCercanoA(incidente);
+            tecnicoService.agregarAPendientes(tecnicoAAlertar.getId(), incidente);
+            tecnicoService.guardarTecnico(tecnicoAAlertar);
+
+            Heladera heladera = incidente.getHeladera();
+            MedioDeContacto medioDeContacto = tecnicoAAlertar.getMedioDeContacto();
+            enviarNotificacion(medioDeContacto, I18n.getMessage("notificador.NotificadorDeIncidentes.notificarEstado_outer_message_title", heladera.getNombre()), I18n.getMessage("notificador.NotificadorDeIncidentes.notificarEstado_outer_message_body", incidente.getClass().getSimpleName(), heladera.getNombre()));
+        } catch (Exception e) {
+            log.log(Level.INFO, I18n.getMessage("notificador.NotificadorDeIncidentes.notificarEstado_outer_message_error"));
+        }
+
     }
 }
+

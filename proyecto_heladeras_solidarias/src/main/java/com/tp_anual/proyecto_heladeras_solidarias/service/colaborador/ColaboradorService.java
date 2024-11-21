@@ -214,7 +214,6 @@ public class ColaboradorService {
                 log.log(Level.SEVERE, I18n.getMessage("colaborador.ColaboradorHumano.suscribirse_err", colaborador.getPersona().getNombre(2)));
                 throw new IllegalArgumentException(I18n.getMessage("colaborador.ColaboradorHumano.suscribirse_exception"));
             }
-
         }
 
         agregarSuscripcion(colaboradorId, suscripcion);
