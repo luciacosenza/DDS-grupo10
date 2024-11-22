@@ -35,7 +35,7 @@ public class Tecnico {
     @JoinColumn(name = "persona")
     private PersonaFisica persona;  // final
 
-    @Pattern(regexp = "^^\\d{2}\\d{8}\\d{1}$")
+    /*@Pattern(regexp = "^^\\d{2}\\d{8}\\d{1}$")*/
     private String cuil;    // final
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
