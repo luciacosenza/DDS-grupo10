@@ -121,6 +121,20 @@ public class HeladeraService {
         }
     }
 
+    public void reservarEspacioParaViandas(Long heladeraId, Integer cantidad) {
+        Heladera heladera = obtenerHeladera(heladeraId);
+        Integer nuevaCantidadReservada = heladera.getCantidadReservada() + cantidad;
+
+        heladera.setCantidadReservada(nuevaCantidadReservada);
+    }
+
+    public void reservarViandas(Long heladeraId, Integer cantidad) {
+        Heladera heladera = obtenerHeladera(heladeraId);
+        Integer nuevaCantidadReservada = heladera.getCantidadReservada() - cantidad;
+
+        heladera.setCantidadReservada(nuevaCantidadReservada);
+    }
+
     public void agregarVianda(Long heladeraId, Vianda vianda) {
         Heladera heladera = obtenerHeladera(heladeraId);
 
