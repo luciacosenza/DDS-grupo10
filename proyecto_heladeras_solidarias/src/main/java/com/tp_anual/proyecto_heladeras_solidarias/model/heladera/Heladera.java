@@ -39,6 +39,9 @@ public class Heladera implements HeladeraObserver {    // Implementa una Interfa
     protected List<Vianda> viandas;    // final
 
     @Setter
+    protected Integer cantidadReservada;
+
+    @Setter
     protected Float tempActual;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -61,6 +64,7 @@ public class Heladera implements HeladeraObserver {    // Implementa una Interfa
         tempMin = vTempMin;
         tempMax = vTempMax;
         viandas = vViandas;
+        cantidadReservada = vViandas.size();
         tempActual = vTempActual;
         fechaApertura = vFechaApertura;
         estado = vEstado;

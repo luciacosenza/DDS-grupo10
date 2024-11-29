@@ -29,14 +29,16 @@ public class TarjetaColaboradorService extends TarjetaService {
     private final GestorDeAperturas gestorDeAperturas;
     private final AccionHeladeraService accionHeladeraService;
     private final TarjetaColaboradorCreator tarjetaColaboradorCreator;
+    private final PermisoAperturaService permisoAperturaService;
 
-    public TarjetaColaboradorService(TarjetaColaboradorRepository vTarjetaColaboradorRepository, ColaboradorService vColaboradorService, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas, TarjetaColaboradorCreator vTarjetaColaboradorCreator) {
+    public TarjetaColaboradorService(TarjetaColaboradorRepository vTarjetaColaboradorRepository, ColaboradorService vColaboradorService, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas, TarjetaColaboradorCreator vTarjetaColaboradorCreator, PermisoAperturaService permisoAperturaService) {
         super();
         tarjetaColaboradorRepository = vTarjetaColaboradorRepository;
         colaboradorService = vColaboradorService;
         accionHeladeraService = vAccionHeladeraService;
         gestorDeAperturas = vGestorDeAperturas;
         tarjetaColaboradorCreator = vTarjetaColaboradorCreator;
+        this.permisoAperturaService = permisoAperturaService;
     }
 
     @Override
@@ -77,7 +79,10 @@ public class TarjetaColaboradorService extends TarjetaService {
 
         // Agrego el permiso correspondiente para abrir la Heladera involucrada
         PermisoApertura permisoApertura = new PermisoApertura(heladeraInvolucrada, LocalDateTime.now(), true);
-        agregarPermiso(tarjetaColaboradorId, permisoApertura);  // Al guardar la tarjeta, se guarda el permiso por cascada
+        Long permisoAperturaId = permisoAperturaService.guardarPermisoApertura(permisoApertura).getId();    // Guardo el permiso para obtener el id
+        permisoAperturaService.programarRevocacionPermiso(permisoAperturaId);
+
+        agregarPermiso(tarjetaColaboradorId, permisoApertura);
 
         log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaborador.solicitarApertura_info", heladeraInvolucrada.getNombre(), tarjetaColaborador.getTitular().getPersona().getNombre(2)));
 

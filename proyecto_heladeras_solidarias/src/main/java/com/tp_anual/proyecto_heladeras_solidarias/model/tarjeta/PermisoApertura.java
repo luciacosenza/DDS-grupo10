@@ -39,7 +39,7 @@ public class PermisoApertura {
         otorgado = vOtorgado;
     }
 
-    public void actualizarFechaOtorgamiento(){
-        setFechaOtorgamiento(LocalDateTime.now());
+    public void revocarPermiso() {
+        setOtorgado(false);
     }
 }

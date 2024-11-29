@@ -28,7 +28,7 @@ public class GestorDeAperturas {
     
     public void revisarMotivoApertura(Heladera heladera, MotivoSolicitud motivo) {
         if (motivo == MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION &&
-            heladeraService.estaVacia(heladera.getId())) {
+            (heladeraService.estaVacia(heladera.getId()) || heladeraService.estaraVacia(heladera.getId()))) {
             
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_err_heladera_vacia", heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_exception_heladera_vacia"));
@@ -36,7 +36,7 @@ public class GestorDeAperturas {
 
         if ((motivo == MotivoSolicitud.INGRESAR_DONACION ||
             motivo == MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION) &&
-            heladeraService.estaLlena(heladera.getId())) {
+            heladeraService.estaLlena(heladera.getId()) || heladeraService.estaraLlena(heladera.getId())) {
 
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_err_heladera_llena", heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_exception_heladera_llena"));
@@ -62,10 +62,8 @@ public class GestorDeAperturas {
         long horasPasadas = heladera.getUnidadTiempoPermiso().between(fechaOtorgamiento, ahora);
 
         if (horasPasadas >= heladera.getTiempoPermiso()) {
-            permisoARevisar.setOtorgado(false);
-            permisoAperturaService.guardarPermisoApertura(permisoARevisar);
+            permisoAperturaService.revocarPermisoApertura(permisoARevisar.getId());
 
-            log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaborador.programarRevocacionPermisos_info", heladera.getNombre(), colaborador.getPersona().getNombre(2)));
 
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_err", colaborador.getPersona().getNombre(2), heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_exception"));
