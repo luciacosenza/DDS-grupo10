@@ -52,6 +52,13 @@
                                 <button type="button" class="btn btn-light btn-lg px-4">Suscribirse a heladera</button>
                             </a>
                         </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start" sec:authorize="isAuthenticated() and hasAuthority('ROL_ADMIN')">
+                            <a class="href-colab" th:href="@{/admin}">
+                                <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">
+                                    Ver panel
+                                </button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -123,7 +130,9 @@
             text: 'Sesión iniciada con éxito.',
             icon: 'success',
             confirmButtonText: 'Aceptar'
-        });
+        }).then(() => {
+            window.location.href = "/heladeras-solidarias/";
+        })
     </script>
     <script th:if="${logoutSuccess}">
         Swal.fire({
@@ -131,6 +140,8 @@
             text: 'Sesión cerrada con éxito.',
             icon: 'success',
             confirmButtonText: 'Aceptar'
+        }).then(() => {
+            window.location.href = "/heladeras-solidarias/";
         });
     </script>
 </body>

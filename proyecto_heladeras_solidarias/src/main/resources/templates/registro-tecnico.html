@@ -89,25 +89,40 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="mb-3">
-                                <span class="span-form">Área de Cobertura</span>
-                                <div class="mb-3 d-flex justify-content-between gap-2">
+                        <div class="mb-3 row">
+                            <span class="span-form">Ubicacion</span>
+                            <div class="d-flex w-100 flex-wrap">
+                                <div class="d-flex flex-column me-3">
                                     <label for="latitud-1" class="form-label">Latitud 1</label>
                                     <input name="latitud-1" type="text" class="form-control" id="latitud-1" required>
-
+                                </div>
+                                <div class="d-flex flex-column me-3">
                                     <label for="latitud-2" class="form-label">Latitud 2</label>
                                     <input name="latitud-2" type="text" class="form-control" id="latitud-2" required>
-
+                                </div>
+                                <div class="d-flex flex-column me-3">
                                     <label for="longitud-1" class="form-label">Longitud 1</label>
                                     <input name="longitud-1" type="text" class="form-control" id="longitud-1" required>
-
+                                </div>
+                                <div class="d-flex flex-column me-3">
                                     <label for="longitud-2" class="form-label">Longitud 2</label>
                                     <input name="longitud-2" type="text" class="form-control" id="longitud-2" required>
                                 </div>
                             </div>
-                        <div class="w-100 d-flex justify-content-center">
-                            <button type="submit" class="btn btn-dark w-50">Registrar</button>
-                        </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <div class="input-group">
+                                    <div class="input-group-append"></div>
+                                    <input name="password" type="password" class="form-control" id="password" required>
+                                    <div class="invalid-feedback"></div>
+<!--                                    <button class="btn toggle-password" type="button">-->
+<!--&lt;!&ndash;                                <span class="material-symbols-outlined toggle-pass-icon">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    visibility&ndash;&gt;-->
+<!--&lt;!&ndash;                                </span>&ndash;&gt;-->
+<!--                                    </button>-->
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-dark w-100">Continuar</button>
                     </form>
                 </div>
             </div>

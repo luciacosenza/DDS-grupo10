@@ -198,7 +198,6 @@ public class AuthController {
             model.addAttribute("loginError", "Usuario o contraseña incorrectos");
         }
 
-
         return "login";
     }
 
