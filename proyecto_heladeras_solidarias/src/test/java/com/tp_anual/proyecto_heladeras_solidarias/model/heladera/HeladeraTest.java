@@ -90,7 +90,7 @@ public class HeladeraTest {
         TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorHumanoId);
         String codigoTarjeta = colaboradorService.agregarTarjeta(colaboradorHumanoId, tarjetaColaborador).getCodigo();
 
-        tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);
+        tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION, 1);
         tarjetaColaboradorService.intentarApertura(codigoTarjeta, heladera1);
         heladeraService.agregarVianda(heladera1Id, vianda1);
         viandaService.agregarAHeladeraPrimeraVez(vianda1Id, heladera1);
@@ -102,7 +102,7 @@ public class HeladeraTest {
 
         DonacionVianda donacionVianda2 = (DonacionVianda) colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), vianda2, heladera1);
 
-        tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);
+        tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION, 1);
         tarjetaColaboradorService.intentarApertura(codigoTarjeta, heladera1);
         heladeraService.agregarVianda(heladera1Id, vianda2);
         viandaService.agregarAHeladeraPrimeraVez(vianda2Id, heladera1);
@@ -114,7 +114,7 @@ public class HeladeraTest {
 
         DonacionVianda donacionVianda3 = (DonacionVianda) colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), vianda3, heladera1);
 
-        tarjetaColaboradorService.solicitarApertura(codigoTarjeta,heladera1, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);
+        tarjetaColaboradorService.solicitarApertura(codigoTarjeta,heladera1, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION, 1);
         tarjetaColaboradorService.intentarApertura(codigoTarjeta, heladera1);
         heladeraService.agregarVianda(heladera1Id, vianda3);
         viandaService.agregarAHeladeraPrimeraVez(vianda3Id, heladera1);
@@ -126,7 +126,7 @@ public class HeladeraTest {
 
         DonacionVianda donacionVianda4 = (DonacionVianda) colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), vianda4, heladera2);
 
-        tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera2, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);
+        tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera2, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION, 1);
         tarjetaColaboradorService.intentarApertura(codigoTarjeta, heladera2);
         heladeraService.agregarVianda(heladera2Id, vianda4);
         viandaService.agregarAHeladeraPrimeraVez(vianda4Id, heladera2);
@@ -137,7 +137,7 @@ public class HeladeraTest {
         DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
         DistribucionViandas distribucionViandas = (DistribucionViandas) colaboradorService.colaborar(colaboradorHumanoId, distribucionViandasCreator, LocalDateTime.now(), heladera1, heladera2, cantidadADistribuir, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
 
-        tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION);
+        tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION, cantidadADistribuir);
         tarjetaColaboradorService.intentarApertura(codigoTarjeta, heladera1);
         
         List<Vianda> viandasAux = new ArrayList<>();
@@ -148,7 +148,7 @@ public class HeladeraTest {
             viandasAux.add(viandaAux);
         }
 
-        tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera2, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION);
+        tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera2, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION, cantidadADistribuir);
         tarjetaColaboradorService.intentarApertura(codigoTarjeta, heladera2);
 
         for (Integer i = 1; i <= cantidadADistribuir; i++) {

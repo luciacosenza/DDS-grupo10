@@ -69,7 +69,7 @@ public class DonacionViandaTest {
         TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorHumanoId);
         String codigoTarjeta = colaboradorService.agregarTarjeta(colaboradorHumanoId, tarjetaColaborador).getCodigo();
 
-        tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION);
+        tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION, 1);
         tarjetaColaboradorService.intentarApertura(codigoTarjeta, heladera);
         heladeraService.agregarVianda(heladeraId, vianda);
         viandaService.agregarAHeladeraPrimeraVez(viandaId, heladera);
