@@ -2,10 +2,12 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.PermisoApertura;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.tarjeta.PermisoAperturaRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.tarjeta.TarjetaColaboradorRepository;
+import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.Getter;
 import lombok.extern.java.Log;
@@ -23,13 +25,15 @@ public class PermisoAperturaService {
 
     private final PermisoAperturaRepository permisoAperturaRepository;
     private final TarjetaColaboradorRepository tarjetaColaboradorRepository;
+    private final HeladeraService heladeraService;
 
     @Getter
     private final Long retrasoRevocacion;
 
-    public PermisoAperturaService(PermisoAperturaRepository vPermisoAperturaRepository, TarjetaColaboradorRepository vTarjetaColaboradorRepository, @Value("#{3}") /* 3 horas en horas */ Long vRetrasoRevocacion) {
+    public PermisoAperturaService(PermisoAperturaRepository vPermisoAperturaRepository, TarjetaColaboradorRepository vTarjetaColaboradorRepository, HeladeraService vHeladeraService, @Value("#{3}") /* 3 horas en horas */ Long vRetrasoRevocacion) {
         permisoAperturaRepository = vPermisoAperturaRepository;
         tarjetaColaboradorRepository = vTarjetaColaboradorRepository;
+        heladeraService = vHeladeraService;
         retrasoRevocacion = vRetrasoRevocacion;
     }
 
@@ -41,8 +45,8 @@ public class PermisoAperturaService {
         return permisoAperturaRepository.save(permisoApertura);
     }
 
-    public PermisoApertura crearPermisoApertura(Heladera heladeraPermitida, LocalDateTime fechaOtorgamiento) {
-        PermisoApertura permisoApertura = new PermisoApertura(heladeraPermitida, fechaOtorgamiento, true);
+    public PermisoApertura crearPermisoApertura(Heladera heladeraPermitida, LocalDateTime fechaOtorgamiento, SolicitudAperturaColaborador.MotivoSolicitud motivo, Integer cantidadViandas) {
+        PermisoApertura permisoApertura = new PermisoApertura(heladeraPermitida, fechaOtorgamiento, motivo, cantidadViandas, true);
         Long permisoAperturaId = guardarPermisoApertura(permisoApertura).getId();   // Guardo el permiso para obtener el id
         programarRevocacionPermiso(permisoAperturaId);
 
@@ -64,6 +68,20 @@ public class PermisoAperturaService {
         guardarPermisoApertura(permisoApertura);
 
         log.log(Level.INFO, I18n.getMessage("tarjeta.PermisoApertura.revocarPermisoApertura_info", permisoApertura.getHeladeraPermitida().getNombre(), obtenerTarjetaColaboradorPorPermisoApertura(permisoAperturaId).getTitular().getPersona().getNombre(2)));
+
+        Heladera heladera = permisoApertura.getHeladeraPermitida();
+
+        // Rollbackeo la reserva de viandas/espacio cuando ya se perdieron los permisos sobre esa operación (y no va a poder ser realizada)
+        switch(permisoApertura.getMotivo()) {
+
+            case INGRESAR_DONACION -> heladeraService.reservarViandas(heladera.getId(), 1);
+
+            case INGRESAR_LOTE_DE_DISTRIBUCION -> heladeraService.reservarViandas(heladera.getId(), permisoApertura.getCantidadViandas());
+
+            case RETIRAR_LOTE_DE_DISTRIBUCION -> heladeraService.reservarEspacioParaViandas(heladera.getId(), permisoApertura.getCantidadViandas());
+
+            default -> {}
+        }
     }
 
     // Programo la revocación del permiso

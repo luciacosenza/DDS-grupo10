@@ -121,6 +121,7 @@ public class HeladeraService {
         }
     }
 
+    // Este método también sirve para "rollbackear" la reserva de viandas
     public void reservarEspacioParaViandas(Long heladeraId, Integer cantidad) {
         Heladera heladera = obtenerHeladera(heladeraId);
         Integer nuevaCantidadReservada = heladera.getCantidadReservada() + cantidad;
@@ -128,6 +129,7 @@ public class HeladeraService {
         heladera.setCantidadReservada(nuevaCantidadReservada);
     }
 
+    // Este método también sirve para "rollbackear" la reserva de espacio para viandas
     public void reservarViandas(Long heladeraId, Integer cantidad) {
         Heladera heladera = obtenerHeladera(heladeraId);
         Integer nuevaCantidadReservada = heladera.getCantidadReservada() - cantidad;

@@ -69,7 +69,7 @@ public class TarjetaColaboradorService extends TarjetaService {
         guardarTarjeta(tarjetaColaborador);
     }
 
-    public SolicitudAperturaColaborador solicitarApertura(String tarjetaColaboradorId, Heladera heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo) {
+    public SolicitudAperturaColaborador solicitarApertura(String tarjetaColaboradorId, Heladera heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo, Integer cantidadViandas) {
         TarjetaColaborador tarjetaColaborador = obtenerTarjeta(tarjetaColaboradorId);
 
         gestorDeAperturas.revisarMotivoApertura(heladeraInvolucrada, motivo);
@@ -78,7 +78,7 @@ public class TarjetaColaboradorService extends TarjetaService {
         accionHeladeraService.guardarAccionHeladera(solicitudApertura);
 
         // Agrego el permiso correspondiente para abrir la Heladera involucrada
-        PermisoApertura permisoApertura = permisoAperturaService.crearPermisoApertura(heladeraInvolucrada, LocalDateTime.now());
+        PermisoApertura permisoApertura = permisoAperturaService.crearPermisoApertura(heladeraInvolucrada, LocalDateTime.now(), motivo, cantidadViandas);
         agregarPermiso(tarjetaColaboradorId, permisoApertura);
 
         log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaborador.solicitarApertura_info", heladeraInvolucrada.getNombre(), tarjetaColaborador.getTitular().getPersona().getNombre(2)));
