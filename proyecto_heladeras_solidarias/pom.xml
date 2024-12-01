@@ -13,7 +13,7 @@
 	<groupId>com.tp_anual</groupId>
 	<artifactId>proyecto_heladeras_solidarias</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>proyecto_heladeras_solidarias</name>
 	<description>Proyecto Heladeras Solidarias</description>
 	<url>https://github.com/luciacosenza/DDS-grupo10/tree/main/tp_anual_dds</url>
