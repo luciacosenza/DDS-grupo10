@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+
 @font-face {
     font-family: 'FC-Palette';
     src: url("../assets/fonts/FC-Palette.otf");
@@ -39,6 +40,8 @@ main {
 
 h1 {
     font-size: 4rem;
+    font-family: FC-Palette;
+    color: #4285f4;
 }
 
 p {
@@ -247,6 +250,34 @@ p {
     font-weight: 600;
 }
 
+ul {
+    list-style-type: none; /* Elimina el estilo predeterminado */
+}
+
+.lista-personalizada li{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.lista-personalizada li::before {
+    content: ""; /* No muestra texto, solo el círculo */
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 10px; /* Espacio entre el marcador y el texto */
+    background-color: #4285f4; /* Color del círculo */
+    border-radius: 50%; /* Hace que sea un círculo */
+}
+
+
+#quienes-somos{
+    height: 110vh;
+}
+
+#como-participar{
+    height: 110vh;
+}
+
 /* ---- INICIAR SESIÓN ---- */
 
 #login {
@@ -441,6 +472,9 @@ input::-webkit-file-upload-button {
 }
 
 /* ---- MAPA ---- */
+#mapa-heladeras{
+    height: 130vh;
+}
 
 #map {
     width: 75%;
@@ -451,15 +485,24 @@ input::-webkit-file-upload-button {
 
 /* ---- COLABORAR (HUMANO) ---- */
 
+/*------------------------------------------------BOTON------------------------------------------------*/
 .btn-colaborar {
-    width: 100%;
-    height: 70px;
+    font-weight: bold;
+    width: 150px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
     box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+    background-color: #afdbf9;
+
 }
+
+.color-blue{
+    color: #4285f4;
+}
+/*------------------------------------------------BOTON------------------------------------------------*/
 
 .card-colaborar {
     margin: 0 auto;
@@ -588,3 +631,4 @@ input::-webkit-file-upload-button {
     margin-top: 5px;
 
 }
+
