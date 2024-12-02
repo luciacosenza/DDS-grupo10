@@ -1,8 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+@font-face {
+    font-family: 'FC-Palette';
+    src: url("../assets/fonts/FC-Palette.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+.FC-palette{
+    font-family: FC-Palette;
+    color: #4285f4;
+    cursor: default;
+}
+.FC-palette:hover{
+    color: #4285f4;
+}
+
+.FC-palette-span{
+    font-family: FC-Palette;
+    color:#afdbf9;
+    cursor: default;
+}
+
 html, body {
     height: 100%;
 }
+
 
 body {
     display: flex;
@@ -36,6 +59,20 @@ p {
     background-size: 40%;
 }
 
+.doodles{
+    background-image:
+        url("../assets/doodles/Group.png"),
+        url("../assets/doodles/Group-1.png"),
+        url("../assets/doodles/Group-2.png"),
+        url("../assets/doodles/Group-3.png"),
+        url("../assets/doodles/Group-4.png");
+    background-position: left top, right 0, right 400px, center 450px ,left 400px;
+
+
+
+    background-repeat: no-repeat;
+}
+
 /* ---- COMPONENTES ---- */
 
 /* ---- INDEX ---- */
@@ -58,8 +95,7 @@ p {
 }
 
 #elementos-main {
-    height: auto;
-    margin: 10% 20% 10% 20%;
+    height: 60vh;
 }
 
 #elementos-main .container {
