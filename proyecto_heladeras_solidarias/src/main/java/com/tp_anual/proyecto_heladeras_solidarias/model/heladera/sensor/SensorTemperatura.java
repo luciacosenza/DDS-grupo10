@@ -1,7 +1,8 @@
-package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
+package com.tp_anual.proyecto_heladeras_solidarias.model.heladera.sensor;
 
 import java.time.LocalDateTime;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;

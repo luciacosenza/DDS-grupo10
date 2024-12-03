@@ -72,4 +72,10 @@ public class DistribucionViandasService extends ContribucionService {
             confirmarSumaPuntos(distribucionViandas.getId(), colaborador, puntosASumar);
         }
     }
+
+    public void confirmarRetiro(Long distribucionViandasId) {
+        DistribucionViandas distribucionViandas = obtenerContribucion(distribucionViandasId);
+        distribucionViandas.confirmarRetiro();
+        guardarContribucion(distribucionViandas);
+    }
 }

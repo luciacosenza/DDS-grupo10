@@ -24,7 +24,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento.Sexo;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento.TipoDocumento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Vianda;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import org.springframework.beans.factory.annotation.Autowired;

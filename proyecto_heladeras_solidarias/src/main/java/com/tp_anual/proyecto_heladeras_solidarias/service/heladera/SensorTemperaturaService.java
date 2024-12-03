@@ -2,7 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.heladera;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.SensorTemperatura;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.sensor.SensorTemperatura;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.heladera.SensorTemperaturaRepository;
 import jakarta.persistence.EntityNotFoundException;

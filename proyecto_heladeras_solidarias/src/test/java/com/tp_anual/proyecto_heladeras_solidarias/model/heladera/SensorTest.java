@@ -2,8 +2,9 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.sensor.SensorMovimiento;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.sensor.SensorTemperatura;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.SensorMovimientoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.SensorTemperaturaService;

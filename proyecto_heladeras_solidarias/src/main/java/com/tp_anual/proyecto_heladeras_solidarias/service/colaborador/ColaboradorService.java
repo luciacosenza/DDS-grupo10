@@ -126,6 +126,16 @@ public class ColaboradorService {
         guardarColaborador(colaborador);
     }
 
+    public void retirarViandas(Long colaboradorId) {
+        Colaborador colaborador = obtenerColaborador(colaboradorId);
+        colaborador.retirarViandas();
+    }
+
+    public void ingresarViandas(Long colaboradorId) {
+        Colaborador colaborador = obtenerColaborador(colaboradorId);
+        colaborador.ingresarViandas();
+    }
+
     public Boolean esContribucionPermitida(Long colaboradorId, Class<? extends ContribucionCreator> creatorClass) {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
 

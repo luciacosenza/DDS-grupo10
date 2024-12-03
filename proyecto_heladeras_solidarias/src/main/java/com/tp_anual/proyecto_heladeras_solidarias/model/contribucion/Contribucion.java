@@ -49,7 +49,7 @@ public abstract class Contribucion {
 
         return switch (nombre) {
             case "CargaOferta" -> "Cargar Oferta";
-            case "DistribucionViandas" -> "Distribuir Vianda/s";
+            case "DistribucionViandas" -> "Distribuir Viandas";
             case "DonacionDinero" -> "Donar Dinero";
             case "DonacionVianda" -> "Donar Vianda";
             case "HacerseCargoDeHeladera" -> "Hacerse Cargo de Heladera";

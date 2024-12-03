@@ -83,10 +83,8 @@ async function obtenerHeladeras() {
         const response = await fetch('http://localhost:8080/heladeras-solidarias/api/heladeras');
         const heladeras = await response.json();
 
-        console.log(heladeras);
 
         const { Marker } = await google.maps.importLibrary("marker");
-        //let heladeras = [];
 
         heladeras.forEach(heladera => {
             const marker = new Marker({

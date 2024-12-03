@@ -1,11 +1,12 @@
 package com.tp_anual.proyecto_heladeras_solidarias.controller.view;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Vianda;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.PosesionViandas;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
@@ -15,6 +16,8 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.PosesionViandasService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.ViandaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerableService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta.TarjetaColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta.TarjetaPersonaEnSituacionVulnerableService;
@@ -37,6 +40,7 @@ public class ContribucionViewController {
     private final TarjetaColaboradorService tarjetaColaboradorService;
     private final TarjetaPersonaEnSituacionVulnerableService tarjetaPersonaEnSituacionVulnerableService;
     private final PersonaEnSituacionVulnerableService personaEnSituacionVulnerableService;
+    private final ViandaService viandaService;
     private final ColaboradorService colaboradorService;
     private final CargaOfertaCreator cargaOfertaCreator;
     private final DistribucionViandasCreator distribucionViandasCreator;
@@ -45,12 +49,15 @@ public class ContribucionViewController {
     private final HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator;
     private final RegistroDePersonaEnSituacionVulnerableCreator registroDePersonaEnSituacionVulnerableCreator;
     private final ContribucionFinder contribucionFinder;
+    private final DistribucionViandasService distribucionViandasService;
+    private final PosesionViandasService posesionViandasService;
 
-    public ContribucionViewController(HeladeraService vHeladeraService, TarjetaColaboradorService vTarjetaColaboradorService, PersonaEnSituacionVulnerableService vPersonaEnSituacionVulnerableService, TarjetaPersonaEnSituacionVulnerableService vTarjetaPersonaEnSituacionVulnerableService, ColaboradorService vColaboradorService, CargaOfertaCreator vCargaOfertaCreator, DistribucionViandasCreator vDistribucionViandasCreator, DonacionDineroCreator vDonacionDineroCreator, DonacionViandaCreator vDonacionViandaCreator, HacerseCargoDeHeladeraCreator vHacerseCargoDeHeladeraCreator, RegistroDePersonaEnSituacionVulnerableCreator vRegistroDePersonaEnSituacionVulnerableCreator, ContribucionFinder vContribucionFinder) {
+    public ContribucionViewController(HeladeraService vHeladeraService, TarjetaColaboradorService vTarjetaColaboradorService, PersonaEnSituacionVulnerableService vPersonaEnSituacionVulnerableService, ViandaService vViandaService, TarjetaPersonaEnSituacionVulnerableService vTarjetaPersonaEnSituacionVulnerableService, ColaboradorService vColaboradorService, CargaOfertaCreator vCargaOfertaCreator, DistribucionViandasCreator vDistribucionViandasCreator, DonacionDineroCreator vDonacionDineroCreator, DonacionViandaCreator vDonacionViandaCreator, HacerseCargoDeHeladeraCreator vHacerseCargoDeHeladeraCreator, RegistroDePersonaEnSituacionVulnerableCreator vRegistroDePersonaEnSituacionVulnerableCreator, ContribucionFinder vContribucionFinder, DistribucionViandasService vDistribucionViandasService, PosesionViandasService vPosesionViandasService) {
         heladeraService = vHeladeraService;
         tarjetaColaboradorService = vTarjetaColaboradorService;
         personaEnSituacionVulnerableService = vPersonaEnSituacionVulnerableService;
         tarjetaPersonaEnSituacionVulnerableService = vTarjetaPersonaEnSituacionVulnerableService;
+        viandaService = vViandaService;
         colaboradorService = vColaboradorService;
         cargaOfertaCreator = vCargaOfertaCreator;
         distribucionViandasCreator = vDistribucionViandasCreator;
@@ -59,6 +66,8 @@ public class ContribucionViewController {
         hacerseCargoDeHeladeraCreator = vHacerseCargoDeHeladeraCreator;
         registroDePersonaEnSituacionVulnerableCreator = vRegistroDePersonaEnSituacionVulnerableCreator;
         contribucionFinder = vContribucionFinder;
+        distribucionViandasService = vDistribucionViandasService;
+        posesionViandasService = vPosesionViandasService;
     }
 
     @GetMapping("/colaborar-personas-fisicas")
@@ -208,10 +217,12 @@ public class ContribucionViewController {
             @RequestParam("codigo-postal") String codigoPostal,
             @RequestParam("temp-minima") Float tempMinima,
             @RequestParam("temp-maxima") Float tempMaxima,
-            @RequestParam("capacidad") Integer capacidad
+            @RequestParam("capacidad") Integer capacidad,
+            @RequestParam("latitud") Double latitud,
+            @RequestParam("longitud") Double longitud
     )
     {
-        Ubicacion ubicacion = new Ubicacion(null, null, (calle + " " + altura), codigoPostal, ciudad, "Argentina");
+        Ubicacion ubicacion = new Ubicacion(latitud, longitud, (calle + " " + altura), codigoPostal, ciudad, "Argentina");
         Heladera heladera = new Heladera(nombre, ubicacion, capacidad, tempMinima, tempMaxima, new ArrayList<>(), null, LocalDateTime.now(), false ); //TODO: la seteo en false para que despues se active ???
         heladera.setUbicacion(ubicacion);
         heladera.setFechaApertura(LocalDateTime.now());
@@ -294,6 +305,67 @@ public class ContribucionViewController {
 
         Colaborador colaborador = colaboradorService.obtenerColaboradorPorUsername(username);
         colaboradorService.confirmarContribucion(colaborador.getId(), contribucion, LocalDateTime.now());
+
+        return "redirect:/contribuciones";
+    }
+
+    @GetMapping("/confirmar-retiro-viandas/{id}")
+    public String confirmarRetiroViandas(@PathVariable Long id) {
+        DistribucionViandas distribucionViandas = (DistribucionViandas) contribucionFinder.obtenerContribucion(id);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumanoPorUsername(username);
+
+        Heladera heladera = distribucionViandas.getOrigen();
+        Integer cantidadViandas = distribucionViandas.getCantidadViandasAMover();
+
+        List<Vianda> viandasACargo = new ArrayList<>();
+
+        for (Integer i = 1; i <= cantidadViandas; i++) {
+            Vianda viandaAux = heladeraService.retirarVianda(heladera.getId());
+            viandaService.quitarDeHeladera(viandaAux.getId());
+            viandasACargo.add(viandaAux);
+        }
+
+        PosesionViandas posesionViandas = posesionViandasService.crearPosesionViandas(colaborador, viandasACargo, LocalDateTime.now());
+        posesionViandasService.guardarPosesionViandas(posesionViandas);
+
+        distribucionViandasService.confirmarRetiro(distribucionViandas.getId());
+
+        colaboradorService.retirarViandas(colaborador.getId());
+
+        return "redirect:/contribuciones";
+    }
+
+    @GetMapping("/confirmar-ingreso-viandas/{id}")
+    public String confirmarIngresoViandas(@PathVariable Long id) {
+        DistribucionViandas distribucionViandas = (DistribucionViandas) contribucionFinder.obtenerContribucion(id);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumanoPorUsername(username);
+
+        Heladera heladera = distribucionViandas.getDestino();
+        Integer cantidadViandas = distribucionViandas.getCantidadViandasAMover();
+
+        PosesionViandas posesionViandas = posesionViandasService.obtenerPosesionViandasMasRecientePorColaborador(colaborador);
+
+        // Copio el array en vez de quitar directamente del array de posesionViandas porque quiero que esta se persista correctamente en la posteridad (no sin viandas)
+        List<Vianda> viandasACargo = posesionViandas.getViandas();
+
+        for (Integer i = 1; i <= cantidadViandas; i++) {
+            Vianda viandaAux = viandasACargo.removeFirst();
+            heladeraService.agregarVianda(heladera.getId(), viandaAux);
+            viandaService.agregarAHeladera(viandaAux.getId(), heladera);
+        }
+
+        colaboradorService.ingresarViandas(colaborador.getId());
+        colaboradorService.confirmarContribucion(colaborador.getId(), distribucionViandas, LocalDateTime.now());
 
         return "redirect:/contribuciones";
     }

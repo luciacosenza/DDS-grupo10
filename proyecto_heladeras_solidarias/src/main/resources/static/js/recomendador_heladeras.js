@@ -29,28 +29,27 @@ async function recomendarPuntosHeladeras(){
     }catch(error){}
 }
 async function obtenerHeladeras() {
-    const url = "https://ebabbd6d-dfd4-4f3d-bea8-c85e634b2a74.mock.pstmn.io/heladeras";
+    const url = 'http://localhost:8080/heladeras-solidarias/api/heladeras';
     try {
         const response = await fetch(url);
-        const data = await response.json();
+        const heladeras = await response.json();
 
         const { Marker } = await google.maps.importLibrary("marker");
-        let heladeras = []; 
 
-        data.heladeras.forEach(heladera => {
-            const marker = new Marker( {
-                position: heladera.position,
+        heladeras.forEach(heladera => {
+            const marker = new Marker({
+                position: { lat: heladera.ubicacion.latitud, lng: heladera.ubicacion.longitud},
                 map: mapa,
-                title: heladera.title,
+                title: heladera.nombre,
                 icon: {
-                    url: '../assets/iconUbicacionHeladeras.png',
+                    url: 'https://raw.githubusercontent.com/luciacosenza/DDS-grupo10/main/proyecto_heladeras_solidarias/src/main/resources/static/assets/iconUbicacionHeladeras.png',
                     scaledSize: new google.maps.Size(25, 35),
                     origin: new google.maps.Point(0, 0)
-                }
+                }   // TODO: ver como cambiar el iconito
             });
 
             const infoWindow = new google.maps.InfoWindow( {
-                content: `<h4>${heladera.title}</h4><p>${heladera.direccion}</p>`
+                content: `<h4>${heladera.nombre}</h4><p>${heladera.ubicacion.direccion}</p>`
             });
 
             marker.addListener('click', () => {
@@ -60,7 +59,7 @@ async function obtenerHeladeras() {
             heladeras.push({ marker: marker, position: heladera.position });
         });
 
-        return heladeras; 
+        return heladeras;
     } catch (error) {
         console.error('Error fetching heladeras data:', error);
     }

@@ -60,6 +60,10 @@ public abstract class Colaborador {
     @Setter
     protected Double puntos;
 
+    // Tuvimos que poner este atributo en Colaborador (no en Colaborador Humano) porque, al haber herencia, thymeleaf nos daba problemas para acceder al método (si estaba en Colaborador Humano)
+    @Setter
+    protected Boolean poseeViandas;
+
     protected Colaborador() {}
 
     protected Colaborador(Usuario vUsuario, Persona vPersona, Ubicacion vDomicilio, List<MedioDeContacto> vMediosDeContacto, List<Contribucion> vContribuciones, List<Oferta> vBeneficiosAdquiridos, Double vPuntos) {
@@ -70,6 +74,7 @@ public abstract class Colaborador {
         contribuciones = vContribuciones;
         beneficiosAdquiridos = vBeneficiosAdquiridos;
         puntos = vPuntos;
+        poseeViandas = false;
     }
 
     public Usuario getUsuario() {
@@ -107,6 +112,16 @@ public abstract class Colaborador {
 
     public void agregarBeneficio(Oferta oferta) {
         beneficiosAdquiridos.add(oferta);
+    }
+
+    // Ídem situación del atributo
+
+    public void retirarViandas() {
+        setPoseeViandas(true);
+    }
+
+    public void ingresarViandas() {
+        setPoseeViandas(false);
     }
 
     public void obtenerDetalles() {

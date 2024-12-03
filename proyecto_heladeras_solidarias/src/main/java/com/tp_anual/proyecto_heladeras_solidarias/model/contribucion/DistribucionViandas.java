@@ -8,6 +8,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import lombok.Setter;
 import lombok.extern.java.Log;
 import lombok.Getter;
 
@@ -30,6 +31,9 @@ public class DistribucionViandas extends Contribucion {
     @Enumerated(EnumType.STRING)
     private  MotivoDistribucion motivo; // final
 
+    @Setter
+    private Boolean retiroRealizado;
+
     public enum MotivoDistribucion {
         DESPERFECTO_EN_LA_HELADERA,
         FALTA_DE_VIANDAS_EN_DESTINO
@@ -45,6 +49,7 @@ public class DistribucionViandas extends Contribucion {
         destino = vDestino;
         cantidadViandasAMover = vCantidadViandasAMover;
         motivo = vMotivo;
+        retiroRealizado = false;
     }
 
     @Override
@@ -55,4 +60,7 @@ public class DistribucionViandas extends Contribucion {
         System.out.println(I18n.getMessage("contribucion.DistribucionViandas.obtenerDetalles_out_candidad_viandas_a_mover", cantidadViandasAMover));
         System.out.println(I18n.getMessage("contribucion.DistribucionViandas.obtenerDetalles_out_motivo", motivo));
     }
+
+    public void confirmarRetiro() {setRetiroRealizado(true);}
+
 }

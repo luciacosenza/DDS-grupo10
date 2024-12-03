@@ -14,8 +14,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.SensorMovimiento;
-import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.SensorTemperatura;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.sensor.SensorMovimiento;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.sensor.SensorTemperatura;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import org.springframework.beans.factory.annotation.Autowired;

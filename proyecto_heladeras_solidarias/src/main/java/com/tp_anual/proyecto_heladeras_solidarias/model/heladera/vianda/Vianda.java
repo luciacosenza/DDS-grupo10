@@ -1,9 +1,11 @@
-package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
+package com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.HeladeraNula;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

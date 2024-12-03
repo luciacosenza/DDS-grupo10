@@ -1,5 +1,6 @@
-package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
+package com.tp_anual.proyecto_heladeras_solidarias.model.heladera.sensor;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
