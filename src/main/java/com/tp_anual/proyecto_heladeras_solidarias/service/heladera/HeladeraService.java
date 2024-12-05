@@ -88,6 +88,16 @@ public class HeladeraService {
         return heladera.getCantidadReservada() < heladera.getCapacidad();
     }
 
+    public Boolean seVaciaCon(Long heladeraId, Integer viandas) {
+        Heladera heladera = obtenerHeladera(heladeraId);
+        return heladera.viandasActuales() - viandas <= 0 || heladera.getCantidadReservada() - viandas <= 0;
+    }
+
+    public Boolean seLlenaCon(Long heladeraId, Integer viandas) {
+        Heladera heladera = obtenerHeladera(heladeraId);
+        return heladera.getCapacidad() - (heladera.viandasActuales() + viandas) <= 0 || heladera.getCapacidad() - (heladera.getCantidadReservada() + viandas) <= 0;
+    }
+
     // Este método actúa únicamente sobre lo que ocurre de verdad en la heladera (no sobre los supuestos con cantidad reservada)
     public void verificarCondiciones(Long heladeraId) {
         Heladera heladera = obtenerHeladera(heladeraId);
@@ -127,6 +137,7 @@ public class HeladeraService {
         Integer nuevaCantidadReservada = heladera.getCantidadReservada() + cantidad;
 
         heladera.setCantidadReservada(nuevaCantidadReservada);
+        guardarHeladera(heladera);
     }
 
     // Este método también sirve para "rollbackear" la reserva de espacio para viandas
@@ -135,13 +146,13 @@ public class HeladeraService {
         Integer nuevaCantidadReservada = heladera.getCantidadReservada() - cantidad;
 
         heladera.setCantidadReservada(nuevaCantidadReservada);
+        guardarHeladera(heladera);
     }
 
     public void agregarVianda(Long heladeraId, Vianda vianda) {
         Heladera heladera = obtenerHeladera(heladeraId);
 
-        // Verifico que esté llena o que pueda llegar a estarlo dentro de las próximas horas (por una Donación o Distribución seleccionada pero no efectuada)
-        if (estaLlena(heladeraId) || estaraLlena(heladeraId)) {
+        if (estaLlena(heladeraId)) {
             log.log(Level.SEVERE, I18n.getMessage("heladera.Heladera.agregarVianda_err", heladera.getNombre()));
             throw new IllegalStateException(I18n.getMessage("heladera.Heladera.agregarVianda_exception"));
         }
@@ -157,8 +168,7 @@ public class HeladeraService {
     public Vianda retirarVianda(Long heladeraId) {
         Heladera heladera = obtenerHeladera(heladeraId);
 
-        // Verifico que esté vacía o que pueda llegar a estarlo dentro de las próximas horas (por una Distribución seleccionada pero no efectuada)
-        if (estaVacia(heladeraId) || estaraVacia(heladeraId)) {
+        if (estaVacia(heladeraId)) {
             log.log(Level.SEVERE, I18n.getMessage("heladera.Heladera.retirarVianda_err", heladera.getNombre()));
             throw new IllegalStateException(I18n.getMessage("heladera.Heladera.retirarVianda_exception"));
         }

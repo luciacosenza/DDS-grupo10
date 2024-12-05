@@ -90,7 +90,7 @@ public class Vianda {
     }
 
     public void quitarDeHeladera() {
-        setHeladera(new HeladeraNula());
+        setHeladera(null);
         desmarcarEntrega();
     }
 

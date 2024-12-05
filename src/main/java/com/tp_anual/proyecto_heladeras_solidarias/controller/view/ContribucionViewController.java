@@ -11,6 +11,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaboradorNula;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
@@ -123,16 +124,26 @@ public class ContribucionViewController {
         Heladera heladeraOrigen = heladeraService.obtenerHeladera(heladeraOrigenId);
         Heladera heladeraDestino = heladeraService.obtenerHeladera(heladeraDestinoId);
 
+        if(heladeraService.seVaciaCon(heladeraOrigen.getId(), cantidadAMover - 1)) {
+            return "redirect:/donar-vianda";    // Habría que retornar un error/aviso o algo así
+        }
+
+        if(heladeraService.seLlenaCon(heladeraDestino.getId(), cantidadAMover + 1)) {
+            return "redirect:/donar-vianda";    // Habría que retornar un error/aviso o algo así
+        }
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
 
-        Colaborador colaborador = colaboradorService.obtenerColaboradorPorUsername(username);
+        ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumanoPorUsername(username);
         Long colaboradorId = colaborador.getId();
         colaboradorService.colaborar(colaboradorId, distribucionViandasCreator, LocalDateTime.now(), heladeraOrigen, heladeraDestino, cantidadAMover, motivo);
 
-        TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorId);
-        String codigoTarjeta = colaboradorService.agregarTarjeta(colaboradorId, tarjetaColaborador).getCodigo();
+        if(colaborador.getTarjeta().getClass() == TarjetaColaboradorNula.class) {
+            TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorId);
+            String codigoTarjeta = colaboradorService.agregarTarjeta(colaboradorId, tarjetaColaborador).getCodigo();
+        }
 
         heladeraService.reservarViandas(heladeraOrigenId, cantidadAMover);
         heladeraService.reservarEspacioParaViandas(heladeraDestinoId, cantidadAMover);
@@ -182,18 +193,26 @@ public class ContribucionViewController {
         @RequestParam("peso") Integer peso)
     {
         Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
-        Vianda vianda = new Vianda(comida, null, fechaCaducidad, LocalDateTime.now(), calorias, peso, false);
+
+        if(heladeraService.seLlenaCon(heladera.getId(), 1)) {
+            return "redirect:/donar-vianda";    // Habría que retornar un error/aviso o algo así
+        }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
 
-        Colaborador colaborador = colaboradorService.obtenerColaboradorPorUsername(username);
+        ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumanoPorUsername(username);
         Long colaboradorId = colaborador.getId();
+
+        Vianda vianda = new Vianda(comida, colaborador, fechaCaducidad, LocalDateTime.now(), calorias, peso, false);
+
         colaboradorService.colaborar(colaboradorId, donacionViandaCreator, LocalDateTime.now(), vianda, heladera);
 
-        TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorId);
-        String codigoTarjeta = colaboradorService.agregarTarjeta(colaboradorId, tarjetaColaborador).getCodigo();
+        if(colaborador.getTarjeta().getClass() == TarjetaColaboradorNula.class) {
+            TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorId);
+            String codigoTarjeta = colaboradorService.agregarTarjeta(colaboradorId, tarjetaColaborador).getCodigo();
+        }
 
         heladeraService.reservarEspacioParaViandas(heladeraId, 1);
 
@@ -223,7 +242,7 @@ public class ContribucionViewController {
     )
     {
         Ubicacion ubicacion = new Ubicacion(latitud, longitud, (calle + " " + altura), codigoPostal, ciudad, "Argentina");
-        Heladera heladera = new Heladera(nombre, ubicacion, capacidad, tempMinima, tempMaxima, new ArrayList<>(), null, LocalDateTime.now(), false ); //TODO: la seteo en false para que despues se active ???
+        Heladera heladera = new Heladera(nombre, ubicacion, capacidad, tempMinima, tempMaxima, new ArrayList<>(), null, LocalDateTime.now(), false );
         heladera.setUbicacion(ubicacion);
         heladera.setFechaApertura(LocalDateTime.now());
 
@@ -309,6 +328,27 @@ public class ContribucionViewController {
         return "redirect:/contribuciones";
     }
 
+    @GetMapping("/confirmar-ingreso-vianda/{id}")
+    public String confirmarIngresoVianda(@PathVariable Long id) {
+        DonacionVianda donacionVianda = (DonacionVianda) contribucionFinder.obtenerContribucion(id);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumanoPorUsername(username);
+
+        Heladera heladera = donacionVianda.getHeladera();
+        Vianda vianda = donacionVianda.getVianda();
+
+        heladeraService.agregarVianda(heladera.getId(), vianda);
+        viandaService.agregarAHeladeraPrimeraVez(vianda.getId(), heladera);
+
+        colaboradorService.confirmarContribucion(colaborador.getId(), donacionVianda, LocalDateTime.now());
+
+        return "redirect:/contribuciones";
+    }
+
     @GetMapping("/confirmar-retiro-viandas/{id}")
     public String confirmarRetiroViandas(@PathVariable Long id) {
         DistribucionViandas distribucionViandas = (DistribucionViandas) contribucionFinder.obtenerContribucion(id);
@@ -331,7 +371,7 @@ public class ContribucionViewController {
         }
 
         PosesionViandas posesionViandas = posesionViandasService.crearPosesionViandas(colaborador, viandasACargo, LocalDateTime.now());
-        posesionViandasService.guardarPosesionViandas(posesionViandas);
+        posesionViandasService.guardarPosesionViandas(posesionViandas); //
 
         distribucionViandasService.confirmarRetiro(distribucionViandas.getId());
 

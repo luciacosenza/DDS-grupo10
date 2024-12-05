@@ -26,7 +26,7 @@ public class GestorDeAperturas {
         permisoAperturaService = vPermisoAperturaService;
     }
     
-    public void revisarMotivoApertura(Heladera heladera, MotivoSolicitud motivo) {
+    public void revisarMotivoApertura(Heladera heladera, MotivoSolicitud motivo) {  // TODO: Revisar
         if (motivo == MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION &&
             (heladeraService.estaVacia(heladera.getId()) || heladeraService.estaraVacia(heladera.getId()))) {
             
@@ -36,7 +36,7 @@ public class GestorDeAperturas {
 
         if ((motivo == MotivoSolicitud.INGRESAR_DONACION ||
             motivo == MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION) &&
-            heladeraService.estaLlena(heladera.getId()) || heladeraService.estaraLlena(heladera.getId())) {
+            heladeraService.estaLlena(heladera.getId()) || heladeraService.estaraLlena(heladera.getId())) { // TODO: Revisar
 
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_err_heladera_llena", heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_exception_heladera_llena"));

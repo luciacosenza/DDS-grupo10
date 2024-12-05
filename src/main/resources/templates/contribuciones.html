@@ -41,14 +41,17 @@
                                 <td class="text-nowrap" th:text="${contribucion.completada ? 'Sí' : 'No'}"></td>
 
                                 <td>
-                                    <a th:if="${!contribucion.completada} and ${contribucion.getNombre() != 'Distribuir Viandas'}"
+                                    <a th:if="${!contribucion.completada} and (${contribucion.getNombre() != 'Distribuir Viandas'} and ${contribucion.getNombre() != 'Donar Vianda'})"
                                        th:href="@{/confirmar-contribucion/{id}(id=${contribucion.id})}"
                                        class="btn btn-primary">Confirmar</a>
-                                    <a th:if="${!contribucion.completada} and ${contribucion.getNombre() == 'Distribuir Viandas'} and ${!contribucion.colaborador.poseeViandas}"
+                                    <a th:if="${!contribucion.completada} and ${contribucion.getNombre() == 'Donar Vianda'}"
+                                       th:href="@{/confirmar-ingreso-vianda/{id}(id=${contribucion.id})}"
+                                       class="btn btn-primary">Confirmar</a>
+                                    <a th:if="${!contribucion.completada} and ${contribucion.getNombre() == 'Distribuir Viandas'} and not ${contribucion.colaborador.poseeViandas}"
                                        th:href="@{/confirmar-retiro-viandas/{id}(id=${contribucion.id})}"
                                        class="btn btn-primary">Confirmar retiro</a>
                                     <a th:if="${!contribucion.completada} and ${contribucion.getNombre() == 'Distribuir Viandas'} and ${contribucion.colaborador.poseeViandas}"
-                                       th:href="@{/confirmar-contribucion/{id}(id=${contribucion.id})}"
+                                       th:href="@{/confirmar-ingreso-viandas/{id}(id=${contribucion.id})}"
                                        class="btn btn-primary">Confirmar ingreso</a>
 
                                     <span th:if="${contribucion.completada}" class="btn btn-success text-nowrap" style="pointer-events: none;">Ya confirmada</span>

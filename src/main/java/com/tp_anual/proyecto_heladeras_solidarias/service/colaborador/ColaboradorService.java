@@ -129,11 +129,13 @@ public class ColaboradorService {
     public void retirarViandas(Long colaboradorId) {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
         colaborador.retirarViandas();
+        guardarColaborador(colaborador);
     }
 
     public void ingresarViandas(Long colaboradorId) {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
         colaborador.ingresarViandas();
+        guardarColaborador(colaborador);
     }
 
     public Boolean esContribucionPermitida(Long colaboradorId, Class<? extends ContribucionCreator> creatorClass) {
