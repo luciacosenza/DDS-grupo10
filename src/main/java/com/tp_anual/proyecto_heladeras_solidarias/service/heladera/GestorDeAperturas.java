@@ -26,9 +26,9 @@ public class GestorDeAperturas {
         permisoAperturaService = vPermisoAperturaService;
     }
     
-    public void revisarMotivoApertura(Heladera heladera, MotivoSolicitud motivo) {  // TODO: Revisar
+    public void revisarMotivoApertura(Heladera heladera, MotivoSolicitud motivo, Integer cantidadViandas) {
         if (motivo == MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION &&
-            (heladeraService.estaVacia(heladera.getId()) || heladeraService.estaraVacia(heladera.getId()))) {
+            heladeraService.seVaciaCon(heladera.getId(), cantidadViandas - 1)) {
             
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_err_heladera_vacia", heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_exception_heladera_vacia"));
@@ -36,7 +36,7 @@ public class GestorDeAperturas {
 
         if ((motivo == MotivoSolicitud.INGRESAR_DONACION ||
             motivo == MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION) &&
-            heladeraService.estaLlena(heladera.getId()) || heladeraService.estaraLlena(heladera.getId())) { // TODO: Revisar
+                heladeraService.seLlenaCon(heladera.getId(), cantidadViandas - 1)) {
 
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_err_heladera_llena", heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_exception_heladera_llena"));
@@ -63,7 +63,6 @@ public class GestorDeAperturas {
 
         if (horasPasadas >= heladera.getTiempoPermiso()) {
             permisoAperturaService.revocarPermisoApertura(permisoARevisar.getId());
-
 
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_err", colaborador.getPersona().getNombre(2), heladera.getNombre()));
             throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_exception"));

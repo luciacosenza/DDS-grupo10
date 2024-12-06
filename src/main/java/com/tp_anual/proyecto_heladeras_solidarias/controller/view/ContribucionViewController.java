@@ -6,6 +6,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJ
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.PosesionViandas;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
@@ -129,24 +130,22 @@ public class ContribucionViewController {
         ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumanoPorUsername(username);
         Long colaboradorId = colaborador.getId();
 
-        // Un colaborador no puede solicitar una contribución de viandas si tiene otra pendiente
+        TarjetaColaborador tarjeta = colaborador.getTarjeta();
+
+        // Un Colaborador no puede solicitar una Contribución de viandas si tiene otra pendiente
         if (!colaboradorService.donacionesYDistribucionesNoConfirmadas(colaboradorId).isEmpty())
             return "redirect:/distribuir-viandas";    // TODO: Habría que retornar un error/aviso o algo así
 
         Heladera heladeraOrigen = heladeraService.obtenerHeladera(heladeraOrigenId);
         Heladera heladeraDestino = heladeraService.obtenerHeladera(heladeraDestinoId);
 
-        if (heladeraService.seVaciaCon(heladeraOrigen.getId(), cantidadAMover - 1))
-            return "redirect:/distribuir-viandas";    // TODO: Habría que retornar un error/aviso o algo así
-
-
-        if (heladeraService.seLlenaCon(heladeraDestino.getId(), cantidadAMover + 1))
-            return "redirect:/distribuir-viandas";    // TODO: Habría que retornar un error/aviso o algo así
-
+        // Verifico que la Heladera origen no esté vacía (o pueda vaciarse por reservas) y que la Heladera destino no esté llena (o pueda llenarse por reservas)
+        tarjetaColaboradorService.solicitarApertura(tarjeta.getCodigo(), heladeraOrigen, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION, cantidadAMover);
+        tarjetaColaboradorService.solicitarApertura(tarjeta.getCodigo(), heladeraDestino, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION, cantidadAMover);
 
         colaboradorService.colaborar(colaboradorId, distribucionViandasCreator, LocalDateTime.now(), heladeraOrigen, heladeraDestino, cantidadAMover, motivo);
 
-        if (colaborador.getTarjeta().getClass() == TarjetaColaboradorNula.class) {
+        if (tarjeta.getClass() == TarjetaColaboradorNula.class) {
             TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorId);
             String codigoTarjeta = colaboradorService.agregarTarjeta(colaboradorId, tarjetaColaborador).getCodigo();
         }
@@ -205,20 +204,22 @@ public class ContribucionViewController {
         ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumanoPorUsername(username);
         Long colaboradorId = colaborador.getId();
 
-        // Un colaborador no puede solicitar una contribución de viandas si tiene otra pendiente
+        TarjetaColaborador tarjeta = colaborador.getTarjeta();
+
+        // Un Colaborador no puede solicitar una Contribución de viandas si tiene otra pendiente
         if (!colaboradorService.donacionesYDistribucionesNoConfirmadas(colaboradorId).isEmpty())
             return "redirect:/donar-vianda";    // TODO: Habría que retornar un error/aviso o algo así
 
         Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
 
-        if (heladeraService.seLlenaCon(heladera.getId(), 1))
-            return "redirect:/donar-vianda";    // TODO: Habría que retornar un error/aviso o algo así
+        // Verifico que la Heladera origen no esté vacía (o pueda vaciarse por reservas) y que la Heladera destino no esté llena (o pueda llenarse por reservas)
+        tarjetaColaboradorService.solicitarApertura(tarjeta.getCodigo(), heladera, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION, 1);
 
         Vianda vianda = new Vianda(comida, colaborador, fechaCaducidad, LocalDateTime.now(), calorias, peso, false);
 
         colaboradorService.colaborar(colaboradorId, donacionViandaCreator, LocalDateTime.now(), vianda, heladera);
 
-        if(colaborador.getTarjeta().getClass() == TarjetaColaboradorNula.class) {
+        if (tarjeta.getClass() == TarjetaColaboradorNula.class) {
             TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorId);
             String codigoTarjeta = colaboradorService.agregarTarjeta(colaboradorId, tarjetaColaborador).getCodigo();
         }
@@ -337,27 +338,6 @@ public class ContribucionViewController {
         return "redirect:/contribuciones";
     }
 
-    @GetMapping("/confirmar-ingreso-vianda/{id}")
-    public String confirmarIngresoVianda(@PathVariable Long id) {
-        DonacionVianda donacionVianda = (DonacionVianda) contribucionFinder.obtenerContribucion(id);
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = userDetails.getUsername();
-
-        ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumanoPorUsername(username);
-
-        Heladera heladera = donacionVianda.getHeladera();
-        Vianda vianda = donacionVianda.getVianda();
-
-        heladeraService.agregarVianda(heladera.getId(), vianda);
-        viandaService.agregarAHeladeraPrimeraVez(vianda.getId(), heladera);
-
-        colaboradorService.confirmarContribucion(colaborador.getId(), donacionVianda, LocalDateTime.now());
-
-        return "redirect:/contribuciones";
-    }
-
     @GetMapping("/confirmar-retiro-viandas/{id}")
     public String confirmarRetiroViandas(@PathVariable Long id) {
         DistribucionViandas distribucionViandas = (DistribucionViandas) contribucionFinder.obtenerContribucion(id);
@@ -368,8 +348,13 @@ public class ContribucionViewController {
 
         ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumanoPorUsername(username);
 
+        TarjetaColaborador tarjeta = colaborador.getTarjeta();
+
         Heladera heladera = distribucionViandas.getOrigen();
         Integer cantidadViandas = distribucionViandas.getCantidadViandasAMover();
+
+        // Técnicamente el intento de Apertura ocurrió antes de que se ejecute este flujo de código, pero como no tenemos heladeras reales, esta es la única forma de hacerlo (necesitamos llamar al método intentarApertura para generar y guardar la Apertura)
+        tarjetaColaboradorService.intentarApertura(tarjeta.getCodigo(), heladera);
 
         List<Vianda> viandasACargo = new ArrayList<>();
 
@@ -399,8 +384,13 @@ public class ContribucionViewController {
 
         ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumanoPorUsername(username);
 
+        TarjetaColaborador tarjeta = colaborador.getTarjeta();
+
         Heladera heladera = distribucionViandas.getDestino();
         Integer cantidadViandas = distribucionViandas.getCantidadViandasAMover();
+
+        // Técnicamente el intento de Apertura ocurrió antes de que se ejecute este flujo de código, pero como no tenemos heladeras reales, esta es la única forma de hacerlo (necesitamos llamar al método intentarApertura para generar y guardar la Apertura)
+        tarjetaColaboradorService.intentarApertura(tarjeta.getCodigo(), heladera);
 
         // Me traigo la posesión más reciente porque ya sé que no puede haber más de una posesión "activa" a la vez
         PosesionViandas posesionViandas = posesionViandasService.obtenerPosesionViandasMasRecientePorColaborador(colaborador);
@@ -416,6 +406,31 @@ public class ContribucionViewController {
 
         colaboradorService.ingresarViandas(colaborador.getId());
         colaboradorService.confirmarContribucion(colaborador.getId(), distribucionViandas, LocalDateTime.now());
+
+        return "redirect:/contribuciones";
+    }
+
+    @GetMapping("/confirmar-ingreso-vianda/{id}")
+    public String confirmarIngresoVianda(@PathVariable Long id) {
+        DonacionVianda donacionVianda = (DonacionVianda) contribucionFinder.obtenerContribucion(id);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumanoPorUsername(username);
+
+        TarjetaColaborador tarjeta = colaborador.getTarjeta();
+        Heladera heladera = donacionVianda.getHeladera();
+        Vianda vianda = donacionVianda.getVianda();
+
+        // Técnicamente el intento de Apertura ocurrió antes de que se ejecute este flujo de código, pero como no tenemos heladeras reales, esta es la única forma de hacerlo (necesitamos llamar al método intentarApertura para generar y guardar la Apertura)
+        tarjetaColaboradorService.intentarApertura(tarjeta.getCodigo(), heladera);
+
+        heladeraService.agregarVianda(heladera.getId(), vianda);
+        viandaService.agregarAHeladeraPrimeraVez(vianda.getId(), heladera);
+
+        colaboradorService.confirmarContribucion(colaborador.getId(), donacionVianda, LocalDateTime.now());
 
         return "redirect:/contribuciones";
     }

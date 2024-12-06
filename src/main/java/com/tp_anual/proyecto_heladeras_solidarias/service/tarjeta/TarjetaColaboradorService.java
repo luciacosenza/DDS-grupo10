@@ -72,7 +72,7 @@ public class TarjetaColaboradorService extends TarjetaService {
     public SolicitudAperturaColaborador solicitarApertura(String tarjetaColaboradorId, Heladera heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo, Integer cantidadViandas) {
         TarjetaColaborador tarjetaColaborador = obtenerTarjeta(tarjetaColaboradorId);
 
-        gestorDeAperturas.revisarMotivoApertura(heladeraInvolucrada, motivo);
+        gestorDeAperturas.revisarMotivoApertura(heladeraInvolucrada, motivo, cantidadViandas);
 
         SolicitudAperturaColaborador solicitudApertura = new SolicitudAperturaColaborador(LocalDateTime.now(), heladeraInvolucrada, tarjetaColaborador.getTitular(), motivo);
         accionHeladeraService.guardarAccionHeladera(solicitudApertura);
