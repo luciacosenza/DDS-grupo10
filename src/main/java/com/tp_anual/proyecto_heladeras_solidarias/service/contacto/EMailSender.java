@@ -13,7 +13,6 @@ import javax.mail.internet.MimeMessage;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
@@ -22,18 +21,14 @@ import org.springframework.stereotype.Service;
 @Log
 public class EMailSender {
 	private final Properties propiedades;
-	private final Dotenv dotenv;
 	private final String  username;
     private final String password;
 	private Session sesion;
 
 	public EMailSender() {
 		propiedades = new Properties();
-
-		// Carga las variables de entorno usando Dotenv
-		dotenv = Dotenv.load();
-		username = dotenv.get("EMAIL_USERNAME");
-		password = dotenv.get("EMAIL_PASSWORD");
+		username = System.getenv("EMAIL_USERNAME");
+		password = System.getenv("EMAIL_PASSWORD");
 	}
 
 	@PostConstruct
