@@ -24,8 +24,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.csrf(crsf -> crsf.ignoringRequestMatchers(toH2Console()))      // Habilito Consola H2
-                .userDetailsService(userDetailsService)
+        http.userDetailsService(userDetailsService)
                 .authorizeHttpRequests(auth -> auth
                         // Permito recursos estáticos
                         .requestMatchers("/css/**", "/js/**", "/assets/**").permitAll()
@@ -37,8 +36,7 @@ public class SecurityConfiguration {
                                 "/registro-tecnico", "/registro-tecnico/guardar",
                                 "/ubicador-api", "/ubicador-api/{latitud}/{longitud}",
                                 "/api/heladeras").permitAll()
-                        // Permito H2 y la api para cualquier usuario
-                        .requestMatchers(toH2Console()).permitAll()
+                        // Endpoints para cualquier usuario
                         .requestMatchers("/api/heladeras").authenticated()
                         // Endpoints exclusivos de 'ROL_CJ' (Colaborador Jurídico)
                         .requestMatchers(new AntPathRequestMatcher("/cargar-premio"),
