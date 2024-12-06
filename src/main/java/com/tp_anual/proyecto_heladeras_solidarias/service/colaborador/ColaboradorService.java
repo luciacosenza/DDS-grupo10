@@ -34,17 +34,20 @@ public class ColaboradorService {
     private final ContribucionServiceSelector contribucionServiceSelector;
     private final OfertaService ofertaService;
     private final HeladeraService heladeraService;
+    private final DonacionViandaService donacionViandaService;
+    private final DistribucionViandasService distribucionViandasService;
 
     private final Map<Class<? extends Colaborador>, Set<Class<? extends ContribucionCreator>>> contribucionesPermitidas = new HashMap<>();
     private final ColaboradorPuntosService colaboradorPuntosService;
 
-    public ColaboradorService(ColaboradorRepository vColaboradorRepository, ContribucionServiceSelector vContribucionServiceSelector, OfertaService vOfertaService, HeladeraService vHeladeraService, ColaboradorPuntosService vColaboradorPuntosService) {
+    public ColaboradorService(ColaboradorRepository vColaboradorRepository, ContribucionServiceSelector vContribucionServiceSelector, OfertaService vOfertaService, HeladeraService vHeladeraService, DonacionViandaService vDonacionViandaService, DistribucionViandasService vDistribucionViandasService, ColaboradorPuntosService vColaboradorPuntosService) {
         colaboradorRepository = vColaboradorRepository;
         contribucionServiceSelector = vContribucionServiceSelector;
         ofertaService = vOfertaService;
         heladeraService = vHeladeraService;
+        donacionViandaService = vDonacionViandaService;
+        distribucionViandasService = vDistribucionViandasService;
         colaboradorPuntosService = vColaboradorPuntosService;
-
 
         Set<Class<? extends ContribucionCreator>> contribucionesPermitidasHumano = new HashSet<>();
         contribucionesPermitidasHumano.add(DistribucionViandasCreator.class);
@@ -136,6 +139,17 @@ public class ColaboradorService {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
         colaborador.ingresarViandas();
         guardarColaborador(colaborador);
+    }
+
+    public List<Contribucion> donacionesYDistribucionesNoConfirmadas(Long colaboradorId) {
+        ColaboradorHumano colaborador = obtenerColaboradorHumano(colaboradorId);
+
+        ArrayList<Contribucion> donacionesYDistribucionesNoConfirmadas = new ArrayList<>();
+
+        donacionesYDistribucionesNoConfirmadas.addAll(donacionViandaService.obtenerDonacionesViandaNoConfirmadasParaColaborador(colaborador));
+        donacionesYDistribucionesNoConfirmadas.addAll(distribucionViandasService.obtenerDistribucionesViandasNoConfirmadasParaColaborador(colaborador));
+
+        return donacionesYDistribucionesNoConfirmadas;
     }
 
     public Boolean esContribucionPermitida(Long colaboradorId, Class<? extends ContribucionCreator> creatorClass) {

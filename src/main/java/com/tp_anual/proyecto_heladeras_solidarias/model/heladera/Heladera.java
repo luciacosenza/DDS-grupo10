@@ -73,5 +73,9 @@ public class Heladera implements HeladeraObserver {    // Implementa una Interfa
 
     public Integer viandasActuales() {return viandas.size();}
 
+    public void actualizarFechaApertura() {setFechaApertura(LocalDateTime.now());}
+
+    public void marcarComoActiva() {setEstado(true);}
+
     public void marcarComoInactiva() {setEstado(false);}
 }

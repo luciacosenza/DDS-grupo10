@@ -2,7 +2,9 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DistribucionViandas;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionVianda;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contribucion.DonacionViandaRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorPuntosService;
@@ -36,6 +38,10 @@ public class DonacionViandaService extends ContribucionService {
 
     public List<DonacionVianda> obtenerDonacionesViandaQueSumanPuntos() {
         return new ArrayList<>(donacionViandaRepository.findByYaSumoPuntosFalse());
+    }
+
+    public List<DonacionVianda> obtenerDonacionesViandaNoConfirmadasParaColaborador(ColaboradorHumano colaborador) {
+        return new ArrayList<>(donacionViandaRepository.findByColaboradorAndCompletadaFalse(colaborador));
     }
 
     @Override

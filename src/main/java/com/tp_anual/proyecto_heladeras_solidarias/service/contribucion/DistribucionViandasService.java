@@ -38,6 +38,11 @@ public class DistribucionViandasService extends ContribucionService {
     public List<DistribucionViandas> obtenerDistribucionesViandasQueSumanPuntos() {
         return new ArrayList<>(distribucionViandasRepository.findByYaSumoPuntosFalse());
     }
+
+    public List<DistribucionViandas> obtenerDistribucionesViandasNoConfirmadasParaColaborador(ColaboradorHumano colaborador) {
+        return new ArrayList<>(distribucionViandasRepository.findByColaboradorAndCompletadaFalse(colaborador));
+    }
+
     @Override
     public DistribucionViandas guardarContribucion(Contribucion distribucionViandas) {
         return distribucionViandasRepository.saveAndFlush((DistribucionViandas) distribucionViandas);

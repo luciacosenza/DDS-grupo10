@@ -52,6 +52,18 @@ public class HeladeraService {
         return heladeraRepository.saveAndFlush(heladera);
     }
 
+    public void actualizarFechaApertura(Long heladeraId) {
+        Heladera heladera = obtenerHeladera(heladeraId);
+        heladera.actualizarFechaApertura();
+        guardarHeladera(heladera);
+    }
+
+    public void marcarComoActiva(Long heladeraId) {
+        Heladera heladera = obtenerHeladera(heladeraId);
+        heladera.marcarComoActiva();
+        guardarHeladera(heladera);
+    }
+
     public void marcarComoInactiva(Long heladeraId) {
         Heladera heladera = obtenerHeladera(heladeraId);
         heladera.marcarComoInactiva();

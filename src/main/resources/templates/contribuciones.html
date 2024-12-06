@@ -41,7 +41,7 @@
                                 <td class="text-nowrap" th:text="${contribucion.completada ? 'Sí' : 'No'}"></td>
 
                                 <td>
-                                    <a th:if="${!contribucion.completada} and (${contribucion.getNombre() != 'Distribuir Viandas'} and ${contribucion.getNombre() != 'Donar Vianda'})"
+                                    <a th:if="${!contribucion.completada} and (${contribucion.getNombre() != 'Distribuir Viandas'} and ${contribucion.getNombre() != 'Donar Vianda'} and ${contribucion.getNombre() != 'Hacerse Cargo de Heladera'})"
                                        th:href="@{/confirmar-contribucion/{id}(id=${contribucion.id})}"
                                        class="btn btn-primary">Confirmar</a>
                                     <a th:if="${!contribucion.completada} and ${contribucion.getNombre() == 'Donar Vianda'}"
@@ -52,6 +52,9 @@
                                        class="btn btn-primary">Confirmar retiro</a>
                                     <a th:if="${!contribucion.completada} and ${contribucion.getNombre() == 'Distribuir Viandas'} and ${contribucion.colaborador.poseeViandas}"
                                        th:href="@{/confirmar-ingreso-viandas/{id}(id=${contribucion.id})}"
+                                       class="btn btn-primary">Confirmar ingreso</a>
+                                    <a th:if="${!contribucion.completada} and ${contribucion.getNombre() == 'Hacerse Cargo de Heladera'}"
+                                       th:href="@{/confirmar-colocacion-heladera/{id}(id=${contribucion.id})}"
                                        class="btn btn-primary">Confirmar ingreso</a>
 
                                     <span th:if="${contribucion.completada}" class="btn btn-success text-nowrap" style="pointer-events: none;">Ya confirmada</span>
