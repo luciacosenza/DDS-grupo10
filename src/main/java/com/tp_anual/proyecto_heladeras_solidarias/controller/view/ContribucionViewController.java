@@ -139,7 +139,7 @@ public class ContribucionViewController {
         Heladera heladeraOrigen = heladeraService.obtenerHeladera(heladeraOrigenId);
         Heladera heladeraDestino = heladeraService.obtenerHeladera(heladeraDestinoId);
 
-        // Verifico que la Heladera origen no esté vacía (o pueda vaciarse por reservas) y que la Heladera destino no esté llena (o pueda llenarse por reservas)
+        // Verifico que la Heladera origen no esté vacía (o pueda vaciarse por reservas) y que la Heladera destino no esté llena (o pueda llenarse por reservas) y genero la Solicitud de Apertura y el Permiso de Apertura correspondientes
         tarjetaColaboradorService.solicitarApertura(tarjeta.getCodigo(), heladeraOrigen, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION, cantidadAMover);
         tarjetaColaboradorService.solicitarApertura(tarjeta.getCodigo(), heladeraDestino, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION, cantidadAMover);
 
@@ -212,7 +212,7 @@ public class ContribucionViewController {
 
         Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
 
-        // Verifico que la Heladera origen no esté vacía (o pueda vaciarse por reservas) y que la Heladera destino no esté llena (o pueda llenarse por reservas)
+        // Verifico que la Heladera origen no esté vacía (o pueda vaciarse por reservas) y que la Heladera destino no esté llena (o pueda llenarse por reservas) y genero la Solicitud de Apertura y el Permiso de Apertura correspondientes
         tarjetaColaboradorService.solicitarApertura(tarjeta.getCodigo(), heladera, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION, 1);
 
         Vianda vianda = new Vianda(comida, colaborador, fechaCaducidad, LocalDateTime.now(), calorias, peso, false);
