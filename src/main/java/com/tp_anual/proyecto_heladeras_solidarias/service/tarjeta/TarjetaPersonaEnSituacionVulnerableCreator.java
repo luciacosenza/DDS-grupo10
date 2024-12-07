@@ -2,6 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta;
 
 import java.util.logging.Level;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.DatosInvalidosCrearTarjetaPESVException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.Tarjeta;
@@ -20,10 +21,10 @@ public class TarjetaPersonaEnSituacionVulnerableCreator implements TarjetaCreato
     }
 
     @Override
-    public Tarjeta crearTarjeta(Object titular) {
+    public Tarjeta crearTarjeta(Object titular) throws DatosInvalidosCrearTarjetaPESVException {
         if (!(titular instanceof PersonaEnSituacionVulnerable)) {
             log.log(Level.SEVERE, I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerableCreator.crearTarjeta_err"));
-            throw new IllegalArgumentException(I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerableCreator.crearTarjeta_exception"));
+            throw new DatosInvalidosCrearTarjetaPESVException();
         }
 
         String codigo = generadorCodigo.generarCodigo(false);

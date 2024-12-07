@@ -1,5 +1,8 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.DomicilioFaltanteDiVsException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.DomicilioFaltanteDoVException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.DomicilioFaltanteRPESVException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 
@@ -30,7 +33,7 @@ public abstract class ContribucionService {
         sumoPuntos(contribucionId);
     }
 
-    public abstract void validarIdentidad(Long contribucionId, Colaborador colaborador);
+    public abstract void validarIdentidad(Long contribucionId, Colaborador colaborador) throws DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException;
 
     protected abstract void confirmarSumaPuntos(Long contribucionId, Colaborador colaborador, Double puntosSumados);
 

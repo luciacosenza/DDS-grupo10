@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.DatosInvalidosCrearDistribucionViandasException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DistribucionViandas;
@@ -33,7 +34,7 @@ public class DistribucionViandasCreator implements ContribucionCreator {
     }
     
     @Override
-    public Contribucion crearContribucion(Colaborador colaborador, LocalDateTime fechaContribucion, Boolean paraMigrar, Object... args) {
+    public Contribucion crearContribucion(Colaborador colaborador, LocalDateTime fechaContribucion, Boolean paraMigrar, Object... args) throws DatosInvalidosCrearDistribucionViandasException {
         if (paraMigrar)
             return crearContribucionDefault(colaborador, fechaContribucion);
         
@@ -45,7 +46,7 @@ public class DistribucionViandasCreator implements ContribucionCreator {
             (args[0] == args[1])) {
             
             log.log(Level.SEVERE, I18n.getMessage("contribucion.DistribucionViandasCreator.crearContribucion_err"));
-            throw new IllegalArgumentException(I18n.getMessage("contribucion.DistribucionViandasCreator.crearContribucion_exception"));
+            throw new DatosInvalidosCrearDistribucionViandasException();
         }
         
         return new DistribucionViandas(colaborador, fechaContribucion, (Heladera) args[0], (Heladera) args[1], (Integer) args[2], (DistribucionViandas.MotivoDistribucion) args[3]);

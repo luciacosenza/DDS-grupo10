@@ -1,5 +1,8 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.HeladeraVaciaIntentoRetiroPESVException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.DatosInvalidosCrearTarjetaPESVException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.UsosAgotadosException;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.AperturaPersonaEnSituacionVulnerable;
@@ -55,7 +58,7 @@ public class TarjetaPersonaEnSituacionVulnerableService extends TarjetaService {
     }
 
     @Override
-    public TarjetaPersonaEnSituacionVulnerable crearTarjeta(Long personaEnSituacionVulnerableId) {
+    public TarjetaPersonaEnSituacionVulnerable crearTarjeta(Long personaEnSituacionVulnerableId) throws DatosInvalidosCrearTarjetaPESVException {
         PersonaEnSituacionVulnerable personaEnSituacionVulnerable = personaEnSituacionVulnerableService.obtenerPersonaEnSituacionVulnerable(personaEnSituacionVulnerableId);
         return (TarjetaPersonaEnSituacionVulnerable) tarjetaPersonaEnSituacionVulnerableCreator.crearTarjeta(personaEnSituacionVulnerable);
     }
@@ -89,12 +92,12 @@ public class TarjetaPersonaEnSituacionVulnerableService extends TarjetaService {
     }
 
     // Este método se ejecuta siempre que una Persona en Situación Vulnerable quiera realizar la Apertura de una Heladera (generalmente para retirar una Vianda
-    public AperturaPersonaEnSituacionVulnerable intentarApertura(String tarjetaPersonaEnSituacionVulnerableId, Heladera heladeraInvolucrada) {
+    public AperturaPersonaEnSituacionVulnerable intentarApertura(String tarjetaPersonaEnSituacionVulnerableId, Heladera heladeraInvolucrada) throws UsosAgotadosException, HeladeraVaciaIntentoRetiroPESVException {
         TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable = obtenerTarjeta(tarjetaPersonaEnSituacionVulnerableId);
 
         if (!puedeUsar(tarjetaPersonaEnSituacionVulnerableId)) {
             log.log(Level.SEVERE, I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.puedeUsar_err", tarjetaPersonaEnSituacionVulnerable.getTitular().getPersona().getNombre(2)));
-            throw new UnsupportedOperationException(I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.puedeUsar_exception"));
+            throw new UsosAgotadosException();
         }
 
         // Primero chequeo internamente que pueda realizar la Apertura

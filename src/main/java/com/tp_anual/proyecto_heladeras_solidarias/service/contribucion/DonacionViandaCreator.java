@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.DatosInvalidosCrearDonacionViandaException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionVianda;
@@ -31,7 +32,7 @@ public class DonacionViandaCreator implements ContribucionCreator {
     }
     
     @Override
-    public Contribucion crearContribucion(Colaborador colaborador, LocalDateTime fechaContribucion, Boolean paraMigrar, Object... args) {
+    public Contribucion crearContribucion(Colaborador colaborador, LocalDateTime fechaContribucion, Boolean paraMigrar, Object... args) throws DatosInvalidosCrearDonacionViandaException {
         if (paraMigrar)
             return crearContribucionDefault(colaborador, fechaContribucion);
 
@@ -40,7 +41,7 @@ public class DonacionViandaCreator implements ContribucionCreator {
             !(args[1] instanceof Heladera)) {
             
             log.log(Level.SEVERE, I18n.getMessage("contribucion.DonacionViandaCreator.crearContribucion_err"));
-            throw new IllegalArgumentException(I18n.getMessage("contribucion.DonacionViandaCreator.crearContribucion_exception"));
+            throw new DatosInvalidosCrearDonacionViandaException();
         }
         
         return new DonacionVianda(colaborador, fechaContribucion, (Vianda) args[0], (Heladera) args[1]);

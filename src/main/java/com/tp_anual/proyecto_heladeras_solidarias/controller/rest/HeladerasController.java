@@ -14,13 +14,12 @@ public class HeladerasController {
 
     private final HeladeraService heladeraService;
 
-    public HeladerasController(HeladeraService heladeraService) {
-        this.heladeraService = heladeraService;
+    public HeladerasController(HeladeraService vHeladeraService) {
+        heladeraService = vHeladeraService;
     }
 
     @GetMapping("/heladeras")
     public List<Heladera> obtenerHeladeras() {
         return heladeraService.obtenerHeladeras();
     }
-
 }

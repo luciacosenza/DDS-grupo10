@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.DatosInvalidosCrearTarjetaColaboradorException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.PermisoApertura;
@@ -23,10 +24,10 @@ public class TarjetaColaboradorCreator implements TarjetaCreator {
     }
 
     @Override
-    public Tarjeta crearTarjeta(Object titular) {
+    public Tarjeta crearTarjeta(Object titular) throws DatosInvalidosCrearTarjetaColaboradorException {
         if (!(titular instanceof ColaboradorHumano)) {
             log.log(Level.SEVERE, I18n.getMessage("tarjeta.TarjetaColaboradorCreator.crearTarjeta_err"));
-            throw new IllegalArgumentException(I18n.getMessage("tarjeta.TarjetaColaboradorCreator.crearTarjeta_exception"));
+            throw new DatosInvalidosCrearTarjetaColaboradorException();
         }
 
         String codigo = generadorCodigo.generarCodigo(true);

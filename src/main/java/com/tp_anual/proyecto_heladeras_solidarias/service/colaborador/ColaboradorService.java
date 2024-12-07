@@ -1,5 +1,10 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.colaborador;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.colaborador.ContribucionNoPermitidaException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.colaborador.SuscripcionNoCorrespondeAColaboradorException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.colaborador.SuscripcionNoValidaException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.*;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.oferta.PuntosInsuficientesException;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
@@ -158,12 +163,12 @@ public class ColaboradorService {
         return contribucionesPermitidas.get(colaborador.getClass()).contains(creatorClass);
     }
 
-    public Contribucion colaborar(Long colaboradorId, ContribucionCreator creator, LocalDateTime fechaContribucion /* Generalmente LocalDateTime.now() */, Object... args) {
+    public Contribucion colaborar(Long colaboradorId, ContribucionCreator creator, LocalDateTime fechaContribucion /* Generalmente LocalDateTime.now() */, Object... args) throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
 
         if (!esContribucionPermitida(colaboradorId, creator.getClass())) {
             log.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.colaborar_err", creator.getClass().getSimpleName(), colaborador.getPersona().getNombre(2), colaborador.getPersona().getTipoPersona()));
-            throw new IllegalArgumentException(I18n.getMessage("colaborador.Colaborador.colaborar_exception"));
+            throw new ContribucionNoPermitidaException();
         }
 
         Contribucion contribucion = creator.crearContribucion(colaborador, fechaContribucion, false, args);
@@ -191,7 +196,7 @@ public class ColaboradorService {
         log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.confirmarContribucion_info", contribucion.getClass().getSimpleName(), colaborador.getPersona().getNombre(2)));
     }
 
-    public void intentarAdquirirBeneficio(Long colaboradorId, Oferta oferta) {
+    public void intentarAdquirirBeneficio(Long colaboradorId, Oferta oferta) throws PuntosInsuficientesException {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
 
         // Primero chequea tener los puntos suficientes
@@ -228,7 +233,7 @@ public class ColaboradorService {
         guardarColaborador(colaborador);    // Al guardar el colaborador, se elimina la suscripción por orphanRemoval
     }
 
-    public Suscripcion suscribirse(Long colaboradorId, Heladera heladera, MedioDeContacto medioDeContacto, Suscripcion.CondicionSuscripcion condicionSuscripcion, Integer valor) {
+    public Suscripcion suscribirse(Long colaboradorId, Heladera heladera, MedioDeContacto medioDeContacto, Suscripcion.CondicionSuscripcion condicionSuscripcion, Integer valor) throws SuscripcionNoValidaException {
         ColaboradorHumano colaborador = obtenerColaboradorHumano(colaboradorId);
 
         Suscripcion suscripcion;
@@ -242,7 +247,7 @@ public class ColaboradorService {
 
             default -> {
                 log.log(Level.SEVERE, I18n.getMessage("colaborador.ColaboradorHumano.suscribirse_err", colaborador.getPersona().getNombre(2)));
-                throw new IllegalArgumentException(I18n.getMessage("colaborador.ColaboradorHumano.suscribirse_exception"));
+                throw new SuscripcionNoValidaException();
             }
         }
 
@@ -253,12 +258,12 @@ public class ColaboradorService {
         return suscripcion;
     }
 
-    public void modificarSuscripcion(Long colaboradorId, Suscripcion suscripcion, Integer nuevoValor) {
+    public void modificarSuscripcion(Long colaboradorId, Suscripcion suscripcion, Integer nuevoValor) throws SuscripcionNoCorrespondeAColaboradorException {
         ColaboradorHumano colaborador = obtenerColaboradorHumano(colaboradorId);
 
         if (!colaborador.getSuscripciones().contains(suscripcion)) {
             log.log(Level.SEVERE, I18n.getMessage("colaborador.ColaboradorHumano.modificarSuscripcion_err", colaborador.getPersona().getNombre(2)));
-            throw new IllegalArgumentException(I18n.getMessage("colaborador.ColaboradorHumano.modificarSuscripcion_exception"));
+            throw new SuscripcionNoCorrespondeAColaboradorException();
         }
 
         switch(suscripcion) {

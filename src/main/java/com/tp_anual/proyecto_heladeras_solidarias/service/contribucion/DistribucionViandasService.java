@@ -1,5 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.DomicilioFaltanteDiVsException;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
@@ -49,10 +50,10 @@ public class DistribucionViandasService extends ContribucionService {
     }
 
     @Override
-    public void validarIdentidad(Long distribucionViandasId, Colaborador colaborador) {
+    public void validarIdentidad(Long distribucionViandasId, Colaborador colaborador) throws DomicilioFaltanteDiVsException {
         if (colaborador.getDomicilio() == null) {
             log.log(Level.SEVERE, I18n.getMessage("contribucion.DistribucionViandas.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
-            throw new IllegalArgumentException(I18n.getMessage("contribucion.DistribucionViandas.validarIdentidad_exception"));
+            throw new DomicilioFaltanteDiVsException();
         }
     }
 

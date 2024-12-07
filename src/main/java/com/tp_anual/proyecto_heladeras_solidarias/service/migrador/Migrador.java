@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.logging.Level;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.*;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.migrador.FilaDeDatosIncompletaException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
@@ -68,7 +70,7 @@ public class Migrador {
         log.log(Level.INFO, I18n.getMessage("migrador.Migrador.confirmarLoading_info"));
     }
 
-    public List<ColaboradorHumano> migrar(String csv, Boolean contactar) throws IOException, URISyntaxException {
+    public List<ColaboradorHumano> migrar(String csv, Boolean contactar) throws IOException, URISyntaxException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException, FilaDeDatosIncompletaException {
         List<String[]> dataColaboradores = protocoloExtraccion.extract(csv);
         List<ColaboradorHumano> colaboradoresAMigrar = transformador.transform(dataColaboradores);
 

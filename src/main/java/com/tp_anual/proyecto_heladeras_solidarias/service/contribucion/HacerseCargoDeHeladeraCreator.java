@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.DatosInvalidosCrearHCHException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.HacerseCargoDeHeladera;
@@ -30,7 +31,7 @@ public class HacerseCargoDeHeladeraCreator implements ContribucionCreator {
     }
 
     @Override
-    public Contribucion crearContribucion(Colaborador colaborador, LocalDateTime fechaContribucion, Boolean paraMigrar, Object... args) {
+    public Contribucion crearContribucion(Colaborador colaborador, LocalDateTime fechaContribucion, Boolean paraMigrar, Object... args) throws DatosInvalidosCrearHCHException {
         if (paraMigrar)
             return crearContribucionDefault(colaborador, fechaContribucion);
 
@@ -38,7 +39,7 @@ public class HacerseCargoDeHeladeraCreator implements ContribucionCreator {
             !(args[0] instanceof Heladera)) {
             
             log.log(Level.SEVERE, I18n.getMessage("contribucion.HacerseCargoDeHeladeraCreator.crearContribucion_err"));
-            throw new IllegalArgumentException(I18n.getMessage("contribucion.HacerseCargoDeHeladeraCreator.crearContribucion_exception"));
+            throw new DatosInvalidosCrearHCHException();
         }
         
         return new HacerseCargoDeHeladera(colaborador, fechaContribucion, (Heladera) args[0]);

@@ -6,6 +6,7 @@ import java.util.OptionalDouble;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.ubicador.TecnicosNoDisponiblesHeladeraException;
 import com.tp_anual.proyecto_heladeras_solidarias.service.area.AreaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tecnico.TecnicoService;
 import lombok.extern.java.Log;
@@ -28,7 +29,7 @@ public class UbicadorTecnico {
         tecnicoService = vTecnicoService;
     }
 
-    public Tecnico obtenerTecnicoCercanoA(Incidente incidente) {
+    public Tecnico obtenerTecnicoCercanoA(Incidente incidente) throws TecnicosNoDisponiblesHeladeraException {
         // Obtengo la Ubicación de la Heladera en cuestión
         Heladera heladera = incidente.getHeladera();
         Pair<Double, Double> ubicacionHeladera = Pair.of(heladera.getUbicacion().getLatitud(), heladera.getUbicacion().getLongitud());
@@ -52,7 +53,7 @@ public class UbicadorTecnico {
         
         if (distanciaMinima.isEmpty()) {
             log.log(Level.SEVERE, I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_err", heladera.getNombre()));
-            throw new IllegalArgumentException(I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception"));
+            throw new TecnicosNoDisponiblesHeladeraException();
         }
 
         // Si la mónada "Optional distanciaMinima" no está vacía, la desarmo. Sólo puede llegar vacía si no hay Técnicos cuya área de cobertura cubra la Heladera

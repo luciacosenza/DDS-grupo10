@@ -1,5 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.heladera;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.HeladeraLlenaAgregarViandaException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.HeladeraVaciaRetirarViandaException;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
@@ -161,12 +163,12 @@ public class HeladeraService {
         guardarHeladera(heladera);
     }
 
-    public void agregarVianda(Long heladeraId, Vianda vianda) {
+    public void agregarVianda(Long heladeraId, Vianda vianda) throws HeladeraLlenaAgregarViandaException {
         Heladera heladera = obtenerHeladera(heladeraId);
 
         if (estaLlena(heladeraId)) {
             log.log(Level.SEVERE, I18n.getMessage("heladera.Heladera.agregarVianda_err", heladera.getNombre()));
-            throw new IllegalStateException(I18n.getMessage("heladera.Heladera.agregarVianda_exception"));
+            throw new HeladeraLlenaAgregarViandaException();
         }
 
         heladera.getViandas().add(vianda);
@@ -177,12 +179,12 @@ public class HeladeraService {
         log.log(Level.INFO, I18n.getMessage("heladera.Heladera.agregarVianda_info", vianda.getComida(), heladera.getNombre()));
     }
 
-    public Vianda retirarVianda(Long heladeraId) {
+    public Vianda retirarVianda(Long heladeraId) throws HeladeraVaciaRetirarViandaException {
         Heladera heladera = obtenerHeladera(heladeraId);
 
         if (estaVacia(heladeraId)) {
             log.log(Level.SEVERE, I18n.getMessage("heladera.Heladera.retirarVianda_err", heladera.getNombre()));
-            throw new IllegalStateException(I18n.getMessage("heladera.Heladera.retirarVianda_exception"));
+            throw new HeladeraVaciaRetirarViandaException();
         }
 
         Vianda viandaRetirada = heladera.getViandas().removeFirst();

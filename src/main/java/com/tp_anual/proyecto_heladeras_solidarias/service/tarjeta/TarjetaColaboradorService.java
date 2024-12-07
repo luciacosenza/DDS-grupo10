@@ -1,5 +1,10 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.HeladeraLlenaSolicitudIngresoException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.HeladeraVaciaSolicitudRetiroException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.PermisoAperturaAusenteException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.PermisoAperturaExpiradoException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.DatosInvalidosCrearTarjetaColaboradorException;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
@@ -52,7 +57,7 @@ public class TarjetaColaboradorService extends TarjetaService {
     }
 
     @Override
-    public TarjetaColaborador crearTarjeta(Long colaboradorId){
+    public TarjetaColaborador crearTarjeta(Long colaboradorId) throws DatosInvalidosCrearTarjetaColaboradorException {
         ColaboradorHumano colaborador = colaboradorService.obtenerColaboradorHumano(colaboradorId);
 
         return (TarjetaColaborador) tarjetaColaboradorCreator.crearTarjeta(colaborador);
@@ -69,7 +74,7 @@ public class TarjetaColaboradorService extends TarjetaService {
         guardarTarjeta(tarjetaColaborador);
     }
 
-    public SolicitudAperturaColaborador solicitarApertura(String tarjetaColaboradorId, Heladera heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo, Integer cantidadViandas) {
+    public SolicitudAperturaColaborador solicitarApertura(String tarjetaColaboradorId, Heladera heladeraInvolucrada, SolicitudAperturaColaborador.MotivoSolicitud motivo, Integer cantidadViandas) throws HeladeraVaciaSolicitudRetiroException, HeladeraLlenaSolicitudIngresoException {
         TarjetaColaborador tarjetaColaborador = obtenerTarjeta(tarjetaColaboradorId);
 
         gestorDeAperturas.revisarMotivoApertura(heladeraInvolucrada, motivo, cantidadViandas);
@@ -86,7 +91,7 @@ public class TarjetaColaboradorService extends TarjetaService {
         return solicitudApertura;
     }
 
-    public AperturaColaborador intentarApertura(String tarjetaColaboradorId, Heladera heladera) {
+    public AperturaColaborador intentarApertura(String tarjetaColaboradorId, Heladera heladera) throws PermisoAperturaAusenteException, PermisoAperturaExpiradoException {
         // Primero chequeo internamente que pueda realizar la Apertura
         TarjetaColaborador tarjetaColaborador = obtenerTarjeta(tarjetaColaboradorId);
         ColaboradorHumano titular = tarjetaColaborador.getTitular();

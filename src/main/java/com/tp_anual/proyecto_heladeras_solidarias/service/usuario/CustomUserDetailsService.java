@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.usuario;
 
-import com.tp_anual.proyecto_heladeras_solidarias.exception.PasswordNoValidaException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.usuario.PasswordNoValidaException;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.usuario.UsuarioRepository;
@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

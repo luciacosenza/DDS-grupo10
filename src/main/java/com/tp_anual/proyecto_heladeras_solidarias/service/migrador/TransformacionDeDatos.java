@@ -7,6 +7,8 @@ import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.converter.ConversorFormaContribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.converter.ConversorTipoDocumento;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.*;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.migrador.FilaDeDatosIncompletaException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.EMail;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
@@ -44,15 +46,15 @@ public class TransformacionDeDatos {
         return quitarEspacios(quitarNumericosYEspeciales(string));
     }
 
-    private Contribucion registrarContribucion(String formaContribucionStr, ColaboradorHumano colaborador, LocalDateTime fechaContribucion) {
+    private Contribucion registrarContribucion(String formaContribucionStr, ColaboradorHumano colaborador, LocalDateTime fechaContribucion) throws DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException {
         ContribucionCreator creator = ConversorFormaContribucion.convertirStrAContribucionCreator(formaContribucionStr);
         return creator.crearContribucion(colaborador, fechaContribucion, true);
     }
     
-    private ColaboradorHumano procesarColaborador(String[] data) {
+    private ColaboradorHumano procesarColaborador(String[] data) throws FilaDeDatosIncompletaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException {
         if (data.length != 8) {
             log.log(Level.SEVERE, I18n.getMessage("migrador.TransformacionDeDatos.procesarColaborador_err_fila_incompleta", Arrays.toString(data)));
-            throw new RuntimeException(I18n.getMessage("migrador.TransformacionDeDatos.procesarColaborador_exception_fila_incompleta"));
+            throw new FilaDeDatosIncompletaException();
         }
         
         String tipoDocStr = data[0];
@@ -98,7 +100,7 @@ public class TransformacionDeDatos {
         log.log(Level.INFO, I18n.getMessage("migrador.TransformacionDeDatos.confirmarTransformation_info"));
     }
 
-    public List<ColaboradorHumano> transform(List<String[]> data) {
+    public List<ColaboradorHumano> transform(List<String[]> data) throws DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, FilaDeDatosIncompletaException, DatosInvalidosCrearRPESVException {
         Map<String, ColaboradorHumano> colaboradoresProcesados = new HashMap<>();
 
         for (String[] dataColaborador : data) {

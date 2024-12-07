@@ -1,5 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.DomicilioFaltanteDoVException;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
@@ -50,10 +51,10 @@ public class DonacionViandaService extends ContribucionService {
     }
 
     @Override
-    public void validarIdentidad(Long donacionViandaId, Colaborador colaborador) {
+    public void validarIdentidad(Long donacionViandaId, Colaborador colaborador) throws DomicilioFaltanteDoVException {
         if (colaborador.getDomicilio() == null) {
             log.log(Level.SEVERE, I18n.getMessage("contribucion.DonacionVianda.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
-            throw new IllegalArgumentException(I18n.getMessage("contribucion.DonacionVianda.validarIdentidad_exception"));
+            throw new DomicilioFaltanteDoVException();
         }
     }
 

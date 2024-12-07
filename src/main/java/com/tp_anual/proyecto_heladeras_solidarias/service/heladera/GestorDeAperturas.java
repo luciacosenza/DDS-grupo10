@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Comparator;
 import java.util.logging.Level;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.*;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador.MotivoSolicitud;
@@ -26,12 +27,12 @@ public class GestorDeAperturas {
         permisoAperturaService = vPermisoAperturaService;
     }
     
-    public void revisarMotivoApertura(Heladera heladera, MotivoSolicitud motivo, Integer cantidadViandas) {
+    public void revisarMotivoApertura(Heladera heladera, MotivoSolicitud motivo, Integer cantidadViandas) throws HeladeraVaciaSolicitudRetiroException, HeladeraLlenaSolicitudIngresoException {
         if (motivo == MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION &&
             heladeraService.seVaciaCon(heladera.getId(), cantidadViandas - 1)) {
             
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_err_heladera_vacia", heladera.getNombre()));
-            throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_exception_heladera_vacia"));
+            throw new HeladeraVaciaSolicitudRetiroException();
         }
 
         if ((motivo == MotivoSolicitud.INGRESAR_DONACION ||
@@ -39,11 +40,11 @@ public class GestorDeAperturas {
                 heladeraService.seLlenaCon(heladera.getId(), cantidadViandas - 1)) {
 
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_err_heladera_llena", heladera.getNombre()));
-            throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_exception_heladera_llena"));
+            throw new HeladeraLlenaSolicitudIngresoException();
         }
     }
     
-    public void revisarPermisoAperturaC(Heladera heladera, ColaboradorHumano colaborador) {
+    public void revisarPermisoAperturaC(Heladera heladera, ColaboradorHumano colaborador) throws PermisoAperturaAusenteException, PermisoAperturaExpiradoException {
         TarjetaColaborador tarjetaColaborador = colaborador.getTarjeta();
         List<PermisoApertura> permisos = tarjetaColaborador.getPermisos();
 
@@ -54,7 +55,7 @@ public class GestorDeAperturas {
 
         if (permisoARevisar == null) {
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_err", colaborador.getPersona().getNombre(2), heladera.getNombre()));
-            throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_exception"));
+            throw new PermisoAperturaAusenteException();
         }
 
         LocalDateTime ahora = LocalDateTime.now();
@@ -65,14 +66,14 @@ public class GestorDeAperturas {
             permisoAperturaService.revocarPermisoApertura(permisoARevisar.getId());
 
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_err", colaborador.getPersona().getNombre(2), heladera.getNombre()));
-            throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_exception"));
+            throw new PermisoAperturaExpiradoException();
         }
     }
 
-    public void revisarPermisoAperturaP(Heladera heladera) {
+    public void revisarPermisoAperturaP(Heladera heladera) throws HeladeraVaciaIntentoRetiroPESVException {
         if(heladeraService.estaVacia(heladera.getId())) {
             log.log(Level.SEVERE, I18n.getMessage("heladera.GestorDeAperturas.resvisarPermisoAperturaP_err_heladera_vacia", heladera.getNombre()));
-            throw new UnsupportedOperationException(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_exception_heladera_vacia"));
+            throw new HeladeraVaciaIntentoRetiroPESVException();
         }
     }
 }

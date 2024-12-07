@@ -1,5 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.oferta;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.oferta.PuntosInsuficientesException;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.oferta.OfertaRepository;
@@ -33,12 +34,12 @@ public class OfertaService {
         return ofertaRepository.save(oferta);
     }
 
-    public void validarPuntos(Long ofertaId, Double puntos) {
+    public void validarPuntos(Long ofertaId, Double puntos) throws PuntosInsuficientesException {
         Oferta oferta = obtenerOferta(ofertaId);
 
         if (puntos < oferta.getCosto()) {
             log.log(Level.SEVERE, I18n.getMessage("oferta.Oferta.validarPuntos_err", puntos, oferta.getNombre(), oferta.getCosto()));
-            throw new UnsupportedOperationException(I18n.getMessage("oferta.Oferta.validarPuntos_exception"));
+            throw new PuntosInsuficientesException();
         }
     }
 }

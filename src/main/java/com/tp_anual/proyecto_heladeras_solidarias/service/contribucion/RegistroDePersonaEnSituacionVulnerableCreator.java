@@ -3,6 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.DatosInvalidosCrearRPESVException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.RegistroDePersonaEnSituacionVulnerable;
@@ -26,7 +27,7 @@ public class RegistroDePersonaEnSituacionVulnerableCreator implements Contribuci
     }
     
     @Override
-    public Contribucion crearContribucion(Colaborador colaborador, LocalDateTime fechaContribucion, Boolean paraMigrar, Object... args) {
+    public Contribucion crearContribucion(Colaborador colaborador, LocalDateTime fechaContribucion, Boolean paraMigrar, Object... args) throws DatosInvalidosCrearRPESVException {
         if (paraMigrar)
             return crearContribucionDefault(colaborador, fechaContribucion);
         
@@ -34,7 +35,7 @@ public class RegistroDePersonaEnSituacionVulnerableCreator implements Contribuci
             !(args[0] instanceof TarjetaPersonaEnSituacionVulnerable)) {
             
             log.log(Level.SEVERE, I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerableCreator.crearContribucion_err"));
-            throw new IllegalArgumentException(I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerableCreator.crearContribucion_exception"));
+            throw new DatosInvalidosCrearRPESVException();
         }
         
         return new RegistroDePersonaEnSituacionVulnerable(colaborador, fechaContribucion, (TarjetaPersonaEnSituacionVulnerable) args[0]);

@@ -1,5 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.DomicilioFaltanteRPESVException;
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
@@ -45,10 +46,10 @@ public class RegistroDePersonaEnSituacionVulnerableService extends ContribucionS
     }
 
     @Override
-    public void validarIdentidad(Long registroDePersonaEnSituacionVulnerableId, Colaborador colaborador) {
+    public void validarIdentidad(Long registroDePersonaEnSituacionVulnerableId, Colaborador colaborador) throws DomicilioFaltanteRPESVException {
         if (colaborador.getDomicilio() == null) {
             log.log(Level.SEVERE, I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
-            throw new IllegalArgumentException(I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.validarIdentidad_exception"));
+            throw new DomicilioFaltanteRPESVException();
         }
     }
 

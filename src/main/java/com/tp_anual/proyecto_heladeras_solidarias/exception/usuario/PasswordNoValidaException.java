@@ -1,4 +1,4 @@
-package com.tp_anual.proyecto_heladeras_solidarias.exception;
+package com.tp_anual.proyecto_heladeras_solidarias.exception.usuario;
 
 import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
