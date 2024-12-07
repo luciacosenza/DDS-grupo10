@@ -62,14 +62,17 @@ public class SecurityConfiguration {
                         .hasAuthority("ROL_ADMIN")
                         .anyRequest().authenticated()
                 )
-                .formLogin(httpSecurityFormLoginConfigurer ->  httpSecurityFormLoginConfigurer
-                        .loginPage("/login").permitAll()
+                .oauth2Login(oauth2Login -> oauth2Login
+                        .loginPage("/login")  // Página de login personalizada
                         .defaultSuccessUrl("/?loginSuccess=true", true)
-                        .failureUrl("/login?error"))
-                .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.permitAll()
+                        .failureUrl("/login?error")
+                )
+                .logout(logout -> logout
+                        .permitAll()
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/?logoutSuccess=true"))
-                .headers(header -> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
+                        .logoutSuccessUrl("/?logoutSuccess=true")
+                )
+                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
         return http.build();
     }
