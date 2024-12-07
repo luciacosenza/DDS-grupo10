@@ -19,7 +19,7 @@
 
 .FC-palette-span{
     font-family: FC-Palette;
-    color:#afdbf9;
+    color:#c3e0ff;
     cursor: default;
 }
 .FC-palette-h1{
@@ -43,6 +43,7 @@ main {
 }
 
 h1 {
+    font-family: FC-Palette;
     font-size: 4rem;
 }
 
