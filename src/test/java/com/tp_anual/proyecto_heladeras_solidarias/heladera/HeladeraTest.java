@@ -1,4 +1,4 @@
-package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
+package com.tp_anual.proyecto_heladeras_solidarias.heladera;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,6 +7,12 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.colaborador.ContribucionNoPermitidaException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.*;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.*;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.DatosInvalidosCrearTarjetaColaboradorException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.DatosInvalidosCrearTarjetaPESVException;
+import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
@@ -53,7 +59,7 @@ public class HeladeraTest {
 
     @Test
     @DisplayName("Testeo la puesta en marcha de dos Heladeras y la adición de Viandas a estas por medio de distintas Contribuciones")
-    public void HeladeraViandasTest() {
+    public void HeladeraViandasTest() throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException, DatosInvalidosCrearTarjetaColaboradorException, HeladeraVaciaSolicitudRetiroException, HeladeraLlenaSolicitudIngresoException, PermisoAperturaExpiradoException, PermisoAperturaAusenteException, HeladeraLlenaAgregarViandaException, HeladeraVaciaRetirarViandaException {
         ColaboradorJuridico colaboradorJuridico = new ColaboradorJuridico(null, new PersonaJuridica("RazonSocialPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA, "RubroPrueba"), new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "1033", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         Long colaboradorJuridicoId =  colaboradorService.guardarColaborador(colaboradorJuridico).getId();
 
@@ -221,7 +227,7 @@ public class HeladeraTest {
 
     @Test
     @DisplayName("Testeo la IllegalState que genera una Heladera que no permite que se retiren más Viandas cuando está vacía")
-    public void IllegalStateRetirarViandaTest() {
+    public void IllegalStateRetirarViandaTest() throws HeladeraLlenaAgregarViandaException {
         LocalDateTime fechaApertura = LocalDateTime.parse("2024-01-01T00:00:00");
         Heladera heladera = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), 2, -20f, 5f, new ArrayList<>(), 2f, fechaApertura, true);
         Long heladeraId = heladeraService.guardarHeladera(heladera).getId();

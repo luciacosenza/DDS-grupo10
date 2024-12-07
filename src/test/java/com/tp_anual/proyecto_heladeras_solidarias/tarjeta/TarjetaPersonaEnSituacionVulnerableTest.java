@@ -1,11 +1,19 @@
-package com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta;
+package com.tp_anual.proyecto_heladeras_solidarias.tarjeta;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.colaborador.ContribucionNoPermitidaException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.*;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.HeladeraLlenaAgregarViandaException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.HeladeraVaciaIntentoRetiroPESVException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.HeladeraVaciaRetirarViandaException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.DatosInvalidosCrearTarjetaPESVException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.UsosAgotadosException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
+import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.ViandaService;
@@ -66,7 +74,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
     String codigoTarjeta;
 
     @BeforeEach
-    void setup() {
+    void setup() throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException, HeladeraLlenaAgregarViandaException, DatosInvalidosCrearTarjetaPESVException {
         colaboradorHumano = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(Documento.TipoDocumento.DNI, "40123456", Documento.Sexo.MASCULINO), LocalDate.parse("2003-01-01T00:00:00")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         colaboradorHumanoId = colaboradorService.guardarColaborador(colaboradorHumano).getId();
 
@@ -131,7 +139,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
 
     @Test
     @DisplayName("Testeo el correcto funcionamiento de la Tarjeta y sus Usos")
-    public void UsosTarjetaTest() {
+    public void UsosTarjetaTest() throws UsosAgotadosException, HeladeraVaciaIntentoRetiroPESVException, HeladeraVaciaRetirarViandaException {
         tarjetaPersonaEnSituacionVulnerableService.intentarApertura(codigoTarjeta, heladera);
 
         heladeraService.retirarVianda(heladeraId);
@@ -151,7 +159,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
 
     @Test
     @DisplayName("Testeo la UnsupportedOperationException al querer usar la Tarjeta sin tener más Usos disponibles")
-    public void UnsupportedOperationUsosTarjetaTest() {
+    public void UnsupportedOperationUsosTarjetaTest() throws UsosAgotadosException, HeladeraVaciaIntentoRetiroPESVException, HeladeraVaciaRetirarViandaException {
 
         heladeraService.retirarVianda(heladera.getId());
         tarjetaPersonaEnSituacionVulnerableService.intentarApertura(codigoTarjeta, heladera);
@@ -180,7 +188,7 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
 
     @Test
     @DisplayName("Testeo la UnsupportedOperationException al querer retirar una Vianda de una Heladera vacía")
-    public void UnsupportedOperationEstaVaciaTarjetaPESVTest() {
+    public void UnsupportedOperationEstaVaciaTarjetaPESVTest() throws HeladeraVaciaRetirarViandaException, HeladeraLlenaAgregarViandaException, UsosAgotadosException, HeladeraVaciaIntentoRetiroPESVException {
         Heladera heladeraC5 = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), 5, -20f, 5f, new ArrayList<>(), 3f, LocalDateTime.now() , true);
         Long heladeraC5Id = heladeraService.guardarHeladera(heladeraC5).getId();
 

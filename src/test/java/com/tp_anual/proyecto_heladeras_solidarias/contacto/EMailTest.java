@@ -1,10 +1,11 @@
-package com.tp_anual.proyecto_heladeras_solidarias.model.contacto;
+package com.tp_anual.proyecto_heladeras_solidarias.contacto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.EMail;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.EMailService;

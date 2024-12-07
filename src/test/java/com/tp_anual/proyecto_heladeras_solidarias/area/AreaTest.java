@@ -1,5 +1,6 @@
-package com.tp_anual.proyecto_heladeras_solidarias.model.area;
+package com.tp_anual.proyecto_heladeras_solidarias.area;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.area.Area;
 import com.tp_anual.proyecto_heladeras_solidarias.service.area.AreaService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

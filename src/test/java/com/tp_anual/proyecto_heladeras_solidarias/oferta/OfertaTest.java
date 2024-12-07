@@ -1,11 +1,15 @@
-package com.tp_anual.proyecto_heladeras_solidarias.model.oferta;
+package com.tp_anual.proyecto_heladeras_solidarias.oferta;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.colaborador.ContribucionNoPermitidaException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.*;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.oferta.PuntosInsuficientesException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.CargaOferta;
+import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorPuntosService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
@@ -48,7 +52,7 @@ public class OfertaTest {
     private ColaboradorPuntosService colaboradorPuntosService;
 
     @BeforeEach
-    void setup() {
+    void setup() throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException,DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException {
         colaboradorHumano = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(Documento.TipoDocumento.DNI, "40123456", Documento.Sexo.MASCULINO), LocalDate.parse("2003-01-01T00:00:00")), new Ubicacion(-34.6083, -58.3709, "Balcarce 78", "1064", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         colaboradorJuridico = new ColaboradorJuridico(null, new PersonaJuridica("RazonSocialPrueba", PersonaJuridica.TipoPersonaJuridica.EMPRESA, "RubroPrueba"), new Ubicacion(-34.6098, -58.3925, "Avenida Entre Ríos", "1033", "Ciudad Autónoma de Buenos Aires", "Argentina"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         oferta = new Oferta("PlayStation 5", 20d, Oferta.Categoria.ELECTRONICA, "ImagenPrueba");
@@ -67,7 +71,7 @@ public class OfertaTest {
     }
     @Test
     @DisplayName("Testeo el correcto funcionamiento de carga de Oferta y adquisicion de la misma")
-    public void IntentarAdquirirBeneficioTest() {
+    public void IntentarAdquirirBeneficioTest() throws PuntosInsuficientesException {
         colaboradorPuntosService.sumarPuntos(colaboradorHumanoId, 60d);
 
         colaboradorService.intentarAdquirirBeneficio(colaboradorHumanoId, oferta);
