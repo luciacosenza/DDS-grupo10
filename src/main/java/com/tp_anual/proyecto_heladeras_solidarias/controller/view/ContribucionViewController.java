@@ -1,5 +1,10 @@
 package com.tp_anual.proyecto_heladeras_solidarias.controller.view;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.colaborador.ContribucionNoPermitidaException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.*;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.*;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.DatosInvalidosCrearTarjetaColaboradorException;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.DatosInvalidosCrearTarjetaPESVException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJuridico;
@@ -96,7 +101,7 @@ public class ContribucionViewController {
     }
 
     @PostMapping("/cargar-premio/guardar")
-    public String guardarCargaOferta(@ModelAttribute Oferta oferta) {
+    public String guardarCargaOferta(@ModelAttribute Oferta oferta) throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException,DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
@@ -122,6 +127,7 @@ public class ContribucionViewController {
         @RequestParam("heladera-destino") Long heladeraDestinoId,
         @RequestParam("cantidad") Integer cantidadAMover,
         @RequestParam("motivo") DistribucionViandas.MotivoDistribucion motivo)
+        throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException, HeladeraVaciaSolicitudRetiroException, HeladeraLlenaSolicitudIngresoException, DatosInvalidosCrearTarjetaColaboradorException
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -167,6 +173,7 @@ public class ContribucionViewController {
         @RequestParam(value = "monto", defaultValue = "0") Double monto,
         @RequestParam(value = "monto-personalizado", defaultValue = "0") Double montoPersonalizado,
         @RequestParam("frecuencia") DonacionDinero.FrecuenciaDePago frecuencia)
+        throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException,DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException
     {
         Double montoFinal = Math.max(monto, montoPersonalizado);
 
@@ -196,6 +203,7 @@ public class ContribucionViewController {
         @RequestParam("fecha-caducidad") LocalDate fechaCaducidad,
         @RequestParam("calorias") Integer calorias,
         @RequestParam("peso") Integer peso)
+        throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException, HeladeraVaciaSolicitudRetiroException, HeladeraLlenaSolicitudIngresoException, DatosInvalidosCrearTarjetaColaboradorException
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -248,8 +256,8 @@ public class ContribucionViewController {
             @RequestParam("temp-maxima") Float tempMaxima,
             @RequestParam("capacidad") Integer capacidad,
             @RequestParam("latitud") Double latitud,
-            @RequestParam("longitud") Double longitud
-    )
+            @RequestParam("longitud") Double longitud)
+            throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException,DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException
     {
         Ubicacion ubicacion = new Ubicacion(latitud, longitud, (calle + " " + altura), codigoPostal, ciudad, "Argentina");
         Heladera heladera = new Heladera(nombre, ubicacion, capacidad, tempMinima, tempMaxima, new ArrayList<>(), null, LocalDateTime.now(), false );
@@ -287,6 +295,7 @@ public class ContribucionViewController {
         @RequestParam(value = "ciudad", defaultValue = "sin ciudad") String ciudad,
         @RequestParam(value = "codigo-postal", defaultValue = "sin código postal") String codigoPostal,
         @RequestParam(value = "menores-a-cargo", defaultValue = "0") Integer menoresACargo)
+            throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException, DatosInvalidosCrearTarjetaPESVException
     {
         Documento documento = new Documento(tipoDocumento, numeroDocumento, sexoDocumento);
         PersonaFisica personaFisica = new PersonaFisica(nombre, apellido, documento, fechaNacimiento);
@@ -339,7 +348,7 @@ public class ContribucionViewController {
     }
 
     @GetMapping("/confirmar-retiro-viandas/{id}")
-    public String confirmarRetiroViandas(@PathVariable Long id) {
+    public String confirmarRetiroViandas(@PathVariable Long id) throws PermisoAperturaAusenteException, PermisoAperturaExpiradoException, HeladeraVaciaRetirarViandaException {
         DistribucionViandas distribucionViandas = (DistribucionViandas) contribucionFinder.obtenerContribucion(id);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -375,7 +384,7 @@ public class ContribucionViewController {
     }
 
     @GetMapping("/confirmar-ingreso-viandas/{id}")
-    public String confirmarIngresoViandas(@PathVariable Long id) {
+    public String confirmarIngresoViandas(@PathVariable Long id) throws PermisoAperturaAusenteException, PermisoAperturaExpiradoException, HeladeraLlenaAgregarViandaException {
         DistribucionViandas distribucionViandas = (DistribucionViandas) contribucionFinder.obtenerContribucion(id);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -411,7 +420,7 @@ public class ContribucionViewController {
     }
 
     @GetMapping("/confirmar-ingreso-vianda/{id}")
-    public String confirmarIngresoVianda(@PathVariable Long id) {
+    public String confirmarIngresoVianda(@PathVariable Long id) throws PermisoAperturaAusenteException, PermisoAperturaExpiradoException, HeladeraLlenaAgregarViandaException {
         DonacionVianda donacionVianda = (DonacionVianda) contribucionFinder.obtenerContribucion(id);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -1,5 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.controller.view;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.colaborador.SuscripcionNoValidaException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
@@ -55,6 +56,7 @@ public class SuscripcionViewController {
         @RequestParam("medio-de-contacto") Long medioDeContactoId,
         @RequestParam(value = "limite-inferior", defaultValue = "0") Integer limiteInferior,
         @RequestParam(value = "limite-superior", defaultValue = "0") Integer limiteSuperior)
+        throws SuscripcionNoValidaException
     {
         Integer limite = Math.max(limiteInferior, limiteSuperior);
 

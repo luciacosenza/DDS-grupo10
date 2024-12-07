@@ -1,5 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.controller.view;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.oferta.PuntosInsuficientesException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
@@ -41,7 +42,7 @@ public class TiendaViewController {
     }
 
     @GetMapping("/tienda/obtener-oferta/{id}")
-    public String adquirirBeneficio(@PathVariable Long id) {
+    public String adquirirBeneficio(@PathVariable Long id) throws PuntosInsuficientesException {
         Oferta oferta = ofertaService.obtenerOferta(id);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
