@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.tecnico;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.area.Area;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Tecnico;
@@ -27,14 +27,18 @@ public class TecnicoService {
     private final VisitaService visitaService;
     private final AreaService areaService;
 
-    public TecnicoService(TecnicoRepository vTecnicoRepository, VisitaService vVisitaService, AreaService vAreaService) {
+    private final I18nService i18nService;
+
+    public TecnicoService(TecnicoRepository vTecnicoRepository, VisitaService vVisitaService, AreaService vAreaService, I18nService vI18nService) {
         tecnicoRepository = vTecnicoRepository;
         visitaService = vVisitaService;
         areaService = vAreaService;
+
+        i18nService = vI18nService;
     }
 
     public Tecnico obtenerTecnico(Long tecnicoId) {
-        return tecnicoRepository.findById(tecnicoId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return tecnicoRepository.findById(tecnicoId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public List<Tecnico> obtenerTecnicos() {
@@ -67,7 +71,7 @@ public class TecnicoService {
         Visita visita = new Visita(tecnico, ultimoIncidenteTratado, fecha, descripcion, foto, estadoConsulta, estadoConsulta);
         visitaService.guardarVisita(visita);
 
-        log.log(Level.INFO, I18n.getMessage("tecnico.Tecnico.registrarVisita_info", ultimoIncidenteTratado.getHeladera().getNombre(), ultimoIncidenteTratado.getClass().getSimpleName(), tecnico.getPersona().getNombre(2)));
+        log.log(Level.INFO, i18nService.getMessage("tecnico.Tecnico.registrarVisita_info", ultimoIncidenteTratado.getHeladera().getNombre(), ultimoIncidenteTratado.getClass().getSimpleName(), tecnico.getPersona().getNombre(2)));
     }
 
     // Como convención, para aproximar la Ubicación de un Técnico, vamos a usar el punto medio de su área de cobertura

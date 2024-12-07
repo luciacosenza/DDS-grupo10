@@ -5,7 +5,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.HeladeraVac
 import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.PermisoAperturaAusenteException;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.PermisoAperturaExpiradoException;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.DatosInvalidosCrearTarjetaColaboradorException;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.AperturaColaborador;
@@ -36,7 +36,9 @@ public class TarjetaColaboradorService extends TarjetaService {
     private final TarjetaColaboradorCreator tarjetaColaboradorCreator;
     private final PermisoAperturaService permisoAperturaService;
 
-    public TarjetaColaboradorService(TarjetaColaboradorRepository vTarjetaColaboradorRepository, ColaboradorService vColaboradorService, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas, TarjetaColaboradorCreator vTarjetaColaboradorCreator, PermisoAperturaService vPermisoAperturaService) {
+    private final I18nService i18nService;
+
+    public TarjetaColaboradorService(TarjetaColaboradorRepository vTarjetaColaboradorRepository, ColaboradorService vColaboradorService, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas, TarjetaColaboradorCreator vTarjetaColaboradorCreator, PermisoAperturaService vPermisoAperturaService, I18nService vI18nService) {
         super();
         tarjetaColaboradorRepository = vTarjetaColaboradorRepository;
         colaboradorService = vColaboradorService;
@@ -44,11 +46,13 @@ public class TarjetaColaboradorService extends TarjetaService {
         gestorDeAperturas = vGestorDeAperturas;
         tarjetaColaboradorCreator = vTarjetaColaboradorCreator;
         permisoAperturaService = vPermisoAperturaService;
+
+        i18nService = vI18nService;
     }
 
     @Override
     public TarjetaColaborador obtenerTarjeta(String tarjetaColaboradorId) {
-        return tarjetaColaboradorRepository.findById(tarjetaColaboradorId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return tarjetaColaboradorRepository.findById(tarjetaColaboradorId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     @Override
@@ -86,7 +90,7 @@ public class TarjetaColaboradorService extends TarjetaService {
         PermisoApertura permisoApertura = permisoAperturaService.crearPermisoApertura(heladeraInvolucrada, LocalDateTime.now(), motivo, cantidadViandas);
         agregarPermiso(tarjetaColaboradorId, permisoApertura);
 
-        log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaborador.solicitarApertura_info", heladeraInvolucrada.getNombre(), tarjetaColaborador.getTitular().getPersona().getNombre(2)));
+        log.log(Level.INFO, i18nService.getMessage("tarjeta.TarjetaColaborador.solicitarApertura_info", heladeraInvolucrada.getNombre(), tarjetaColaborador.getTitular().getPersona().getNombre(2)));
 
         return solicitudApertura;
     }
@@ -101,7 +105,7 @@ public class TarjetaColaboradorService extends TarjetaService {
         AperturaColaborador apertura = new AperturaColaborador(LocalDateTime.now(), heladera, titular);
         accionHeladeraService.guardarAccionHeladera(apertura);
 
-        log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaColaborador.intentarApertura_info", heladera.getNombre(), titular.getPersona().getNombre(2)));
+        log.log(Level.INFO, i18nService.getMessage("tarjeta.TarjetaColaborador.intentarApertura_info", heladera.getNombre(), titular.getPersona().getNombre(2)));
 
         return apertura;
     }

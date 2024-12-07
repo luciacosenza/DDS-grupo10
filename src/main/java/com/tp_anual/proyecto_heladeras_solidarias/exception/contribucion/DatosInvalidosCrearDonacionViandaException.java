@@ -1,9 +1,12 @@
 package com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
+import org.springframework.context.MessageSource;
+
+import java.util.Locale;
 
 public class DatosInvalidosCrearDonacionViandaException extends Exception {
     public DatosInvalidosCrearDonacionViandaException() {
-        super(I18n.getMessage("contribucion.DonacionViandaCreator.crearContribucion_exception"));
+        super(SpringContext.getBean(MessageSource.class).getMessage( "contribucion.DonacionViandaCreator.crearContribucion_exception", null, Locale.getDefault()));
     }
 }

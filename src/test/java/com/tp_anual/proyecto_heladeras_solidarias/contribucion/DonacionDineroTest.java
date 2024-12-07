@@ -31,6 +31,9 @@ public class DonacionDineroTest {
     @Autowired
     ColaboradorService colaboradorService;
 
+    @Autowired
+    DonacionDineroCreator donacionDineroCreator;
+
     @Test
     @DisplayName("Testeo la carga y correcto funcionamiento de una DonacionDinero")
     public void CargaDonacionDineroTest() throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException,DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException {
@@ -40,7 +43,6 @@ public class DonacionDineroTest {
         Double monto1 = 100000d;
         DonacionDinero.FrecuenciaDePago frecuencia1 = DonacionDinero.FrecuenciaDePago.UNICA_VEZ;
 
-        DonacionDineroCreator donacionDineroCreator = new DonacionDineroCreator();
         DonacionDinero donacionDinero1 = (DonacionDinero) colaboradorService.colaborar(colaboradorHumanoId, donacionDineroCreator, LocalDateTime.now(), monto1, frecuencia1);
         colaboradorService.confirmarContribucion(colaboradorHumanoId, donacionDinero1, LocalDateTime.now());
 

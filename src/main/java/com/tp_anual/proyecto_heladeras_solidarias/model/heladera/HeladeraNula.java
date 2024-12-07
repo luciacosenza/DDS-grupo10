@@ -3,12 +3,14 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import lombok.extern.java.Log;
+import org.springframework.context.MessageSource;
 
 @Log
 public class HeladeraNula extends Heladera {
@@ -24,8 +26,12 @@ public class HeladeraNula extends Heladera {
 
     @Override
     public Ubicacion getUbicacion() {
-        log.log(Level.SEVERE, I18n.getMessage("heladera.HeladeraNula.getUbicacion_err"));
-        throw new UnsupportedOperationException(I18n.getMessage("heladera.HeladeraNula.getUbicacion_exception"));
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String logMessage = messageSource.getMessage("heladera.HeladeraNula.getUbicacion_err", null, Locale.getDefault());
+        String exceptionMessage = messageSource.getMessage("heladera.HeladeraNula.getUbicacion_exception", null, Locale.getDefault());
+
+        log.log(Level.SEVERE, logMessage);
+        throw new UnsupportedOperationException(exceptionMessage);
     }
 
     @Override
@@ -54,8 +60,12 @@ public class HeladeraNula extends Heladera {
 
     @Override
     public LocalDateTime getFechaApertura() {
-        log.log(Level.SEVERE, I18n.getMessage("heladera.HeladeraNula.getFechaApertura_err"));
-        throw new UnsupportedOperationException(I18n.getMessage("heladera.HeladeraNula.getFechaApertura_exception"));
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String logMessage = messageSource.getMessage("heladera.HeladeraNula.getFechaApertura_err", null, Locale.getDefault());
+        String exceptionMessage = messageSource.getMessage("heladera.HeladeraNula.getFechaApertura_exception", null, Locale.getDefault());
+
+        log.log(Level.SEVERE, logMessage);
+        throw new UnsupportedOperationException(exceptionMessage);
     }
 
     @Override

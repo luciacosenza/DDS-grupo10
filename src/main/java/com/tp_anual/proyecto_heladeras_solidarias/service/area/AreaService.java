@@ -1,22 +1,26 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.area;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.area.Area;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.area.AreaRepository;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import jakarta.persistence.EntityNotFoundException;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AreaService {
+
     private final AreaRepository areaRepository;
 
-    public AreaService(AreaRepository vAreaRepository) {
+    private final I18nService i18nService;
+
+    public AreaService(AreaRepository vAreaRepository, I18nService vI18nService) {
         areaRepository = vAreaRepository;
+        i18nService = vI18nService;
     }
 
     public Area obtenerArea(Long areaId) {
-        return areaRepository.findById(areaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return areaRepository.findById(areaId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public Area guardarArea(Area area) {

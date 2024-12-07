@@ -11,7 +11,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 
 import jakarta.annotation.PostConstruct;
 import lombok.extern.java.Log;
@@ -20,15 +20,20 @@ import org.springframework.stereotype.Service;
 @Service
 @Log
 public class EMailSender {
+
 	private final Properties propiedades;
 	private final String  username;
     private final String password;
 	private Session sesion;
+	
+	private final I18nService i18nService;
 
-	public EMailSender() {
+	public EMailSender(I18nService vI18nService) {
 		propiedades = new Properties();
 		username = System.getenv("EMAIL_USERNAME");
 		password = System.getenv("EMAIL_PASSWORD");
+
+		i18nService = vI18nService;
 	}
 
 	@PostConstruct
@@ -57,8 +62,8 @@ public class EMailSender {
 			Transport.send(mensaje);
 
 		} catch (MessagingException me) {
-			log.log(Level.SEVERE, I18n.getMessage("contacto.EMailSenderService.enviarEMail_err", receptor));
-			throw new RuntimeException(I18n.getMessage("contacto.EMailSenderService.enviarEMail_exception"));
+			log.log(Level.SEVERE, i18nService.getMessage("contacto.EMailSenderService.enviarEMail_err", receptor));
+			throw new RuntimeException(i18nService.getMessage("contacto.EMailSenderService.enviarEMail_exception"));
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contacto;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.WhatsApp;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contacto.WhatsAppRepository;
@@ -15,14 +15,18 @@ public class WhatsAppService extends MedioDeContactoService {
 
     private final WhatsAppRepository whatsAppRepository;
 
-    public WhatsAppService(WhatsAppRepository vWhatsAppRepository) {
+    private final I18nService i18nService;
+
+    public WhatsAppService(WhatsAppRepository vWhatsAppRepository, I18nService vI18nService) {
         super();
         whatsAppRepository = vWhatsAppRepository;
+
+        i18nService = vI18nService;
     }
 
     @Override
     public WhatsApp obtenerMedioDeContacto(Long whatsAppId) {
-        return whatsAppRepository.findById(whatsAppId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return whatsAppRepository.findById(whatsAppId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     @Override

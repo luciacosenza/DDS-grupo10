@@ -4,12 +4,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.FallaTecnica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.incidente.FallaTecnicaService;
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -18,9 +20,9 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorH
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
 
 @SpringBootTest
 public class FallaTecnicaTest {
@@ -47,7 +49,10 @@ public class FallaTecnicaTest {
 
         List<FallaTecnica> fallasTecnicas = fallaTecnicaService.obtenerFallasTecnicas();
 
-        Assertions.assertEquals(I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception"), exception.getMessage());  // Verificamos que se lanza la Exception del Técnico (porque no implementamos que haya uno que la atienda)
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String exceptionMessage = messageSource.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception", null, Locale.getDefault());
+
+        Assertions.assertEquals(exceptionMessage, exception.getMessage());  // Verificamos que se lanza la Exception del Técnico (porque no implementamos que haya uno que la atienda)
         Assertions.assertTrue(!heladera.getEstado() && fallasTecnicas.size() == 1);
     }
 }

@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJuridico;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
@@ -24,15 +24,19 @@ public class HacerseCargoDeHeladeraService extends ContribucionService {
     private final ColaboradorPuntosService colaboradorPuntosService;
     private final Double multiplicadorPuntos = 5d;
 
-    public HacerseCargoDeHeladeraService(HacerseCargoDeHeladeraRepository vHacerseCargoDeHeladeraRepository, ColaboradorPuntosService vColaboradorPuntosService) {
+    private final I18nService i18nService;
+
+    public HacerseCargoDeHeladeraService(HacerseCargoDeHeladeraRepository vHacerseCargoDeHeladeraRepository, ColaboradorPuntosService vColaboradorPuntosService, I18nService vI18nService) {
         super();
         hacerseCargoDeHeladeraRepository = vHacerseCargoDeHeladeraRepository;
         colaboradorPuntosService = vColaboradorPuntosService;
+
+        i18nService = vI18nService;
     }
 
     @Override
     public HacerseCargoDeHeladera obtenerContribucion(Long hacerseCargoDeHeladeraId) {
-        return hacerseCargoDeHeladeraRepository.findById(hacerseCargoDeHeladeraId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return hacerseCargoDeHeladeraRepository.findById(hacerseCargoDeHeladeraId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public List<HacerseCargoDeHeladera> obtenerHacerseCargoDeHeladerasQueSumanPuntos() {
@@ -49,7 +53,7 @@ public class HacerseCargoDeHeladeraService extends ContribucionService {
 
     @Override
     protected void confirmarSumaPuntos(Long hacerseCargoDeHeladeraId, Colaborador colaborador, Double puntosSumados) {
-        log.log(Level.INFO, I18n.getMessage("contribucion.HacerseCargoDeHeladera.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
+        log.log(Level.INFO, i18nService.getMessage("contribucion.HacerseCargoDeHeladera.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
     // Programo la tarea para ejecutarse todos los días a las 00.00 hs

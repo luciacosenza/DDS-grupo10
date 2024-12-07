@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,7 +12,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.exception.colaborador.Contribu
 import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.*;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.DatosInvalidosCrearTarjetaColaboradorException;
-import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.DatosInvalidosCrearTarjetaPESVException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
@@ -21,6 +21,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.ViandaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta.TarjetaColaboradorService;
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,9 +39,9 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento.Tipo
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
 
 @SpringBootTest
 public class HeladeraTest {
@@ -57,6 +58,16 @@ public class HeladeraTest {
     @Autowired
     TarjetaColaboradorService tarjetaColaboradorService;
 
+    @Autowired
+    HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator;
+
+    @Autowired
+    DonacionViandaCreator donacionViandaCreator;
+
+    @Autowired
+    DistribucionViandasCreator distribucionViandasCreator;
+
+
     @Test
     @DisplayName("Testeo la puesta en marcha de dos Heladeras y la adición de Viandas a estas por medio de distintas Contribuciones")
     public void HeladeraViandasTest() throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException, DatosInvalidosCrearTarjetaColaboradorException, HeladeraVaciaSolicitudRetiroException, HeladeraLlenaSolicitudIngresoException, PermisoAperturaExpiradoException, PermisoAperturaAusenteException, HeladeraLlenaAgregarViandaException, HeladeraVaciaRetirarViandaException {
@@ -65,8 +76,6 @@ public class HeladeraTest {
 
         LocalDateTime fechaAperturaH1 = LocalDateTime.parse("2024-01-01T00:00:00");
         Heladera heladera1 = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"),20, -20f, 5f, new ArrayList<>(), 2f, fechaAperturaH1, true);
-
-        HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
 
         HacerseCargoDeHeladera hacerseCargoDeHeladera1 = (HacerseCargoDeHeladera) colaboradorService.colaborar(colaboradorJuridicoId, hacerseCargoDeHeladeraCreator, fechaAperturaH1, heladera1);
 
@@ -89,8 +98,6 @@ public class HeladeraTest {
         LocalDate fechaCaducidadV = LocalDate.parse("2025-01-01");
         Vianda vianda1 = new Vianda("ComidaPrueba", colaboradorHumano, fechaCaducidadV, null, 0, 0, false);
         Long vianda1Id = viandaService.guardarVianda(vianda1).getId();
-
-        DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
 
         DonacionVianda donacionVianda1 = (DonacionVianda) colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), vianda1, heladera1);
 
@@ -141,7 +148,6 @@ public class HeladeraTest {
 
         Integer cantidadADistribuir = 2;
 
-        DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
         DistribucionViandas distribucionViandas = (DistribucionViandas) colaboradorService.colaborar(colaboradorHumanoId, distribucionViandasCreator, LocalDateTime.now(), heladera1, heladera2, cantidadADistribuir, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
 
         tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION, cantidadADistribuir);
@@ -222,7 +228,10 @@ public class HeladeraTest {
             }
         });
 
-        Assertions.assertEquals(I18n.getMessage("heladera.Heladera.agregarVianda_exception"), exception.getMessage());
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String exceptionMessage = messageSource.getMessage("heladera.Heladera.agregarVianda_exception", null, Locale.getDefault());
+
+        Assertions.assertEquals(exceptionMessage, exception.getMessage());
     }
 
     @Test
@@ -263,6 +272,9 @@ public class HeladeraTest {
             }
         });
 
-        Assertions.assertEquals(I18n.getMessage("heladera.Heladera.retirarVianda_exception"), exception.getMessage());
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String exceptionMessage = messageSource.getMessage("heladera.Heladera.retirarVianda_exception", null, Locale.getDefault());
+
+        Assertions.assertEquals(exceptionMessage, exception.getMessage());
     }
 }

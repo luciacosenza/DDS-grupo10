@@ -1,7 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
 import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.DomicilioFaltanteRPESVException;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
@@ -25,15 +25,19 @@ public class RegistroDePersonaEnSituacionVulnerableService extends ContribucionS
     private final ColaboradorPuntosService colaboradorPuntosService;
     private final Double multiplicadorPuntos = 2d;
 
-    public RegistroDePersonaEnSituacionVulnerableService(RegistroDePersonaEnSituacionVulnerableRepository vRegistroDePersonaEnSituacionVulnerableRepository, ColaboradorPuntosService vColaboradorPuntosService) {
+    private final I18nService i18nService;
+
+    public RegistroDePersonaEnSituacionVulnerableService(RegistroDePersonaEnSituacionVulnerableRepository vRegistroDePersonaEnSituacionVulnerableRepository, ColaboradorPuntosService vColaboradorPuntosService, I18nService vI18nService) {
         super();
         registroDePersonaEnSituacionVulnerableRepository = vRegistroDePersonaEnSituacionVulnerableRepository;
         colaboradorPuntosService = vColaboradorPuntosService;
+
+        i18nService = vI18nService;
     }
 
     @Override
     public RegistroDePersonaEnSituacionVulnerable obtenerContribucion(Long registroDePersonaEnSituacionVulnerableId) {
-        return registroDePersonaEnSituacionVulnerableRepository.findById(registroDePersonaEnSituacionVulnerableId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return registroDePersonaEnSituacionVulnerableRepository.findById(registroDePersonaEnSituacionVulnerableId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public List<RegistroDePersonaEnSituacionVulnerable> obtenerRegistrosDePersonaEnSituacionVulnerableQueSumanPuntos() {
@@ -48,14 +52,14 @@ public class RegistroDePersonaEnSituacionVulnerableService extends ContribucionS
     @Override
     public void validarIdentidad(Long registroDePersonaEnSituacionVulnerableId, Colaborador colaborador) throws DomicilioFaltanteRPESVException {
         if (colaborador.getDomicilio() == null) {
-            log.log(Level.SEVERE, I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
+            log.log(Level.SEVERE, i18nService.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
             throw new DomicilioFaltanteRPESVException();
         }
     }
 
     @Override
     protected void confirmarSumaPuntos(Long registroDePersonaEnSituacionVulnerableId, Colaborador colaborador, Double puntosSumados) {
-        log.log(Level.INFO, I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
+        log.log(Level.INFO, i18nService.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
     // Programo la tarea para ejecutarse todos los días a las 00.00 hs

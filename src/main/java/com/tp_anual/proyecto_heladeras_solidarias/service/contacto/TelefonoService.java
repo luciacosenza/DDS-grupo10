@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contacto;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.Telefono;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contacto.TelefonoRepository;
@@ -15,14 +15,18 @@ public class TelefonoService extends MedioDeContactoService {
 
     private final TelefonoRepository telefonoRepository;
 
-    public TelefonoService(TelefonoRepository vTelefonoRepository) {
+    private final I18nService i18nService;
+
+    public TelefonoService(TelefonoRepository vTelefonoRepository, I18nService vI18nService) {
         super();
         telefonoRepository = vTelefonoRepository;
+
+        i18nService = vI18nService;
     }
 
     @Override
     public Telefono obtenerMedioDeContacto(Long telefonoId) {
-        return telefonoRepository.findById(telefonoId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return telefonoRepository.findById(telefonoId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.heladera;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.AccionHeladera;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.heladera.AccionHeladeraRepository;
 import lombok.extern.java.Log;
@@ -16,12 +16,16 @@ public class AccionHeladeraService {
 
     private final AccionHeladeraRepository accionHeladeraRepository;
 
-    public AccionHeladeraService(AccionHeladeraRepository vAccionHeladeraRepository) {
+    private final I18nService i18nService;
+
+    public AccionHeladeraService(AccionHeladeraRepository vAccionHeladeraRepository, I18nService vI18nService) {
         accionHeladeraRepository = vAccionHeladeraRepository;
+
+        i18nService = vI18nService;
     }
 
     public AccionHeladera obtenerAccionHeladera(Long accionHeladeraId) {
-        return accionHeladeraRepository.findById(accionHeladeraId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return accionHeladeraRepository.findById(accionHeladeraId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public List<AccionHeladera> obtenerAccionesHeladera() {

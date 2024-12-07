@@ -1,10 +1,12 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.persona;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.MessageSource;
+
+import java.util.Locale;
 
 @Entity
 @Getter
@@ -46,12 +48,19 @@ public class PersonaJuridica extends Persona {
 
     @Override
     public void obtenerDetalles() {
-        System.out.println(I18n.getMessage("persona.PersonaJuridica.obtenerDetalles_out_razon_social", razonSocial));
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String logMessage1 = messageSource.getMessage("persona.PersonaJuridica.obtenerDetalles_out_razon_social", new Object[] {razonSocial}, Locale.getDefault());
+
+        System.out.println(logMessage1);
         
-        if (tipo != null)
-            System.out.println(I18n.getMessage("persona.PersonaJuridica.obtenerDetalles_out_tipo", tipo));
+        if (tipo != null) {
+            String logMessage2 = messageSource.getMessage("persona.PersonaFisica.obtenerDetalles_out_tipo", new Object[] {tipo}, Locale.getDefault());
+            System.out.println(logMessage2);
+        }
         
-        if (rubro != null)
-            System.out.println(I18n.getMessage("persona.PersonaJuridica.obtenerDetalles_out_rubro", rubro));
+        if (rubro != null) {
+            String logMessage3 = messageSource.getMessage("persona.PersonaFisica.obtenerDetalles_out_rubro", new Object[] {rubro}, Locale.getDefault());
+            System.out.println(logMessage3);
+        }
     }
 }

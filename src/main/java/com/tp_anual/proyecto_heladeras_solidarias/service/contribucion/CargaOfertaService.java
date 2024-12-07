@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.CargaOferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
@@ -16,14 +16,18 @@ public class CargaOfertaService extends ContribucionService {
 
     private final CargaOfertaRepository cargaOfertaRepository;
 
-    public CargaOfertaService(CargaOfertaRepository vCargaOfertaRepository) {
+    private final I18nService i18nService;
+
+    public CargaOfertaService(CargaOfertaRepository vCargaOfertaRepository, I18nService vI18nService) {
         super();
         cargaOfertaRepository = vCargaOfertaRepository;
+
+        i18nService = vI18nService;
     }
 
     @Override
     public CargaOferta obtenerContribucion(Long cargaOfertaId) {
-        return cargaOfertaRepository.findById(cargaOfertaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return cargaOfertaRepository.findById(cargaOfertaId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     @Override

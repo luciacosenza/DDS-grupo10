@@ -1,7 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.usuario;
 
 import com.tp_anual.proyecto_heladeras_solidarias.exception.usuario.PasswordNoValidaException;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.usuario.UsuarioRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.validador_password.ValidadorPassword;
@@ -26,9 +26,13 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final UsuarioRepository usuarioRepository;
     private final ValidadorPassword validadorPassword;
 
-    public CustomUserDetailsService(UsuarioRepository vUsuarioRepository, ValidadorPassword vValidadorPassword) {
+    private final I18nService i18nService;
+
+    public CustomUserDetailsService(UsuarioRepository vUsuarioRepository, ValidadorPassword vValidadorPassword, I18nService vI18nService) {
         usuarioRepository = vUsuarioRepository;
         validadorPassword = vValidadorPassword;
+
+        i18nService = vI18nService;
     }
 
     public PasswordEncoder passwordEncoder() {
@@ -45,7 +49,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        Usuario usuario = usuarioRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
 
         return User.withUsername(usuario.getUsername()).password(usuario.getPassword()).authorities(List.of(new SimpleGrantedAuthority(usuario.getRole()))).build();
     }
@@ -73,7 +77,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     public void validarPassword(String username, String password) throws PasswordNoValidaException {
         if (!esPasswordValida(password)) {
-            log.log(Level.SEVERE, I18n.getMessage("usuario.Usuario.validarUsuario.esPasswordValida_err", password, username));
+            log.log(Level.SEVERE, i18nService.getMessage("usuario.Usuario.validarUsuario.esPasswordValida_err", password, username));
             throw new PasswordNoValidaException();
         }
     }

@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.incidente;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.incidente.AlertaRepository;
@@ -21,13 +21,17 @@ public class AlertaService {
     private final AlertaRepository alertaRepository;
     private final NotificadorDeIncidentes notificadorDeIncidentes;
 
-    public AlertaService(AlertaRepository vAlertaRepository, NotificadorDeIncidentes vNotificadorDeIncidentes) {
+    private final I18nService i18nService;
+
+    public AlertaService(AlertaRepository vAlertaRepository, NotificadorDeIncidentes vNotificadorDeIncidentes, I18nService vI18nService) {
         alertaRepository = vAlertaRepository;
         notificadorDeIncidentes = vNotificadorDeIncidentes;
+
+        i18nService = vI18nService;
     }
 
     public Alerta obtenerAlerta(Long idAlerta) {
-        return alertaRepository.findById(idAlerta).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return alertaRepository.findById(idAlerta).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public List<Alerta> obtenerAlertas() {
@@ -56,6 +60,6 @@ public class AlertaService {
 
         notificadorDeIncidentes.notificarIncidente(alerta);
 
-        log.log(Level.INFO, I18n.getMessage("incidente.Alerta.producirAlerta_info", alerta.getTipo(), heladera.getNombre()));
+        log.log(Level.INFO, i18nService.getMessage("incidente.Alerta.producirAlerta_info", alerta.getTipo(), heladera.getNombre()));
     }
 }

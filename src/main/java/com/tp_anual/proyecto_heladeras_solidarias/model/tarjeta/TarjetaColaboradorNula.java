@@ -2,11 +2,13 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import lombok.extern.java.Log;
+import org.springframework.context.MessageSource;
 
 @Log
 public class TarjetaColaboradorNula extends TarjetaColaborador {
@@ -22,8 +24,12 @@ public class TarjetaColaboradorNula extends TarjetaColaborador {
 
     @Override
     public ColaboradorHumano getTitular() {
-        log.log(Level.SEVERE, I18n.getMessage("tarjeta.TarjetaColaboradorNula.getTitular_err"));
-        throw new UnsupportedOperationException(I18n.getMessage("tarjeta.TarjetaColaboradorNula.getTitular_exception"));
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String logMessage = messageSource.getMessage("tarjeta.TarjetaColaboradorNula.getTitular_err", null, Locale.getDefault());
+        String exceptionMessage = messageSource.getMessage("tarjeta.TarjetaColaboradorNula.getTitular_exception", null, Locale.getDefault());
+
+        log.log(Level.SEVERE, logMessage);
+        throw new UnsupportedOperationException(exceptionMessage);
     }
 
     @Override

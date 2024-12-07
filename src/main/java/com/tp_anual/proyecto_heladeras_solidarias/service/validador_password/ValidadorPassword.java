@@ -12,7 +12,7 @@ public class ValidadorPassword {
     private final List<CriterioValidacion> criterios = new ArrayList<>();
 
     public ValidadorPassword() {
-        criterios.add(new CriterioLargo(8, 32)); // Estas cantidades son arbitrarias, pueden cambiar después
+        criterios.add(new CriterioLargo(8, 32));    // Estas cantidades son arbitrarias, pueden cambiar después
         criterios.add(new CriterioTop10000MasComun());
     }
 

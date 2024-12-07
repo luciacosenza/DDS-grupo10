@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.suscripcion;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.Suscripcion;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.suscripcion.SuscripcionRepository;
@@ -17,12 +17,16 @@ public class SuscripcionService {
 
     private final SuscripcionRepository suscripcionRepository;
 
-    public SuscripcionService(SuscripcionRepository vSuscripcionRepository) {
+    private final I18nService i18nService;
+
+    public SuscripcionService(SuscripcionRepository vSuscripcionRepository, I18nService vI18nService) {
         suscripcionRepository = vSuscripcionRepository;
+
+        i18nService = vI18nService;
     }
 
     public Suscripcion obtenerSuscripcion(Long suscripcionId) {
-        return suscripcionRepository.findById(suscripcionId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return suscripcionRepository.findById(suscripcionId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public List<Suscripcion> obtenerSuscripciones() {

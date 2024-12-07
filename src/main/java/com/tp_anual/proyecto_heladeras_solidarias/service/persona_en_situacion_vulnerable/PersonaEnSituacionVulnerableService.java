@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.persona_en_situacion_vulnerable;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerableRepository;
@@ -17,12 +17,16 @@ public class PersonaEnSituacionVulnerableService {
 
     private final PersonaEnSituacionVulnerableRepository personaEnSituacionVulnerableRepository;
 
-    public PersonaEnSituacionVulnerableService(PersonaEnSituacionVulnerableRepository vPersonaEnSituacionVulnerableRepository) {
+    private final I18nService i18nService;
+
+    public PersonaEnSituacionVulnerableService(PersonaEnSituacionVulnerableRepository vPersonaEnSituacionVulnerableRepository, I18nService vI18nService) {
         personaEnSituacionVulnerableRepository = vPersonaEnSituacionVulnerableRepository;
+
+        i18nService = vI18nService;
     }
 
     public PersonaEnSituacionVulnerable obtenerPersonaEnSituacionVulnerable(Long personaEnSituacionVulnerableId) {
-        return personaEnSituacionVulnerableRepository.findById(personaEnSituacionVulnerableId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return personaEnSituacionVulnerableRepository.findById(personaEnSituacionVulnerableId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public List<PersonaEnSituacionVulnerable> obtenerPersonasEnSituacionVulnerable() {

@@ -1,7 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
 import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.DomicilioFaltanteDoVException;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
@@ -26,15 +26,19 @@ public class DonacionViandaService extends ContribucionService {
     private final ColaboradorPuntosService colaboradorPuntosService;
     private final Double multiplicadorPuntos = 1.5;
 
-    public DonacionViandaService(DonacionViandaRepository vDonacionViandaRepository, ColaboradorPuntosService vColaboradorPuntosService) {
+    private final I18nService i18nService;
+
+    public DonacionViandaService(DonacionViandaRepository vDonacionViandaRepository, ColaboradorPuntosService vColaboradorPuntosService, I18nService vI18nService) {
         super();
         donacionViandaRepository = vDonacionViandaRepository;
         colaboradorPuntosService = vColaboradorPuntosService;
+
+        i18nService = vI18nService;
     }
 
     @Override
     public DonacionVianda obtenerContribucion(Long donacionViandaId) {
-        return donacionViandaRepository.findById(donacionViandaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return donacionViandaRepository.findById(donacionViandaId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public List<DonacionVianda> obtenerDonacionesViandaQueSumanPuntos() {
@@ -53,14 +57,14 @@ public class DonacionViandaService extends ContribucionService {
     @Override
     public void validarIdentidad(Long donacionViandaId, Colaborador colaborador) throws DomicilioFaltanteDoVException {
         if (colaborador.getDomicilio() == null) {
-            log.log(Level.SEVERE, I18n.getMessage("contribucion.DonacionVianda.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
+            log.log(Level.SEVERE, i18nService.getMessage("contribucion.DonacionVianda.validarIdentidad_err", colaborador.getPersona().getNombre(2)));
             throw new DomicilioFaltanteDoVException();
         }
     }
 
     @Override
     protected void confirmarSumaPuntos(Long donacionViandaId, Colaborador colaborador, Double puntosSumados) {
-        log.log(Level.INFO, I18n.getMessage("contribucion.DonacionVianda.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
+        log.log(Level.INFO, i18nService.getMessage("contribucion.DonacionVianda.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
     // Programo la tarea para ejecutarse todos los días a las 00.00 hs

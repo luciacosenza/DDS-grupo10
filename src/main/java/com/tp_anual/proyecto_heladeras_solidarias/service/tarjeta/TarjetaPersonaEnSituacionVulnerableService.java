@@ -3,7 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.HeladeraVaciaIntentoRetiroPESVException;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.DatosInvalidosCrearTarjetaPESVException;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.UsosAgotadosException;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.AperturaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
@@ -34,18 +34,22 @@ public class TarjetaPersonaEnSituacionVulnerableService extends TarjetaService {
     private final GestorDeAperturas gestorDeAperturas;
     private final TarjetaPersonaEnSituacionVulnerableCreator tarjetaPersonaEnSituacionVulnerableCreator;
 
-    public TarjetaPersonaEnSituacionVulnerableService(TarjetaPersonaEnSituacionVulnerableRepository vTarjetaEnSituacionVulnerableRepository, PersonaEnSituacionVulnerableService vPersonaEnSituacionVulnerableService, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas, TarjetaPersonaEnSituacionVulnerableCreator vTarjetaEnSituacionVulnerableCreator){
+    private final I18nService i18nService;
+
+    public TarjetaPersonaEnSituacionVulnerableService(TarjetaPersonaEnSituacionVulnerableRepository vTarjetaEnSituacionVulnerableRepository, PersonaEnSituacionVulnerableService vPersonaEnSituacionVulnerableService, AccionHeladeraService vAccionHeladeraService, GestorDeAperturas vGestorDeAperturas, TarjetaPersonaEnSituacionVulnerableCreator vTarjetaEnSituacionVulnerableCreator, I18nService vI18nService){
         super();
         tarjetaPersonaEnSituacionVulnerableRepository = vTarjetaEnSituacionVulnerableRepository;
         personaEnSituacionVulnerableService = vPersonaEnSituacionVulnerableService;
         accionHeladeraService = vAccionHeladeraService;
         gestorDeAperturas = vGestorDeAperturas;
         tarjetaPersonaEnSituacionVulnerableCreator = vTarjetaEnSituacionVulnerableCreator;
+
+        i18nService = vI18nService;
     }
 
     @Override
     public TarjetaPersonaEnSituacionVulnerable obtenerTarjeta(String tarjetaPersonaEnSituacionVulnerableId) {
-        return tarjetaPersonaEnSituacionVulnerableRepository.findById(tarjetaPersonaEnSituacionVulnerableId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return tarjetaPersonaEnSituacionVulnerableRepository.findById(tarjetaPersonaEnSituacionVulnerableId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public List<TarjetaPersonaEnSituacionVulnerable> obtenerTarjetas() {
@@ -87,7 +91,7 @@ public class TarjetaPersonaEnSituacionVulnerableService extends TarjetaService {
 
         for (TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable : tarjetasPersonaEnSituacionVulnerable) {
             resetUsos(tarjetaPersonaEnSituacionVulnerable.getCodigo());
-            log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.programarRevocacionPermisos_info", tarjetaPersonaEnSituacionVulnerable.getTitular().getPersona().getNombre(2)));
+            log.log(Level.INFO, i18nService.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.programarRevocacionPermisos_info", tarjetaPersonaEnSituacionVulnerable.getTitular().getPersona().getNombre(2)));
         }
     }
 
@@ -96,7 +100,7 @@ public class TarjetaPersonaEnSituacionVulnerableService extends TarjetaService {
         TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable = obtenerTarjeta(tarjetaPersonaEnSituacionVulnerableId);
 
         if (!puedeUsar(tarjetaPersonaEnSituacionVulnerableId)) {
-            log.log(Level.SEVERE, I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.puedeUsar_err", tarjetaPersonaEnSituacionVulnerable.getTitular().getPersona().getNombre(2)));
+            log.log(Level.SEVERE, i18nService.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.puedeUsar_err", tarjetaPersonaEnSituacionVulnerable.getTitular().getPersona().getNombre(2)));
             throw new UsosAgotadosException();
         }
 
@@ -112,7 +116,7 @@ public class TarjetaPersonaEnSituacionVulnerableService extends TarjetaService {
         UsoTarjeta uso = new UsoTarjeta(ahora, heladeraInvolucrada);
         agregarUso(tarjetaPersonaEnSituacionVulnerable.getCodigo(), uso);   // Al guardar la tarjeta, se guarda el uso por cascada
 
-        log.log(Level.INFO, I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.intentarApertura_info", heladeraInvolucrada.getNombre(), tarjetaPersonaEnSituacionVulnerable.getTitular().getPersona().getNombre(2)));
+        log.log(Level.INFO, i18nService.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerable.intentarApertura_info", heladeraInvolucrada.getNombre(), tarjetaPersonaEnSituacionVulnerable.getTitular().getPersona().getNombre(2)));
 
         return apertura;
     }

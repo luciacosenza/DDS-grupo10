@@ -2,15 +2,17 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import org.springframework.context.MessageSource;
 
 @Entity
 @NamedNativeQuery(
@@ -113,6 +115,10 @@ public class DonacionDinero extends Contribucion {
     @Override
     public void obtenerDetalles() {
         super.obtenerDetalles();
-        System.out.println(I18n.getMessage("contribucion.DonacionDinero.obtenerDetalles_out_monto_frecuencia", monto, frecuencia));
+
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String logMessage = messageSource.getMessage("contribucion.DonacionDinero.obtenerDetalles_out_monto_frecuencia", new Object[] {monto, frecuencia}, Locale.getDefault());
+
+        System.out.println(logMessage);
     }
 }

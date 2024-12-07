@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.heladera;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.PosesionViandas;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.Vianda;
@@ -16,12 +16,16 @@ public class PosesionViandasService {
 
     private final PosesionViandasRepository posesionViandasRepository;
 
-    public PosesionViandasService(PosesionViandasRepository vPosesionViandasRepository) {
+    private final I18nService i18nService;
+
+    public PosesionViandasService(PosesionViandasRepository vPosesionViandasRepository, I18nService vI18nService) {
         posesionViandasRepository = vPosesionViandasRepository;
+
+        i18nService = vI18nService;
     }
 
     public PosesionViandas obtenerPosesionViandas(Long posesionViandasId) {
-        return posesionViandasRepository.findById(posesionViandasId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return posesionViandasRepository.findById(posesionViandasId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public PosesionViandas obtenerPosesionViandasMasRecientePorColaborador(ColaboradorHumano colaborador) {

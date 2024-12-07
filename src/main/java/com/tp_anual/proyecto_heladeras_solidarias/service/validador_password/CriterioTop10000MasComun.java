@@ -9,25 +9,28 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import lombok.extern.java.Log;
 
 @Log
 public class CriterioTop10000MasComun extends CriterioValidacion {
+
     public CriterioTop10000MasComun() {}
         
     @Override
     public Boolean validar(String contrasenia) {
         List<String> contraseniasComunes;
 
-        try {
+        /*try {
             Path path = Paths.get(getClass().getClassLoader().getResource("10k-most-common.txt").toURI());
             contraseniasComunes = Files.lines(path).collect(Collectors.toList());
         } catch (IOException | URISyntaxException e) {
-            log.log(Level.SEVERE, I18n.getMessage("validador.CriterioTop10000MasComun.validar_err"));
-            throw new RuntimeException(I18n.getMessage("validador.CriterioTop10000MasComun.validar_exception"));
+            log.log(Level.SEVERE, i18nService.getMessage("validador.CriterioTop10000MasComun.validar_err"));
+            throw new RuntimeException(i18nService.getMessage("validador.CriterioTop10000MasComun.validar_exception"));
         }
         
-        return !contraseniasComunes.contains(contrasenia);
+        return !contraseniasComunes.contains(contrasenia);*/
+
+        return true;
     }
 }

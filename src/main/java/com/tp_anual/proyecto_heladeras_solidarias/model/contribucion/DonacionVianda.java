@@ -1,14 +1,16 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.Vianda;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.extern.java.Log;
+import org.springframework.context.MessageSource;
 
 @Entity
 @Log
@@ -36,7 +38,12 @@ public class DonacionVianda extends Contribucion {
     @Override
     public void obtenerDetalles() {
         super.obtenerDetalles();
-        System.out.println(I18n.getMessage("contribucion.DonacionVianda.obtenerDetalles_out_vianda_comida", vianda.getComida()));
-        System.out.println(I18n.getMessage("contribucion.DonacionVianda.obtenerDetalles_out_heladera", heladera.getNombre()));
+
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String logMessage1 = messageSource.getMessage("contribucion.DonacionVianda.obtenerDetalles_out_vianda_comida", new Object[] {vianda.getComida()}, Locale.getDefault());
+        String logMessage2 = messageSource.getMessage("contribucion.DonacionVianda.obtenerDetalles_out_heladera", new Object[] {heladera.getNombre()}, Locale.getDefault());
+
+        System.out.println(logMessage1);
+        System.out.println(logMessage2);
     }
 }

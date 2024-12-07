@@ -9,7 +9,7 @@ import java.util.logging.Level;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,11 @@ import org.springframework.stereotype.Service;
 @Log
 public class ExtraccionCSV extends ExtraccionDeDatos {
 
-    public ExtraccionCSV() {}
+    private final I18nService i18nService;
+
+    public ExtraccionCSV(I18nService vI18nService) {
+        i18nService = vI18nService;
+    }
 
     @Override
     public List<String[]> extract(String csv) {
@@ -37,11 +41,11 @@ public class ExtraccionCSV extends ExtraccionDeDatos {
                 dataColaboradores.add(linea);
             }
         } catch (IOException e) {
-            log.log(Level.SEVERE, I18n.getMessage("migrador.ExtraccionCSV.extract_err_io", csv));
-            throw new RuntimeException(I18n.getMessage("migrador.ExtraccionCSV.extract_exception_io"));
+            log.log(Level.SEVERE, i18nService.getMessage("migrador.ExtraccionCSV.extract_err_io", csv));
+            throw new RuntimeException(i18nService.getMessage("migrador.ExtraccionCSV.extract_exception_io"));
         } catch (CsvException e) {
-            log.log(Level.SEVERE, I18n.getMessage("migrador.ExtraccionCSV.extract_err_procesamiento_csv", csv));
-            throw new RuntimeException(I18n.getMessage("migrador.ExtraccionCSV.extract_exception_procesamiento_csv"));
+            log.log(Level.SEVERE, i18nService.getMessage("migrador.ExtraccionCSV.extract_err_procesamiento_csv", csv));
+            throw new RuntimeException(i18nService.getMessage("migrador.ExtraccionCSV.extract_exception_procesamiento_csv"));
         }
         
         confirmarExtraction();

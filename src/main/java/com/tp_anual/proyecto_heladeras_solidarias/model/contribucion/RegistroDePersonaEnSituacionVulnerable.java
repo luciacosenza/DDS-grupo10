@@ -1,14 +1,16 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEnSituacionVulnerable;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.extern.java.Log;
+import org.springframework.context.MessageSource;
 
 @Entity
 @Log
@@ -31,6 +33,10 @@ public class RegistroDePersonaEnSituacionVulnerable extends Contribucion {
     @Override
     public void obtenerDetalles() {
         super.obtenerDetalles();
-        System.out.println(I18n.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.obtenerDetalles_out_tarjeta_asignada_titular", tarjetaAsignada.getTitular()));
+
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String logMessage = messageSource.getMessage("contribucion.RegistroDePersonaEnSituacionVulnerable.obtenerDetalles_out_tarjeta_asignada_titular", new Object[] {tarjetaAsignada.getTitular()}, Locale.getDefault());
+
+        System.out.println(logMessage);
     }
 }

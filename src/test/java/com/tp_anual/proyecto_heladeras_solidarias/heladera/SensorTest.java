@@ -2,6 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.heladera;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.sensor.SensorMovimiento;
@@ -10,15 +11,16 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraServi
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.SensorMovimientoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.SensorTemperaturaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.incidente.IncidenteService;
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
 
 @SpringBootTest
 public class SensorTest {
@@ -138,7 +140,10 @@ public class SensorTest {
 
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> sensorMovimientoService.setHayMovimiento(sensorMovimientoId ,true));
 
-        Assertions.assertEquals(I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception"), exception.getMessage());  // Verificamos que se lanza la Exception del Técnico (porque no implementamos que haya uno que la atienda)
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String exceptionMessage = messageSource.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception", null, Locale.getDefault());
+
+        Assertions.assertEquals(exceptionMessage, exception.getMessage());  // Verificamos que se lanza la Exception del Técnico (porque no implementamos que haya uno que la atienda)
         Assertions.assertTrue(!heladera.getEstado() && !incidenteService.obtenerIncidentes().isEmpty());
     }
 }

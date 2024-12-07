@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.migrador.FilaDeDatosIncompletaException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -59,15 +59,19 @@ public class Migrador {
             [Datos de Contacto de la ONG]
             """;
 
-    public Migrador(@Qualifier("extraccionCSV") ExtraccionDeDatos vProtocoloExtraccion, TransformacionDeDatos vTransformador, @Qualifier("envioEMail") EnvioDeDatos vProtocoloEnvio, ColaboradorService vColaboradorService) {
+    private final I18nService i18nService;
+
+    public Migrador(@Qualifier("extraccionCSV") ExtraccionDeDatos vProtocoloExtraccion, TransformacionDeDatos vTransformador, @Qualifier("envioEMail") EnvioDeDatos vProtocoloEnvio, ColaboradorService vColaboradorService, I18nService vI18nService) {
         protocoloExtraccion = vProtocoloExtraccion;
         transformador = vTransformador;
         protocoloEnvio = vProtocoloEnvio;
         colaboradorService = vColaboradorService;
+
+        i18nService = vI18nService;
     }
 
     public void confirmarLoading() {
-        log.log(Level.INFO, I18n.getMessage("migrador.Migrador.confirmarLoading_info"));
+        log.log(Level.INFO, i18nService.getMessage("migrador.Migrador.confirmarLoading_info"));
     }
 
     public List<ColaboradorHumano> migrar(String csv, Boolean contactar) throws IOException, URISyntaxException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException, FilaDeDatosIncompletaException {

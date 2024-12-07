@@ -3,12 +3,14 @@ package com.tp_anual.proyecto_heladeras_solidarias.incidente;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.SensorMovimientoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.SensorTemperaturaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.incidente.AlertaService;
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,9 +20,9 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.sensor.SensorMovimiento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.sensor.SensorTemperatura;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
 
 
 @SpringBootTest
@@ -114,7 +116,10 @@ public class AlertaTest {
 
         List<Alerta> alertasFraude = alertaService.obtenerAlertasFraude();
 
-        Assertions.assertEquals(I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception"), exception.getMessage());  // Verificamos que se lanza la Exception del Técnico (porque no implementamos que haya uno que la atienda)
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String exceptionMessage = messageSource.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception", null, Locale.getDefault());
+
+        Assertions.assertEquals(exceptionMessage, exception.getMessage());  // Verificamos que se lanza la Exception del Técnico (porque no implementamos que haya uno que la atienda)
         Assertions.assertTrue(!heladera.getEstado() && alertasFraude.size() == 1);
     }
 
@@ -126,7 +131,10 @@ public class AlertaTest {
 
         List<Alerta> alertasFallaConexion = alertaService.obtenerAlertasFallaConexion();
 
-        Assertions.assertEquals(I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception"), exception.getMessage());  // Verificamos que se lanza la Exception del Técnico (porque no implementamos que haya uno que la atienda)
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String exceptionMessage = messageSource.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_exception", null, Locale.getDefault());
+
+        Assertions.assertEquals(exceptionMessage, exception.getMessage());  // Verificamos que se lanza la Exception del Técnico (porque no implementamos que haya uno que la atienda)
         Assertions.assertTrue(!heladera.getEstado() && alertasFallaConexion.size() == 1);
     }
 }

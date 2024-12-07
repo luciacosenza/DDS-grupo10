@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.tecnico;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Visita;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.tecnico.VisitaRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -13,14 +13,19 @@ import java.util.List;
 @Service
 @Log
 public class VisitaService {
+
     private final VisitaRepository visitaRepository;
 
-    public VisitaService(VisitaRepository vVisitaRepository) {
+    private final I18nService i18nService;
+
+    public VisitaService(VisitaRepository vVisitaRepository, I18nService vI18nService) {
         visitaRepository = vVisitaRepository;
+
+        i18nService = vI18nService;
     }
 
     public Visita obtenerVisita(Long visitaId) {
-        return visitaRepository.findById(visitaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return visitaRepository.findById(visitaId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public List<Visita> obtenerVisitas() {

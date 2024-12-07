@@ -15,18 +15,23 @@ import org.apache.commons.lang3.tuple.Pair;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Tecnico;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import org.springframework.stereotype.Service;
 
 @Service
 @Log
 public class UbicadorTecnico {
+
     private final AreaService areaService;
     private final TecnicoService tecnicoService;
 
-    public UbicadorTecnico(AreaService vAreaService, TecnicoService vTecnicoService) {
+    private final I18nService i18nService;
+
+    public UbicadorTecnico(AreaService vAreaService, TecnicoService vTecnicoService, I18nService vI18nService) {
         areaService = vAreaService;
         tecnicoService = vTecnicoService;
+
+        i18nService = vI18nService;
     }
 
     public Tecnico obtenerTecnicoCercanoA(Incidente incidente) throws TecnicosNoDisponiblesHeladeraException {
@@ -52,7 +57,7 @@ public class UbicadorTecnico {
         OptionalDouble distanciaMinima = distancias.stream().mapToDouble(Double::doubleValue).min();
         
         if (distanciaMinima.isEmpty()) {
-            log.log(Level.SEVERE, I18n.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_err", heladera.getNombre()));
+            log.log(Level.SEVERE, i18nService.getMessage("ubicador.ubicadorTecnico.obtenerTecnicoCercanoA_err", heladera.getNombre()));
             throw new TecnicosNoDisponiblesHeladeraException();
         }
 

@@ -8,7 +8,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.CargaOferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,11 @@ import org.springframework.stereotype.Service;
 @Log
 public class CargaOfertaCreator implements ContribucionCreator {
 
-    public CargaOfertaCreator() {}
+    private final I18nService i18nService;
+
+    public CargaOfertaCreator(I18nService vI18nService) {
+        i18nService = vI18nService;
+    }
 
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
@@ -35,7 +39,7 @@ public class CargaOfertaCreator implements ContribucionCreator {
         if (args.length != 1 ||
             !(args[0] instanceof Oferta)) {
             
-            log.log(Level.SEVERE, I18n.getMessage("contribucion.CargaOfertaCreator.crearContribucion_err"));
+            log.log(Level.SEVERE, i18nService.getMessage("contribucion.CargaOfertaCreator.crearContribucion_err"));
             throw new DatosInvalidosCrearCargaOfertaException();
         }
 

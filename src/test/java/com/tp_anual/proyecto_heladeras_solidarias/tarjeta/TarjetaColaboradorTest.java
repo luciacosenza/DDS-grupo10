@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.tp_anual.proyecto_heladeras_solidarias.exception.colaborador.ContribucionNoPermitidaException;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.*;
@@ -15,6 +16,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraServi
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.ViandaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.AccionHeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta.TarjetaColaboradorService;
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,9 +39,9 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_hel
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
 
 @SpringBootTest
 public class TarjetaColaboradorTest {
@@ -59,12 +61,23 @@ public class TarjetaColaboradorTest {
     @Autowired
     AccionHeladeraService accionHeladeraService;
 
+
+    @Autowired
+    DistribucionViandasCreator distribucionViandasCreator;
+
+    @Autowired
+    HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator;
+
+    @Autowired
+    DonacionViandaCreator donacionViandaCreator;
+
+
+
+
     ColaboradorHumano colaboradorHumano;
     Heladera heladera1;
-    HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator;
     LocalDate fechaCaducidadV;
     Vianda vianda1;
-    DonacionViandaCreator donacionViandaCreator;
     DonacionVianda donacionVianda1;
     TarjetaColaborador tarjetaColaborador;
     String codigoTarjeta;
@@ -81,7 +94,6 @@ public class TarjetaColaboradorTest {
         LocalDateTime fechaAperturaH1 = LocalDateTime.parse("2024-01-01T00:00:00");
         Heladera heladera1 = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"), 20, -20f, 5f, new ArrayList<>(), 5f, fechaAperturaH1, true);
 
-        hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
         HacerseCargoDeHeladera hacerseCargoDeHeladera1 = (HacerseCargoDeHeladera) colaboradorService.colaborar(colaboradorJuridicoId, hacerseCargoDeHeladeraCreator, fechaAperturaH1, heladera1);
 
         heladera1Id = heladeraService.guardarHeladera(heladera1).getId();
@@ -92,7 +104,6 @@ public class TarjetaColaboradorTest {
         Vianda vianda1 = new Vianda("ComidaPrueba", colaboradorHumano, fechaCaducidadV, null, 0, 0, false);
         vianda1Id = viandaService.guardarVianda(vianda1).getId();
 
-        donacionViandaCreator = new DonacionViandaCreator();
         donacionVianda1 = (DonacionVianda) colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), vianda1, heladera1);
 
         tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorHumanoId);
@@ -155,7 +166,6 @@ public class TarjetaColaboradorTest {
 
         Integer cantidadADistribuir = 2;
 
-        DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
         DistribucionViandas distribucionViandas = (DistribucionViandas) colaboradorService.colaborar(colaboradorHumanoId, distribucionViandasCreator, LocalDateTime.now(), heladera1, heladera2, cantidadADistribuir, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
 
         SolicitudAperturaColaborador solicitud5 = tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION, cantidadADistribuir);
@@ -205,6 +215,9 @@ public class TarjetaColaboradorTest {
             tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION, 1);
         });
 
-        assertEquals(I18n.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_exception_heladera_vacia"), exception.getMessage());
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String exceptionMessage = messageSource.getMessage("heladera.GestorDeAperturas.revisarSolicitudApertura_exception_heladera_vacia", null, Locale.getDefault());
+
+        assertEquals(exceptionMessage, exception.getMessage());
     }
 }

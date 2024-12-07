@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contribucion;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionDinero;
@@ -23,15 +23,19 @@ public class DonacionDineroService extends ContribucionService {
     private final ColaboradorPuntosService colaboradorPuntosService;
     private final Double multiplicadorPuntos = 0.5;
 
-    public DonacionDineroService(DonacionDineroRepository vDonacionDineroRepository, ColaboradorPuntosService vColaboradorPuntosService) {
+    private final I18nService i18nService;
+
+    public DonacionDineroService(DonacionDineroRepository vDonacionDineroRepository, ColaboradorPuntosService vColaboradorPuntosService, I18nService vI18nService) {
         super();
         donacionDineroRepository = vDonacionDineroRepository;
         colaboradorPuntosService = vColaboradorPuntosService;
+
+        i18nService = vI18nService;
     }
 
     @Override
     public DonacionDinero obtenerContribucion(Long donacionDineroId) {
-        return donacionDineroRepository.findById(donacionDineroId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return donacionDineroRepository.findById(donacionDineroId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public List<DonacionDinero> obtenerDonacionesDineroQueSumanPuntos() {
@@ -48,7 +52,7 @@ public class DonacionDineroService extends ContribucionService {
 
     @Override
     public void confirmarSumaPuntos(Long contribucionId, Colaborador colaborador, Double puntosSumados) {
-        log.log(Level.INFO, I18n.getMessage("contribucion.DonacionDinero.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
+        log.log(Level.INFO, i18nService.getMessage("contribucion.DonacionDinero.confirmarSumaPuntos_info", puntosSumados, colaborador.getPersona().getNombre(2)), getClass().getSimpleName());
     }
 
     // Programo la tarea para ejecutarse todos los días a las 00.00 hs

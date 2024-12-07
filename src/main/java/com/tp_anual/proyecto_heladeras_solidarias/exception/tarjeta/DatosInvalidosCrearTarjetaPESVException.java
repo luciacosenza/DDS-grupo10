@@ -1,9 +1,12 @@
 package com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
+import org.springframework.context.MessageSource;
+
+import java.util.Locale;
 
 public class DatosInvalidosCrearTarjetaPESVException extends Exception {
     public DatosInvalidosCrearTarjetaPESVException() {
-        super(I18n.getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerableCreator.crearTarjeta_exception"));
+        super(SpringContext.getBean(MessageSource.class).getMessage("tarjeta.TarjetaPersonaEnSituacionVulnerableCreator.crearTarjeta_exception", null, Locale.getDefault()));
     }
 }

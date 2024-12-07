@@ -6,7 +6,7 @@ import java.util.logging.Level;
 
 import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.DatosInvalidosCrearTarjetaColaboradorException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.PermisoApertura;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.Tarjeta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaColaborador;
@@ -19,14 +19,18 @@ public class TarjetaColaboradorCreator implements TarjetaCreator {
 
     private final GeneradorCodigo generadorCodigo;
 
-    public TarjetaColaboradorCreator(GeneradorCodigo vGeneradorCodigo) {
+    private final I18nService i18nService;
+
+    public TarjetaColaboradorCreator(GeneradorCodigo vGeneradorCodigo, I18nService vI18nService) {
         generadorCodigo = vGeneradorCodigo;
+
+        i18nService = vI18nService;
     }
 
     @Override
     public Tarjeta crearTarjeta(Object titular) throws DatosInvalidosCrearTarjetaColaboradorException {
         if (!(titular instanceof ColaboradorHumano)) {
-            log.log(Level.SEVERE, I18n.getMessage("tarjeta.TarjetaColaboradorCreator.crearTarjeta_err"));
+            log.log(Level.SEVERE, i18nService.getMessage("tarjeta.TarjetaColaboradorCreator.crearTarjeta_err"));
             throw new DatosInvalidosCrearTarjetaColaboradorException();
         }
 

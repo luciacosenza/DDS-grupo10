@@ -5,7 +5,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.exception.colaborador.Suscripc
 import com.tp_anual.proyecto_heladeras_solidarias.exception.colaborador.SuscripcionNoValidaException;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.oferta.PuntosInsuficientesException;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJuridico;
@@ -22,6 +21,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionV
 import com.tp_anual.proyecto_heladeras_solidarias.model.suscripcion.SuscripcionViandasMin;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.colaborador.ColaboradorRepository;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.oferta.OfertaService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.java.Log;
@@ -45,7 +45,9 @@ public class ColaboradorService {
     private final Map<Class<? extends Colaborador>, Set<Class<? extends ContribucionCreator>>> contribucionesPermitidas = new HashMap<>();
     private final ColaboradorPuntosService colaboradorPuntosService;
 
-    public ColaboradorService(ColaboradorRepository vColaboradorRepository, ContribucionServiceSelector vContribucionServiceSelector, OfertaService vOfertaService, HeladeraService vHeladeraService, DonacionViandaService vDonacionViandaService, DistribucionViandasService vDistribucionViandasService, ColaboradorPuntosService vColaboradorPuntosService) {
+    private final I18nService i18nService;
+
+    public ColaboradorService(ColaboradorRepository vColaboradorRepository, ContribucionServiceSelector vContribucionServiceSelector, OfertaService vOfertaService, HeladeraService vHeladeraService, DonacionViandaService vDonacionViandaService, DistribucionViandasService vDistribucionViandasService, ColaboradorPuntosService vColaboradorPuntosService, I18nService vI18nService) {
         colaboradorRepository = vColaboradorRepository;
         contribucionServiceSelector = vContribucionServiceSelector;
         ofertaService = vOfertaService;
@@ -67,10 +69,12 @@ public class ColaboradorService {
 
         contribucionesPermitidas.put(ColaboradorHumano.class, contribucionesPermitidasHumano);
         contribucionesPermitidas.put(ColaboradorJuridico.class, contribucionesPermitidasJuridico);
+
+        i18nService = vI18nService;
     }
 
     public Colaborador obtenerColaborador(Long colaboradorId) {
-        return colaboradorRepository.findById(colaboradorId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return colaboradorRepository.findById(colaboradorId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public ColaboradorHumano obtenerColaboradorHumano(Long colaboradorId) {
@@ -167,7 +171,7 @@ public class ColaboradorService {
         Colaborador colaborador = obtenerColaborador(colaboradorId);
 
         if (!esContribucionPermitida(colaboradorId, creator.getClass())) {
-            log.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.colaborar_err", creator.getClass().getSimpleName(), colaborador.getPersona().getNombre(2), colaborador.getPersona().getTipoPersona()));
+            log.log(Level.SEVERE, i18nService.getMessage("colaborador.Colaborador.colaborar_err", creator.getClass().getSimpleName(), colaborador.getPersona().getNombre(2), colaborador.getPersona().getTipoPersona()));
             throw new ContribucionNoPermitidaException();
         }
 
@@ -178,7 +182,7 @@ public class ColaboradorService {
 
         agregarContribucion(colaboradorId, contribucion);
 
-        log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.colaborar_info", contribucion.getClass().getSimpleName(), colaborador.getPersona().getNombre(2)));
+        log.log(Level.INFO, i18nService.getMessage("colaborador.Colaborador.colaborar_info", contribucion.getClass().getSimpleName(), colaborador.getPersona().getNombre(2)));
 
         return contribucion;
     }
@@ -193,7 +197,7 @@ public class ColaboradorService {
 
         guardarColaborador(colaborador);
 
-        log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.confirmarContribucion_info", contribucion.getClass().getSimpleName(), colaborador.getPersona().getNombre(2)));
+        log.log(Level.INFO, i18nService.getMessage("colaborador.Colaborador.confirmarContribucion_info", contribucion.getClass().getSimpleName(), colaborador.getPersona().getNombre(2)));
     }
 
     public void intentarAdquirirBeneficio(Long colaboradorId, Oferta oferta) throws PuntosInsuficientesException {
@@ -205,7 +209,7 @@ public class ColaboradorService {
         agregarBeneficio(colaboradorId, oferta);
         colaboradorPuntosService.restarPuntos(colaborador.getId(), oferta.getCosto());
 
-        log.log(Level.INFO, I18n.getMessage("colaborador.Colaborador.adquirirBeneficio_info", oferta.getNombre(), colaborador.getPersona().getNombre(2)));
+        log.log(Level.INFO, i18nService.getMessage("colaborador.Colaborador.adquirirBeneficio_info", oferta.getNombre(), colaborador.getPersona().getNombre(2)));
     }
 
     public void reportarFallaTecnica(Long colaboradorId, Heladera heladera, String descripcion, String foto) {
@@ -246,14 +250,14 @@ public class ColaboradorService {
             case DESPERFECTO -> suscripcion = new SuscripcionDesperfecto(colaborador, heladera, medioDeContacto);
 
             default -> {
-                log.log(Level.SEVERE, I18n.getMessage("colaborador.ColaboradorHumano.suscribirse_err", colaborador.getPersona().getNombre(2)));
+                log.log(Level.SEVERE, i18nService.getMessage("colaborador.ColaboradorHumano.suscribirse_err", colaborador.getPersona().getNombre(2)));
                 throw new SuscripcionNoValidaException();
             }
         }
 
         agregarSuscripcion(colaboradorId, suscripcion);
 
-        log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.agregarSuscripcion_info", colaborador.getPersona().getNombre(2), suscripcion.getHeladera().getNombre()));
+        log.log(Level.INFO, i18nService.getMessage("colaborador.ColaboradorHumano.agregarSuscripcion_info", colaborador.getPersona().getNombre(2), suscripcion.getHeladera().getNombre()));
 
         return suscripcion;
     }
@@ -262,7 +266,7 @@ public class ColaboradorService {
         ColaboradorHumano colaborador = obtenerColaboradorHumano(colaboradorId);
 
         if (!colaborador.getSuscripciones().contains(suscripcion)) {
-            log.log(Level.SEVERE, I18n.getMessage("colaborador.ColaboradorHumano.modificarSuscripcion_err", colaborador.getPersona().getNombre(2)));
+            log.log(Level.SEVERE, i18nService.getMessage("colaborador.ColaboradorHumano.modificarSuscripcion_err", colaborador.getPersona().getNombre(2)));
             throw new SuscripcionNoCorrespondeAColaboradorException();
         }
 
@@ -282,7 +286,7 @@ public class ColaboradorService {
 
         guardarColaborador(colaborador);    // Al guardar el colaborador, se actualiza la suscripción por cascada
 
-        log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.modificarSuscripcion_info", suscripcion.getHeladera().getNombre(), colaborador.getPersona().getNombre(2)));
+        log.log(Level.INFO, i18nService.getMessage("colaborador.ColaboradorHumano.modificarSuscripcion_info", suscripcion.getHeladera().getNombre(), colaborador.getPersona().getNombre(2)));
     }
 
     public void cancelarSuscripcion(Long colaboradorId, Suscripcion suscripcion) {
@@ -290,6 +294,6 @@ public class ColaboradorService {
 
         eliminarSuscripcion(colaboradorId, suscripcion);
 
-        log.log(Level.INFO, I18n.getMessage("colaborador.ColaboradorHumano.cancelarSuscripcion_info", suscripcion.getHeladera().getNombre(), colaborador.getPersona().getNombre(2)));
+        log.log(Level.INFO, i18nService.getMessage("colaborador.ColaboradorHumano.cancelarSuscripcion_info", suscripcion.getHeladera().getNombre(), colaborador.getPersona().getNombre(2)));
     }
 }

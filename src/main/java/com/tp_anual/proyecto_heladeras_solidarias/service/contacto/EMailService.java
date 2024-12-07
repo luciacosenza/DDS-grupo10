@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.contacto;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.EMail;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.contacto.EMailRepository;
@@ -18,15 +18,19 @@ public class EMailService extends MedioDeContactoService {
     private final EMailRepository eMailRepository;
     private final EMailSender eMailSender;
 
-    public EMailService(EMailRepository vEMailRepository, EMailSender vEMailSender) {
+    private final I18nService i18nService;
+
+    public EMailService(EMailRepository vEMailRepository, EMailSender vEMailSender, I18nService vI18nService) {
         super();
         eMailRepository = vEMailRepository;
         eMailSender = vEMailSender;
+
+        i18nService = vI18nService;
     }
 
     @Override
     public EMail obtenerMedioDeContacto(Long eMailId) {
-        return eMailRepository.findById(eMailId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return eMailRepository.findById(eMailId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public EMail guardarMedioDeContacto(MedioDeContacto eMail) {
@@ -39,6 +43,6 @@ public class EMailService extends MedioDeContactoService {
         EMail eMail = obtenerMedioDeContacto(eMailId);
 
         eMailSender.enviarEMail(eMail.getDireccionCorreo(), asunto, cuerpo);
-        log.log(Level.INFO, I18n.getMessage("contacto.EMail.contactar_info", eMail.getDireccionCorreo()));
+        log.log(Level.INFO, i18nService.getMessage("contacto.EMail.contactar_info", eMail.getDireccionCorreo()));
     }
 }

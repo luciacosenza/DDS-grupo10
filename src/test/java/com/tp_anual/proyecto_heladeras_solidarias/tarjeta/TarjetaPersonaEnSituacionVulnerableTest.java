@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.tp_anual.proyecto_heladeras_solidarias.exception.colaborador.ContribucionNoPermitidaException;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.*;
@@ -15,10 +16,12 @@ import com.tp_anual.proyecto_heladeras_solidarias.exception.tarjeta.UsosAgotados
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.TarjetaPersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.RegistroDePersonaEnSituacionVulnerableCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.ViandaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerableService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta.TarjetaPersonaEnSituacionVulnerableService;
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +29,6 @@ import org.junit.jupiter.api.DisplayName;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.RegistroDePersonaEnSituacionVulnerable;
-import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.RegistroDePersonaEnSituacionVulnerableCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento.Sexo;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento.TipoDocumento;
@@ -34,9 +36,9 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona_en_situacion_vulnerable.PersonaEnSituacionVulnerable;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
 
 @SpringBootTest
 public class TarjetaPersonaEnSituacionVulnerableTest {
@@ -55,6 +57,9 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
 
     @Autowired
     TarjetaPersonaEnSituacionVulnerableService tarjetaPersonaEnSituacionVulnerableService;
+
+    @Autowired
+    RegistroDePersonaEnSituacionVulnerableCreator registroDePersonaEnSituacionVulnerableCreator;
 
     ColaboradorHumano colaboradorHumano;
     TarjetaPersonaEnSituacionVulnerable tarjetaPersonaEnSituacionVulnerable;
@@ -129,7 +134,6 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
 
         tarjetaPersonaEnSituacionVulnerable = tarjetaPersonaEnSituacionVulnerableService.crearTarjeta(personaEnSituacionVulnerableId);
 
-        RegistroDePersonaEnSituacionVulnerableCreator registroDePersonaEnSituacionVulnerableCreator = new RegistroDePersonaEnSituacionVulnerableCreator();
         RegistroDePersonaEnSituacionVulnerable registroPersonaEnSituacionVulnerable = (RegistroDePersonaEnSituacionVulnerable) colaboradorService.colaborar(colaboradorHumanoId, registroDePersonaEnSituacionVulnerableCreator, LocalDateTime.now(), tarjetaPersonaEnSituacionVulnerable);
 
         codigoTarjeta = personaEnSituacionVulnerableService.agregarTarjeta(personaEnSituacionVulnerableId, tarjetaPersonaEnSituacionVulnerable).getCodigo();
@@ -182,7 +186,10 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
             heladeraService.retirarVianda(heladeraId);
         });
 
-        Assertions.assertEquals(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_exception_usos_agotados"), exception.getMessage());
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String exceptionMessage = messageSource.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_exception_usos_agotados", null, Locale.getDefault());
+
+        Assertions.assertEquals(exceptionMessage, exception.getMessage());
         Assertions.assertEquals(2, heladera.viandasActuales());
     }
 
@@ -250,6 +257,9 @@ public class TarjetaPersonaEnSituacionVulnerableTest {
             heladeraService.retirarVianda(heladeraC5Id);
         });
 
-        Assertions.assertEquals(I18n.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_exception_heladera_vacia"), exception.getMessage());
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String exceptionMessage = messageSource.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaP_exception_heladera_vacia", null, Locale.getDefault());
+
+        Assertions.assertEquals(exceptionMessage, exception.getMessage());
     }
 }

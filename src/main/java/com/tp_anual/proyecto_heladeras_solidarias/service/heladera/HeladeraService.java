@@ -2,7 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.heladera;
 
 import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.HeladeraLlenaAgregarViandaException;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.HeladeraVaciaRetirarViandaException;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
@@ -34,16 +34,20 @@ public class HeladeraService {
     private final GestorDeSuscripciones gestorDeSuscripciones;
     private final NotificadorDeEstado notificadorDeEstado;
 
-    public HeladeraService(HeladeraRepository vHeladeraRepository, AlertaService vAlertaService, FallaTecnicaService vFallaTecnicaService, GestorDeSuscripciones vGestorDeSuscripciones, NotificadorDeEstado vNotificadorDeEstado) {
+    private final I18nService i18nService;
+
+    public HeladeraService(HeladeraRepository vHeladeraRepository, AlertaService vAlertaService, FallaTecnicaService vFallaTecnicaService, GestorDeSuscripciones vGestorDeSuscripciones, NotificadorDeEstado vNotificadorDeEstado, I18nService vI18nService) {
         heladeraRepository = vHeladeraRepository;
         alertaService = vAlertaService;
         fallaTecnicaService = vFallaTecnicaService;
         gestorDeSuscripciones = vGestorDeSuscripciones;
         notificadorDeEstado = vNotificadorDeEstado;
+
+        i18nService = vI18nService;
     }
 
     public Heladera obtenerHeladera(Long heladeraId) {
-        return heladeraRepository.findById(heladeraId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return heladeraRepository.findById(heladeraId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public List<Heladera> obtenerHeladeras(){
@@ -167,7 +171,7 @@ public class HeladeraService {
         Heladera heladera = obtenerHeladera(heladeraId);
 
         if (estaLlena(heladeraId)) {
-            log.log(Level.SEVERE, I18n.getMessage("heladera.Heladera.agregarVianda_err", heladera.getNombre()));
+            log.log(Level.SEVERE, i18nService.getMessage("heladera.Heladera.agregarVianda_err", heladera.getNombre()));
             throw new HeladeraLlenaAgregarViandaException();
         }
 
@@ -176,14 +180,14 @@ public class HeladeraService {
 
         verificarCondiciones(heladeraId);   // Verifico condiciones cuando agregamos una Vianda (una de las dos únicas formas en que la cantidad de Viandas en la Heladera puede cambiar)
 
-        log.log(Level.INFO, I18n.getMessage("heladera.Heladera.agregarVianda_info", vianda.getComida(), heladera.getNombre()));
+        log.log(Level.INFO, i18nService.getMessage("heladera.Heladera.agregarVianda_info", vianda.getComida(), heladera.getNombre()));
     }
 
     public Vianda retirarVianda(Long heladeraId) throws HeladeraVaciaRetirarViandaException {
         Heladera heladera = obtenerHeladera(heladeraId);
 
         if (estaVacia(heladeraId)) {
-            log.log(Level.SEVERE, I18n.getMessage("heladera.Heladera.retirarVianda_err", heladera.getNombre()));
+            log.log(Level.SEVERE, i18nService.getMessage("heladera.Heladera.retirarVianda_err", heladera.getNombre()));
             throw new HeladeraVaciaRetirarViandaException();
         }
 
@@ -192,7 +196,7 @@ public class HeladeraService {
 
         verificarCondiciones(heladeraId);   // Verifico condiciones cuando retiramos una Vianda (una de las dos únicas formas en que la cantidad de Viandas en la Heladera puede cambiar)
 
-        log.log(Level.INFO, I18n.getMessage("heladera.Heladera.retirarVianda_info", viandaRetirada.getComida(), heladera.getNombre()));
+        log.log(Level.INFO, i18nService.getMessage("heladera.Heladera.retirarVianda_info", viandaRetirada.getComida(), heladera.getNombre()));
 
         return viandaRetirada;
     }

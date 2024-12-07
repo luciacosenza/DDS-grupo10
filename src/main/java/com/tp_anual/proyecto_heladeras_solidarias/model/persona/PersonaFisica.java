@@ -1,13 +1,14 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.persona;
 
 import java.time.LocalDate;
+import java.util.Locale;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
-
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.MessageSource;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -53,11 +54,18 @@ public class PersonaFisica extends Persona {
 
     @Override
     public void obtenerDetalles() {
-        System.out.println(I18n.getMessage("persona.PersonaFisica.obtenerDetalles_out_nombre", nombre));
-        System.out.println(I18n.getMessage("persona.PersonaFisica.obtenerDetalles_out_apellido", apellido));
-        System.out.println(I18n.getMessage("persona.PersonaFisica.obtenerDetalles_out_documento", documento.getTipo(), documento.getNumero()));
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String logMessage1 = messageSource.getMessage("persona.PersonaFisica.obtenerDetalles_out_nombre", new Object[] {nombre}, Locale.getDefault());
+        String logMessage2 = messageSource.getMessage("persona.PersonaFisica.obtenerDetalles_out_apellido", new Object[] {apellido}, Locale.getDefault());
+        String logMessage3 = messageSource.getMessage("persona.PersonaFisica.obtenerDetalles_out_documento", new Object[] {documento.getTipo(), documento.getNumero()}, Locale.getDefault());
+
+        System.out.println(logMessage1);
+        System.out.println(logMessage2);
+        System.out.println(logMessage3);
         
-        if(fechaNacimiento != null)
-            System.out.println(I18n.getMessage("persona.PersonaFisica.obtenerDetalles_out_fecha_nacimiento", fechaNacimiento));
+        if(fechaNacimiento != null) {
+            String logMessage4 = messageSource.getMessage("persona.PersonaFisica.obtenerDetalles_out_fecha_nacimiento", new Object[]{fechaNacimiento}, Locale.getDefault());
+            System.out.println(logMessage4);
+        }
     }
 }

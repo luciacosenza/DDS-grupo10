@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.incidente;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.FallaTecnica;
@@ -22,13 +22,17 @@ public class FallaTecnicaService {
     private final FallaTecnicaRepository fallaTecnicaRepository;
     private final NotificadorDeIncidentes notificadorDeIncidentes;
 
-    public FallaTecnicaService(FallaTecnicaRepository vFallaTecnicaRepository, NotificadorDeIncidentes vNotificadorDeIncidentes) {
+    private final I18nService i18nService;
+
+    public FallaTecnicaService(FallaTecnicaRepository vFallaTecnicaRepository, NotificadorDeIncidentes vNotificadorDeIncidentes, I18nService vI18nService) {
         fallaTecnicaRepository = vFallaTecnicaRepository;
         notificadorDeIncidentes = vNotificadorDeIncidentes;
+
+        i18nService = vI18nService;
     }
 
     public FallaTecnica obtenerFallaTecnica(Long idFallaTecnica) {
-        return fallaTecnicaRepository.findById(idFallaTecnica).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return fallaTecnicaRepository.findById(idFallaTecnica).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public List<FallaTecnica> obtenerFallasTecnicas() {
@@ -45,6 +49,6 @@ public class FallaTecnicaService {
 
         notificadorDeIncidentes.notificarIncidente(fallaTecnica);
 
-        log.log(Level.INFO, I18n.getMessage("incidente.FallaTecnica.producirFallaTecnica_info", heladera.getNombre()));
+        log.log(Level.INFO, i18nService.getMessage("incidente.FallaTecnica.producirFallaTecnica_info", heladera.getNombre()));
     }
 }

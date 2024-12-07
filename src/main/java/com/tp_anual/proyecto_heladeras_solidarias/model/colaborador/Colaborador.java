@@ -1,6 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.colaborador;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.logging.Level;
 
@@ -9,15 +10,16 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucio
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.Persona;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.NoUsuario;
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import org.springframework.context.MessageSource;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -85,13 +87,17 @@ public abstract class Colaborador {
 
     // Obtenemos el Medio de Contacto correspondiente a la Clase que pasemos como argumento. Con este método, suponemos que el Colaborador no puede tener más de un Medio de Contacto del mismo tipo
     public <T extends MedioDeContacto> T getMedioDeContacto(Class<T> tipoMedioDeContacto) {
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String logMessage = messageSource.getMessage("colaborador.Colaborador.getContacto_err", new Object[] {persona.getNombre(2), tipoMedioDeContacto.getSimpleName()}, Locale.getDefault());
+        String exceptionMessage = messageSource.getMessage("colaborador.Colaborador.getContacto_exception", null, Locale.getDefault());
+
         for (MedioDeContacto contacto : mediosDeContacto) {
             if (tipoMedioDeContacto.isInstance(contacto)) 
                 return tipoMedioDeContacto.cast(contacto);
         }
 
-        log.log(Level.SEVERE, I18n.getMessage("colaborador.Colaborador.getContacto_err", persona.getNombre(2), tipoMedioDeContacto.getSimpleName()));
-        throw new NoSuchElementException(I18n.getMessage("colaborador.Colaborador.getContacto_exception"));
+        log.log(Level.SEVERE,logMessage);
+        throw new NoSuchElementException(exceptionMessage);
     }
 
     public void sumarPuntos(Double puntosASumar) {
@@ -128,40 +134,53 @@ public abstract class Colaborador {
         Integer i;
         
         persona.obtenerDetalles();
-        
-        if (domicilio.getDireccion() != null && domicilio.getCodigoPostal() != null && domicilio.getCiudad() != null && domicilio.getPais() != null)
-            System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_domicilio", domicilio.getDireccionCompleta()));
-        
+
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+
+        if (domicilio.getDireccion() != null && domicilio.getCodigoPostal() != null && domicilio.getCiudad() != null && domicilio.getPais() != null) {
+            String logMessage1 = messageSource.getMessage("colaborador.Colaborador.obtenerDetalles_out_domicilio", new Object[]{domicilio.getDireccionCompleta()}, Locale.getDefault());
+            System.out.println(logMessage1);
+        }
+
         if (!mediosDeContacto.isEmpty()) {
-            System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_medios_de_contacto_title"));
+            String logMessage2 = messageSource.getMessage("colaborador.Colaborador.obtenerDetalles_out_medios_de_contacto_title", null, Locale.getDefault());
+            System.out.println(logMessage2);
             i = 0;
             for (MedioDeContacto medioDeContacto : mediosDeContacto) {
-                System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_medios_de_contacto_body", i, medioDeContacto.getClass().getSimpleName()));
+                String logMessage3 = messageSource.getMessage("colaborador.Colaborador.obtenerDetalles_out_medios_de_contacto_body", new Object[]{i, medioDeContacto.getClass().getSimpleName()}, Locale.getDefault());
+                System.out.println(logMessage3);
                 // TODO: Ver si tendríamos que agregar los datos (número en el caso de teléfono, etc)
                 i++;
             }
         }
 
         if (!contribuciones.isEmpty()) {
-            System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_contribuciones_title"));
+            String logMessage4 = messageSource.getMessage("colaborador.Colaborador.obtenerDetalles_out_contribuciones_title", null, Locale.getDefault());
+            System.out.println(logMessage4);
             i = 0;
             for (Contribucion contribucion : contribuciones) {
-                System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_contribuciones_body", i, contribucion.getClass().getSimpleName()));
-                i++;
-        }
-        }
-
-        if (!beneficiosAdquiridos.isEmpty()) {
-            System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_beneficios_adquiridos_title"));
-            i = 0;
-
-            for (Oferta beneficioAdquirido : beneficiosAdquiridos) {
-                System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_beneficios_adquiridos_body", i, beneficioAdquirido.getNombre()));
+                String logMessage5 = messageSource.getMessage("colaborador.Colaborador.obtenerDetalles_out_contribuciones_body", new Object[]{i, contribucion.getClass().getSimpleName()}, Locale.getDefault());
+                System.out.println(logMessage5);
                 i++;
             }
         }
 
-        if (puntos != null)
-            System.out.println(I18n.getMessage("colaborador.Colaborador.obtenerDetalles_out_puntos", puntos));
+        if (!beneficiosAdquiridos.isEmpty()) {
+            String logMessage6 = messageSource.getMessage("colaborador.Colaborador.obtenerDetalles_out_beneficios_adquiridos_title", null, Locale.getDefault());
+            System.out.println(logMessage6);
+            i = 0;
+
+            for (Oferta beneficioAdquirido : beneficiosAdquiridos) {
+                String logMessage7 = messageSource.getMessage("colaborador.Colaborador.obtenerDetalles_out_beneficios_adquiridos_body", new Object[]{i, beneficioAdquirido.getNombre()}, Locale.getDefault());
+                System.out.println(logMessage7);
+                i++;
+            }
+        }
+
+        if (puntos != null) {
+            String logMessage8 = messageSource.getMessage("colaborador.Colaborador.obtenerDetalles_out_puntos", new Object[]{puntos}, Locale.getDefault());
+            System.out.println(logMessage8);
+        }
     }
+
 }

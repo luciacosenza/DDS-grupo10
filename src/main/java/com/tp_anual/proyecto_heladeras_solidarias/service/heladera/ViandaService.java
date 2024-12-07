@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.heladera;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.heladera.ViandaRepository;
@@ -14,12 +14,16 @@ public class ViandaService {
 
     private final ViandaRepository viandaRepository;
 
-    public ViandaService(ViandaRepository vViandaRepository) {
+    private final I18nService i18nService;
+
+    public ViandaService(ViandaRepository vViandaRepository, I18nService vI18nService) {
         viandaRepository = vViandaRepository;
+
+        i18nService = vI18nService;
     }
 
     public Vianda obtenerVianda(Long viandaId) {
-       return viandaRepository.findById(viandaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+       return viandaRepository.findById(viandaId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public Vianda guardarVianda(Vianda vianda) {

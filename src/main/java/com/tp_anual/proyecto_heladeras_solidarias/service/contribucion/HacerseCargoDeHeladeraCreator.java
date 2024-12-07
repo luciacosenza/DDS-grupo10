@@ -11,7 +11,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.HacerseCarg
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,11 @@ import org.springframework.stereotype.Service;
 @Log
 public class HacerseCargoDeHeladeraCreator implements ContribucionCreator {
 
-    public HacerseCargoDeHeladeraCreator() {}
+    private final I18nService i18nService;
+
+    public HacerseCargoDeHeladeraCreator(I18nService vI18nService) {
+        i18nService = vI18nService;
+    }
 
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
@@ -38,7 +42,7 @@ public class HacerseCargoDeHeladeraCreator implements ContribucionCreator {
         if (args.length != 1 ||
             !(args[0] instanceof Heladera)) {
             
-            log.log(Level.SEVERE, I18n.getMessage("contribucion.HacerseCargoDeHeladeraCreator.crearContribucion_err"));
+            log.log(Level.SEVERE, i18nService.getMessage("contribucion.HacerseCargoDeHeladeraCreator.crearContribucion_err"));
             throw new DatosInvalidosCrearHCHException();
         }
         

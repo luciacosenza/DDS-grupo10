@@ -12,7 +12,7 @@ import java.util.logging.Level;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,11 @@ public class RecomendadorHeladeras {
 
     private final String apiUrl = "https://74d20d86-99bd-452c-8c65-77ce0eac7fef.mock.pstmn.io/recommendation";
 
-    public RecomendadorHeladeras() {}
+    private final I18nService i18nService;
+
+    public RecomendadorHeladeras(I18nService vI18nService) {
+        i18nService = vI18nService;
+    }
 
     public List<Map<String, String>> obtenerValoresDesdeAPI() {
         List<Map<String, String>> valores = new ArrayList<>();
@@ -36,8 +40,8 @@ public class RecomendadorHeladeras {
             HttpResponse<String> respuesta = cliente.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (respuesta.statusCode() != 200) {
-                log.log(Level.SEVERE, I18n.getMessage("recomendador_de_heladeras.RecomendadorHeladeras.obtenerValoresDesdeAPI_err_obtencion_respuesta", respuesta.statusCode()));
-                throw new RuntimeException(I18n.getMessage("recomendador_de_heladeras.RecomendadorHeladeras.obtenerValoresDesdeAPI_exception_obtencion_respuesta", respuesta.statusCode()));
+                log.log(Level.SEVERE, i18nService.getMessage("recomendador_de_heladeras.RecomendadorHeladeras.obtenerValoresDesdeAPI_err_obtencion_respuesta", respuesta.statusCode()));
+                throw new RuntimeException(i18nService.getMessage("recomendador_de_heladeras.RecomendadorHeladeras.obtenerValoresDesdeAPI_exception_obtencion_respuesta", respuesta.statusCode()));
             }
 
             String data = respuesta.body();
@@ -48,8 +52,8 @@ public class RecomendadorHeladeras {
             valores.addAll(valoresAux);
             
         } catch (Exception e) {
-            log.log(Level.SEVERE, I18n.getMessage("recomendador_de_heladeras.RecomendadorHeladeras.obtenerValoresDesdeAPI_err_comunicacion_api"));
-            throw new RuntimeException(I18n.getMessage("recomendador_de_heladeras.RecomendadorHeladeras.obtenerValoresDesdeAPI_exception_comunicacion_api"));
+            log.log(Level.SEVERE, i18nService.getMessage("recomendador_de_heladeras.RecomendadorHeladeras.obtenerValoresDesdeAPI_err_comunicacion_api"));
+            throw new RuntimeException(i18nService.getMessage("recomendador_de_heladeras.RecomendadorHeladeras.obtenerValoresDesdeAPI_exception_comunicacion_api"));
         }
 
         return valores;

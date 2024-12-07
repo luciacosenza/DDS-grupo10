@@ -1,14 +1,16 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.oferta.Oferta;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.extern.java.Log;
+import org.springframework.context.MessageSource;
 
 
 @Entity
@@ -30,6 +32,10 @@ public class CargaOferta extends Contribucion {
     @Override
     public void obtenerDetalles() {
         super.obtenerDetalles();
-        System.out.println(I18n.getMessage("contribucion.CargaOferta.obtenerDetalles_out", oferta.getNombre()));
+
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String logMessage = messageSource.getMessage("contribucion.CargaOferta.obtenerDetalles_out", new Object[] {oferta.getNombre()}, Locale.getDefault());
+
+        System.out.println(logMessage);
     }
 }

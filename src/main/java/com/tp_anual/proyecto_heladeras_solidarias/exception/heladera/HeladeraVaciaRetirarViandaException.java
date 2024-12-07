@@ -1,9 +1,12 @@
 package com.tp_anual.proyecto_heladeras_solidarias.exception.heladera;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
+import org.springframework.context.MessageSource;
+
+import java.util.Locale;
 
 public class HeladeraVaciaRetirarViandaException extends Exception {
     public HeladeraVaciaRetirarViandaException() {
-        super(I18n.getMessage("heladera.Heladera.retirarVianda_exception"));
+        super(SpringContext.getBean(MessageSource.class).getMessage("heladera.Heladera.retirarVianda_exception", null, Locale.getDefault()));
     }
 }

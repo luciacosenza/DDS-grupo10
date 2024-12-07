@@ -11,7 +11,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.DonacionVia
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,11 @@ import org.springframework.stereotype.Service;
 @Log
 public class DonacionViandaCreator implements ContribucionCreator {
 
-    public DonacionViandaCreator() {}
+    private final I18nService i18nService;
+
+    public DonacionViandaCreator(I18nService vI18nService) {
+        i18nService = vI18nService;
+    }
 
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
@@ -40,7 +44,7 @@ public class DonacionViandaCreator implements ContribucionCreator {
             !(args[0] instanceof Vianda) ||
             !(args[1] instanceof Heladera)) {
             
-            log.log(Level.SEVERE, I18n.getMessage("contribucion.DonacionViandaCreator.crearContribucion_err"));
+            log.log(Level.SEVERE, i18nService.getMessage("contribucion.DonacionViandaCreator.crearContribucion_err"));
             throw new DatosInvalidosCrearDonacionViandaException();
         }
         

@@ -1,6 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta;
 
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.tarjeta.PermisoApertura;
@@ -30,15 +30,19 @@ public class PermisoAperturaService {
     @Getter
     private final Long retrasoRevocacion;
 
-    public PermisoAperturaService(PermisoAperturaRepository vPermisoAperturaRepository, TarjetaColaboradorRepository vTarjetaColaboradorRepository, HeladeraService vHeladeraService, @Value("#{3}") /* 3 horas en horas */ Long vRetrasoRevocacion) {
+    private final I18nService i18nService;
+
+    public PermisoAperturaService(PermisoAperturaRepository vPermisoAperturaRepository, TarjetaColaboradorRepository vTarjetaColaboradorRepository, HeladeraService vHeladeraService, @Value("#{3}") /* 3 horas en horas */ Long vRetrasoRevocacion, I18nService vI18nService) {
         permisoAperturaRepository = vPermisoAperturaRepository;
         tarjetaColaboradorRepository = vTarjetaColaboradorRepository;
         heladeraService = vHeladeraService;
         retrasoRevocacion = vRetrasoRevocacion;
+
+        i18nService = vI18nService;
     }
 
     public PermisoApertura obtenerPermisoApertura(Long permisoAperturaId){
-        return permisoAperturaRepository.findById(permisoAperturaId).orElseThrow(() -> new EntityNotFoundException(I18n.getMessage("obtenerEntidad_exception")));
+        return permisoAperturaRepository.findById(permisoAperturaId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public PermisoApertura guardarPermisoApertura(PermisoApertura permisoApertura) {
@@ -67,7 +71,7 @@ public class PermisoAperturaService {
         permisoApertura.revocarPermiso();
         guardarPermisoApertura(permisoApertura);
 
-        log.log(Level.INFO, I18n.getMessage("tarjeta.PermisoApertura.revocarPermisoApertura_info", permisoApertura.getHeladeraPermitida().getNombre(), obtenerTarjetaColaboradorPorPermisoApertura(permisoAperturaId).getTitular().getPersona().getNombre(2)));
+        log.log(Level.INFO, i18nService.getMessage("tarjeta.PermisoApertura.revocarPermisoApertura_info", permisoApertura.getHeladeraPermitida().getNombre(), obtenerTarjetaColaboradorPorPermisoApertura(permisoAperturaId).getTitular().getPersona().getNombre(2)));
 
         Heladera heladera = permisoApertura.getHeladeraPermitida();
 
@@ -93,7 +97,7 @@ public class PermisoAperturaService {
             revocarPermisoApertura(permisoAperturaId);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            log.log(Level.SEVERE, I18n.getMessage("tarjeta.PermisoApertura.revocarPermisoApertura_err"));
+            log.log(Level.SEVERE, i18nService.getMessage("tarjeta.PermisoApertura.revocarPermisoApertura_err"));
         }
     }
 }

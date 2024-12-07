@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.logging.Level;
 
-import com.tp_anual.proyecto_heladeras_solidarias.converter.ConversorFormaContribucion;
-import com.tp_anual.proyecto_heladeras_solidarias.converter.ConversorTipoDocumento;
+import com.tp_anual.proyecto_heladeras_solidarias.utils.converter.ConversorFormaContribucion;
+import com.tp_anual.proyecto_heladeras_solidarias.utils.converter.ConversorTipoDocumento;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.migrador.FilaDeDatosIncompletaException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
@@ -18,7 +18,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.Contribuc
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 
 import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.CustomUserDetailsService;
 import lombok.extern.java.Log;
@@ -29,9 +29,17 @@ import org.springframework.stereotype.Service;
 public class TransformacionDeDatos {
 
     private final CustomUserDetailsService customUserDetailsService;
+    private final ConversorFormaContribucion conversorFormaContribucion;
+    private final ConversorTipoDocumento conversorTipoDocumento;
 
-    public TransformacionDeDatos(CustomUserDetailsService vCustomUserDetailsService) {
+    private final I18nService i18nService;
+
+    public TransformacionDeDatos(CustomUserDetailsService vCustomUserDetailsService, ConversorFormaContribucion vConversorFormaContribucion, ConversorTipoDocumento vConversorTipoDocumento, I18nService vI18nService) {
         customUserDetailsService = vCustomUserDetailsService;
+        conversorFormaContribucion = vConversorFormaContribucion;
+        conversorTipoDocumento = vConversorTipoDocumento;
+
+        i18nService = vI18nService;
     }
 
     private String quitarEspacios(String string) {
@@ -47,13 +55,13 @@ public class TransformacionDeDatos {
     }
 
     private Contribucion registrarContribucion(String formaContribucionStr, ColaboradorHumano colaborador, LocalDateTime fechaContribucion) throws DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException {
-        ContribucionCreator creator = ConversorFormaContribucion.convertirStrAContribucionCreator(formaContribucionStr);
+        ContribucionCreator creator = conversorFormaContribucion.convertirStrAContribucionCreator(formaContribucionStr);
         return creator.crearContribucion(colaborador, fechaContribucion, true);
     }
     
     private ColaboradorHumano procesarColaborador(String[] data) throws FilaDeDatosIncompletaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException {
         if (data.length != 8) {
-            log.log(Level.SEVERE, I18n.getMessage("migrador.TransformacionDeDatos.procesarColaborador_err_fila_incompleta", Arrays.toString(data)));
+            log.log(Level.SEVERE, i18nService.getMessage("migrador.TransformacionDeDatos.procesarColaborador_err_fila_incompleta", Arrays.toString(data)));
             throw new FilaDeDatosIncompletaException();
         }
         
@@ -67,7 +75,7 @@ public class TransformacionDeDatos {
         Integer cantColabs = Integer.valueOf(data[7]);
 
         // Transforma a documento
-        Documento.TipoDocumento tipoDoc = ConversorTipoDocumento.convertirStrATipoDocumento(tipoDocStr);
+        Documento.TipoDocumento tipoDoc = conversorTipoDocumento.convertirStrATipoDocumento(tipoDocStr);
         Documento documento = new Documento(tipoDoc, numDoc, null);
         
         // Transforma a eMail
@@ -97,7 +105,7 @@ public class TransformacionDeDatos {
     }    
 
     public void confirmarTransformation() {
-        log.log(Level.INFO, I18n.getMessage("migrador.TransformacionDeDatos.confirmarTransformation_info"));
+        log.log(Level.INFO, i18nService.getMessage("migrador.TransformacionDeDatos.confirmarTransformation_info"));
     }
 
     public List<ColaboradorHumano> transform(List<String[]> data) throws DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, FilaDeDatosIncompletaException, DatosInvalidosCrearRPESVException {

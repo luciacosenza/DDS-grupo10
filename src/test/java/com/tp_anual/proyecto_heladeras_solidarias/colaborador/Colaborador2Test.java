@@ -50,6 +50,13 @@ public class Colaborador2Test {
     @Autowired
     TarjetaColaboradorService tarjetaColaboradorService;
 
+    @Autowired
+    DonacionViandaCreator donacionViandaCreator;
+
+    @Autowired
+    DistribucionViandasCreator distribucionViandasCreator;
+
+
     @Test
     @DisplayName("Testeo la correcta creación de Contribuciones y que se agreguen a las contribuciones del Colaborador")
     public void ColaborarTest() throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException, DatosInvalidosCrearTarjetaColaboradorException, HeladeraVaciaSolicitudRetiroException, HeladeraLlenaSolicitudIngresoException, HeladeraLlenaAgregarViandaException, PermisoAperturaExpiradoException, PermisoAperturaAusenteException, HeladeraVaciaRetirarViandaException {
@@ -69,7 +76,6 @@ public class Colaborador2Test {
         Vianda vianda = new Vianda("ComidaPrueba" , colaboradorHumano, fechaCaducidadV, null, 0, 0, false);
         Long viandaId = viandaService.guardarVianda(vianda).getId();
 
-        DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
         DonacionVianda donacionVianda = (DonacionVianda) colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), vianda, heladera1);
 
         TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorHumanoId);
@@ -82,7 +88,6 @@ public class Colaborador2Test {
 
         colaboradorService.confirmarContribucion(colaboradorHumanoId, donacionVianda, LocalDateTime.now());
 
-        DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
         DistribucionViandas distribucionViandas = (DistribucionViandas) colaboradorService.colaborar(colaboradorHumanoId, distribucionViandasCreator, LocalDateTime.now(), heladera1, heladera2, 1, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
 
         tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION, 1);

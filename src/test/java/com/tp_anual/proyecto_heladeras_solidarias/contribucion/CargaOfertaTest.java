@@ -30,6 +30,9 @@ public class CargaOfertaTest {
     @Autowired
     OfertaService ofertaService;
 
+    @Autowired
+    CargaOfertaCreator cargaOfertaCreator;
+
     @Test
     @DisplayName("Testeo la carga y correcto funcionamiento de una CargaOferta")
     public void CargaCargaOfertaTest() throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException,DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException {
@@ -38,7 +41,6 @@ public class CargaOfertaTest {
 
         Oferta oferta = new Oferta("PlayStation 5", 20d, Oferta.Categoria.ELECTRONICA, "ImagenPrueba");
 
-        CargaOfertaCreator cargaOfertaCreator = new CargaOfertaCreator();
         CargaOferta cargaOferta = (CargaOferta) colaboradorService.colaborar(colaboradorJuridico.getId(), cargaOfertaCreator, LocalDateTime.now(), oferta);
         colaboradorService.confirmarContribucion(colaboradorJuridicoId, cargaOferta, LocalDateTime.now());
 

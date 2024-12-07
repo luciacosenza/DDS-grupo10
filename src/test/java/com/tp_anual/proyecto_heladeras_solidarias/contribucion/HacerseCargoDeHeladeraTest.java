@@ -30,6 +30,10 @@ public class HacerseCargoDeHeladeraTest {
     @Autowired
     HeladeraService heladeraService;
 
+    @Autowired
+    HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator;
+
+
     @Test
     @DisplayName("Testeo la carga y correcto funcionamiento de una HacerseCargoDeHeladera")
     public void CargaHacerseCargoDeHeladeraTest() throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException,DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException {
@@ -41,7 +45,6 @@ public class HacerseCargoDeHeladeraTest {
         Heladera heladera = new Heladera("HeladeraPrueba", new Ubicacion(-34.601978, -58.383865, "Tucumán 1171", "1049", "Ciudad Autónoma de Buenos Aires", "Argentina"),20, -20f, 5f, new ArrayList<>(), 2f, fechaAperturaH, true);
         Long heladeraId = heladeraService.guardarHeladera(heladera).getId();
 
-        HacerseCargoDeHeladeraCreator hacerseCargoDeHeladeraCreator = new HacerseCargoDeHeladeraCreator();
         HacerseCargoDeHeladera hacerseCargoDeHeladera = (HacerseCargoDeHeladera) colaboradorService.colaborar(colaboradorJuridico.getId(), hacerseCargoDeHeladeraCreator, fechaAperturaH, heladeraId);
         colaboradorService.confirmarContribucion(colaboradorJuridicoId, hacerseCargoDeHeladera, fechaAperturaH);
 

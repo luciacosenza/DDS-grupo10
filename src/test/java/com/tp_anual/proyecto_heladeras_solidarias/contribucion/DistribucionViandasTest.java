@@ -3,6 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.contribucion;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import com.tp_anual.proyecto_heladeras_solidarias.exception.colaborador.ContribucionNoPermitidaException;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.*;
@@ -19,6 +20,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.AccionHelader
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.HeladeraService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.heladera.ViandaService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tarjeta.TarjetaColaboradorService;
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,9 +34,9 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.Vianda;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.acciones_en_heladera.SolicitudAperturaColaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
 
 @SpringBootTest
 public class DistribucionViandasTest {
@@ -53,6 +55,12 @@ public class DistribucionViandasTest {
 
     @Autowired
     AccionHeladeraService accionHeladeraService;
+
+    @Autowired
+    DonacionViandaCreator donacionViandaCreator;
+
+    @Autowired
+    DistribucionViandasCreator distribucionViandasCreator;
 
     ColaboradorHumano colaboradorHumano;
     LocalDateTime fechaAperturaH1;
@@ -84,7 +92,6 @@ public class DistribucionViandasTest {
     @Test
     @DisplayName("Testeo la carga y correcto funcionamiento de una DistribucionViandas")
     public void CargaDistribucionViandasTest() throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException, DatosInvalidosCrearTarjetaColaboradorException, HeladeraVaciaSolicitudRetiroException, HeladeraLlenaSolicitudIngresoException, PermisoAperturaExpiradoException, PermisoAperturaAusenteException, HeladeraLlenaAgregarViandaException, HeladeraVaciaRetirarViandaException {
-        DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
         DonacionVianda donacionVianda = (DonacionVianda) colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), vianda, heladera1);
 
         TarjetaColaborador tarjeta = tarjetaColaboradorService.crearTarjeta(colaboradorHumanoId);
@@ -96,7 +103,6 @@ public class DistribucionViandasTest {
         viandaService.agregarAHeladeraPrimeraVez(viandaId, heladera1);
         colaboradorService.confirmarContribucion(colaboradorHumanoId, donacionVianda, LocalDateTime.now());
 
-        DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
         DistribucionViandas distribucionViandas = (DistribucionViandas) colaboradorService.colaborar(colaboradorHumanoId, distribucionViandasCreator, LocalDateTime.now(), heladera1, heladera2, 1, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO);
 
         tarjetaColaboradorService.solicitarApertura(codigoTarjeta, heladera1, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION, 1);
@@ -117,7 +123,6 @@ public class DistribucionViandasTest {
     @Test
     @DisplayName("Testeo la IllegalArgumentException al querer hacer una DistribucionViandas sin tener domicilio registrado")
     public void IllegalArgumentValidarIdentidadDistribucionViandasTest() throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException, DatosInvalidosCrearTarjetaColaboradorException, HeladeraVaciaSolicitudRetiroException, HeladeraLlenaSolicitudIngresoException, PermisoAperturaExpiradoException, PermisoAperturaAusenteException, HeladeraLlenaAgregarViandaException {
-        DonacionViandaCreator donacionViandaCreator = new DonacionViandaCreator();
         DonacionVianda donacionVianda = (DonacionVianda) colaboradorService.colaborar(colaboradorHumanoId, donacionViandaCreator, LocalDateTime.now(), vianda, heladera1);
 
         TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorHumanoId);
@@ -134,10 +139,11 @@ public class DistribucionViandasTest {
         ColaboradorHumano colaboradorHumanoND = new ColaboradorHumano(null, new PersonaFisica("NombrePrueba", "ApellidoPrueba", new Documento(TipoDocumento.DNI, "40123460", Sexo.MASCULINO), LocalDate.parse("2003-02-01")), null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0d);
         Long colaboradorHumanoNDId = colaboradorService.guardarColaborador(colaboradorHumanoND).getId();
 
-        DistribucionViandasCreator distribucionViandasCreator = new DistribucionViandasCreator();
-
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> colaboradorService.colaborar(colaboradorHumanoNDId, distribucionViandasCreator, LocalDateTime.now(), heladera1, heladera2, 1, DistribucionViandas.MotivoDistribucion.FALTA_DE_VIANDAS_EN_DESTINO));
 
-        Assertions.assertEquals(I18n.getMessage("contribucion.DistribucionViandas.validarIdentidad_exception"), exception.getMessage());
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String exceptionMessage = messageSource.getMessage("contribucion.DistribucionViandas.validarIdentidad_exception", null, Locale.getDefault());
+
+        Assertions.assertEquals(exceptionMessage, exception.getMessage());
     }
 }

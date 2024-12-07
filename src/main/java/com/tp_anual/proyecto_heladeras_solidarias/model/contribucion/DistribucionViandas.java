@@ -1,22 +1,24 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import lombok.Getter;
+import org.springframework.context.MessageSource;
 
 @Entity
 @Log
 @Getter
 public class DistribucionViandas extends Contribucion {
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "heladera_origen")
     private Heladera origen;    // final
@@ -42,7 +44,7 @@ public class DistribucionViandas extends Contribucion {
     public DistribucionViandas() {
         super();
     }
-    
+
     public DistribucionViandas(Colaborador vColaborador, LocalDateTime vFechaContribucion, Heladera vOrigen, Heladera vDestino, Integer vCantidadViandasAMover, MotivoDistribucion vMotivo) {
         super(vColaborador, vFechaContribucion);
         origen = vOrigen;
@@ -55,10 +57,17 @@ public class DistribucionViandas extends Contribucion {
     @Override
     public void obtenerDetalles() {
         super.obtenerDetalles();
-        System.out.println(I18n.getMessage("contribucion.DistribucionViandas.obtenerDetalles_out_origen", origen.getNombre()));
-        System.out.println(I18n.getMessage("contribucion.DistribucionViandas.obtenerDetalles_out_destino", destino.getNombre()));
-        System.out.println(I18n.getMessage("contribucion.DistribucionViandas.obtenerDetalles_out_candidad_viandas_a_mover", cantidadViandasAMover));
-        System.out.println(I18n.getMessage("contribucion.DistribucionViandas.obtenerDetalles_out_motivo", motivo));
+
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String logMessage1 = messageSource.getMessage("contribucion.DistribucionViandas.obtenerDetalles_out_origen", new Object[] {origen.getNombre()}, Locale.getDefault());
+        String logMessage2 = messageSource.getMessage("contribucion.DistribucionViandas.obtenerDetalles_out_destino", new Object[] {destino.getNombre()}, Locale.getDefault());
+        String logMessage3 = messageSource.getMessage("contribucion.DistribucionViandas.obtenerDetalles_out_candidad_viandas_a_mover", new Object[] {cantidadViandasAMover}, Locale.getDefault());
+        String logMessage4 = messageSource.getMessage("contribucion.DistribucionViandas.obtenerDetalles_out_motivo", new Object[] {motivo}, Locale.getDefault());
+
+        System.out.println(logMessage1);
+        System.out.println(logMessage2);
+        System.out.println(logMessage3);
+        System.out.println(logMessage4);
     }
 
     public void confirmarRetiro() {setRetiroRealizado(true);}

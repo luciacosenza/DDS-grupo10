@@ -2,14 +2,16 @@ package com.tp_anual.proyecto_heladeras_solidarias.model.contribucion;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
-import com.tp_anual.proyecto_heladeras_solidarias.i18n.I18n;
 
+import com.tp_anual.proyecto_heladeras_solidarias.utils.SpringContext;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import org.springframework.context.MessageSource;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -81,11 +83,17 @@ public abstract class Contribucion {
     }
 
     public void obtenerDetalles() {
-        System.out.println(I18n.getMessage("contribucion.Contribucion.obtenerDetalles_out_nombre", getClass().getSimpleName()));
-        System.out.println(I18n.getMessage("contribucion.Contribucion.obtenerDetalles_out_colaborador_title"));
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String logMessage1 = messageSource.getMessage("contribucion.Contribucion.obtenerDetalles_out_nombre", new Object[] {getClass().getSimpleName()}, Locale.getDefault());
+        String logMessage2 = messageSource.getMessage("contribucion.Contribucion.obtenerDetalles_out_colaborador_title", null, Locale.getDefault());
+
+        System.out.println(logMessage1);
+        System.out.println(logMessage2);
         colaborador.obtenerDetalles();
         
-        if (fechaContribucion != null)
-            System.out.println(I18n.getMessage("contribucion.Contribucion.obtenerDetalles_out_fecha_contribucion", fechaContribucion));
+        if (fechaContribucion != null) {
+            String logMessage3 = messageSource.getMessage("contribucion.Contribucion.obtenerDetalles_out_fecha_contribucion", new Object[] {fechaContribucion}, Locale.getDefault());
+            System.out.println(logMessage3);
+        }
     }
 }
