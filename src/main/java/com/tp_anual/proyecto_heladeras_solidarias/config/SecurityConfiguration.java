@@ -34,8 +34,7 @@ public class SecurityConfiguration {
                                 "/registro-persona-humana", "/registro-persona-humana/guardar",
                                 "/registro-persona-juridica", "/registro-persona-juridica/guardar",
                                 "/registro-tecnico", "/registro-tecnico/guardar",
-                                "/ubicador-api", "/ubicador-api/{latitud}/{longitud}",
-                                "/api/heladeras").permitAll()
+                                "/ubicador-api", "/ubicador-api/{latitud}/{longitud}", "/login").permitAll()
                         // Endpoints para cualquier usuario
                         .requestMatchers("/api/heladeras").authenticated()
                         // Endpoints exclusivos de 'ROL_CJ' (Colaborador Jurídico)
@@ -60,18 +59,17 @@ public class SecurityConfiguration {
                         .requestMatchers(new AntPathRequestMatcher("/admin"),
                                 new AntPathRequestMatcher("/registro-tecnico"))
                         .hasAuthority("ROL_ADMIN")
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
+                // Endpoint de login
                 .oauth2Login(oauth2Login -> oauth2Login
-                        .loginPage("/login")  // Página de login personalizada
+                        .loginPage("/login")
                         .defaultSuccessUrl("/?loginSuccess=true", true)
-                        .failureUrl("/login?error")
-                )
+                        .failureUrl("/login?error"))
+                // Endpoint de logout
                 .logout(logout -> logout
                         .permitAll()
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/?logoutSuccess=true")
-                )
+                        .logoutSuccessUrl("/?logoutSuccess=true"))
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
         return http.build();
