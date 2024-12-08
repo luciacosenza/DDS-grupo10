@@ -27,3 +27,7 @@ target/**
 
 # .env
 *.env
+
+# docker
+docker-compose.yml
+Dockerfile.dev
