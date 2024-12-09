@@ -55,23 +55,22 @@ public class AuthController {
 
     @PostMapping("/registro-persona-humana/guardar")
     public String guardarPersonaHumana(
-            @RequestParam("nombre") String nombre,
-            @RequestParam("apellido") String apellido,
-            @RequestParam("fecha-nacimiento") LocalDate fechaNacimiento,
-            @RequestParam("tipo-documento") Documento.TipoDocumento tipoDocumento,
-            @RequestParam("numero-documento") String numeroDocumento,
-            @RequestParam("sexo-documento") Documento.Sexo sexoDocumento,
-            @RequestParam("pais") String pais,
-            @RequestParam("ciudad") String ciudad,
-            @RequestParam("calle") String calle,
-            @RequestParam("altura") String altura,
-            @RequestParam("codigo-postal") String codigoPostal,
-            @RequestParam("prefijo") String prefijo,
-            @RequestParam("codigo-area") String codigoArea,
-            @RequestParam("numero-telefono") String numeroTelefono,
-            @RequestParam("correo") String correo,
-            @RequestParam("password") String password,
-            @ModelAttribute("usuario") Usuario usuario)
+        @RequestParam("nombre") String nombre,
+        @RequestParam("apellido") String apellido,
+        @RequestParam("fecha-nacimiento") LocalDate fechaNacimiento,
+        @RequestParam("tipo-documento") Documento.TipoDocumento tipoDocumento,
+        @RequestParam("numero-documento") String numeroDocumento,
+        @RequestParam("sexo-documento") Documento.Sexo sexoDocumento,
+        @RequestParam("pais") String pais,
+        @RequestParam("ciudad") String ciudad,
+        @RequestParam("calle") String calle,
+        @RequestParam("altura") String altura,
+        @RequestParam("codigo-postal") String codigoPostal,
+        @RequestParam("prefijo") String prefijo,
+        @RequestParam("codigo-area") String codigoArea,
+        @RequestParam("numero-telefono") String numeroTelefono,
+        @RequestParam("correo") String correo,
+        @RequestParam("password") String password)
     {
         Documento documento = new Documento(tipoDocumento, numeroDocumento, sexoDocumento);
         PersonaFisica personaFisica = new PersonaFisica(nombre, apellido, documento, fechaNacimiento);
@@ -107,20 +106,19 @@ public class AuthController {
 
     @PostMapping("/registro-persona-juridica/guardar")
     public String guardarPersonaJuridica(
-            @RequestParam("razon-social") String razonSocial,
-            @RequestParam("tipo-persona-juridica") PersonaJuridica.TipoPersonaJuridica tipoPersonaJuridica,
-            @RequestParam("rubro") String rubro,
-            @RequestParam("pais") String pais,
-            @RequestParam("ciudad") String ciudad,
-            @RequestParam("calle") String calle,
-            @RequestParam("altura") String altura,
-            @RequestParam("codigo-postal") String codigoPostal,
-            @RequestParam("prefijo") String prefijo,
-            @RequestParam("codigo-area") String codigoArea,
-            @RequestParam("numero-telefono") String numeroTelefono,
-            @RequestParam("correo") String correo,
-            @RequestParam("password") String password,
-            @ModelAttribute("usuario") Usuario usuario)
+        @RequestParam("razon-social") String razonSocial,
+        @RequestParam("tipo-persona-juridica") PersonaJuridica.TipoPersonaJuridica tipoPersonaJuridica,
+        @RequestParam("rubro") String rubro,
+        @RequestParam("pais") String pais,
+        @RequestParam("ciudad") String ciudad,
+        @RequestParam("calle") String calle,
+        @RequestParam("altura") String altura,
+        @RequestParam("codigo-postal") String codigoPostal,
+        @RequestParam("prefijo") String prefijo,
+        @RequestParam("codigo-area") String codigoArea,
+        @RequestParam("numero-telefono") String numeroTelefono,
+        @RequestParam("correo") String correo,
+        @RequestParam("password") String password)
     {
         PersonaJuridica personaJuridica = new PersonaJuridica(razonSocial, tipoPersonaJuridica, rubro);
         Ubicacion domicilio = new Ubicacion(null, null, (calle + " " + altura), codigoPostal, ciudad, pais);
@@ -155,22 +153,22 @@ public class AuthController {
 
     @PostMapping("/registro-tecnico/guardar")
     public String guardarRegistroTecnico(
-            @RequestParam("nombre") String nombre,
-            @RequestParam("apellido") String apellido,
-            @RequestParam("fecha-nacimiento") LocalDate fechaNacimiento,
-            @RequestParam("tipo-documento") Documento.TipoDocumento tipoDocumento,
-            @RequestParam("numero-documento") String numeroDocumento,
-            @RequestParam("sexo-documento") Documento.Sexo sexoDocumento,
-            @RequestParam("cuil") String cuil,
-            @RequestParam("prefijo") String prefijo,
-            @RequestParam("codigo-area") String codigoArea,
-            @RequestParam("numero-telefono") String numeroTelefono,
-            @RequestParam("latitud-1") Double latitud1,
-            @RequestParam("latitud-2") Double latitud2,
-            @RequestParam("longitud-1") Double longitud1,
-            @RequestParam("longitud-2") Double longitud2,
-            @RequestParam("password") String password,
-            @ModelAttribute("usuario") Usuario usuario)
+        @RequestParam("nombre") String nombre,
+        @RequestParam("apellido") String apellido,
+        @RequestParam("fecha-nacimiento") LocalDate fechaNacimiento,
+        @RequestParam("tipo-documento") Documento.TipoDocumento tipoDocumento,
+        @RequestParam("numero-documento") String numeroDocumento,
+        @RequestParam("sexo-documento") Documento.Sexo sexoDocumento,
+        @RequestParam("cuil") String cuil,
+        @RequestParam("prefijo") String prefijo,
+        @RequestParam("codigo-area") String codigoArea,
+        @RequestParam("numero-telefono") String numeroTelefono,
+        @RequestParam("latitud-1") Double latitud1,
+        @RequestParam("latitud-2") Double latitud2,
+        @RequestParam("longitud-1") Double longitud1,
+        @RequestParam("longitud-2") Double longitud2,
+        @RequestParam("password") String password,
+        @ModelAttribute("usuario") Usuario usuario)
     {
         Documento documento = new Documento(tipoDocumento, numeroDocumento, sexoDocumento);
         PersonaFisica personaFisica = new PersonaFisica(nombre, apellido, documento, fechaNacimiento);
@@ -190,9 +188,9 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login(
-            @RequestParam(value = "error", required = false) String error,
-            Model model) {
-
+        Model model,
+        @RequestParam(value = "error", required = false) String error)
+    {
         model.addAttribute("paginaActual", "/login");
         if (error != null) {
             model.addAttribute("loginError", "Usuario o contraseña incorrectos");
