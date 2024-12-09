@@ -198,7 +198,7 @@ public class AuthController {
             model.addAttribute("loginError", "Usuario o contraseña incorrectos");
         }
 
-        return "redirect:/oauth2/authorization/okta";
+        return "login";
     }
 
     public void setPaginaActual(String pagina, Model model) {

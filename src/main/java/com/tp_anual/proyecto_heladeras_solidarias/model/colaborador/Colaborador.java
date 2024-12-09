@@ -22,6 +22,16 @@ import lombok.extern.java.Log;
 import org.springframework.context.MessageSource;
 
 @Entity
+@NamedNativeQuery(
+        name = "Colaborador.findColaboradorParaEMail",
+        query = "SELECT * FROM colaborador AS c " +
+                "INNER JOIN medio_de_contacto AS m " +
+                "ON c.id = m.colaborador " +
+                "INNER JOIN email AS e " +
+                "ON m.id = e.id " +
+                "WHERE e.direccion_correo = :email",
+        resultClass = Colaborador.class
+)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_colaborador")
 @Log

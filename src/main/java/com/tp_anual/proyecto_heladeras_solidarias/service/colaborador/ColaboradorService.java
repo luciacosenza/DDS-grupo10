@@ -97,6 +97,10 @@ public class ColaboradorService {
         return (ColaboradorJuridico) obtenerColaboradorPorUsername(username);
     }
 
+    public Colaborador obtenerColaboradorPorEMail(String eMail) {
+        return colaboradorRepository.findColaboradorParaEMail(eMail);
+    }
+
     public List<Colaborador> obtenerColaboradores() {
         return new ArrayList<>(colaboradorRepository.findAll());
     }

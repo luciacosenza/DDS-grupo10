@@ -1,6 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.usuario;
 
 import com.tp_anual.proyecto_heladeras_solidarias.exception.usuario.PasswordNoValidaException;
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.usuario.UsuarioRepository;
@@ -40,7 +41,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     public Usuario obtenerUsuario(Long usuarioId) {
-        return usuarioRepository.findById(usuarioId).orElseThrow(EntityNotFoundException::new);
+        return usuarioRepository.findById(usuarioId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
+    }
+
+    public Usuario obtenerUsuarioPorColaborador(Colaborador colaborador) {
+        return usuarioRepository.findUsuarioParaColaborador(colaborador.getId()).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
     public List<Usuario> obtenerUsuarios() {

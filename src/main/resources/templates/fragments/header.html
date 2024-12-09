@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Heladeras Solidarias</title>
@@ -50,7 +50,7 @@
 
                 <!-- Mostrar botones de inicio de sesión o perfil según si está logueado -->
                 <div class="d-flex ms-lg-3" sec:authorize="isAnonymous()">
-                    <a class="text-decoration-none" th:href="@{/oauth2/authorization/okta}">
+                    <a class="text-decoration-none" th:href="@{/login}">
                         <button class="btn btn-outline-primary me-2 btn-login" type="button">Iniciar Sesión</button>
                     </a>
                     <a class="text-decoration-none" th:href="@{/seleccion-persona}">

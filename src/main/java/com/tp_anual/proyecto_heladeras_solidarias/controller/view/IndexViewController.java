@@ -1,5 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.controller.view;
 
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +18,20 @@ public class IndexViewController {
     public String mostrarPaginaPrincipal(
             @RequestParam(value = "loginSuccess", required = false) String loginSuccess,
             @RequestParam(value = "logoutSuccess", required = false) String logoutSucces,
-            @AuthenticationPrincipal OidcUser principal,
+            @AuthenticationPrincipal OAuth2AuthenticationToken principal,
 
             Model model) {
 
         if (principal != null) {
-            model.addAttribute("profile", principal.getClaims());
+            // Obtener información del usuario autenticado
+            String username = principal.getPrincipal().getAttribute("name");  // Nombre del usuario
+            String email = principal.getPrincipal().getAttribute("email");    // Correo del usuario
+
+            // Añadir los datos al modelo
+            model.addAttribute("userName", username);
+            model.addAttribute("userEmail", email);
         }
+
 
         if (loginSuccess != null) {
             model.addAttribute("loginSuccess", true);
