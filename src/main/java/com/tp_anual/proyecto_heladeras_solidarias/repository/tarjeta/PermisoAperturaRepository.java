@@ -9,9 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PermisoAperturaRepository extends JpaRepository<PermisoApertura, Long> {
 
     @Query(nativeQuery = true, name = "PermisoApertura.findPermisoParaTarjetaAndHeladera")
-    PermisoApertura findPermisoParaTarjetaAndHeladera(@Param("heladera") Long heladeraId, @Param("tarjeta") String tarjetaCodigo);
+    Optional<PermisoApertura> findPermisoParaTarjetaAndHeladera(@Param("heladera") Long heladeraId, @Param("tarjeta") String tarjetaCodigo);
 }
