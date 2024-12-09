@@ -50,8 +50,8 @@
 
                 <!-- Mostrar botones de inicio de sesión o perfil según si está logueado -->
                 <div class="d-flex ms-lg-3" sec:authorize="isAnonymous()">
-                    <a class="text-decoration-none" th:href="@{/login}">
-                        <button class="btn btn-outline-primary me-2 btn-login" type="button"><a th:href="@{/oauth2/authorization/okta}">Iniciar Sesión</a></button>
+                    <a class="text-decoration-none" th:href="@{/oauth2/authorization/okta}">
+                        <button class="btn btn-outline-primary me-2 btn-login" type="button">Iniciar Sesión</button>
                     </a>
                     <a class="text-decoration-none" th:href="@{/seleccion-persona}">
                         <button class="btn btn-primary btn-register" type="button">Registrarse</button>
