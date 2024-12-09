@@ -44,6 +44,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         return usuarioRepository.findById(usuarioId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
+    public Usuario obtenerUsuarioPorUsername(String username) {
+        return usuarioRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
+    }
+
     public Usuario obtenerUsuarioPorColaborador(Colaborador colaborador) {
         return usuarioRepository.findUsuarioParaColaborador(colaborador.getId()).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }

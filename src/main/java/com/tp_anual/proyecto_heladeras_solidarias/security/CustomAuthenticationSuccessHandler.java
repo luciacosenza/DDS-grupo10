@@ -55,7 +55,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             SecurityContextHolder.getContext().setAuthentication(newAuth);
 
             HttpSession session = request.getSession();
-            session.setAttribute("usuario", usuarioACrear);
+            session.setAttribute("username", username);
 
             redirectUrl = "/completar-datos-seleccion-persona";
 

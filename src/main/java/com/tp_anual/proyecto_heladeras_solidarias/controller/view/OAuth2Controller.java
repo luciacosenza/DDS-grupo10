@@ -11,11 +11,16 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.NoUsuario;
 import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
+import com.tp_anual.proyecto_heladeras_solidarias.security.CustomOAuth2User;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoServiceSelector;
 import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.CustomUserDetailsService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Map;
 
 @Controller
 public class OAuth2Controller {
@@ -75,9 +81,9 @@ public class OAuth2Controller {
         Telefono telefono = new Telefono(prefijo, codigoArea, numeroTelefono);
         EMail eMail = new EMail(correo);
 
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        String username = (String) session.getAttribute("username");
+        Usuario usuario = customUserDetailsService.obtenerUsuarioPorUsername(username);
 
-        String username = usuario.getUsername();
         usuario.setPassword(password);
         usuario.setRole("ROL_CH");
 
@@ -96,6 +102,12 @@ public class OAuth2Controller {
         MedioDeContactoService medioDeContactoService = medioDeContactoServiceSelector.obtenerMedioDeContactoService(medioDeContacto.getClass());
         medioDeContactoService.contactar(medioDeContacto.getId(), "Nuevo usuario", "Tu usuario es: " + username);   // TODO: Internacionalizar mensaje
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        CustomOAuth2User customOAuth2User = new CustomOAuth2User(usuario, oAuth2User);
+        Authentication newAuth = new OAuth2AuthenticationToken(customOAuth2User, customOAuth2User.getAuthorities(), "google");
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
+
         return "redirect:/";
     }
 
@@ -106,6 +118,7 @@ public class OAuth2Controller {
 
     @PostMapping("/completar-datos-persona-juridica/guardar")
     public String guardarPersonaJuridica(
+            HttpSession session,
             @RequestParam("razon-social") String razonSocial,
             @RequestParam("tipo-persona-juridica") PersonaJuridica.TipoPersonaJuridica tipoPersonaJuridica,
             @RequestParam("rubro") String rubro,
@@ -118,17 +131,16 @@ public class OAuth2Controller {
             @RequestParam("codigo-area") String codigoArea,
             @RequestParam("numero-telefono") String numeroTelefono,
             @RequestParam("correo") String correo,
-            @RequestParam("password") String password,
-            Model model)
+            @RequestParam("password") String password)
     {
         PersonaJuridica personaJuridica = new PersonaJuridica(razonSocial, tipoPersonaJuridica, rubro);
         Ubicacion domicilio = new Ubicacion(null, null, (calle + " " + altura), codigoPostal, ciudad, pais);
         Telefono telefono = new Telefono(prefijo, codigoArea, numeroTelefono);
         EMail eMail = new EMail(correo);
 
-        Usuario usuario = (Usuario) model.getAttribute("usuario");
-        assert usuario != null;
-        String username = usuario.getUsername();
+        String username = (String) session.getAttribute("username");
+        Usuario usuario = customUserDetailsService.obtenerUsuarioPorUsername(username);
+
         usuario.setPassword(password);
         usuario.setRole("ROL_CJ");
 
@@ -146,6 +158,13 @@ public class OAuth2Controller {
         MedioDeContacto medioDeContacto = colaborador.getMedioDeContacto(EMail.class);
         MedioDeContactoService medioDeContactoService = medioDeContactoServiceSelector.obtenerMedioDeContactoService(medioDeContacto.getClass());
         medioDeContactoService.contactar(medioDeContacto.getId(), "Nuevo usuario", "Tu usuario es: " + username);   // TODO: Internacionalizar mensaje
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        CustomOAuth2User customOAuth2User = new CustomOAuth2User(usuario, oAuth2User);
+        Authentication newAuth = new OAuth2AuthenticationToken(customOAuth2User, customOAuth2User.getAuthorities(), "google");
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
+
 
         return "redirect:/";
     }
