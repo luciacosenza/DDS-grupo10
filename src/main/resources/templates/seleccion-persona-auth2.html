@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/assets/logo_blanco.png}" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/components.css}">
+</head>
+<body id="seleccion-persona-auth2" class="vectores-fondo">
+
+<main>
+    <div class="back-button text-start">
+        <a th:href="@{/}"><span class="material-symbols-outlined">arrow_back</span> Volver</a>
+    </div>
+    <div class="container w-75 my-5">
+        <h1 class="mb-4 text-center">COMPLETAR DATOS</h1>
+        <hr>
+        <div class="d-flex justify-content-center align-items-cente flex-wrap">
+            <a th:href="@{/completar-datos-persona-humana}">
+                <div class="card-seleccion-registro d-flex flex-column align-items-cente m-4">
+                    <img th:src="@{/assets/personaHumana2.png}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <button class="btn" id="persona-humana">Soy persona humana</button>
+                    </div>
+                </div>
+            </a>
+            <a th:href="@{/completar-datos-persona-juridica}">
+                <div class="card-seleccion-registro d-flex flex-column align-items-center m-4">
+                    <img th:src="@{/assets/negocio2.png}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <button class="btn" id="persona-juridica">Soy persona jurídica</button>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/cerrar_sesion.js}"></script>
+</body>
+</html>

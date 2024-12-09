@@ -10,9 +10,11 @@ import lombok.extern.java.Log;
 @NamedNativeQuery(
         name = "Usuario.findUsuarioParaColaborador",
         query = "SELECT * FROM usuario AS u " +
+                "WHERE u.id IN (" +
+                "SELECT u0.id FROM usuario AS u0 " +
                 "INNER JOIN colaborador AS c " +
-                "ON u.id = c.usuario " +
-                "WHERE u.id = colaborador.usuario AND colaborador.id = :colaborador",
+                "ON u0.id = c.usuario " +
+                "WHERE u0.id = c.usuario AND c.id = :colaborador)",
         resultClass = Usuario.class
 )
 @Getter

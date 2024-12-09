@@ -25,11 +25,13 @@ import org.springframework.context.MessageSource;
 @NamedNativeQuery(
         name = "Colaborador.findColaboradorParaEMail",
         query = "SELECT * FROM colaborador AS c " +
+                "WHERE c.id IN (" +
+                "SELECT c0.id FROM colaborador AS c0 " +
                 "INNER JOIN medio_de_contacto AS m " +
-                "ON c.id = m.colaborador " +
+                "ON c0.id = m.colaborador " +
                 "INNER JOIN email AS e " +
                 "ON m.id = e.id " +
-                "WHERE e.direccion_correo = :email",
+                "WHERE e.direccion_correo = :email)",
         resultClass = Colaborador.class
 )
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

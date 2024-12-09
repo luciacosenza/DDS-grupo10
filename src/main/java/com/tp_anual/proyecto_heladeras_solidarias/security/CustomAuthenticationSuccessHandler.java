@@ -6,6 +6,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.Colaborado
 import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.CustomUserDetailsService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -43,12 +44,20 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         Colaborador colaborador = colaboradorService.obtenerColaboradorPorEMail(email);
 
         if (colaborador == null) {
-
             String username = customUserDetailsService.generarUsername(nombre, apellido);
             Usuario usuarioACrear = new Usuario(username, username, "ROL_GENERICO");
             customUserDetailsService.guardarUsuario(usuarioACrear);
 
-            redirectUrl = "/seleccion-persona";
+            CustomOAuth2User customOAuth2User = new CustomOAuth2User(usuarioACrear, oAuth2User);
+
+            Authentication newAuth = new OAuth2AuthenticationToken(customOAuth2User, customOAuth2User.getAuthorities(), "google");
+
+            SecurityContextHolder.getContext().setAuthentication(newAuth);
+
+            HttpSession session = request.getSession();
+            session.setAttribute("usuario", usuarioACrear);
+
+            redirectUrl = "/completar-datos-seleccion-persona";
 
         } else {
             Usuario usuario = customUserDetailsService.obtenerUsuarioPorColaborador(colaborador);
@@ -57,7 +66,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             Authentication newAuth = new OAuth2AuthenticationToken(customOAuth2User, customOAuth2User.getAuthorities(), "google");
 
             SecurityContextHolder.getContext().setAuthentication(newAuth);
-
         }
 
         response.sendRedirect(redirectUrl);
