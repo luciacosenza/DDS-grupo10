@@ -66,8 +66,8 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                         <li><a class="dropdown-item cerrar-sesion" th:href="@{/logout}">Cerrar Sesión</a></li>
                     </ul>
-                    <div sec:authorize="isAuthenticated() and !hasAuthority('ROL_GENERICO')">
-                        <span sec:text="${#authentication.principal?.username ?: 'Invitado'}"></span>
+                    <div>
+                        <span sec:authentication="principal.username"></span>
                     </div>
                 </div>
             </div>

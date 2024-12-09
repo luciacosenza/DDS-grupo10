@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (puntosUsuario >= precioArticulo) {
 
                 try {
-                    const url = `/heladeras-solidarias/tienda/obtener-oferta/${idArticulo}`;
+                    const url = `/tienda/obtener-oferta/${idArticulo}`;
                     const response = await fetch(url)
 
                     if (response.ok) {

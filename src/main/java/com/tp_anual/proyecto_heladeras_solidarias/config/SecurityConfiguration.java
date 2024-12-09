@@ -72,12 +72,11 @@ public class SecurityConfiguration {
                                 new AntPathRequestMatcher("/completar-datos-persona-humana"),
                                 new AntPathRequestMatcher("/completar-datos-persona-juridica"))
                         .hasAuthority("ROL_GENERICO")
-                        .anyRequest().authenticated()
-                )
-                //.formLogin(httpSecurityFormLoginConfigurer ->  httpSecurityFormLoginConfigurer
-                //        .loginPage("/login").permitAll()
-                //        .defaultSuccessUrl("/?loginSuccess=true")
-                //        .failureUrl("/login?error"))
+                        .anyRequest().authenticated())
+                .formLogin(httpSecurityFormLoginConfigurer ->  httpSecurityFormLoginConfigurer
+                        .loginPage("/login").permitAll()
+                        .defaultSuccessUrl("/?loginSuccess=true")
+                        .failureUrl("/login?error"))
                 .oauth2Login(auth -> auth
                         .loginPage("/login")
                         .successHandler(customAuthenticationSuccessHandler)
