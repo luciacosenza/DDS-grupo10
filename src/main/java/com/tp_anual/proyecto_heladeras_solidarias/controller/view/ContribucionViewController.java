@@ -35,6 +35,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -117,12 +118,14 @@ public class ContribucionViewController {
         setPaginaActual("/colaborar", model);
         List<Heladera> heladeras = heladeraService.obtenerHeladeras();
         model.addAttribute("heladeras", heladeras);
+        model.addAttribute("error", 0);
 
         return "distribuir-viandas";
     }
 
     @PostMapping("/distribuir-viandas/guardar")
     public String guardarDistribucionViandas(
+        RedirectAttributes redirectAttributes,
         @RequestParam("heladera-origen") Long heladeraOrigenId,
         @RequestParam("heladera-destino") Long heladeraDestinoId,
         @RequestParam("cantidad") Integer cantidadAMover,
@@ -139,22 +142,36 @@ public class ContribucionViewController {
         TarjetaColaborador tarjeta = colaborador.getTarjeta();
 
         // Un Colaborador no puede solicitar una Contribución de viandas si tiene otra pendiente
-        if (!colaboradorService.donacionesYDistribucionesNoConfirmadas(colaboradorId).isEmpty())
-            return "redirect:/distribuir-viandas";    // TODO: Habría que retornar un error/aviso o algo así
+        if (!colaboradorService.donacionesYDistribucionesNoConfirmadas(colaboradorId).isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", 1);
+            return "redirect:/distribuir-viandas";
+        }
 
         Heladera heladeraOrigen = heladeraService.obtenerHeladera(heladeraOrigenId);
         Heladera heladeraDestino = heladeraService.obtenerHeladera(heladeraDestinoId);
 
-        // Verifico que la Heladera origen no esté vacía (o pueda vaciarse por reservas) y que la Heladera destino no esté llena (o pueda llenarse por reservas) y genero la Solicitud de Apertura y el Permiso de Apertura correspondientes
-        tarjetaColaboradorService.solicitarApertura(tarjeta.getCodigo(), heladeraOrigen, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION, cantidadAMover);
-        tarjetaColaboradorService.solicitarApertura(tarjeta.getCodigo(), heladeraDestino, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION, cantidadAMover);
-
-        colaboradorService.colaborar(colaboradorId, distribucionViandasCreator, LocalDateTime.now(), heladeraOrigen, heladeraDestino, cantidadAMover, motivo);
-
         if (tarjeta.getClass() == TarjetaColaboradorNula.class) {
             TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorId);
-            String codigoTarjeta = colaboradorService.agregarTarjeta(colaboradorId, tarjetaColaborador).getCodigo();
+            colaboradorService.agregarTarjeta(colaboradorId, tarjetaColaborador);
         }
+
+        // Verifico que la Heladera origen no esté vacía (o pueda vaciarse por reservas)  y genero la Solicitud de Apertura y el Permiso de Apertura correspondientes
+        try {
+            tarjetaColaboradorService.solicitarApertura(tarjeta.getCodigo(), heladeraOrigen, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION, cantidadAMover);
+        } catch (HeladeraVaciaSolicitudRetiroException e) {
+            redirectAttributes.addFlashAttribute("error", 2);
+            return "redirect:/distribuir-viandas";
+        }
+
+        // Verifico que la Heladera destino no esté llena (o pueda llenarse por reservas) y genero la Solicitud de Apertura y el Permiso de Apertura correspondientes
+        try {
+            tarjetaColaboradorService.solicitarApertura(tarjeta.getCodigo(), heladeraDestino, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_LOTE_DE_DISTRIBUCION, cantidadAMover);
+        } catch (HeladeraLlenaSolicitudIngresoException e) {
+            redirectAttributes.addFlashAttribute("error", 3);
+            return "redirect:/distribuir-viandas";
+        }
+
+        colaboradorService.colaborar(colaboradorId, distribucionViandasCreator, LocalDateTime.now(), heladeraOrigen, heladeraDestino, cantidadAMover, motivo);
 
         heladeraService.reservarViandas(heladeraOrigenId, cantidadAMover);
         heladeraService.reservarEspacioParaViandas(heladeraDestinoId, cantidadAMover);
@@ -189,15 +206,17 @@ public class ContribucionViewController {
 
     @GetMapping("/donar-vianda")
     public String mostrarFormDonacionVianda(Model model) {
+        setPaginaActual("/colaborar", model);
         List<Heladera> heladeras = heladeraService.obtenerHeladeras();
         model.addAttribute("heladeras", heladeras);
-        setPaginaActual("/colaborar", model);
+        //model.addAttribute("error", 0);
 
         return "donar-vianda";
     }
 
     @PostMapping("/donar-vianda/guardar")
     public String guardarDonacionVianda(
+        //RedirectAttributes redirectAttributes,
         @RequestParam("comida") String comida,
         @RequestParam("heladera") Long heladeraId,
         @RequestParam("fecha-caducidad") LocalDate fechaCaducidad,
@@ -215,22 +234,30 @@ public class ContribucionViewController {
         TarjetaColaborador tarjeta = colaborador.getTarjeta();
 
         // Un Colaborador no puede solicitar una Contribución de viandas si tiene otra pendiente
-        if (!colaboradorService.donacionesYDistribucionesNoConfirmadas(colaboradorId).isEmpty())
-            return "redirect:/donar-vianda";    // TODO: Habría que retornar un error/aviso o algo así
+        if (!colaboradorService.donacionesYDistribucionesNoConfirmadas(colaboradorId).isEmpty()) {
+            //redirectAttributes.addFlashAttribute("error", 1);
+            return "redirect:/donar-vianda";
+        }
 
         Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
 
-        // Verifico que la Heladera origen no esté vacía (o pueda vaciarse por reservas) y que la Heladera destino no esté llena (o pueda llenarse por reservas) y genero la Solicitud de Apertura y el Permiso de Apertura correspondientes
-        tarjetaColaboradorService.solicitarApertura(tarjeta.getCodigo(), heladera, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION, 1);
-
-        Vianda vianda = new Vianda(comida, colaborador, fechaCaducidad, LocalDateTime.now(), calorias, peso, false);
-
-        colaboradorService.colaborar(colaboradorId, donacionViandaCreator, LocalDateTime.now(), vianda, heladera);
-
         if (tarjeta.getClass() == TarjetaColaboradorNula.class) {
             TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorId);
-            String codigoTarjeta = colaboradorService.agregarTarjeta(colaboradorId, tarjetaColaborador).getCodigo();
+            colaboradorService.agregarTarjeta(colaboradorId, tarjetaColaborador);
         }
+
+        // Verifico que la Heladera origen no esté llena (o pueda vaciarse por reservas) y genero la Solicitud de Apertura y el Permiso de Apertura correspondientes
+        try {
+            tarjetaColaboradorService.solicitarApertura(tarjeta.getCodigo(), heladera, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION, 1);
+        } catch (HeladeraLlenaSolicitudIngresoException e) {
+            //redirectAttributes.addFlashAttribute("error", 3);
+            return "redirect:/donar-vianda";
+        }
+
+        Vianda vianda = new Vianda(comida, colaborador, fechaCaducidad, LocalDateTime.now(), calorias, peso, false);
+        viandaService.guardarVianda(vianda);
+
+        colaboradorService.colaborar(colaboradorId, donacionViandaCreator, LocalDateTime.now(), vianda, heladera);
 
         heladeraService.reservarEspacioParaViandas(heladeraId, 1);
 
@@ -247,17 +274,17 @@ public class ContribucionViewController {
 
     @PostMapping("/colocar-heladera/guardar")
     public String guardarHacerseCargoDeHeladera(
-            @RequestParam String nombre,
-            @RequestParam("calle") String calle,
-            @RequestParam("altura") String altura,
-            @RequestParam("ciudad") String ciudad,
-            @RequestParam("codigo-postal") String codigoPostal,
-            @RequestParam("temp-minima") Float tempMinima,
-            @RequestParam("temp-maxima") Float tempMaxima,
-            @RequestParam("capacidad") Integer capacidad,
-            @RequestParam("latitud") Double latitud,
-            @RequestParam("longitud") Double longitud)
-            throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException,DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException
+        @RequestParam String nombre,
+        @RequestParam("calle") String calle,
+        @RequestParam("altura") String altura,
+        @RequestParam("ciudad") String ciudad,
+        @RequestParam("codigo-postal") String codigoPostal,
+        @RequestParam("temp-minima") Float tempMinima,
+        @RequestParam("temp-maxima") Float tempMaxima,
+        @RequestParam("capacidad") Integer capacidad,
+        @RequestParam("latitud") Double latitud,
+        @RequestParam("longitud") Double longitud)
+        throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException,DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException
     {
         Ubicacion ubicacion = new Ubicacion(latitud, longitud, (calle + " " + altura), codigoPostal, ciudad, "Argentina");
         Heladera heladera = new Heladera(nombre, ubicacion, capacidad, tempMinima, tempMaxima, new ArrayList<>(), null, LocalDateTime.now(), false );
@@ -295,7 +322,7 @@ public class ContribucionViewController {
         @RequestParam(value = "ciudad", defaultValue = "sin ciudad") String ciudad,
         @RequestParam(value = "codigo-postal", defaultValue = "sin código postal") String codigoPostal,
         @RequestParam(value = "menores-a-cargo", defaultValue = "0") Integer menoresACargo)
-            throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException, DatosInvalidosCrearTarjetaPESVException
+        throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException, DatosInvalidosCrearTarjetaPESVException
     {
         Documento documento = new Documento(tipoDocumento, numeroDocumento, sexoDocumento);
         PersonaFisica personaFisica = new PersonaFisica(nombre, apellido, documento, fechaNacimiento);

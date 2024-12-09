@@ -31,3 +31,4 @@ target/**
 # docker
 docker-compose.yml
 Dockerfile.dev
+Dockerfile.debug

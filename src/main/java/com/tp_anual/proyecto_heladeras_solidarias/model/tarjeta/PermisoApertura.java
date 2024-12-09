@@ -11,6 +11,14 @@ import lombok.extern.java.Log;
 import jakarta.persistence.*;
 
 @Entity
+@NamedNativeQuery(
+    name = "PermisoApertura.findPermisoParaTarjetaAndHeladera",
+    query = "SELECT * FROM permiso_apertura AS p " +
+            "WHERE p.heladera = :heladera " +
+            "AND p.tarjeta = :tarjeta " +
+            "LIMIT 1",
+    resultClass = PermisoApertura.class
+)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Log
 @Getter
