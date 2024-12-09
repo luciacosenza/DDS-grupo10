@@ -16,6 +16,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
@@ -45,6 +46,14 @@ public class PermisoAperturaService {
         return permisoAperturaRepository.findById(permisoAperturaId).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
     }
 
+    public TarjetaColaborador obtenerTarjetaColaboradorPorPermisoApertura(Long permisoAperturaId) {
+        return tarjetaColaboradorRepository.findByPermisosId(permisoAperturaId);
+    }
+
+    public PermisoApertura obtenerUnPermisoParaTarjetaYHeladera(Heladera heladera, TarjetaColaborador tarjeta) {
+        return permisoAperturaRepository.findPermisoParaTarjetaAndHeladera(heladera.getId(), tarjeta.getCodigo()).orElseThrow(() -> new EntityNotFoundException(i18nService.getMessage("obtenerEntidad_exception")));
+    }
+
     public PermisoApertura guardarPermisoApertura(PermisoApertura permisoApertura) {
         return permisoAperturaRepository.save(permisoApertura);
     }
@@ -55,10 +64,6 @@ public class PermisoAperturaService {
         programarRevocacionPermiso(permisoAperturaId);
 
         return permisoApertura;
-    }
-
-    public TarjetaColaborador obtenerTarjetaColaboradorPorPermisoApertura(Long permisoAperturaId) {
-        return tarjetaColaboradorRepository.findByPermisosId(permisoAperturaId);
     }
 
     public Boolean esHeladeraPermitida(Long permisoAperturaId, Heladera heladera) {

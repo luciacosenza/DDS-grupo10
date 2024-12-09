@@ -51,12 +51,8 @@ public class GestorDeAperturas {
     
     public void revisarPermisoAperturaC(Heladera heladera, ColaboradorHumano colaborador) throws PermisoAperturaAusenteException, PermisoAperturaExpiradoException {
         TarjetaColaborador tarjetaColaborador = colaborador.getTarjeta();
-        List<PermisoApertura> permisos = tarjetaColaborador.getPermisos();
 
-        PermisoApertura permisoARevisar = permisos.stream()
-            .filter(permiso -> permisoAperturaService.esHeladeraPermitida(permiso.getId(), heladera))
-            .max(Comparator.comparing(PermisoApertura::getFechaOtorgamiento))
-            .orElse(null);
+        PermisoApertura permisoARevisar = permisoAperturaService.obtenerUnPermisoParaTarjetaYHeladera(heladera, tarjetaColaborador);
 
         if (permisoARevisar == null) {
             log.log(Level.SEVERE, i18nService.getMessage("heladera.GestorDeAperturas.revisarPermisoAperturaC_err", colaborador.getPersona().getNombre(2), heladera.getNombre()));

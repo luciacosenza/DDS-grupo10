@@ -58,6 +58,29 @@
     <div th:replace="~{fragments/footer :: footer}"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script th:src="@{/js/cerrar_sesion.js}"></script>
+    <script th:inline="javascript">
+        const error = [[${error}]];
+        if (error === 0) {
+            Swal.fire({
+                title: 'Error',
+                text: 'No se puede realizar una distribución de viandas si hay contribuciones de viandas pendientes',
+                icon: 'error'
+            });
+        } else if (error === 1) {
+            Swal.fire({
+                title: 'Error',
+                text: 'No se puede realizar una distribución de viandas si la heladera origen está vacía',
+                icon: 'error'
+            });
+        } else if (error === 2) {
+            Swal.fire({
+                title: 'Error',
+                text: 'No se puede realizar una distribución de viandas si la heladera destino está llena',
+                icon: 'error'
+            });
+        }
+    </script>
 </body>
 </html>
