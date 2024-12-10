@@ -98,7 +98,7 @@ public class AuthController {
 
         MedioDeContacto medioDeContacto = colaborador.getMedioDeContacto(EMail.class);
         MedioDeContactoService medioDeContactoService = medioDeContactoServiceSelector.obtenerMedioDeContactoService(medioDeContacto.getClass());
-        medioDeContactoService.contactar(medioDeContacto.getId(), "Nuevo usuario", "Tu usuario es: " + username);   // TODO: Internacionalizar mensaje
+        medioDeContactoService.contactar(medioDeContacto.getId(),  i18nService.getMessage("controller.AuthController.guardarPersonaHumana_title"), i18nService.getMessage("controller.AuthController.guardarPersonaHumana_body", username));
 
         return "redirect:/";
     }
@@ -145,7 +145,7 @@ public class AuthController {
 
         MedioDeContacto medioDeContacto = colaborador.getMedioDeContacto(EMail.class);
         MedioDeContactoService medioDeContactoService = medioDeContactoServiceSelector.obtenerMedioDeContactoService(medioDeContacto.getClass());
-        medioDeContactoService.contactar(medioDeContacto.getId(), "Nuevo usuario", "Tu usuario es: " + username);   // TODO: Internacionalizar mensaje
+        medioDeContactoService.contactar(medioDeContacto.getId(),  i18nService.getMessage("controller.AuthController.guardarPersonaHumana_title"), i18nService.getMessage("controller.AuthController.guardarPersonaHumana_body", username));
 
         return "redirect:/";
     }

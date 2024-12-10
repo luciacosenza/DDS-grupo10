@@ -15,6 +15,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.security.CustomOAuth2User;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoServiceSelector;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.CustomUserDetailsService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
@@ -39,10 +40,13 @@ public class OAuth2Controller {
     private final ColaboradorService colaboradorService;
     private final MedioDeContactoServiceSelector medioDeContactoServiceSelector;
 
-    public OAuth2Controller(CustomUserDetailsService vCustomUserDetailsService, ColaboradorService vColaboradorService, MedioDeContactoServiceSelector vMedioDeContactoServiceSelector) {
+    private final I18nService i18nService;
+
+    public OAuth2Controller(CustomUserDetailsService vCustomUserDetailsService, ColaboradorService vColaboradorService, MedioDeContactoServiceSelector vMedioDeContactoServiceSelector, I18nService vI18nService) {
         customUserDetailsService = vCustomUserDetailsService;
         colaboradorService = vColaboradorService;
         medioDeContactoServiceSelector = vMedioDeContactoServiceSelector;
+        i18nService = vI18nService;
     }
 
     @GetMapping("/completar-datos-seleccion-persona")
@@ -100,7 +104,7 @@ public class OAuth2Controller {
 
         MedioDeContacto medioDeContacto = colaborador.getMedioDeContacto(EMail.class);
         MedioDeContactoService medioDeContactoService = medioDeContactoServiceSelector.obtenerMedioDeContactoService(medioDeContacto.getClass());
-        medioDeContactoService.contactar(medioDeContacto.getId(), "Nuevo usuario", "Tu usuario es: " + username);   // TODO: Internacionalizar mensaje
+        medioDeContactoService.contactar(medioDeContacto.getId(),  i18nService.getMessage("controller.AuthController.guardarPersonaHumana_title"), i18nService.getMessage("controller.AuthController.guardarPersonaHumana_body", username));
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
@@ -157,14 +161,13 @@ public class OAuth2Controller {
 
         MedioDeContacto medioDeContacto = colaborador.getMedioDeContacto(EMail.class);
         MedioDeContactoService medioDeContactoService = medioDeContactoServiceSelector.obtenerMedioDeContactoService(medioDeContacto.getClass());
-        medioDeContactoService.contactar(medioDeContacto.getId(), "Nuevo usuario", "Tu usuario es: " + username);   // TODO: Internacionalizar mensaje
+        medioDeContactoService.contactar(medioDeContacto.getId(),  i18nService.getMessage("controller.AuthController.guardarPersonaHumana_title"), i18nService.getMessage("controller.AuthController.guardarPersonaHumana_body", username));
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         CustomOAuth2User customOAuth2User = new CustomOAuth2User(usuario, oAuth2User);
         Authentication newAuth = new OAuth2AuthenticationToken(customOAuth2User, customOAuth2User.getAuthorities(), "google");
         SecurityContextHolder.getContext().setAuthentication(newAuth);
-
 
         return "redirect:/";
     }

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
@@ -56,25 +56,17 @@
     </div>
 
     <!-- Información del perfil -->
-    <form th:action="@{/perfil-persona-humana/guardar}" method="POST">
+    <form th:action="@{/perfil-persona-juridica/guardar}" method="POST">
         <div class="info-section">
-            <label for="nombre">Nombre</label>
+            <label for="razon-social">Razón social</label>
             <div class="input-group">
-                <input type="text" class="form-control" id="nombre" name="nombre" th:value="${colaborador.getPersona().getNombre(0)}" readonly>
+                <input type="text" class="form-control" id="razon-social" name="razon-social" th:value="${colaborador.getPersona().getNombre(0)}" readonly>
                 <button class="btn btn-outline-secondary" type="button">
                     <i class="fas fa-pencil-alt"></i>
                 </button>
             </div>
         </div>
-        <div class="info-section">
-            <label for="apellido">Apellido</label>
-            <div class="input-group">
-                <input type="text" class="form-control" id="apellido" name="apellido" th:value="${colaborador.getPersona().getNombre(1)}" readonly>
-                <button class="btn btn-outline-secondary" type="button">
-                    <i class="fas fa-pencil-alt"></i>
-                </button>
-            </div>
-        </div>
+
         <div class="info-section">
             <label for="direccion" class="form-label">Dirección</label>
             <button class="btn btn-outline-secondary" type="button" id="toggle-direccion">

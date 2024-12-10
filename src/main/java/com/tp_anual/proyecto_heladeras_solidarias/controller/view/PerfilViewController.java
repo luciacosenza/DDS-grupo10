@@ -6,7 +6,9 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.EMail;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaJuridica;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
+import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
+import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.CustomUserDetailsService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,10 +25,12 @@ import java.util.Map;
 @Controller
 public class PerfilViewController {
 
-    ColaboradorService colaboradorService;
+    private final ColaboradorService colaboradorService;
+    private final CustomUserDetailsService customUserDetailsService;
 
-    public PerfilViewController(ColaboradorService vColaboradorService) {
+    public PerfilViewController(ColaboradorService vColaboradorService, CustomUserDetailsService customUserDetailsService) {
         colaboradorService = vColaboradorService;
+        this.customUserDetailsService = customUserDetailsService;
     }
 
     @GetMapping("/perfil-persona-humana")
@@ -79,11 +83,17 @@ public class PerfilViewController {
         PersonaFisica personaFisica = colaborador.getPersonaFisica();
         Ubicacion domicilio = new Ubicacion(colaborador.getDomicilio().getLatitud(), colaborador.getDomicilio().getLongitud(), direccion, codigoPostal, ciudad, colaborador.getDomicilio().getPais());
         EMail eMail = new EMail(correo);
+        Usuario usuario = colaborador.getUsuario();
 
         personaFisica.setNombre(nombre);
         personaFisica.setApellido(apellido);
         colaborador.setDomicilio(domicilio);
         colaborador.setMedioDeContacto(EMail.class, eMail);
+
+        if (password != null && !password.isEmpty()) {
+            usuario.setPassword(password);
+            customUserDetailsService.guardarUsuario(usuario);
+        }
 
         colaboradorService.guardarColaborador(colaborador);
 
@@ -92,7 +102,7 @@ public class PerfilViewController {
 
     @PostMapping("/perfil-persona-juridica/guardar")
     public String guardarPerfilPersonaJuridica(
-            @RequestParam("nombre") String razonSocial,
+            @RequestParam("razon-social") String razonSocial,
             @RequestParam("direccion") String direccion,
             @RequestParam("ciudad") String ciudad,
             @RequestParam("codigo-postal") String codigoPostal,
@@ -108,10 +118,16 @@ public class PerfilViewController {
         PersonaJuridica personaJuridica = colaborador.getPersonaJuridica();
         Ubicacion domicilio = new Ubicacion(colaborador.getDomicilio().getLatitud(), colaborador.getDomicilio().getLongitud(), direccion, codigoPostal, ciudad, colaborador.getDomicilio().getPais());
         EMail eMail = new EMail(correo);
+        Usuario usuario = colaborador.getUsuario();
 
         personaJuridica.setRazonSocial(razonSocial);
         colaborador.setDomicilio(domicilio);
         colaborador.setMedioDeContacto(EMail.class, eMail);
+
+        if (password != null && !password.isEmpty()) {
+            usuario.setPassword(password);
+            customUserDetailsService.guardarUsuario(usuario);
+        }
 
         colaboradorService.guardarColaborador(colaborador);
 
