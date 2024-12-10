@@ -1,6 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.migrador;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Locale;
@@ -24,5 +25,8 @@ public abstract class ExtraccionDeDatos implements ExtraccionDeDatosStrategy {
     }
 
     @Override
-    public abstract List<String[]> extract(String archivo) throws IOException, URISyntaxException ;
+    public abstract List<String[]> extract(String archivo) throws IOException, URISyntaxException;
+
+    @Override
+    public abstract List<String[]> extract(InputStream inputStream) throws IOException, URISyntaxException;
 }

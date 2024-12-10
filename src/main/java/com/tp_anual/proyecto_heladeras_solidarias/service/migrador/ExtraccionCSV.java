@@ -23,6 +23,7 @@ public class ExtraccionCSV extends ExtraccionDeDatos {
         i18nService = vI18nService;
     }
 
+    // Este método usa una ruta
     @Override
     public List<String[]> extract(String csv) {
         List<String[]> dataColaboradores = new ArrayList<>();
@@ -48,6 +49,34 @@ public class ExtraccionCSV extends ExtraccionDeDatos {
             throw new RuntimeException(i18nService.getMessage("migrador.ExtraccionCSV.extract_exception_procesamiento_csv"));
         }
         
+        confirmarExtraction();
+
+        return dataColaboradores;
+    }
+
+    // Esta método usa directamente un InputStream
+    @Override
+    public List<String[]> extract(InputStream inputStream) {
+        List<String[]> dataColaboradores = new ArrayList<>();
+
+        try (InputStreamReader isr = new InputStreamReader(inputStream);
+             CSVReader reader = new CSVReader(isr)) {
+
+            // Leer y descartar la primera línea (header)
+            reader.readNext();
+
+            String[] linea;
+            while ((linea = reader.readNext()) != null) {
+                dataColaboradores.add(linea);
+            }
+        } catch (IOException e) {
+            log.log(Level.SEVERE, i18nService.getMessage("migrador.ExtraccionCSV.extract_err_io_stream"));
+            throw new RuntimeException(i18nService.getMessage("migrador.ExtraccionCSV.extract_exception_io_stream"));
+        } catch (CsvException e) {
+            log.log(Level.SEVERE, i18nService.getMessage("migrador.ExtraccionCSV.extract_err_procesamiento_csv_stream"));
+            throw new RuntimeException(i18nService.getMessage("migrador.ExtraccionCSV.extract_exception_procesamiento_csv_stream"));
+        }
+
         confirmarExtraction();
 
         return dataColaboradores;

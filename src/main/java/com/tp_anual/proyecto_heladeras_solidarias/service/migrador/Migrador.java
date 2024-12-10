@@ -1,7 +1,9 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.migrador;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -13,6 +15,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.Colaborado
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Log
@@ -74,8 +77,31 @@ public class Migrador {
         log.log(Level.INFO, i18nService.getMessage("migrador.Migrador.confirmarLoading_info"));
     }
 
+    // Este método usa una ruta
     public List<ColaboradorHumano> migrar(String csv, Boolean contactar) throws IOException, URISyntaxException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException, FilaDeDatosIncompletaException {
         List<String[]> dataColaboradores = protocoloExtraccion.extract(csv);
+        List<ColaboradorHumano> colaboradoresAMigrar = transformador.transform(dataColaboradores);
+
+        for (ColaboradorHumano colaborador : colaboradoresAMigrar) {
+            colaboradorService.guardarColaborador(colaborador);
+
+            if (contactar)
+                protocoloEnvio.send(colaborador, ASUNTO, CUERPO);
+        }
+
+        confirmarLoading();
+
+        return colaboradoresAMigrar;
+    }
+
+    // Esta método usa directamente un archivo
+    public List<ColaboradorHumano> migrar(MultipartFile file, Boolean contactar) throws IOException, URISyntaxException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException, FilaDeDatosIncompletaException {
+        List<String[]> dataColaboradores = new ArrayList<>();
+
+        try (InputStream inputStream = file.getInputStream()) {
+            protocoloExtraccion.extract(inputStream);
+        }
+
         List<ColaboradorHumano> colaboradoresAMigrar = transformador.transform(dataColaboradores);
 
         for (ColaboradorHumano colaborador : colaboradoresAMigrar) {
