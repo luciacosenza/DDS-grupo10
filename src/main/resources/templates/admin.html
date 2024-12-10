@@ -94,12 +94,13 @@
                             <div class="row">
                                 <div class="w-100">
                                     <div class="my-4 w-100 d-flex flex-column align-items-center gap-4 alertas-container">
+                                        <div th:if="${alertas.isEmpty()}">No hay alertas</div>
                                         <div th:each="alerta : ${alertas}" class="alerta">
                                             <span class="material-symbols-outlined">warning</span>
                                             <div class="text-start w-100 ms-4">
-                                                <p><span class="fw-bold">Heladera:</span> <span th:text="${alerta.heladera}"></span></p>
+                                                <p><span class="fw-bold">Heladera:</span> <span th:text="${alerta.heladera.nombre}"></span></p>
                                                 <p><span class="fw-bold">Tipo:</span> <span th:text="${alerta.tipo}"></span></p>
-                                                <p><span class="fw-bold">Fecha:</span> <span th:text="${alerta.fecha}"></span></p>
+                                                <p><span class="fw-bold">Fecha:</span> <span th:text="${alerta.getFechaFormateada()}"></span></p>
                                             </div>
                                         </div>
                                     </div>

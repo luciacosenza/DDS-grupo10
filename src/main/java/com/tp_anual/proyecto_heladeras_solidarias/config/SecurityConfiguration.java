@@ -81,8 +81,7 @@ public class SecurityConfiguration {
                         .loginPage("/login")
                         .defaultSuccessUrl("/?loginSuccess=true")
                         .failureUrl("/login?error")
-                        .successHandler(customAuthenticationSuccessHandler)
-                )
+                        .successHandler(customAuthenticationSuccessHandler))
                 .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.permitAll()
                         .logoutRequestMatcher
                                 (new AntPathRequestMatcher("/logout"))
