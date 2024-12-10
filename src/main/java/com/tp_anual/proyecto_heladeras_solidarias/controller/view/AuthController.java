@@ -16,6 +16,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contacto.MedioDeContactoServiceSelector;
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.tecnico.TecnicoService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.CustomUserDetailsService;
 import org.springframework.stereotype.Controller;
@@ -36,11 +37,14 @@ public class AuthController {
     private final CustomUserDetailsService customUserDetailsService;
     private final MedioDeContactoServiceSelector medioDeContactoServiceSelector;
 
-    public AuthController(ColaboradorService vColaboradorService, CustomUserDetailsService vUsuarioService, TecnicoService vTecnicoService, MedioDeContactoServiceSelector vMedioDeContactoServiceSelector) {
+    private final I18nService i18nService;
+
+    public AuthController(ColaboradorService vColaboradorService, CustomUserDetailsService vUsuarioService, TecnicoService vTecnicoService, MedioDeContactoServiceSelector vMedioDeContactoServiceSelector, I18nService vI18nService) {
         colaboradorService = vColaboradorService;
         tecnicoService = vTecnicoService;
         customUserDetailsService = vUsuarioService;
         medioDeContactoServiceSelector = vMedioDeContactoServiceSelector;
+        i18nService = vI18nService;
     }
 
     @GetMapping("/seleccion-persona")
@@ -193,7 +197,7 @@ public class AuthController {
     {
         model.addAttribute("paginaActual", "/login");
         if (error != null) {
-            model.addAttribute("loginError", "Usuario o contraseña incorrectos");
+            model.addAttribute("loginError", i18nService.getMessage("controller.AuthController.login_err"));
         }
 
         return "login";

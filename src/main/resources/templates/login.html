@@ -41,8 +41,8 @@
                 </div>
             </div>
             <!-- Mensaje de error -->
-            <div th:if="${loginError}" class="alert alert-danger mt-2">
-                <p th:text="${loginError}" class="m-0"></p>
+            <div th:if="${loginError}">
+                <p th:text="${loginError}" class="error"></p>
             </div>
             <!-- Botón Iniciar sesión -->
             <button type="submit" class="btn btn-dark w-100 mb-2">Iniciar Sesión</button>
