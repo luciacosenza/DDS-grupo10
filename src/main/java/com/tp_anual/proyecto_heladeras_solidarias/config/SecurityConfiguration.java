@@ -70,6 +70,8 @@ public class SecurityConfiguration {
                                 (new AntPathRequestMatcher("/admin"),
                                 new AntPathRequestMatcher("/registro-tecnico"))
                         .hasAuthority("ROL_ADMIN")
+                        .requestMatchers("/tecnico")
+                        .hasAuthority("ROL_T")
                         .requestMatchers
                                 (new AntPathRequestMatcher("/completar-datos-seleccion-persona"),
                                 new AntPathRequestMatcher("/completar-datos-persona-humana"),

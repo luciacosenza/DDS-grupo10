@@ -1,5 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.incidente;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Tecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.repository.incidente.IncidenteRepository;
@@ -30,6 +31,10 @@ public class IncidenteService {
 
     public List<Incidente> obtenerIncidentes() {
         return new ArrayList<>(incidenteRepository.findAll());
+    }
+
+    public List<Incidente> obtenerIncidentesParaTecnico(Tecnico tecnico) {
+        return incidenteRepository.findIncidentesParaTecnico(tecnico.getId());
     }
 
     public Incidente guardarIncidente(Incidente incidente) {

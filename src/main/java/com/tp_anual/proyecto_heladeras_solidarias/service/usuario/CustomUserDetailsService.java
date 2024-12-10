@@ -17,6 +17,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.Normalizer;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -96,8 +97,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     public String generarUsername(String param1, String param2) {
-        String usernameBase = param2.toLowerCase().trim().replaceAll("\\s+", "");
-        String usernamePrefix = param1.toLowerCase().trim().replaceAll("\\s+", "");
+        String usernameBase = Normalizer.normalize(param2.toLowerCase().trim().replaceAll("\\s+", ""), Normalizer.Form.NFD);
+        String usernamePrefix = Normalizer.normalize(param1.toLowerCase().trim().replaceAll("\\s+", ""), Normalizer.Form.NFD);
 
         String fullUsername = usernamePrefix + usernameBase;
         String username;

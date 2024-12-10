@@ -1,5 +1,6 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.tecnico;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.area.Area;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
@@ -43,6 +44,10 @@ public class TecnicoService {
 
     public List<Tecnico> obtenerTecnicos() {
         return new ArrayList<>(tecnicoRepository.findAll());
+    }
+
+    public Tecnico obtenerTecnicoPorUsername(String username) {
+        return tecnicoRepository.findByUsuario_Username(username);
     }
 
     public Tecnico guardarTecnico(Tecnico tecnico) {

@@ -10,6 +10,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@NamedNativeQuery(
+        name = "Incidente.findIncidentesParaTecnico",
+        query = "SELECT * FROM alerta AS a" +
+                "INNER JOIN tecnico AS t1 " +
+                "ON a.tecnico = t1.id " +
+                "WHERE t1.id = :tecnico " +
+                "UNION ALL " +
+                "SELECT * FROM falla_tecnica AS f" +
+                "INNER JOIN tecnico AS t2 " +
+                "ON f.tecnico = t2.id " +
+                "WHERE t2.id = :tecnico ",
+        resultClass =  Incidente.class
+)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Getter
 public abstract class Incidente {
