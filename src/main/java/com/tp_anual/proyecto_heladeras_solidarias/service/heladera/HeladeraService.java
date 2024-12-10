@@ -2,6 +2,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.service.heladera;
 
 import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.HeladeraLlenaAgregarViandaException;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.heladera.HeladeraVaciaRetirarViandaException;
+import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorJuridico;
 import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.contacto.MedioDeContacto;
@@ -54,8 +55,14 @@ public class HeladeraService {
         return new ArrayList<>(heladeraRepository.findAll());
     }
 
+    public List<Heladera> obtenerHeladerasPorColaborador(ColaboradorJuridico colaboradorJuridico) {return new ArrayList<>(heladeraRepository.findHeladerasParaColaborador(colaboradorJuridico.getId()));}
+
     public Heladera guardarHeladera(Heladera heladera) {
         return heladeraRepository.saveAndFlush(heladera);
+    }
+
+    public void elimiarHeladera(Long heladeraId) {
+         heladeraRepository.deleteById(heladeraId);
     }
 
     public void actualizarFechaApertura(Long heladeraId) {

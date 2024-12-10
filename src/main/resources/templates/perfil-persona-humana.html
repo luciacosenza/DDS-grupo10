@@ -10,38 +10,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/components.css}">
-
-    <style>
-        .profile-header img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-        }
-        .info-section {
-            margin-bottom: 20px;
-        }
-        .info-section label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-        .info-section .input-group-text {
-            background-color: #f0f0f0;
-            border: none;
-        }
-        #direccion-fields input[readonly] {
-            background-color: #f9f9f9;
-            cursor: not-allowed;
-        }
-
-        #direccion-fields input:not([readonly]) {
-            background-color: #ffffff;
-        }
-
-
-    </style>
 </head>
 
 <div th:replace="~{fragments/header :: header}"></div>
@@ -142,14 +110,14 @@
 <script>
     document.querySelectorAll('.btn-outline-secondary').forEach(button => {
         button.addEventListener('click', function () {
-            const input = this.previousElementSibling; // El input asociado al botón
+            const input = this.previousElementSibling;
             if (input.hasAttribute('readonly')) {
-                input.removeAttribute('readonly'); // Hacer editable
-                input.focus(); // Poner el foco en el input
-                this.innerHTML = '<i class="fas fa-check"></i>'; // Cambiar ícono al de "guardar"
+                input.removeAttribute('readonly');
+                input.focus();
+                this.innerHTML = '<i class="fas fa-check"></i>';
             } else {
-                input.setAttribute('readonly', true); // Volver a solo lectura
-                this.innerHTML = '<i class="fas fa-pencil-alt"></i>'; // Volver al ícono de lápiz
+                input.setAttribute('readonly', true);
+                this.innerHTML = '<i class="fas fa-pencil-alt"></i>';
             }
         });
     });
@@ -158,10 +126,10 @@
 
     toggleDireccionButton.addEventListener('click', function () {
         if (direccionFields.style.display === 'none') {
-            direccionFields.style.display = 'block'; // Mostrar los campos
+            direccionFields.style.display = 'block';
             this.innerHTML = '<i class="fas fa-chevron-up"></i> Ocultar Dirección';
         } else {
-            direccionFields.style.display = 'none'; // Ocultar los campos
+            direccionFields.style.display = 'none';
             this.innerHTML = '<i class="fas fa-chevron-down"></i> Editar Dirección';
         }
     });

@@ -633,6 +633,33 @@ input::-webkit-file-upload-button {
     color: red;
     font-size: 14px;
     margin-top: 5px;
+}
 
+.profile-header img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+.info-section {
+    margin-bottom: 20px;
+}
+.info-section label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+.info-section .input-group-text {
+    background-color: #f0f0f0;
+    border: none;
+}
+#direccion-fields input[readonly] {
+    background-color: #f9f9f9;
+    cursor: not-allowed;
+}
+
+#direccion-fields input:not([readonly]) {
+    background-color: #ffffff;
 }
 

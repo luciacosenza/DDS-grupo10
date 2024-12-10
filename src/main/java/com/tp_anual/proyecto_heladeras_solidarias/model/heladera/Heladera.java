@@ -1,6 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.heladera;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -13,6 +14,20 @@ import lombok.Setter;
 import jakarta.validation.constraints.Min;
 
 @Entity
+@NamedNativeQuery(
+        name = "Heladera.findHeladerasParaColaborador",
+        query = "SELECT * FROM heladera AS h " +
+                "WHERE h.id IN (" +
+                "SELECT h0.id FROM heladera AS h0 " +
+                "INNER JOIN hacerse_cargo_de_heladera AS hcdh " +
+                "ON h0.id = hcdh.heladera " +
+                "INNER JOIN contribucion AS c " +
+                "ON hcdh.id = c.id " +
+                "INNER JOIN colaborador AS cj " +
+                "ON c.colaborador = cj.id )",
+        resultClass =  Heladera.class
+)
+
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 public class Heladera implements HeladeraObserver {    // Implementa una Interfaz "HeladeraSubject" a nivel conceptual
@@ -69,6 +84,15 @@ public class Heladera implements HeladeraObserver {    // Implementa una Interfa
         tempActual = vTempActual;
         fechaApertura = vFechaApertura;
         estado = vEstado;
+    }
+
+    public String getFechaAperturaFormateada() {
+        if (fechaApertura != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            return fechaApertura.format(formatter);
+        }
+
+        return "";
     }
 
     public Integer viandasActuales() {return viandas.size();}

@@ -38,10 +38,6 @@
                         <a class="nav-link" th:classappend="${paginaActual == '/colaborar' ? 'active' : ''}" th:href="@{/colaborar-personas-juridicas}">Colaborar</a>
                     </li>
 
-                    <li class="nav-item" sec:authorize="isAuthenticated() and (hasAuthority('ROL_CH') or hasAuthority('ROL_CJ'))">
-                        <a class="nav-link" th:classappend="${paginaActual == '/contribuciones' ? 'active' : ''}" th:href="@{/contribuciones}">Contribuciones</a>
-                    </li>
-
                     <!-- Si no está logueado -->
                     <li class="nav-item" sec:authorize="isAnonymous()">
                         <a class="nav-link href-colab" th:href="@{/login}">Colaborar</a>
@@ -66,7 +62,8 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                         <li sec:authorize="hasAuthority('ROL_CH')"><a th:href="@{/perfil-persona-humana}" class="dropdown-item">Modificar perfil</a></li>
                         <li sec:authorize="hasAuthority('ROL_CJ')"><a th:href="@{/perfil-persona-juridica}" class="dropdown-item">Modificar perfil</a></li>
-                        <li><a class="dropdown-item">Ver mis contribuciones</a></li>
+                        <li sec:authorize="hasAuthority('ROL_CH') or hasAuthority('ROL_CJ')"><a th:href="@{/contribuciones}" class="dropdown-item">Ver mis contribuciones</a></li>
+                        <li sec:authorize="hasAuthority('ROL_CJ')"><a th:href="@{/heladeras}" class="dropdown-item">Ver mis heladeras</a></li>
                         <li><a class="dropdown-item cerrar-sesion" th:href="@{/logout}">Cerrar Sesión</a></li>
                     </ul>
                     <div>

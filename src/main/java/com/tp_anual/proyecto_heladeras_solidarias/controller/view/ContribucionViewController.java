@@ -209,14 +209,14 @@ public class ContribucionViewController {
         setPaginaActual("/colaborar", model);
         List<Heladera> heladeras = heladeraService.obtenerHeladeras();
         model.addAttribute("heladeras", heladeras);
-        //model.addAttribute("error", 0);
+        model.addAttribute("error", 0);
 
         return "donar-vianda";
     }
 
     @PostMapping("/donar-vianda/guardar")
     public String guardarDonacionVianda(
-        //RedirectAttributes redirectAttributes,
+        RedirectAttributes redirectAttributes,
         @RequestParam("comida") String comida,
         @RequestParam("heladera") Long heladeraId,
         @RequestParam("fecha-caducidad") LocalDate fechaCaducidad,
@@ -235,7 +235,7 @@ public class ContribucionViewController {
 
         // Un Colaborador no puede solicitar una Contribución de viandas si tiene otra pendiente
         if (!colaboradorService.donacionesYDistribucionesNoConfirmadas(colaboradorId).isEmpty()) {
-            //redirectAttributes.addFlashAttribute("error", 1);
+            redirectAttributes.addFlashAttribute("error", 1);
             return "redirect:/donar-vianda";
         }
 
@@ -250,7 +250,7 @@ public class ContribucionViewController {
         try {
             tarjetaColaboradorService.solicitarApertura(tarjeta.getCodigo(), heladera, SolicitudAperturaColaborador.MotivoSolicitud.INGRESAR_DONACION, 1);
         } catch (HeladeraLlenaSolicitudIngresoException e) {
-            //redirectAttributes.addFlashAttribute("error", 3);
+            redirectAttributes.addFlashAttribute("error", 3);
             return "redirect:/donar-vianda";
         }
 
@@ -287,7 +287,7 @@ public class ContribucionViewController {
         throws ContribucionNoPermitidaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException,DatosInvalidosCrearRPESVException, DomicilioFaltanteDiVsException, DomicilioFaltanteDoVException, DomicilioFaltanteRPESVException
     {
         Ubicacion ubicacion = new Ubicacion(latitud, longitud, (calle + " " + altura), codigoPostal, ciudad, "Argentina");
-        Heladera heladera = new Heladera(nombre, ubicacion, capacidad, tempMinima, tempMaxima, new ArrayList<>(), null, LocalDateTime.now(), false );
+        Heladera heladera = new Heladera(nombre, ubicacion, capacidad, tempMinima, tempMaxima, new ArrayList<>(), null, LocalDateTime.now(), false);
         heladera.setUbicacion(ubicacion);
         heladera.setFechaApertura(LocalDateTime.now());
 

@@ -55,6 +55,7 @@ public class SecurityConfiguration {
                                 (new AntPathRequestMatcher("/cargar-premio"),
                                 new AntPathRequestMatcher("/colaborar-personas-juridicas"),
                                 new AntPathRequestMatcher("/colocar-heladera"),
+                                new AntPathRequestMatcher("/heladeras"),
                                 new AntPathRequestMatcher("/perfil-persona-juridica"))
                         .hasAuthority("ROL_CJ")
                         // Endpoints accesibles por 'ROL_CJ' y 'ROL_CH' (ambos colaboradores)

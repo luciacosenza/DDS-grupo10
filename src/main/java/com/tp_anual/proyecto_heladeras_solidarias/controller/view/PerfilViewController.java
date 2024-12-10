@@ -102,12 +102,12 @@ public class PerfilViewController {
 
     @PostMapping("/perfil-persona-juridica/guardar")
     public String guardarPerfilPersonaJuridica(
-            @RequestParam("razon-social") String razonSocial,
-            @RequestParam("direccion") String direccion,
-            @RequestParam("ciudad") String ciudad,
-            @RequestParam("codigo-postal") String codigoPostal,
-            @RequestParam("correo") String correo,
-            @RequestParam("password") String password
+        @RequestParam("razon-social") String razonSocial,
+        @RequestParam("direccion") String direccion,
+        @RequestParam("ciudad") String ciudad,
+        @RequestParam("codigo-postal") String codigoPostal,
+        @RequestParam("correo") String correo,
+        @RequestParam("password") String password
     )
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
