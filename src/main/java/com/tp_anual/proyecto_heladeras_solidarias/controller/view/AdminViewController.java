@@ -3,6 +3,7 @@ package com.tp_anual.proyecto_heladeras_solidarias.controller.view;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.reporte.MovimientosViand
 import com.tp_anual.proyecto_heladeras_solidarias.model.reporte.ViandasPorColaborador;
 
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class AdminViewController {
@@ -26,10 +28,14 @@ public class AdminViewController {
     private final AlertaService alertaService;
     private final ReporteService reporteService;
 
-    public AdminViewController(Migrador vMigrador, AlertaService vAlertaService, ReporteService vReporteService){
+    private final I18nService i18nService;
+
+    public AdminViewController(Migrador vMigrador, AlertaService vAlertaService, ReporteService vReporteService, I18nService vi18nService) {
         migrador = vMigrador;
         alertaService = vAlertaService;
         reporteService = vReporteService;
+
+        i18nService = vi18nService;
     }
 
     @GetMapping("/admin")
@@ -48,19 +54,21 @@ public class AdminViewController {
         return "admin";
     }
 
-    @PostMapping("/migrar-archivo")
-    public String migrarArchivo(@RequestParam("file") MultipartFile file, Model model) {
-        if (!file.isEmpty() && file.getOriginalFilename().endsWith(".csv")) {
-            try {
-                String fileContent = new String(file.getBytes(), StandardCharsets.UTF_8);
-                migrador.migrar(fileContent, true);
-                model.addAttribute("message", "Archivo migrado exitosamente.");
-            } catch (Exception e) {
-                model.addAttribute("message", "Error al migrar archivo: " + e.getMessage());
-            }
-        } else {
-            model.addAttribute("message", "Por favor seleccione un archivo CSV.");
+    @PostMapping("/cargar-archivo")
+    public String cargarArchivo(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+        try {
+            migrador.migrar(file, false);
+
+            redirectAttributes.addFlashAttribute("message", i18nService.getMessage("controller.MigradorController.cargarArchivo"));
+            redirectAttributes.addFlashAttribute("message-type", "success");    // Clases Bootstrap
+
+            return "redirect:/admin";
+
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", i18nService.getMessage("controller.MigradorController.cargarArchivo_err"));
+            redirectAttributes.addFlashAttribute("message-type", "danger"); // Clases Bootstrap
+
+            return "redirect:/admin";
         }
-        return "redirect: admin";
     }
 }
