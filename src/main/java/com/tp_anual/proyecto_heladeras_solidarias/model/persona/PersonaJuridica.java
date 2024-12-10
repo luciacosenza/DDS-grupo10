@@ -17,10 +17,10 @@ public class PersonaJuridica extends Persona {
 
     @Enumerated(EnumType.STRING)
     @Setter
-    private TipoPersonaJuridica tipo;
+    private TipoPersonaJuridica tipo;   // final
 
     @Setter
-    private String rubro;
+    private String rubro;   // final
 
     public enum TipoPersonaJuridica {
         GUBERNAMENTAL,

@@ -64,6 +64,9 @@
                         account_circle
                     </span>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                        <li sec:authorize="hasAuthority('ROL_CH')"><a th:href="@{/perfil-persona-humana}" class="dropdown-item">Modificar perfil</a></li>
+                        <li sec:authorize="hasAuthority('ROL_CJ')"><a th:href="@{/perfil-persona-juridica}" class="dropdown-item">Modificar perfil</a></li>
+                        <li><a class="dropdown-item">Ver mis contribuciones</a></li>
                         <li><a class="dropdown-item cerrar-sesion" th:href="@{/logout}">Cerrar Sesión</a></li>
                     </ul>
                     <div>

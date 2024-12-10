@@ -108,7 +108,24 @@ public abstract class Colaborador {
                 return tipoMedioDeContacto.cast(contacto);
         }
 
-        log.log(Level.SEVERE,logMessage);
+        log.log(Level.SEVERE, logMessage);
+        throw new NoSuchElementException(exceptionMessage);
+    }
+
+    public <T extends MedioDeContacto> void setMedioDeContacto(Class<T> tipoMedioDeContacto, MedioDeContacto medioDeContacto) {
+        MessageSource messageSource = SpringContext.getBean(MessageSource.class);
+        String logMessage = messageSource.getMessage("colaborador.Colaborador.getContacto_err", new Object[]{persona.getNombre(2), tipoMedioDeContacto.getSimpleName()}, Locale.getDefault());
+        String exceptionMessage = messageSource.getMessage("colaborador.Colaborador.getContacto_exception", null, Locale.getDefault());
+
+        for (int i = 0; i < mediosDeContacto.size(); i++) {
+            MedioDeContacto contacto = mediosDeContacto.get(i);
+            if (tipoMedioDeContacto.isInstance(contacto)) {
+                mediosDeContacto.set(i, medioDeContacto);
+                return;
+            }
+        }
+
+        log.log(Level.SEVERE, logMessage);
         throw new NoSuchElementException(exceptionMessage);
     }
 
