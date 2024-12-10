@@ -1,6 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.model.incidente;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 
@@ -31,5 +32,14 @@ public abstract class Incidente {
     protected Incidente(LocalDateTime vFecha, Heladera vHeladera) {
         fecha = vFecha;
         heladera = vHeladera;
+    }
+
+    public String getFechaFormateada() {
+        if (fecha != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            return fecha.format(formatter);
+        }
+
+        return "";
     }
 }
