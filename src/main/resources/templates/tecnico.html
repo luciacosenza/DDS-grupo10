@@ -58,12 +58,18 @@
                         <div class="row">
                             <div class="w-100">
                                 <div class="my-4 w-100 d-flex flex-column align-items-center gap-4 alertas-container">
-                                    <div th:if="${alertas.isEmpty()}" > No hay alertas</div>
+                                    <div th:if="${alertas.isEmpty()}">
+                                        <p th:text="${messageNoAlerts}"></p>
+                                    </div>
                                     <div th:each="alerta : ${alertas}" class="alerta">
                                         <span class="material-symbols-outlined">warning</span>
                                         <div class="text-start w-100 ms-4">
                                             <p><span class="fw-bold">Heladera:</span> <span th:text="${alerta.heladera.nombre}"></span></p>
                                             <p><span class="fw-bold">Fecha:</span> <span th:text="${alerta.getFechaFormateada()}"></span></p>
+                                        </div>
+                                        <div th:if="${!alerta.tieneTecnico()}">
+                                            <p class="fw-bold">NO HAY TÉCNICO ASIGNADO </p>
+                                            <button th:if="${!alerta.tieneTecnico()}" class="btn"><a th:href="@{/tecnico/tomar-alerta{id}(id=${alerta.id})}">ENCARGARSE</a></button>
                                         </div>
                                     </div>
                                 </div>
@@ -80,7 +86,9 @@
                         <div class="row">
                             <div class="w-100">
                                 <div class="my-4 w-100 d-flex flex-column align-items-center gap-4 alertas-container">
-                                    <div th:if="${fallasTecnicas.isEmpty()}" > No hay fallas técnicas</div>
+                                    <div th:if="${fallasTecnicas.isEmpty()}" >
+                                        <p th:text="${messageNoFailures}"></p>
+                                    </div>
                                     <div th:each="falla : ${fallasTecnicas}" class="alerta">
                                         <span class="material-symbols-outlined">warning</span>
                                         <div class="text-start w-100 ms-4">
@@ -88,6 +96,10 @@
                                             <img style="width: 100px" th:src="${falla.foto}" th:alt="'Foto de la falla en' + ${falla.heladera.nombre}">
                                             <p><span class="fw-bold">Fecha:</span> <span th:text="${falla.getFechaFormateada()}"></span></p>
                                             <p><span class="fw-bold">Descripción:</span> <span th:text="${falla.descripcion}"></span></p>
+                                        </div>
+                                        <div th:if="${!falla.tieneTecnico()}">
+                                            <p class="fw-bold">NO HAY TÉCNICO ASIGNADO</p>
+                                            <button th:if="${!falla.tieneTecnico()}" class="btn"><a th:href="@{/tecnico/tomar-falla-tecnica{id}(id=${falla.id})}">ENCARGARSE</a></button>
                                         </div>
                                     </div>
                                 </div>

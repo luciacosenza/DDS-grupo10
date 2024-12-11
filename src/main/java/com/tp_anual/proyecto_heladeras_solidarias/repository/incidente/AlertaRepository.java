@@ -15,4 +15,6 @@ public interface AlertaRepository extends JpaRepository<Alerta, Long> {
 
     @Query(nativeQuery = true, name = "Alerta.findAlertasParaTecnico")
     List<Alerta> findAlertasParaTecnico(@Param("tecnico") Long tecnicoId);
+
+    List<Alerta> findByTecnicoIsNull();
 }

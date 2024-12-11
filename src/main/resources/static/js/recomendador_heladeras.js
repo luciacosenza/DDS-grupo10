@@ -64,14 +64,6 @@ async function obtenerHeladeras() {
         console.error('Error fetching heladeras data:', error);
     }
 }
-async function abrirMapa() {
-    if (document.querySelector('#colocar-heladera')) {
-        const btnAbrirMapa = document.querySelector('#btn-abrir-mapa');
-        btnAbrirMapa.addEventListener('click', async () => {
-        
-        });
-    }    
-}
 
 async function iniciarMapa() {
             const posicion = {lat: -34.5990697, lng: -58.4241739}

@@ -45,8 +45,18 @@ public class FallaTecnicaService {
         return new ArrayList<>(fallaTecnicaRepository.findFallasTecnicasParaTecnico(tecnico.getId()));
     }
 
+    public List<FallaTecnica> obtenerFallasTecnicasSinTecnico() {
+        return new ArrayList<>(fallaTecnicaRepository.findByTecnicoIsNull());
+    }
+
     public FallaTecnica guardarFallaTecnica(FallaTecnica fallaTecnica) {
         return fallaTecnicaRepository.save(fallaTecnica);
+    }
+
+    public void asignarTecnico(Long alertaId, Tecnico tecnico) {
+        FallaTecnica fallaTecnica = obtenerFallaTecnica(alertaId);
+        fallaTecnica.setTecnico(tecnico);
+        guardarFallaTecnica(fallaTecnica);
     }
 
     public void producirFallaTecnica(LocalDateTime fecha, Heladera heladera, Colaborador colaborador, String descripcion, String foto) {
