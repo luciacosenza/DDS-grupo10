@@ -33,10 +33,6 @@ public class IncidenteService {
         return new ArrayList<>(incidenteRepository.findAll());
     }
 
-    public List<Incidente> obtenerIncidentesParaTecnico(Tecnico tecnico) {
-        return incidenteRepository.findIncidentesParaTecnico(tecnico.getId());
-    }
-
     public Incidente guardarIncidente(Incidente incidente) {
         return incidenteRepository.save(incidente);
     }

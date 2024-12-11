@@ -7,7 +7,17 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-@Entity 
+@Entity
+@NamedNativeQuery(
+        name = "Alerta.findAlertasParaTecnico",
+        query = "SELECT * FROM alerta AS a " +
+                "WHERE a.id IN (" +
+                "SELECT a0.id FROM alerta AS a0 " +
+                "INNER JOIN tecnico AS t1 " +
+                "ON a0.tecnico = t1.id " +
+                "WHERE t1.id = :tecnico)",
+        resultClass =  Alerta.class
+)
 @Getter
 public class Alerta extends Incidente {
     

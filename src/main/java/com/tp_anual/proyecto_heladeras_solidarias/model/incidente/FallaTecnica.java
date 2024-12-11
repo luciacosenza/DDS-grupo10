@@ -8,7 +8,17 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-@Entity 
+@Entity
+@NamedNativeQuery(
+        name = "FallaTecnica.findFallasTecnicasParaTecnico",
+        query = "SELECT * FROM falla_tecnica AS f " +
+                "WHERE f.id IN (" +
+                "SELECT f0.id FROM falla_tecnica AS f0 " +
+                "INNER JOIN tecnico AS t2 " +
+                "ON f0.tecnico = t2.id " +
+                "WHERE t2.id = :tecnico)",
+        resultClass =  FallaTecnica.class
+)
 @Getter
 public class FallaTecnica extends Incidente {
     

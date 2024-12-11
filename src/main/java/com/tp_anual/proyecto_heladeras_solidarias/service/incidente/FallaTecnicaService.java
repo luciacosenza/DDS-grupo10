@@ -1,5 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.incidente;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta;
+import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Tecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.Colaborador;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
@@ -37,6 +39,10 @@ public class FallaTecnicaService {
 
     public List<FallaTecnica> obtenerFallasTecnicas() {
         return new ArrayList<>(fallaTecnicaRepository.findAll());
+    }
+
+    public List<FallaTecnica> obtenerFallasTecnicasParaTecnico(Tecnico tecnico) {
+        return new ArrayList<>(fallaTecnicaRepository.findFallasTecnicasParaTecnico(tecnico.getId()));
     }
 
     public FallaTecnica guardarFallaTecnica(FallaTecnica fallaTecnica) {

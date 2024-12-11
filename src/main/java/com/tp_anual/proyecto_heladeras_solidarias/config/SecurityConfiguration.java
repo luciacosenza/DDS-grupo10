@@ -70,6 +70,7 @@ public class SecurityConfiguration {
                                 (new AntPathRequestMatcher("/admin"),
                                 new AntPathRequestMatcher("/registro-tecnico"))
                         .hasAuthority("ROL_ADMIN")
+                        // Endpoints exclusivos de 'ROL_T' (técnico)
                         .requestMatchers("/tecnico")
                         .hasAuthority("ROL_T")
                         .requestMatchers

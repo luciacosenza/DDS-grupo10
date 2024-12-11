@@ -1,5 +1,7 @@
 package com.tp_anual.proyecto_heladeras_solidarias.service.incidente;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
+import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Tecnico;
 import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Alerta;
@@ -48,6 +50,10 @@ public class AlertaService {
 
     public List<Alerta> obtenerAlertasFallaConexion() {
         return new ArrayList<>(alertaRepository.findByTipo(Alerta.TipoAlerta.FALLA_CONEXION));
+    }
+
+    public List<Alerta> obtenerAlertasParaTecnico(Tecnico tecnico) {
+        return new ArrayList<>(alertaRepository.findAlertasParaTecnico(tecnico.getId()));
     }
 
     public Alerta guardarAlerta(Alerta alerta) {
