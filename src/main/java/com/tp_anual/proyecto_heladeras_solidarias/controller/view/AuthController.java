@@ -164,9 +164,7 @@ public class AuthController {
         @RequestParam("numero-documento") String numeroDocumento,
         @RequestParam("sexo-documento") Documento.Sexo sexoDocumento,
         @RequestParam("cuil") String cuil,
-        @RequestParam("prefijo") String prefijo,
-        @RequestParam("codigo-area") String codigoArea,
-        @RequestParam("numero-telefono") String numeroTelefono,
+        @RequestParam("correo") String correo,
         @RequestParam("latitud-1") Double latitud1,
         @RequestParam("latitud-2") Double latitud2,
         @RequestParam("longitud-1") Double longitud1,
@@ -177,17 +175,22 @@ public class AuthController {
         Documento documento = new Documento(tipoDocumento, numeroDocumento, sexoDocumento);
         PersonaFisica personaFisica = new PersonaFisica(nombre, apellido, documento, fechaNacimiento);
         Area area = new Area(latitud1, longitud1, latitud2, longitud2);
-        MedioDeContacto medioDeContacto = new Telefono(prefijo, codigoArea, numeroTelefono);
+
+        MedioDeContacto medioDeContacto = new EMail(correo);
 
         String username = customUserDetailsService.generarUsername(nombre, apellido);
         Usuario usuarioACrear = new Usuario(username, password, "ROL_T");
 
         Tecnico tecnico = new Tecnico(usuarioACrear, personaFisica, cuil, medioDeContacto, area);
+
+        customUserDetailsService.guardarUsuario(usuario);
+
         Long tecnicoId = tecnicoService.guardarTecnico(tecnico).getId();
+
 
         tecnicoService.asignarUsuario(tecnicoId, usuarioACrear);
 
-        return "redirect:/";
+        return "redirect:/registro-tecnico?success=true";
     }
 
     @GetMapping("/login")
