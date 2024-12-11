@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.vianda.Vianda;
+import com.tp_anual.proyecto_heladeras_solidarias.model.incidente.Incidente;
 import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 
 import jakarta.persistence.*;
@@ -27,7 +28,6 @@ import jakarta.validation.constraints.Min;
                 "ON c.colaborador = cj.id )",
         resultClass =  Heladera.class
 )
-
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 public class Heladera implements HeladeraObserver {    // Implementa una Interfaz "HeladeraSubject" a nivel conceptual

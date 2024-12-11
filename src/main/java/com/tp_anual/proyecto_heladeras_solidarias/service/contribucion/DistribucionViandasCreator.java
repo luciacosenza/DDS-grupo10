@@ -29,8 +29,8 @@ public class DistribucionViandasCreator implements ContribucionCreator {
     @Override
     public Contribucion crearContribucionDefault(Colaborador colaborador, LocalDateTime fechaContribucion) {
         DistribucionViandas distribucionViandas = new DistribucionViandas(colaborador, fechaContribucion,
-                new Heladera(null, new Ubicacion(null, null, null, null, null, null), null,  null, null, new ArrayList<Vianda>(), null, null, null),
-                new Heladera(null, new Ubicacion(null, null, null, null, null, null), null,  null, null, new ArrayList<Vianda>(), null, null, null),
+                new Heladera(null, null, null,  null, null, new ArrayList<Vianda>(), null, null, null),
+                new Heladera(null, null, null,  null, null, new ArrayList<Vianda>(), null, null, null),
                 null, null);
         distribucionViandas.seCompletoYSumoPuntos();    // Llamo directamente al método de distribucionViandas, porque no quiero que se guarde en este momento
 

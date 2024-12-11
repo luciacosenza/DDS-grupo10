@@ -41,6 +41,7 @@ public class ExtraccionCSV extends ExtraccionDeDatos {
             while ((linea = reader.readNext()) != null) {
                 dataColaboradores.add(linea);
             }
+
         } catch (IOException e) {
             log.log(Level.SEVERE, i18nService.getMessage("migrador.ExtraccionCSV.extract_err_io", csv));
             throw new RuntimeException(i18nService.getMessage("migrador.ExtraccionCSV.extract_exception_io"));
@@ -62,13 +63,8 @@ public class ExtraccionCSV extends ExtraccionDeDatos {
         try (InputStreamReader isr = new InputStreamReader(inputStream);
              CSVReader reader = new CSVReader(isr)) {
 
-            // Leer y descartar la primera línea (header)
-            reader.readNext();
+            dataColaboradores = reader.readAll();
 
-            String[] linea;
-            while ((linea = reader.readNext()) != null) {
-                dataColaboradores.add(linea);
-            }
         } catch (IOException e) {
             log.log(Level.SEVERE, i18nService.getMessage("migrador.ExtraccionCSV.extract_err_io_stream"));
             throw new RuntimeException(i18nService.getMessage("migrador.ExtraccionCSV.extract_exception_io_stream"));

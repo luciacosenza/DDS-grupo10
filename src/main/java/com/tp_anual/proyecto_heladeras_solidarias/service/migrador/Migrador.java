@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.*;
 import com.tp_anual.proyecto_heladeras_solidarias.exception.migrador.FilaDeDatosIncompletaException;
 import com.tp_anual.proyecto_heladeras_solidarias.model.colaborador.ColaboradorHumano;
+import com.tp_anual.proyecto_heladeras_solidarias.model.contribucion.Contribucion;
 import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import com.tp_anual.proyecto_heladeras_solidarias.service.colaborador.ColaboradorService;
 import lombok.extern.java.Log;
@@ -99,12 +100,20 @@ public class Migrador {
         List<String[]> dataColaboradores = new ArrayList<>();
 
         try (InputStream inputStream = file.getInputStream()) {
-            protocoloExtraccion.extract(inputStream);
+            dataColaboradores = protocoloExtraccion.extract(inputStream);
         }
 
         List<ColaboradorHumano> colaboradoresAMigrar = transformador.transform(dataColaboradores);
 
         for (ColaboradorHumano colaborador : colaboradoresAMigrar) {
+            colaboradorService.guardarColaborador(colaborador);
+
+            // Tengo que asignar el Colaborador a las Contribuciones después de guardarlo para no tener problemas de persistencia cíclica
+            for (Contribucion contribucion : colaborador.getContribuciones()) {
+                contribucion.setColaborador(colaborador);
+            }
+
+            // Guardo nuevamente el Colaborador para que se guarde la modificación de cada Contribución por cascada
             colaboradorService.guardarColaborador(colaborador);
 
             if (contactar)

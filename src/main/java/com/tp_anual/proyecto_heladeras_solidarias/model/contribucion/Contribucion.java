@@ -25,7 +25,8 @@ public abstract class Contribucion {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "colaborador")
-    protected Colaborador colaborador;  // final
+    @Setter
+    protected Colaborador colaborador;  // Debería ser final, pero necesito setear el Colaborador de las Contribuciones en el Migrador para evitar problemas de persistencia cíclica
 
     @Temporal(TemporalType.TIMESTAMP)
     @Setter
