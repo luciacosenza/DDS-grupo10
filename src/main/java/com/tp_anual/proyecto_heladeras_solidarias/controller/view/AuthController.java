@@ -169,8 +169,7 @@ public class AuthController {
         @RequestParam("latitud-2") Double latitud2,
         @RequestParam("longitud-1") Double longitud1,
         @RequestParam("longitud-2") Double longitud2,
-        @RequestParam("password") String password,
-        @ModelAttribute("usuario") Usuario usuario)
+        @RequestParam("password") String password)
     {
         Documento documento = new Documento(tipoDocumento, numeroDocumento, sexoDocumento);
         PersonaFisica personaFisica = new PersonaFisica(nombre, apellido, documento, fechaNacimiento);
@@ -183,7 +182,7 @@ public class AuthController {
 
         Tecnico tecnico = new Tecnico(usuarioACrear, personaFisica, cuil, medioDeContacto, area);
 
-        customUserDetailsService.guardarUsuario(usuario);
+        customUserDetailsService.guardarUsuario(usuarioACrear);
 
         Long tecnicoId = tecnicoService.guardarTecnico(tecnico).getId();
 
