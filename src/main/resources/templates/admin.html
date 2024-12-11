@@ -70,12 +70,12 @@
             </nav>
 
             <main class="col-md-9 col-lg-10 admin-content">
-                <div th:if="${message}" class="alert alert-dismissible fade show" th:classappend="'alert-' + ${messagetype}" role="alert">
-                    <span th:text="${message}"></span>
+                <div th:if="${messageAlert}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span th:text="${messageAlert}"></span>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <div th:if="${message}" class="alert alert-dismissible fade show" th:classappend="'alert-' + ${messageType}" role="alert">
-                    <span th:text="${message}"></span>
+                <div th:if="${messageSuccess}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span th:text="${messageSuccess}"></span>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <section id="cargar-archivo">
@@ -91,8 +91,6 @@
                     </div>
                 </section>
 
-
-                <!-- Ver Alertas -->
                 <section id="ver-alertas" class="mt-5">
                     <h2 class="mb-4">Alertas</h2>
                     <div class="card p-4">
@@ -100,10 +98,12 @@
                             <div class="row">
                                 <div class="w-100">
                                     <div class="my-4 w-100 d-flex flex-column align-items-center gap-4 alertas-container">
-                                        <div th:if="${alertas.isEmpty()}">No hay alertas</div>
-                                        <div th:each="alerta : ${alertas}" class="alerta">
-                                            <span class="material-symbols-outlined">warning</span>
-                                            <div class="text-start w-100 ms-4">
+                                        <div th:if="${alertas.isEmpty()}" class="text-center text-muted">
+                                            <p th:text="${messageNoAlerts}"></p>
+                                        </div>
+                                        <div th:each="alerta : ${alertas}" class="alerta d-flex w-100 p-3 border rounded shadow-sm mb-2">
+                                            <span class="material-symbols-outlined text-warning me-3">warning</span>
+                                            <div class="text-start w-100">
                                                 <p><span class="fw-bold">Heladera:</span> <span th:text="${alerta.heladera.nombre}"></span></p>
                                                 <p><span class="fw-bold">Tipo:</span> <span th:text="${alerta.tipo}"></span></p>
                                                 <p><span class="fw-bold">Fecha:</span> <span th:text="${alerta.getFechaFormateada()}"></span></p>
@@ -115,6 +115,7 @@
                         </div>
                     </div>
                 </section>
+
 
                 <!-- Ver Reportes -->
                 <section id="ver-reportes" class="mt-5">
@@ -136,7 +137,6 @@
                                                     <tr>
                                                         <th>Heladera</th>
                                                         <th>Cantidad de fallas</th>
-                                                        <th style="width: 100px">Acciones</th>
                                                     </tr>
                                                     </thead>
 
@@ -144,10 +144,6 @@
                                                     <tr th:each="linea : ${reporteFallasPorHeladera}">
                                                         <td class="text-nowrap" th:text="${linea.heladeraNombre}"></td>
                                                         <td class="text-nowrap" th:text="${linea.cantidadFallas}"></td>
-
-                                                        <td class="text-center">
-                                                            <a class="btn btn-primary">Exportar</a>
-                                                        </td>
                                                     </tr>
                                                     </tbody>
 
@@ -169,7 +165,6 @@
                                                         <th>Heladera</th>
                                                         <th>Total ingresos</th>
                                                         <th>Total egresos</th>
-                                                        <th style="width: 100px">Acciones</th>
                                                     </tr>
                                                     </thead>
 
@@ -178,9 +173,6 @@
                                                         <td class="text-nowrap" th:text="${linea.heladeraNombre}"></td>
                                                         <td class="text-nowrap" th:text="${linea.totalIngresos}"></td>
                                                         <td class="text-nowrap" th:text="${linea.totalEgresos}"></td>
-                                                        <td class="text-center">
-                                                            <a class="btn btn-primary">Exportar</a>
-                                                        </td>
                                                     </tr>
                                                     </tbody>
 
@@ -201,7 +193,6 @@
                                                     <tr>
                                                         <th>Colaborador</th>
                                                         <th>Cantidad de viandas</th>
-                                                        <th style="width: 100px">Acciones</th>
                                                     </tr>
                                                     </thead>
 
@@ -209,10 +200,6 @@
                                                     <tr th:each="linea : ${reporteViandasPorColaborador}">
                                                         <td class="text-nowrap" th:text="${linea.colaboradorNombre}"></td>
                                                         <td class="text-nowrap" th:text="${linea.cantidadViandas}"></td>
-
-                                                        <td class="text-center">
-                                                            <a class="btn btn-primary">Exportar</a>
-                                                        </td>
                                                     </tr>
                                                     </tbody>
 

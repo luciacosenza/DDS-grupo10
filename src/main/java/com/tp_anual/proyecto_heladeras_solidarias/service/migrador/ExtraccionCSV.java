@@ -58,7 +58,7 @@ public class ExtraccionCSV extends ExtraccionDeDatos {
     // Esta método usa directamente un InputStream
     @Override
     public List<String[]> extract(InputStream inputStream) {
-        List<String[]> dataColaboradores = new ArrayList<>();
+        List<String[]> dataColaboradores;
 
         try (InputStreamReader isr = new InputStreamReader(inputStream);
              CSVReader reader = new CSVReader(isr)) {

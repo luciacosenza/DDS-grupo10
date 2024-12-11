@@ -54,20 +54,29 @@ public class AdminViewController {
         model.addAttribute("reporteFallasPorHeladera", fallasPorHeladera);
         model.addAttribute("reporteMovimientosViandaPorHeladera", movimientosViandaPorHeladera);
         model.addAttribute("reporteViandasPorColaborador", viandasPorColaborador);
+        model.addAttribute("messageNoAlerts", i18nService.getMessage("controller.AdminController.mostrarAdmin_no_alertas"));
 
         return "admin";
     }
 
     @PostMapping("/cargar-archivo")
     public String cargarArchivo(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearRPESVException, DatosInvalidosCrearHCHException, FilaDeDatosIncompletaException, DatosInvalidosCrearDonacionViandaException, IOException, URISyntaxException, DatosInvalidosCrearDonacionDineroException {
-
+        try {
             migrador.migrar(file, false);
 
-            redirectAttributes.addFlashAttribute("message", i18nService.getMessage("controller.MigradorController.cargarArchivo"));
-            redirectAttributes.addFlashAttribute("message-type", "success");    // Clases Bootstrap
+        } catch (FilaDeDatosIncompletaException e) {
+            redirectAttributes.addFlashAttribute("messageAlert", e.getMessage());
 
             return "redirect:/admin";
 
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("messageAlert", i18nService.getMessage("controller.AdminController.cargarArchivo_err"));
 
+            return "redirect:/admin";
+        }
+
+        redirectAttributes.addFlashAttribute("messageSuccess", i18nService.getMessage("controller.AdminController.cargarArchivo"));
+
+        return "redirect:/admin";
     }
 }
