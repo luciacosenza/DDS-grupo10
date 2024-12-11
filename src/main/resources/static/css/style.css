@@ -636,6 +636,10 @@ input::-webkit-file-upload-button {
     margin-top: 5px;
 }
 
+.is-invalid {
+    border-color: red !important;
+}
+
 .profile-header img {
     width: 120px;
     height: 120px;
