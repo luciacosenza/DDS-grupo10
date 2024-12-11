@@ -48,10 +48,10 @@ public class AdminViewController {
 
     @GetMapping("/admin")
     public String mostrarAdmin(Model model) {
-        List<Alerta> alertas = alertaService.obtenerAlertas();
+        List<Alerta> alertas = alertaService.obtenerAlertasNoResueltas();
         model.addAttribute("alertas", alertas);
 
-        List<FallaTecnica> fallasTecnicas = fallaTecnicaService.obtenerFallasTecnicas();
+        List<FallaTecnica> fallasTecnicas = fallaTecnicaService.obtenerFallasTecnicasNoResueltas();
         model.addAttribute("fallasTecnicas", fallasTecnicas);
 
         List<FallasPorHeladera> fallasPorHeladera = reporteService.obtenerReporteFallasPorHeladera();

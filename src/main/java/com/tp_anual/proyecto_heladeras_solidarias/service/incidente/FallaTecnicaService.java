@@ -45,8 +45,12 @@ public class FallaTecnicaService {
         return new ArrayList<>(fallaTecnicaRepository.findFallasTecnicasParaTecnico(tecnico.getId()));
     }
 
-    public List<FallaTecnica> obtenerFallasTecnicasSinTecnico() {
-        return new ArrayList<>(fallaTecnicaRepository.findByTecnicoIsNull());
+    public List<FallaTecnica> obtenerFallasTecnicasNoResueltas() {
+        return new ArrayList<>(fallaTecnicaRepository.findFallasTecnicasNoResueltas());
+    }
+
+    public List<FallaTecnica> obtenerFallasTecnicasSinTecnicoNoResueltas() {
+        return new ArrayList<>(fallaTecnicaRepository.findFallasTecnicasSinTecnicoNoResueltas());
     }
 
     public FallaTecnica guardarFallaTecnica(FallaTecnica fallaTecnica) {

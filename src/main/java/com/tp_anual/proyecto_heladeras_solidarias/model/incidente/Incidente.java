@@ -41,6 +41,7 @@ public abstract class Incidente {
     @Setter
     protected Heladera heladera;
 
+    // Este atributo sólo nos sirve para manejarlo en el backend
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tecnico")
     @Setter

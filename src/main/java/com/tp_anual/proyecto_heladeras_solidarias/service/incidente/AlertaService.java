@@ -56,8 +56,12 @@ public class AlertaService {
         return new ArrayList<>(alertaRepository.findAlertasParaTecnico(tecnico.getId()));
     }
 
-    public List<Alerta> obtenerAlertasSinTecnico() {
-        return new ArrayList<>(alertaRepository.findByTecnicoIsNull());
+    public List<Alerta> obtenerAlertasNoResueltas() {
+        return new ArrayList<>(alertaRepository.findAlertasNoResueltas());
+    }
+
+    public List<Alerta> obtenerAlertasSinTecnicoNoResueltas() {
+        return new ArrayList<>(alertaRepository.findAlertasSinTecnicoNoResueltas());
     }
 
     public Alerta guardarAlerta(Alerta alerta) {

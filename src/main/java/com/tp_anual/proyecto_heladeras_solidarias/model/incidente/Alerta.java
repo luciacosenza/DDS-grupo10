@@ -13,9 +13,29 @@ import lombok.Getter;
         query = "SELECT * FROM alerta AS a " +
                 "WHERE a.id IN (" +
                 "SELECT a0.id FROM alerta AS a0 " +
-                "INNER JOIN tecnico AS t1 " +
-                "ON a0.tecnico = t1.id " +
-                "WHERE t1.id = :tecnico)",
+                "INNER JOIN tecnico AS t " +
+                "ON a0.tecnico = t.id " +
+                "WHERE t.id = :tecnico)",
+        resultClass =  Alerta.class
+)
+@NamedNativeQuery(
+        name = "Alerta.findAlertasNoResueltas",
+        query = "SELECT * FROM alerta AS a " +
+                "WHERE a.id IN (" +
+                "SELECT a0.id FROM alerta AS a0 " +
+                "LEFT JOIN visita AS v " +
+                "ON a0.id = v.incidente " +
+                "WHERE v.id ISNULL OR v.estado = false)",
+        resultClass =  Alerta.class
+)
+@NamedNativeQuery(
+        name = "Alerta.findAlertasSinTecnicoNoResueltas",
+        query = "SELECT * FROM alerta AS a " +
+                "WHERE a.id IN (" +
+                "SELECT a0.id FROM alerta AS a0 " +
+                "LEFT JOIN visita AS v " +
+                "ON a0.id = v.incidente " +
+                "WHERE (v.id ISNULL OR v.estado = false) AND a0.tecnico ISNULL)",
         resultClass =  Alerta.class
 )
 @Getter
