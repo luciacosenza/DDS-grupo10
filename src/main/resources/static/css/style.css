@@ -687,13 +687,13 @@ input::-webkit-file-upload-button {
 .sin-tecnico p {
     margin: 0;
     font-size: 1rem;
-    color: #dc3545;
+    color: #c31919;
 }
 
 .sin-tecnico .btn {
     padding: 10px 15px;
     font-size: 0.9rem;
-    background-color: #df444b;
+    background-color: #ff2222;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -702,7 +702,7 @@ input::-webkit-file-upload-button {
 }
 
 .sin-tecnico .btn:hover {
-    background-color: #a32d33;
+    background-color: #c31919;
 }
 
 .sin-tecnico .btn a {
