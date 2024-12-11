@@ -13,6 +13,7 @@ import javax.mail.internet.MimeMessage;
 
 import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
