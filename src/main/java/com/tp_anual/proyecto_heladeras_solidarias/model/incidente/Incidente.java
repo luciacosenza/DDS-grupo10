@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import com.tp_anual.proyecto_heladeras_solidarias.model.heladera.Heladera;
 
+import com.tp_anual.proyecto_heladeras_solidarias.model.tecnico.Tecnico;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,6 +41,11 @@ public abstract class Incidente {
     @Setter
     protected Heladera heladera;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "tecnico")
+    @Setter
+    protected Tecnico tecnico;
+
     protected Incidente() {}
 
     protected Incidente(LocalDateTime vFecha, Heladera vHeladera) {
@@ -54,5 +60,9 @@ public abstract class Incidente {
         }
 
         return "";
+    }
+
+    public Boolean tieneTecnico() {
+        return tecnico != null;
     }
 }

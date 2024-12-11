@@ -12,4 +12,6 @@ public interface FallaTecnicaRepository extends JpaRepository<FallaTecnica, Long
 
     @Query(nativeQuery = true, name = "FallaTecnica.findFallasTecnicasParaTecnico")
     List<FallaTecnica> findFallasTecnicasParaTecnico(@Param("tecnico") Long tecnicoId);
+
+    List<FallaTecnica> findByTecnicoIsNull();
 }

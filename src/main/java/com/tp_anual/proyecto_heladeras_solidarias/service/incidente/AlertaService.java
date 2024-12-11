@@ -56,8 +56,18 @@ public class AlertaService {
         return new ArrayList<>(alertaRepository.findAlertasParaTecnico(tecnico.getId()));
     }
 
+    public List<Alerta> obtenerAlertasSinTecnico() {
+        return new ArrayList<>(alertaRepository.findByTecnicoIsNull());
+    }
+
     public Alerta guardarAlerta(Alerta alerta) {
         return alertaRepository.save(alerta);
+    }
+
+    public void asignarTecnico(Long alertaId, Tecnico tecnico) {
+        Alerta alerta = obtenerAlerta(alertaId);
+        alerta.setTecnico(tecnico);
+        guardarAlerta(alerta);
     }
 
     public void producirAlerta(LocalDateTime fecha, Heladera heladera, Alerta.TipoAlerta tipo) {

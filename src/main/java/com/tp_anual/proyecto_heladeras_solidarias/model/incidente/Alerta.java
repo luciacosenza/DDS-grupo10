@@ -38,4 +38,12 @@ public class Alerta extends Incidente {
         super(vFecha, vHeladera);
         tipo = vTipo;
     }
+
+    public String getTipoAlertaString() {
+        return switch (tipo) {
+            case TipoAlerta.TEMPERATURA -> "Temperatura";
+            case TipoAlerta.FRAUDE -> "Fraude";
+            case TipoAlerta.FALLA_CONEXION -> "Falla de Conexión";
+        };
+    }
 }
