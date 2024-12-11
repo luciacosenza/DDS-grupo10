@@ -32,7 +32,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/css/**", "/js/**", "/assets/**").permitAll()
                         // Endpoints "públicos"
                         .requestMatchers
-                                (HttpMethod.GET,"/", "/quienes-somos", "/como-participar", "/mapa-heladeras",
+                                ("/", "/quienes-somos", "/como-participar", "/mapa-heladeras",
                                 "/seleccion-persona",
                                 "/registro-persona-humana", "/registro-persona-humana/guardar",
                                 "/registro-persona-juridica", "/registro-persona-juridica/guardar",
