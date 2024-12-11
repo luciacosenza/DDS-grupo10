@@ -67,9 +67,11 @@
                                             <p><span class="fw-bold">Heladera:</span> <span th:text="${alerta.heladera.nombre}"></span></p>
                                             <p><span class="fw-bold">Fecha:</span> <span th:text="${alerta.getFechaFormateada()}"></span></p>
                                         </div>
-                                        <div th:if="${!alerta.tieneTecnico()}">
-                                            <p class="fw-bold">NO HAY TÉCNICO ASIGNADO </p>
-                                            <button th:if="${!alerta.tieneTecnico()}" class="btn"><a th:href="@{/tecnico/tomar-alerta{id}(id=${alerta.id})}">ENCARGARSE</a></button>
+                                        <div th:if="${!alerta.tieneTecnico()}" class="sin-tecnico">
+                                            <p class="fw-bold text-end">NO HAY TÉCNICO ASIGNADO</p>
+                                            <button th:if="${!alerta.tieneTecnico()}" class="btn btn-primary mt-2">
+                                                <a th:href="@{/tecnico/tomar-alerta{id}(id=${alerta.id})}" class="text-white text-decoration-none">ENCARGARSE</a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -97,9 +99,11 @@
                                             <p><span class="fw-bold">Fecha:</span> <span th:text="${falla.getFechaFormateada()}"></span></p>
                                             <p><span class="fw-bold">Descripción:</span> <span th:text="${falla.descripcion}"></span></p>
                                         </div>
-                                        <div th:if="${!falla.tieneTecnico()}">
-                                            <p class="fw-bold">NO HAY TÉCNICO ASIGNADO</p>
-                                            <button th:if="${!falla.tieneTecnico()}" class="btn"><a th:href="@{/tecnico/tomar-falla-tecnica{id}(id=${falla.id})}">ENCARGARSE</a></button>
+                                        <div th:if="${!falla.tieneTecnico()}" class="sin-tecnico">
+                                            <p class="fw-bold text-end">NO HAY TÉCNICO ASIGNADO</p>
+                                            <button th:if="${!falla.tieneTecnico()}" class="btn btn-primary mt-2">
+                                                <a th:href="@{/tecnico/tomar-falla-tecnica{id}(id=${falla.id})}" class="text-white text-decoration-none">ENCARGARSE</a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
