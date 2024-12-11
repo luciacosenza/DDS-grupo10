@@ -12,11 +12,12 @@
     <link rel="stylesheet" th:href="@{/css/components.css}">
 </head>
 
-<body>
+<body class="vectores-fondo">
     <!-- Barra superior -->
     <div class="top-bar navbar">
-        <a class="navbar-brand" th:href="@{/}">
+        <a class="navbar-brand d-flex align-items-center FC-palette" th:href="@{/}">
             <img th:src="@{/assets/logo_negro.png}" alt="Logo" height="50">
+            <p class="ps-3 titulo-header">HELADERAS <span class="FC-palette-span">SOLIDARIAS</span></p>
         </a>
         <div class="user-profile">
             <span class="material-symbols-outlined text-dark" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">admin_panel_settings</span>
@@ -52,12 +53,6 @@
                         <a class="sidebar-link" href="#ver-reportes">
                             <span class="material-symbols-outlined">assessment</span> 
                             Ver Reportes
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="sidebar-link" th:href="@{/registro-tecnico}">
-                            <span class="material-symbols-outlined">manage_accounts</span>
-                            Registrar a un técnico
                         </a>
                     </li>
                     <li class="nav-item">

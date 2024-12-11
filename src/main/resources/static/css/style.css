@@ -543,8 +543,9 @@ input::-webkit-file-upload-button {
 
 .admin-sidebar {
     height: auto;
-    background-color: #faf8f9;
     padding: 1rem;
+    background-color: white;
+    border-right: 1px solid rgba(0, 0, 0, 0.16);
 }
 
 .admin-content {
@@ -663,3 +664,11 @@ input::-webkit-file-upload-button {
     background-color: #ffffff;
 }
 
+.not-allowed input[readonly] {
+    background-color: #f9f9f9;
+    cursor: not-allowed;
+}
+
+.not-allowed input:not([readonly]) {
+    background-color: #ffffff;
+}
