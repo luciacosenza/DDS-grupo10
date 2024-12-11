@@ -1,8 +1,12 @@
 package com.tp_anual.proyecto_heladeras_solidarias.controller.view;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import com.tp_anual.proyecto_heladeras_solidarias.exception.contribucion.*;
+import com.tp_anual.proyecto_heladeras_solidarias.exception.migrador.FilaDeDatosIncompletaException;
 import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,8 +59,8 @@ public class AdminViewController {
     }
 
     @PostMapping("/cargar-archivo")
-    public String cargarArchivo(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
-        try {
+    public String cargarArchivo(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearRPESVException, DatosInvalidosCrearHCHException, FilaDeDatosIncompletaException, DatosInvalidosCrearDonacionViandaException, IOException, URISyntaxException, DatosInvalidosCrearDonacionDineroException {
+
             migrador.migrar(file, false);
 
             redirectAttributes.addFlashAttribute("message", i18nService.getMessage("controller.MigradorController.cargarArchivo"));
@@ -64,11 +68,6 @@ public class AdminViewController {
 
             return "redirect:/admin";
 
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("message", i18nService.getMessage("controller.MigradorController.cargarArchivo_err"));
-            redirectAttributes.addFlashAttribute("message-type", "danger"); // Clases Bootstrap
 
-            return "redirect:/admin";
-        }
     }
 }

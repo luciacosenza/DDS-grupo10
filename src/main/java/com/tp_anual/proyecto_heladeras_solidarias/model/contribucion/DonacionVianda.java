@@ -21,7 +21,7 @@ public class DonacionVianda extends Contribucion {
     @JoinColumn(name = "vianda")
     private Vianda vianda;  // final
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "heladera")
     private Heladera heladera;    // final
 

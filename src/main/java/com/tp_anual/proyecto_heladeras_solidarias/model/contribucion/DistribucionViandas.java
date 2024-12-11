@@ -19,11 +19,11 @@ import org.springframework.context.MessageSource;
 @Getter
 public class DistribucionViandas extends Contribucion {
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "heladera_origen")
     private Heladera origen;    // final
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "heladera_destino")
     private Heladera destino; // final
 

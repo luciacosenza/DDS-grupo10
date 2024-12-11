@@ -17,7 +17,6 @@ import com.tp_anual.proyecto_heladeras_solidarias.model.usuario.Usuario;
 import com.tp_anual.proyecto_heladeras_solidarias.service.contribucion.ContribucionCreator;
 import com.tp_anual.proyecto_heladeras_solidarias.model.documento.Documento;
 import com.tp_anual.proyecto_heladeras_solidarias.model.persona.PersonaFisica;
-import com.tp_anual.proyecto_heladeras_solidarias.model.ubicacion.Ubicacion;
 import com.tp_anual.proyecto_heladeras_solidarias.service.i18n.I18nService;
 
 import com.tp_anual.proyecto_heladeras_solidarias.service.usuario.CustomUserDetailsService;
@@ -54,9 +53,9 @@ public class TransformacionDeDatos {
         return quitarEspacios(quitarNumericosYEspeciales(string));
     }
 
-    private Contribucion registrarContribucion(String formaContribucionStr, ColaboradorHumano colaborador, LocalDateTime fechaContribucion) throws DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException {
+    private Contribucion registrarContribucion(String formaContribucionStr, LocalDateTime fechaContribucion) throws DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException {
         ContribucionCreator creator = conversorFormaContribucion.convertirStrAContribucionCreator(formaContribucionStr);
-        return creator.crearContribucion(colaborador, fechaContribucion, true);
+        return creator.crearContribucion(null, fechaContribucion, true);    // Tengo que guardar al Colaborador como null y asignarlo después de guardar al Colaborador porque sino tengo un problema de persistencia cíclica con las Contribuciones
     }
     
     private ColaboradorHumano procesarColaborador(String[] data) throws FilaDeDatosIncompletaException, DatosInvalidosCrearCargaOfertaException, DatosInvalidosCrearDistribucionViandasException, DatosInvalidosCrearDonacionDineroException, DatosInvalidosCrearDonacionViandaException, DatosInvalidosCrearHCHException, DatosInvalidosCrearRPESVException {
@@ -93,11 +92,11 @@ public class TransformacionDeDatos {
         Usuario usuario = new Usuario(username, username, "ROL_CH");
 
         // Transforma a colaborador
-        ColaboradorHumano colaborador = new ColaboradorHumano(usuario, new PersonaFisica(nombre, apellido, documento, null), new Ubicacion(null, null, null, null, null, null), contactos, new ArrayList<>(), new ArrayList<>(), null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
+        ColaboradorHumano colaborador = new ColaboradorHumano(usuario, new PersonaFisica(nombre, apellido, documento, null), null, contactos, new ArrayList<>(), new ArrayList<>(), null); // Los atributos que no estan en el csv los ponemos en null (luego veremos que hacer con eso)
 
         // Agrega contribuciones a colaborador
         for (Integer i = 0; i < cantColabs; i++) {
-            Contribucion contribucion = registrarContribucion(formaContribucionStr, colaborador, fechaContribucion);
+            Contribucion contribucion = registrarContribucion(formaContribucionStr, fechaContribucion); // Tengo que guardar al Colaborador como null y asignarlo después de guardar al Colaborador porque sino tengo un problema de persistencia cíclica con las Contribuciones
             colaborador.agregarContribucion(contribucion);  // Llamo directamente al método del colaborador, porque se va a guardar en el Migrador
         }
 
