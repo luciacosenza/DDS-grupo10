@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
@@ -32,6 +34,8 @@ public class PermisoAperturaService {
     private final Long retrasoRevocacion;
 
     private final I18nService i18nService;
+
+    private final ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(10);
 
     public PermisoAperturaService(PermisoAperturaRepository vPermisoAperturaRepository, TarjetaColaboradorRepository vTarjetaColaboradorRepository, HeladeraService vHeladeraService, @Value("#{3}") /* 3 horas en horas */ Long vRetrasoRevocacion, I18nService vI18nService) {
         permisoAperturaRepository = vPermisoAperturaRepository;
@@ -94,15 +98,9 @@ public class PermisoAperturaService {
     }
 
     // Programo la revocación del permiso
-    // No es la mejor forma, pero se dificultaba el uso de un Task Scheduler
     @Async
     public void programarRevocacionPermiso(Long permisoAperturaId) {
-        try {
-            TimeUnit.HOURS.sleep(retrasoRevocacion);
-            revocarPermisoApertura(permisoAperturaId);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.log(Level.SEVERE, i18nService.getMessage("tarjeta.PermisoApertura.revocarPermisoApertura_err"));
-        }
+        scheduledExecutorService.schedule(() -> revocarPermisoApertura(permisoAperturaId),
+                retrasoRevocacion, TimeUnit.HOURS);
     }
 }

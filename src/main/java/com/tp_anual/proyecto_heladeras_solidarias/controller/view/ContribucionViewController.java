@@ -118,7 +118,6 @@ public class ContribucionViewController {
         setPaginaActual("/colaborar", model);
         List<Heladera> heladeras = heladeraService.obtenerHeladeras();
         model.addAttribute("heladeras", heladeras);
-        model.addAttribute("error", 0);
 
         return "distribuir-viandas";
     }
@@ -151,11 +150,11 @@ public class ContribucionViewController {
         Heladera heladeraDestino = heladeraService.obtenerHeladera(heladeraDestinoId);
 
         if (tarjeta.getClass() == TarjetaColaboradorNula.class) {
-            TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorId);
-            colaboradorService.agregarTarjeta(colaboradorId, tarjetaColaborador);
+            tarjeta = tarjetaColaboradorService.crearTarjeta(colaboradorId);
+            colaboradorService.agregarTarjeta(colaboradorId, tarjeta);
         }
 
-        // Verifico que la Heladera origen no esté vacía (o pueda vaciarse por reservas)  y genero la Solicitud de Apertura y el Permiso de Apertura correspondientes
+        // Verifico que la Heladera origen no esté vacía (o pueda vaciarse por reservas) y genero la Solicitud de Apertura y el Permiso de Apertura correspondientes
         try {
             tarjetaColaboradorService.solicitarApertura(tarjeta.getCodigo(), heladeraOrigen, SolicitudAperturaColaborador.MotivoSolicitud.RETIRAR_LOTE_DE_DISTRIBUCION, cantidadAMover);
         } catch (HeladeraVaciaSolicitudRetiroException e) {
@@ -209,7 +208,6 @@ public class ContribucionViewController {
         setPaginaActual("/colaborar", model);
         List<Heladera> heladeras = heladeraService.obtenerHeladeras();
         model.addAttribute("heladeras", heladeras);
-        model.addAttribute("error", 0);
 
         return "donar-vianda";
     }
@@ -242,8 +240,8 @@ public class ContribucionViewController {
         Heladera heladera = heladeraService.obtenerHeladera(heladeraId);
 
         if (tarjeta.getClass() == TarjetaColaboradorNula.class) {
-            TarjetaColaborador tarjetaColaborador = tarjetaColaboradorService.crearTarjeta(colaboradorId);
-            colaboradorService.agregarTarjeta(colaboradorId, tarjetaColaborador);
+            tarjeta = tarjetaColaboradorService.crearTarjeta(colaboradorId);
+            colaboradorService.agregarTarjeta(colaboradorId, tarjeta);
         }
 
         // Verifico que la Heladera origen no esté llena (o pueda vaciarse por reservas) y genero la Solicitud de Apertura y el Permiso de Apertura correspondientes
