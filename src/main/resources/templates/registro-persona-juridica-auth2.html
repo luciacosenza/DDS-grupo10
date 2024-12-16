@@ -82,9 +82,14 @@
                     </div>
                 </div>
             </div>
-            <div class="mb-3">
-                <label for="correo" class="form-label">Email</label>
-                <input name="correo" type="email" class="form-control" id="correo" placeholder="Ej: juanperez@gmail.com" required>
+            <div class="info-section not-allowed">
+                <label for="correo">Email</label>
+                <div class="input-group">
+                    <input type="email" class="form-control" id="correo" name="correo" th:value="${correoAuth2}" readonly>
+                    <button class="btn btn-outline-secondary" type="button">
+                        <i class="fas fa-pencil-alt"></i>
+                    </button>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Contraseña</label>
