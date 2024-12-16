@@ -552,6 +552,7 @@ input::-webkit-file-upload-button {
     padding: 2rem;
     height: 100vh;
     overflow-y: scroll;
+    border-radius: 30px;
 }
 
 .sidebar-link {
@@ -709,4 +710,8 @@ input::-webkit-file-upload-button {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
+}
+
+.nav-admin {
+     box-shadow: none;
 }

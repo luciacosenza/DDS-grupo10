@@ -13,8 +13,7 @@
 </head>
 
 <body class="vectores-fondo">
-    <!-- Barra superior -->
-    <div class="top-bar navbar">
+    <div class="top-bar navbar nav-admin">
         <a class="navbar-brand d-flex align-items-center FC-palette" th:href="@{/}">
             <img th:src="@{/assets/logo_negro.png}" alt="Logo" height="50">
             <p class="ps-3 titulo-header">HELADERAS <span class="FC-palette-span">SOLIDARIAS</span></p>
@@ -137,7 +136,7 @@
                                             <span class="material-symbols-outlined text-danger me-3">warning</span>
                                             <div class="text-start w-100">
                                                 <p><span class="fw-bold">Heladera:</span> <span th:text="${falla.heladera.nombre}"></span></p>
-                                                <img style="width: 100px" th:src="${falla.foto}" th:alt="'Foto de la falla en' + ${falla.heladera.nombre}">
+<!--                                                <img style="width: 100px" th:src="${falla.foto}" th:alt="'Foto de la falla en' + ${falla.heladera.nombre}">-->
                                                 <p><span class="fw-bold">Fecha:</span> <span th:text="${falla.getFechaFormateada()}"></span></p>
                                                 <p><span class="fw-bold">Descripción:</span> <span th:text="${falla.descripcion}"></span></p>
                                                 <div th:if="${falla.tieneTecnico()}">

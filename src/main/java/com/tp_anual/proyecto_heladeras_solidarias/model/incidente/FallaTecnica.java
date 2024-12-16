@@ -29,6 +29,7 @@ import lombok.Getter;
                 "WHERE v.id ISNULL OR v.estado = false)",
         resultClass =  FallaTecnica.class
 )
+// TODO: El LEFT JOIN, por algún motivo, hace que se rompa cuando tenemos un array de Incidentes que incluye Fallas Técnicas y Alertas (si ponemos INNER JOIN se resuelve pero no estamos teniendo en cuenta las Fallas Técnicas que no fueron revisadas)
 @NamedNativeQuery(
         name = "FallaTecnica.findFallasTecnicasSinTecnicoNoResueltas",
         query = "SELECT * FROM falla_tecnica AS f " +

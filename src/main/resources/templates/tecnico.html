@@ -65,6 +65,7 @@
                                         <span class="material-symbols-outlined">warning</span>
                                         <div class="text-start w-100 ms-4">
                                             <p><span class="fw-bold">Heladera:</span> <span th:text="${alerta.heladera.nombre}"></span></p>
+                                            <p><span class="fw-bold">Tipo:</span> <span th:text="${alerta.getTipoAlertaString()}"></span></p>
                                             <p><span class="fw-bold">Fecha:</span> <span th:text="${alerta.getFechaFormateada()}"></span></p>
                                         </div>
                                         <div th:if="${!alerta.tieneTecnico()}" class="sin-tecnico">
@@ -95,7 +96,6 @@
                                         <span class="material-symbols-outlined">warning</span>
                                         <div class="text-start w-100 ms-4">
                                             <p><span class="fw-bold">Heladera:</span> <span th:text="${falla.heladera.nombre}"></span></p>
-                                            <img style="width: 100px" th:src="${falla.foto}" th:alt="'Foto de la falla en' + ${falla.heladera.nombre}">
                                             <p><span class="fw-bold">Fecha:</span> <span th:text="${falla.getFechaFormateada()}"></span></p>
                                             <p><span class="fw-bold">Descripción:</span> <span th:text="${falla.descripcion}"></span></p>
                                         </div>
