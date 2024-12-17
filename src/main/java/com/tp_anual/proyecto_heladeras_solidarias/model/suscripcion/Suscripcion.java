@@ -46,4 +46,8 @@ public abstract class Suscripcion {
         heladera = vHeladera;
         medioDeContactoElegido = vMedioDeContactoElegido;
     }
+
+    public abstract String getCondicion();
+
+    public abstract Integer getValorCondicion();
 }
