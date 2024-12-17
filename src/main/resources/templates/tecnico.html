@@ -17,12 +17,15 @@
         <img th:src="@{/assets/logo_negro.png}" alt="Logo" height="50">
         <p class="ps-3 titulo-header">HELADERAS <span class="FC-palette-span">SOLIDARIAS</span></p>
     </a>
-    <div class="user-profile">
-        <span class="material-symbols-outlined text-dark" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">engineering</span>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+    <div class="dropdown text-end ms-3">
+        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img th:src="@{/assets/icon-perfil-admin.png}" alt="profile" width="32" height="32" class="rounded-circle">
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end text-small">
+            <li><span class="dropdown-item fw-bold cursor-text">Técnico</span></li>
+            <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item cerrar-sesion" th:href="@{/logout}">Cerrar Sesión</a></li>
         </ul>
-        <span class="text-dark fw-light">Técnico</span>
     </div>
 </div>
 

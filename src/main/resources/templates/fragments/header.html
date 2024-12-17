@@ -8,6 +8,7 @@
 </head>
 
 <body>
+
 <header th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
@@ -54,22 +55,38 @@
                     </a>
                 </div>
 
-                <!-- Mostrar perfil si está logueado -->
-                <div class="d-flex flex-column ms-lg-3 align-items-center usuario-profile" sec:authorize="isAuthenticated()">
-                    <span class="icon-perfil material-symbols-outlined text-dark" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
-                        account_circle
-                    </span>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown text-end ms-3" sec:authorize="isAuthenticated()">
+                    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img th:src="@{/assets/icon-perfil.png}" alt="profile" width="32" height="32" class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end text-small">
+                        <li><span class="dropdown-item fw-bold cursor-text" sec:authentication="principal.username"></span></li>
+                        <li><hr class="dropdown-divider"></li>
                         <li sec:authorize="hasAuthority('ROL_CH')"><a th:href="@{/perfil-persona-humana}" class="dropdown-item">Modificar perfil</a></li>
                         <li sec:authorize="hasAuthority('ROL_CJ')"><a th:href="@{/perfil-persona-juridica}" class="dropdown-item">Modificar perfil</a></li>
                         <li sec:authorize="hasAuthority('ROL_CH') or hasAuthority('ROL_CJ')"><a th:href="@{/contribuciones}" class="dropdown-item">Ver mis contribuciones</a></li>
                         <li sec:authorize="hasAuthority('ROL_CJ')"><a th:href="@{/heladeras}" class="dropdown-item">Ver mis heladeras</a></li>
+                        <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item cerrar-sesion" th:href="@{/logout}">Cerrar Sesión</a></li>
                     </ul>
-                    <div>
-                        <span sec:authentication="principal.username"></span>
-                    </div>
                 </div>
+
+                                        <!-- Mostrar perfil si está logueado -->
+<!--                <div class="d-flex flex-column ms-lg-3 align-items-center usuario-profile" sec:authorize="isAuthenticated()">-->
+<!--                    <span class="icon-perfil material-symbols-outlined text-dark" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">-->
+<!--                        account_circle-->
+<!--                    </span>-->
+<!--                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">-->
+<!--                        <li sec:authorize="hasAuthority('ROL_CH')"><a th:href="@{/perfil-persona-humana}" class="dropdown-item">Modificar perfil</a></li>-->
+<!--                        <li sec:authorize="hasAuthority('ROL_CJ')"><a th:href="@{/perfil-persona-juridica}" class="dropdown-item">Modificar perfil</a></li>-->
+<!--                        <li sec:authorize="hasAuthority('ROL_CH') or hasAuthority('ROL_CJ')"><a th:href="@{/contribuciones}" class="dropdown-item">Ver mis contribuciones</a></li>-->
+<!--                        <li sec:authorize="hasAuthority('ROL_CJ')"><a th:href="@{/heladeras}" class="dropdown-item">Ver mis heladeras</a></li>-->
+<!--                        <li><a class="dropdown-item cerrar-sesion" th:href="@{/logout}">Cerrar Sesión</a></li>-->
+<!--                    </ul>-->
+<!--                    <div>-->
+<!--                        <span sec:authentication="principal.username"></span>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
     </nav>
