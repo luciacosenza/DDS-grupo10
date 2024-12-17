@@ -175,6 +175,8 @@ public class ContribucionViewController {
         heladeraService.reservarViandas(heladeraOrigenId, cantidadAMover);
         heladeraService.reservarEspacioParaViandas(heladeraDestinoId, cantidadAMover);
 
+        redirectAttributes.addFlashAttribute("error", 5);
+
         return "redirect:/distribuir-viandas";
     }
 
@@ -258,6 +260,8 @@ public class ContribucionViewController {
         colaboradorService.colaborar(colaboradorId, donacionViandaCreator, LocalDateTime.now(), vianda, heladera);
 
         heladeraService.reservarEspacioParaViandas(heladeraId, 1);
+
+        redirectAttributes.addFlashAttribute("error", 5);
 
         return "redirect:/donar-vianda";
     }

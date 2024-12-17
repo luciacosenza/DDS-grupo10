@@ -13,22 +13,8 @@
 </head>
 
 <body class="vectores-fondo">
-    <div class="top-bar navbar nav-admin">
-        <a class="navbar-brand d-flex align-items-center FC-palette" th:href="@{/}">
-            <img th:src="@{/assets/logo_negro.png}" alt="Logo" height="50">
-            <p class="ps-3 titulo-header">HELADERAS <span class="FC-palette-span">SOLIDARIAS</span></p>
-        </a>
-        <div class="dropdown text-end ms-3">
-            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img th:src="@{/assets/icon-perfil-admin.png}" alt="profile" width="32" height="32" class="rounded-circle">
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end text-small">
-                <li><span class="dropdown-item fw-bold cursor-text">Admin</span></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item cerrar-sesion" th:href="@{/logout}">Cerrar Sesión</a></li>
-            </ul>
-        </div>
-    </div>
+
+        <div th:replace="~{fragments/panel-header :: panel-header}"></div>
 
     <div class="container-fluid">
         <div class="row">
