@@ -20,46 +20,42 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <nav class="col-md-3 col-lg-2 admin-sidebar">
-                <div>
-                    <h4 class="text-dark mb-0">Panel de Administración</h4>
-                </div>
-                <hr>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
+            <nav class="col-md-2 col-lg-1 d-flex bg-white text-dark flex-column vh-100 p-3">
+                <ul class="nav flex-column text-dark">
+                    <li class="nav-item mb-3">
                         <a class="sidebar-link" href="#cargar-archivo">
-                            <span class="material-symbols-outlined">upload_file</span>
-                            Cargar Archivo
+                            <span class="material-symbols-outlined fs-4">upload_file</span>
+                            <div>Migrar Archivo</div>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mb-3">
                         <a class="sidebar-link" href="#ver-alertas">
-                            <span class="material-symbols-outlined">warning</span>
-                            Ver Alertas
+                            <span class="material-symbols-outlined fs-4">warning</span>
+                            <div>Alertas</div>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mb-3">
                         <a class="sidebar-link" href="#ver-fallas">
-                            <span class="material-symbols-outlined">warning</span>
-                            Ver Fallas Técnicas
+                            <span class="material-symbols-outlined fs-4">warning</span>
+                            <div>Fallas Técnicas</div>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mb-3">
                         <a class="sidebar-link" href="#ver-reportes">
-                            <span class="material-symbols-outlined">assessment</span>
-                            Ver Reportes
+                            <span class="material-symbols-outlined fs-4">assessment</span>
+                            <div>Reportes</div>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="sidebar-link" th:href="@{/registro-tecnico}">
-                            <span class="material-symbols-outlined">manage_accounts</span>
-                            Registrar a un técnico
+                    <li class="nav-item mb-3">
+                        <a class="sidebar-link" href="#registro-tecnico">
+                            <span class="material-symbols-outlined fs-4">manage_accounts</span>
+                            <div>Técnicos</div>
                         </a>
                     </li>
                 </ul>
             </nav>
 
-            <main class="col-md-9 col-lg-10 admin-content">
+            <main class="col-md-10 col-lg-11 admin-content">
                 <div th:if="${messageAlert}" class="alert alert-danger alert-dismissible fade show" role="alert">
                     <span th:text="${messageAlert}"></span>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -373,6 +369,42 @@
 
             }
         </script>
+        <script>
+            // Obtén todos los enlaces del sidebar
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+            // Obtén todas las secciones del contenido
+            const sections = document.querySelectorAll('main section');
+
+            // Función para ocultar todas las secciones
+            function hideAllSections() {
+                sections.forEach(section => {
+                    section.style.display = 'none';
+                });
+            }
+
+            // Función para mostrar la sección correspondiente al clic
+            function showSection(sectionId) {
+                hideAllSections(); // Oculta todas las secciones
+                const sectionToShow = document.getElementById(sectionId);
+                if (sectionToShow) {
+                    sectionToShow.style.display = 'block'; // Muestra la sección seleccionada
+                }
+            }
+
+            // Agregar evento a cada enlace del sidebar
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Evita que el enlace recargue la página
+                    const sectionId = link.getAttribute('href').substring(1); // Obtiene el id de la sección desde el href
+                    showSection(sectionId); // Muestra la sección correspondiente
+                });
+            });
+
+            // Mostrar la primera sección por defecto
+            showSection('cargar-archivo');
+        </script>
+
 
 </body>
 </html>
