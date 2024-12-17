@@ -26,7 +26,7 @@
                                     <label for="heladera" class="form-label">Heladera a suscribirse</label>
                                     <select id="heladera" name="heladera" class="form-select select-heladeras" onchange="actualizarMaximo()">
                                         <option selected disabled value="">Seleccione una heladera</option>
-                                        <option th:each="heladera : ${heladeras}" th:value="${heladera.id}" th:data-max="${heladera.capacidad}" th:text="${heladera.nombre}"></option>
+                                        <option th:each="heladera : ${heladeras}" th:value="${heladera.id}" th:data-max="${heladera.capacidad}" th:text="${heladera.nombre} + ' | Capacidad: ' + ${heladera.capacidad}"></option>
                                     </select>
                                 </div>
                                 <div class="mb-3 text-start">
@@ -47,11 +47,11 @@
                                 </div>
                                 <div id="min-container" class="mb-3 text-start d-none">
                                     <label for="limite-inferior" class="form-label">Mínimo de viandas</label>
-                                    <input type="number" th:min="0" id="limite-inferior" name="limite-inferior" class="form-control" placeholder="Ingrese el mínimo">
+                                    <input type="number" min="0" id="limite-inferior" name="limite-inferior" class="form-control" placeholder="Ingrese el mínimo">
                                 </div>
                                 <div id="max-container" class="mb-3 text-start d-none">
                                     <label for="limite-superior" class="form-label">Máximo de viandas</label>
-                                    <input type="number" th:min="1" id="limite-superior" name="limite-superior" class="form-control" placeholder="Ingrese el máximo">
+                                    <input type="number" min="1" id="limite-superior" name="limite-superior" class="form-control" placeholder="Ingrese el máximo">
                                 </div>
 
                                 <div class="mb-3 text-start d-flex gap-2">
@@ -126,8 +126,7 @@
                 inputCantidadMax.placeholder = `Ingrese hasta ${maximo} unidades`;
             }
         }
-    </script>
-    <script>
+
         document.getElementById('suscribirForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
