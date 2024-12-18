@@ -27,7 +27,7 @@
                 </li>
                 <li class="nav-item mb-3">
                     <a class="seccion sidebar-link" href="#ver-fallas-tecnicas">
-                        <span class="material-symbols-outlined fs-4">assessment</span>
+                        <span class="material-symbols-outlined fs-4">error</span>
                         <div>Fallas técnicas</div>
                     </a>
                 </li>
@@ -55,7 +55,7 @@
                             <img src="/assets/tecnicos.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
                         </div>
                         <div class="col-lg-6">
-                            <h1 class="display-5 fw-bold lh-1 mb-3">Bienvenid@, </h1>
+                            <h1 class="display-5 fw-bold lh-1 mb-3">Bienvenid@, <span th:text="${tecnicoActual.getPersona.getNombre(0)}"></span></h1>
                             <p class="lead">Con el panel que ves a la izquierda vas a poder acceder a las diversas funcionalidades que ofrece el sistema.</p>
                         </div>
                     </div>
@@ -63,14 +63,17 @@
             </section>
             <section id="ver-alertas">
                 <h2 class="mb-4">Alertas</h2>
-                <div class="card p-4">
+                <div th:if="${alertas.isEmpty()}" class="text-center text-muted card w-100 p-4">
+                    <div class="d-flex align-items-center justify-content-center w-75">
+                        <img class="col-6" src="/assets/no-alertas.png" alt="no hay alertas" style="width: 400px">
+                        <p class="col-6" th:text="${messageNoAlerts}"></p>
+                    </div>
+                </div>
+                <div th:if="${not alertas.isEmpty()}" class="card p-4">
                     <div class="container mt-0">
                         <div class="row">
                             <div class="w-100">
                                 <div class="my-4 w-100 d-flex flex-column align-items-center gap-4 alertas-container">
-                                    <div th:if="${alertas.isEmpty()}">
-                                        <p th:text="${messageNoAlerts}"></p>
-                                    </div>
                                     <div th:each="alerta : ${alertas}" class="alerta">
                                         <span class="material-symbols-outlined">warning</span>
                                         <div class="text-start w-100 ms-4">
@@ -94,14 +97,17 @@
             </section>
             <section id="ver-fallas-tecnicas">
                 <h2 class="mb-4">Fallas Técnicas</h2>
-                <div class="card p-4">
+                <div th:if="${fallasTecnicas.isEmpty()}" class="text-center text-muted card w-100 p-4">
+                    <div class="d-flex align-items-center justify-content-center w-75">
+                        <img class="col-6" src="/assets/no-alertas.png" alt="no hay alertas" style="width: 400px">
+                        <p class="col-6" th:text="${messageNoFailures}"></p>
+                    </div>
+                </div>
+                <div th:if="${not fallasTecnicas.isEmpty()}" class="card p-4">
                     <div class="container mt-0">
                         <div class="row">
                             <div class="w-100">
                                 <div class="my-4 w-100 d-flex flex-column align-items-center gap-4 alertas-container">
-                                    <div th:if="${fallasTecnicas.isEmpty()}" >
-                                        <p th:text="${messageNoFailures}"></p>
-                                    </div>
                                     <div th:each="falla : ${fallasTecnicas}" class="alerta">
                                         <span class="material-symbols-outlined">warning</span>
                                         <div class="text-start w-100 ms-4">
@@ -171,18 +177,18 @@
     }
 
     function showSection(sectionId) {
-        hideAllSections(); // Oculta todas las secciones
+        hideAllSections();
         const sectionToShow = document.getElementById(sectionId);
         if (sectionToShow) {
-            sectionToShow.style.display = 'block'; // Muestra la sección seleccionada
+            sectionToShow.style.display = 'block';
         }
     }
 
     sidebarLinks.forEach(link => {
         link.addEventListener('click', function(event) {
-            event.preventDefault(); // Evita que el enlace recargue la página
-            const sectionId = link.getAttribute('href').substring(1); // Obtiene el id de la sección desde el href
-            showSection(sectionId); // Muestra la sección correspondiente
+            event.preventDefault();
+            const sectionId = link.getAttribute('href').substring(1);
+            showSection(sectionId);
         });
     });
 

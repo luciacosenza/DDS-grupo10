@@ -98,7 +98,7 @@
 
                 <section id="ver-alertas">
                     <h2 class="mb-4">Alertas</h2>
-                    <div th:if="${alertas.isEmpty()}" class="text-center text-muted card p-4">
+                    <div th:if="${alertas.isEmpty()}" class="text-center text-muted card p-4 w-100">
                         <div class="d-flex align-items-center justify-content-center w-75">
                             <img class="col-6" src="/assets/no-alertas.png" alt="no hay alertas" style="width: 400px">
                             <p class="col-6" th:text="${messageNoAlerts}"></p>
@@ -133,7 +133,7 @@
                 <section id="ver-fallas">
                     <h2 class="mb-4">Fallas Técnicas</h2>
                     <div th:if="${fallasTecnicas.isEmpty()}" class="text-center text-muted card w-100 p-4">
-                        <div class="d-flex align-items-center justify-content-center">
+                        <div class="d-flex align-items-center justify-content-center w-75">
                             <img class="col-6" src="/assets/no-alertas.png" alt="no hay alertas" style="width: 400px">
                             <p class="col-6" th:text="${messageNoFailures}"></p>
                         </div>
@@ -396,38 +396,37 @@
             }
         </script>
         <script>
-            // Obtén todos los enlaces del sidebar
+
             const sidebarLinks = document.querySelectorAll('.seccion');
 
-            // Obtén todas las secciones del contenido
             const sections = document.querySelectorAll('main section');
 
-            // Función para ocultar todas las secciones
+
             function hideAllSections() {
                 sections.forEach(section => {
                     section.style.display = 'none';
                 });
             }
 
-            // Función para mostrar la sección correspondiente al clic
+
             function showSection(sectionId) {
                 hideAllSections(); // Oculta todas las secciones
                 const sectionToShow = document.getElementById(sectionId);
                 if (sectionToShow) {
-                    sectionToShow.style.display = 'block'; // Muestra la sección seleccionada
+                    sectionToShow.style.display = 'block';
                 }
             }
 
-            // Agregar evento a cada enlace del sidebar
+
             sidebarLinks.forEach(link => {
                 link.addEventListener('click', function(event) {
-                    event.preventDefault(); // Evita que el enlace recargue la página
-                    const sectionId = link.getAttribute('href').substring(1); // Obtiene el id de la sección desde el href
-                    showSection(sectionId); // Muestra la sección correspondiente
+                    event.preventDefault();
+                    const sectionId = link.getAttribute('href').substring(1);
+                    showSection(sectionId);
                 });
             });
 
-            // Mostrar la primera sección por defecto
+
             showSection('default');
         </script>
 
