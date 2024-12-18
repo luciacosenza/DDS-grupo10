@@ -22,19 +22,19 @@
                 <li class="nav-item mb-3">
                     <a class="seccion sidebar-link" href="#ver-alertas">
                         <span class="material-symbols-outlined fs-4">warning</span>
-                        <div>Incidentes</div>
+                        <div>Alertas</div>
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a class="seccion sidebar-link" href="#ver-fallas-tecnicas">
+                        <span class="material-symbols-outlined fs-4">assessment</span>
+                        <div>Fallas técnicas</div>
                     </a>
                 </li>
                 <li class="nav-item mb-3">
                     <a class="seccion sidebar-link" href="#cargar-visitas">
                         <span class="material-symbols-outlined fs-4">add_task</span>
                         <div>Registrar visitas</div>
-                    </a>
-                </li>
-                <li class="nav-item mb-3">
-                    <a class="seccion sidebar-link" href="#ver-reportes">
-                        <span class="material-symbols-outlined fs-4">assessment</span>
-                        <div>Reportes</div>
                     </a>
                 </li>
                 <li class="nav-item mb-3">
@@ -47,8 +47,21 @@
         </nav>
 
 
-        <main class="col-md-9 col-lg-10 admin-content">
-            <section id="ver-alertas" class="mt-5">
+        <main class="col-md-10 col-lg-11 admin-content">
+            <section id="default">
+                <div class="container col-xxl-8 px-4">
+                    <div class="row flex-lg-row-reverse align-items-center g-5 px-4">
+                        <div class="col-10 col-sm-8 col-lg-6">
+                            <img src="/assets/tecnicos.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+                        </div>
+                        <div class="col-lg-6">
+                            <h1 class="display-5 fw-bold lh-1 mb-3">Bienvenid@, </h1>
+                            <p class="lead">Con el panel que ves a la izquierda vas a poder acceder a las diversas funcionalidades que ofrece el sistema.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="ver-alertas">
                 <h2 class="mb-4">Alertas</h2>
                 <div class="card p-4">
                     <div class="container mt-0">
@@ -79,7 +92,7 @@
                     </div>
                 </div>
             </section>
-            <section id="ver-fallas-tecnicas" class="mt-5">
+            <section id="ver-fallas-tecnicas">
                 <h2 class="mb-4">Fallas Técnicas</h2>
                 <div class="card p-4">
                     <div class="container mt-0">
@@ -110,7 +123,7 @@
                 </div>
             </section>
 
-            <section id="cargar-visitas" class="mt-5">
+            <section id="cargar-visitas">
                 <h2 class="mb-4">Registrar Visitas</h2>
                 <div class="card p-4 mb-5">
                     <form th:action="@{/registrar-visita/guardar}" method="POST">
