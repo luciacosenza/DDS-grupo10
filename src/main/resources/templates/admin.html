@@ -63,11 +63,11 @@
 
             <main class="col-md-10 col-lg-11 admin-content">
                 <div th:if="${messageAlert}" class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <span th:text="${messageAlert}"></span>
+                    <span>Error durante la migración desde archivo.</span>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <div th:if="${messageSuccess}" class="alert alert-success alert-dismissible fade show" role="alert">
-                    <span th:text="${messageSuccess}"></span>
+                    <span>Migración ejecutada correctamente.</span>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <section id="default">
@@ -101,7 +101,7 @@
                     <div th:if="${alertas.isEmpty()}" class="text-center text-muted card p-4 w-100">
                         <div class="d-flex align-items-center justify-content-center w-75">
                             <img class="col-6" src="/assets/no-alertas.png" alt="no hay alertas" style="width: 400px">
-                            <p class="col-6" th:text="${messageNoAlerts}"></p>
+                            <p class="col-6">No hay alertas para ver.</p>
                         </div>
                     </div>
                     <div th:if="not ${alertas.isEmpty()}" class="card p-4">
@@ -135,7 +135,7 @@
                     <div th:if="${fallasTecnicas.isEmpty()}" class="text-center text-muted card w-100 p-4">
                         <div class="d-flex align-items-center justify-content-center w-75">
                             <img class="col-6" src="/assets/no-alertas.png" alt="no hay alertas" style="width: 400px">
-                            <p class="col-6" th:text="${messageNoFailures}"></p>
+                            <p class="col-6">No hay fallas técnicas para ver.</p>
                         </div>
                     </div>
                     <div th:if="not ${fallasTecnicas.isEmpty()}" class="card p-4">
