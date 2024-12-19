@@ -41,7 +41,13 @@ public class NotificadorDeIncidentes extends Notificador {
 
             Heladera heladera = incidente.getHeladera();
             MedioDeContacto medioDeContacto = tecnicoAAlertar.getMedioDeContacto();
-            enviarNotificacion(medioDeContacto, "Ocurri� un Incidente en la heladera " + heladera.getNombre() + "!", "Necesitamos que atiendas lo antes posible el incidente de tipo " + incidente.getClass().getSimpleName() + " en la heladera " + heladera.getNombre() + ".");
+
+            enviarNotificacion(
+                medioDeContacto,
+                i18nService.getMessage("notificador.NotificadorDeIncidentes.notificarEstado_outer_message_title", heladera.getNombre()),
+                i18nService.getMessage("notificador.NotificadorDeIncidentes.notificarEstado_outer_message_body", incidente.getClass().getSimpleName(), heladera.getNombre())
+            );
+
         } catch (Exception e) {
             log.log(Level.INFO, i18nService.getMessage("notificador.NotificadorDeIncidentes.notificarEstado_outer_message_error"));
         }

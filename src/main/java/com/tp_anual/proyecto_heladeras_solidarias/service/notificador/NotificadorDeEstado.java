@@ -47,9 +47,10 @@ public class NotificadorDeEstado extends Notificador {
                 Heladera heladeraMasLlena = ubicadorHeladera.obtenerHeladeraMasLlena(heladerasCercanas);
 
                 enviarNotificacion(
-                medioDeContacto,
-                "La heladera " + heladera.getNombre() + " se est� vaciando!",
-                "La heladera " + heladera.getNombre() + " tiene " + heladera.viandasActuales() + " viandas disponibles.\\nSer�a conveniente traer viandas de la heladera " + heladeraMasLlena.getNombre() + ", que est� situada en " + heladeraMasLlena.getUbicacion().getDireccion() + ".");
+                    medioDeContacto,
+                    i18nService.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_title", heladera.getNombre()),
+                    i18nService.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmn_body",heladera.getNombre(), heladera.viandasActuales(), heladeraMasLlena.getNombre(), heladeraMasLlena.getUbicacion().getDireccion())
+                );
             }
 
             case VIANDAS_MAX -> {
@@ -61,26 +62,29 @@ public class NotificadorDeEstado extends Notificador {
                 Heladera heladeraMenosLlena = ubicadorHeladera.obtenerHeladeraMenosLlena(heladerasCercanas);
 
                 enviarNotificacion(
-                medioDeContacto,
-                "La heladera " + heladera.getNombre() + " est� casi llena!",
-                "Faltan " + (heladera.getCapacidad() - heladera.viandasActuales()) + " viandas para llenar la heladera " + heladera.getNombre() + ".\\nSer�a conveniente llevar viandas a la heladera " + heladeraMenosLlena.getNombre() + ", que est� situada en " + heladeraMenosLlena.getUbicacion().getDireccion() + ".");
+                    medioDeContacto,
+                    i18nService.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmx_title", heladera.getNombre()),
+                    i18nService.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_vmx_body", (heladera.getCapacidad() - heladera.viandasActuales()), heladera.getNombre(), heladeraMenosLlena.getNombre(), heladeraMenosLlena.getUbicacion().getDireccion())
+                );
             }
 
             case DESPERFECTO -> {
 
                 if (heladerasCercanas == null || heladerasCercanas.isEmpty()) {
                     enviarNotificacion(
-                            medioDeContacto,
-                            "La heladera " + heladera.getNombre() + " ha sufrido un desperfecto!",
-                            "Las viandas deben ser trasladadas de inmediato, pero al no haber heladeras cercanas activas, le pedimos si puede hacerse cargo por su cuenta de las que pueda!");
+                        medioDeContacto,
+                        i18nService.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_d_nhc_title", heladera.getNombre()),
+                        i18nService.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_d_nhc_body")
+                    );
 
                     return;
                 }
 
                 enviarNotificacion(
-                medioDeContacto,
-                "La heladera " + heladera.getNombre() + " ha sufrido un desperfecto!",
-                "Las viandas deben ser trasladadas de inmediato a alguna de estas heladera: \\n" + obtenerNombresYDireccionesDe(heladerasCercanas));
+                    medioDeContacto,
+                    i18nService.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_d_title", heladera.getNombre()),
+                    i18nService.getMessage("notificador.NotificadorDeEstado.notificarEstado_outer_message_d_body", obtenerNombresYDireccionesDe(heladerasCercanas))
+                );
             }
 
             default -> {}

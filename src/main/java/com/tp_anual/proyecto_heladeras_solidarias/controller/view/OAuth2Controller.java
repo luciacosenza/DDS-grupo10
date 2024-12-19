@@ -117,7 +117,7 @@ public class OAuth2Controller {
 
         MedioDeContacto medioDeContacto = colaborador.getMedioDeContacto(EMail.class);
         MedioDeContactoService medioDeContactoService = medioDeContactoServiceSelector.obtenerMedioDeContactoService(medioDeContacto.getClass());
-        medioDeContactoService.contactar(medioDeContacto.getId(),  "Nuevo usuario", "Tu usuario es: " + username);
+        medioDeContactoService.contactar(medioDeContacto.getId(),  i18nService.getMessage("controller.AuthController.guardarPersonaHumana_title"), i18nService.getMessage("controller.AuthController.guardarPersonaHumana_body", username));
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
@@ -180,7 +180,7 @@ public class OAuth2Controller {
 
         MedioDeContacto medioDeContacto = colaborador.getMedioDeContacto(EMail.class);
         MedioDeContactoService medioDeContactoService = medioDeContactoServiceSelector.obtenerMedioDeContactoService(medioDeContacto.getClass());
-        medioDeContactoService.contactar(medioDeContacto.getId(),  "Nuevo usuario", "Tu usuario es: " + username);
+        medioDeContactoService.contactar(medioDeContacto.getId(),  i18nService.getMessage("controller.AuthController.guardarPersonaHumana_title"), i18nService.getMessage("controller.AuthController.guardarPersonaHumana_body", username));
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();

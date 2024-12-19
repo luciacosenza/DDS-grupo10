@@ -170,7 +170,7 @@ public class ContribucionViewController {
 
             MedioDeContacto medioDeContacto = colaborador.getMedioDeContacto(EMail.class);
             MedioDeContactoService medioDeContactoService = medioDeContactoServiceSelector.obtenerMedioDeContactoService(medioDeContacto.getClass());
-            medioDeContactoService.contactar(medioDeContacto.getId(),  "Tarjeta enviada!", "Te enviamos tu tarjeta, la misma está en camino!");
+            medioDeContactoService.contactar(medioDeContacto.getId(),  i18nService.getMessage("controller.ContribucionController.guardarDonacionVianda_title"), i18nService.getMessage("controller.ContribucionController.guardarDonacionVianda_body"));
         }
 
         // Verifico que la Heladera origen no esté vacía (o pueda vaciarse por reservas) y genero la Solicitud de Apertura y el Permiso de Apertura correspondientes
@@ -271,7 +271,7 @@ public class ContribucionViewController {
 
             MedioDeContacto medioDeContacto = colaborador.getMedioDeContacto(EMail.class);
             MedioDeContactoService medioDeContactoService = medioDeContactoServiceSelector.obtenerMedioDeContactoService(medioDeContacto.getClass());
-            medioDeContactoService.contactar(medioDeContacto.getId(),  "Tarjeta enviada!", "Te enviamos tu tarjeta, la misma está en camino!");
+            medioDeContactoService.contactar(medioDeContacto.getId(),  i18nService.getMessage("controller.ContribucionController.guardarDonacionVianda_title"), i18nService.getMessage("controller.ContribucionController.guardarDonacionVianda_body"));
         }
 
         // Verifico que la Heladera origen no esté llena (o pueda vaciarse por reservas) y genero la Solicitud de Apertura y el Permiso de Apertura correspondientes
